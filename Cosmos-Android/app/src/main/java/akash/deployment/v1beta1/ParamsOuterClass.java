@@ -40,7 +40,7 @@ public final class ParamsOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.Params)
       ParamsOrBuilder {
@@ -133,6 +133,7 @@ public final class ParamsOuterClass {
      * <code>.cosmos.base.v1beta1.Coin deployment_min_deposit = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "DeploymentMinDeposit", (.gogoproto.jsontag) = "deployment_min_deposit", (.gogoproto.moretags) = "yaml:&#92;"deployment_min_deposit&#92;""];</code>
      * @return Whether the deploymentMinDeposit field is set.
      */
+    @java.lang.Override
     public boolean hasDeploymentMinDeposit() {
       return deploymentMinDeposit_ != null;
     }
@@ -140,12 +141,14 @@ public final class ParamsOuterClass {
      * <code>.cosmos.base.v1beta1.Coin deployment_min_deposit = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "DeploymentMinDeposit", (.gogoproto.jsontag) = "deployment_min_deposit", (.gogoproto.moretags) = "yaml:&#92;"deployment_min_deposit&#92;""];</code>
      * @return The deploymentMinDeposit.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getDeploymentMinDeposit() {
       return deploymentMinDeposit_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : deploymentMinDeposit_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin deployment_min_deposit = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "DeploymentMinDeposit", (.gogoproto.jsontag) = "deployment_min_deposit", (.gogoproto.moretags) = "yaml:&#92;"deployment_min_deposit&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getDeploymentMinDepositOrBuilder() {
       return getDeploymentMinDeposit();
     }

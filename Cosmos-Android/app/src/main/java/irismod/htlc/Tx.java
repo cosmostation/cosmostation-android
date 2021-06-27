@@ -109,7 +109,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.htlc.MsgCreateHTLC}
    */
-  public  static final class MsgCreateHTLC extends
+  public static final class MsgCreateHTLC extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.htlc.MsgCreateHTLC)
       MsgCreateHTLCOrBuilder {
@@ -241,6 +241,7 @@ public final class Tx {
      * <code>string sender = 1;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -257,6 +258,7 @@ public final class Tx {
      * <code>string sender = 1;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -277,6 +279,7 @@ public final class Tx {
      * <code>string to = 2;</code>
      * @return The to.
      */
+    @java.lang.Override
     public java.lang.String getTo() {
       java.lang.Object ref = to_;
       if (ref instanceof java.lang.String) {
@@ -293,6 +296,7 @@ public final class Tx {
      * <code>string to = 2;</code>
      * @return The bytes for to.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getToBytes() {
       java.lang.Object ref = to_;
@@ -313,6 +317,7 @@ public final class Tx {
      * <code>string receiver_on_other_chain = 3 [(.gogoproto.moretags) = "yaml:&#92;"receiver_on_other_chain&#92;""];</code>
      * @return The receiverOnOtherChain.
      */
+    @java.lang.Override
     public java.lang.String getReceiverOnOtherChain() {
       java.lang.Object ref = receiverOnOtherChain_;
       if (ref instanceof java.lang.String) {
@@ -329,6 +334,7 @@ public final class Tx {
      * <code>string receiver_on_other_chain = 3 [(.gogoproto.moretags) = "yaml:&#92;"receiver_on_other_chain&#92;""];</code>
      * @return The bytes for receiverOnOtherChain.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getReceiverOnOtherChainBytes() {
       java.lang.Object ref = receiverOnOtherChain_;
@@ -348,12 +354,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getAmountList() {
       return amount_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getAmountOrBuilderList() {
       return amount_;
@@ -361,18 +369,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getAmountCount() {
       return amount_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount(int index) {
       return amount_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder(
         int index) {
       return amount_.get(index);
@@ -384,6 +395,7 @@ public final class Tx {
      * <code>string hash_lock = 5 [(.gogoproto.moretags) = "yaml:&#92;"hash_lock&#92;""];</code>
      * @return The hashLock.
      */
+    @java.lang.Override
     public java.lang.String getHashLock() {
       java.lang.Object ref = hashLock_;
       if (ref instanceof java.lang.String) {
@@ -400,6 +412,7 @@ public final class Tx {
      * <code>string hash_lock = 5 [(.gogoproto.moretags) = "yaml:&#92;"hash_lock&#92;""];</code>
      * @return The bytes for hashLock.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHashLockBytes() {
       java.lang.Object ref = hashLock_;
@@ -420,6 +433,7 @@ public final class Tx {
      * <code>uint64 timestamp = 6;</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public long getTimestamp() {
       return timestamp_;
     }
@@ -430,6 +444,7 @@ public final class Tx {
      * <code>uint64 time_lock = 7 [(.gogoproto.moretags) = "yaml:&#92;"time_lock&#92;""];</code>
      * @return The timeLock.
      */
+    @java.lang.Override
     public long getTimeLock() {
       return timeLock_;
     }
@@ -1433,6 +1448,7 @@ public final class Tx {
        * <code>uint64 timestamp = 6;</code>
        * @return The timestamp.
        */
+      @java.lang.Override
       public long getTimestamp() {
         return timestamp_;
       }
@@ -1463,6 +1479,7 @@ public final class Tx {
        * <code>uint64 time_lock = 7 [(.gogoproto.moretags) = "yaml:&#92;"time_lock&#92;""];</code>
        * @return The timeLock.
        */
+      @java.lang.Override
       public long getTimeLock() {
         return timeLock_;
       }
@@ -1551,7 +1568,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.htlc.MsgCreateHTLCResponse}
    */
-  public  static final class MsgCreateHTLCResponse extends
+  public static final class MsgCreateHTLCResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.htlc.MsgCreateHTLCResponse)
       MsgCreateHTLCResponseOrBuilder {
@@ -2013,7 +2030,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.htlc.MsgClaimHTLC}
    */
-  public  static final class MsgClaimHTLC extends
+  public static final class MsgClaimHTLC extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.htlc.MsgClaimHTLC)
       MsgClaimHTLCOrBuilder {
@@ -2114,6 +2131,7 @@ public final class Tx {
      * <code>string sender = 1;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -2130,6 +2148,7 @@ public final class Tx {
      * <code>string sender = 1;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -2150,6 +2169,7 @@ public final class Tx {
      * <code>string hash_lock = 2 [(.gogoproto.moretags) = "yaml:&#92;"hash_lock&#92;""];</code>
      * @return The hashLock.
      */
+    @java.lang.Override
     public java.lang.String getHashLock() {
       java.lang.Object ref = hashLock_;
       if (ref instanceof java.lang.String) {
@@ -2166,6 +2186,7 @@ public final class Tx {
      * <code>string hash_lock = 2 [(.gogoproto.moretags) = "yaml:&#92;"hash_lock&#92;""];</code>
      * @return The bytes for hashLock.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHashLockBytes() {
       java.lang.Object ref = hashLock_;
@@ -2186,6 +2207,7 @@ public final class Tx {
      * <code>string secret = 3;</code>
      * @return The secret.
      */
+    @java.lang.Override
     public java.lang.String getSecret() {
       java.lang.Object ref = secret_;
       if (ref instanceof java.lang.String) {
@@ -2202,6 +2224,7 @@ public final class Tx {
      * <code>string secret = 3;</code>
      * @return The bytes for secret.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSecretBytes() {
       java.lang.Object ref = secret_;
@@ -2847,7 +2870,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.htlc.MsgClaimHTLCResponse}
    */
-  public  static final class MsgClaimHTLCResponse extends
+  public static final class MsgClaimHTLCResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.htlc.MsgClaimHTLCResponse)
       MsgClaimHTLCResponseOrBuilder {
@@ -3297,7 +3320,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.htlc.MsgRefundHTLC}
    */
-  public  static final class MsgRefundHTLC extends
+  public static final class MsgRefundHTLC extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.htlc.MsgRefundHTLC)
       MsgRefundHTLCOrBuilder {
@@ -3391,6 +3414,7 @@ public final class Tx {
      * <code>string sender = 1;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -3407,6 +3431,7 @@ public final class Tx {
      * <code>string sender = 1;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -3427,6 +3452,7 @@ public final class Tx {
      * <code>string hash_lock = 2 [(.gogoproto.moretags) = "yaml:&#92;"hash_lock&#92;""];</code>
      * @return The hashLock.
      */
+    @java.lang.Override
     public java.lang.String getHashLock() {
       java.lang.Object ref = hashLock_;
       if (ref instanceof java.lang.String) {
@@ -3443,6 +3469,7 @@ public final class Tx {
      * <code>string hash_lock = 2 [(.gogoproto.moretags) = "yaml:&#92;"hash_lock&#92;""];</code>
      * @return The bytes for hashLock.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHashLockBytes() {
       java.lang.Object ref = hashLock_;
@@ -3995,7 +4022,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.htlc.MsgRefundHTLCResponse}
    */
-  public  static final class MsgRefundHTLCResponse extends
+  public static final class MsgRefundHTLCResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.htlc.MsgRefundHTLCResponse)
       MsgRefundHTLCResponseOrBuilder {

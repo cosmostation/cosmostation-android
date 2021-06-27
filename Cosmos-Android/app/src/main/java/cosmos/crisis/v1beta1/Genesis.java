@@ -55,7 +55,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.crisis.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.crisis.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -153,6 +153,7 @@ public final class Genesis {
      * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
      * @return Whether the constantFee field is set.
      */
+    @java.lang.Override
     public boolean hasConstantFee() {
       return constantFee_ != null;
     }
@@ -165,6 +166,7 @@ public final class Genesis {
      * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
      * @return The constantFee.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getConstantFee() {
       return constantFee_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : constantFee_;
     }
@@ -176,6 +178,7 @@ public final class Genesis {
      *
      * <code>.cosmos.base.v1beta1.Coin constant_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"constant_fee&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getConstantFeeOrBuilder() {
       return getConstantFee();
     }

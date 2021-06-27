@@ -26,7 +26,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.upgrade.v1beta1.QueryCurrentPlanRequest}
    */
-  public  static final class QueryCurrentPlanRequest extends
+  public static final class QueryCurrentPlanRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.upgrade.v1beta1.QueryCurrentPlanRequest)
       QueryCurrentPlanRequestOrBuilder {
@@ -481,7 +481,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.upgrade.v1beta1.QueryCurrentPlanResponse}
    */
-  public  static final class QueryCurrentPlanResponse extends
+  public static final class QueryCurrentPlanResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.upgrade.v1beta1.QueryCurrentPlanResponse)
       QueryCurrentPlanResponseOrBuilder {
@@ -578,6 +578,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.upgrade.v1beta1.Plan plan = 1;</code>
      * @return Whether the plan field is set.
      */
+    @java.lang.Override
     public boolean hasPlan() {
       return plan_ != null;
     }
@@ -589,6 +590,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.upgrade.v1beta1.Plan plan = 1;</code>
      * @return The plan.
      */
+    @java.lang.Override
     public cosmos.upgrade.v1beta1.Upgrade.Plan getPlan() {
       return plan_ == null ? cosmos.upgrade.v1beta1.Upgrade.Plan.getDefaultInstance() : plan_;
     }
@@ -599,6 +601,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.upgrade.v1beta1.Plan plan = 1;</code>
      */
+    @java.lang.Override
     public cosmos.upgrade.v1beta1.Upgrade.PlanOrBuilder getPlanOrBuilder() {
       return getPlan();
     }
@@ -1162,7 +1165,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.upgrade.v1beta1.QueryAppliedPlanRequest}
    */
-  public  static final class QueryAppliedPlanRequest extends
+  public static final class QueryAppliedPlanRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.upgrade.v1beta1.QueryAppliedPlanRequest)
       QueryAppliedPlanRequestOrBuilder {
@@ -1253,6 +1256,7 @@ public final class QueryOuterClass {
      * <code>string name = 1;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -1273,6 +1277,7 @@ public final class QueryOuterClass {
      * <code>string name = 1;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -1764,7 +1769,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.upgrade.v1beta1.QueryAppliedPlanResponse}
    */
-  public  static final class QueryAppliedPlanResponse extends
+  public static final class QueryAppliedPlanResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.upgrade.v1beta1.QueryAppliedPlanResponse)
       QueryAppliedPlanResponseOrBuilder {
@@ -1853,6 +1858,7 @@ public final class QueryOuterClass {
      * <code>int64 height = 1;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -2174,6 +2180,7 @@ public final class QueryOuterClass {
        * <code>int64 height = 1;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -2282,7 +2289,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateRequest}
    */
-  public  static final class QueryUpgradedConsensusStateRequest extends
+  public static final class QueryUpgradedConsensusStateRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateRequest)
       QueryUpgradedConsensusStateRequestOrBuilder {
@@ -2372,6 +2379,7 @@ public final class QueryOuterClass {
      * <code>int64 last_height = 1;</code>
      * @return The lastHeight.
      */
+    @java.lang.Override
     public long getLastHeight() {
       return lastHeight_;
     }
@@ -2694,6 +2702,7 @@ public final class QueryOuterClass {
        * <code>int64 last_height = 1;</code>
        * @return The lastHeight.
        */
+      @java.lang.Override
       public long getLastHeight() {
         return lastHeight_;
       }
@@ -2808,7 +2817,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateResponse}
    */
-  public  static final class QueryUpgradedConsensusStateResponse extends
+  public static final class QueryUpgradedConsensusStateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.upgrade.v1beta1.QueryUpgradedConsensusStateResponse)
       QueryUpgradedConsensusStateResponseOrBuilder {
@@ -2901,6 +2910,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
      * @return Whether the upgradedConsensusState field is set.
      */
+    @java.lang.Override
     public boolean hasUpgradedConsensusState() {
       return upgradedConsensusState_ != null;
     }
@@ -2908,12 +2918,14 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
      * @return The upgradedConsensusState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getUpgradedConsensusState() {
       return upgradedConsensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : upgradedConsensusState_;
     }
     /**
      * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getUpgradedConsensusStateOrBuilder() {
       return getUpgradedConsensusState();
     }

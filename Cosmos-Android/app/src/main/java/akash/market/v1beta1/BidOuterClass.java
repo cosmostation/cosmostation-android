@@ -82,7 +82,7 @@ public final class BidOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.MsgCreateBid}
    */
-  public  static final class MsgCreateBid extends
+  public static final class MsgCreateBid extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.MsgCreateBid)
       MsgCreateBidOrBuilder {
@@ -208,6 +208,7 @@ public final class BidOuterClass {
      * <code>.akash.market.v1beta1.OrderID order = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "Order", (.gogoproto.jsontag) = "order", (.gogoproto.moretags) = "yaml:&#92;"order&#92;""];</code>
      * @return Whether the order field is set.
      */
+    @java.lang.Override
     public boolean hasOrder() {
       return order_ != null;
     }
@@ -215,12 +216,14 @@ public final class BidOuterClass {
      * <code>.akash.market.v1beta1.OrderID order = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "Order", (.gogoproto.jsontag) = "order", (.gogoproto.moretags) = "yaml:&#92;"order&#92;""];</code>
      * @return The order.
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.OrderID getOrder() {
       return order_ == null ? akash.market.v1beta1.OrderOuterClass.OrderID.getDefaultInstance() : order_;
     }
     /**
      * <code>.akash.market.v1beta1.OrderID order = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "Order", (.gogoproto.jsontag) = "order", (.gogoproto.moretags) = "yaml:&#92;"order&#92;""];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.OrderIDOrBuilder getOrderOrBuilder() {
       return getOrder();
     }
@@ -231,6 +234,7 @@ public final class BidOuterClass {
      * <code>string provider = 2 [(.gogoproto.jsontag) = "provider", (.gogoproto.moretags) = "yaml:&#92;"provider&#92;""];</code>
      * @return The provider.
      */
+    @java.lang.Override
     public java.lang.String getProvider() {
       java.lang.Object ref = provider_;
       if (ref instanceof java.lang.String) {
@@ -247,6 +251,7 @@ public final class BidOuterClass {
      * <code>string provider = 2 [(.gogoproto.jsontag) = "provider", (.gogoproto.moretags) = "yaml:&#92;"provider&#92;""];</code>
      * @return The bytes for provider.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProviderBytes() {
       java.lang.Object ref = provider_;
@@ -267,6 +272,7 @@ public final class BidOuterClass {
      * <code>.cosmos.base.v1beta1.Coin price = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "price", (.gogoproto.moretags) = "yaml:&#92;"price&#92;""];</code>
      * @return Whether the price field is set.
      */
+    @java.lang.Override
     public boolean hasPrice() {
       return price_ != null;
     }
@@ -274,12 +280,14 @@ public final class BidOuterClass {
      * <code>.cosmos.base.v1beta1.Coin price = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "price", (.gogoproto.moretags) = "yaml:&#92;"price&#92;""];</code>
      * @return The price.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getPrice() {
       return price_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : price_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin price = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "price", (.gogoproto.moretags) = "yaml:&#92;"price&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getPriceOrBuilder() {
       return getPrice();
     }
@@ -290,6 +298,7 @@ public final class BidOuterClass {
      * <code>.cosmos.base.v1beta1.Coin deposit = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deposit", (.gogoproto.moretags) = "yaml:&#92;"deposit&#92;""];</code>
      * @return Whether the deposit field is set.
      */
+    @java.lang.Override
     public boolean hasDeposit() {
       return deposit_ != null;
     }
@@ -297,12 +306,14 @@ public final class BidOuterClass {
      * <code>.cosmos.base.v1beta1.Coin deposit = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deposit", (.gogoproto.moretags) = "yaml:&#92;"deposit&#92;""];</code>
      * @return The deposit.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getDeposit() {
       return deposit_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : deposit_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin deposit = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deposit", (.gogoproto.moretags) = "yaml:&#92;"deposit&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getDepositOrBuilder() {
       return getDeposit();
     }
@@ -1199,7 +1210,7 @@ public final class BidOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.MsgCreateBidResponse}
    */
-  public  static final class MsgCreateBidResponse extends
+  public static final class MsgCreateBidResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.MsgCreateBidResponse)
       MsgCreateBidResponseOrBuilder {
@@ -1640,7 +1651,7 @@ public final class BidOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.MsgCloseBid}
    */
-  public  static final class MsgCloseBid extends
+  public static final class MsgCloseBid extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.MsgCloseBid)
       MsgCloseBidOrBuilder {
@@ -1733,6 +1744,7 @@ public final class BidOuterClass {
      * <code>.akash.market.v1beta1.BidID bid_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BidID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the bidId field is set.
      */
+    @java.lang.Override
     public boolean hasBidId() {
       return bidId_ != null;
     }
@@ -1740,12 +1752,14 @@ public final class BidOuterClass {
      * <code>.akash.market.v1beta1.BidID bid_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BidID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The bidId.
      */
+    @java.lang.Override
     public akash.market.v1beta1.BidOuterClass.BidID getBidId() {
       return bidId_ == null ? akash.market.v1beta1.BidOuterClass.BidID.getDefaultInstance() : bidId_;
     }
     /**
      * <code>.akash.market.v1beta1.BidID bid_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BidID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.BidOuterClass.BidIDOrBuilder getBidIdOrBuilder() {
       return getBidId();
     }
@@ -2251,7 +2265,7 @@ public final class BidOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.MsgCloseBidResponse}
    */
-  public  static final class MsgCloseBidResponse extends
+  public static final class MsgCloseBidResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.MsgCloseBidResponse)
       MsgCloseBidResponseOrBuilder {
@@ -2720,7 +2734,7 @@ public final class BidOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.BidID}
    */
-  public  static final class BidID extends
+  public static final class BidID extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.BidID)
       BidIDOrBuilder {
@@ -2829,6 +2843,7 @@ public final class BidOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -2845,6 +2860,7 @@ public final class BidOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -2865,6 +2881,7 @@ public final class BidOuterClass {
      * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
      * @return The dseq.
      */
+    @java.lang.Override
     public long getDseq() {
       return dseq_;
     }
@@ -2875,6 +2892,7 @@ public final class BidOuterClass {
      * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
      * @return The gseq.
      */
+    @java.lang.Override
     public int getGseq() {
       return gseq_;
     }
@@ -2885,6 +2903,7 @@ public final class BidOuterClass {
      * <code>uint32 oseq = 4 [(.gogoproto.customname) = "OSeq", (.gogoproto.jsontag) = "oseq", (.gogoproto.moretags) = "yaml:&#92;"oseq&#92;""];</code>
      * @return The oseq.
      */
+    @java.lang.Override
     public int getOseq() {
       return oseq_;
     }
@@ -2895,6 +2914,7 @@ public final class BidOuterClass {
      * <code>string provider = 5 [(.gogoproto.jsontag) = "provider", (.gogoproto.moretags) = "yaml:&#92;"provider&#92;""];</code>
      * @return The provider.
      */
+    @java.lang.Override
     public java.lang.String getProvider() {
       java.lang.Object ref = provider_;
       if (ref instanceof java.lang.String) {
@@ -2911,6 +2931,7 @@ public final class BidOuterClass {
      * <code>string provider = 5 [(.gogoproto.jsontag) = "provider", (.gogoproto.moretags) = "yaml:&#92;"provider&#92;""];</code>
      * @return The bytes for provider.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProviderBytes() {
       java.lang.Object ref = provider_;
@@ -3382,6 +3403,7 @@ public final class BidOuterClass {
        * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
        * @return The dseq.
        */
+      @java.lang.Override
       public long getDseq() {
         return dseq_;
       }
@@ -3412,6 +3434,7 @@ public final class BidOuterClass {
        * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
        * @return The gseq.
        */
+      @java.lang.Override
       public int getGseq() {
         return gseq_;
       }
@@ -3442,6 +3465,7 @@ public final class BidOuterClass {
        * <code>uint32 oseq = 4 [(.gogoproto.customname) = "OSeq", (.gogoproto.jsontag) = "oseq", (.gogoproto.moretags) = "yaml:&#92;"oseq&#92;""];</code>
        * @return The oseq.
        */
+      @java.lang.Override
       public int getOseq() {
         return oseq_;
       }
@@ -3653,7 +3677,7 @@ public final class BidOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.Bid}
    */
-  public  static final class Bid extends
+  public static final class Bid extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.Bid)
       BidOrBuilder {
@@ -3906,6 +3930,10 @@ public final class BidOuterClass {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -3946,6 +3974,7 @@ public final class BidOuterClass {
      * <code>.akash.market.v1beta1.BidID bid_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BidID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the bidId field is set.
      */
+    @java.lang.Override
     public boolean hasBidId() {
       return bidId_ != null;
     }
@@ -3953,12 +3982,14 @@ public final class BidOuterClass {
      * <code>.akash.market.v1beta1.BidID bid_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BidID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The bidId.
      */
+    @java.lang.Override
     public akash.market.v1beta1.BidOuterClass.BidID getBidId() {
       return bidId_ == null ? akash.market.v1beta1.BidOuterClass.BidID.getDefaultInstance() : bidId_;
     }
     /**
      * <code>.akash.market.v1beta1.BidID bid_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BidID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.BidOuterClass.BidIDOrBuilder getBidIdOrBuilder() {
       return getBidId();
     }
@@ -3969,14 +4000,14 @@ public final class BidOuterClass {
      * <code>.akash.market.v1beta1.Bid.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
      * <code>.akash.market.v1beta1.Bid.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
-    public akash.market.v1beta1.BidOuterClass.Bid.State getState() {
+    @java.lang.Override public akash.market.v1beta1.BidOuterClass.Bid.State getState() {
       @SuppressWarnings("deprecation")
       akash.market.v1beta1.BidOuterClass.Bid.State result = akash.market.v1beta1.BidOuterClass.Bid.State.valueOf(state_);
       return result == null ? akash.market.v1beta1.BidOuterClass.Bid.State.UNRECOGNIZED : result;
@@ -3988,6 +4019,7 @@ public final class BidOuterClass {
      * <code>.cosmos.base.v1beta1.Coin price = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "price", (.gogoproto.moretags) = "yaml:&#92;"price&#92;""];</code>
      * @return Whether the price field is set.
      */
+    @java.lang.Override
     public boolean hasPrice() {
       return price_ != null;
     }
@@ -3995,12 +4027,14 @@ public final class BidOuterClass {
      * <code>.cosmos.base.v1beta1.Coin price = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "price", (.gogoproto.moretags) = "yaml:&#92;"price&#92;""];</code>
      * @return The price.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getPrice() {
       return price_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : price_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin price = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "price", (.gogoproto.moretags) = "yaml:&#92;"price&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getPriceOrBuilder() {
       return getPrice();
     }
@@ -4011,6 +4045,7 @@ public final class BidOuterClass {
      * <code>int64 created_at = 4;</code>
      * @return The createdAt.
      */
+    @java.lang.Override
     public long getCreatedAt() {
       return createdAt_;
     }
@@ -4522,7 +4557,7 @@ public final class BidOuterClass {
        * <code>.akash.market.v1beta1.Bid.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -4531,6 +4566,7 @@ public final class BidOuterClass {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -4539,6 +4575,7 @@ public final class BidOuterClass {
        * <code>.akash.market.v1beta1.Bid.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The state.
        */
+      @java.lang.Override
       public akash.market.v1beta1.BidOuterClass.Bid.State getState() {
         @SuppressWarnings("deprecation")
         akash.market.v1beta1.BidOuterClass.Bid.State result = akash.market.v1beta1.BidOuterClass.Bid.State.valueOf(state_);
@@ -4693,6 +4730,7 @@ public final class BidOuterClass {
        * <code>int64 created_at = 4;</code>
        * @return The createdAt.
        */
+      @java.lang.Override
       public long getCreatedAt() {
         return createdAt_;
       }
@@ -4835,7 +4873,7 @@ public final class BidOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.BidFilters}
    */
-  public  static final class BidFilters extends
+  public static final class BidFilters extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.BidFilters)
       BidFiltersOrBuilder {
@@ -4951,6 +4989,7 @@ public final class BidOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -4967,6 +5006,7 @@ public final class BidOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -4987,6 +5027,7 @@ public final class BidOuterClass {
      * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
      * @return The dseq.
      */
+    @java.lang.Override
     public long getDseq() {
       return dseq_;
     }
@@ -4997,6 +5038,7 @@ public final class BidOuterClass {
      * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
      * @return The gseq.
      */
+    @java.lang.Override
     public int getGseq() {
       return gseq_;
     }
@@ -5007,6 +5049,7 @@ public final class BidOuterClass {
      * <code>uint32 oseq = 4 [(.gogoproto.customname) = "OSeq", (.gogoproto.jsontag) = "oseq", (.gogoproto.moretags) = "yaml:&#92;"oseq&#92;""];</code>
      * @return The oseq.
      */
+    @java.lang.Override
     public int getOseq() {
       return oseq_;
     }
@@ -5017,6 +5060,7 @@ public final class BidOuterClass {
      * <code>string provider = 5 [(.gogoproto.jsontag) = "provider", (.gogoproto.moretags) = "yaml:&#92;"provider&#92;""];</code>
      * @return The provider.
      */
+    @java.lang.Override
     public java.lang.String getProvider() {
       java.lang.Object ref = provider_;
       if (ref instanceof java.lang.String) {
@@ -5033,6 +5077,7 @@ public final class BidOuterClass {
      * <code>string provider = 5 [(.gogoproto.jsontag) = "provider", (.gogoproto.moretags) = "yaml:&#92;"provider&#92;""];</code>
      * @return The bytes for provider.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProviderBytes() {
       java.lang.Object ref = provider_;
@@ -5053,6 +5098,7 @@ public final class BidOuterClass {
      * <code>string state = 6 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
+    @java.lang.Override
     public java.lang.String getState() {
       java.lang.Object ref = state_;
       if (ref instanceof java.lang.String) {
@@ -5069,6 +5115,7 @@ public final class BidOuterClass {
      * <code>string state = 6 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The bytes for state.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getStateBytes() {
       java.lang.Object ref = state_;
@@ -5556,6 +5603,7 @@ public final class BidOuterClass {
        * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
        * @return The dseq.
        */
+      @java.lang.Override
       public long getDseq() {
         return dseq_;
       }
@@ -5586,6 +5634,7 @@ public final class BidOuterClass {
        * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
        * @return The gseq.
        */
+      @java.lang.Override
       public int getGseq() {
         return gseq_;
       }
@@ -5616,6 +5665,7 @@ public final class BidOuterClass {
        * <code>uint32 oseq = 4 [(.gogoproto.customname) = "OSeq", (.gogoproto.jsontag) = "oseq", (.gogoproto.moretags) = "yaml:&#92;"oseq&#92;""];</code>
        * @return The oseq.
        */
+      @java.lang.Override
       public int getOseq() {
         return oseq_;
       }

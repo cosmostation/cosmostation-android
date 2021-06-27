@@ -61,7 +61,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.crisis.v1beta1.MsgVerifyInvariant}
    */
-  public  static final class MsgVerifyInvariant extends
+  public static final class MsgVerifyInvariant extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.crisis.v1beta1.MsgVerifyInvariant)
       MsgVerifyInvariantOrBuilder {
@@ -162,6 +162,7 @@ public final class Tx {
      * <code>string sender = 1;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -178,6 +179,7 @@ public final class Tx {
      * <code>string sender = 1;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -198,6 +200,7 @@ public final class Tx {
      * <code>string invariant_module_name = 2 [(.gogoproto.moretags) = "yaml:&#92;"invariant_module_name&#92;""];</code>
      * @return The invariantModuleName.
      */
+    @java.lang.Override
     public java.lang.String getInvariantModuleName() {
       java.lang.Object ref = invariantModuleName_;
       if (ref instanceof java.lang.String) {
@@ -214,6 +217,7 @@ public final class Tx {
      * <code>string invariant_module_name = 2 [(.gogoproto.moretags) = "yaml:&#92;"invariant_module_name&#92;""];</code>
      * @return The bytes for invariantModuleName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInvariantModuleNameBytes() {
       java.lang.Object ref = invariantModuleName_;
@@ -234,6 +238,7 @@ public final class Tx {
      * <code>string invariant_route = 3 [(.gogoproto.moretags) = "yaml:&#92;"invariant_route&#92;""];</code>
      * @return The invariantRoute.
      */
+    @java.lang.Override
     public java.lang.String getInvariantRoute() {
       java.lang.Object ref = invariantRoute_;
       if (ref instanceof java.lang.String) {
@@ -250,6 +255,7 @@ public final class Tx {
      * <code>string invariant_route = 3 [(.gogoproto.moretags) = "yaml:&#92;"invariant_route&#92;""];</code>
      * @return The bytes for invariantRoute.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInvariantRouteBytes() {
       java.lang.Object ref = invariantRoute_;
@@ -895,7 +901,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.crisis.v1beta1.MsgVerifyInvariantResponse}
    */
-  public  static final class MsgVerifyInvariantResponse extends
+  public static final class MsgVerifyInvariantResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.crisis.v1beta1.MsgVerifyInvariantResponse)
       MsgVerifyInvariantResponseOrBuilder {

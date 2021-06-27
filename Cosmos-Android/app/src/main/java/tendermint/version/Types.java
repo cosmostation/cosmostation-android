@@ -45,7 +45,7 @@ public final class Types {
    *
    * Protobuf type {@code tendermint.version.App}
    */
-  public  static final class App extends
+  public static final class App extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.version.App)
       AppOrBuilder {
@@ -137,6 +137,7 @@ public final class Types {
      * <code>uint64 protocol = 1;</code>
      * @return The protocol.
      */
+    @java.lang.Override
     public long getProtocol() {
       return protocol_;
     }
@@ -147,6 +148,7 @@ public final class Types {
      * <code>string software = 2;</code>
      * @return The software.
      */
+    @java.lang.Override
     public java.lang.String getSoftware() {
       java.lang.Object ref = software_;
       if (ref instanceof java.lang.String) {
@@ -163,6 +165,7 @@ public final class Types {
      * <code>string software = 2;</code>
      * @return The bytes for software.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSoftwareBytes() {
       java.lang.Object ref = software_;
@@ -508,6 +511,7 @@ public final class Types {
        * <code>uint64 protocol = 1;</code>
        * @return The protocol.
        */
+      @java.lang.Override
       public long getProtocol() {
         return protocol_;
       }
@@ -686,7 +690,7 @@ public final class Types {
    *
    * Protobuf type {@code tendermint.version.Consensus}
    */
-  public  static final class Consensus extends
+  public static final class Consensus extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.version.Consensus)
       ConsensusOrBuilder {
@@ -776,6 +780,7 @@ public final class Types {
      * <code>uint64 block = 1;</code>
      * @return The block.
      */
+    @java.lang.Override
     public long getBlock() {
       return block_;
     }
@@ -786,6 +791,7 @@ public final class Types {
      * <code>uint64 app = 2;</code>
      * @return The app.
      */
+    @java.lang.Override
     public long getApp() {
       return app_;
     }
@@ -1122,6 +1128,7 @@ public final class Types {
        * <code>uint64 block = 1;</code>
        * @return The block.
        */
+      @java.lang.Override
       public long getBlock() {
         return block_;
       }
@@ -1152,6 +1159,7 @@ public final class Types {
        * <code>uint64 app = 2;</code>
        * @return The app.
        */
+      @java.lang.Override
       public long getApp() {
         return app_;
       }

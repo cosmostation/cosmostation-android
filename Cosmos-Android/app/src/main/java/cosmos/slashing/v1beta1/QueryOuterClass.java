@@ -25,7 +25,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.slashing.v1beta1.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.slashing.v1beta1.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -466,7 +466,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.slashing.v1beta1.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.slashing.v1beta1.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -559,6 +559,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.slashing.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -566,12 +567,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.slashing.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Slashing.Params getParams() {
       return params_ == null ? cosmos.slashing.v1beta1.Slashing.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.cosmos.slashing.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Slashing.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -1098,7 +1101,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.slashing.v1beta1.QuerySigningInfoRequest}
    */
-  public  static final class QuerySigningInfoRequest extends
+  public static final class QuerySigningInfoRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.slashing.v1beta1.QuerySigningInfoRequest)
       QuerySigningInfoRequestOrBuilder {
@@ -1189,6 +1192,7 @@ public final class QueryOuterClass {
      * <code>string cons_address = 1;</code>
      * @return The consAddress.
      */
+    @java.lang.Override
     public java.lang.String getConsAddress() {
       java.lang.Object ref = consAddress_;
       if (ref instanceof java.lang.String) {
@@ -1209,6 +1213,7 @@ public final class QueryOuterClass {
      * <code>string cons_address = 1;</code>
      * @return The bytes for consAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getConsAddressBytes() {
       java.lang.Object ref = consAddress_;
@@ -1717,7 +1722,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.slashing.v1beta1.QuerySigningInfoResponse}
    */
-  public  static final class QuerySigningInfoResponse extends
+  public static final class QuerySigningInfoResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.slashing.v1beta1.QuerySigningInfoResponse)
       QuerySigningInfoResponseOrBuilder {
@@ -1814,6 +1819,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.slashing.v1beta1.ValidatorSigningInfo val_signing_info = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the valSigningInfo field is set.
      */
+    @java.lang.Override
     public boolean hasValSigningInfo() {
       return valSigningInfo_ != null;
     }
@@ -1825,6 +1831,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.slashing.v1beta1.ValidatorSigningInfo val_signing_info = 1 [(.gogoproto.nullable) = false];</code>
      * @return The valSigningInfo.
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Slashing.ValidatorSigningInfo getValSigningInfo() {
       return valSigningInfo_ == null ? cosmos.slashing.v1beta1.Slashing.ValidatorSigningInfo.getDefaultInstance() : valSigningInfo_;
     }
@@ -1835,6 +1842,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.slashing.v1beta1.ValidatorSigningInfo val_signing_info = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Slashing.ValidatorSigningInfoOrBuilder getValSigningInfoOrBuilder() {
       return getValSigningInfo();
     }
@@ -2393,7 +2401,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.slashing.v1beta1.QuerySigningInfosRequest}
    */
-  public  static final class QuerySigningInfosRequest extends
+  public static final class QuerySigningInfosRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.slashing.v1beta1.QuerySigningInfosRequest)
       QuerySigningInfosRequestOrBuilder {
@@ -2486,6 +2494,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2493,12 +2502,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -3065,7 +3076,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.slashing.v1beta1.QuerySigningInfosResponse}
    */
-  public  static final class QuerySigningInfosResponse extends
+  public static final class QuerySigningInfosResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.slashing.v1beta1.QuerySigningInfosResponse)
       QuerySigningInfosResponseOrBuilder {
@@ -3175,6 +3186,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.slashing.v1beta1.ValidatorSigningInfo info = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.slashing.v1beta1.Slashing.ValidatorSigningInfo> getInfoList() {
       return info_;
     }
@@ -3185,6 +3197,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.slashing.v1beta1.ValidatorSigningInfo info = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.slashing.v1beta1.Slashing.ValidatorSigningInfoOrBuilder> 
         getInfoOrBuilderList() {
       return info_;
@@ -3196,6 +3209,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.slashing.v1beta1.ValidatorSigningInfo info = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getInfoCount() {
       return info_.size();
     }
@@ -3206,6 +3220,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.slashing.v1beta1.ValidatorSigningInfo info = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Slashing.ValidatorSigningInfo getInfo(int index) {
       return info_.get(index);
     }
@@ -3216,6 +3231,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.slashing.v1beta1.ValidatorSigningInfo info = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Slashing.ValidatorSigningInfoOrBuilder getInfoOrBuilder(
         int index) {
       return info_.get(index);
@@ -3227,6 +3243,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -3234,12 +3251,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }

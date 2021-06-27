@@ -82,7 +82,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.coinswap.MsgAddLiquidity}
    */
-  public  static final class MsgAddLiquidity extends
+  public static final class MsgAddLiquidity extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.coinswap.MsgAddLiquidity)
       MsgAddLiquidityOrBuilder {
@@ -201,6 +201,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin max_token = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"max_token&#92;""];</code>
      * @return Whether the maxToken field is set.
      */
+    @java.lang.Override
     public boolean hasMaxToken() {
       return maxToken_ != null;
     }
@@ -208,12 +209,14 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin max_token = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"max_token&#92;""];</code>
      * @return The maxToken.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getMaxToken() {
       return maxToken_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : maxToken_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin max_token = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"max_token&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getMaxTokenOrBuilder() {
       return getMaxToken();
     }
@@ -224,6 +227,7 @@ public final class Tx {
      * <code>string exact_standard_amt = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"exact_standard_amt&#92;""];</code>
      * @return The exactStandardAmt.
      */
+    @java.lang.Override
     public java.lang.String getExactStandardAmt() {
       java.lang.Object ref = exactStandardAmt_;
       if (ref instanceof java.lang.String) {
@@ -240,6 +244,7 @@ public final class Tx {
      * <code>string exact_standard_amt = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"exact_standard_amt&#92;""];</code>
      * @return The bytes for exactStandardAmt.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getExactStandardAmtBytes() {
       java.lang.Object ref = exactStandardAmt_;
@@ -260,6 +265,7 @@ public final class Tx {
      * <code>string min_liquidity = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_liquidity&#92;""];</code>
      * @return The minLiquidity.
      */
+    @java.lang.Override
     public java.lang.String getMinLiquidity() {
       java.lang.Object ref = minLiquidity_;
       if (ref instanceof java.lang.String) {
@@ -276,6 +282,7 @@ public final class Tx {
      * <code>string min_liquidity = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_liquidity&#92;""];</code>
      * @return The bytes for minLiquidity.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMinLiquidityBytes() {
       java.lang.Object ref = minLiquidity_;
@@ -296,6 +303,7 @@ public final class Tx {
      * <code>int64 deadline = 4;</code>
      * @return The deadline.
      */
+    @java.lang.Override
     public long getDeadline() {
       return deadline_;
     }
@@ -306,6 +314,7 @@ public final class Tx {
      * <code>string sender = 5;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -322,6 +331,7 @@ public final class Tx {
      * <code>string sender = 5;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -1000,6 +1010,7 @@ public final class Tx {
        * <code>int64 deadline = 4;</code>
        * @return The deadline.
        */
+      @java.lang.Override
       public long getDeadline() {
         return deadline_;
       }
@@ -1179,7 +1190,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.coinswap.MsgAddLiquidityResponse}
    */
-  public  static final class MsgAddLiquidityResponse extends
+  public static final class MsgAddLiquidityResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.coinswap.MsgAddLiquidityResponse)
       MsgAddLiquidityResponseOrBuilder {
@@ -1272,6 +1283,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin mint_token = 1;</code>
      * @return Whether the mintToken field is set.
      */
+    @java.lang.Override
     public boolean hasMintToken() {
       return mintToken_ != null;
     }
@@ -1279,12 +1291,14 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin mint_token = 1;</code>
      * @return The mintToken.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getMintToken() {
       return mintToken_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : mintToken_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin mint_token = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getMintTokenOrBuilder() {
       return getMintToken();
     }
@@ -1847,7 +1861,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.coinswap.MsgRemoveLiquidity}
    */
-  public  static final class MsgRemoveLiquidity extends
+  public static final class MsgRemoveLiquidity extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.coinswap.MsgRemoveLiquidity)
       MsgRemoveLiquidityOrBuilder {
@@ -1966,6 +1980,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin withdraw_liquidity = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraw_liquidity&#92;""];</code>
      * @return Whether the withdrawLiquidity field is set.
      */
+    @java.lang.Override
     public boolean hasWithdrawLiquidity() {
       return withdrawLiquidity_ != null;
     }
@@ -1973,12 +1988,14 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin withdraw_liquidity = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraw_liquidity&#92;""];</code>
      * @return The withdrawLiquidity.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getWithdrawLiquidity() {
       return withdrawLiquidity_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : withdrawLiquidity_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin withdraw_liquidity = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"withdraw_liquidity&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getWithdrawLiquidityOrBuilder() {
       return getWithdrawLiquidity();
     }
@@ -1989,6 +2006,7 @@ public final class Tx {
      * <code>string min_token = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_token&#92;""];</code>
      * @return The minToken.
      */
+    @java.lang.Override
     public java.lang.String getMinToken() {
       java.lang.Object ref = minToken_;
       if (ref instanceof java.lang.String) {
@@ -2005,6 +2023,7 @@ public final class Tx {
      * <code>string min_token = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_token&#92;""];</code>
      * @return The bytes for minToken.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMinTokenBytes() {
       java.lang.Object ref = minToken_;
@@ -2025,6 +2044,7 @@ public final class Tx {
      * <code>string min_standard_amt = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_standard_amt&#92;""];</code>
      * @return The minStandardAmt.
      */
+    @java.lang.Override
     public java.lang.String getMinStandardAmt() {
       java.lang.Object ref = minStandardAmt_;
       if (ref instanceof java.lang.String) {
@@ -2041,6 +2061,7 @@ public final class Tx {
      * <code>string min_standard_amt = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_standard_amt&#92;""];</code>
      * @return The bytes for minStandardAmt.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMinStandardAmtBytes() {
       java.lang.Object ref = minStandardAmt_;
@@ -2061,6 +2082,7 @@ public final class Tx {
      * <code>int64 deadline = 4;</code>
      * @return The deadline.
      */
+    @java.lang.Override
     public long getDeadline() {
       return deadline_;
     }
@@ -2071,6 +2093,7 @@ public final class Tx {
      * <code>string sender = 5;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -2087,6 +2110,7 @@ public final class Tx {
      * <code>string sender = 5;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -2765,6 +2789,7 @@ public final class Tx {
        * <code>int64 deadline = 4;</code>
        * @return The deadline.
        */
+      @java.lang.Override
       public long getDeadline() {
         return deadline_;
       }
@@ -2953,7 +2978,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.coinswap.MsgRemoveLiquidityResponse}
    */
-  public  static final class MsgRemoveLiquidityResponse extends
+  public static final class MsgRemoveLiquidityResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.coinswap.MsgRemoveLiquidityResponse)
       MsgRemoveLiquidityResponseOrBuilder {
@@ -3046,12 +3071,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin withdraw_coins = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getWithdrawCoinsList() {
       return withdrawCoins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin withdraw_coins = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getWithdrawCoinsOrBuilderList() {
       return withdrawCoins_;
@@ -3059,18 +3086,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin withdraw_coins = 1;</code>
      */
+    @java.lang.Override
     public int getWithdrawCoinsCount() {
       return withdrawCoins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin withdraw_coins = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getWithdrawCoins(int index) {
       return withdrawCoins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin withdraw_coins = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getWithdrawCoinsOrBuilder(
         int index) {
       return withdrawCoins_.get(index);
@@ -3767,7 +3797,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.coinswap.MsgSwapOrder}
    */
-  public  static final class MsgSwapOrder extends
+  public static final class MsgSwapOrder extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.coinswap.MsgSwapOrder)
       MsgSwapOrderOrBuilder {
@@ -3883,6 +3913,7 @@ public final class Tx {
      * <code>.irismod.coinswap.Input input = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the input field is set.
      */
+    @java.lang.Override
     public boolean hasInput() {
       return input_ != null;
     }
@@ -3890,12 +3921,14 @@ public final class Tx {
      * <code>.irismod.coinswap.Input input = 1 [(.gogoproto.nullable) = false];</code>
      * @return The input.
      */
+    @java.lang.Override
     public irismod.coinswap.Coinswap.Input getInput() {
       return input_ == null ? irismod.coinswap.Coinswap.Input.getDefaultInstance() : input_;
     }
     /**
      * <code>.irismod.coinswap.Input input = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.coinswap.Coinswap.InputOrBuilder getInputOrBuilder() {
       return getInput();
     }
@@ -3906,6 +3939,7 @@ public final class Tx {
      * <code>.irismod.coinswap.Output output = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the output field is set.
      */
+    @java.lang.Override
     public boolean hasOutput() {
       return output_ != null;
     }
@@ -3913,12 +3947,14 @@ public final class Tx {
      * <code>.irismod.coinswap.Output output = 2 [(.gogoproto.nullable) = false];</code>
      * @return The output.
      */
+    @java.lang.Override
     public irismod.coinswap.Coinswap.Output getOutput() {
       return output_ == null ? irismod.coinswap.Coinswap.Output.getDefaultInstance() : output_;
     }
     /**
      * <code>.irismod.coinswap.Output output = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.coinswap.Coinswap.OutputOrBuilder getOutputOrBuilder() {
       return getOutput();
     }
@@ -3929,6 +3965,7 @@ public final class Tx {
      * <code>int64 deadline = 3;</code>
      * @return The deadline.
      */
+    @java.lang.Override
     public long getDeadline() {
       return deadline_;
     }
@@ -3939,6 +3976,7 @@ public final class Tx {
      * <code>bool is_buy_order = 4 [(.gogoproto.moretags) = "yaml:&#92;"is_buy_order&#92;""];</code>
      * @return The isBuyOrder.
      */
+    @java.lang.Override
     public boolean getIsBuyOrder() {
       return isBuyOrder_;
     }
@@ -4571,6 +4609,7 @@ public final class Tx {
        * <code>int64 deadline = 3;</code>
        * @return The deadline.
        */
+      @java.lang.Override
       public long getDeadline() {
         return deadline_;
       }
@@ -4601,6 +4640,7 @@ public final class Tx {
        * <code>bool is_buy_order = 4 [(.gogoproto.moretags) = "yaml:&#92;"is_buy_order&#92;""];</code>
        * @return The isBuyOrder.
        */
+      @java.lang.Override
       public boolean getIsBuyOrder() {
         return isBuyOrder_;
       }
@@ -4689,7 +4729,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.coinswap.MsgSwapCoinResponse}
    */
-  public  static final class MsgSwapCoinResponse extends
+  public static final class MsgSwapCoinResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.coinswap.MsgSwapCoinResponse)
       MsgSwapCoinResponseOrBuilder {

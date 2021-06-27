@@ -25,7 +25,7 @@ public final class Reflection {
    *
    * Protobuf type {@code cosmos.base.reflection.v1beta1.ListAllInterfacesRequest}
    */
-  public  static final class ListAllInterfacesRequest extends
+  public static final class ListAllInterfacesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.reflection.v1beta1.ListAllInterfacesRequest)
       ListAllInterfacesRequestOrBuilder {
@@ -492,7 +492,7 @@ public final class Reflection {
    *
    * Protobuf type {@code cosmos.base.reflection.v1beta1.ListAllInterfacesResponse}
    */
-  public  static final class ListAllInterfacesResponse extends
+  public static final class ListAllInterfacesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.reflection.v1beta1.ListAllInterfacesResponse)
       ListAllInterfacesResponseOrBuilder {
@@ -1186,7 +1186,7 @@ public final class Reflection {
    *
    * Protobuf type {@code cosmos.base.reflection.v1beta1.ListImplementationsRequest}
    */
-  public  static final class ListImplementationsRequest extends
+  public static final class ListImplementationsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.reflection.v1beta1.ListImplementationsRequest)
       ListImplementationsRequestOrBuilder {
@@ -1277,6 +1277,7 @@ public final class Reflection {
      * <code>string interface_name = 1;</code>
      * @return The interfaceName.
      */
+    @java.lang.Override
     public java.lang.String getInterfaceName() {
       java.lang.Object ref = interfaceName_;
       if (ref instanceof java.lang.String) {
@@ -1297,6 +1298,7 @@ public final class Reflection {
      * <code>string interface_name = 1;</code>
      * @return The bytes for interfaceName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInterfaceNameBytes() {
       java.lang.Object ref = interfaceName_;
@@ -1803,7 +1805,7 @@ public final class Reflection {
    *
    * Protobuf type {@code cosmos.base.reflection.v1beta1.ListImplementationsResponse}
    */
-  public  static final class ListImplementationsResponse extends
+  public static final class ListImplementationsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.reflection.v1beta1.ListImplementationsResponse)
       ListImplementationsResponseOrBuilder {

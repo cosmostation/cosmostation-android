@@ -37,7 +37,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.oracle.QueryFeedRequest}
    */
-  public  static final class QueryFeedRequest extends
+  public static final class QueryFeedRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.QueryFeedRequest)
       QueryFeedRequestOrBuilder {
@@ -124,6 +124,7 @@ public final class QueryOuterClass {
      * <code>string feed_name = 1;</code>
      * @return The feedName.
      */
+    @java.lang.Override
     public java.lang.String getFeedName() {
       java.lang.Object ref = feedName_;
       if (ref instanceof java.lang.String) {
@@ -140,6 +141,7 @@ public final class QueryOuterClass {
      * <code>string feed_name = 1;</code>
      * @return The bytes for feedName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFeedNameBytes() {
       java.lang.Object ref = feedName_;
@@ -614,7 +616,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.oracle.QueryFeedResponse}
    */
-  public  static final class QueryFeedResponse extends
+  public static final class QueryFeedResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.QueryFeedResponse)
       QueryFeedResponseOrBuilder {
@@ -707,6 +709,7 @@ public final class QueryOuterClass {
      * <code>.irismod.oracle.FeedContext feed = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the feed field is set.
      */
+    @java.lang.Override
     public boolean hasFeed() {
       return feed_ != null;
     }
@@ -714,12 +717,14 @@ public final class QueryOuterClass {
      * <code>.irismod.oracle.FeedContext feed = 1 [(.gogoproto.nullable) = false];</code>
      * @return The feed.
      */
+    @java.lang.Override
     public irismod.oracle.QueryOuterClass.FeedContext getFeed() {
       return feed_ == null ? irismod.oracle.QueryOuterClass.FeedContext.getDefaultInstance() : feed_;
     }
     /**
      * <code>.irismod.oracle.FeedContext feed = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.oracle.QueryOuterClass.FeedContextOrBuilder getFeedOrBuilder() {
       return getFeed();
     }
@@ -1264,7 +1269,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.oracle.QueryFeedsRequest}
    */
-  public  static final class QueryFeedsRequest extends
+  public static final class QueryFeedsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.QueryFeedsRequest)
       QueryFeedsRequestOrBuilder {
@@ -1364,6 +1369,7 @@ public final class QueryOuterClass {
      * <code>string state = 1;</code>
      * @return The state.
      */
+    @java.lang.Override
     public java.lang.String getState() {
       java.lang.Object ref = state_;
       if (ref instanceof java.lang.String) {
@@ -1380,6 +1386,7 @@ public final class QueryOuterClass {
      * <code>string state = 1;</code>
      * @return The bytes for state.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getStateBytes() {
       java.lang.Object ref = state_;
@@ -1404,6 +1411,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1415,6 +1423,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -1425,6 +1434,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -2110,7 +2120,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.oracle.QueryFeedsResponse}
    */
-  public  static final class QueryFeedsResponse extends
+  public static final class QueryFeedsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.QueryFeedsResponse)
       QueryFeedsResponseOrBuilder {
@@ -2216,12 +2226,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.oracle.FeedContext feeds = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.oracle.QueryOuterClass.FeedContext> getFeedsList() {
       return feeds_;
     }
     /**
      * <code>repeated .irismod.oracle.FeedContext feeds = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.oracle.QueryOuterClass.FeedContextOrBuilder> 
         getFeedsOrBuilderList() {
       return feeds_;
@@ -2229,18 +2241,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.oracle.FeedContext feeds = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getFeedsCount() {
       return feeds_.size();
     }
     /**
      * <code>repeated .irismod.oracle.FeedContext feeds = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.oracle.QueryOuterClass.FeedContext getFeeds(int index) {
       return feeds_.get(index);
     }
     /**
      * <code>repeated .irismod.oracle.FeedContext feeds = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.oracle.QueryOuterClass.FeedContextOrBuilder getFeedsOrBuilder(
         int index) {
       return feeds_.get(index);
@@ -2256,6 +2271,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2267,6 +2283,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -2277,6 +2294,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -3127,7 +3145,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.oracle.QueryFeedValueRequest}
    */
-  public  static final class QueryFeedValueRequest extends
+  public static final class QueryFeedValueRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.QueryFeedValueRequest)
       QueryFeedValueRequestOrBuilder {
@@ -3214,6 +3232,7 @@ public final class QueryOuterClass {
      * <code>string feed_name = 1;</code>
      * @return The feedName.
      */
+    @java.lang.Override
     public java.lang.String getFeedName() {
       java.lang.Object ref = feedName_;
       if (ref instanceof java.lang.String) {
@@ -3230,6 +3249,7 @@ public final class QueryOuterClass {
      * <code>string feed_name = 1;</code>
      * @return The bytes for feedName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFeedNameBytes() {
       java.lang.Object ref = feedName_;
@@ -3713,7 +3733,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.oracle.QueryFeedValueResponse}
    */
-  public  static final class QueryFeedValueResponse extends
+  public static final class QueryFeedValueResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.QueryFeedValueResponse)
       QueryFeedValueResponseOrBuilder {
@@ -3806,12 +3826,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.oracle.FeedValue feed_values = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.oracle.Oracle.FeedValue> getFeedValuesList() {
       return feedValues_;
     }
     /**
      * <code>repeated .irismod.oracle.FeedValue feed_values = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.oracle.Oracle.FeedValueOrBuilder> 
         getFeedValuesOrBuilderList() {
       return feedValues_;
@@ -3819,18 +3841,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.oracle.FeedValue feed_values = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getFeedValuesCount() {
       return feedValues_.size();
     }
     /**
      * <code>repeated .irismod.oracle.FeedValue feed_values = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.oracle.Oracle.FeedValue getFeedValues(int index) {
       return feedValues_.get(index);
     }
     /**
      * <code>repeated .irismod.oracle.FeedValue feed_values = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.oracle.Oracle.FeedValueOrBuilder getFeedValuesOrBuilder(
         int index) {
       return feedValues_.get(index);
@@ -4602,7 +4627,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.oracle.FeedContext}
    */
-  public  static final class FeedContext extends
+  public static final class FeedContext extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.FeedContext)
       FeedContextOrBuilder {
@@ -4758,6 +4783,7 @@ public final class QueryOuterClass {
      * <code>.irismod.oracle.Feed feed = 1;</code>
      * @return Whether the feed field is set.
      */
+    @java.lang.Override
     public boolean hasFeed() {
       return feed_ != null;
     }
@@ -4765,12 +4791,14 @@ public final class QueryOuterClass {
      * <code>.irismod.oracle.Feed feed = 1;</code>
      * @return The feed.
      */
+    @java.lang.Override
     public irismod.oracle.Oracle.Feed getFeed() {
       return feed_ == null ? irismod.oracle.Oracle.Feed.getDefaultInstance() : feed_;
     }
     /**
      * <code>.irismod.oracle.Feed feed = 1;</code>
      */
+    @java.lang.Override
     public irismod.oracle.Oracle.FeedOrBuilder getFeedOrBuilder() {
       return getFeed();
     }
@@ -4781,6 +4809,7 @@ public final class QueryOuterClass {
      * <code>string service_name = 2 [(.gogoproto.moretags) = "yaml:&#92;"service_name&#92;""];</code>
      * @return The serviceName.
      */
+    @java.lang.Override
     public java.lang.String getServiceName() {
       java.lang.Object ref = serviceName_;
       if (ref instanceof java.lang.String) {
@@ -4797,6 +4826,7 @@ public final class QueryOuterClass {
      * <code>string service_name = 2 [(.gogoproto.moretags) = "yaml:&#92;"service_name&#92;""];</code>
      * @return The bytes for serviceName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getServiceNameBytes() {
       java.lang.Object ref = serviceName_;
@@ -4852,6 +4882,7 @@ public final class QueryOuterClass {
      * <code>string input = 4;</code>
      * @return The input.
      */
+    @java.lang.Override
     public java.lang.String getInput() {
       java.lang.Object ref = input_;
       if (ref instanceof java.lang.String) {
@@ -4868,6 +4899,7 @@ public final class QueryOuterClass {
      * <code>string input = 4;</code>
      * @return The bytes for input.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInputBytes() {
       java.lang.Object ref = input_;
@@ -4888,6 +4920,7 @@ public final class QueryOuterClass {
      * <code>int64 timeout = 5;</code>
      * @return The timeout.
      */
+    @java.lang.Override
     public long getTimeout() {
       return timeout_;
     }
@@ -4897,12 +4930,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getServiceFeeCapList() {
       return serviceFeeCap_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getServiceFeeCapOrBuilderList() {
       return serviceFeeCap_;
@@ -4910,18 +4945,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getServiceFeeCapCount() {
       return serviceFeeCap_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getServiceFeeCap(int index) {
       return serviceFeeCap_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getServiceFeeCapOrBuilder(
         int index) {
       return serviceFeeCap_.get(index);
@@ -4933,6 +4971,7 @@ public final class QueryOuterClass {
      * <code>uint64 repeated_frequency = 7 [(.gogoproto.moretags) = "yaml:&#92;"repeated_frequency&#92;""];</code>
      * @return The repeatedFrequency.
      */
+    @java.lang.Override
     public long getRepeatedFrequency() {
       return repeatedFrequency_;
     }
@@ -4943,6 +4982,7 @@ public final class QueryOuterClass {
      * <code>uint32 response_threshold = 8 [(.gogoproto.moretags) = "yaml:&#92;"response_threshold&#92;""];</code>
      * @return The responseThreshold.
      */
+    @java.lang.Override
     public int getResponseThreshold() {
       return responseThreshold_;
     }
@@ -4953,14 +4993,14 @@ public final class QueryOuterClass {
      * <code>.irismod.service.RequestContextState state = 9;</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
      * <code>.irismod.service.RequestContextState state = 9;</code>
      * @return The state.
      */
-    public irismod.service.Service.RequestContextState getState() {
+    @java.lang.Override public irismod.service.Service.RequestContextState getState() {
       @SuppressWarnings("deprecation")
       irismod.service.Service.RequestContextState result = irismod.service.Service.RequestContextState.valueOf(state_);
       return result == null ? irismod.service.Service.RequestContextState.UNRECOGNIZED : result;
@@ -5865,6 +5905,7 @@ public final class QueryOuterClass {
        * <code>int64 timeout = 5;</code>
        * @return The timeout.
        */
+      @java.lang.Override
       public long getTimeout() {
         return timeout_;
       }
@@ -6135,6 +6176,7 @@ public final class QueryOuterClass {
        * <code>uint64 repeated_frequency = 7 [(.gogoproto.moretags) = "yaml:&#92;"repeated_frequency&#92;""];</code>
        * @return The repeatedFrequency.
        */
+      @java.lang.Override
       public long getRepeatedFrequency() {
         return repeatedFrequency_;
       }
@@ -6165,6 +6207,7 @@ public final class QueryOuterClass {
        * <code>uint32 response_threshold = 8 [(.gogoproto.moretags) = "yaml:&#92;"response_threshold&#92;""];</code>
        * @return The responseThreshold.
        */
+      @java.lang.Override
       public int getResponseThreshold() {
         return responseThreshold_;
       }
@@ -6195,7 +6238,7 @@ public final class QueryOuterClass {
        * <code>.irismod.service.RequestContextState state = 9;</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -6204,6 +6247,7 @@ public final class QueryOuterClass {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -6212,6 +6256,7 @@ public final class QueryOuterClass {
        * <code>.irismod.service.RequestContextState state = 9;</code>
        * @return The state.
        */
+      @java.lang.Override
       public irismod.service.Service.RequestContextState getState() {
         @SuppressWarnings("deprecation")
         irismod.service.Service.RequestContextState result = irismod.service.Service.RequestContextState.valueOf(state_);

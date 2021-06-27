@@ -71,7 +71,7 @@ public final class PoolOuterClass {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.PoolAsset}
    */
-  public  static final class PoolAsset extends
+  public static final class PoolAsset extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.PoolAsset)
       PoolAssetOrBuilder {
@@ -176,6 +176,7 @@ public final class PoolOuterClass {
      * <code>.cosmos.base.v1beta1.Coin token = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token&#92;""];</code>
      * @return Whether the token field is set.
      */
+    @java.lang.Override
     public boolean hasToken() {
       return token_ != null;
     }
@@ -188,6 +189,7 @@ public final class PoolOuterClass {
      * <code>.cosmos.base.v1beta1.Coin token = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token&#92;""];</code>
      * @return The token.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getToken() {
       return token_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : token_;
     }
@@ -199,6 +201,7 @@ public final class PoolOuterClass {
      *
      * <code>.cosmos.base.v1beta1.Coin token = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTokenOrBuilder() {
       return getToken();
     }
@@ -213,6 +216,7 @@ public final class PoolOuterClass {
      * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"weight&#92;""];</code>
      * @return The weight.
      */
+    @java.lang.Override
     public java.lang.String getWeight() {
       java.lang.Object ref = weight_;
       if (ref instanceof java.lang.String) {
@@ -233,6 +237,7 @@ public final class PoolOuterClass {
      * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"weight&#92;""];</code>
      * @return The bytes for weight.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getWeightBytes() {
       java.lang.Object ref = weight_;
@@ -1095,7 +1100,7 @@ public final class PoolOuterClass {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.SmoothWeightChangeParams}
    */
-  public  static final class SmoothWeightChangeParams extends
+  public static final class SmoothWeightChangeParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.SmoothWeightChangeParams)
       SmoothWeightChangeParamsOrBuilder {
@@ -1234,6 +1239,7 @@ public final class PoolOuterClass {
      * <code>.google.protobuf.Timestamp start_time = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the startTime field is set.
      */
+    @java.lang.Override
     public boolean hasStartTime() {
       return startTime_ != null;
     }
@@ -1247,6 +1253,7 @@ public final class PoolOuterClass {
      * <code>.google.protobuf.Timestamp start_time = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The startTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getStartTime() {
       return startTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : startTime_;
     }
@@ -1259,6 +1266,7 @@ public final class PoolOuterClass {
      *
      * <code>.google.protobuf.Timestamp start_time = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getStartTimeOrBuilder() {
       return getStartTime();
     }
@@ -1273,6 +1281,7 @@ public final class PoolOuterClass {
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the duration field is set.
      */
+    @java.lang.Override
     public boolean hasDuration() {
       return duration_ != null;
     }
@@ -1284,6 +1293,7 @@ public final class PoolOuterClass {
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The duration.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getDuration() {
       return duration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : duration_;
     }
@@ -1294,6 +1304,7 @@ public final class PoolOuterClass {
      *
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getDurationOrBuilder() {
       return getDuration();
     }
@@ -1311,6 +1322,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset initialPoolWeights = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_pool_weights&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset> getInitialPoolWeightsList() {
       return initialPoolWeights_;
     }
@@ -1325,6 +1337,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset initialPoolWeights = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_pool_weights&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder> 
         getInitialPoolWeightsOrBuilderList() {
       return initialPoolWeights_;
@@ -1340,6 +1353,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset initialPoolWeights = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_pool_weights&#92;""];</code>
      */
+    @java.lang.Override
     public int getInitialPoolWeightsCount() {
       return initialPoolWeights_.size();
     }
@@ -1354,6 +1368,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset initialPoolWeights = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_pool_weights&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset getInitialPoolWeights(int index) {
       return initialPoolWeights_.get(index);
     }
@@ -1368,6 +1383,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset initialPoolWeights = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_pool_weights&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder getInitialPoolWeightsOrBuilder(
         int index) {
       return initialPoolWeights_.get(index);
@@ -1385,6 +1401,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset targetPoolWeights = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"target_pool_weights&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset> getTargetPoolWeightsList() {
       return targetPoolWeights_;
     }
@@ -1398,6 +1415,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset targetPoolWeights = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"target_pool_weights&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder> 
         getTargetPoolWeightsOrBuilderList() {
       return targetPoolWeights_;
@@ -1412,6 +1430,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset targetPoolWeights = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"target_pool_weights&#92;""];</code>
      */
+    @java.lang.Override
     public int getTargetPoolWeightsCount() {
       return targetPoolWeights_.size();
     }
@@ -1425,6 +1444,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset targetPoolWeights = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"target_pool_weights&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset getTargetPoolWeights(int index) {
       return targetPoolWeights_.get(index);
     }
@@ -1438,6 +1458,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset targetPoolWeights = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"target_pool_weights&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder getTargetPoolWeightsOrBuilder(
         int index) {
       return targetPoolWeights_.get(index);
@@ -3106,7 +3127,7 @@ public final class PoolOuterClass {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.PoolParams}
    */
-  public  static final class PoolParams extends
+  public static final class PoolParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.PoolParams)
       PoolParamsOrBuilder {
@@ -3213,6 +3234,7 @@ public final class PoolOuterClass {
      * <code>string swapFee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_fee&#92;""];</code>
      * @return The swapFee.
      */
+    @java.lang.Override
     public java.lang.String getSwapFee() {
       java.lang.Object ref = swapFee_;
       if (ref instanceof java.lang.String) {
@@ -3229,6 +3251,7 @@ public final class PoolOuterClass {
      * <code>string swapFee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"swap_fee&#92;""];</code>
      * @return The bytes for swapFee.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSwapFeeBytes() {
       java.lang.Object ref = swapFee_;
@@ -3249,6 +3272,7 @@ public final class PoolOuterClass {
      * <code>string exitFee = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"exit_fee&#92;""];</code>
      * @return The exitFee.
      */
+    @java.lang.Override
     public java.lang.String getExitFee() {
       java.lang.Object ref = exitFee_;
       if (ref instanceof java.lang.String) {
@@ -3265,6 +3289,7 @@ public final class PoolOuterClass {
      * <code>string exitFee = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"exit_fee&#92;""];</code>
      * @return The bytes for exitFee.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getExitFeeBytes() {
       java.lang.Object ref = exitFee_;
@@ -3288,6 +3313,7 @@ public final class PoolOuterClass {
      * <code>.osmosis.gamm.v1beta1.SmoothWeightChangeParams smoothWeightChangeParams = 3 [(.gogoproto.nullable) = true, (.gogoproto.moretags) = "yaml:&#92;"smooth_weight_change_params&#92;""];</code>
      * @return Whether the smoothWeightChangeParams field is set.
      */
+    @java.lang.Override
     public boolean hasSmoothWeightChangeParams() {
       return smoothWeightChangeParams_ != null;
     }
@@ -3298,6 +3324,7 @@ public final class PoolOuterClass {
      * <code>.osmosis.gamm.v1beta1.SmoothWeightChangeParams smoothWeightChangeParams = 3 [(.gogoproto.nullable) = true, (.gogoproto.moretags) = "yaml:&#92;"smooth_weight_change_params&#92;""];</code>
      * @return The smoothWeightChangeParams.
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.SmoothWeightChangeParams getSmoothWeightChangeParams() {
       return smoothWeightChangeParams_ == null ? osmosis.gamm.v1beta1.PoolOuterClass.SmoothWeightChangeParams.getDefaultInstance() : smoothWeightChangeParams_;
     }
@@ -3307,6 +3334,7 @@ public final class PoolOuterClass {
      *
      * <code>.osmosis.gamm.v1beta1.SmoothWeightChangeParams smoothWeightChangeParams = 3 [(.gogoproto.nullable) = true, (.gogoproto.moretags) = "yaml:&#92;"smooth_weight_change_params&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.SmoothWeightChangeParamsOrBuilder getSmoothWeightChangeParamsOrBuilder() {
       return getSmoothWeightChangeParams();
     }
@@ -4191,7 +4219,7 @@ public final class PoolOuterClass {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.Pool}
    */
-  public  static final class Pool extends
+  public static final class Pool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.Pool)
       PoolOrBuilder {
@@ -4337,6 +4365,7 @@ public final class PoolOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -4353,6 +4382,7 @@ public final class PoolOuterClass {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -4373,6 +4403,7 @@ public final class PoolOuterClass {
      * <code>uint64 id = 2;</code>
      * @return The id.
      */
+    @java.lang.Override
     public long getId() {
       return id_;
     }
@@ -4383,6 +4414,7 @@ public final class PoolOuterClass {
      * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      * @return Whether the poolParams field is set.
      */
+    @java.lang.Override
     public boolean hasPoolParams() {
       return poolParams_ != null;
     }
@@ -4390,12 +4422,14 @@ public final class PoolOuterClass {
      * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      * @return The poolParams.
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolParams getPoolParams() {
       return poolParams_ == null ? osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.getDefaultInstance() : poolParams_;
     }
     /**
      * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolParamsOrBuilder getPoolParamsOrBuilder() {
       return getPoolParams();
     }
@@ -4419,6 +4453,7 @@ public final class PoolOuterClass {
      * <code>string future_pool_governor = 4 [(.gogoproto.moretags) = "yaml:&#92;"future_pool_governor&#92;""];</code>
      * @return The futurePoolGovernor.
      */
+    @java.lang.Override
     public java.lang.String getFuturePoolGovernor() {
       java.lang.Object ref = futurePoolGovernor_;
       if (ref instanceof java.lang.String) {
@@ -4448,6 +4483,7 @@ public final class PoolOuterClass {
      * <code>string future_pool_governor = 4 [(.gogoproto.moretags) = "yaml:&#92;"future_pool_governor&#92;""];</code>
      * @return The bytes for futurePoolGovernor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFuturePoolGovernorBytes() {
       java.lang.Object ref = futurePoolGovernor_;
@@ -4472,6 +4508,7 @@ public final class PoolOuterClass {
      * <code>.cosmos.base.v1beta1.Coin totalShares = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
      * @return Whether the totalShares field is set.
      */
+    @java.lang.Override
     public boolean hasTotalShares() {
       return totalShares_ != null;
     }
@@ -4483,6 +4520,7 @@ public final class PoolOuterClass {
      * <code>.cosmos.base.v1beta1.Coin totalShares = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
      * @return The totalShares.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getTotalShares() {
       return totalShares_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : totalShares_;
     }
@@ -4493,6 +4531,7 @@ public final class PoolOuterClass {
      *
      * <code>.cosmos.base.v1beta1.Coin totalShares = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalSharesOrBuilder() {
       return getTotalShares();
     }
@@ -4507,6 +4546,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_assets&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset> getPoolAssetsList() {
       return poolAssets_;
     }
@@ -4518,6 +4558,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_assets&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder> 
         getPoolAssetsOrBuilderList() {
       return poolAssets_;
@@ -4530,6 +4571,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_assets&#92;""];</code>
      */
+    @java.lang.Override
     public int getPoolAssetsCount() {
       return poolAssets_.size();
     }
@@ -4541,6 +4583,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_assets&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset getPoolAssets(int index) {
       return poolAssets_.get(index);
     }
@@ -4552,6 +4595,7 @@ public final class PoolOuterClass {
      *
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_assets&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder getPoolAssetsOrBuilder(
         int index) {
       return poolAssets_.get(index);
@@ -4567,6 +4611,7 @@ public final class PoolOuterClass {
      * <code>string totalWeight = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_weight&#92;""];</code>
      * @return The totalWeight.
      */
+    @java.lang.Override
     public java.lang.String getTotalWeight() {
       java.lang.Object ref = totalWeight_;
       if (ref instanceof java.lang.String) {
@@ -4587,6 +4632,7 @@ public final class PoolOuterClass {
      * <code>string totalWeight = 7 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_weight&#92;""];</code>
      * @return The bytes for totalWeight.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTotalWeightBytes() {
       java.lang.Object ref = totalWeight_;
@@ -5153,6 +5199,7 @@ public final class PoolOuterClass {
        * <code>uint64 id = 2;</code>
        * @return The id.
        */
+      @java.lang.Override
       public long getId() {
         return id_;
       }

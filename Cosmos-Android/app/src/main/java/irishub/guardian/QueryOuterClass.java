@@ -52,7 +52,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irishub.guardian.QuerySupersRequest}
    */
-  public  static final class QuerySupersRequest extends
+  public static final class QuerySupersRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irishub.guardian.QuerySupersRequest)
       QuerySupersRequestOrBuilder {
@@ -149,6 +149,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -160,6 +161,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -170,6 +172,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -750,7 +753,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irishub.guardian.QuerySupersResponse}
    */
-  public  static final class QuerySupersResponse extends
+  public static final class QuerySupersResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irishub.guardian.QuerySupersResponse)
       QuerySupersResponseOrBuilder {
@@ -856,12 +859,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irishub.guardian.Super supers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irishub.guardian.Guardian.Super> getSupersList() {
       return supers_;
     }
     /**
      * <code>repeated .irishub.guardian.Super supers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irishub.guardian.Guardian.SuperOrBuilder> 
         getSupersOrBuilderList() {
       return supers_;
@@ -869,18 +874,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irishub.guardian.Super supers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getSupersCount() {
       return supers_.size();
     }
     /**
      * <code>repeated .irishub.guardian.Super supers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irishub.guardian.Guardian.Super getSupers(int index) {
       return supers_.get(index);
     }
     /**
      * <code>repeated .irishub.guardian.Super supers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irishub.guardian.Guardian.SuperOrBuilder getSupersOrBuilder(
         int index) {
       return supers_.get(index);
@@ -892,6 +900,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -899,12 +908,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }

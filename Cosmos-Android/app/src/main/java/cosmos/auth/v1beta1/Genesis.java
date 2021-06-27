@@ -96,7 +96,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.auth.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.auth.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -207,6 +207,7 @@ public final class Genesis {
      * <code>.cosmos.auth.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -218,6 +219,7 @@ public final class Genesis {
      * <code>.cosmos.auth.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public cosmos.auth.v1beta1.Auth.Params getParams() {
       return params_ == null ? cosmos.auth.v1beta1.Auth.Params.getDefaultInstance() : params_;
     }
@@ -228,6 +230,7 @@ public final class Genesis {
      *
      * <code>.cosmos.auth.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.auth.v1beta1.Auth.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -241,6 +244,7 @@ public final class Genesis {
      *
      * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf2.Any> getAccountsList() {
       return accounts_;
     }
@@ -251,6 +255,7 @@ public final class Genesis {
      *
      * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getAccountsOrBuilderList() {
       return accounts_;
@@ -262,6 +267,7 @@ public final class Genesis {
      *
      * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
+    @java.lang.Override
     public int getAccountsCount() {
       return accounts_.size();
     }
@@ -272,6 +278,7 @@ public final class Genesis {
      *
      * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getAccounts(int index) {
       return accounts_.get(index);
     }
@@ -282,6 +289,7 @@ public final class Genesis {
      *
      * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getAccountsOrBuilder(
         int index) {
       return accounts_.get(index);

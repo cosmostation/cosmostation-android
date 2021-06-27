@@ -62,7 +62,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.capability.v1beta1.GenesisOwners}
    */
-  public  static final class GenesisOwners extends
+  public static final class GenesisOwners extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.capability.v1beta1.GenesisOwners)
       GenesisOwnersOrBuilder {
@@ -164,6 +164,7 @@ public final class Genesis {
      * <code>uint64 index = 1;</code>
      * @return The index.
      */
+    @java.lang.Override
     public long getIndex() {
       return index_;
     }
@@ -178,6 +179,7 @@ public final class Genesis {
      * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
      * @return Whether the indexOwners field is set.
      */
+    @java.lang.Override
     public boolean hasIndexOwners() {
       return indexOwners_ != null;
     }
@@ -189,6 +191,7 @@ public final class Genesis {
      * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
      * @return The indexOwners.
      */
+    @java.lang.Override
     public cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwners getIndexOwners() {
       return indexOwners_ == null ? cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwners.getDefaultInstance() : indexOwners_;
     }
@@ -199,6 +202,7 @@ public final class Genesis {
      *
      * <code>.cosmos.capability.v1beta1.CapabilityOwners index_owners = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"index_owners&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.capability.v1beta1.CapabilityOuterClass.CapabilityOwnersOrBuilder getIndexOwnersOrBuilder() {
       return getIndexOwners();
     }
@@ -549,6 +553,7 @@ public final class Genesis {
        * <code>uint64 index = 1;</code>
        * @return The index.
        */
+      @java.lang.Override
       public long getIndex() {
         return index_;
       }
@@ -859,7 +864,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.capability.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.capability.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -962,6 +967,7 @@ public final class Genesis {
      * <code>uint64 index = 1;</code>
      * @return The index.
      */
+    @java.lang.Override
     public long getIndex() {
       return index_;
     }
@@ -976,6 +982,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.capability.v1beta1.GenesisOwners owners = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.capability.v1beta1.Genesis.GenesisOwners> getOwnersList() {
       return owners_;
     }
@@ -987,6 +994,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.capability.v1beta1.GenesisOwners owners = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.capability.v1beta1.Genesis.GenesisOwnersOrBuilder> 
         getOwnersOrBuilderList() {
       return owners_;
@@ -999,6 +1007,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.capability.v1beta1.GenesisOwners owners = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getOwnersCount() {
       return owners_.size();
     }
@@ -1010,6 +1019,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.capability.v1beta1.GenesisOwners owners = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.capability.v1beta1.Genesis.GenesisOwners getOwners(int index) {
       return owners_.get(index);
     }
@@ -1021,6 +1031,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.capability.v1beta1.GenesisOwners owners = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.capability.v1beta1.Genesis.GenesisOwnersOrBuilder getOwnersOrBuilder(
         int index) {
       return owners_.get(index);
@@ -1399,6 +1410,7 @@ public final class Genesis {
        * <code>uint64 index = 1;</code>
        * @return The index.
        */
+      @java.lang.Override
       public long getIndex() {
         return index_;
       }

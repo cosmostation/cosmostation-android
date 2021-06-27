@@ -85,7 +85,7 @@ public final class DeploymentOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgCreateDeployment}
    */
-  public  static final class MsgCreateDeployment extends
+  public static final class MsgCreateDeployment extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgCreateDeployment)
       MsgCreateDeploymentOrBuilder {
@@ -211,6 +211,7 @@ public final class DeploymentOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -218,12 +219,14 @@ public final class DeploymentOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentID getId() {
       return id_ == null ? akash.deployment.v1beta1.DeploymentOuterClass.DeploymentID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -233,12 +236,14 @@ public final class DeploymentOuterClass {
     /**
      * <code>repeated .akash.deployment.v1beta1.GroupSpec groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.deployment.v1beta1.GroupOuterClass.GroupSpec> getGroupsList() {
       return groups_;
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.GroupSpec groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.deployment.v1beta1.GroupOuterClass.GroupSpecOrBuilder> 
         getGroupsOrBuilderList() {
       return groups_;
@@ -246,18 +251,21 @@ public final class DeploymentOuterClass {
     /**
      * <code>repeated .akash.deployment.v1beta1.GroupSpec groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public int getGroupsCount() {
       return groups_.size();
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.GroupSpec groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupSpec getGroups(int index) {
       return groups_.get(index);
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.GroupSpec groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupSpecOrBuilder getGroupsOrBuilder(
         int index) {
       return groups_.get(index);
@@ -269,6 +277,7 @@ public final class DeploymentOuterClass {
      * <code>bytes version = 3 [(.gogoproto.jsontag) = "version", (.gogoproto.moretags) = "yaml:&#92;"version&#92;""];</code>
      * @return The version.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getVersion() {
       return version_;
     }
@@ -279,6 +288,7 @@ public final class DeploymentOuterClass {
      * <code>.cosmos.base.v1beta1.Coin deposit = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deposit", (.gogoproto.moretags) = "yaml:&#92;"deposit&#92;""];</code>
      * @return Whether the deposit field is set.
      */
+    @java.lang.Override
     public boolean hasDeposit() {
       return deposit_ != null;
     }
@@ -286,12 +296,14 @@ public final class DeploymentOuterClass {
      * <code>.cosmos.base.v1beta1.Coin deposit = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deposit", (.gogoproto.moretags) = "yaml:&#92;"deposit&#92;""];</code>
      * @return The deposit.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getDeposit() {
       return deposit_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : deposit_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin deposit = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deposit", (.gogoproto.moretags) = "yaml:&#92;"deposit&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getDepositOrBuilder() {
       return getDeposit();
     }
@@ -1083,6 +1095,7 @@ public final class DeploymentOuterClass {
        * <code>bytes version = 3 [(.gogoproto.jsontag) = "version", (.gogoproto.moretags) = "yaml:&#92;"version&#92;""];</code>
        * @return The version.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getVersion() {
         return version_;
       }
@@ -1293,7 +1306,7 @@ public final class DeploymentOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgCreateDeploymentResponse}
    */
-  public  static final class MsgCreateDeploymentResponse extends
+  public static final class MsgCreateDeploymentResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgCreateDeploymentResponse)
       MsgCreateDeploymentResponseOrBuilder {
@@ -1749,7 +1762,7 @@ public final class DeploymentOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgDepositDeployment}
    */
-  public  static final class MsgDepositDeployment extends
+  public static final class MsgDepositDeployment extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgDepositDeployment)
       MsgDepositDeploymentOrBuilder {
@@ -1855,6 +1868,7 @@ public final class DeploymentOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -1862,12 +1876,14 @@ public final class DeploymentOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentID getId() {
       return id_ == null ? akash.deployment.v1beta1.DeploymentOuterClass.DeploymentID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -1878,6 +1894,7 @@ public final class DeploymentOuterClass {
      * <code>.cosmos.base.v1beta1.Coin amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "amount", (.gogoproto.moretags) = "yaml:&#92;"amount&#92;""];</code>
      * @return Whether the amount field is set.
      */
+    @java.lang.Override
     public boolean hasAmount() {
       return amount_ != null;
     }
@@ -1885,12 +1902,14 @@ public final class DeploymentOuterClass {
      * <code>.cosmos.base.v1beta1.Coin amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "amount", (.gogoproto.moretags) = "yaml:&#92;"amount&#92;""];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount() {
       return amount_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : amount_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "amount", (.gogoproto.moretags) = "yaml:&#92;"amount&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder() {
       return getAmount();
     }
@@ -2545,7 +2564,7 @@ public final class DeploymentOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgDepositDeploymentResponse}
    */
-  public  static final class MsgDepositDeploymentResponse extends
+  public static final class MsgDepositDeploymentResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgDepositDeploymentResponse)
       MsgDepositDeploymentResponseOrBuilder {
@@ -3016,7 +3035,7 @@ public final class DeploymentOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgUpdateDeployment}
    */
-  public  static final class MsgUpdateDeployment extends
+  public static final class MsgUpdateDeployment extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgUpdateDeployment)
       MsgUpdateDeploymentOrBuilder {
@@ -3129,6 +3148,7 @@ public final class DeploymentOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -3136,12 +3156,14 @@ public final class DeploymentOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentID getId() {
       return id_ == null ? akash.deployment.v1beta1.DeploymentOuterClass.DeploymentID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -3151,12 +3173,14 @@ public final class DeploymentOuterClass {
     /**
      * <code>repeated .akash.deployment.v1beta1.GroupSpec groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.deployment.v1beta1.GroupOuterClass.GroupSpec> getGroupsList() {
       return groups_;
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.GroupSpec groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.deployment.v1beta1.GroupOuterClass.GroupSpecOrBuilder> 
         getGroupsOrBuilderList() {
       return groups_;
@@ -3164,18 +3188,21 @@ public final class DeploymentOuterClass {
     /**
      * <code>repeated .akash.deployment.v1beta1.GroupSpec groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public int getGroupsCount() {
       return groups_.size();
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.GroupSpec groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupSpec getGroups(int index) {
       return groups_.get(index);
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.GroupSpec groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupSpecOrBuilder getGroupsOrBuilder(
         int index) {
       return groups_.get(index);
@@ -3187,6 +3214,7 @@ public final class DeploymentOuterClass {
      * <code>bytes version = 3 [(.gogoproto.jsontag) = "version", (.gogoproto.moretags) = "yaml:&#92;"version&#92;""];</code>
      * @return The version.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getVersion() {
       return version_;
     }
@@ -3948,6 +3976,7 @@ public final class DeploymentOuterClass {
        * <code>bytes version = 3 [(.gogoproto.jsontag) = "version", (.gogoproto.moretags) = "yaml:&#92;"version&#92;""];</code>
        * @return The version.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getVersion() {
         return version_;
       }
@@ -4039,7 +4068,7 @@ public final class DeploymentOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgUpdateDeploymentResponse}
    */
-  public  static final class MsgUpdateDeploymentResponse extends
+  public static final class MsgUpdateDeploymentResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgUpdateDeploymentResponse)
       MsgUpdateDeploymentResponseOrBuilder {
@@ -4480,7 +4509,7 @@ public final class DeploymentOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgCloseDeployment}
    */
-  public  static final class MsgCloseDeployment extends
+  public static final class MsgCloseDeployment extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgCloseDeployment)
       MsgCloseDeploymentOrBuilder {
@@ -4573,6 +4602,7 @@ public final class DeploymentOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -4580,12 +4610,14 @@ public final class DeploymentOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentID getId() {
       return id_ == null ? akash.deployment.v1beta1.DeploymentOuterClass.DeploymentID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -5091,7 +5123,7 @@ public final class DeploymentOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgCloseDeploymentResponse}
    */
-  public  static final class MsgCloseDeploymentResponse extends
+  public static final class MsgCloseDeploymentResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgCloseDeploymentResponse)
       MsgCloseDeploymentResponseOrBuilder {
@@ -5535,7 +5567,7 @@ public final class DeploymentOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.DeploymentID}
    */
-  public  static final class DeploymentID extends
+  public static final class DeploymentID extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.DeploymentID)
       DeploymentIDOrBuilder {
@@ -5627,6 +5659,7 @@ public final class DeploymentOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -5643,6 +5676,7 @@ public final class DeploymentOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -5663,6 +5697,7 @@ public final class DeploymentOuterClass {
      * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
      * @return The dseq.
      */
+    @java.lang.Override
     public long getDseq() {
       return dseq_;
     }
@@ -6072,6 +6107,7 @@ public final class DeploymentOuterClass {
        * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
        * @return The dseq.
        */
+      @java.lang.Override
       public long getDseq() {
         return dseq_;
       }
@@ -6198,7 +6234,7 @@ public final class DeploymentOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.Deployment}
    */
-  public  static final class Deployment extends
+  public static final class Deployment extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.Deployment)
       DeploymentOrBuilder {
@@ -6410,6 +6446,10 @@ public final class DeploymentOuterClass {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -6450,6 +6490,7 @@ public final class DeploymentOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentID deployment_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "DeploymentID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the deploymentId field is set.
      */
+    @java.lang.Override
     public boolean hasDeploymentId() {
       return deploymentId_ != null;
     }
@@ -6457,12 +6498,14 @@ public final class DeploymentOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentID deployment_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "DeploymentID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The deploymentId.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentID getDeploymentId() {
       return deploymentId_ == null ? akash.deployment.v1beta1.DeploymentOuterClass.DeploymentID.getDefaultInstance() : deploymentId_;
     }
     /**
      * <code>.akash.deployment.v1beta1.DeploymentID deployment_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "DeploymentID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentIDOrBuilder getDeploymentIdOrBuilder() {
       return getDeploymentId();
     }
@@ -6473,14 +6516,14 @@ public final class DeploymentOuterClass {
      * <code>.akash.deployment.v1beta1.Deployment.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
      * <code>.akash.deployment.v1beta1.Deployment.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
-    public akash.deployment.v1beta1.DeploymentOuterClass.Deployment.State getState() {
+    @java.lang.Override public akash.deployment.v1beta1.DeploymentOuterClass.Deployment.State getState() {
       @SuppressWarnings("deprecation")
       akash.deployment.v1beta1.DeploymentOuterClass.Deployment.State result = akash.deployment.v1beta1.DeploymentOuterClass.Deployment.State.valueOf(state_);
       return result == null ? akash.deployment.v1beta1.DeploymentOuterClass.Deployment.State.UNRECOGNIZED : result;
@@ -6492,6 +6535,7 @@ public final class DeploymentOuterClass {
      * <code>bytes version = 3 [(.gogoproto.jsontag) = "version", (.gogoproto.moretags) = "yaml:&#92;"version&#92;""];</code>
      * @return The version.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getVersion() {
       return version_;
     }
@@ -6502,6 +6546,7 @@ public final class DeploymentOuterClass {
      * <code>int64 created_at = 4;</code>
      * @return The createdAt.
      */
+    @java.lang.Override
     public long getCreatedAt() {
       return createdAt_;
     }
@@ -7000,7 +7045,7 @@ public final class DeploymentOuterClass {
        * <code>.akash.deployment.v1beta1.Deployment.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -7009,6 +7054,7 @@ public final class DeploymentOuterClass {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -7017,6 +7063,7 @@ public final class DeploymentOuterClass {
        * <code>.akash.deployment.v1beta1.Deployment.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The state.
        */
+      @java.lang.Override
       public akash.deployment.v1beta1.DeploymentOuterClass.Deployment.State getState() {
         @SuppressWarnings("deprecation")
         akash.deployment.v1beta1.DeploymentOuterClass.Deployment.State result = akash.deployment.v1beta1.DeploymentOuterClass.Deployment.State.valueOf(state_);
@@ -7052,6 +7099,7 @@ public final class DeploymentOuterClass {
        * <code>bytes version = 3 [(.gogoproto.jsontag) = "version", (.gogoproto.moretags) = "yaml:&#92;"version&#92;""];</code>
        * @return The version.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getVersion() {
         return version_;
       }
@@ -7085,6 +7133,7 @@ public final class DeploymentOuterClass {
        * <code>int64 created_at = 4;</code>
        * @return The createdAt.
        */
+      @java.lang.Override
       public long getCreatedAt() {
         return createdAt_;
       }
@@ -7203,7 +7252,7 @@ public final class DeploymentOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.DeploymentFilters}
    */
-  public  static final class DeploymentFilters extends
+  public static final class DeploymentFilters extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.DeploymentFilters)
       DeploymentFiltersOrBuilder {
@@ -7302,6 +7351,7 @@ public final class DeploymentOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -7318,6 +7368,7 @@ public final class DeploymentOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -7338,6 +7389,7 @@ public final class DeploymentOuterClass {
      * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
      * @return The dseq.
      */
+    @java.lang.Override
     public long getDseq() {
       return dseq_;
     }
@@ -7348,6 +7400,7 @@ public final class DeploymentOuterClass {
      * <code>string state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
+    @java.lang.Override
     public java.lang.String getState() {
       java.lang.Object ref = state_;
       if (ref instanceof java.lang.String) {
@@ -7364,6 +7417,7 @@ public final class DeploymentOuterClass {
      * <code>string state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The bytes for state.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getStateBytes() {
       java.lang.Object ref = state_;
@@ -7800,6 +7854,7 @@ public final class DeploymentOuterClass {
        * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
        * @return The dseq.
        */
+      @java.lang.Override
       public long getDseq() {
         return dseq_;
       }

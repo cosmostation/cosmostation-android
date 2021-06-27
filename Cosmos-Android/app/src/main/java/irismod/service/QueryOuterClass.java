@@ -37,7 +37,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryDefinitionRequest}
    */
-  public  static final class QueryDefinitionRequest extends
+  public static final class QueryDefinitionRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryDefinitionRequest)
       QueryDefinitionRequestOrBuilder {
@@ -124,6 +124,7 @@ public final class QueryOuterClass {
      * <code>string service_name = 1;</code>
      * @return The serviceName.
      */
+    @java.lang.Override
     public java.lang.String getServiceName() {
       java.lang.Object ref = serviceName_;
       if (ref instanceof java.lang.String) {
@@ -140,6 +141,7 @@ public final class QueryOuterClass {
      * <code>string service_name = 1;</code>
      * @return The bytes for serviceName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getServiceNameBytes() {
       java.lang.Object ref = serviceName_;
@@ -614,7 +616,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryDefinitionResponse}
    */
-  public  static final class QueryDefinitionResponse extends
+  public static final class QueryDefinitionResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryDefinitionResponse)
       QueryDefinitionResponseOrBuilder {
@@ -707,6 +709,7 @@ public final class QueryOuterClass {
      * <code>.irismod.service.ServiceDefinition service_definition = 1;</code>
      * @return Whether the serviceDefinition field is set.
      */
+    @java.lang.Override
     public boolean hasServiceDefinition() {
       return serviceDefinition_ != null;
     }
@@ -714,12 +717,14 @@ public final class QueryOuterClass {
      * <code>.irismod.service.ServiceDefinition service_definition = 1;</code>
      * @return The serviceDefinition.
      */
+    @java.lang.Override
     public irismod.service.Service.ServiceDefinition getServiceDefinition() {
       return serviceDefinition_ == null ? irismod.service.Service.ServiceDefinition.getDefaultInstance() : serviceDefinition_;
     }
     /**
      * <code>.irismod.service.ServiceDefinition service_definition = 1;</code>
      */
+    @java.lang.Override
     public irismod.service.Service.ServiceDefinitionOrBuilder getServiceDefinitionOrBuilder() {
       return getServiceDefinition();
     }
@@ -1249,7 +1254,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryBindingRequest}
    */
-  public  static final class QueryBindingRequest extends
+  public static final class QueryBindingRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryBindingRequest)
       QueryBindingRequestOrBuilder {
@@ -1343,6 +1348,7 @@ public final class QueryOuterClass {
      * <code>string service_name = 1;</code>
      * @return The serviceName.
      */
+    @java.lang.Override
     public java.lang.String getServiceName() {
       java.lang.Object ref = serviceName_;
       if (ref instanceof java.lang.String) {
@@ -1359,6 +1365,7 @@ public final class QueryOuterClass {
      * <code>string service_name = 1;</code>
      * @return The bytes for serviceName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getServiceNameBytes() {
       java.lang.Object ref = serviceName_;
@@ -1379,6 +1386,7 @@ public final class QueryOuterClass {
      * <code>string provider = 2;</code>
      * @return The provider.
      */
+    @java.lang.Override
     public java.lang.String getProvider() {
       java.lang.Object ref = provider_;
       if (ref instanceof java.lang.String) {
@@ -1395,6 +1403,7 @@ public final class QueryOuterClass {
      * <code>string provider = 2;</code>
      * @return The bytes for provider.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProviderBytes() {
       java.lang.Object ref = provider_;
@@ -1962,7 +1971,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryBindingResponse}
    */
-  public  static final class QueryBindingResponse extends
+  public static final class QueryBindingResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryBindingResponse)
       QueryBindingResponseOrBuilder {
@@ -2055,6 +2064,7 @@ public final class QueryOuterClass {
      * <code>.irismod.service.ServiceBinding service_binding = 1;</code>
      * @return Whether the serviceBinding field is set.
      */
+    @java.lang.Override
     public boolean hasServiceBinding() {
       return serviceBinding_ != null;
     }
@@ -2062,12 +2072,14 @@ public final class QueryOuterClass {
      * <code>.irismod.service.ServiceBinding service_binding = 1;</code>
      * @return The serviceBinding.
      */
+    @java.lang.Override
     public irismod.service.Service.ServiceBinding getServiceBinding() {
       return serviceBinding_ == null ? irismod.service.Service.ServiceBinding.getDefaultInstance() : serviceBinding_;
     }
     /**
      * <code>.irismod.service.ServiceBinding service_binding = 1;</code>
      */
+    @java.lang.Override
     public irismod.service.Service.ServiceBindingOrBuilder getServiceBindingOrBuilder() {
       return getServiceBinding();
     }
@@ -2624,7 +2636,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryBindingsRequest}
    */
-  public  static final class QueryBindingsRequest extends
+  public static final class QueryBindingsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryBindingsRequest)
       QueryBindingsRequestOrBuilder {
@@ -2731,6 +2743,7 @@ public final class QueryOuterClass {
      * <code>string service_name = 1;</code>
      * @return The serviceName.
      */
+    @java.lang.Override
     public java.lang.String getServiceName() {
       java.lang.Object ref = serviceName_;
       if (ref instanceof java.lang.String) {
@@ -2747,6 +2760,7 @@ public final class QueryOuterClass {
      * <code>string service_name = 1;</code>
      * @return The bytes for serviceName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getServiceNameBytes() {
       java.lang.Object ref = serviceName_;
@@ -2767,6 +2781,7 @@ public final class QueryOuterClass {
      * <code>string owner = 2;</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -2783,6 +2798,7 @@ public final class QueryOuterClass {
      * <code>string owner = 2;</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -2807,6 +2823,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2818,6 +2835,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -2828,6 +2846,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -3594,7 +3613,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryBindingsResponse}
    */
-  public  static final class QueryBindingsResponse extends
+  public static final class QueryBindingsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryBindingsResponse)
       QueryBindingsResponseOrBuilder {
@@ -3700,12 +3719,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.service.ServiceBinding service_bindings = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.service.Service.ServiceBinding> getServiceBindingsList() {
       return serviceBindings_;
     }
     /**
      * <code>repeated .irismod.service.ServiceBinding service_bindings = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.service.Service.ServiceBindingOrBuilder> 
         getServiceBindingsOrBuilderList() {
       return serviceBindings_;
@@ -3713,18 +3734,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.service.ServiceBinding service_bindings = 1;</code>
      */
+    @java.lang.Override
     public int getServiceBindingsCount() {
       return serviceBindings_.size();
     }
     /**
      * <code>repeated .irismod.service.ServiceBinding service_bindings = 1;</code>
      */
+    @java.lang.Override
     public irismod.service.Service.ServiceBinding getServiceBindings(int index) {
       return serviceBindings_.get(index);
     }
     /**
      * <code>repeated .irismod.service.ServiceBinding service_bindings = 1;</code>
      */
+    @java.lang.Override
     public irismod.service.Service.ServiceBindingOrBuilder getServiceBindingsOrBuilder(
         int index) {
       return serviceBindings_.get(index);
@@ -3736,6 +3760,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -3743,12 +3768,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -4563,7 +4590,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryWithdrawAddressRequest}
    */
-  public  static final class QueryWithdrawAddressRequest extends
+  public static final class QueryWithdrawAddressRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryWithdrawAddressRequest)
       QueryWithdrawAddressRequestOrBuilder {
@@ -4650,6 +4677,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1;</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -4666,6 +4694,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1;</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -5137,7 +5166,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryWithdrawAddressResponse}
    */
-  public  static final class QueryWithdrawAddressResponse extends
+  public static final class QueryWithdrawAddressResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryWithdrawAddressResponse)
       QueryWithdrawAddressResponseOrBuilder {
@@ -5224,6 +5253,7 @@ public final class QueryOuterClass {
      * <code>string withdraw_address = 1;</code>
      * @return The withdrawAddress.
      */
+    @java.lang.Override
     public java.lang.String getWithdrawAddress() {
       java.lang.Object ref = withdrawAddress_;
       if (ref instanceof java.lang.String) {
@@ -5240,6 +5270,7 @@ public final class QueryOuterClass {
      * <code>string withdraw_address = 1;</code>
      * @return The bytes for withdrawAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getWithdrawAddressBytes() {
       java.lang.Object ref = withdrawAddress_;
@@ -5711,7 +5742,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryRequestContextRequest}
    */
-  public  static final class QueryRequestContextRequest extends
+  public static final class QueryRequestContextRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryRequestContextRequest)
       QueryRequestContextRequestOrBuilder {
@@ -5798,6 +5829,7 @@ public final class QueryOuterClass {
      * <code>string request_context_id = 1;</code>
      * @return The requestContextId.
      */
+    @java.lang.Override
     public java.lang.String getRequestContextId() {
       java.lang.Object ref = requestContextId_;
       if (ref instanceof java.lang.String) {
@@ -5814,6 +5846,7 @@ public final class QueryOuterClass {
      * <code>string request_context_id = 1;</code>
      * @return The bytes for requestContextId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRequestContextIdBytes() {
       java.lang.Object ref = requestContextId_;
@@ -6288,7 +6321,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryRequestContextResponse}
    */
-  public  static final class QueryRequestContextResponse extends
+  public static final class QueryRequestContextResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryRequestContextResponse)
       QueryRequestContextResponseOrBuilder {
@@ -6381,6 +6414,7 @@ public final class QueryOuterClass {
      * <code>.irismod.service.RequestContext request_context = 1;</code>
      * @return Whether the requestContext field is set.
      */
+    @java.lang.Override
     public boolean hasRequestContext() {
       return requestContext_ != null;
     }
@@ -6388,12 +6422,14 @@ public final class QueryOuterClass {
      * <code>.irismod.service.RequestContext request_context = 1;</code>
      * @return The requestContext.
      */
+    @java.lang.Override
     public irismod.service.Service.RequestContext getRequestContext() {
       return requestContext_ == null ? irismod.service.Service.RequestContext.getDefaultInstance() : requestContext_;
     }
     /**
      * <code>.irismod.service.RequestContext request_context = 1;</code>
      */
+    @java.lang.Override
     public irismod.service.Service.RequestContextOrBuilder getRequestContextOrBuilder() {
       return getRequestContext();
     }
@@ -6911,7 +6947,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryRequestRequest}
    */
-  public  static final class QueryRequestRequest extends
+  public static final class QueryRequestRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryRequestRequest)
       QueryRequestRequestOrBuilder {
@@ -6998,6 +7034,7 @@ public final class QueryOuterClass {
      * <code>string request_id = 1;</code>
      * @return The requestId.
      */
+    @java.lang.Override
     public java.lang.String getRequestId() {
       java.lang.Object ref = requestId_;
       if (ref instanceof java.lang.String) {
@@ -7014,6 +7051,7 @@ public final class QueryOuterClass {
      * <code>string request_id = 1;</code>
      * @return The bytes for requestId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRequestIdBytes() {
       java.lang.Object ref = requestId_;
@@ -7488,7 +7526,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryRequestResponse}
    */
-  public  static final class QueryRequestResponse extends
+  public static final class QueryRequestResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryRequestResponse)
       QueryRequestResponseOrBuilder {
@@ -7581,6 +7619,7 @@ public final class QueryOuterClass {
      * <code>.irismod.service.Request request = 1;</code>
      * @return Whether the request field is set.
      */
+    @java.lang.Override
     public boolean hasRequest() {
       return request_ != null;
     }
@@ -7588,12 +7627,14 @@ public final class QueryOuterClass {
      * <code>.irismod.service.Request request = 1;</code>
      * @return The request.
      */
+    @java.lang.Override
     public irismod.service.Service.Request getRequest() {
       return request_ == null ? irismod.service.Service.Request.getDefaultInstance() : request_;
     }
     /**
      * <code>.irismod.service.Request request = 1;</code>
      */
+    @java.lang.Override
     public irismod.service.Service.RequestOrBuilder getRequestOrBuilder() {
       return getRequest();
     }
@@ -8138,7 +8179,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryRequestsRequest}
    */
-  public  static final class QueryRequestsRequest extends
+  public static final class QueryRequestsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryRequestsRequest)
       QueryRequestsRequestOrBuilder {
@@ -8245,6 +8286,7 @@ public final class QueryOuterClass {
      * <code>string service_name = 1;</code>
      * @return The serviceName.
      */
+    @java.lang.Override
     public java.lang.String getServiceName() {
       java.lang.Object ref = serviceName_;
       if (ref instanceof java.lang.String) {
@@ -8261,6 +8303,7 @@ public final class QueryOuterClass {
      * <code>string service_name = 1;</code>
      * @return The bytes for serviceName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getServiceNameBytes() {
       java.lang.Object ref = serviceName_;
@@ -8281,6 +8324,7 @@ public final class QueryOuterClass {
      * <code>string provider = 2;</code>
      * @return The provider.
      */
+    @java.lang.Override
     public java.lang.String getProvider() {
       java.lang.Object ref = provider_;
       if (ref instanceof java.lang.String) {
@@ -8297,6 +8341,7 @@ public final class QueryOuterClass {
      * <code>string provider = 2;</code>
      * @return The bytes for provider.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProviderBytes() {
       java.lang.Object ref = provider_;
@@ -8317,6 +8362,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -8324,12 +8370,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -9060,7 +9108,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryRequestsResponse}
    */
-  public  static final class QueryRequestsResponse extends
+  public static final class QueryRequestsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryRequestsResponse)
       QueryRequestsResponseOrBuilder {
@@ -9166,12 +9214,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.service.Request requests = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.service.Service.Request> getRequestsList() {
       return requests_;
     }
     /**
      * <code>repeated .irismod.service.Request requests = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.service.Service.RequestOrBuilder> 
         getRequestsOrBuilderList() {
       return requests_;
@@ -9179,18 +9229,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.service.Request requests = 1;</code>
      */
+    @java.lang.Override
     public int getRequestsCount() {
       return requests_.size();
     }
     /**
      * <code>repeated .irismod.service.Request requests = 1;</code>
      */
+    @java.lang.Override
     public irismod.service.Service.Request getRequests(int index) {
       return requests_.get(index);
     }
     /**
      * <code>repeated .irismod.service.Request requests = 1;</code>
      */
+    @java.lang.Override
     public irismod.service.Service.RequestOrBuilder getRequestsOrBuilder(
         int index) {
       return requests_.get(index);
@@ -9202,6 +9255,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -9209,12 +9263,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -10050,7 +10106,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryRequestsByReqCtxRequest}
    */
-  public  static final class QueryRequestsByReqCtxRequest extends
+  public static final class QueryRequestsByReqCtxRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryRequestsByReqCtxRequest)
       QueryRequestsByReqCtxRequestOrBuilder {
@@ -10155,6 +10211,7 @@ public final class QueryOuterClass {
      * <code>string request_context_id = 1;</code>
      * @return The requestContextId.
      */
+    @java.lang.Override
     public java.lang.String getRequestContextId() {
       java.lang.Object ref = requestContextId_;
       if (ref instanceof java.lang.String) {
@@ -10171,6 +10228,7 @@ public final class QueryOuterClass {
      * <code>string request_context_id = 1;</code>
      * @return The bytes for requestContextId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRequestContextIdBytes() {
       java.lang.Object ref = requestContextId_;
@@ -10191,6 +10249,7 @@ public final class QueryOuterClass {
      * <code>uint64 batch_counter = 2;</code>
      * @return The batchCounter.
      */
+    @java.lang.Override
     public long getBatchCounter() {
       return batchCounter_;
     }
@@ -10201,6 +10260,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -10208,12 +10268,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -10653,6 +10715,7 @@ public final class QueryOuterClass {
        * <code>uint64 batch_counter = 2;</code>
        * @return The batchCounter.
        */
+      @java.lang.Override
       public long getBatchCounter() {
         return batchCounter_;
       }
@@ -10899,7 +10962,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryRequestsByReqCtxResponse}
    */
-  public  static final class QueryRequestsByReqCtxResponse extends
+  public static final class QueryRequestsByReqCtxResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryRequestsByReqCtxResponse)
       QueryRequestsByReqCtxResponseOrBuilder {
@@ -11005,12 +11068,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.service.Request requests = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.service.Service.Request> getRequestsList() {
       return requests_;
     }
     /**
      * <code>repeated .irismod.service.Request requests = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.service.Service.RequestOrBuilder> 
         getRequestsOrBuilderList() {
       return requests_;
@@ -11018,18 +11083,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.service.Request requests = 1;</code>
      */
+    @java.lang.Override
     public int getRequestsCount() {
       return requests_.size();
     }
     /**
      * <code>repeated .irismod.service.Request requests = 1;</code>
      */
+    @java.lang.Override
     public irismod.service.Service.Request getRequests(int index) {
       return requests_.get(index);
     }
     /**
      * <code>repeated .irismod.service.Request requests = 1;</code>
      */
+    @java.lang.Override
     public irismod.service.Service.RequestOrBuilder getRequestsOrBuilder(
         int index) {
       return requests_.get(index);
@@ -11041,6 +11109,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -11048,12 +11117,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -11868,7 +11939,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryResponseRequest}
    */
-  public  static final class QueryResponseRequest extends
+  public static final class QueryResponseRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryResponseRequest)
       QueryResponseRequestOrBuilder {
@@ -11955,6 +12026,7 @@ public final class QueryOuterClass {
      * <code>string request_id = 1;</code>
      * @return The requestId.
      */
+    @java.lang.Override
     public java.lang.String getRequestId() {
       java.lang.Object ref = requestId_;
       if (ref instanceof java.lang.String) {
@@ -11971,6 +12043,7 @@ public final class QueryOuterClass {
      * <code>string request_id = 1;</code>
      * @return The bytes for requestId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRequestIdBytes() {
       java.lang.Object ref = requestId_;
@@ -12445,7 +12518,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryResponseResponse}
    */
-  public  static final class QueryResponseResponse extends
+  public static final class QueryResponseResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryResponseResponse)
       QueryResponseResponseOrBuilder {
@@ -12538,6 +12611,7 @@ public final class QueryOuterClass {
      * <code>.irismod.service.Response response = 1;</code>
      * @return Whether the response field is set.
      */
+    @java.lang.Override
     public boolean hasResponse() {
       return response_ != null;
     }
@@ -12545,12 +12619,14 @@ public final class QueryOuterClass {
      * <code>.irismod.service.Response response = 1;</code>
      * @return The response.
      */
+    @java.lang.Override
     public irismod.service.Service.Response getResponse() {
       return response_ == null ? irismod.service.Service.Response.getDefaultInstance() : response_;
     }
     /**
      * <code>.irismod.service.Response response = 1;</code>
      */
+    @java.lang.Override
     public irismod.service.Service.ResponseOrBuilder getResponseOrBuilder() {
       return getResponse();
     }
@@ -13089,7 +13165,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryResponsesRequest}
    */
-  public  static final class QueryResponsesRequest extends
+  public static final class QueryResponsesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryResponsesRequest)
       QueryResponsesRequestOrBuilder {
@@ -13194,6 +13270,7 @@ public final class QueryOuterClass {
      * <code>string request_context_id = 1;</code>
      * @return The requestContextId.
      */
+    @java.lang.Override
     public java.lang.String getRequestContextId() {
       java.lang.Object ref = requestContextId_;
       if (ref instanceof java.lang.String) {
@@ -13210,6 +13287,7 @@ public final class QueryOuterClass {
      * <code>string request_context_id = 1;</code>
      * @return The bytes for requestContextId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRequestContextIdBytes() {
       java.lang.Object ref = requestContextId_;
@@ -13230,6 +13308,7 @@ public final class QueryOuterClass {
      * <code>uint64 batch_counter = 2;</code>
      * @return The batchCounter.
      */
+    @java.lang.Override
     public long getBatchCounter() {
       return batchCounter_;
     }
@@ -13240,6 +13319,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -13247,12 +13327,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -13692,6 +13774,7 @@ public final class QueryOuterClass {
        * <code>uint64 batch_counter = 2;</code>
        * @return The batchCounter.
        */
+      @java.lang.Override
       public long getBatchCounter() {
         return batchCounter_;
       }
@@ -13938,7 +14021,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryResponsesResponse}
    */
-  public  static final class QueryResponsesResponse extends
+  public static final class QueryResponsesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryResponsesResponse)
       QueryResponsesResponseOrBuilder {
@@ -14044,12 +14127,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.service.Response responses = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.service.Service.Response> getResponsesList() {
       return responses_;
     }
     /**
      * <code>repeated .irismod.service.Response responses = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.service.Service.ResponseOrBuilder> 
         getResponsesOrBuilderList() {
       return responses_;
@@ -14057,18 +14142,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.service.Response responses = 1;</code>
      */
+    @java.lang.Override
     public int getResponsesCount() {
       return responses_.size();
     }
     /**
      * <code>repeated .irismod.service.Response responses = 1;</code>
      */
+    @java.lang.Override
     public irismod.service.Service.Response getResponses(int index) {
       return responses_.get(index);
     }
     /**
      * <code>repeated .irismod.service.Response responses = 1;</code>
      */
+    @java.lang.Override
     public irismod.service.Service.ResponseOrBuilder getResponsesOrBuilder(
         int index) {
       return responses_.get(index);
@@ -14080,6 +14168,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -14087,12 +14176,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -14907,7 +14998,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryEarnedFeesRequest}
    */
-  public  static final class QueryEarnedFeesRequest extends
+  public static final class QueryEarnedFeesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryEarnedFeesRequest)
       QueryEarnedFeesRequestOrBuilder {
@@ -14994,6 +15085,7 @@ public final class QueryOuterClass {
      * <code>string provider = 1;</code>
      * @return The provider.
      */
+    @java.lang.Override
     public java.lang.String getProvider() {
       java.lang.Object ref = provider_;
       if (ref instanceof java.lang.String) {
@@ -15010,6 +15102,7 @@ public final class QueryOuterClass {
      * <code>string provider = 1;</code>
      * @return The bytes for provider.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProviderBytes() {
       java.lang.Object ref = provider_;
@@ -15493,7 +15586,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryEarnedFeesResponse}
    */
-  public  static final class QueryEarnedFeesResponse extends
+  public static final class QueryEarnedFeesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryEarnedFeesResponse)
       QueryEarnedFeesResponseOrBuilder {
@@ -15586,12 +15679,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin fees = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getFeesList() {
       return fees_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin fees = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getFeesOrBuilderList() {
       return fees_;
@@ -15599,18 +15694,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin fees = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getFeesCount() {
       return fees_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin fees = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getFees(int index) {
       return fees_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin fees = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getFeesOrBuilder(
         int index) {
       return fees_.get(index);
@@ -16277,7 +16375,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QuerySchemaRequest}
    */
-  public  static final class QuerySchemaRequest extends
+  public static final class QuerySchemaRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QuerySchemaRequest)
       QuerySchemaRequestOrBuilder {
@@ -16364,6 +16462,7 @@ public final class QueryOuterClass {
      * <code>string schema_name = 1;</code>
      * @return The schemaName.
      */
+    @java.lang.Override
     public java.lang.String getSchemaName() {
       java.lang.Object ref = schemaName_;
       if (ref instanceof java.lang.String) {
@@ -16380,6 +16479,7 @@ public final class QueryOuterClass {
      * <code>string schema_name = 1;</code>
      * @return The bytes for schemaName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSchemaNameBytes() {
       java.lang.Object ref = schemaName_;
@@ -16851,7 +16951,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QuerySchemaResponse}
    */
-  public  static final class QuerySchemaResponse extends
+  public static final class QuerySchemaResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QuerySchemaResponse)
       QuerySchemaResponseOrBuilder {
@@ -16938,6 +17038,7 @@ public final class QueryOuterClass {
      * <code>string schema = 1;</code>
      * @return The schema.
      */
+    @java.lang.Override
     public java.lang.String getSchema() {
       java.lang.Object ref = schema_;
       if (ref instanceof java.lang.String) {
@@ -16954,6 +17055,7 @@ public final class QueryOuterClass {
      * <code>string schema = 1;</code>
      * @return The bytes for schema.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSchemaBytes() {
       java.lang.Object ref = schema_;
@@ -17413,7 +17515,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -17869,7 +17971,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.service.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -17975,6 +18077,7 @@ public final class QueryOuterClass {
      * <code>.irismod.service.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -17982,12 +18085,14 @@ public final class QueryOuterClass {
      * <code>.irismod.service.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public irismod.service.Service.Params getParams() {
       return params_ == null ? irismod.service.Service.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.irismod.service.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.service.Service.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -17998,6 +18103,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse res = 2;</code>
      * @return Whether the res field is set.
      */
+    @java.lang.Override
     public boolean hasRes() {
       return res_ != null;
     }
@@ -18005,12 +18111,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse res = 2;</code>
      * @return The res.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getRes() {
       return res_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : res_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse res = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getResOrBuilder() {
       return getRes();
     }

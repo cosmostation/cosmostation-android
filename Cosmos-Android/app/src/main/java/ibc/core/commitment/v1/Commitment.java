@@ -32,7 +32,7 @@ public final class Commitment {
    *
    * Protobuf type {@code ibc.core.commitment.v1.MerkleRoot}
    */
-  public  static final class MerkleRoot extends
+  public static final class MerkleRoot extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.commitment.v1.MerkleRoot)
       MerkleRootOrBuilder {
@@ -118,6 +118,7 @@ public final class Commitment {
      * <code>bytes hash = 1;</code>
      * @return The hash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getHash() {
       return hash_;
     }
@@ -434,6 +435,7 @@ public final class Commitment {
        * <code>bytes hash = 1;</code>
        * @return The hash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getHash() {
         return hash_;
       }
@@ -533,7 +535,7 @@ public final class Commitment {
    *
    * Protobuf type {@code ibc.core.commitment.v1.MerklePrefix}
    */
-  public  static final class MerklePrefix extends
+  public static final class MerklePrefix extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.commitment.v1.MerklePrefix)
       MerklePrefixOrBuilder {
@@ -619,6 +621,7 @@ public final class Commitment {
      * <code>bytes key_prefix = 1 [(.gogoproto.moretags) = "yaml:&#92;"key_prefix&#92;""];</code>
      * @return The keyPrefix.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getKeyPrefix() {
       return keyPrefix_;
     }
@@ -936,6 +939,7 @@ public final class Commitment {
        * <code>bytes key_prefix = 1 [(.gogoproto.moretags) = "yaml:&#92;"key_prefix&#92;""];</code>
        * @return The keyPrefix.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getKeyPrefix() {
         return keyPrefix_;
       }
@@ -1054,7 +1058,7 @@ public final class Commitment {
    *
    * Protobuf type {@code ibc.core.commitment.v1.MerklePath}
    */
-  public  static final class MerklePath extends
+  public static final class MerklePath extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.commitment.v1.MerklePath)
       MerklePathOrBuilder {
@@ -1705,7 +1709,7 @@ public final class Commitment {
    *
    * Protobuf type {@code ibc.core.commitment.v1.MerkleProof}
    */
-  public  static final class MerkleProof extends
+  public static final class MerkleProof extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.commitment.v1.MerkleProof)
       MerkleProofOrBuilder {
@@ -1798,12 +1802,14 @@ public final class Commitment {
     /**
      * <code>repeated .ics23.CommitmentProof proofs = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<ics23.Proofs.CommitmentProof> getProofsList() {
       return proofs_;
     }
     /**
      * <code>repeated .ics23.CommitmentProof proofs = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ics23.Proofs.CommitmentProofOrBuilder> 
         getProofsOrBuilderList() {
       return proofs_;
@@ -1811,18 +1817,21 @@ public final class Commitment {
     /**
      * <code>repeated .ics23.CommitmentProof proofs = 1;</code>
      */
+    @java.lang.Override
     public int getProofsCount() {
       return proofs_.size();
     }
     /**
      * <code>repeated .ics23.CommitmentProof proofs = 1;</code>
      */
+    @java.lang.Override
     public ics23.Proofs.CommitmentProof getProofs(int index) {
       return proofs_.get(index);
     }
     /**
      * <code>repeated .ics23.CommitmentProof proofs = 1;</code>
      */
+    @java.lang.Override
     public ics23.Proofs.CommitmentProofOrBuilder getProofsOrBuilder(
         int index) {
       return proofs_.get(index);

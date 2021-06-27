@@ -72,7 +72,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.lockup.MsgLockTokens}
    */
-  public  static final class MsgLockTokens extends
+  public static final class MsgLockTokens extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.MsgLockTokens)
       MsgLockTokensOrBuilder {
@@ -186,6 +186,7 @@ public final class Tx {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -202,6 +203,7 @@ public final class Tx {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -222,6 +224,7 @@ public final class Tx {
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the duration field is set.
      */
+    @java.lang.Override
     public boolean hasDuration() {
       return duration_ != null;
     }
@@ -229,12 +232,14 @@ public final class Tx {
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The duration.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getDuration() {
       return duration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : duration_;
     }
     /**
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getDurationOrBuilder() {
       return getDuration();
     }
@@ -244,12 +249,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -257,18 +264,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -1163,7 +1173,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.lockup.MsgLockTokensResponse}
    */
-  public  static final class MsgLockTokensResponse extends
+  public static final class MsgLockTokensResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.MsgLockTokensResponse)
       MsgLockTokensResponseOrBuilder {
@@ -1248,6 +1258,7 @@ public final class Tx {
      * <code>uint64 ID = 1;</code>
      * @return The iD.
      */
+    @java.lang.Override
     public long getID() {
       return iD_;
     }
@@ -1560,6 +1571,7 @@ public final class Tx {
        * <code>uint64 ID = 1;</code>
        * @return The iD.
        */
+      @java.lang.Override
       public long getID() {
         return iD_;
       }
@@ -1656,7 +1668,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.lockup.MsgBeginUnlockingAll}
    */
-  public  static final class MsgBeginUnlockingAll extends
+  public static final class MsgBeginUnlockingAll extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.MsgBeginUnlockingAll)
       MsgBeginUnlockingAllOrBuilder {
@@ -1743,6 +1755,7 @@ public final class Tx {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -1759,6 +1772,7 @@ public final class Tx {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -2234,7 +2248,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.lockup.MsgBeginUnlockingAllResponse}
    */
-  public  static final class MsgBeginUnlockingAllResponse extends
+  public static final class MsgBeginUnlockingAllResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.MsgBeginUnlockingAllResponse)
       MsgBeginUnlockingAllResponseOrBuilder {
@@ -2327,12 +2341,14 @@ public final class Tx {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock unlocks = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.lockup.Lock.PeriodLock> getUnlocksList() {
       return unlocks_;
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock unlocks = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
         getUnlocksOrBuilderList() {
       return unlocks_;
@@ -2340,18 +2356,21 @@ public final class Tx {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock unlocks = 1;</code>
      */
+    @java.lang.Override
     public int getUnlocksCount() {
       return unlocks_.size();
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock unlocks = 1;</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLock getUnlocks(int index) {
       return unlocks_.get(index);
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock unlocks = 1;</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLockOrBuilder getUnlocksOrBuilder(
         int index) {
       return unlocks_.get(index);
@@ -3010,7 +3029,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.lockup.MsgUnlockTokens}
    */
-  public  static final class MsgUnlockTokens extends
+  public static final class MsgUnlockTokens extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.MsgUnlockTokens)
       MsgUnlockTokensOrBuilder {
@@ -3097,6 +3116,7 @@ public final class Tx {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -3113,6 +3133,7 @@ public final class Tx {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -3588,7 +3609,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.lockup.MsgUnlockTokensResponse}
    */
-  public  static final class MsgUnlockTokensResponse extends
+  public static final class MsgUnlockTokensResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.MsgUnlockTokensResponse)
       MsgUnlockTokensResponseOrBuilder {
@@ -3681,12 +3702,14 @@ public final class Tx {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock unlocks = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.lockup.Lock.PeriodLock> getUnlocksList() {
       return unlocks_;
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock unlocks = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
         getUnlocksOrBuilderList() {
       return unlocks_;
@@ -3694,18 +3717,21 @@ public final class Tx {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock unlocks = 1;</code>
      */
+    @java.lang.Override
     public int getUnlocksCount() {
       return unlocks_.size();
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock unlocks = 1;</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLock getUnlocks(int index) {
       return unlocks_.get(index);
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock unlocks = 1;</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLockOrBuilder getUnlocksOrBuilder(
         int index) {
       return unlocks_.get(index);
@@ -4370,7 +4396,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.lockup.MsgBeginUnlocking}
    */
-  public  static final class MsgBeginUnlocking extends
+  public static final class MsgBeginUnlocking extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.MsgBeginUnlocking)
       MsgBeginUnlockingOrBuilder {
@@ -4462,6 +4488,7 @@ public final class Tx {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -4478,6 +4505,7 @@ public final class Tx {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -4498,6 +4526,7 @@ public final class Tx {
      * <code>uint64 ID = 2;</code>
      * @return The iD.
      */
+    @java.lang.Override
     public long getID() {
       return iD_;
     }
@@ -4903,6 +4932,7 @@ public final class Tx {
        * <code>uint64 ID = 2;</code>
        * @return The iD.
        */
+      @java.lang.Override
       public long getID() {
         return iD_;
       }
@@ -4993,7 +5023,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.lockup.MsgBeginUnlockingResponse}
    */
-  public  static final class MsgBeginUnlockingResponse extends
+  public static final class MsgBeginUnlockingResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.MsgBeginUnlockingResponse)
       MsgBeginUnlockingResponseOrBuilder {
@@ -5078,6 +5108,7 @@ public final class Tx {
      * <code>bool success = 1;</code>
      * @return The success.
      */
+    @java.lang.Override
     public boolean getSuccess() {
       return success_;
     }
@@ -5390,6 +5421,7 @@ public final class Tx {
        * <code>bool success = 1;</code>
        * @return The success.
        */
+      @java.lang.Override
       public boolean getSuccess() {
         return success_;
       }
@@ -5492,7 +5524,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.lockup.MsgUnlockPeriodLock}
    */
-  public  static final class MsgUnlockPeriodLock extends
+  public static final class MsgUnlockPeriodLock extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.MsgUnlockPeriodLock)
       MsgUnlockPeriodLockOrBuilder {
@@ -5584,6 +5616,7 @@ public final class Tx {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -5600,6 +5633,7 @@ public final class Tx {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -5620,6 +5654,7 @@ public final class Tx {
      * <code>uint64 ID = 2;</code>
      * @return The iD.
      */
+    @java.lang.Override
     public long getID() {
       return iD_;
     }
@@ -6025,6 +6060,7 @@ public final class Tx {
        * <code>uint64 ID = 2;</code>
        * @return The iD.
        */
+      @java.lang.Override
       public long getID() {
         return iD_;
       }
@@ -6115,7 +6151,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.lockup.MsgUnlockPeriodLockResponse}
    */
-  public  static final class MsgUnlockPeriodLockResponse extends
+  public static final class MsgUnlockPeriodLockResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.MsgUnlockPeriodLockResponse)
       MsgUnlockPeriodLockResponseOrBuilder {
@@ -6200,6 +6236,7 @@ public final class Tx {
      * <code>bool success = 1;</code>
      * @return The success.
      */
+    @java.lang.Override
     public boolean getSuccess() {
       return success_;
     }
@@ -6512,6 +6549,7 @@ public final class Tx {
        * <code>bool success = 1;</code>
        * @return The success.
        */
+      @java.lang.Override
       public boolean getSuccess() {
         return success_;
       }

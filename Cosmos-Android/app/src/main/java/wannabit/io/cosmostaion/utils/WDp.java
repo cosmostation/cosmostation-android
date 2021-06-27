@@ -2369,6 +2369,8 @@ public class WDp {
             return CRYPTO_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(OSMOSIS_MAIN)) {
             return OSMOSIS_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(BAND_MAIN)) {
+            return BAND_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(RIZON_TEST)) {
             return RIZON_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(ALTHEA_TEST)) {
@@ -2377,8 +2379,6 @@ public class WDp {
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
             return KAVA_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(BAND_MAIN)) {
-            return BAND_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
             return IOV_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {

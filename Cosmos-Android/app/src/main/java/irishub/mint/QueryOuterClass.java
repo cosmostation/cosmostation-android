@@ -25,7 +25,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irishub.mint.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irishub.mint.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -481,7 +481,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irishub.mint.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irishub.mint.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -587,6 +587,7 @@ public final class QueryOuterClass {
      * <code>.irishub.mint.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -594,12 +595,14 @@ public final class QueryOuterClass {
      * <code>.irishub.mint.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public irishub.mint.Mint.Params getParams() {
       return params_ == null ? irishub.mint.Mint.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.irishub.mint.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irishub.mint.Mint.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -610,6 +613,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse res = 2;</code>
      * @return Whether the res field is set.
      */
+    @java.lang.Override
     public boolean hasRes() {
       return res_ != null;
     }
@@ -617,12 +621,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse res = 2;</code>
      * @return The res.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getRes() {
       return res_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : res_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse res = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getResOrBuilder() {
       return getRes();
     }

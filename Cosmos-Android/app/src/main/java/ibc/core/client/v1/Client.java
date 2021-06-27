@@ -73,7 +73,7 @@ public final class Client {
    *
    * Protobuf type {@code ibc.core.client.v1.IdentifiedClientState}
    */
-  public  static final class IdentifiedClientState extends
+  public static final class IdentifiedClientState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.IdentifiedClientState)
       IdentifiedClientStateOrBuilder {
@@ -177,6 +177,7 @@ public final class Client {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -197,6 +198,7 @@ public final class Client {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -221,6 +223,7 @@ public final class Client {
      * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
+    @java.lang.Override
     public boolean hasClientState() {
       return clientState_ != null;
     }
@@ -232,6 +235,7 @@ public final class Client {
      * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getClientState() {
       return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
     }
@@ -242,6 +246,7 @@ public final class Client {
      *
      * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
       return getClientState();
     }
@@ -951,7 +956,7 @@ public final class Client {
    *
    * Protobuf type {@code ibc.core.client.v1.ConsensusStateWithHeight}
    */
-  public  static final class ConsensusStateWithHeight extends
+  public static final class ConsensusStateWithHeight extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.ConsensusStateWithHeight)
       ConsensusStateWithHeightOrBuilder {
@@ -1061,6 +1066,7 @@ public final class Client {
      * <code>.ibc.core.client.v1.Height height = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the height field is set.
      */
+    @java.lang.Override
     public boolean hasHeight() {
       return height_ != null;
     }
@@ -1072,6 +1078,7 @@ public final class Client {
      * <code>.ibc.core.client.v1.Height height = 1 [(.gogoproto.nullable) = false];</code>
      * @return The height.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getHeight() {
       return height_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : height_;
     }
@@ -1082,6 +1089,7 @@ public final class Client {
      *
      * <code>.ibc.core.client.v1.Height height = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getHeightOrBuilder() {
       return getHeight();
     }
@@ -1096,6 +1104,7 @@ public final class Client {
      * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml&#92;"consensus_state&#92;""];</code>
      * @return Whether the consensusState field is set.
      */
+    @java.lang.Override
     public boolean hasConsensusState() {
       return consensusState_ != null;
     }
@@ -1107,6 +1116,7 @@ public final class Client {
      * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml&#92;"consensus_state&#92;""];</code>
      * @return The consensusState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getConsensusState() {
       return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
     }
@@ -1117,6 +1127,7 @@ public final class Client {
      *
      * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml&#92;"consensus_state&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
       return getConsensusState();
     }
@@ -1908,7 +1919,7 @@ public final class Client {
    *
    * Protobuf type {@code ibc.core.client.v1.ClientConsensusStates}
    */
-  public  static final class ClientConsensusStates extends
+  public static final class ClientConsensusStates extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.ClientConsensusStates)
       ClientConsensusStatesOrBuilder {
@@ -2013,6 +2024,7 @@ public final class Client {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -2033,6 +2045,7 @@ public final class Client {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -2056,6 +2069,7 @@ public final class Client {
      *
      * <code>repeated .ibc.core.client.v1.ConsensusStateWithHeight consensus_states = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"consensus_states&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.client.v1.Client.ConsensusStateWithHeight> getConsensusStatesList() {
       return consensusStates_;
     }
@@ -2066,6 +2080,7 @@ public final class Client {
      *
      * <code>repeated .ibc.core.client.v1.ConsensusStateWithHeight consensus_states = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"consensus_states&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.client.v1.Client.ConsensusStateWithHeightOrBuilder> 
         getConsensusStatesOrBuilderList() {
       return consensusStates_;
@@ -2077,6 +2092,7 @@ public final class Client {
      *
      * <code>repeated .ibc.core.client.v1.ConsensusStateWithHeight consensus_states = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"consensus_states&#92;""];</code>
      */
+    @java.lang.Override
     public int getConsensusStatesCount() {
       return consensusStates_.size();
     }
@@ -2087,6 +2103,7 @@ public final class Client {
      *
      * <code>repeated .ibc.core.client.v1.ConsensusStateWithHeight consensus_states = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"consensus_states&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.ConsensusStateWithHeight getConsensusStates(int index) {
       return consensusStates_.get(index);
     }
@@ -2097,6 +2114,7 @@ public final class Client {
      *
      * <code>repeated .ibc.core.client.v1.ConsensusStateWithHeight consensus_states = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"consensus_states&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.ConsensusStateWithHeightOrBuilder getConsensusStatesOrBuilder(
         int index) {
       return consensusStates_.get(index);
@@ -3026,7 +3044,7 @@ public final class Client {
    *
    * Protobuf type {@code ibc.core.client.v1.ClientUpdateProposal}
    */
-  public  static final class ClientUpdateProposal extends
+  public static final class ClientUpdateProposal extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.ClientUpdateProposal)
       ClientUpdateProposalOrBuilder {
@@ -3144,6 +3162,7 @@ public final class Client {
      * <code>string title = 1;</code>
      * @return The title.
      */
+    @java.lang.Override
     public java.lang.String getTitle() {
       java.lang.Object ref = title_;
       if (ref instanceof java.lang.String) {
@@ -3164,6 +3183,7 @@ public final class Client {
      * <code>string title = 1;</code>
      * @return The bytes for title.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTitleBytes() {
       java.lang.Object ref = title_;
@@ -3188,6 +3208,7 @@ public final class Client {
      * <code>string description = 2;</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -3208,6 +3229,7 @@ public final class Client {
      * <code>string description = 2;</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -3232,6 +3254,7 @@ public final class Client {
      * <code>string client_id = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -3252,6 +3275,7 @@ public final class Client {
      * <code>string client_id = 3 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -3276,6 +3300,7 @@ public final class Client {
      * <code>.google.protobuf2.Any header = 4;</code>
      * @return Whether the header field is set.
      */
+    @java.lang.Override
     public boolean hasHeader() {
       return header_ != null;
     }
@@ -3287,6 +3312,7 @@ public final class Client {
      * <code>.google.protobuf2.Any header = 4;</code>
      * @return The header.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getHeader() {
       return header_ == null ? com.google.protobuf2.Any.getDefaultInstance() : header_;
     }
@@ -3297,6 +3323,7 @@ public final class Client {
      *
      * <code>.google.protobuf2.Any header = 4;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getHeaderOrBuilder() {
       return getHeader();
     }
@@ -4206,7 +4233,7 @@ public final class Client {
    *
    * Protobuf type {@code ibc.core.client.v1.Height}
    */
-  public  static final class Height extends
+  public static final class Height extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.Height)
       HeightOrBuilder {
@@ -4300,6 +4327,7 @@ public final class Client {
      * <code>uint64 revision_number = 1 [(.gogoproto.moretags) = "yaml:&#92;"revision_number&#92;""];</code>
      * @return The revisionNumber.
      */
+    @java.lang.Override
     public long getRevisionNumber() {
       return revisionNumber_;
     }
@@ -4314,6 +4342,7 @@ public final class Client {
      * <code>uint64 revision_height = 2 [(.gogoproto.moretags) = "yaml:&#92;"revision_height&#92;""];</code>
      * @return The revisionHeight.
      */
+    @java.lang.Override
     public long getRevisionHeight() {
       return revisionHeight_;
     }
@@ -4659,6 +4688,7 @@ public final class Client {
        * <code>uint64 revision_number = 1 [(.gogoproto.moretags) = "yaml:&#92;"revision_number&#92;""];</code>
        * @return The revisionNumber.
        */
+      @java.lang.Override
       public long getRevisionNumber() {
         return revisionNumber_;
       }
@@ -4701,6 +4731,7 @@ public final class Client {
        * <code>uint64 revision_height = 2 [(.gogoproto.moretags) = "yaml:&#92;"revision_height&#92;""];</code>
        * @return The revisionHeight.
        */
+      @java.lang.Override
       public long getRevisionHeight() {
         return revisionHeight_;
       }
@@ -4838,7 +4869,7 @@ public final class Client {
    *
    * Protobuf type {@code ibc.core.client.v1.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.Params)
       ParamsOrBuilder {

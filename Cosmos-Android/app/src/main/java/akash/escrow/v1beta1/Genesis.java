@@ -73,7 +73,7 @@ public final class Genesis {
    *
    * Protobuf type {@code akash.escrow.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.escrow.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -179,12 +179,14 @@ public final class Genesis {
     /**
      * <code>repeated .akash.escrow.v1beta1.Account accounts = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "accounts", (.gogoproto.moretags) = "yaml:&#92;"accounts&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.escrow.v1beta1.Types.Account> getAccountsList() {
       return accounts_;
     }
     /**
      * <code>repeated .akash.escrow.v1beta1.Account accounts = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "accounts", (.gogoproto.moretags) = "yaml:&#92;"accounts&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.escrow.v1beta1.Types.AccountOrBuilder> 
         getAccountsOrBuilderList() {
       return accounts_;
@@ -192,18 +194,21 @@ public final class Genesis {
     /**
      * <code>repeated .akash.escrow.v1beta1.Account accounts = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "accounts", (.gogoproto.moretags) = "yaml:&#92;"accounts&#92;""];</code>
      */
+    @java.lang.Override
     public int getAccountsCount() {
       return accounts_.size();
     }
     /**
      * <code>repeated .akash.escrow.v1beta1.Account accounts = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "accounts", (.gogoproto.moretags) = "yaml:&#92;"accounts&#92;""];</code>
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.Account getAccounts(int index) {
       return accounts_.get(index);
     }
     /**
      * <code>repeated .akash.escrow.v1beta1.Account accounts = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "accounts", (.gogoproto.moretags) = "yaml:&#92;"accounts&#92;""];</code>
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.AccountOrBuilder getAccountsOrBuilder(
         int index) {
       return accounts_.get(index);
@@ -214,12 +219,14 @@ public final class Genesis {
     /**
      * <code>repeated .akash.escrow.v1beta1.Payment payments = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "payments", (.gogoproto.moretags) = "yaml:&#92;"payments&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.escrow.v1beta1.Types.Payment> getPaymentsList() {
       return payments_;
     }
     /**
      * <code>repeated .akash.escrow.v1beta1.Payment payments = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "payments", (.gogoproto.moretags) = "yaml:&#92;"payments&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.escrow.v1beta1.Types.PaymentOrBuilder> 
         getPaymentsOrBuilderList() {
       return payments_;
@@ -227,18 +234,21 @@ public final class Genesis {
     /**
      * <code>repeated .akash.escrow.v1beta1.Payment payments = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "payments", (.gogoproto.moretags) = "yaml:&#92;"payments&#92;""];</code>
      */
+    @java.lang.Override
     public int getPaymentsCount() {
       return payments_.size();
     }
     /**
      * <code>repeated .akash.escrow.v1beta1.Payment payments = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "payments", (.gogoproto.moretags) = "yaml:&#92;"payments&#92;""];</code>
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.Payment getPayments(int index) {
       return payments_.get(index);
     }
     /**
      * <code>repeated .akash.escrow.v1beta1.Payment payments = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "payments", (.gogoproto.moretags) = "yaml:&#92;"payments&#92;""];</code>
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.PaymentOrBuilder getPaymentsOrBuilder(
         int index) {
       return payments_.get(index);

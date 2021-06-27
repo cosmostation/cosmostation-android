@@ -54,7 +54,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.genutil.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.genutil.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -151,6 +151,7 @@ public final class Genesis {
      * <code>repeated bytes gen_txs = 1 [(.gogoproto.jsontag) = "gentxs", (.gogoproto.moretags) = "yaml:&#92;"gentxs&#92;"", (.gogoproto.casttype) = "encoding/json.RawMessage"];</code>
      * @return A list containing the genTxs.
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf.ByteString>
         getGenTxsList() {
       return genTxs_;

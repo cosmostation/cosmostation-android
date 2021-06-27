@@ -83,7 +83,7 @@ public final class Genesis {
    *
    * Protobuf type {@code ibc.core.connection.v1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.GenesisState)
       GenesisStateOrBuilder {
@@ -194,12 +194,14 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.connection.v1.IdentifiedConnection connections = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.connection.v1.Connection.IdentifiedConnection> getConnectionsList() {
       return connections_;
     }
     /**
      * <code>repeated .ibc.core.connection.v1.IdentifiedConnection connections = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.connection.v1.Connection.IdentifiedConnectionOrBuilder> 
         getConnectionsOrBuilderList() {
       return connections_;
@@ -207,18 +209,21 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.connection.v1.IdentifiedConnection connections = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getConnectionsCount() {
       return connections_.size();
     }
     /**
      * <code>repeated .ibc.core.connection.v1.IdentifiedConnection connections = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.IdentifiedConnection getConnections(int index) {
       return connections_.get(index);
     }
     /**
      * <code>repeated .ibc.core.connection.v1.IdentifiedConnection connections = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.IdentifiedConnectionOrBuilder getConnectionsOrBuilder(
         int index) {
       return connections_.get(index);
@@ -229,12 +234,14 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.connection.v1.ConnectionPaths client_connection_paths = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"client_connection_paths&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.connection.v1.Connection.ConnectionPaths> getClientConnectionPathsList() {
       return clientConnectionPaths_;
     }
     /**
      * <code>repeated .ibc.core.connection.v1.ConnectionPaths client_connection_paths = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"client_connection_paths&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.connection.v1.Connection.ConnectionPathsOrBuilder> 
         getClientConnectionPathsOrBuilderList() {
       return clientConnectionPaths_;
@@ -242,18 +249,21 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.connection.v1.ConnectionPaths client_connection_paths = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"client_connection_paths&#92;""];</code>
      */
+    @java.lang.Override
     public int getClientConnectionPathsCount() {
       return clientConnectionPaths_.size();
     }
     /**
      * <code>repeated .ibc.core.connection.v1.ConnectionPaths client_connection_paths = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"client_connection_paths&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.ConnectionPaths getClientConnectionPaths(int index) {
       return clientConnectionPaths_.get(index);
     }
     /**
      * <code>repeated .ibc.core.connection.v1.ConnectionPaths client_connection_paths = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"client_connection_paths&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.ConnectionPathsOrBuilder getClientConnectionPathsOrBuilder(
         int index) {
       return clientConnectionPaths_.get(index);
@@ -269,6 +279,7 @@ public final class Genesis {
      * <code>uint64 next_connection_sequence = 3 [(.gogoproto.moretags) = "yaml:&#92;"next_connection_sequence&#92;""];</code>
      * @return The nextConnectionSequence.
      */
+    @java.lang.Override
     public long getNextConnectionSequence() {
       return nextConnectionSequence_;
     }
@@ -1181,6 +1192,7 @@ public final class Genesis {
        * <code>uint64 next_connection_sequence = 3 [(.gogoproto.moretags) = "yaml:&#92;"next_connection_sequence&#92;""];</code>
        * @return The nextConnectionSequence.
        */
+      @java.lang.Override
       public long getNextConnectionSequence() {
         return nextConnectionSequence_;
       }

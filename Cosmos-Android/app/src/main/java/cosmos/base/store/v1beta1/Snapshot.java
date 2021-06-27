@@ -57,7 +57,7 @@ public final class Snapshot {
    *
    * Protobuf type {@code cosmos.base.store.v1beta1.SnapshotItem}
    */
-  public  static final class SnapshotItem extends
+  public static final class SnapshotItem extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.store.v1beta1.SnapshotItem)
       SnapshotItemOrBuilder {
@@ -205,6 +205,7 @@ public final class Snapshot {
      * <code>.cosmos.base.store.v1beta1.SnapshotStoreItem store = 1;</code>
      * @return Whether the store field is set.
      */
+    @java.lang.Override
     public boolean hasStore() {
       return itemCase_ == 1;
     }
@@ -212,6 +213,7 @@ public final class Snapshot {
      * <code>.cosmos.base.store.v1beta1.SnapshotStoreItem store = 1;</code>
      * @return The store.
      */
+    @java.lang.Override
     public cosmos.base.store.v1beta1.Snapshot.SnapshotStoreItem getStore() {
       if (itemCase_ == 1) {
          return (cosmos.base.store.v1beta1.Snapshot.SnapshotStoreItem) item_;
@@ -221,6 +223,7 @@ public final class Snapshot {
     /**
      * <code>.cosmos.base.store.v1beta1.SnapshotStoreItem store = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.store.v1beta1.Snapshot.SnapshotStoreItemOrBuilder getStoreOrBuilder() {
       if (itemCase_ == 1) {
          return (cosmos.base.store.v1beta1.Snapshot.SnapshotStoreItem) item_;
@@ -233,6 +236,7 @@ public final class Snapshot {
      * <code>.cosmos.base.store.v1beta1.SnapshotIAVLItem iavl = 2 [(.gogoproto.customname) = "IAVL"];</code>
      * @return Whether the iavl field is set.
      */
+    @java.lang.Override
     public boolean hasIavl() {
       return itemCase_ == 2;
     }
@@ -240,6 +244,7 @@ public final class Snapshot {
      * <code>.cosmos.base.store.v1beta1.SnapshotIAVLItem iavl = 2 [(.gogoproto.customname) = "IAVL"];</code>
      * @return The iavl.
      */
+    @java.lang.Override
     public cosmos.base.store.v1beta1.Snapshot.SnapshotIAVLItem getIavl() {
       if (itemCase_ == 2) {
          return (cosmos.base.store.v1beta1.Snapshot.SnapshotIAVLItem) item_;
@@ -249,6 +254,7 @@ public final class Snapshot {
     /**
      * <code>.cosmos.base.store.v1beta1.SnapshotIAVLItem iavl = 2 [(.gogoproto.customname) = "IAVL"];</code>
      */
+    @java.lang.Override
     public cosmos.base.store.v1beta1.Snapshot.SnapshotIAVLItemOrBuilder getIavlOrBuilder() {
       if (itemCase_ == 2) {
          return (cosmos.base.store.v1beta1.Snapshot.SnapshotIAVLItem) item_;
@@ -635,6 +641,7 @@ public final class Snapshot {
        * <code>.cosmos.base.store.v1beta1.SnapshotStoreItem store = 1;</code>
        * @return Whether the store field is set.
        */
+      @java.lang.Override
       public boolean hasStore() {
         return itemCase_ == 1;
       }
@@ -642,6 +649,7 @@ public final class Snapshot {
        * <code>.cosmos.base.store.v1beta1.SnapshotStoreItem store = 1;</code>
        * @return The store.
        */
+      @java.lang.Override
       public cosmos.base.store.v1beta1.Snapshot.SnapshotStoreItem getStore() {
         if (storeBuilder_ == null) {
           if (itemCase_ == 1) {
@@ -735,6 +743,7 @@ public final class Snapshot {
       /**
        * <code>.cosmos.base.store.v1beta1.SnapshotStoreItem store = 1;</code>
        */
+      @java.lang.Override
       public cosmos.base.store.v1beta1.Snapshot.SnapshotStoreItemOrBuilder getStoreOrBuilder() {
         if ((itemCase_ == 1) && (storeBuilder_ != null)) {
           return storeBuilder_.getMessageOrBuilder();
@@ -773,6 +782,7 @@ public final class Snapshot {
        * <code>.cosmos.base.store.v1beta1.SnapshotIAVLItem iavl = 2 [(.gogoproto.customname) = "IAVL"];</code>
        * @return Whether the iavl field is set.
        */
+      @java.lang.Override
       public boolean hasIavl() {
         return itemCase_ == 2;
       }
@@ -780,6 +790,7 @@ public final class Snapshot {
        * <code>.cosmos.base.store.v1beta1.SnapshotIAVLItem iavl = 2 [(.gogoproto.customname) = "IAVL"];</code>
        * @return The iavl.
        */
+      @java.lang.Override
       public cosmos.base.store.v1beta1.Snapshot.SnapshotIAVLItem getIavl() {
         if (iavlBuilder_ == null) {
           if (itemCase_ == 2) {
@@ -873,6 +884,7 @@ public final class Snapshot {
       /**
        * <code>.cosmos.base.store.v1beta1.SnapshotIAVLItem iavl = 2 [(.gogoproto.customname) = "IAVL"];</code>
        */
+      @java.lang.Override
       public cosmos.base.store.v1beta1.Snapshot.SnapshotIAVLItemOrBuilder getIavlOrBuilder() {
         if ((itemCase_ == 2) && (iavlBuilder_ != null)) {
           return iavlBuilder_.getMessageOrBuilder();
@@ -980,7 +992,7 @@ public final class Snapshot {
    *
    * Protobuf type {@code cosmos.base.store.v1beta1.SnapshotStoreItem}
    */
-  public  static final class SnapshotStoreItem extends
+  public static final class SnapshotStoreItem extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.store.v1beta1.SnapshotStoreItem)
       SnapshotStoreItemOrBuilder {
@@ -1067,6 +1079,7 @@ public final class Snapshot {
      * <code>string name = 1;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -1083,6 +1096,7 @@ public final class Snapshot {
      * <code>string name = 1;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -1566,7 +1580,7 @@ public final class Snapshot {
    *
    * Protobuf type {@code cosmos.base.store.v1beta1.SnapshotIAVLItem}
    */
-  public  static final class SnapshotIAVLItem extends
+  public static final class SnapshotIAVLItem extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.store.v1beta1.SnapshotIAVLItem)
       SnapshotIAVLItemOrBuilder {
@@ -1668,6 +1682,7 @@ public final class Snapshot {
      * <code>bytes key = 1;</code>
      * @return The key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getKey() {
       return key_;
     }
@@ -1678,6 +1693,7 @@ public final class Snapshot {
      * <code>bytes value = 2;</code>
      * @return The value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValue() {
       return value_;
     }
@@ -1688,6 +1704,7 @@ public final class Snapshot {
      * <code>int64 version = 3;</code>
      * @return The version.
      */
+    @java.lang.Override
     public long getVersion() {
       return version_;
     }
@@ -1698,6 +1715,7 @@ public final class Snapshot {
      * <code>int32 height = 4;</code>
      * @return The height.
      */
+    @java.lang.Override
     public int getHeight() {
       return height_;
     }
@@ -2065,6 +2083,7 @@ public final class Snapshot {
        * <code>bytes key = 1;</code>
        * @return The key.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getKey() {
         return key_;
       }
@@ -2098,6 +2117,7 @@ public final class Snapshot {
        * <code>bytes value = 2;</code>
        * @return The value.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getValue() {
         return value_;
       }
@@ -2131,6 +2151,7 @@ public final class Snapshot {
        * <code>int64 version = 3;</code>
        * @return The version.
        */
+      @java.lang.Override
       public long getVersion() {
         return version_;
       }
@@ -2161,6 +2182,7 @@ public final class Snapshot {
        * <code>int32 height = 4;</code>
        * @return The height.
        */
+      @java.lang.Override
       public int getHeight() {
         return height_;
       }

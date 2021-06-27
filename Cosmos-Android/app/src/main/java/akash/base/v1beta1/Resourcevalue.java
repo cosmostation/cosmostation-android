@@ -31,7 +31,7 @@ public final class Resourcevalue {
    *
    * Protobuf type {@code akash.base.v1beta1.ResourceValue}
    */
-  public  static final class ResourceValue extends
+  public static final class ResourceValue extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.base.v1beta1.ResourceValue)
       ResourceValueOrBuilder {
@@ -117,6 +117,7 @@ public final class Resourcevalue {
      * <code>bytes val = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The val.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getVal() {
       return val_;
     }
@@ -432,6 +433,7 @@ public final class Resourcevalue {
        * <code>bytes val = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
        * @return The val.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getVal() {
         return val_;
       }

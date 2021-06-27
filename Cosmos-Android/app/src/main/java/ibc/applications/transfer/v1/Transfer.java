@@ -97,7 +97,7 @@ public final class Transfer {
    *
    * Protobuf type {@code ibc.applications.transfer.v1.FungibleTokenPacketData}
    */
-  public  static final class FungibleTokenPacketData extends
+  public static final class FungibleTokenPacketData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.FungibleTokenPacketData)
       FungibleTokenPacketDataOrBuilder {
@@ -207,6 +207,7 @@ public final class Transfer {
      * <code>string denom = 1;</code>
      * @return The denom.
      */
+    @java.lang.Override
     public java.lang.String getDenom() {
       java.lang.Object ref = denom_;
       if (ref instanceof java.lang.String) {
@@ -227,6 +228,7 @@ public final class Transfer {
      * <code>string denom = 1;</code>
      * @return The bytes for denom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomBytes() {
       java.lang.Object ref = denom_;
@@ -251,6 +253,7 @@ public final class Transfer {
      * <code>uint64 amount = 2;</code>
      * @return The amount.
      */
+    @java.lang.Override
     public long getAmount() {
       return amount_;
     }
@@ -265,6 +268,7 @@ public final class Transfer {
      * <code>string sender = 3;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -285,6 +289,7 @@ public final class Transfer {
      * <code>string sender = 3;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -309,6 +314,7 @@ public final class Transfer {
      * <code>string receiver = 4;</code>
      * @return The receiver.
      */
+    @java.lang.Override
     public java.lang.String getReceiver() {
       java.lang.Object ref = receiver_;
       if (ref instanceof java.lang.String) {
@@ -329,6 +335,7 @@ public final class Transfer {
      * <code>string receiver = 4;</code>
      * @return The bytes for receiver.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getReceiverBytes() {
       java.lang.Object ref = receiver_;
@@ -808,6 +815,7 @@ public final class Transfer {
        * <code>uint64 amount = 2;</code>
        * @return The amount.
        */
+      @java.lang.Override
       public long getAmount() {
         return amount_;
       }
@@ -1139,7 +1147,7 @@ public final class Transfer {
    *
    * Protobuf type {@code ibc.applications.transfer.v1.DenomTrace}
    */
-  public  static final class DenomTrace extends
+  public static final class DenomTrace extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.DenomTrace)
       DenomTraceOrBuilder {
@@ -1238,6 +1246,7 @@ public final class Transfer {
      * <code>string path = 1;</code>
      * @return The path.
      */
+    @java.lang.Override
     public java.lang.String getPath() {
       java.lang.Object ref = path_;
       if (ref instanceof java.lang.String) {
@@ -1259,6 +1268,7 @@ public final class Transfer {
      * <code>string path = 1;</code>
      * @return The bytes for path.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPathBytes() {
       java.lang.Object ref = path_;
@@ -1283,6 +1293,7 @@ public final class Transfer {
      * <code>string base_denom = 2;</code>
      * @return The baseDenom.
      */
+    @java.lang.Override
     public java.lang.String getBaseDenom() {
       java.lang.Object ref = baseDenom_;
       if (ref instanceof java.lang.String) {
@@ -1303,6 +1314,7 @@ public final class Transfer {
      * <code>string base_denom = 2;</code>
      * @return The bytes for baseDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getBaseDenomBytes() {
       java.lang.Object ref = baseDenom_;
@@ -1926,7 +1938,7 @@ public final class Transfer {
    *
    * Protobuf type {@code ibc.applications.transfer.v1.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.Params)
       ParamsOrBuilder {
@@ -2021,6 +2033,7 @@ public final class Transfer {
      * <code>bool send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled&#92;""];</code>
      * @return The sendEnabled.
      */
+    @java.lang.Override
     public boolean getSendEnabled() {
       return sendEnabled_;
     }
@@ -2036,6 +2049,7 @@ public final class Transfer {
      * <code>bool receive_enabled = 2 [(.gogoproto.moretags) = "yaml:&#92;"receive_enabled&#92;""];</code>
      * @return The receiveEnabled.
      */
+    @java.lang.Override
     public boolean getReceiveEnabled() {
       return receiveEnabled_;
     }
@@ -2378,6 +2392,7 @@ public final class Transfer {
        * <code>bool send_enabled = 1 [(.gogoproto.moretags) = "yaml:&#92;"send_enabled&#92;""];</code>
        * @return The sendEnabled.
        */
+      @java.lang.Override
       public boolean getSendEnabled() {
         return sendEnabled_;
       }
@@ -2423,6 +2438,7 @@ public final class Transfer {
        * <code>bool receive_enabled = 2 [(.gogoproto.moretags) = "yaml:&#92;"receive_enabled&#92;""];</code>
        * @return The receiveEnabled.
        */
+      @java.lang.Override
       public boolean getReceiveEnabled() {
         return receiveEnabled_;
       }

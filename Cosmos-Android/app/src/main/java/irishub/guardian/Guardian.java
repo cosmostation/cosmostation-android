@@ -104,6 +104,10 @@ public final class Guardian {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -196,7 +200,7 @@ public final class Guardian {
    *
    * Protobuf type {@code irishub.guardian.Super}
    */
-  public  static final class Super extends
+  public static final class Super extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irishub.guardian.Super)
       SuperOrBuilder {
@@ -304,6 +308,7 @@ public final class Guardian {
      * <code>string description = 1;</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -320,6 +325,7 @@ public final class Guardian {
      * <code>string description = 1;</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -340,14 +346,14 @@ public final class Guardian {
      * <code>.irishub.guardian.AccountType account_type = 2 [(.gogoproto.moretags) = "yaml:&#92;"account_type&#92;""];</code>
      * @return The enum numeric value on the wire for accountType.
      */
-    public int getAccountTypeValue() {
+    @java.lang.Override public int getAccountTypeValue() {
       return accountType_;
     }
     /**
      * <code>.irishub.guardian.AccountType account_type = 2 [(.gogoproto.moretags) = "yaml:&#92;"account_type&#92;""];</code>
      * @return The accountType.
      */
-    public irishub.guardian.Guardian.AccountType getAccountType() {
+    @java.lang.Override public irishub.guardian.Guardian.AccountType getAccountType() {
       @SuppressWarnings("deprecation")
       irishub.guardian.Guardian.AccountType result = irishub.guardian.Guardian.AccountType.valueOf(accountType_);
       return result == null ? irishub.guardian.Guardian.AccountType.UNRECOGNIZED : result;
@@ -359,6 +365,7 @@ public final class Guardian {
      * <code>string address = 3;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -375,6 +382,7 @@ public final class Guardian {
      * <code>string address = 3;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -395,6 +403,7 @@ public final class Guardian {
      * <code>string added_by = 4;</code>
      * @return The addedBy.
      */
+    @java.lang.Override
     public java.lang.String getAddedBy() {
       java.lang.Object ref = addedBy_;
       if (ref instanceof java.lang.String) {
@@ -411,6 +420,7 @@ public final class Guardian {
      * <code>string added_by = 4;</code>
      * @return The bytes for addedBy.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddedByBytes() {
       java.lang.Object ref = addedBy_;
@@ -862,7 +872,7 @@ public final class Guardian {
        * <code>.irishub.guardian.AccountType account_type = 2 [(.gogoproto.moretags) = "yaml:&#92;"account_type&#92;""];</code>
        * @return The enum numeric value on the wire for accountType.
        */
-      public int getAccountTypeValue() {
+      @java.lang.Override public int getAccountTypeValue() {
         return accountType_;
       }
       /**
@@ -871,6 +881,7 @@ public final class Guardian {
        * @return This builder for chaining.
        */
       public Builder setAccountTypeValue(int value) {
+        
         accountType_ = value;
         onChanged();
         return this;
@@ -879,6 +890,7 @@ public final class Guardian {
        * <code>.irishub.guardian.AccountType account_type = 2 [(.gogoproto.moretags) = "yaml:&#92;"account_type&#92;""];</code>
        * @return The accountType.
        */
+      @java.lang.Override
       public irishub.guardian.Guardian.AccountType getAccountType() {
         @SuppressWarnings("deprecation")
         irishub.guardian.Guardian.AccountType result = irishub.guardian.Guardian.AccountType.valueOf(accountType_);

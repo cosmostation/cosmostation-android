@@ -79,7 +79,7 @@ public final class Gov {
    *
    * Protobuf type {@code osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal}
    */
-  public  static final class ReplacePoolIncentivesProposal extends
+  public static final class ReplacePoolIncentivesProposal extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal)
       ReplacePoolIncentivesProposalOrBuilder {
@@ -187,6 +187,7 @@ public final class Gov {
      * <code>string title = 1;</code>
      * @return The title.
      */
+    @java.lang.Override
     public java.lang.String getTitle() {
       java.lang.Object ref = title_;
       if (ref instanceof java.lang.String) {
@@ -203,6 +204,7 @@ public final class Gov {
      * <code>string title = 1;</code>
      * @return The bytes for title.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTitleBytes() {
       java.lang.Object ref = title_;
@@ -223,6 +225,7 @@ public final class Gov {
      * <code>string description = 2;</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -239,6 +242,7 @@ public final class Gov {
      * <code>string description = 2;</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -258,12 +262,14 @@ public final class Gov {
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.poolincentives.v1beta1.Incentives.DistrRecord> getRecordsList() {
       return records_;
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.poolincentives.v1beta1.Incentives.DistrRecordOrBuilder> 
         getRecordsOrBuilderList() {
       return records_;
@@ -271,18 +277,21 @@ public final class Gov {
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getRecordsCount() {
       return records_.size();
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.DistrRecord getRecords(int index) {
       return records_.get(index);
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.DistrRecordOrBuilder getRecordsOrBuilder(
         int index) {
       return records_.get(index);
@@ -1183,7 +1192,7 @@ public final class Gov {
    *
    * Protobuf type {@code osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal}
    */
-  public  static final class UpdatePoolIncentivesProposal extends
+  public static final class UpdatePoolIncentivesProposal extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal)
       UpdatePoolIncentivesProposalOrBuilder {
@@ -1291,6 +1300,7 @@ public final class Gov {
      * <code>string title = 1;</code>
      * @return The title.
      */
+    @java.lang.Override
     public java.lang.String getTitle() {
       java.lang.Object ref = title_;
       if (ref instanceof java.lang.String) {
@@ -1307,6 +1317,7 @@ public final class Gov {
      * <code>string title = 1;</code>
      * @return The bytes for title.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTitleBytes() {
       java.lang.Object ref = title_;
@@ -1327,6 +1338,7 @@ public final class Gov {
      * <code>string description = 2;</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -1343,6 +1355,7 @@ public final class Gov {
      * <code>string description = 2;</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -1362,12 +1375,14 @@ public final class Gov {
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.poolincentives.v1beta1.Incentives.DistrRecord> getRecordsList() {
       return records_;
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.poolincentives.v1beta1.Incentives.DistrRecordOrBuilder> 
         getRecordsOrBuilderList() {
       return records_;
@@ -1375,18 +1390,21 @@ public final class Gov {
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getRecordsCount() {
       return records_.size();
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.DistrRecord getRecords(int index) {
       return records_.get(index);
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.DistrRecordOrBuilder getRecordsOrBuilder(
         int index) {
       return records_.get(index);

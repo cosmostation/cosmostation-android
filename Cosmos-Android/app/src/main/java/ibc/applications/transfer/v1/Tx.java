@@ -175,7 +175,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.applications.transfer.v1.MsgTransfer}
    */
-  public  static final class MsgTransfer extends
+  public static final class MsgTransfer extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.MsgTransfer)
       MsgTransferOrBuilder {
@@ -318,6 +318,7 @@ public final class Tx {
      * <code>string source_port = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_port&#92;""];</code>
      * @return The sourcePort.
      */
+    @java.lang.Override
     public java.lang.String getSourcePort() {
       java.lang.Object ref = sourcePort_;
       if (ref instanceof java.lang.String) {
@@ -338,6 +339,7 @@ public final class Tx {
      * <code>string source_port = 1 [(.gogoproto.moretags) = "yaml:&#92;"source_port&#92;""];</code>
      * @return The bytes for sourcePort.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSourcePortBytes() {
       java.lang.Object ref = sourcePort_;
@@ -362,6 +364,7 @@ public final class Tx {
      * <code>string source_channel = 2 [(.gogoproto.moretags) = "yaml:&#92;"source_channel&#92;""];</code>
      * @return The sourceChannel.
      */
+    @java.lang.Override
     public java.lang.String getSourceChannel() {
       java.lang.Object ref = sourceChannel_;
       if (ref instanceof java.lang.String) {
@@ -382,6 +385,7 @@ public final class Tx {
      * <code>string source_channel = 2 [(.gogoproto.moretags) = "yaml:&#92;"source_channel&#92;""];</code>
      * @return The bytes for sourceChannel.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSourceChannelBytes() {
       java.lang.Object ref = sourceChannel_;
@@ -406,6 +410,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin token = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the token field is set.
      */
+    @java.lang.Override
     public boolean hasToken() {
       return token_ != null;
     }
@@ -417,6 +422,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin token = 3 [(.gogoproto.nullable) = false];</code>
      * @return The token.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getToken() {
       return token_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : token_;
     }
@@ -427,6 +433,7 @@ public final class Tx {
      *
      * <code>.cosmos.base.v1beta1.Coin token = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTokenOrBuilder() {
       return getToken();
     }
@@ -441,6 +448,7 @@ public final class Tx {
      * <code>string sender = 4;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -461,6 +469,7 @@ public final class Tx {
      * <code>string sender = 4;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -485,6 +494,7 @@ public final class Tx {
      * <code>string receiver = 5;</code>
      * @return The receiver.
      */
+    @java.lang.Override
     public java.lang.String getReceiver() {
       java.lang.Object ref = receiver_;
       if (ref instanceof java.lang.String) {
@@ -505,6 +515,7 @@ public final class Tx {
      * <code>string receiver = 5;</code>
      * @return The bytes for receiver.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getReceiverBytes() {
       java.lang.Object ref = receiver_;
@@ -530,6 +541,7 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height timeout_height = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timeout_height&#92;""];</code>
      * @return Whether the timeoutHeight field is set.
      */
+    @java.lang.Override
     public boolean hasTimeoutHeight() {
       return timeoutHeight_ != null;
     }
@@ -542,6 +554,7 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height timeout_height = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timeout_height&#92;""];</code>
      * @return The timeoutHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getTimeoutHeight() {
       return timeoutHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : timeoutHeight_;
     }
@@ -553,6 +566,7 @@ public final class Tx {
      *
      * <code>.ibc.core.client.v1.Height timeout_height = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timeout_height&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getTimeoutHeightOrBuilder() {
       return getTimeoutHeight();
     }
@@ -568,6 +582,7 @@ public final class Tx {
      * <code>uint64 timeout_timestamp = 7 [(.gogoproto.moretags) = "yaml:&#92;"timeout_timestamp&#92;""];</code>
      * @return The timeoutTimestamp.
      */
+    @java.lang.Override
     public long getTimeoutTimestamp() {
       return timeoutTimestamp_;
     }
@@ -1722,6 +1737,7 @@ public final class Tx {
        * <code>uint64 timeout_timestamp = 7 [(.gogoproto.moretags) = "yaml:&#92;"timeout_timestamp&#92;""];</code>
        * @return The timeoutTimestamp.
        */
+      @java.lang.Override
       public long getTimeoutTimestamp() {
         return timeoutTimestamp_;
       }
@@ -1820,7 +1836,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.applications.transfer.v1.MsgTransferResponse}
    */
-  public  static final class MsgTransferResponse extends
+  public static final class MsgTransferResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.MsgTransferResponse)
       MsgTransferResponseOrBuilder {

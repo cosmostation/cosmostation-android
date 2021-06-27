@@ -73,7 +73,7 @@ public final class Audit {
    *
    * Protobuf type {@code akash.audit.v1beta1.Provider}
    */
-  public  static final class Provider extends
+  public static final class Provider extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.audit.v1beta1.Provider)
       ProviderOrBuilder {
@@ -181,6 +181,7 @@ public final class Audit {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -197,6 +198,7 @@ public final class Audit {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -217,6 +219,7 @@ public final class Audit {
      * <code>string auditor = 2 [(.gogoproto.jsontag) = "auditor", (.gogoproto.moretags) = "yaml:&#92;"auditor&#92;""];</code>
      * @return The auditor.
      */
+    @java.lang.Override
     public java.lang.String getAuditor() {
       java.lang.Object ref = auditor_;
       if (ref instanceof java.lang.String) {
@@ -233,6 +236,7 @@ public final class Audit {
      * <code>string auditor = 2 [(.gogoproto.jsontag) = "auditor", (.gogoproto.moretags) = "yaml:&#92;"auditor&#92;""];</code>
      * @return The bytes for auditor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAuditorBytes() {
       java.lang.Object ref = auditor_;
@@ -252,12 +256,14 @@ public final class Audit {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
       return attributes_;
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
         getAttributesOrBuilderList() {
       return attributes_;
@@ -265,18 +271,21 @@ public final class Audit {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
         int index) {
       return attributes_.get(index);
@@ -1165,7 +1174,7 @@ public final class Audit {
    *
    * Protobuf type {@code akash.audit.v1beta1.AuditedAttributes}
    */
-  public  static final class AuditedAttributes extends
+  public static final class AuditedAttributes extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.audit.v1beta1.AuditedAttributes)
       AuditedAttributesOrBuilder {
@@ -1273,6 +1282,7 @@ public final class Audit {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -1289,6 +1299,7 @@ public final class Audit {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -1309,6 +1320,7 @@ public final class Audit {
      * <code>string auditor = 2 [(.gogoproto.jsontag) = "auditor", (.gogoproto.moretags) = "yaml:&#92;"auditor&#92;""];</code>
      * @return The auditor.
      */
+    @java.lang.Override
     public java.lang.String getAuditor() {
       java.lang.Object ref = auditor_;
       if (ref instanceof java.lang.String) {
@@ -1325,6 +1337,7 @@ public final class Audit {
      * <code>string auditor = 2 [(.gogoproto.jsontag) = "auditor", (.gogoproto.moretags) = "yaml:&#92;"auditor&#92;""];</code>
      * @return The bytes for auditor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAuditorBytes() {
       java.lang.Object ref = auditor_;
@@ -1344,12 +1357,14 @@ public final class Audit {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
       return attributes_;
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
         getAttributesOrBuilderList() {
       return attributes_;
@@ -1357,18 +1372,21 @@ public final class Audit {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
         int index) {
       return attributes_.get(index);
@@ -2233,7 +2251,7 @@ public final class Audit {
    *
    * Protobuf type {@code akash.audit.v1beta1.AttributesResponse}
    */
-  public  static final class AttributesResponse extends
+  public static final class AttributesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.audit.v1beta1.AttributesResponse)
       AttributesResponseOrBuilder {
@@ -2326,12 +2344,14 @@ public final class Audit {
     /**
      * <code>repeated .akash.audit.v1beta1.AuditedAttributes attributes = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.audit.v1beta1.Audit.AuditedAttributes> getAttributesList() {
       return attributes_;
     }
     /**
      * <code>repeated .akash.audit.v1beta1.AuditedAttributes attributes = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.audit.v1beta1.Audit.AuditedAttributesOrBuilder> 
         getAttributesOrBuilderList() {
       return attributes_;
@@ -2339,18 +2359,21 @@ public final class Audit {
     /**
      * <code>repeated .akash.audit.v1beta1.AuditedAttributes attributes = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
      * <code>repeated .akash.audit.v1beta1.AuditedAttributes attributes = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public akash.audit.v1beta1.Audit.AuditedAttributes getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
      * <code>repeated .akash.audit.v1beta1.AuditedAttributes attributes = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public akash.audit.v1beta1.Audit.AuditedAttributesOrBuilder getAttributesOrBuilder(
         int index) {
       return attributes_.get(index);
@@ -3055,7 +3078,7 @@ public final class Audit {
    *
    * Protobuf type {@code akash.audit.v1beta1.AttributesFilters}
    */
-  public  static final class AttributesFilters extends
+  public static final class AttributesFilters extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.audit.v1beta1.AttributesFilters)
       AttributesFiltersOrBuilder {
@@ -3916,7 +3939,7 @@ public final class Audit {
    *
    * Protobuf type {@code akash.audit.v1beta1.MsgSignProviderAttributes}
    */
-  public  static final class MsgSignProviderAttributes extends
+  public static final class MsgSignProviderAttributes extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.audit.v1beta1.MsgSignProviderAttributes)
       MsgSignProviderAttributesOrBuilder {
@@ -4024,6 +4047,7 @@ public final class Audit {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -4040,6 +4064,7 @@ public final class Audit {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -4060,6 +4085,7 @@ public final class Audit {
      * <code>string auditor = 2 [(.gogoproto.jsontag) = "auditor", (.gogoproto.moretags) = "yaml:&#92;"auditor&#92;""];</code>
      * @return The auditor.
      */
+    @java.lang.Override
     public java.lang.String getAuditor() {
       java.lang.Object ref = auditor_;
       if (ref instanceof java.lang.String) {
@@ -4076,6 +4102,7 @@ public final class Audit {
      * <code>string auditor = 2 [(.gogoproto.jsontag) = "auditor", (.gogoproto.moretags) = "yaml:&#92;"auditor&#92;""];</code>
      * @return The bytes for auditor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAuditorBytes() {
       java.lang.Object ref = auditor_;
@@ -4095,12 +4122,14 @@ public final class Audit {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
       return attributes_;
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
         getAttributesOrBuilderList() {
       return attributes_;
@@ -4108,18 +4137,21 @@ public final class Audit {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
         int index) {
       return attributes_.get(index);
@@ -4960,7 +4992,7 @@ public final class Audit {
    *
    * Protobuf type {@code akash.audit.v1beta1.MsgSignProviderAttributesResponse}
    */
-  public  static final class MsgSignProviderAttributesResponse extends
+  public static final class MsgSignProviderAttributesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.audit.v1beta1.MsgSignProviderAttributesResponse)
       MsgSignProviderAttributesResponseOrBuilder {
@@ -5435,7 +5467,7 @@ public final class Audit {
    *
    * Protobuf type {@code akash.audit.v1beta1.MsgDeleteProviderAttributes}
    */
-  public  static final class MsgDeleteProviderAttributes extends
+  public static final class MsgDeleteProviderAttributes extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.audit.v1beta1.MsgDeleteProviderAttributes)
       MsgDeleteProviderAttributesOrBuilder {
@@ -5543,6 +5575,7 @@ public final class Audit {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -5559,6 +5592,7 @@ public final class Audit {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -5579,6 +5613,7 @@ public final class Audit {
      * <code>string auditor = 2 [(.gogoproto.jsontag) = "auditor", (.gogoproto.moretags) = "yaml:&#92;"auditor&#92;""];</code>
      * @return The auditor.
      */
+    @java.lang.Override
     public java.lang.String getAuditor() {
       java.lang.Object ref = auditor_;
       if (ref instanceof java.lang.String) {
@@ -5595,6 +5630,7 @@ public final class Audit {
      * <code>string auditor = 2 [(.gogoproto.jsontag) = "auditor", (.gogoproto.moretags) = "yaml:&#92;"auditor&#92;""];</code>
      * @return The bytes for auditor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAuditorBytes() {
       java.lang.Object ref = auditor_;
@@ -6328,7 +6364,7 @@ public final class Audit {
    *
    * Protobuf type {@code akash.audit.v1beta1.MsgDeleteProviderAttributesResponse}
    */
-  public  static final class MsgDeleteProviderAttributesResponse extends
+  public static final class MsgDeleteProviderAttributesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.audit.v1beta1.MsgDeleteProviderAttributesResponse)
       MsgDeleteProviderAttributesResponseOrBuilder {

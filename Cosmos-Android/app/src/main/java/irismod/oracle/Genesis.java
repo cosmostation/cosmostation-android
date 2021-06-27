@@ -49,7 +49,7 @@ public final class Genesis {
    *
    * Protobuf type {@code irismod.oracle.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.GenesisState)
       GenesisStateOrBuilder {
@@ -142,12 +142,14 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.oracle.FeedEntry entries = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.oracle.Genesis.FeedEntry> getEntriesList() {
       return entries_;
     }
     /**
      * <code>repeated .irismod.oracle.FeedEntry entries = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.oracle.Genesis.FeedEntryOrBuilder> 
         getEntriesOrBuilderList() {
       return entries_;
@@ -155,18 +157,21 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.oracle.FeedEntry entries = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getEntriesCount() {
       return entries_.size();
     }
     /**
      * <code>repeated .irismod.oracle.FeedEntry entries = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.oracle.Genesis.FeedEntry getEntries(int index) {
       return entries_.get(index);
     }
     /**
      * <code>repeated .irismod.oracle.FeedEntry entries = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.oracle.Genesis.FeedEntryOrBuilder getEntriesOrBuilder(
         int index) {
       return entries_.get(index);
@@ -867,7 +872,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code irismod.oracle.FeedEntry}
    */
-  public  static final class FeedEntry extends
+  public static final class FeedEntry extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.FeedEntry)
       FeedEntryOrBuilder {
@@ -981,6 +986,7 @@ public final class Genesis {
      * <code>.irismod.oracle.Feed feed = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the feed field is set.
      */
+    @java.lang.Override
     public boolean hasFeed() {
       return feed_ != null;
     }
@@ -988,12 +994,14 @@ public final class Genesis {
      * <code>.irismod.oracle.Feed feed = 1 [(.gogoproto.nullable) = false];</code>
      * @return The feed.
      */
+    @java.lang.Override
     public irismod.oracle.Oracle.Feed getFeed() {
       return feed_ == null ? irismod.oracle.Oracle.Feed.getDefaultInstance() : feed_;
     }
     /**
      * <code>.irismod.oracle.Feed feed = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.oracle.Oracle.FeedOrBuilder getFeedOrBuilder() {
       return getFeed();
     }
@@ -1004,14 +1012,14 @@ public final class Genesis {
      * <code>.irismod.service.RequestContextState state = 2;</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
      * <code>.irismod.service.RequestContextState state = 2;</code>
      * @return The state.
      */
-    public irismod.service.Service.RequestContextState getState() {
+    @java.lang.Override public irismod.service.Service.RequestContextState getState() {
       @SuppressWarnings("deprecation")
       irismod.service.Service.RequestContextState result = irismod.service.Service.RequestContextState.valueOf(state_);
       return result == null ? irismod.service.Service.RequestContextState.UNRECOGNIZED : result;
@@ -1022,12 +1030,14 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.oracle.FeedValue values = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.oracle.Oracle.FeedValue> getValuesList() {
       return values_;
     }
     /**
      * <code>repeated .irismod.oracle.FeedValue values = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.oracle.Oracle.FeedValueOrBuilder> 
         getValuesOrBuilderList() {
       return values_;
@@ -1035,18 +1045,21 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.oracle.FeedValue values = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getValuesCount() {
       return values_.size();
     }
     /**
      * <code>repeated .irismod.oracle.FeedValue values = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.oracle.Oracle.FeedValue getValues(int index) {
       return values_.get(index);
     }
     /**
      * <code>repeated .irismod.oracle.FeedValue values = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.oracle.Oracle.FeedValueOrBuilder getValuesOrBuilder(
         int index) {
       return values_.get(index);
@@ -1564,7 +1577,7 @@ public final class Genesis {
        * <code>.irismod.service.RequestContextState state = 2;</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -1573,6 +1586,7 @@ public final class Genesis {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -1581,6 +1595,7 @@ public final class Genesis {
        * <code>.irismod.service.RequestContextState state = 2;</code>
        * @return The state.
        */
+      @java.lang.Override
       public irismod.service.Service.RequestContextState getState() {
         @SuppressWarnings("deprecation")
         irismod.service.Service.RequestContextState result = irismod.service.Service.RequestContextState.valueOf(state_);

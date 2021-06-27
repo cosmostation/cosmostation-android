@@ -59,7 +59,7 @@ public final class Genesis {
    *
    * Protobuf type {@code irismod.random.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.random.GenesisState)
       GenesisStateOrBuilder {
@@ -189,6 +189,7 @@ public final class Genesis {
      * <code>map&lt;string, .irismod.random.Requests&gt; pending_random_requests = 1 [(.gogoproto.nullable) = false];</code>
      */
 
+    @java.lang.Override
     public boolean containsPendingRandomRequests(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -197,6 +198,7 @@ public final class Genesis {
     /**
      * Use {@link #getPendingRandomRequestsMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, irismod.random.Genesis.Requests> getPendingRandomRequests() {
       return getPendingRandomRequestsMap();
@@ -204,6 +206,7 @@ public final class Genesis {
     /**
      * <code>map&lt;string, .irismod.random.Requests&gt; pending_random_requests = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, irismod.random.Genesis.Requests> getPendingRandomRequestsMap() {
       return internalGetPendingRandomRequests().getMap();
@@ -211,6 +214,7 @@ public final class Genesis {
     /**
      * <code>map&lt;string, .irismod.random.Requests&gt; pending_random_requests = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
 
     public irismod.random.Genesis.Requests getPendingRandomRequestsOrDefault(
         java.lang.String key,
@@ -223,6 +227,7 @@ public final class Genesis {
     /**
      * <code>map&lt;string, .irismod.random.Requests&gt; pending_random_requests = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
 
     public irismod.random.Genesis.Requests getPendingRandomRequestsOrThrow(
         java.lang.String key) {
@@ -605,6 +610,7 @@ public final class Genesis {
        * <code>map&lt;string, .irismod.random.Requests&gt; pending_random_requests = 1 [(.gogoproto.nullable) = false];</code>
        */
 
+      @java.lang.Override
       public boolean containsPendingRandomRequests(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -613,6 +619,7 @@ public final class Genesis {
       /**
        * Use {@link #getPendingRandomRequestsMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, irismod.random.Genesis.Requests> getPendingRandomRequests() {
         return getPendingRandomRequestsMap();
@@ -620,6 +627,7 @@ public final class Genesis {
       /**
        * <code>map&lt;string, .irismod.random.Requests&gt; pending_random_requests = 1 [(.gogoproto.nullable) = false];</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, irismod.random.Genesis.Requests> getPendingRandomRequestsMap() {
         return internalGetPendingRandomRequests().getMap();
@@ -627,6 +635,7 @@ public final class Genesis {
       /**
        * <code>map&lt;string, .irismod.random.Requests&gt; pending_random_requests = 1 [(.gogoproto.nullable) = false];</code>
        */
+      @java.lang.Override
 
       public irismod.random.Genesis.Requests getPendingRandomRequestsOrDefault(
           java.lang.String key,
@@ -639,6 +648,7 @@ public final class Genesis {
       /**
        * <code>map&lt;string, .irismod.random.Requests&gt; pending_random_requests = 1 [(.gogoproto.nullable) = false];</code>
        */
+      @java.lang.Override
 
       public irismod.random.Genesis.Requests getPendingRandomRequestsOrThrow(
           java.lang.String key) {
@@ -785,7 +795,7 @@ public final class Genesis {
    *
    * Protobuf type {@code irismod.random.Requests}
    */
-  public  static final class Requests extends
+  public static final class Requests extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.random.Requests)
       RequestsOrBuilder {
@@ -878,12 +888,14 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.random.Request requests = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.random.RandomOuterClass.Request> getRequestsList() {
       return requests_;
     }
     /**
      * <code>repeated .irismod.random.Request requests = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.random.RandomOuterClass.RequestOrBuilder> 
         getRequestsOrBuilderList() {
       return requests_;
@@ -891,18 +903,21 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.random.Request requests = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getRequestsCount() {
       return requests_.size();
     }
     /**
      * <code>repeated .irismod.random.Request requests = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.random.RandomOuterClass.Request getRequests(int index) {
       return requests_.get(index);
     }
     /**
      * <code>repeated .irismod.random.Request requests = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.random.RandomOuterClass.RequestOrBuilder getRequestsOrBuilder(
         int index) {
       return requests_.get(index);

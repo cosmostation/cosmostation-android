@@ -25,7 +25,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.mint.v1beta1.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.mint.v1beta1.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -478,7 +478,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.mint.v1beta1.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.mint.v1beta1.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -575,6 +575,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.mint.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -586,6 +587,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.mint.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public cosmos.mint.v1beta1.Mint.Params getParams() {
       return params_ == null ? cosmos.mint.v1beta1.Mint.Params.getDefaultInstance() : params_;
     }
@@ -596,6 +598,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.mint.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.mint.v1beta1.Mint.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -1137,7 +1140,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.mint.v1beta1.QueryInflationRequest}
    */
-  public  static final class QueryInflationRequest extends
+  public static final class QueryInflationRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.mint.v1beta1.QueryInflationRequest)
       QueryInflationRequestOrBuilder {
@@ -1574,7 +1577,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.mint.v1beta1.QueryInflationResponse}
    */
-  public  static final class QueryInflationResponse extends
+  public static final class QueryInflationResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.mint.v1beta1.QueryInflationResponse)
       QueryInflationResponseOrBuilder {
@@ -1664,6 +1667,7 @@ public final class QueryOuterClass {
      * <code>bytes inflation = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
      * @return The inflation.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getInflation() {
       return inflation_;
     }
@@ -1984,6 +1988,7 @@ public final class QueryOuterClass {
        * <code>bytes inflation = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
        * @return The inflation.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getInflation() {
         return inflation_;
       }
@@ -2084,7 +2089,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.mint.v1beta1.QueryAnnualProvisionsRequest}
    */
-  public  static final class QueryAnnualProvisionsRequest extends
+  public static final class QueryAnnualProvisionsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.mint.v1beta1.QueryAnnualProvisionsRequest)
       QueryAnnualProvisionsRequestOrBuilder {
@@ -2522,7 +2527,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.mint.v1beta1.QueryAnnualProvisionsResponse}
    */
-  public  static final class QueryAnnualProvisionsResponse extends
+  public static final class QueryAnnualProvisionsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.mint.v1beta1.QueryAnnualProvisionsResponse)
       QueryAnnualProvisionsResponseOrBuilder {
@@ -2612,6 +2617,7 @@ public final class QueryOuterClass {
      * <code>bytes annual_provisions = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
      * @return The annualProvisions.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAnnualProvisions() {
       return annualProvisions_;
     }
@@ -2932,6 +2938,7 @@ public final class QueryOuterClass {
        * <code>bytes annual_provisions = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
        * @return The annualProvisions.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAnnualProvisions() {
         return annualProvisions_;
       }

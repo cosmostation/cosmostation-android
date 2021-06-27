@@ -44,7 +44,7 @@ public final class Types {
   /**
    * Protobuf type {@code tendermint.libs.bits.BitArray}
    */
-  public  static final class BitArray extends
+  public static final class BitArray extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.libs.bits.BitArray)
       BitArrayOrBuilder {
@@ -155,6 +155,7 @@ public final class Types {
      * <code>int64 bits = 1;</code>
      * @return The bits.
      */
+    @java.lang.Override
     public long getBits() {
       return bits_;
     }
@@ -165,6 +166,7 @@ public final class Types {
      * <code>repeated uint64 elems = 2;</code>
      * @return A list containing the elems.
      */
+    @java.lang.Override
     public java.util.List<java.lang.Long>
         getElemsList() {
       return elems_;
@@ -541,6 +543,7 @@ public final class Types {
        * <code>int64 bits = 1;</code>
        * @return The bits.
        */
+      @java.lang.Override
       public long getBits() {
         return bits_;
       }

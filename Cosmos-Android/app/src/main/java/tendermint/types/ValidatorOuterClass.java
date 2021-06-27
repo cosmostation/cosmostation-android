@@ -66,7 +66,7 @@ public final class ValidatorOuterClass {
   /**
    * Protobuf type {@code tendermint.types.ValidatorSet}
    */
-  public  static final class ValidatorSet extends
+  public static final class ValidatorSet extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.ValidatorSet)
       ValidatorSetOrBuilder {
@@ -177,12 +177,14 @@ public final class ValidatorOuterClass {
     /**
      * <code>repeated .tendermint.types.Validator validators = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<tendermint.types.ValidatorOuterClass.Validator> getValidatorsList() {
       return validators_;
     }
     /**
      * <code>repeated .tendermint.types.Validator validators = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends tendermint.types.ValidatorOuterClass.ValidatorOrBuilder> 
         getValidatorsOrBuilderList() {
       return validators_;
@@ -190,18 +192,21 @@ public final class ValidatorOuterClass {
     /**
      * <code>repeated .tendermint.types.Validator validators = 1;</code>
      */
+    @java.lang.Override
     public int getValidatorsCount() {
       return validators_.size();
     }
     /**
      * <code>repeated .tendermint.types.Validator validators = 1;</code>
      */
+    @java.lang.Override
     public tendermint.types.ValidatorOuterClass.Validator getValidators(int index) {
       return validators_.get(index);
     }
     /**
      * <code>repeated .tendermint.types.Validator validators = 1;</code>
      */
+    @java.lang.Override
     public tendermint.types.ValidatorOuterClass.ValidatorOrBuilder getValidatorsOrBuilder(
         int index) {
       return validators_.get(index);
@@ -213,6 +218,7 @@ public final class ValidatorOuterClass {
      * <code>.tendermint.types.Validator proposer = 2;</code>
      * @return Whether the proposer field is set.
      */
+    @java.lang.Override
     public boolean hasProposer() {
       return proposer_ != null;
     }
@@ -220,12 +226,14 @@ public final class ValidatorOuterClass {
      * <code>.tendermint.types.Validator proposer = 2;</code>
      * @return The proposer.
      */
+    @java.lang.Override
     public tendermint.types.ValidatorOuterClass.Validator getProposer() {
       return proposer_ == null ? tendermint.types.ValidatorOuterClass.Validator.getDefaultInstance() : proposer_;
     }
     /**
      * <code>.tendermint.types.Validator proposer = 2;</code>
      */
+    @java.lang.Override
     public tendermint.types.ValidatorOuterClass.ValidatorOrBuilder getProposerOrBuilder() {
       return getProposer();
     }
@@ -236,6 +244,7 @@ public final class ValidatorOuterClass {
      * <code>int64 total_voting_power = 3;</code>
      * @return The totalVotingPower.
      */
+    @java.lang.Override
     public long getTotalVotingPower() {
       return totalVotingPower_;
     }
@@ -994,6 +1003,7 @@ public final class ValidatorOuterClass {
        * <code>int64 total_voting_power = 3;</code>
        * @return The totalVotingPower.
        */
+      @java.lang.Override
       public long getTotalVotingPower() {
         return totalVotingPower_;
       }
@@ -1111,7 +1121,7 @@ public final class ValidatorOuterClass {
   /**
    * Protobuf type {@code tendermint.types.Validator}
    */
-  public  static final class Validator extends
+  public static final class Validator extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.Validator)
       ValidatorOrBuilder {
@@ -1220,6 +1230,7 @@ public final class ValidatorOuterClass {
      * <code>bytes address = 1;</code>
      * @return The address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAddress() {
       return address_;
     }
@@ -1230,6 +1241,7 @@ public final class ValidatorOuterClass {
      * <code>.tendermint.crypto.PublicKey pub_key = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the pubKey field is set.
      */
+    @java.lang.Override
     public boolean hasPubKey() {
       return pubKey_ != null;
     }
@@ -1237,12 +1249,14 @@ public final class ValidatorOuterClass {
      * <code>.tendermint.crypto.PublicKey pub_key = 2 [(.gogoproto.nullable) = false];</code>
      * @return The pubKey.
      */
+    @java.lang.Override
     public tendermint.crypto.Keys.PublicKey getPubKey() {
       return pubKey_ == null ? tendermint.crypto.Keys.PublicKey.getDefaultInstance() : pubKey_;
     }
     /**
      * <code>.tendermint.crypto.PublicKey pub_key = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.crypto.Keys.PublicKeyOrBuilder getPubKeyOrBuilder() {
       return getPubKey();
     }
@@ -1253,6 +1267,7 @@ public final class ValidatorOuterClass {
      * <code>int64 voting_power = 3;</code>
      * @return The votingPower.
      */
+    @java.lang.Override
     public long getVotingPower() {
       return votingPower_;
     }
@@ -1263,6 +1278,7 @@ public final class ValidatorOuterClass {
      * <code>int64 proposer_priority = 4;</code>
      * @return The proposerPriority.
      */
+    @java.lang.Override
     public long getProposerPriority() {
       return proposerPriority_;
     }
@@ -1640,6 +1656,7 @@ public final class ValidatorOuterClass {
        * <code>bytes address = 1;</code>
        * @return The address.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAddress() {
         return address_;
       }
@@ -1792,6 +1809,7 @@ public final class ValidatorOuterClass {
        * <code>int64 voting_power = 3;</code>
        * @return The votingPower.
        */
+      @java.lang.Override
       public long getVotingPower() {
         return votingPower_;
       }
@@ -1822,6 +1840,7 @@ public final class ValidatorOuterClass {
        * <code>int64 proposer_priority = 4;</code>
        * @return The proposerPriority.
        */
+      @java.lang.Override
       public long getProposerPriority() {
         return proposerPriority_;
       }
@@ -1927,7 +1946,7 @@ public final class ValidatorOuterClass {
   /**
    * Protobuf type {@code tendermint.types.SimpleValidator}
    */
-  public  static final class SimpleValidator extends
+  public static final class SimpleValidator extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.SimpleValidator)
       SimpleValidatorOrBuilder {
@@ -2025,6 +2044,7 @@ public final class ValidatorOuterClass {
      * <code>.tendermint.crypto.PublicKey pub_key = 1;</code>
      * @return Whether the pubKey field is set.
      */
+    @java.lang.Override
     public boolean hasPubKey() {
       return pubKey_ != null;
     }
@@ -2032,12 +2052,14 @@ public final class ValidatorOuterClass {
      * <code>.tendermint.crypto.PublicKey pub_key = 1;</code>
      * @return The pubKey.
      */
+    @java.lang.Override
     public tendermint.crypto.Keys.PublicKey getPubKey() {
       return pubKey_ == null ? tendermint.crypto.Keys.PublicKey.getDefaultInstance() : pubKey_;
     }
     /**
      * <code>.tendermint.crypto.PublicKey pub_key = 1;</code>
      */
+    @java.lang.Override
     public tendermint.crypto.Keys.PublicKeyOrBuilder getPubKeyOrBuilder() {
       return getPubKey();
     }
@@ -2048,6 +2070,7 @@ public final class ValidatorOuterClass {
      * <code>int64 voting_power = 2;</code>
      * @return The votingPower.
      */
+    @java.lang.Override
     public long getVotingPower() {
       return votingPower_;
     }
@@ -2509,6 +2532,7 @@ public final class ValidatorOuterClass {
        * <code>int64 voting_power = 2;</code>
        * @return The votingPower.
        */
+      @java.lang.Override
       public long getVotingPower() {
         return votingPower_;
       }

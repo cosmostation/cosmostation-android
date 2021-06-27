@@ -32,7 +32,7 @@ public final class CapabilityOuterClass {
    *
    * Protobuf type {@code cosmos.capability.v1beta1.Capability}
    */
-  public  static final class Capability extends
+  public static final class Capability extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.capability.v1beta1.Capability)
       CapabilityOrBuilder {
@@ -117,6 +117,7 @@ public final class CapabilityOuterClass {
      * <code>uint64 index = 1 [(.gogoproto.moretags) = "yaml:&#92;"index&#92;""];</code>
      * @return The index.
      */
+    @java.lang.Override
     public long getIndex() {
       return index_;
     }
@@ -434,6 +435,7 @@ public final class CapabilityOuterClass {
        * <code>uint64 index = 1 [(.gogoproto.moretags) = "yaml:&#92;"index&#92;""];</code>
        * @return The index.
        */
+      @java.lang.Override
       public long getIndex() {
         return index_;
       }
@@ -547,7 +549,7 @@ public final class CapabilityOuterClass {
    *
    * Protobuf type {@code cosmos.capability.v1beta1.Owner}
    */
-  public  static final class Owner extends
+  public static final class Owner extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.capability.v1beta1.Owner)
       OwnerOrBuilder {
@@ -641,6 +643,7 @@ public final class CapabilityOuterClass {
      * <code>string module = 1 [(.gogoproto.moretags) = "yaml:&#92;"module&#92;""];</code>
      * @return The module.
      */
+    @java.lang.Override
     public java.lang.String getModule() {
       java.lang.Object ref = module_;
       if (ref instanceof java.lang.String) {
@@ -657,6 +660,7 @@ public final class CapabilityOuterClass {
      * <code>string module = 1 [(.gogoproto.moretags) = "yaml:&#92;"module&#92;""];</code>
      * @return The bytes for module.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getModuleBytes() {
       java.lang.Object ref = module_;
@@ -677,6 +681,7 @@ public final class CapabilityOuterClass {
      * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -693,6 +698,7 @@ public final class CapabilityOuterClass {
      * <code>string name = 2 [(.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -1271,7 +1277,7 @@ public final class CapabilityOuterClass {
    *
    * Protobuf type {@code cosmos.capability.v1beta1.CapabilityOwners}
    */
-  public  static final class CapabilityOwners extends
+  public static final class CapabilityOwners extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.capability.v1beta1.CapabilityOwners)
       CapabilityOwnersOrBuilder {
@@ -1364,12 +1370,14 @@ public final class CapabilityOuterClass {
     /**
      * <code>repeated .cosmos.capability.v1beta1.Owner owners = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.capability.v1beta1.CapabilityOuterClass.Owner> getOwnersList() {
       return owners_;
     }
     /**
      * <code>repeated .cosmos.capability.v1beta1.Owner owners = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.capability.v1beta1.CapabilityOuterClass.OwnerOrBuilder> 
         getOwnersOrBuilderList() {
       return owners_;
@@ -1377,18 +1385,21 @@ public final class CapabilityOuterClass {
     /**
      * <code>repeated .cosmos.capability.v1beta1.Owner owners = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getOwnersCount() {
       return owners_.size();
     }
     /**
      * <code>repeated .cosmos.capability.v1beta1.Owner owners = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.capability.v1beta1.CapabilityOuterClass.Owner getOwners(int index) {
       return owners_.get(index);
     }
     /**
      * <code>repeated .cosmos.capability.v1beta1.Owner owners = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.capability.v1beta1.CapabilityOuterClass.OwnerOrBuilder getOwnersOrBuilder(
         int index) {
       return owners_.get(index);

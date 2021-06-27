@@ -20,10 +20,20 @@ public final class Keys {
 
     /**
      * <code>bytes ed25519 = 1;</code>
+     * @return Whether the ed25519 field is set.
+     */
+    boolean hasEd25519();
+    /**
+     * <code>bytes ed25519 = 1;</code>
      * @return The ed25519.
      */
     com.google.protobuf.ByteString getEd25519();
 
+    /**
+     * <code>bytes secp256k1 = 2;</code>
+     * @return Whether the secp256k1 field is set.
+     */
+    boolean hasSecp256K1();
     /**
      * <code>bytes secp256k1 = 2;</code>
      * @return The secp256k1.
@@ -39,7 +49,7 @@ public final class Keys {
    *
    * Protobuf type {@code tendermint.crypto.PublicKey}
    */
-  public  static final class PublicKey extends
+  public static final class PublicKey extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.crypto.PublicKey)
       PublicKeyOrBuilder {
@@ -167,8 +177,17 @@ public final class Keys {
     public static final int ED25519_FIELD_NUMBER = 1;
     /**
      * <code>bytes ed25519 = 1;</code>
+     * @return Whether the ed25519 field is set.
+     */
+    @java.lang.Override
+    public boolean hasEd25519() {
+      return sumCase_ == 1;
+    }
+    /**
+     * <code>bytes ed25519 = 1;</code>
      * @return The ed25519.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getEd25519() {
       if (sumCase_ == 1) {
         return (com.google.protobuf.ByteString) sum_;
@@ -179,8 +198,17 @@ public final class Keys {
     public static final int SECP256K1_FIELD_NUMBER = 2;
     /**
      * <code>bytes secp256k1 = 2;</code>
+     * @return Whether the secp256k1 field is set.
+     */
+    @java.lang.Override
+    public boolean hasSecp256K1() {
+      return sumCase_ == 2;
+    }
+    /**
+     * <code>bytes secp256k1 = 2;</code>
      * @return The secp256k1.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getSecp256K1() {
       if (sumCase_ == 2) {
         return (com.google.protobuf.ByteString) sum_;
@@ -559,6 +587,13 @@ public final class Keys {
 
       /**
        * <code>bytes ed25519 = 1;</code>
+       * @return Whether the ed25519 field is set.
+       */
+      public boolean hasEd25519() {
+        return sumCase_ == 1;
+      }
+      /**
+       * <code>bytes ed25519 = 1;</code>
        * @return The ed25519.
        */
       public com.google.protobuf.ByteString getEd25519() {
@@ -594,6 +629,13 @@ public final class Keys {
         return this;
       }
 
+      /**
+       * <code>bytes secp256k1 = 2;</code>
+       * @return Whether the secp256k1 field is set.
+       */
+      public boolean hasSecp256K1() {
+        return sumCase_ == 2;
+      }
       /**
        * <code>bytes secp256k1 = 2;</code>
        * @return The secp256k1.

@@ -26,6 +26,7 @@ import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
 import irismod.token.TokenOuterClass;
+import oracle.v1.Oracle;
 import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.crypto.EncResult;
@@ -52,18 +53,15 @@ import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResIovConfig;
 import wannabit.io.cosmostaion.network.res.ResIovFee;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResMintParam;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkTickersList;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
-import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -163,9 +161,6 @@ public class BaseData {
     //COMMON DATA FOR STARNAME
     public ResIovFee.IovFee         mStarNameFee;
     public ResIovConfig.IovConfig   mStarNameConfig;
-
-    //COMMON DATA FOR BAND
-    public ResBandOracleStatus      mBandOracles;
 
     //INCENTIVE DATA FOR SIF
     public SifIncentive.User        mSifVsIncentive;
@@ -342,6 +337,9 @@ public class BaseData {
     public ArrayList<Staking.UnbondingDelegation>               mGrpcUndelegations = new ArrayList<>();
     public ArrayList<Distribution.DelegationDelegatorReward>    mGrpcRewards = new ArrayList<>();
 
+    //COMMON DATA FOR BAND
+    public ArrayList<Oracle.ActiveValidator>                    mGrpcBandOracles = new ArrayList<>();
+
     public irishub.mint.Mint.Params                             mGrpcIrisParamMint;
     public ArrayList<TokenOuterClass.Token>                     mGrpcIrisTokens = new ArrayList<>();
 
@@ -379,6 +377,17 @@ public class BaseData {
             }
         }
         return result;
+    }
+
+    // Band oracle Status
+    public boolean isEnable(String valOpAddress) {
+        if (mGrpcBandOracles == null) { return true; }
+        for (Oracle.ActiveValidator validator: mGrpcBandOracles) {
+            if (validator.getAddress().equals(valOpAddress)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<Vesting.Period> onParseRemainVestingsByDenom(String denom) {

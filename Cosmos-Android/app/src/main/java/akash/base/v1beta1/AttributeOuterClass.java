@@ -49,7 +49,7 @@ public final class AttributeOuterClass {
    *
    * Protobuf type {@code akash.base.v1beta1.Attribute}
    */
-  public  static final class Attribute extends
+  public static final class Attribute extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.base.v1beta1.Attribute)
       AttributeOrBuilder {
@@ -143,6 +143,7 @@ public final class AttributeOuterClass {
      * <code>string key = 1 [(.gogoproto.moretags) = "yaml:&#92;"key&#92;""];</code>
      * @return The key.
      */
+    @java.lang.Override
     public java.lang.String getKey() {
       java.lang.Object ref = key_;
       if (ref instanceof java.lang.String) {
@@ -159,6 +160,7 @@ public final class AttributeOuterClass {
      * <code>string key = 1 [(.gogoproto.moretags) = "yaml:&#92;"key&#92;""];</code>
      * @return The bytes for key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getKeyBytes() {
       java.lang.Object ref = key_;
@@ -179,6 +181,7 @@ public final class AttributeOuterClass {
      * <code>string value = 2 [(.gogoproto.moretags) = "yaml:&#92;"value&#92;""];</code>
      * @return The value.
      */
+    @java.lang.Override
     public java.lang.String getValue() {
       java.lang.Object ref = value_;
       if (ref instanceof java.lang.String) {
@@ -195,6 +198,7 @@ public final class AttributeOuterClass {
      * <code>string value = 2 [(.gogoproto.moretags) = "yaml:&#92;"value&#92;""];</code>
      * @return The bytes for value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValueBytes() {
       java.lang.Object ref = value_;
@@ -832,7 +836,7 @@ public final class AttributeOuterClass {
    *
    * Protobuf type {@code akash.base.v1beta1.SignedBy}
    */
-  public  static final class SignedBy extends
+  public static final class SignedBy extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.base.v1beta1.SignedBy)
       SignedByOrBuilder {
@@ -1823,7 +1827,7 @@ public final class AttributeOuterClass {
    *
    * Protobuf type {@code akash.base.v1beta1.PlacementRequirements}
    */
-  public  static final class PlacementRequirements extends
+  public static final class PlacementRequirements extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.base.v1beta1.PlacementRequirements)
       PlacementRequirementsOrBuilder {
@@ -1934,6 +1938,7 @@ public final class AttributeOuterClass {
      * <code>.akash.base.v1beta1.SignedBy signed_by = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "signed_by", (.gogoproto.moretags) = "yaml:&#92;"signed_by&#92;""];</code>
      * @return Whether the signedBy field is set.
      */
+    @java.lang.Override
     public boolean hasSignedBy() {
       return signedBy_ != null;
     }
@@ -1945,6 +1950,7 @@ public final class AttributeOuterClass {
      * <code>.akash.base.v1beta1.SignedBy signed_by = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "signed_by", (.gogoproto.moretags) = "yaml:&#92;"signed_by&#92;""];</code>
      * @return The signedBy.
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.SignedBy getSignedBy() {
       return signedBy_ == null ? akash.base.v1beta1.AttributeOuterClass.SignedBy.getDefaultInstance() : signedBy_;
     }
@@ -1955,6 +1961,7 @@ public final class AttributeOuterClass {
      *
      * <code>.akash.base.v1beta1.SignedBy signed_by = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "signed_by", (.gogoproto.moretags) = "yaml:&#92;"signed_by&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.SignedByOrBuilder getSignedByOrBuilder() {
       return getSignedBy();
     }
@@ -1968,6 +1975,7 @@ public final class AttributeOuterClass {
      *
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
       return attributes_;
     }
@@ -1978,6 +1986,7 @@ public final class AttributeOuterClass {
      *
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
         getAttributesOrBuilderList() {
       return attributes_;
@@ -1989,6 +1998,7 @@ public final class AttributeOuterClass {
      *
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
@@ -1999,6 +2009,7 @@ public final class AttributeOuterClass {
      *
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
@@ -2009,6 +2020,7 @@ public final class AttributeOuterClass {
      *
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
         int index) {
       return attributes_.get(index);

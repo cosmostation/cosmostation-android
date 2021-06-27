@@ -182,7 +182,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.oracle.MsgCreateFeed}
    */
-  public  static final class MsgCreateFeed extends
+  public static final class MsgCreateFeed extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.MsgCreateFeed)
       MsgCreateFeedOrBuilder {
@@ -358,6 +358,7 @@ public final class Tx {
      * <code>string feed_name = 1 [(.gogoproto.moretags) = "yaml:&#92;"feed_name&#92;""];</code>
      * @return The feedName.
      */
+    @java.lang.Override
     public java.lang.String getFeedName() {
       java.lang.Object ref = feedName_;
       if (ref instanceof java.lang.String) {
@@ -374,6 +375,7 @@ public final class Tx {
      * <code>string feed_name = 1 [(.gogoproto.moretags) = "yaml:&#92;"feed_name&#92;""];</code>
      * @return The bytes for feedName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFeedNameBytes() {
       java.lang.Object ref = feedName_;
@@ -394,6 +396,7 @@ public final class Tx {
      * <code>uint64 latest_history = 2 [(.gogoproto.moretags) = "yaml:&#92;"latest_history&#92;""];</code>
      * @return The latestHistory.
      */
+    @java.lang.Override
     public long getLatestHistory() {
       return latestHistory_;
     }
@@ -404,6 +407,7 @@ public final class Tx {
      * <code>string description = 3;</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -420,6 +424,7 @@ public final class Tx {
      * <code>string description = 3;</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -440,6 +445,7 @@ public final class Tx {
      * <code>string creator = 4;</code>
      * @return The creator.
      */
+    @java.lang.Override
     public java.lang.String getCreator() {
       java.lang.Object ref = creator_;
       if (ref instanceof java.lang.String) {
@@ -456,6 +462,7 @@ public final class Tx {
      * <code>string creator = 4;</code>
      * @return The bytes for creator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCreatorBytes() {
       java.lang.Object ref = creator_;
@@ -476,6 +483,7 @@ public final class Tx {
      * <code>string service_name = 5 [(.gogoproto.moretags) = "yaml:&#92;"service_name&#92;""];</code>
      * @return The serviceName.
      */
+    @java.lang.Override
     public java.lang.String getServiceName() {
       java.lang.Object ref = serviceName_;
       if (ref instanceof java.lang.String) {
@@ -492,6 +500,7 @@ public final class Tx {
      * <code>string service_name = 5 [(.gogoproto.moretags) = "yaml:&#92;"service_name&#92;""];</code>
      * @return The bytes for serviceName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getServiceNameBytes() {
       java.lang.Object ref = serviceName_;
@@ -547,6 +556,7 @@ public final class Tx {
      * <code>string input = 7;</code>
      * @return The input.
      */
+    @java.lang.Override
     public java.lang.String getInput() {
       java.lang.Object ref = input_;
       if (ref instanceof java.lang.String) {
@@ -563,6 +573,7 @@ public final class Tx {
      * <code>string input = 7;</code>
      * @return The bytes for input.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInputBytes() {
       java.lang.Object ref = input_;
@@ -583,6 +594,7 @@ public final class Tx {
      * <code>int64 timeout = 8;</code>
      * @return The timeout.
      */
+    @java.lang.Override
     public long getTimeout() {
       return timeout_;
     }
@@ -592,12 +604,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getServiceFeeCapList() {
       return serviceFeeCap_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getServiceFeeCapOrBuilderList() {
       return serviceFeeCap_;
@@ -605,18 +619,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getServiceFeeCapCount() {
       return serviceFeeCap_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getServiceFeeCap(int index) {
       return serviceFeeCap_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getServiceFeeCapOrBuilder(
         int index) {
       return serviceFeeCap_.get(index);
@@ -628,6 +645,7 @@ public final class Tx {
      * <code>uint64 repeated_frequency = 10 [(.gogoproto.moretags) = "yaml:&#92;"repeated_frequency&#92;""];</code>
      * @return The repeatedFrequency.
      */
+    @java.lang.Override
     public long getRepeatedFrequency() {
       return repeatedFrequency_;
     }
@@ -638,6 +656,7 @@ public final class Tx {
      * <code>string aggregate_func = 11 [(.gogoproto.moretags) = "yaml:&#92;"aggregate_func&#92;""];</code>
      * @return The aggregateFunc.
      */
+    @java.lang.Override
     public java.lang.String getAggregateFunc() {
       java.lang.Object ref = aggregateFunc_;
       if (ref instanceof java.lang.String) {
@@ -654,6 +673,7 @@ public final class Tx {
      * <code>string aggregate_func = 11 [(.gogoproto.moretags) = "yaml:&#92;"aggregate_func&#92;""];</code>
      * @return The bytes for aggregateFunc.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAggregateFuncBytes() {
       java.lang.Object ref = aggregateFunc_;
@@ -674,6 +694,7 @@ public final class Tx {
      * <code>string value_json_path = 12 [(.gogoproto.moretags) = "yaml:&#92;"value_json_path&#92;""];</code>
      * @return The valueJsonPath.
      */
+    @java.lang.Override
     public java.lang.String getValueJsonPath() {
       java.lang.Object ref = valueJsonPath_;
       if (ref instanceof java.lang.String) {
@@ -690,6 +711,7 @@ public final class Tx {
      * <code>string value_json_path = 12 [(.gogoproto.moretags) = "yaml:&#92;"value_json_path&#92;""];</code>
      * @return The bytes for valueJsonPath.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValueJsonPathBytes() {
       java.lang.Object ref = valueJsonPath_;
@@ -710,6 +732,7 @@ public final class Tx {
      * <code>uint32 response_threshold = 13 [(.gogoproto.moretags) = "yaml:&#92;"response_threshold&#92;""];</code>
      * @return The responseThreshold.
      */
+    @java.lang.Override
     public int getResponseThreshold() {
       return responseThreshold_;
     }
@@ -1365,6 +1388,7 @@ public final class Tx {
        * <code>uint64 latest_history = 2 [(.gogoproto.moretags) = "yaml:&#92;"latest_history&#92;""];</code>
        * @return The latestHistory.
        */
+      @java.lang.Override
       public long getLatestHistory() {
         return latestHistory_;
       }
@@ -1809,6 +1833,7 @@ public final class Tx {
        * <code>int64 timeout = 8;</code>
        * @return The timeout.
        */
+      @java.lang.Override
       public long getTimeout() {
         return timeout_;
       }
@@ -2079,6 +2104,7 @@ public final class Tx {
        * <code>uint64 repeated_frequency = 10 [(.gogoproto.moretags) = "yaml:&#92;"repeated_frequency&#92;""];</code>
        * @return The repeatedFrequency.
        */
+      @java.lang.Override
       public long getRepeatedFrequency() {
         return repeatedFrequency_;
       }
@@ -2261,6 +2287,7 @@ public final class Tx {
        * <code>uint32 response_threshold = 13 [(.gogoproto.moretags) = "yaml:&#92;"response_threshold&#92;""];</code>
        * @return The responseThreshold.
        */
+      @java.lang.Override
       public int getResponseThreshold() {
         return responseThreshold_;
       }
@@ -2349,7 +2376,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.oracle.MsgCreateFeedResponse}
    */
-  public  static final class MsgCreateFeedResponse extends
+  public static final class MsgCreateFeedResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.MsgCreateFeedResponse)
       MsgCreateFeedResponseOrBuilder {
@@ -2799,7 +2826,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.oracle.MsgStartFeed}
    */
-  public  static final class MsgStartFeed extends
+  public static final class MsgStartFeed extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.MsgStartFeed)
       MsgStartFeedOrBuilder {
@@ -2893,6 +2920,7 @@ public final class Tx {
      * <code>string feed_name = 1 [(.gogoproto.moretags) = "yaml:&#92;"feed_name&#92;""];</code>
      * @return The feedName.
      */
+    @java.lang.Override
     public java.lang.String getFeedName() {
       java.lang.Object ref = feedName_;
       if (ref instanceof java.lang.String) {
@@ -2909,6 +2937,7 @@ public final class Tx {
      * <code>string feed_name = 1 [(.gogoproto.moretags) = "yaml:&#92;"feed_name&#92;""];</code>
      * @return The bytes for feedName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFeedNameBytes() {
       java.lang.Object ref = feedName_;
@@ -2929,6 +2958,7 @@ public final class Tx {
      * <code>string creator = 2;</code>
      * @return The creator.
      */
+    @java.lang.Override
     public java.lang.String getCreator() {
       java.lang.Object ref = creator_;
       if (ref instanceof java.lang.String) {
@@ -2945,6 +2975,7 @@ public final class Tx {
      * <code>string creator = 2;</code>
      * @return The bytes for creator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCreatorBytes() {
       java.lang.Object ref = creator_;
@@ -3497,7 +3528,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.oracle.MsgStartFeedResponse}
    */
-  public  static final class MsgStartFeedResponse extends
+  public static final class MsgStartFeedResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.MsgStartFeedResponse)
       MsgStartFeedResponseOrBuilder {
@@ -3947,7 +3978,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.oracle.MsgPauseFeed}
    */
-  public  static final class MsgPauseFeed extends
+  public static final class MsgPauseFeed extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.MsgPauseFeed)
       MsgPauseFeedOrBuilder {
@@ -4041,6 +4072,7 @@ public final class Tx {
      * <code>string feed_name = 1 [(.gogoproto.moretags) = "yaml:&#92;"feed_name&#92;""];</code>
      * @return The feedName.
      */
+    @java.lang.Override
     public java.lang.String getFeedName() {
       java.lang.Object ref = feedName_;
       if (ref instanceof java.lang.String) {
@@ -4057,6 +4089,7 @@ public final class Tx {
      * <code>string feed_name = 1 [(.gogoproto.moretags) = "yaml:&#92;"feed_name&#92;""];</code>
      * @return The bytes for feedName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFeedNameBytes() {
       java.lang.Object ref = feedName_;
@@ -4077,6 +4110,7 @@ public final class Tx {
      * <code>string creator = 2;</code>
      * @return The creator.
      */
+    @java.lang.Override
     public java.lang.String getCreator() {
       java.lang.Object ref = creator_;
       if (ref instanceof java.lang.String) {
@@ -4093,6 +4127,7 @@ public final class Tx {
      * <code>string creator = 2;</code>
      * @return The bytes for creator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCreatorBytes() {
       java.lang.Object ref = creator_;
@@ -4645,7 +4680,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.oracle.MsgPauseFeedResponse}
    */
-  public  static final class MsgPauseFeedResponse extends
+  public static final class MsgPauseFeedResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.MsgPauseFeedResponse)
       MsgPauseFeedResponseOrBuilder {
@@ -5180,7 +5215,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.oracle.MsgEditFeed}
    */
-  public  static final class MsgEditFeed extends
+  public static final class MsgEditFeed extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.MsgEditFeed)
       MsgEditFeedOrBuilder {
@@ -5328,6 +5363,7 @@ public final class Tx {
      * <code>string feed_name = 1 [(.gogoproto.moretags) = "yaml:&#92;"feed_name&#92;""];</code>
      * @return The feedName.
      */
+    @java.lang.Override
     public java.lang.String getFeedName() {
       java.lang.Object ref = feedName_;
       if (ref instanceof java.lang.String) {
@@ -5344,6 +5380,7 @@ public final class Tx {
      * <code>string feed_name = 1 [(.gogoproto.moretags) = "yaml:&#92;"feed_name&#92;""];</code>
      * @return The bytes for feedName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFeedNameBytes() {
       java.lang.Object ref = feedName_;
@@ -5364,6 +5401,7 @@ public final class Tx {
      * <code>string description = 2;</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -5380,6 +5418,7 @@ public final class Tx {
      * <code>string description = 2;</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -5400,6 +5439,7 @@ public final class Tx {
      * <code>uint64 latest_history = 3 [(.gogoproto.moretags) = "yaml:&#92;"latest_history&#92;""];</code>
      * @return The latestHistory.
      */
+    @java.lang.Override
     public long getLatestHistory() {
       return latestHistory_;
     }
@@ -5445,6 +5485,7 @@ public final class Tx {
      * <code>int64 timeout = 5;</code>
      * @return The timeout.
      */
+    @java.lang.Override
     public long getTimeout() {
       return timeout_;
     }
@@ -5454,12 +5495,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getServiceFeeCapList() {
       return serviceFeeCap_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getServiceFeeCapOrBuilderList() {
       return serviceFeeCap_;
@@ -5467,18 +5510,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getServiceFeeCapCount() {
       return serviceFeeCap_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getServiceFeeCap(int index) {
       return serviceFeeCap_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getServiceFeeCapOrBuilder(
         int index) {
       return serviceFeeCap_.get(index);
@@ -5490,6 +5536,7 @@ public final class Tx {
      * <code>uint64 repeated_frequency = 7 [(.gogoproto.moretags) = "yaml:&#92;"repeated_frequency&#92;""];</code>
      * @return The repeatedFrequency.
      */
+    @java.lang.Override
     public long getRepeatedFrequency() {
       return repeatedFrequency_;
     }
@@ -5500,6 +5547,7 @@ public final class Tx {
      * <code>uint32 response_threshold = 8 [(.gogoproto.moretags) = "yaml:&#92;"response_threshold&#92;""];</code>
      * @return The responseThreshold.
      */
+    @java.lang.Override
     public int getResponseThreshold() {
       return responseThreshold_;
     }
@@ -5510,6 +5558,7 @@ public final class Tx {
      * <code>string creator = 9;</code>
      * @return The creator.
      */
+    @java.lang.Override
     public java.lang.String getCreator() {
       java.lang.Object ref = creator_;
       if (ref instanceof java.lang.String) {
@@ -5526,6 +5575,7 @@ public final class Tx {
      * <code>string creator = 9;</code>
      * @return The bytes for creator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCreatorBytes() {
       java.lang.Object ref = creator_;
@@ -6199,6 +6249,7 @@ public final class Tx {
        * <code>uint64 latest_history = 3 [(.gogoproto.moretags) = "yaml:&#92;"latest_history&#92;""];</code>
        * @return The latestHistory.
        */
+      @java.lang.Override
       public long getLatestHistory() {
         return latestHistory_;
       }
@@ -6339,6 +6390,7 @@ public final class Tx {
        * <code>int64 timeout = 5;</code>
        * @return The timeout.
        */
+      @java.lang.Override
       public long getTimeout() {
         return timeout_;
       }
@@ -6609,6 +6661,7 @@ public final class Tx {
        * <code>uint64 repeated_frequency = 7 [(.gogoproto.moretags) = "yaml:&#92;"repeated_frequency&#92;""];</code>
        * @return The repeatedFrequency.
        */
+      @java.lang.Override
       public long getRepeatedFrequency() {
         return repeatedFrequency_;
       }
@@ -6639,6 +6692,7 @@ public final class Tx {
        * <code>uint32 response_threshold = 8 [(.gogoproto.moretags) = "yaml:&#92;"response_threshold&#92;""];</code>
        * @return The responseThreshold.
        */
+      @java.lang.Override
       public int getResponseThreshold() {
         return responseThreshold_;
       }
@@ -6803,7 +6857,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.oracle.MsgEditFeedResponse}
    */
-  public  static final class MsgEditFeedResponse extends
+  public static final class MsgEditFeedResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.MsgEditFeedResponse)
       MsgEditFeedResponseOrBuilder {

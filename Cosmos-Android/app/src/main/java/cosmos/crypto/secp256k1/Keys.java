@@ -35,7 +35,7 @@ public final class Keys {
    *
    * Protobuf type {@code cosmos.crypto.secp256k1.PubKey}
    */
-  public  static final class PubKey extends
+  public static final class PubKey extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.crypto.secp256k1.PubKey)
       PubKeyOrBuilder {
@@ -121,6 +121,7 @@ public final class Keys {
      * <code>bytes key = 1;</code>
      * @return The key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getKey() {
       return key_;
     }
@@ -440,6 +441,7 @@ public final class Keys {
        * <code>bytes key = 1;</code>
        * @return The key.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getKey() {
         return key_;
       }
@@ -537,7 +539,7 @@ public final class Keys {
    *
    * Protobuf type {@code cosmos.crypto.secp256k1.PrivKey}
    */
-  public  static final class PrivKey extends
+  public static final class PrivKey extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.crypto.secp256k1.PrivKey)
       PrivKeyOrBuilder {
@@ -623,6 +625,7 @@ public final class Keys {
      * <code>bytes key = 1;</code>
      * @return The key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getKey() {
       return key_;
     }
@@ -938,6 +941,7 @@ public final class Keys {
        * <code>bytes key = 1;</code>
        * @return The key.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getKey() {
         return key_;
       }

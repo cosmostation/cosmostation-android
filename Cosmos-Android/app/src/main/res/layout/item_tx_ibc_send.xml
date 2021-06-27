@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:text="@string/tx_ibc_transfer"
+                    android:text="@string/tx_ibc_send"
                     style="@style/font_ss_15_white"/>
             </LinearLayout>
             <LinearLayout

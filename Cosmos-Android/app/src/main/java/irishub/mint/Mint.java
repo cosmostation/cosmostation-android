@@ -72,7 +72,7 @@ public final class Mint {
    *
    * Protobuf type {@code irishub.mint.Minter}
    */
-  public  static final class Minter extends
+  public static final class Minter extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irishub.mint.Minter)
       MinterOrBuilder {
@@ -176,6 +176,7 @@ public final class Mint {
      * <code>.google.protobuf.Timestamp last_update = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_update&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the lastUpdate field is set.
      */
+    @java.lang.Override
     public boolean hasLastUpdate() {
       return lastUpdate_ != null;
     }
@@ -187,6 +188,7 @@ public final class Mint {
      * <code>.google.protobuf.Timestamp last_update = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_update&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The lastUpdate.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getLastUpdate() {
       return lastUpdate_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : lastUpdate_;
     }
@@ -197,6 +199,7 @@ public final class Mint {
      *
      * <code>.google.protobuf.Timestamp last_update = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"last_update&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getLastUpdateOrBuilder() {
       return getLastUpdate();
     }
@@ -211,6 +214,7 @@ public final class Mint {
      * <code>string inflation_base = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"inflation_base&#92;""];</code>
      * @return The inflationBase.
      */
+    @java.lang.Override
     public java.lang.String getInflationBase() {
       java.lang.Object ref = inflationBase_;
       if (ref instanceof java.lang.String) {
@@ -231,6 +235,7 @@ public final class Mint {
      * <code>string inflation_base = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"inflation_base&#92;""];</code>
      * @return The bytes for inflationBase.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInflationBaseBytes() {
       java.lang.Object ref = inflationBase_;
@@ -935,7 +940,7 @@ public final class Mint {
    *
    * Protobuf type {@code irishub.mint.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irishub.mint.Params)
       ParamsOrBuilder {
@@ -1033,6 +1038,7 @@ public final class Mint {
      * <code>string mint_denom = 1;</code>
      * @return The mintDenom.
      */
+    @java.lang.Override
     public java.lang.String getMintDenom() {
       java.lang.Object ref = mintDenom_;
       if (ref instanceof java.lang.String) {
@@ -1053,6 +1059,7 @@ public final class Mint {
      * <code>string mint_denom = 1;</code>
      * @return The bytes for mintDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMintDenomBytes() {
       java.lang.Object ref = mintDenom_;
@@ -1077,6 +1084,7 @@ public final class Mint {
      * <code>string inflation = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
      * @return The inflation.
      */
+    @java.lang.Override
     public java.lang.String getInflation() {
       java.lang.Object ref = inflation_;
       if (ref instanceof java.lang.String) {
@@ -1097,6 +1105,7 @@ public final class Mint {
      * <code>string inflation = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
      * @return The bytes for inflation.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInflationBytes() {
       java.lang.Object ref = inflation_;

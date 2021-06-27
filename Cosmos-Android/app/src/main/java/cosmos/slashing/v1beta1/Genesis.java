@@ -150,7 +150,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.slashing.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.slashing.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -274,6 +274,7 @@ public final class Genesis {
      * <code>.cosmos.slashing.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -285,6 +286,7 @@ public final class Genesis {
      * <code>.cosmos.slashing.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Slashing.Params getParams() {
       return params_ == null ? cosmos.slashing.v1beta1.Slashing.Params.getDefaultInstance() : params_;
     }
@@ -295,6 +297,7 @@ public final class Genesis {
      *
      * <code>.cosmos.slashing.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Slashing.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -309,6 +312,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.SigningInfo signing_infos = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"signing_infos&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.slashing.v1beta1.Genesis.SigningInfo> getSigningInfosList() {
       return signingInfos_;
     }
@@ -320,6 +324,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.SigningInfo signing_infos = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"signing_infos&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.slashing.v1beta1.Genesis.SigningInfoOrBuilder> 
         getSigningInfosOrBuilderList() {
       return signingInfos_;
@@ -332,6 +337,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.SigningInfo signing_infos = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"signing_infos&#92;""];</code>
      */
+    @java.lang.Override
     public int getSigningInfosCount() {
       return signingInfos_.size();
     }
@@ -343,6 +349,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.SigningInfo signing_infos = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"signing_infos&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Genesis.SigningInfo getSigningInfos(int index) {
       return signingInfos_.get(index);
     }
@@ -354,6 +361,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.SigningInfo signing_infos = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"signing_infos&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Genesis.SigningInfoOrBuilder getSigningInfosOrBuilder(
         int index) {
       return signingInfos_.get(index);
@@ -369,6 +377,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.ValidatorMissedBlocks missed_blocks = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"missed_blocks&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.slashing.v1beta1.Genesis.ValidatorMissedBlocks> getMissedBlocksList() {
       return missedBlocks_;
     }
@@ -380,6 +389,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.ValidatorMissedBlocks missed_blocks = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"missed_blocks&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.slashing.v1beta1.Genesis.ValidatorMissedBlocksOrBuilder> 
         getMissedBlocksOrBuilderList() {
       return missedBlocks_;
@@ -392,6 +402,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.ValidatorMissedBlocks missed_blocks = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"missed_blocks&#92;""];</code>
      */
+    @java.lang.Override
     public int getMissedBlocksCount() {
       return missedBlocks_.size();
     }
@@ -403,6 +414,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.ValidatorMissedBlocks missed_blocks = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"missed_blocks&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Genesis.ValidatorMissedBlocks getMissedBlocks(int index) {
       return missedBlocks_.get(index);
     }
@@ -414,6 +426,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.ValidatorMissedBlocks missed_blocks = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"missed_blocks&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Genesis.ValidatorMissedBlocksOrBuilder getMissedBlocksOrBuilder(
         int index) {
       return missedBlocks_.get(index);
@@ -1775,7 +1788,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.slashing.v1beta1.SigningInfo}
    */
-  public  static final class SigningInfo extends
+  public static final class SigningInfo extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.slashing.v1beta1.SigningInfo)
       SigningInfoOrBuilder {
@@ -1879,6 +1892,7 @@ public final class Genesis {
      * <code>string address = 1;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -1899,6 +1913,7 @@ public final class Genesis {
      * <code>string address = 1;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -1923,6 +1938,7 @@ public final class Genesis {
      * <code>.cosmos.slashing.v1beta1.ValidatorSigningInfo validator_signing_info = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_signing_info&#92;""];</code>
      * @return Whether the validatorSigningInfo field is set.
      */
+    @java.lang.Override
     public boolean hasValidatorSigningInfo() {
       return validatorSigningInfo_ != null;
     }
@@ -1934,6 +1950,7 @@ public final class Genesis {
      * <code>.cosmos.slashing.v1beta1.ValidatorSigningInfo validator_signing_info = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_signing_info&#92;""];</code>
      * @return The validatorSigningInfo.
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Slashing.ValidatorSigningInfo getValidatorSigningInfo() {
       return validatorSigningInfo_ == null ? cosmos.slashing.v1beta1.Slashing.ValidatorSigningInfo.getDefaultInstance() : validatorSigningInfo_;
     }
@@ -1944,6 +1961,7 @@ public final class Genesis {
      *
      * <code>.cosmos.slashing.v1beta1.ValidatorSigningInfo validator_signing_info = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_signing_info&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Slashing.ValidatorSigningInfoOrBuilder getValidatorSigningInfoOrBuilder() {
       return getValidatorSigningInfo();
     }
@@ -2663,7 +2681,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.slashing.v1beta1.ValidatorMissedBlocks}
    */
-  public  static final class ValidatorMissedBlocks extends
+  public static final class ValidatorMissedBlocks extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.slashing.v1beta1.ValidatorMissedBlocks)
       ValidatorMissedBlocksOrBuilder {
@@ -2768,6 +2786,7 @@ public final class Genesis {
      * <code>string address = 1;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -2788,6 +2807,7 @@ public final class Genesis {
      * <code>string address = 1;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -2811,6 +2831,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.MissedBlock missed_blocks = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"missed_blocks&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.slashing.v1beta1.Genesis.MissedBlock> getMissedBlocksList() {
       return missedBlocks_;
     }
@@ -2821,6 +2842,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.MissedBlock missed_blocks = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"missed_blocks&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.slashing.v1beta1.Genesis.MissedBlockOrBuilder> 
         getMissedBlocksOrBuilderList() {
       return missedBlocks_;
@@ -2832,6 +2854,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.MissedBlock missed_blocks = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"missed_blocks&#92;""];</code>
      */
+    @java.lang.Override
     public int getMissedBlocksCount() {
       return missedBlocks_.size();
     }
@@ -2842,6 +2865,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.MissedBlock missed_blocks = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"missed_blocks&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Genesis.MissedBlock getMissedBlocks(int index) {
       return missedBlocks_.get(index);
     }
@@ -2852,6 +2876,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.slashing.v1beta1.MissedBlock missed_blocks = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"missed_blocks&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.slashing.v1beta1.Genesis.MissedBlockOrBuilder getMissedBlocksOrBuilder(
         int index) {
       return missedBlocks_.get(index);
@@ -3712,7 +3737,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.slashing.v1beta1.MissedBlock}
    */
-  public  static final class MissedBlock extends
+  public static final class MissedBlock extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.slashing.v1beta1.MissedBlock)
       MissedBlockOrBuilder {
@@ -3806,6 +3831,7 @@ public final class Genesis {
      * <code>int64 index = 1;</code>
      * @return The index.
      */
+    @java.lang.Override
     public long getIndex() {
       return index_;
     }
@@ -3820,6 +3846,7 @@ public final class Genesis {
      * <code>bool missed = 2;</code>
      * @return The missed.
      */
+    @java.lang.Override
     public boolean getMissed() {
       return missed_;
     }
@@ -4158,6 +4185,7 @@ public final class Genesis {
        * <code>int64 index = 1;</code>
        * @return The index.
        */
+      @java.lang.Override
       public long getIndex() {
         return index_;
       }
@@ -4200,6 +4228,7 @@ public final class Genesis {
        * <code>bool missed = 2;</code>
        * @return The missed.
        */
+      @java.lang.Override
       public boolean getMissed() {
         return missed_;
       }

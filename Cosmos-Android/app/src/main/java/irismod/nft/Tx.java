@@ -73,7 +73,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.nft.MsgIssueDenom}
    */
-  public  static final class MsgIssueDenom extends
+  public static final class MsgIssueDenom extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.MsgIssueDenom)
       MsgIssueDenomOrBuilder {
@@ -181,6 +181,7 @@ public final class Tx {
      * <code>string id = 1;</code>
      * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -197,6 +198,7 @@ public final class Tx {
      * <code>string id = 1;</code>
      * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -217,6 +219,7 @@ public final class Tx {
      * <code>string name = 2;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -233,6 +236,7 @@ public final class Tx {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -253,6 +257,7 @@ public final class Tx {
      * <code>string schema = 3;</code>
      * @return The schema.
      */
+    @java.lang.Override
     public java.lang.String getSchema() {
       java.lang.Object ref = schema_;
       if (ref instanceof java.lang.String) {
@@ -269,6 +274,7 @@ public final class Tx {
      * <code>string schema = 3;</code>
      * @return The bytes for schema.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSchemaBytes() {
       java.lang.Object ref = schema_;
@@ -289,6 +295,7 @@ public final class Tx {
      * <code>string sender = 4;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -305,6 +312,7 @@ public final class Tx {
      * <code>string sender = 4;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -1043,7 +1051,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.nft.MsgIssueDenomResponse}
    */
-  public  static final class MsgIssueDenomResponse extends
+  public static final class MsgIssueDenomResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.MsgIssueDenomResponse)
       MsgIssueDenomResponseOrBuilder {
@@ -1553,7 +1561,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.nft.MsgTransferNFT}
    */
-  public  static final class MsgTransferNFT extends
+  public static final class MsgTransferNFT extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.MsgTransferNFT)
       MsgTransferNFTOrBuilder {
@@ -1682,6 +1690,7 @@ public final class Tx {
      * <code>string id = 1;</code>
      * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -1698,6 +1707,7 @@ public final class Tx {
      * <code>string id = 1;</code>
      * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -1718,6 +1728,7 @@ public final class Tx {
      * <code>string denom_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The denomId.
      */
+    @java.lang.Override
     public java.lang.String getDenomId() {
       java.lang.Object ref = denomId_;
       if (ref instanceof java.lang.String) {
@@ -1734,6 +1745,7 @@ public final class Tx {
      * <code>string denom_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The bytes for denomId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomIdBytes() {
       java.lang.Object ref = denomId_;
@@ -1754,6 +1766,7 @@ public final class Tx {
      * <code>string name = 3;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -1770,6 +1783,7 @@ public final class Tx {
      * <code>string name = 3;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -1790,6 +1804,7 @@ public final class Tx {
      * <code>string uri = 4 [(.gogoproto.customname) = "URI"];</code>
      * @return The uri.
      */
+    @java.lang.Override
     public java.lang.String getUri() {
       java.lang.Object ref = uri_;
       if (ref instanceof java.lang.String) {
@@ -1806,6 +1821,7 @@ public final class Tx {
      * <code>string uri = 4 [(.gogoproto.customname) = "URI"];</code>
      * @return The bytes for uri.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUriBytes() {
       java.lang.Object ref = uri_;
@@ -1826,6 +1842,7 @@ public final class Tx {
      * <code>string data = 5;</code>
      * @return The data.
      */
+    @java.lang.Override
     public java.lang.String getData() {
       java.lang.Object ref = data_;
       if (ref instanceof java.lang.String) {
@@ -1842,6 +1859,7 @@ public final class Tx {
      * <code>string data = 5;</code>
      * @return The bytes for data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDataBytes() {
       java.lang.Object ref = data_;
@@ -1862,6 +1880,7 @@ public final class Tx {
      * <code>string sender = 6;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -1878,6 +1897,7 @@ public final class Tx {
      * <code>string sender = 6;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -1898,6 +1918,7 @@ public final class Tx {
      * <code>string recipient = 7;</code>
      * @return The recipient.
      */
+    @java.lang.Override
     public java.lang.String getRecipient() {
       java.lang.Object ref = recipient_;
       if (ref instanceof java.lang.String) {
@@ -1914,6 +1935,7 @@ public final class Tx {
      * <code>string recipient = 7;</code>
      * @return The bytes for recipient.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRecipientBytes() {
       java.lang.Object ref = recipient_;
@@ -2931,7 +2953,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.nft.MsgTransferNFTResponse}
    */
-  public  static final class MsgTransferNFTResponse extends
+  public static final class MsgTransferNFTResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.MsgTransferNFTResponse)
       MsgTransferNFTResponseOrBuilder {
@@ -3429,7 +3451,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.nft.MsgEditNFT}
    */
-  public  static final class MsgEditNFT extends
+  public static final class MsgEditNFT extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.MsgEditNFT)
       MsgEditNFTOrBuilder {
@@ -3551,6 +3573,7 @@ public final class Tx {
      * <code>string id = 1;</code>
      * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -3567,6 +3590,7 @@ public final class Tx {
      * <code>string id = 1;</code>
      * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -3587,6 +3611,7 @@ public final class Tx {
      * <code>string denom_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The denomId.
      */
+    @java.lang.Override
     public java.lang.String getDenomId() {
       java.lang.Object ref = denomId_;
       if (ref instanceof java.lang.String) {
@@ -3603,6 +3628,7 @@ public final class Tx {
      * <code>string denom_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The bytes for denomId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomIdBytes() {
       java.lang.Object ref = denomId_;
@@ -3623,6 +3649,7 @@ public final class Tx {
      * <code>string name = 3;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -3639,6 +3666,7 @@ public final class Tx {
      * <code>string name = 3;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -3659,6 +3687,7 @@ public final class Tx {
      * <code>string uri = 4 [(.gogoproto.customname) = "URI"];</code>
      * @return The uri.
      */
+    @java.lang.Override
     public java.lang.String getUri() {
       java.lang.Object ref = uri_;
       if (ref instanceof java.lang.String) {
@@ -3675,6 +3704,7 @@ public final class Tx {
      * <code>string uri = 4 [(.gogoproto.customname) = "URI"];</code>
      * @return The bytes for uri.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUriBytes() {
       java.lang.Object ref = uri_;
@@ -3695,6 +3725,7 @@ public final class Tx {
      * <code>string data = 5;</code>
      * @return The data.
      */
+    @java.lang.Override
     public java.lang.String getData() {
       java.lang.Object ref = data_;
       if (ref instanceof java.lang.String) {
@@ -3711,6 +3742,7 @@ public final class Tx {
      * <code>string data = 5;</code>
      * @return The bytes for data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDataBytes() {
       java.lang.Object ref = data_;
@@ -3731,6 +3763,7 @@ public final class Tx {
      * <code>string sender = 6;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -3747,6 +3780,7 @@ public final class Tx {
      * <code>string sender = 6;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -4671,7 +4705,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.nft.MsgEditNFTResponse}
    */
-  public  static final class MsgEditNFTResponse extends
+  public static final class MsgEditNFTResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.MsgEditNFTResponse)
       MsgEditNFTResponseOrBuilder {
@@ -5181,7 +5215,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.nft.MsgMintNFT}
    */
-  public  static final class MsgMintNFT extends
+  public static final class MsgMintNFT extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.MsgMintNFT)
       MsgMintNFTOrBuilder {
@@ -5310,6 +5344,7 @@ public final class Tx {
      * <code>string id = 1;</code>
      * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -5326,6 +5361,7 @@ public final class Tx {
      * <code>string id = 1;</code>
      * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -5346,6 +5382,7 @@ public final class Tx {
      * <code>string denom_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The denomId.
      */
+    @java.lang.Override
     public java.lang.String getDenomId() {
       java.lang.Object ref = denomId_;
       if (ref instanceof java.lang.String) {
@@ -5362,6 +5399,7 @@ public final class Tx {
      * <code>string denom_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The bytes for denomId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomIdBytes() {
       java.lang.Object ref = denomId_;
@@ -5382,6 +5420,7 @@ public final class Tx {
      * <code>string name = 3;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -5398,6 +5437,7 @@ public final class Tx {
      * <code>string name = 3;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -5418,6 +5458,7 @@ public final class Tx {
      * <code>string uri = 4 [(.gogoproto.customname) = "URI"];</code>
      * @return The uri.
      */
+    @java.lang.Override
     public java.lang.String getUri() {
       java.lang.Object ref = uri_;
       if (ref instanceof java.lang.String) {
@@ -5434,6 +5475,7 @@ public final class Tx {
      * <code>string uri = 4 [(.gogoproto.customname) = "URI"];</code>
      * @return The bytes for uri.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUriBytes() {
       java.lang.Object ref = uri_;
@@ -5454,6 +5496,7 @@ public final class Tx {
      * <code>string data = 5;</code>
      * @return The data.
      */
+    @java.lang.Override
     public java.lang.String getData() {
       java.lang.Object ref = data_;
       if (ref instanceof java.lang.String) {
@@ -5470,6 +5513,7 @@ public final class Tx {
      * <code>string data = 5;</code>
      * @return The bytes for data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDataBytes() {
       java.lang.Object ref = data_;
@@ -5490,6 +5534,7 @@ public final class Tx {
      * <code>string sender = 6;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -5506,6 +5551,7 @@ public final class Tx {
      * <code>string sender = 6;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -5526,6 +5572,7 @@ public final class Tx {
      * <code>string recipient = 7;</code>
      * @return The recipient.
      */
+    @java.lang.Override
     public java.lang.String getRecipient() {
       java.lang.Object ref = recipient_;
       if (ref instanceof java.lang.String) {
@@ -5542,6 +5589,7 @@ public final class Tx {
      * <code>string recipient = 7;</code>
      * @return The bytes for recipient.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRecipientBytes() {
       java.lang.Object ref = recipient_;
@@ -6559,7 +6607,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.nft.MsgMintNFTResponse}
    */
-  public  static final class MsgMintNFTResponse extends
+  public static final class MsgMintNFTResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.MsgMintNFTResponse)
       MsgMintNFTResponseOrBuilder {
@@ -7021,7 +7069,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.nft.MsgBurnNFT}
    */
-  public  static final class MsgBurnNFT extends
+  public static final class MsgBurnNFT extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.MsgBurnNFT)
       MsgBurnNFTOrBuilder {
@@ -7122,6 +7170,7 @@ public final class Tx {
      * <code>string id = 1;</code>
      * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -7138,6 +7187,7 @@ public final class Tx {
      * <code>string id = 1;</code>
      * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -7158,6 +7208,7 @@ public final class Tx {
      * <code>string denom_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The denomId.
      */
+    @java.lang.Override
     public java.lang.String getDenomId() {
       java.lang.Object ref = denomId_;
       if (ref instanceof java.lang.String) {
@@ -7174,6 +7225,7 @@ public final class Tx {
      * <code>string denom_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The bytes for denomId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomIdBytes() {
       java.lang.Object ref = denomId_;
@@ -7194,6 +7246,7 @@ public final class Tx {
      * <code>string sender = 3;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -7210,6 +7263,7 @@ public final class Tx {
      * <code>string sender = 3;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -7855,7 +7909,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.nft.MsgBurnNFTResponse}
    */
-  public  static final class MsgBurnNFTResponse extends
+  public static final class MsgBurnNFTResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.MsgBurnNFTResponse)
       MsgBurnNFTResponseOrBuilder {

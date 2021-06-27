@@ -37,7 +37,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.token.QueryTokenRequest}
    */
-  public  static final class QueryTokenRequest extends
+  public static final class QueryTokenRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.QueryTokenRequest)
       QueryTokenRequestOrBuilder {
@@ -124,6 +124,7 @@ public final class QueryOuterClass {
      * <code>string denom = 1;</code>
      * @return The denom.
      */
+    @java.lang.Override
     public java.lang.String getDenom() {
       java.lang.Object ref = denom_;
       if (ref instanceof java.lang.String) {
@@ -140,6 +141,7 @@ public final class QueryOuterClass {
      * <code>string denom = 1;</code>
      * @return The bytes for denom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomBytes() {
       java.lang.Object ref = denom_;
@@ -614,7 +616,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.token.QueryTokenResponse}
    */
-  public  static final class QueryTokenResponse extends
+  public static final class QueryTokenResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.QueryTokenResponse)
       QueryTokenResponseOrBuilder {
@@ -707,6 +709,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      * @return Whether the token field is set.
      */
+    @java.lang.Override
     public boolean hasToken() {
       return token_ != null;
     }
@@ -714,12 +717,14 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      * @return The token.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getToken() {
       return token_ == null ? com.google.protobuf2.Any.getDefaultInstance() : token_;
     }
     /**
      * <code>.google.protobuf2.Any Token = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getTokenOrBuilder() {
       return getToken();
     }
@@ -1264,7 +1269,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.token.QueryTokensRequest}
    */
-  public  static final class QueryTokensRequest extends
+  public static final class QueryTokensRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.QueryTokensRequest)
       QueryTokensRequestOrBuilder {
@@ -1364,6 +1369,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1;</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -1380,6 +1386,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1;</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -1404,6 +1411,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1415,6 +1423,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -1425,6 +1434,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -2098,7 +2108,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.token.QueryTokensResponse}
    */
-  public  static final class QueryTokensResponse extends
+  public static final class QueryTokensResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.QueryTokensResponse)
       QueryTokensResponseOrBuilder {
@@ -2204,12 +2214,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf2.Any> getTokensList() {
       return tokens_;
     }
     /**
      * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getTokensOrBuilderList() {
       return tokens_;
@@ -2217,18 +2229,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
+    @java.lang.Override
     public int getTokensCount() {
       return tokens_.size();
     }
     /**
      * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getTokens(int index) {
       return tokens_.get(index);
     }
     /**
      * <code>repeated .google.protobuf2.Any Tokens = 1 [(.cosmos_proto.accepts_interface) = "ContentI"];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getTokensOrBuilder(
         int index) {
       return tokens_.get(index);
@@ -2240,6 +2255,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2247,12 +2263,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -3067,7 +3085,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.token.QueryFeesRequest}
    */
-  public  static final class QueryFeesRequest extends
+  public static final class QueryFeesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.QueryFeesRequest)
       QueryFeesRequestOrBuilder {
@@ -3154,6 +3172,7 @@ public final class QueryOuterClass {
      * <code>string symbol = 1;</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -3170,6 +3189,7 @@ public final class QueryOuterClass {
      * <code>string symbol = 1;</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -3665,7 +3685,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.token.QueryFeesResponse}
    */
-  public  static final class QueryFeesResponse extends
+  public static final class QueryFeesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.QueryFeesResponse)
       QueryFeesResponseOrBuilder {
@@ -3776,6 +3796,7 @@ public final class QueryOuterClass {
      * <code>bool exist = 1;</code>
      * @return The exist.
      */
+    @java.lang.Override
     public boolean getExist() {
       return exist_;
     }
@@ -3786,6 +3807,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.v1beta1.Coin issue_fee = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"issue_fee&#92;"", (.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
      * @return Whether the issueFee field is set.
      */
+    @java.lang.Override
     public boolean hasIssueFee() {
       return issueFee_ != null;
     }
@@ -3793,12 +3815,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.v1beta1.Coin issue_fee = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"issue_fee&#92;"", (.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
      * @return The issueFee.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getIssueFee() {
       return issueFee_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : issueFee_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin issue_fee = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"issue_fee&#92;"", (.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getIssueFeeOrBuilder() {
       return getIssueFee();
     }
@@ -3809,6 +3833,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.v1beta1.Coin mint_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"mint_fee&#92;"", (.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
      * @return Whether the mintFee field is set.
      */
+    @java.lang.Override
     public boolean hasMintFee() {
       return mintFee_ != null;
     }
@@ -3816,12 +3841,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.v1beta1.Coin mint_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"mint_fee&#92;"", (.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
      * @return The mintFee.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getMintFee() {
       return mintFee_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : mintFee_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin mint_fee = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"mint_fee&#92;"", (.gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.Coin"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getMintFeeOrBuilder() {
       return getMintFee();
     }
@@ -4198,6 +4225,7 @@ public final class QueryOuterClass {
        * <code>bool exist = 1;</code>
        * @return The exist.
        */
+      @java.lang.Override
       public boolean getExist() {
         return exist_;
       }
@@ -4524,7 +4552,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.token.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -4980,7 +5008,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.token.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -5086,6 +5114,7 @@ public final class QueryOuterClass {
      * <code>.irismod.token.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -5093,12 +5122,14 @@ public final class QueryOuterClass {
      * <code>.irismod.token.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public irismod.token.TokenOuterClass.Params getParams() {
       return params_ == null ? irismod.token.TokenOuterClass.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.irismod.token.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.token.TokenOuterClass.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -5109,6 +5140,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse res = 2;</code>
      * @return Whether the res field is set.
      */
+    @java.lang.Override
     public boolean hasRes() {
       return res_ != null;
     }
@@ -5116,12 +5148,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse res = 2;</code>
      * @return The res.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getRes() {
       return res_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : res_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse res = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getResOrBuilder() {
       return getRes();
     }
@@ -5776,7 +5810,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.token.QueryTotalBurnRequest}
    */
-  public  static final class QueryTotalBurnRequest extends
+  public static final class QueryTotalBurnRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.QueryTotalBurnRequest)
       QueryTotalBurnRequestOrBuilder {
@@ -6226,7 +6260,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.token.QueryTotalBurnResponse}
    */
-  public  static final class QueryTotalBurnResponse extends
+  public static final class QueryTotalBurnResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.QueryTotalBurnResponse)
       QueryTotalBurnResponseOrBuilder {
@@ -6319,12 +6353,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin burned_coins = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getBurnedCoinsList() {
       return burnedCoins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin burned_coins = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getBurnedCoinsOrBuilderList() {
       return burnedCoins_;
@@ -6332,18 +6368,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin burned_coins = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getBurnedCoinsCount() {
       return burnedCoins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin burned_coins = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getBurnedCoins(int index) {
       return burnedCoins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin burned_coins = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getBurnedCoinsOrBuilder(
         int index) {
       return burnedCoins_.get(index);

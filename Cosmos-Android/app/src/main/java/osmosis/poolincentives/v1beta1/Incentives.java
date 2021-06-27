@@ -47,7 +47,7 @@ public final class Incentives {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.Params)
       ParamsOrBuilder {
@@ -141,6 +141,7 @@ public final class Incentives {
      * <code>string minted_denom = 1 [(.gogoproto.moretags) = "yaml:&#92;"minted_denom&#92;""];</code>
      * @return The mintedDenom.
      */
+    @java.lang.Override
     public java.lang.String getMintedDenom() {
       java.lang.Object ref = mintedDenom_;
       if (ref instanceof java.lang.String) {
@@ -164,6 +165,7 @@ public final class Incentives {
      * <code>string minted_denom = 1 [(.gogoproto.moretags) = "yaml:&#92;"minted_denom&#92;""];</code>
      * @return The bytes for mintedDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMintedDenomBytes() {
       java.lang.Object ref = mintedDenom_;
@@ -674,7 +676,7 @@ public final class Incentives {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.LockableDurationsInfo}
    */
-  public  static final class LockableDurationsInfo extends
+  public static final class LockableDurationsInfo extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.LockableDurationsInfo)
       LockableDurationsInfoOrBuilder {
@@ -767,12 +769,14 @@ public final class Incentives {
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf.Duration> getLockableDurationsList() {
       return lockableDurations_;
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.google.protobuf.DurationOrBuilder> 
         getLockableDurationsOrBuilderList() {
       return lockableDurations_;
@@ -780,18 +784,21 @@ public final class Incentives {
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public int getLockableDurationsCount() {
       return lockableDurations_.size();
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getLockableDurations(int index) {
       return lockableDurations_.get(index);
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getLockableDurationsOrBuilder(
         int index) {
       return lockableDurations_.get(index);
@@ -1474,7 +1481,7 @@ public final class Incentives {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.DistrInfo}
    */
-  public  static final class DistrInfo extends
+  public static final class DistrInfo extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.DistrInfo)
       DistrInfoOrBuilder {
@@ -1575,6 +1582,7 @@ public final class Incentives {
      * <code>string total_weight = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_weight&#92;""];</code>
      * @return The totalWeight.
      */
+    @java.lang.Override
     public java.lang.String getTotalWeight() {
       java.lang.Object ref = totalWeight_;
       if (ref instanceof java.lang.String) {
@@ -1591,6 +1599,7 @@ public final class Incentives {
      * <code>string total_weight = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"total_weight&#92;""];</code>
      * @return The bytes for totalWeight.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTotalWeightBytes() {
       java.lang.Object ref = totalWeight_;
@@ -1610,12 +1619,14 @@ public final class Incentives {
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.poolincentives.v1beta1.Incentives.DistrRecord> getRecordsList() {
       return records_;
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.poolincentives.v1beta1.Incentives.DistrRecordOrBuilder> 
         getRecordsOrBuilderList() {
       return records_;
@@ -1623,18 +1634,21 @@ public final class Incentives {
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getRecordsCount() {
       return records_.size();
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.DistrRecord getRecords(int index) {
       return records_.get(index);
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.DistrRecord records = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.DistrRecordOrBuilder getRecordsOrBuilder(
         int index) {
       return records_.get(index);
@@ -2392,7 +2406,7 @@ public final class Incentives {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.DistrRecord}
    */
-  public  static final class DistrRecord extends
+  public static final class DistrRecord extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.DistrRecord)
       DistrRecordOrBuilder {
@@ -2484,6 +2498,7 @@ public final class Incentives {
      * <code>uint64 gauge_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"gauge_id&#92;""];</code>
      * @return The gaugeId.
      */
+    @java.lang.Override
     public long getGaugeId() {
       return gaugeId_;
     }
@@ -2494,6 +2509,7 @@ public final class Incentives {
      * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The weight.
      */
+    @java.lang.Override
     public java.lang.String getWeight() {
       java.lang.Object ref = weight_;
       if (ref instanceof java.lang.String) {
@@ -2510,6 +2526,7 @@ public final class Incentives {
      * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The bytes for weight.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getWeightBytes() {
       java.lang.Object ref = weight_;
@@ -2849,6 +2866,7 @@ public final class Incentives {
        * <code>uint64 gauge_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"gauge_id&#92;""];</code>
        * @return The gaugeId.
        */
+      @java.lang.Override
       public long getGaugeId() {
         return gaugeId_;
       }

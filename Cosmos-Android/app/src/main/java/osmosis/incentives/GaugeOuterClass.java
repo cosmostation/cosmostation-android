@@ -209,7 +209,7 @@ public final class GaugeOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.Gauge}
    */
-  public  static final class Gauge extends
+  public static final class Gauge extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.Gauge)
       GaugeOrBuilder {
@@ -366,6 +366,7 @@ public final class GaugeOuterClass {
      * <code>uint64 id = 1;</code>
      * @return The id.
      */
+    @java.lang.Override
     public long getId() {
       return id_;
     }
@@ -380,6 +381,7 @@ public final class GaugeOuterClass {
      * <code>bool is_perpetual = 2;</code>
      * @return The isPerpetual.
      */
+    @java.lang.Override
     public boolean getIsPerpetual() {
       return isPerpetual_;
     }
@@ -396,6 +398,7 @@ public final class GaugeOuterClass {
      * <code>.osmosis.lockup.QueryCondition distribute_to = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the distributeTo field is set.
      */
+    @java.lang.Override
     public boolean hasDistributeTo() {
       return distributeTo_ != null;
     }
@@ -409,6 +412,7 @@ public final class GaugeOuterClass {
      * <code>.osmosis.lockup.QueryCondition distribute_to = 3 [(.gogoproto.nullable) = false];</code>
      * @return The distributeTo.
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.QueryCondition getDistributeTo() {
       return distributeTo_ == null ? osmosis.lockup.Lock.QueryCondition.getDefaultInstance() : distributeTo_;
     }
@@ -421,6 +425,7 @@ public final class GaugeOuterClass {
      *
      * <code>.osmosis.lockup.QueryCondition distribute_to = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.QueryConditionOrBuilder getDistributeToOrBuilder() {
       return getDistributeTo();
     }
@@ -434,6 +439,7 @@ public final class GaugeOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
@@ -444,6 +450,7 @@ public final class GaugeOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -455,6 +462,7 @@ public final class GaugeOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
@@ -465,6 +473,7 @@ public final class GaugeOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
@@ -475,6 +484,7 @@ public final class GaugeOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -490,6 +500,7 @@ public final class GaugeOuterClass {
      * <code>.google.protobuf.Timestamp start_time = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the startTime field is set.
      */
+    @java.lang.Override
     public boolean hasStartTime() {
       return startTime_ != null;
     }
@@ -501,6 +512,7 @@ public final class GaugeOuterClass {
      * <code>.google.protobuf.Timestamp start_time = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The startTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getStartTime() {
       return startTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : startTime_;
     }
@@ -511,6 +523,7 @@ public final class GaugeOuterClass {
      *
      * <code>.google.protobuf.Timestamp start_time = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getStartTimeOrBuilder() {
       return getStartTime();
     }
@@ -525,6 +538,7 @@ public final class GaugeOuterClass {
      * <code>uint64 num_epochs_paid_over = 6;</code>
      * @return The numEpochsPaidOver.
      */
+    @java.lang.Override
     public long getNumEpochsPaidOver() {
       return numEpochsPaidOver_;
     }
@@ -539,6 +553,7 @@ public final class GaugeOuterClass {
      * <code>uint64 filled_epochs = 7;</code>
      * @return The filledEpochs.
      */
+    @java.lang.Override
     public long getFilledEpochs() {
       return filledEpochs_;
     }
@@ -552,6 +567,7 @@ public final class GaugeOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin distributed_coins = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getDistributedCoinsList() {
       return distributedCoins_;
     }
@@ -562,6 +578,7 @@ public final class GaugeOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin distributed_coins = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getDistributedCoinsOrBuilderList() {
       return distributedCoins_;
@@ -573,6 +590,7 @@ public final class GaugeOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin distributed_coins = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getDistributedCoinsCount() {
       return distributedCoins_.size();
     }
@@ -583,6 +601,7 @@ public final class GaugeOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin distributed_coins = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getDistributedCoins(int index) {
       return distributedCoins_.get(index);
     }
@@ -593,6 +612,7 @@ public final class GaugeOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin distributed_coins = 8 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getDistributedCoinsOrBuilder(
         int index) {
       return distributedCoins_.get(index);
@@ -1136,6 +1156,7 @@ public final class GaugeOuterClass {
        * <code>uint64 id = 1;</code>
        * @return The id.
        */
+      @java.lang.Override
       public long getId() {
         return id_;
       }
@@ -1178,6 +1199,7 @@ public final class GaugeOuterClass {
        * <code>bool is_perpetual = 2;</code>
        * @return The isPerpetual.
        */
+      @java.lang.Override
       public boolean getIsPerpetual() {
         return isPerpetual_;
       }
@@ -1860,6 +1882,7 @@ public final class GaugeOuterClass {
        * <code>uint64 num_epochs_paid_over = 6;</code>
        * @return The numEpochsPaidOver.
        */
+      @java.lang.Override
       public long getNumEpochsPaidOver() {
         return numEpochsPaidOver_;
       }
@@ -1902,6 +1925,7 @@ public final class GaugeOuterClass {
        * <code>uint64 filled_epochs = 7;</code>
        * @return The filledEpochs.
        */
+      @java.lang.Override
       public long getFilledEpochs() {
         return filledEpochs_;
       }
@@ -2330,7 +2354,7 @@ public final class GaugeOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.LockableDurationsInfo}
    */
-  public  static final class LockableDurationsInfo extends
+  public static final class LockableDurationsInfo extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.LockableDurationsInfo)
       LockableDurationsInfoOrBuilder {
@@ -2423,12 +2447,14 @@ public final class GaugeOuterClass {
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf.Duration> getLockableDurationsList() {
       return lockableDurations_;
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.google.protobuf.DurationOrBuilder> 
         getLockableDurationsOrBuilderList() {
       return lockableDurations_;
@@ -2436,18 +2462,21 @@ public final class GaugeOuterClass {
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public int getLockableDurationsCount() {
       return lockableDurations_.size();
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getLockableDurations(int index) {
       return lockableDurations_.get(index);
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getLockableDurationsOrBuilder(
         int index) {
       return lockableDurations_.get(index);

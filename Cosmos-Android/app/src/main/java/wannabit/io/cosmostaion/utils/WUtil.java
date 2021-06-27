@@ -1119,10 +1119,6 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_IOV)) return -1;
                     if(o2.symbol.equals(TOKEN_IOV)) return 1;
 
-                } else if (chain.equals(BAND_MAIN)) {
-                    if(o1.symbol.equals(TOKEN_BAND)) return -1;
-                    if(o2.symbol.equals(TOKEN_BAND)) return 1;
-
                 } else if (chain.equals(IOV_TEST)) {
                     if(o1.symbol.equals(TOKEN_IOV_TEST)) return -1;
                     if(o2.symbol.equals(TOKEN_IOV_TEST)) return 1;
@@ -1182,6 +1178,11 @@ public class WUtil {
                     if(o2.denom.equals(TOKEN_OSMOSIS)) return 1;
                     if(o1.denom.equals(TOKEN_ION)) return -1;
                     if(o2.denom.equals(TOKEN_ION)) return 1;
+
+                } else if (chain.equals(BAND_MAIN)) {
+                    if(o1.denom.equals(TOKEN_BAND)) return -1;
+                    if(o2.denom.equals(TOKEN_BAND)) return 1;
+
                 }
 
                 else if (chain.equals(COSMOS_TEST)) {
@@ -1279,6 +1280,10 @@ public class WUtil {
                     if(o2.denom.equals(TOKEN_OSMOSIS)) return 1;
                     if(o1.denom.equals(TOKEN_ION)) return -1;
                     if(o2.denom.equals(TOKEN_ION)) return 1;
+
+                } else if (chain.equals(BAND_MAIN)) {
+                    if(o1.denom.equals(TOKEN_BAND)) return -1;
+                    if(o2.denom.equals(TOKEN_BAND)) return 1;
 
                 }
 
@@ -1381,6 +1386,10 @@ public class WUtil {
                     if(o2.denom.equals(TOKEN_OSMOSIS)) return 1;
                     if(o1.denom.equals(TOKEN_ION)) return -1;
                     if(o2.denom.equals(TOKEN_ION)) return 1;
+
+                } else if (chain.equals(BAND_MAIN)) {
+                    if(o1.denom.equals(TOKEN_BAND)) return -1;
+                    if(o2.denom.equals(TOKEN_BAND)) return 1;
 
                 }
 
@@ -1499,6 +1508,13 @@ public class WUtil {
                 }
             }
 
+        } else if (basechain.equals(BAND_MAIN)) {
+            result = result + ",uband";
+            for (Coin coin: basedata.mGrpcBalance) {
+                if (coin.denom != WDp.mainDenom(basechain)) {
+                }
+            }
+
         } else if (basechain.equals(RIZON_TEST)) {
 
         } else if (basechain.equals(ALTHEA_TEST)) {
@@ -1513,9 +1529,6 @@ public class WUtil {
 
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
             result = result + ",okb,okt";
-
-        } else if (basechain.equals(BAND_MAIN)) {
-            result = result + ",uband";
 
         } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
             result = result + ",uiov";
@@ -2416,6 +2429,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(BAND_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(BAND_GAS_RATE_TINY);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         } else if (basechain.equals(RIZON_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
@@ -2438,9 +2456,6 @@ public class WUtil {
         }
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
-            return BigDecimal.ZERO;
-
-        } else if (basechain.equals(BAND_MAIN)) {
             return BigDecimal.ZERO;
 
         } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
@@ -2531,6 +2546,14 @@ public class WUtil {
             }
             return new BigDecimal(OSMOSIS_GAS_RATE_AVERAGE);
 
+        } else if (basechain.equals(BAND_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(BAND_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(BAND_GAS_RATE_LOW);
+            }
+            return new BigDecimal(BAND_GAS_RATE_AVERAGE);
+
         }
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
@@ -2540,14 +2563,6 @@ public class WUtil {
                 return new BigDecimal(KAVA_GAS_RATE_LOW);
             }
             return new BigDecimal(KAVA_GAS_RATE_AVERAGE);
-
-        } else if (basechain.equals(BAND_MAIN)) {
-            if (position == 0) {
-                return BigDecimal.ZERO.setScale(3);
-            } else if (position == 1) {
-                return new BigDecimal(BAND_GAS_RATE_LOW);
-            }
-            return new BigDecimal(BAND_GAS_RATE_AVERAGE);
 
         }
 
@@ -2872,9 +2887,6 @@ public class WUtil {
         } else if (basechain.equals(OK_TEST)) {
             return EXPLORER_OKEX_TEST;
 
-        } else if (basechain.equals(BAND_MAIN)) {
-            return EXPLORER_BAND_MAIN;
-
         } else if (basechain.equals(IOV_MAIN)) {
             return EXPLORER_IOV_MAIN;
 
@@ -2919,6 +2931,9 @@ public class WUtil {
         } else if (basechain.equals(OSMOSIS_MAIN)) {
             return EXPLORER_OSMOSIS_MAIN;
 
+        } else if (basechain.equals(BAND_MAIN)) {
+            return EXPLORER_BAND_MAIN;
+
         }
 
         else if (basechain.equals(COSMOS_TEST)) {
@@ -2955,9 +2970,6 @@ public class WUtil {
 
         } else if (basechain.equals(OK_TEST)) {
             return EXPLORER_OKEX_TEST + "tx/" + hash;
-
-        } else if (basechain.equals(BAND_MAIN)) {
-            return EXPLORER_BAND_MAIN + "tx/" + hash;
 
         } else if (basechain.equals(IOV_MAIN)) {
             return EXPLORER_IOV_MAIN + "txs/" + hash;
@@ -3003,8 +3015,11 @@ public class WUtil {
         } else if (basechain.equals(OSMOSIS_MAIN)) {
             return EXPLORER_OSMOSIS_MAIN + "txs/" + hash;
 
+        } else if (basechain.equals(BAND_MAIN)) {
+            return EXPLORER_BAND_MAIN + "tx/" + hash;
+
         }
-        
+
         else if (basechain.equals(COSMOS_TEST)) {
             return EXPLORER_COSMOS_TEST + "txs/" + hash;
 

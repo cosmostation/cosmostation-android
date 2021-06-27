@@ -27,7 +27,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryGaugeIdsRequest}
    */
-  public  static final class QueryGaugeIdsRequest extends
+  public static final class QueryGaugeIdsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.QueryGaugeIdsRequest)
       QueryGaugeIdsRequestOrBuilder {
@@ -112,6 +112,7 @@ public final class QueryOuterClass {
      * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -424,6 +425,7 @@ public final class QueryOuterClass {
        * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -532,7 +534,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryGaugeIdsResponse}
    */
-  public  static final class QueryGaugeIdsResponse extends
+  public static final class QueryGaugeIdsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.QueryGaugeIdsResponse)
       QueryGaugeIdsResponseOrBuilder {
@@ -648,7 +650,7 @@ public final class QueryOuterClass {
     /**
      * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryGaugeIdsResponse.GaugeIdWithDuration}
      */
-    public  static final class GaugeIdWithDuration extends
+    public static final class GaugeIdWithDuration extends
         com.google.protobuf.GeneratedMessageV3 implements
         // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.QueryGaugeIdsResponse.GaugeIdWithDuration)
         GaugeIdWithDurationOrBuilder {
@@ -746,6 +748,7 @@ public final class QueryOuterClass {
        * <code>uint64 gauge_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"gauge_id&#92;""];</code>
        * @return The gaugeId.
        */
+      @java.lang.Override
       public long getGaugeId() {
         return gaugeId_;
       }
@@ -756,6 +759,7 @@ public final class QueryOuterClass {
        * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
        * @return Whether the duration field is set.
        */
+      @java.lang.Override
       public boolean hasDuration() {
         return duration_ != null;
       }
@@ -763,12 +767,14 @@ public final class QueryOuterClass {
        * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
        * @return The duration.
        */
+      @java.lang.Override
       public com.google.protobuf.Duration getDuration() {
         return duration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : duration_;
       }
       /**
        * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
        */
+      @java.lang.Override
       public com.google.protobuf.DurationOrBuilder getDurationOrBuilder() {
         return getDuration();
       }
@@ -1111,6 +1117,7 @@ public final class QueryOuterClass {
          * <code>uint64 gauge_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"gauge_id&#92;""];</code>
          * @return The gaugeId.
          */
+        @java.lang.Override
         public long getGaugeId() {
           return gaugeId_;
         }
@@ -1312,12 +1319,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.QueryGaugeIdsResponse.GaugeIdWithDuration gauge_ids_with_duration = 1 [(.gogoproto.moretags) = "yaml:&#92;"gauge_ids_with_duration&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.poolincentives.v1beta1.QueryOuterClass.QueryGaugeIdsResponse.GaugeIdWithDuration> getGaugeIdsWithDurationList() {
       return gaugeIdsWithDuration_;
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.QueryGaugeIdsResponse.GaugeIdWithDuration gauge_ids_with_duration = 1 [(.gogoproto.moretags) = "yaml:&#92;"gauge_ids_with_duration&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.poolincentives.v1beta1.QueryOuterClass.QueryGaugeIdsResponse.GaugeIdWithDurationOrBuilder> 
         getGaugeIdsWithDurationOrBuilderList() {
       return gaugeIdsWithDuration_;
@@ -1325,18 +1334,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.QueryGaugeIdsResponse.GaugeIdWithDuration gauge_ids_with_duration = 1 [(.gogoproto.moretags) = "yaml:&#92;"gauge_ids_with_duration&#92;""];</code>
      */
+    @java.lang.Override
     public int getGaugeIdsWithDurationCount() {
       return gaugeIdsWithDuration_.size();
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.QueryGaugeIdsResponse.GaugeIdWithDuration gauge_ids_with_duration = 1 [(.gogoproto.moretags) = "yaml:&#92;"gauge_ids_with_duration&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.QueryOuterClass.QueryGaugeIdsResponse.GaugeIdWithDuration getGaugeIdsWithDuration(int index) {
       return gaugeIdsWithDuration_.get(index);
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.QueryGaugeIdsResponse.GaugeIdWithDuration gauge_ids_with_duration = 1 [(.gogoproto.moretags) = "yaml:&#92;"gauge_ids_with_duration&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.QueryOuterClass.QueryGaugeIdsResponse.GaugeIdWithDurationOrBuilder getGaugeIdsWithDurationOrBuilder(
         int index) {
       return gaugeIdsWithDuration_.get(index);
@@ -1983,7 +1995,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryDistrInfoRequest}
    */
-  public  static final class QueryDistrInfoRequest extends
+  public static final class QueryDistrInfoRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.QueryDistrInfoRequest)
       QueryDistrInfoRequestOrBuilder {
@@ -2416,7 +2428,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryDistrInfoResponse}
    */
-  public  static final class QueryDistrInfoResponse extends
+  public static final class QueryDistrInfoResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.QueryDistrInfoResponse)
       QueryDistrInfoResponseOrBuilder {
@@ -2509,6 +2521,7 @@ public final class QueryOuterClass {
      * <code>.osmosis.poolincentives.v1beta1.DistrInfo distr_info = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"distr_info&#92;""];</code>
      * @return Whether the distrInfo field is set.
      */
+    @java.lang.Override
     public boolean hasDistrInfo() {
       return distrInfo_ != null;
     }
@@ -2516,12 +2529,14 @@ public final class QueryOuterClass {
      * <code>.osmosis.poolincentives.v1beta1.DistrInfo distr_info = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"distr_info&#92;""];</code>
      * @return The distrInfo.
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.DistrInfo getDistrInfo() {
       return distrInfo_ == null ? osmosis.poolincentives.v1beta1.Incentives.DistrInfo.getDefaultInstance() : distrInfo_;
     }
     /**
      * <code>.osmosis.poolincentives.v1beta1.DistrInfo distr_info = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"distr_info&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.DistrInfoOrBuilder getDistrInfoOrBuilder() {
       return getDistrInfo();
     }
@@ -3019,7 +3034,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -3452,7 +3467,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -3545,6 +3560,7 @@ public final class QueryOuterClass {
      * <code>.osmosis.poolincentives.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -3552,12 +3568,14 @@ public final class QueryOuterClass {
      * <code>.osmosis.poolincentives.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.Params getParams() {
       return params_ == null ? osmosis.poolincentives.v1beta1.Incentives.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.osmosis.poolincentives.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -4055,7 +4073,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryLockableDurationsRequest}
    */
-  public  static final class QueryLockableDurationsRequest extends
+  public static final class QueryLockableDurationsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.QueryLockableDurationsRequest)
       QueryLockableDurationsRequestOrBuilder {
@@ -4497,7 +4515,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryLockableDurationsResponse}
    */
-  public  static final class QueryLockableDurationsResponse extends
+  public static final class QueryLockableDurationsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.QueryLockableDurationsResponse)
       QueryLockableDurationsResponseOrBuilder {
@@ -4590,12 +4608,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf.Duration> getLockableDurationsList() {
       return lockableDurations_;
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.google.protobuf.DurationOrBuilder> 
         getLockableDurationsOrBuilderList() {
       return lockableDurations_;
@@ -4603,18 +4623,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public int getLockableDurationsCount() {
       return lockableDurations_.size();
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getLockableDurations(int index) {
       return lockableDurations_.get(index);
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getLockableDurationsOrBuilder(
         int index) {
       return lockableDurations_.get(index);
@@ -5261,7 +5284,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryIncentivizedPoolsRequest}
    */
-  public  static final class QueryIncentivizedPoolsRequest extends
+  public static final class QueryIncentivizedPoolsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.QueryIncentivizedPoolsRequest)
       QueryIncentivizedPoolsRequestOrBuilder {
@@ -5706,7 +5729,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.IncentivizedPool}
    */
-  public  static final class IncentivizedPool extends
+  public static final class IncentivizedPool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.IncentivizedPool)
       IncentivizedPoolOrBuilder {
@@ -5809,6 +5832,7 @@ public final class QueryOuterClass {
      * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -5819,6 +5843,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Duration lockable_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the lockableDuration field is set.
      */
+    @java.lang.Override
     public boolean hasLockableDuration() {
       return lockableDuration_ != null;
     }
@@ -5826,12 +5851,14 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Duration lockable_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The lockableDuration.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getLockableDuration() {
       return lockableDuration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : lockableDuration_;
     }
     /**
      * <code>.google.protobuf.Duration lockable_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_duration&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getLockableDurationOrBuilder() {
       return getLockableDuration();
     }
@@ -5842,6 +5869,7 @@ public final class QueryOuterClass {
      * <code>uint64 gauge_id = 3 [(.gogoproto.moretags) = "yaml:&#92;"gauge_id&#92;""];</code>
      * @return The gaugeId.
      */
+    @java.lang.Override
     public long getGaugeId() {
       return gaugeId_;
     }
@@ -6202,6 +6230,7 @@ public final class QueryOuterClass {
        * <code>uint64 pool_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -6351,6 +6380,7 @@ public final class QueryOuterClass {
        * <code>uint64 gauge_id = 3 [(.gogoproto.moretags) = "yaml:&#92;"gauge_id&#92;""];</code>
        * @return The gaugeId.
        */
+      @java.lang.Override
       public long getGaugeId() {
         return gaugeId_;
       }
@@ -6459,7 +6489,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.poolincentives.v1beta1.QueryIncentivizedPoolsResponse}
    */
-  public  static final class QueryIncentivizedPoolsResponse extends
+  public static final class QueryIncentivizedPoolsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.QueryIncentivizedPoolsResponse)
       QueryIncentivizedPoolsResponseOrBuilder {
@@ -6552,12 +6582,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.IncentivizedPool incentivized_pools = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"incentivized_pools&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.poolincentives.v1beta1.QueryOuterClass.IncentivizedPool> getIncentivizedPoolsList() {
       return incentivizedPools_;
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.IncentivizedPool incentivized_pools = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"incentivized_pools&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.poolincentives.v1beta1.QueryOuterClass.IncentivizedPoolOrBuilder> 
         getIncentivizedPoolsOrBuilderList() {
       return incentivizedPools_;
@@ -6565,18 +6597,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.IncentivizedPool incentivized_pools = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"incentivized_pools&#92;""];</code>
      */
+    @java.lang.Override
     public int getIncentivizedPoolsCount() {
       return incentivizedPools_.size();
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.IncentivizedPool incentivized_pools = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"incentivized_pools&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.QueryOuterClass.IncentivizedPool getIncentivizedPools(int index) {
       return incentivizedPools_.get(index);
     }
     /**
      * <code>repeated .osmosis.poolincentives.v1beta1.IncentivizedPool incentivized_pools = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"incentivized_pools&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.QueryOuterClass.IncentivizedPoolOrBuilder getIncentivizedPoolsOrBuilder(
         int index) {
       return incentivizedPools_.get(index);

@@ -100,7 +100,7 @@ public final class Genesis {
    *
    * Protobuf type {@code osmosis.incentives.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.GenesisState)
       GenesisStateOrBuilder {
@@ -224,6 +224,7 @@ public final class Genesis {
      * <code>.osmosis.incentives.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -235,6 +236,7 @@ public final class Genesis {
      * <code>.osmosis.incentives.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public osmosis.incentives.ParamsOuterClass.Params getParams() {
       return params_ == null ? osmosis.incentives.ParamsOuterClass.Params.getDefaultInstance() : params_;
     }
@@ -245,6 +247,7 @@ public final class Genesis {
      *
      * <code>.osmosis.incentives.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.incentives.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -254,12 +257,14 @@ public final class Genesis {
     /**
      * <code>repeated .osmosis.incentives.Gauge gauges = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> getGaugesList() {
       return gauges_;
     }
     /**
      * <code>repeated .osmosis.incentives.Gauge gauges = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> 
         getGaugesOrBuilderList() {
       return gauges_;
@@ -267,18 +272,21 @@ public final class Genesis {
     /**
      * <code>repeated .osmosis.incentives.Gauge gauges = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getGaugesCount() {
       return gauges_.size();
     }
     /**
      * <code>repeated .osmosis.incentives.Gauge gauges = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.incentives.GaugeOuterClass.Gauge getGauges(int index) {
       return gauges_.get(index);
     }
     /**
      * <code>repeated .osmosis.incentives.Gauge gauges = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.incentives.GaugeOuterClass.GaugeOrBuilder getGaugesOrBuilder(
         int index) {
       return gauges_.get(index);
@@ -289,12 +297,14 @@ public final class Genesis {
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf.Duration> getLockableDurationsList() {
       return lockableDurations_;
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.google.protobuf.DurationOrBuilder> 
         getLockableDurationsOrBuilderList() {
       return lockableDurations_;
@@ -302,18 +312,21 @@ public final class Genesis {
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public int getLockableDurationsCount() {
       return lockableDurations_.size();
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getLockableDurations(int index) {
       return lockableDurations_.get(index);
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getLockableDurationsOrBuilder(
         int index) {
       return lockableDurations_.get(index);

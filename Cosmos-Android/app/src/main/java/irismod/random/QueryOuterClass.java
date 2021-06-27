@@ -37,7 +37,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.random.QueryRandomRequest}
    */
-  public  static final class QueryRandomRequest extends
+  public static final class QueryRandomRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.random.QueryRandomRequest)
       QueryRandomRequestOrBuilder {
@@ -124,6 +124,7 @@ public final class QueryOuterClass {
      * <code>string req_id = 1;</code>
      * @return The reqId.
      */
+    @java.lang.Override
     public java.lang.String getReqId() {
       java.lang.Object ref = reqId_;
       if (ref instanceof java.lang.String) {
@@ -140,6 +141,7 @@ public final class QueryOuterClass {
      * <code>string req_id = 1;</code>
      * @return The bytes for reqId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getReqIdBytes() {
       java.lang.Object ref = reqId_;
@@ -614,7 +616,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.random.QueryRandomResponse}
    */
-  public  static final class QueryRandomResponse extends
+  public static final class QueryRandomResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.random.QueryRandomResponse)
       QueryRandomResponseOrBuilder {
@@ -707,6 +709,7 @@ public final class QueryOuterClass {
      * <code>.irismod.random.Random random = 1;</code>
      * @return Whether the random field is set.
      */
+    @java.lang.Override
     public boolean hasRandom() {
       return random_ != null;
     }
@@ -714,12 +717,14 @@ public final class QueryOuterClass {
      * <code>.irismod.random.Random random = 1;</code>
      * @return The random.
      */
+    @java.lang.Override
     public irismod.random.RandomOuterClass.Random getRandom() {
       return random_ == null ? irismod.random.RandomOuterClass.Random.getDefaultInstance() : random_;
     }
     /**
      * <code>.irismod.random.Random random = 1;</code>
      */
+    @java.lang.Override
     public irismod.random.RandomOuterClass.RandomOrBuilder getRandomOrBuilder() {
       return getRandom();
     }
@@ -1231,7 +1236,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.random.QueryRandomRequestQueueRequest}
    */
-  public  static final class QueryRandomRequestQueueRequest extends
+  public static final class QueryRandomRequestQueueRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.random.QueryRandomRequestQueueRequest)
       QueryRandomRequestQueueRequestOrBuilder {
@@ -1316,6 +1321,7 @@ public final class QueryOuterClass {
      * <code>int64 height = 1;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -1632,6 +1638,7 @@ public final class QueryOuterClass {
        * <code>int64 height = 1;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -1744,7 +1751,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.random.QueryRandomRequestQueueResponse}
    */
-  public  static final class QueryRandomRequestQueueResponse extends
+  public static final class QueryRandomRequestQueueResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.random.QueryRandomRequestQueueResponse)
       QueryRandomRequestQueueResponseOrBuilder {
@@ -1837,12 +1844,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.random.Request requests = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.random.RandomOuterClass.Request> getRequestsList() {
       return requests_;
     }
     /**
      * <code>repeated .irismod.random.Request requests = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.random.RandomOuterClass.RequestOrBuilder> 
         getRequestsOrBuilderList() {
       return requests_;
@@ -1850,18 +1859,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.random.Request requests = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getRequestsCount() {
       return requests_.size();
     }
     /**
      * <code>repeated .irismod.random.Request requests = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.random.RandomOuterClass.Request getRequests(int index) {
       return requests_.get(index);
     }
     /**
      * <code>repeated .irismod.random.Request requests = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.random.RandomOuterClass.RequestOrBuilder getRequestsOrBuilder(
         int index) {
       return requests_.get(index);

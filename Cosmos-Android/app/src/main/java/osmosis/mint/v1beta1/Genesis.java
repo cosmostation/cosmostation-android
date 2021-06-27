@@ -89,7 +89,7 @@ public final class Genesis {
    *
    * Protobuf type {@code osmosis.mint.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.mint.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -204,6 +204,7 @@ public final class Genesis {
      * <code>.osmosis.mint.v1beta1.Minter minter = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the minter field is set.
      */
+    @java.lang.Override
     public boolean hasMinter() {
       return minter_ != null;
     }
@@ -215,6 +216,7 @@ public final class Genesis {
      * <code>.osmosis.mint.v1beta1.Minter minter = 1 [(.gogoproto.nullable) = false];</code>
      * @return The minter.
      */
+    @java.lang.Override
     public osmosis.mint.v1beta1.Mint.Minter getMinter() {
       return minter_ == null ? osmosis.mint.v1beta1.Mint.Minter.getDefaultInstance() : minter_;
     }
@@ -225,6 +227,7 @@ public final class Genesis {
      *
      * <code>.osmosis.mint.v1beta1.Minter minter = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.mint.v1beta1.Mint.MinterOrBuilder getMinterOrBuilder() {
       return getMinter();
     }
@@ -239,6 +242,7 @@ public final class Genesis {
      * <code>.osmosis.mint.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -250,6 +254,7 @@ public final class Genesis {
      * <code>.osmosis.mint.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public osmosis.mint.v1beta1.Mint.Params getParams() {
       return params_ == null ? osmosis.mint.v1beta1.Mint.Params.getDefaultInstance() : params_;
     }
@@ -260,6 +265,7 @@ public final class Genesis {
      *
      * <code>.osmosis.mint.v1beta1.Params params = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.mint.v1beta1.Mint.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -274,6 +280,7 @@ public final class Genesis {
      * <code>int64 halven_started_epoch = 3 [(.gogoproto.moretags) = "yaml:&#92;"halven_started_epoch&#92;""];</code>
      * @return The halvenStartedEpoch.
      */
+    @java.lang.Override
     public long getHalvenStartedEpoch() {
       return halvenStartedEpoch_;
     }
@@ -964,6 +971,7 @@ public final class Genesis {
        * <code>int64 halven_started_epoch = 3 [(.gogoproto.moretags) = "yaml:&#92;"halven_started_epoch&#92;""];</code>
        * @return The halvenStartedEpoch.
        */
+      @java.lang.Override
       public long getHalvenStartedEpoch() {
         return halvenStartedEpoch_;
       }

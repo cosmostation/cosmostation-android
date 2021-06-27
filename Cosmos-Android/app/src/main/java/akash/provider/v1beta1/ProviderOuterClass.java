@@ -49,7 +49,7 @@ public final class ProviderOuterClass {
    *
    * Protobuf type {@code akash.provider.v1beta1.ProviderInfo}
    */
-  public  static final class ProviderInfo extends
+  public static final class ProviderInfo extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.provider.v1beta1.ProviderInfo)
       ProviderInfoOrBuilder {
@@ -143,6 +143,7 @@ public final class ProviderOuterClass {
      * <code>string email = 1 [(.gogoproto.customname) = "EMail", (.gogoproto.jsontag) = "email", (.gogoproto.moretags) = "yaml:&#92;"email&#92;""];</code>
      * @return The email.
      */
+    @java.lang.Override
     public java.lang.String getEmail() {
       java.lang.Object ref = email_;
       if (ref instanceof java.lang.String) {
@@ -159,6 +160,7 @@ public final class ProviderOuterClass {
      * <code>string email = 1 [(.gogoproto.customname) = "EMail", (.gogoproto.jsontag) = "email", (.gogoproto.moretags) = "yaml:&#92;"email&#92;""];</code>
      * @return The bytes for email.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getEmailBytes() {
       java.lang.Object ref = email_;
@@ -179,6 +181,7 @@ public final class ProviderOuterClass {
      * <code>string website = 2 [(.gogoproto.jsontag) = "website", (.gogoproto.moretags) = "yaml:&#92;"website&#92;""];</code>
      * @return The website.
      */
+    @java.lang.Override
     public java.lang.String getWebsite() {
       java.lang.Object ref = website_;
       if (ref instanceof java.lang.String) {
@@ -195,6 +198,7 @@ public final class ProviderOuterClass {
      * <code>string website = 2 [(.gogoproto.jsontag) = "website", (.gogoproto.moretags) = "yaml:&#92;"website&#92;""];</code>
      * @return The bytes for website.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getWebsiteBytes() {
       java.lang.Object ref = website_;
@@ -810,7 +814,7 @@ public final class ProviderOuterClass {
    *
    * Protobuf type {@code akash.provider.v1beta1.MsgCreateProvider}
    */
-  public  static final class MsgCreateProvider extends
+  public static final class MsgCreateProvider extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.provider.v1beta1.MsgCreateProvider)
       MsgCreateProviderOrBuilder {
@@ -931,6 +935,7 @@ public final class ProviderOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -947,6 +952,7 @@ public final class ProviderOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -967,6 +973,7 @@ public final class ProviderOuterClass {
      * <code>string host_uri = 2 [(.gogoproto.customname) = "HostURI", (.gogoproto.jsontag) = "host_uri", (.gogoproto.moretags) = "yaml:&#92;"host_uri&#92;""];</code>
      * @return The hostUri.
      */
+    @java.lang.Override
     public java.lang.String getHostUri() {
       java.lang.Object ref = hostUri_;
       if (ref instanceof java.lang.String) {
@@ -983,6 +990,7 @@ public final class ProviderOuterClass {
      * <code>string host_uri = 2 [(.gogoproto.customname) = "HostURI", (.gogoproto.jsontag) = "host_uri", (.gogoproto.moretags) = "yaml:&#92;"host_uri&#92;""];</code>
      * @return The bytes for hostUri.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHostUriBytes() {
       java.lang.Object ref = hostUri_;
@@ -1002,12 +1010,14 @@ public final class ProviderOuterClass {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
       return attributes_;
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
         getAttributesOrBuilderList() {
       return attributes_;
@@ -1015,18 +1025,21 @@ public final class ProviderOuterClass {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
         int index) {
       return attributes_.get(index);
@@ -1038,6 +1051,7 @@ public final class ProviderOuterClass {
      * <code>.akash.provider.v1beta1.ProviderInfo info = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "info", (.gogoproto.moretags) = "yaml:&#92;"info&#92;""];</code>
      * @return Whether the info field is set.
      */
+    @java.lang.Override
     public boolean hasInfo() {
       return info_ != null;
     }
@@ -1045,12 +1059,14 @@ public final class ProviderOuterClass {
      * <code>.akash.provider.v1beta1.ProviderInfo info = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "info", (.gogoproto.moretags) = "yaml:&#92;"info&#92;""];</code>
      * @return The info.
      */
+    @java.lang.Override
     public akash.provider.v1beta1.ProviderOuterClass.ProviderInfo getInfo() {
       return info_ == null ? akash.provider.v1beta1.ProviderOuterClass.ProviderInfo.getDefaultInstance() : info_;
     }
     /**
      * <code>.akash.provider.v1beta1.ProviderInfo info = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "info", (.gogoproto.moretags) = "yaml:&#92;"info&#92;""];</code>
      */
+    @java.lang.Override
     public akash.provider.v1beta1.ProviderOuterClass.ProviderInfoOrBuilder getInfoOrBuilder() {
       return getInfo();
     }
@@ -2039,7 +2055,7 @@ public final class ProviderOuterClass {
    *
    * Protobuf type {@code akash.provider.v1beta1.MsgCreateProviderResponse}
    */
-  public  static final class MsgCreateProviderResponse extends
+  public static final class MsgCreateProviderResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.provider.v1beta1.MsgCreateProviderResponse)
       MsgCreateProviderResponseOrBuilder {
@@ -2528,7 +2544,7 @@ public final class ProviderOuterClass {
    *
    * Protobuf type {@code akash.provider.v1beta1.MsgUpdateProvider}
    */
-  public  static final class MsgUpdateProvider extends
+  public static final class MsgUpdateProvider extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.provider.v1beta1.MsgUpdateProvider)
       MsgUpdateProviderOrBuilder {
@@ -2649,6 +2665,7 @@ public final class ProviderOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -2665,6 +2682,7 @@ public final class ProviderOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -2685,6 +2703,7 @@ public final class ProviderOuterClass {
      * <code>string host_uri = 2 [(.gogoproto.customname) = "HostURI", (.gogoproto.jsontag) = "host_uri", (.gogoproto.moretags) = "yaml:&#92;"host_uri&#92;""];</code>
      * @return The hostUri.
      */
+    @java.lang.Override
     public java.lang.String getHostUri() {
       java.lang.Object ref = hostUri_;
       if (ref instanceof java.lang.String) {
@@ -2701,6 +2720,7 @@ public final class ProviderOuterClass {
      * <code>string host_uri = 2 [(.gogoproto.customname) = "HostURI", (.gogoproto.jsontag) = "host_uri", (.gogoproto.moretags) = "yaml:&#92;"host_uri&#92;""];</code>
      * @return The bytes for hostUri.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHostUriBytes() {
       java.lang.Object ref = hostUri_;
@@ -2720,12 +2740,14 @@ public final class ProviderOuterClass {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
       return attributes_;
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
         getAttributesOrBuilderList() {
       return attributes_;
@@ -2733,18 +2755,21 @@ public final class ProviderOuterClass {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
         int index) {
       return attributes_.get(index);
@@ -2756,6 +2781,7 @@ public final class ProviderOuterClass {
      * <code>.akash.provider.v1beta1.ProviderInfo info = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "info", (.gogoproto.moretags) = "yaml:&#92;"info&#92;""];</code>
      * @return Whether the info field is set.
      */
+    @java.lang.Override
     public boolean hasInfo() {
       return info_ != null;
     }
@@ -2763,12 +2789,14 @@ public final class ProviderOuterClass {
      * <code>.akash.provider.v1beta1.ProviderInfo info = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "info", (.gogoproto.moretags) = "yaml:&#92;"info&#92;""];</code>
      * @return The info.
      */
+    @java.lang.Override
     public akash.provider.v1beta1.ProviderOuterClass.ProviderInfo getInfo() {
       return info_ == null ? akash.provider.v1beta1.ProviderOuterClass.ProviderInfo.getDefaultInstance() : info_;
     }
     /**
      * <code>.akash.provider.v1beta1.ProviderInfo info = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "info", (.gogoproto.moretags) = "yaml:&#92;"info&#92;""];</code>
      */
+    @java.lang.Override
     public akash.provider.v1beta1.ProviderOuterClass.ProviderInfoOrBuilder getInfoOrBuilder() {
       return getInfo();
     }
@@ -3757,7 +3785,7 @@ public final class ProviderOuterClass {
    *
    * Protobuf type {@code akash.provider.v1beta1.MsgUpdateProviderResponse}
    */
-  public  static final class MsgUpdateProviderResponse extends
+  public static final class MsgUpdateProviderResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.provider.v1beta1.MsgUpdateProviderResponse)
       MsgUpdateProviderResponseOrBuilder {
@@ -4195,7 +4223,7 @@ public final class ProviderOuterClass {
    *
    * Protobuf type {@code akash.provider.v1beta1.MsgDeleteProvider}
    */
-  public  static final class MsgDeleteProvider extends
+  public static final class MsgDeleteProvider extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.provider.v1beta1.MsgDeleteProvider)
       MsgDeleteProviderOrBuilder {
@@ -4282,6 +4310,7 @@ public final class ProviderOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -4298,6 +4327,7 @@ public final class ProviderOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -4757,7 +4787,7 @@ public final class ProviderOuterClass {
    *
    * Protobuf type {@code akash.provider.v1beta1.MsgDeleteProviderResponse}
    */
-  public  static final class MsgDeleteProviderResponse extends
+  public static final class MsgDeleteProviderResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.provider.v1beta1.MsgDeleteProviderResponse)
       MsgDeleteProviderResponseOrBuilder {
@@ -5246,7 +5276,7 @@ public final class ProviderOuterClass {
    *
    * Protobuf type {@code akash.provider.v1beta1.Provider}
    */
-  public  static final class Provider extends
+  public static final class Provider extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.provider.v1beta1.Provider)
       ProviderOrBuilder {
@@ -5367,6 +5397,7 @@ public final class ProviderOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -5383,6 +5414,7 @@ public final class ProviderOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -5403,6 +5435,7 @@ public final class ProviderOuterClass {
      * <code>string host_uri = 2 [(.gogoproto.customname) = "HostURI", (.gogoproto.jsontag) = "host_uri", (.gogoproto.moretags) = "yaml:&#92;"host_uri&#92;""];</code>
      * @return The hostUri.
      */
+    @java.lang.Override
     public java.lang.String getHostUri() {
       java.lang.Object ref = hostUri_;
       if (ref instanceof java.lang.String) {
@@ -5419,6 +5452,7 @@ public final class ProviderOuterClass {
      * <code>string host_uri = 2 [(.gogoproto.customname) = "HostURI", (.gogoproto.jsontag) = "host_uri", (.gogoproto.moretags) = "yaml:&#92;"host_uri&#92;""];</code>
      * @return The bytes for hostUri.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHostUriBytes() {
       java.lang.Object ref = hostUri_;
@@ -5438,12 +5472,14 @@ public final class ProviderOuterClass {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
       return attributes_;
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
         getAttributesOrBuilderList() {
       return attributes_;
@@ -5451,18 +5487,21 @@ public final class ProviderOuterClass {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;"", (.gogoproto.castrepeated) = "github.com/ovrclk/akash/types.Attributes"];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
         int index) {
       return attributes_.get(index);
@@ -5474,6 +5513,7 @@ public final class ProviderOuterClass {
      * <code>.akash.provider.v1beta1.ProviderInfo info = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "info", (.gogoproto.moretags) = "yaml:&#92;"info&#92;""];</code>
      * @return Whether the info field is set.
      */
+    @java.lang.Override
     public boolean hasInfo() {
       return info_ != null;
     }
@@ -5481,12 +5521,14 @@ public final class ProviderOuterClass {
      * <code>.akash.provider.v1beta1.ProviderInfo info = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "info", (.gogoproto.moretags) = "yaml:&#92;"info&#92;""];</code>
      * @return The info.
      */
+    @java.lang.Override
     public akash.provider.v1beta1.ProviderOuterClass.ProviderInfo getInfo() {
       return info_ == null ? akash.provider.v1beta1.ProviderOuterClass.ProviderInfo.getDefaultInstance() : info_;
     }
     /**
      * <code>.akash.provider.v1beta1.ProviderInfo info = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "info", (.gogoproto.moretags) = "yaml:&#92;"info&#92;""];</code>
      */
+    @java.lang.Override
     public akash.provider.v1beta1.ProviderOuterClass.ProviderInfoOrBuilder getInfoOrBuilder() {
       return getInfo();
     }

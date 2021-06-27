@@ -21,7 +21,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.ModuleBalanceRequest}
    */
-  public  static final class ModuleBalanceRequest extends
+  public static final class ModuleBalanceRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.ModuleBalanceRequest)
       ModuleBalanceRequestOrBuilder {
@@ -463,7 +463,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.ModuleBalanceResponse}
    */
-  public  static final class ModuleBalanceResponse extends
+  public static final class ModuleBalanceResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.ModuleBalanceResponse)
       ModuleBalanceResponseOrBuilder {
@@ -556,12 +556,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -569,18 +571,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -1227,7 +1232,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.ModuleLockedAmountRequest}
    */
-  public  static final class ModuleLockedAmountRequest extends
+  public static final class ModuleLockedAmountRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.ModuleLockedAmountRequest)
       ModuleLockedAmountRequestOrBuilder {
@@ -1669,7 +1674,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.ModuleLockedAmountResponse}
    */
-  public  static final class ModuleLockedAmountResponse extends
+  public static final class ModuleLockedAmountResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.ModuleLockedAmountResponse)
       ModuleLockedAmountResponseOrBuilder {
@@ -1762,12 +1767,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -1775,18 +1782,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -2445,7 +2455,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountUnlockableCoinsRequest}
    */
-  public  static final class AccountUnlockableCoinsRequest extends
+  public static final class AccountUnlockableCoinsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountUnlockableCoinsRequest)
       AccountUnlockableCoinsRequestOrBuilder {
@@ -2532,6 +2542,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -2548,6 +2559,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -3023,7 +3035,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountUnlockableCoinsResponse}
    */
-  public  static final class AccountUnlockableCoinsResponse extends
+  public static final class AccountUnlockableCoinsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountUnlockableCoinsResponse)
       AccountUnlockableCoinsResponseOrBuilder {
@@ -3116,12 +3128,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -3129,18 +3143,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -3799,7 +3816,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountUnlockingCoinsRequest}
    */
-  public  static final class AccountUnlockingCoinsRequest extends
+  public static final class AccountUnlockingCoinsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountUnlockingCoinsRequest)
       AccountUnlockingCoinsRequestOrBuilder {
@@ -3886,6 +3903,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -3902,6 +3920,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -4377,7 +4396,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountUnlockingCoinsResponse}
    */
-  public  static final class AccountUnlockingCoinsResponse extends
+  public static final class AccountUnlockingCoinsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountUnlockingCoinsResponse)
       AccountUnlockingCoinsResponseOrBuilder {
@@ -4470,12 +4489,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -4483,18 +4504,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -5153,7 +5177,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedCoinsRequest}
    */
-  public  static final class AccountLockedCoinsRequest extends
+  public static final class AccountLockedCoinsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedCoinsRequest)
       AccountLockedCoinsRequestOrBuilder {
@@ -5240,6 +5264,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -5256,6 +5281,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -5731,7 +5757,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedCoinsResponse}
    */
-  public  static final class AccountLockedCoinsResponse extends
+  public static final class AccountLockedCoinsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedCoinsResponse)
       AccountLockedCoinsResponseOrBuilder {
@@ -5824,12 +5850,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -5837,18 +5865,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -6522,7 +6553,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedPastTimeRequest}
    */
-  public  static final class AccountLockedPastTimeRequest extends
+  public static final class AccountLockedPastTimeRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedPastTimeRequest)
       AccountLockedPastTimeRequestOrBuilder {
@@ -6622,6 +6653,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -6638,6 +6670,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -6658,6 +6691,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the timestamp field is set.
      */
+    @java.lang.Override
     public boolean hasTimestamp() {
       return timestamp_ != null;
     }
@@ -6665,12 +6699,14 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getTimestamp() {
       return timestamp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : timestamp_;
     }
     /**
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder() {
       return getTimestamp();
     }
@@ -7285,7 +7321,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedPastTimeResponse}
    */
-  public  static final class AccountLockedPastTimeResponse extends
+  public static final class AccountLockedPastTimeResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedPastTimeResponse)
       AccountLockedPastTimeResponseOrBuilder {
@@ -7378,12 +7414,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.lockup.Lock.PeriodLock> getLocksList() {
       return locks_;
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
         getLocksOrBuilderList() {
       return locks_;
@@ -7391,18 +7429,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getLocksCount() {
       return locks_.size();
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLock getLocks(int index) {
       return locks_.get(index);
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
         int index) {
       return locks_.get(index);
@@ -8076,7 +8117,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedPastTimeNotUnlockingOnlyRequest}
    */
-  public  static final class AccountLockedPastTimeNotUnlockingOnlyRequest extends
+  public static final class AccountLockedPastTimeNotUnlockingOnlyRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedPastTimeNotUnlockingOnlyRequest)
       AccountLockedPastTimeNotUnlockingOnlyRequestOrBuilder {
@@ -8176,6 +8217,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -8192,6 +8234,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -8212,6 +8255,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the timestamp field is set.
      */
+    @java.lang.Override
     public boolean hasTimestamp() {
       return timestamp_ != null;
     }
@@ -8219,12 +8263,14 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getTimestamp() {
       return timestamp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : timestamp_;
     }
     /**
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder() {
       return getTimestamp();
     }
@@ -8839,7 +8885,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedPastTimeNotUnlockingOnlyResponse}
    */
-  public  static final class AccountLockedPastTimeNotUnlockingOnlyResponse extends
+  public static final class AccountLockedPastTimeNotUnlockingOnlyResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedPastTimeNotUnlockingOnlyResponse)
       AccountLockedPastTimeNotUnlockingOnlyResponseOrBuilder {
@@ -8932,12 +8978,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.lockup.Lock.PeriodLock> getLocksList() {
       return locks_;
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
         getLocksOrBuilderList() {
       return locks_;
@@ -8945,18 +8993,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getLocksCount() {
       return locks_.size();
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLock getLocks(int index) {
       return locks_.get(index);
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
         int index) {
       return locks_.get(index);
@@ -9630,7 +9681,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountUnlockedBeforeTimeRequest}
    */
-  public  static final class AccountUnlockedBeforeTimeRequest extends
+  public static final class AccountUnlockedBeforeTimeRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountUnlockedBeforeTimeRequest)
       AccountUnlockedBeforeTimeRequestOrBuilder {
@@ -9730,6 +9781,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -9746,6 +9798,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -9766,6 +9819,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the timestamp field is set.
      */
+    @java.lang.Override
     public boolean hasTimestamp() {
       return timestamp_ != null;
     }
@@ -9773,12 +9827,14 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getTimestamp() {
       return timestamp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : timestamp_;
     }
     /**
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder() {
       return getTimestamp();
     }
@@ -10393,7 +10449,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountUnlockedBeforeTimeResponse}
    */
-  public  static final class AccountUnlockedBeforeTimeResponse extends
+  public static final class AccountUnlockedBeforeTimeResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountUnlockedBeforeTimeResponse)
       AccountUnlockedBeforeTimeResponseOrBuilder {
@@ -10486,12 +10542,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.lockup.Lock.PeriodLock> getLocksList() {
       return locks_;
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
         getLocksOrBuilderList() {
       return locks_;
@@ -10499,18 +10557,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getLocksCount() {
       return locks_.size();
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLock getLocks(int index) {
       return locks_.get(index);
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
         int index) {
       return locks_.get(index);
@@ -11196,7 +11257,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedPastTimeDenomRequest}
    */
-  public  static final class AccountLockedPastTimeDenomRequest extends
+  public static final class AccountLockedPastTimeDenomRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedPastTimeDenomRequest)
       AccountLockedPastTimeDenomRequestOrBuilder {
@@ -11303,6 +11364,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -11319,6 +11381,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -11339,6 +11402,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the timestamp field is set.
      */
+    @java.lang.Override
     public boolean hasTimestamp() {
       return timestamp_ != null;
     }
@@ -11346,12 +11410,14 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getTimestamp() {
       return timestamp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : timestamp_;
     }
     /**
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder() {
       return getTimestamp();
     }
@@ -11362,6 +11428,7 @@ public final class QueryOuterClass {
      * <code>string denom = 3;</code>
      * @return The denom.
      */
+    @java.lang.Override
     public java.lang.String getDenom() {
       java.lang.Object ref = denom_;
       if (ref instanceof java.lang.String) {
@@ -11378,6 +11445,7 @@ public final class QueryOuterClass {
      * <code>string denom = 3;</code>
      * @return The bytes for denom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomBytes() {
       java.lang.Object ref = denom_;
@@ -12095,7 +12163,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedPastTimeDenomResponse}
    */
-  public  static final class AccountLockedPastTimeDenomResponse extends
+  public static final class AccountLockedPastTimeDenomResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedPastTimeDenomResponse)
       AccountLockedPastTimeDenomResponseOrBuilder {
@@ -12188,12 +12256,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.lockup.Lock.PeriodLock> getLocksList() {
       return locks_;
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
         getLocksOrBuilderList() {
       return locks_;
@@ -12201,18 +12271,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getLocksCount() {
       return locks_.size();
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLock getLocks(int index) {
       return locks_.get(index);
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
         int index) {
       return locks_.get(index);
@@ -12865,7 +12938,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.LockedRequest}
    */
-  public  static final class LockedRequest extends
+  public static final class LockedRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.LockedRequest)
       LockedRequestOrBuilder {
@@ -12950,6 +13023,7 @@ public final class QueryOuterClass {
      * <code>uint64 lock_id = 1;</code>
      * @return The lockId.
      */
+    @java.lang.Override
     public long getLockId() {
       return lockId_;
     }
@@ -13262,6 +13336,7 @@ public final class QueryOuterClass {
        * <code>uint64 lock_id = 1;</code>
        * @return The lockId.
        */
+      @java.lang.Override
       public long getLockId() {
         return lockId_;
       }
@@ -13361,7 +13436,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.LockedResponse}
    */
-  public  static final class LockedResponse extends
+  public static final class LockedResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.LockedResponse)
       LockedResponseOrBuilder {
@@ -13454,6 +13529,7 @@ public final class QueryOuterClass {
      * <code>.osmosis.lockup.PeriodLock lock = 1;</code>
      * @return Whether the lock field is set.
      */
+    @java.lang.Override
     public boolean hasLock() {
       return lock_ != null;
     }
@@ -13461,12 +13537,14 @@ public final class QueryOuterClass {
      * <code>.osmosis.lockup.PeriodLock lock = 1;</code>
      * @return The lock.
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLock getLock() {
       return lock_ == null ? osmosis.lockup.Lock.PeriodLock.getDefaultInstance() : lock_;
     }
     /**
      * <code>.osmosis.lockup.PeriodLock lock = 1;</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLockOrBuilder getLockOrBuilder() {
       return getLock();
     }
@@ -13991,7 +14069,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedLongerDurationRequest}
    */
-  public  static final class AccountLockedLongerDurationRequest extends
+  public static final class AccountLockedLongerDurationRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedLongerDurationRequest)
       AccountLockedLongerDurationRequestOrBuilder {
@@ -14091,6 +14169,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -14107,6 +14186,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -14127,6 +14207,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the duration field is set.
      */
+    @java.lang.Override
     public boolean hasDuration() {
       return duration_ != null;
     }
@@ -14134,12 +14215,14 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The duration.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getDuration() {
       return duration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : duration_;
     }
     /**
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getDurationOrBuilder() {
       return getDuration();
     }
@@ -14754,7 +14837,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedLongerDurationResponse}
    */
-  public  static final class AccountLockedLongerDurationResponse extends
+  public static final class AccountLockedLongerDurationResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedLongerDurationResponse)
       AccountLockedLongerDurationResponseOrBuilder {
@@ -14847,12 +14930,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.lockup.Lock.PeriodLock> getLocksList() {
       return locks_;
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
         getLocksOrBuilderList() {
       return locks_;
@@ -14860,18 +14945,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getLocksCount() {
       return locks_.size();
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLock getLocks(int index) {
       return locks_.get(index);
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
         int index) {
       return locks_.get(index);
@@ -15545,7 +15633,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedLongerDurationNotUnlockingOnlyRequest}
    */
-  public  static final class AccountLockedLongerDurationNotUnlockingOnlyRequest extends
+  public static final class AccountLockedLongerDurationNotUnlockingOnlyRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedLongerDurationNotUnlockingOnlyRequest)
       AccountLockedLongerDurationNotUnlockingOnlyRequestOrBuilder {
@@ -15645,6 +15733,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -15661,6 +15750,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -15681,6 +15771,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the duration field is set.
      */
+    @java.lang.Override
     public boolean hasDuration() {
       return duration_ != null;
     }
@@ -15688,12 +15779,14 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The duration.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getDuration() {
       return duration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : duration_;
     }
     /**
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getDurationOrBuilder() {
       return getDuration();
     }
@@ -16308,7 +16401,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedLongerDurationNotUnlockingOnlyResponse}
    */
-  public  static final class AccountLockedLongerDurationNotUnlockingOnlyResponse extends
+  public static final class AccountLockedLongerDurationNotUnlockingOnlyResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedLongerDurationNotUnlockingOnlyResponse)
       AccountLockedLongerDurationNotUnlockingOnlyResponseOrBuilder {
@@ -16401,12 +16494,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.lockup.Lock.PeriodLock> getLocksList() {
       return locks_;
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
         getLocksOrBuilderList() {
       return locks_;
@@ -16414,18 +16509,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getLocksCount() {
       return locks_.size();
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLock getLocks(int index) {
       return locks_.get(index);
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
         int index) {
       return locks_.get(index);
@@ -17111,7 +17209,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedLongerDurationDenomRequest}
    */
-  public  static final class AccountLockedLongerDurationDenomRequest extends
+  public static final class AccountLockedLongerDurationDenomRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedLongerDurationDenomRequest)
       AccountLockedLongerDurationDenomRequestOrBuilder {
@@ -17218,6 +17316,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -17234,6 +17333,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -17254,6 +17354,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the duration field is set.
      */
+    @java.lang.Override
     public boolean hasDuration() {
       return duration_ != null;
     }
@@ -17261,12 +17362,14 @@ public final class QueryOuterClass {
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The duration.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getDuration() {
       return duration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : duration_;
     }
     /**
      * <code>.google.protobuf.Duration duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getDurationOrBuilder() {
       return getDuration();
     }
@@ -17277,6 +17380,7 @@ public final class QueryOuterClass {
      * <code>string denom = 3;</code>
      * @return The denom.
      */
+    @java.lang.Override
     public java.lang.String getDenom() {
       java.lang.Object ref = denom_;
       if (ref instanceof java.lang.String) {
@@ -17293,6 +17397,7 @@ public final class QueryOuterClass {
      * <code>string denom = 3;</code>
      * @return The bytes for denom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomBytes() {
       java.lang.Object ref = denom_;
@@ -18010,7 +18115,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.lockup.AccountLockedLongerDurationDenomResponse}
    */
-  public  static final class AccountLockedLongerDurationDenomResponse extends
+  public static final class AccountLockedLongerDurationDenomResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.AccountLockedLongerDurationDenomResponse)
       AccountLockedLongerDurationDenomResponseOrBuilder {
@@ -18103,12 +18208,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.lockup.Lock.PeriodLock> getLocksList() {
       return locks_;
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
         getLocksOrBuilderList() {
       return locks_;
@@ -18116,18 +18223,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getLocksCount() {
       return locks_.size();
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLock getLocks(int index) {
       return locks_.get(index);
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
         int index) {
       return locks_.get(index);

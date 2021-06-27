@@ -148,6 +148,10 @@ public final class Signing {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -237,7 +241,7 @@ public final class Signing {
    *
    * Protobuf type {@code cosmos.tx.signing.v1beta1.SignatureDescriptors}
    */
-  public  static final class SignatureDescriptors extends
+  public static final class SignatureDescriptors extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.tx.signing.v1beta1.SignatureDescriptors)
       SignatureDescriptorsOrBuilder {
@@ -334,6 +338,7 @@ public final class Signing {
      *
      * <code>repeated .cosmos.tx.signing.v1beta1.SignatureDescriptor signatures = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor> getSignaturesList() {
       return signatures_;
     }
@@ -344,6 +349,7 @@ public final class Signing {
      *
      * <code>repeated .cosmos.tx.signing.v1beta1.SignatureDescriptor signatures = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.tx.signing.v1beta1.Signing.SignatureDescriptorOrBuilder> 
         getSignaturesOrBuilderList() {
       return signatures_;
@@ -355,6 +361,7 @@ public final class Signing {
      *
      * <code>repeated .cosmos.tx.signing.v1beta1.SignatureDescriptor signatures = 1;</code>
      */
+    @java.lang.Override
     public int getSignaturesCount() {
       return signatures_.size();
     }
@@ -365,6 +372,7 @@ public final class Signing {
      *
      * <code>repeated .cosmos.tx.signing.v1beta1.SignatureDescriptor signatures = 1;</code>
      */
+    @java.lang.Override
     public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor getSignatures(int index) {
       return signatures_.get(index);
     }
@@ -375,6 +383,7 @@ public final class Signing {
      *
      * <code>repeated .cosmos.tx.signing.v1beta1.SignatureDescriptor signatures = 1;</code>
      */
+    @java.lang.Override
     public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptorOrBuilder getSignaturesOrBuilder(
         int index) {
       return signatures_.get(index);
@@ -1158,7 +1167,7 @@ public final class Signing {
    *
    * Protobuf type {@code cosmos.tx.signing.v1beta1.SignatureDescriptor}
    */
-  public  static final class SignatureDescriptor extends
+  public static final class SignatureDescriptor extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.tx.signing.v1beta1.SignatureDescriptor)
       SignatureDescriptorOrBuilder {
@@ -1330,7 +1339,7 @@ public final class Signing {
      *
      * Protobuf type {@code cosmos.tx.signing.v1beta1.SignatureDescriptor.Data}
      */
-    public  static final class Data extends
+    public static final class Data extends
         com.google.protobuf.GeneratedMessageV3 implements
         // @@protoc_insertion_point(message_implements:cosmos.tx.signing.v1beta1.SignatureDescriptor.Data)
         DataOrBuilder {
@@ -1472,7 +1481,7 @@ public final class Signing {
        *
        * Protobuf type {@code cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single}
        */
-      public  static final class Single extends
+      public static final class Single extends
           com.google.protobuf.GeneratedMessageV3 implements
           // @@protoc_insertion_point(message_implements:cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single)
           SingleOrBuilder {
@@ -1569,7 +1578,7 @@ public final class Signing {
          * <code>.cosmos.tx.signing.v1beta1.SignMode mode = 1;</code>
          * @return The enum numeric value on the wire for mode.
          */
-        public int getModeValue() {
+        @java.lang.Override public int getModeValue() {
           return mode_;
         }
         /**
@@ -1580,7 +1589,7 @@ public final class Signing {
          * <code>.cosmos.tx.signing.v1beta1.SignMode mode = 1;</code>
          * @return The mode.
          */
-        public cosmos.tx.signing.v1beta1.Signing.SignMode getMode() {
+        @java.lang.Override public cosmos.tx.signing.v1beta1.Signing.SignMode getMode() {
           @SuppressWarnings("deprecation")
           cosmos.tx.signing.v1beta1.Signing.SignMode result = cosmos.tx.signing.v1beta1.Signing.SignMode.valueOf(mode_);
           return result == null ? cosmos.tx.signing.v1beta1.Signing.SignMode.UNRECOGNIZED : result;
@@ -1596,6 +1605,7 @@ public final class Signing {
          * <code>bytes signature = 2;</code>
          * @return The signature.
          */
+        @java.lang.Override
         public com.google.protobuf.ByteString getSignature() {
           return signature_;
         }
@@ -1931,7 +1941,7 @@ public final class Signing {
            * <code>.cosmos.tx.signing.v1beta1.SignMode mode = 1;</code>
            * @return The enum numeric value on the wire for mode.
            */
-          public int getModeValue() {
+          @java.lang.Override public int getModeValue() {
             return mode_;
           }
           /**
@@ -1944,6 +1954,7 @@ public final class Signing {
            * @return This builder for chaining.
            */
           public Builder setModeValue(int value) {
+            
             mode_ = value;
             onChanged();
             return this;
@@ -1956,6 +1967,7 @@ public final class Signing {
            * <code>.cosmos.tx.signing.v1beta1.SignMode mode = 1;</code>
            * @return The mode.
            */
+          @java.lang.Override
           public cosmos.tx.signing.v1beta1.Signing.SignMode getMode() {
             @SuppressWarnings("deprecation")
             cosmos.tx.signing.v1beta1.Signing.SignMode result = cosmos.tx.signing.v1beta1.Signing.SignMode.valueOf(mode_);
@@ -2003,6 +2015,7 @@ public final class Signing {
            * <code>bytes signature = 2;</code>
            * @return The signature.
            */
+          @java.lang.Override
           public com.google.protobuf.ByteString getSignature() {
             return signature_;
           }
@@ -2173,7 +2186,7 @@ public final class Signing {
        *
        * Protobuf type {@code cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi}
        */
-      public  static final class Multi extends
+      public static final class Multi extends
           com.google.protobuf.GeneratedMessageV3 implements
           // @@protoc_insertion_point(message_implements:cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi)
           MultiOrBuilder {
@@ -2284,6 +2297,7 @@ public final class Signing {
          * <code>.cosmos.crypto.multisig.v1beta1.CompactBitArray bitarray = 1;</code>
          * @return Whether the bitarray field is set.
          */
+        @java.lang.Override
         public boolean hasBitarray() {
           return bitarray_ != null;
         }
@@ -2295,6 +2309,7 @@ public final class Signing {
          * <code>.cosmos.crypto.multisig.v1beta1.CompactBitArray bitarray = 1;</code>
          * @return The bitarray.
          */
+        @java.lang.Override
         public cosmos.crypto.multisig.v1beta1.Multisig.CompactBitArray getBitarray() {
           return bitarray_ == null ? cosmos.crypto.multisig.v1beta1.Multisig.CompactBitArray.getDefaultInstance() : bitarray_;
         }
@@ -2305,6 +2320,7 @@ public final class Signing {
          *
          * <code>.cosmos.crypto.multisig.v1beta1.CompactBitArray bitarray = 1;</code>
          */
+        @java.lang.Override
         public cosmos.crypto.multisig.v1beta1.Multisig.CompactBitArrayOrBuilder getBitarrayOrBuilder() {
           return getBitarray();
         }
@@ -2318,6 +2334,7 @@ public final class Signing {
          *
          * <code>repeated .cosmos.tx.signing.v1beta1.SignatureDescriptor.Data signatures = 2;</code>
          */
+        @java.lang.Override
         public java.util.List<cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data> getSignaturesList() {
           return signatures_;
         }
@@ -2328,6 +2345,7 @@ public final class Signing {
          *
          * <code>repeated .cosmos.tx.signing.v1beta1.SignatureDescriptor.Data signatures = 2;</code>
          */
+        @java.lang.Override
         public java.util.List<? extends cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.DataOrBuilder> 
             getSignaturesOrBuilderList() {
           return signatures_;
@@ -2339,6 +2357,7 @@ public final class Signing {
          *
          * <code>repeated .cosmos.tx.signing.v1beta1.SignatureDescriptor.Data signatures = 2;</code>
          */
+        @java.lang.Override
         public int getSignaturesCount() {
           return signatures_.size();
         }
@@ -2349,6 +2368,7 @@ public final class Signing {
          *
          * <code>repeated .cosmos.tx.signing.v1beta1.SignatureDescriptor.Data signatures = 2;</code>
          */
+        @java.lang.Override
         public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data getSignatures(int index) {
           return signatures_.get(index);
         }
@@ -2359,6 +2379,7 @@ public final class Signing {
          *
          * <code>repeated .cosmos.tx.signing.v1beta1.SignatureDescriptor.Data signatures = 2;</code>
          */
+        @java.lang.Override
         public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.DataOrBuilder getSignaturesOrBuilder(
             int index) {
           return signatures_.get(index);
@@ -3309,6 +3330,7 @@ public final class Signing {
        * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single single = 1;</code>
        * @return Whether the single field is set.
        */
+      @java.lang.Override
       public boolean hasSingle() {
         return sumCase_ == 1;
       }
@@ -3320,6 +3342,7 @@ public final class Signing {
        * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single single = 1;</code>
        * @return The single.
        */
+      @java.lang.Override
       public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data.Single getSingle() {
         if (sumCase_ == 1) {
            return (cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data.Single) sum_;
@@ -3333,6 +3356,7 @@ public final class Signing {
        *
        * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single single = 1;</code>
        */
+      @java.lang.Override
       public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data.SingleOrBuilder getSingleOrBuilder() {
         if (sumCase_ == 1) {
            return (cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data.Single) sum_;
@@ -3349,6 +3373,7 @@ public final class Signing {
        * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi multi = 2;</code>
        * @return Whether the multi field is set.
        */
+      @java.lang.Override
       public boolean hasMulti() {
         return sumCase_ == 2;
       }
@@ -3360,6 +3385,7 @@ public final class Signing {
        * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi multi = 2;</code>
        * @return The multi.
        */
+      @java.lang.Override
       public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data.Multi getMulti() {
         if (sumCase_ == 2) {
            return (cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data.Multi) sum_;
@@ -3373,6 +3399,7 @@ public final class Signing {
        *
        * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi multi = 2;</code>
        */
+      @java.lang.Override
       public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data.MultiOrBuilder getMultiOrBuilder() {
         if (sumCase_ == 2) {
            return (cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data.Multi) sum_;
@@ -3763,6 +3790,7 @@ public final class Signing {
          * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single single = 1;</code>
          * @return Whether the single field is set.
          */
+        @java.lang.Override
         public boolean hasSingle() {
           return sumCase_ == 1;
         }
@@ -3774,6 +3802,7 @@ public final class Signing {
          * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single single = 1;</code>
          * @return The single.
          */
+        @java.lang.Override
         public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data.Single getSingle() {
           if (singleBuilder_ == null) {
             if (sumCase_ == 1) {
@@ -3891,6 +3920,7 @@ public final class Signing {
          *
          * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Single single = 1;</code>
          */
+        @java.lang.Override
         public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data.SingleOrBuilder getSingleOrBuilder() {
           if ((sumCase_ == 1) && (singleBuilder_ != null)) {
             return singleBuilder_.getMessageOrBuilder();
@@ -3937,6 +3967,7 @@ public final class Signing {
          * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi multi = 2;</code>
          * @return Whether the multi field is set.
          */
+        @java.lang.Override
         public boolean hasMulti() {
           return sumCase_ == 2;
         }
@@ -3948,6 +3979,7 @@ public final class Signing {
          * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi multi = 2;</code>
          * @return The multi.
          */
+        @java.lang.Override
         public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data.Multi getMulti() {
           if (multiBuilder_ == null) {
             if (sumCase_ == 2) {
@@ -4065,6 +4097,7 @@ public final class Signing {
          *
          * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data.Multi multi = 2;</code>
          */
+        @java.lang.Override
         public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data.MultiOrBuilder getMultiOrBuilder() {
           if ((sumCase_ == 2) && (multiBuilder_ != null)) {
             return multiBuilder_.getMessageOrBuilder();
@@ -4163,6 +4196,7 @@ public final class Signing {
      * <code>.google.protobuf2.Any public_key = 1;</code>
      * @return Whether the publicKey field is set.
      */
+    @java.lang.Override
     public boolean hasPublicKey() {
       return publicKey_ != null;
     }
@@ -4174,6 +4208,7 @@ public final class Signing {
      * <code>.google.protobuf2.Any public_key = 1;</code>
      * @return The publicKey.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getPublicKey() {
       return publicKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : publicKey_;
     }
@@ -4184,6 +4219,7 @@ public final class Signing {
      *
      * <code>.google.protobuf2.Any public_key = 1;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getPublicKeyOrBuilder() {
       return getPublicKey();
     }
@@ -4194,6 +4230,7 @@ public final class Signing {
      * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data data = 2;</code>
      * @return Whether the data field is set.
      */
+    @java.lang.Override
     public boolean hasData() {
       return data_ != null;
     }
@@ -4201,12 +4238,14 @@ public final class Signing {
      * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data data = 2;</code>
      * @return The data.
      */
+    @java.lang.Override
     public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data getData() {
       return data_ == null ? cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.Data.getDefaultInstance() : data_;
     }
     /**
      * <code>.cosmos.tx.signing.v1beta1.SignatureDescriptor.Data data = 2;</code>
      */
+    @java.lang.Override
     public cosmos.tx.signing.v1beta1.Signing.SignatureDescriptor.DataOrBuilder getDataOrBuilder() {
       return getData();
     }
@@ -4223,6 +4262,7 @@ public final class Signing {
      * <code>uint64 sequence = 3;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -4882,6 +4922,7 @@ public final class Signing {
        * <code>uint64 sequence = 3;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }

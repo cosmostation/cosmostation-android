@@ -138,6 +138,10 @@ public final class Htlc {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -278,7 +282,7 @@ public final class Htlc {
    *
    * Protobuf type {@code irismod.htlc.HTLC}
    */
-  public  static final class HTLC extends
+  public static final class HTLC extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.htlc.HTLC)
       HTLCOrBuilder {
@@ -417,6 +421,7 @@ public final class Htlc {
      * <code>string sender = 1;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -433,6 +438,7 @@ public final class Htlc {
      * <code>string sender = 1;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -453,6 +459,7 @@ public final class Htlc {
      * <code>string to = 2;</code>
      * @return The to.
      */
+    @java.lang.Override
     public java.lang.String getTo() {
       java.lang.Object ref = to_;
       if (ref instanceof java.lang.String) {
@@ -469,6 +476,7 @@ public final class Htlc {
      * <code>string to = 2;</code>
      * @return The bytes for to.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getToBytes() {
       java.lang.Object ref = to_;
@@ -489,6 +497,7 @@ public final class Htlc {
      * <code>string receiver_on_other_chain = 3 [(.gogoproto.moretags) = "yaml:&#92;"receiver_on_other_chain&#92;""];</code>
      * @return The receiverOnOtherChain.
      */
+    @java.lang.Override
     public java.lang.String getReceiverOnOtherChain() {
       java.lang.Object ref = receiverOnOtherChain_;
       if (ref instanceof java.lang.String) {
@@ -505,6 +514,7 @@ public final class Htlc {
      * <code>string receiver_on_other_chain = 3 [(.gogoproto.moretags) = "yaml:&#92;"receiver_on_other_chain&#92;""];</code>
      * @return The bytes for receiverOnOtherChain.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getReceiverOnOtherChainBytes() {
       java.lang.Object ref = receiverOnOtherChain_;
@@ -524,12 +534,14 @@ public final class Htlc {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getAmountList() {
       return amount_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getAmountOrBuilderList() {
       return amount_;
@@ -537,18 +549,21 @@ public final class Htlc {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getAmountCount() {
       return amount_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount(int index) {
       return amount_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder(
         int index) {
       return amount_.get(index);
@@ -560,6 +575,7 @@ public final class Htlc {
      * <code>string secret = 5;</code>
      * @return The secret.
      */
+    @java.lang.Override
     public java.lang.String getSecret() {
       java.lang.Object ref = secret_;
       if (ref instanceof java.lang.String) {
@@ -576,6 +592,7 @@ public final class Htlc {
      * <code>string secret = 5;</code>
      * @return The bytes for secret.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSecretBytes() {
       java.lang.Object ref = secret_;
@@ -596,6 +613,7 @@ public final class Htlc {
      * <code>uint64 timestamp = 6;</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public long getTimestamp() {
       return timestamp_;
     }
@@ -606,6 +624,7 @@ public final class Htlc {
      * <code>uint64 expiration_height = 7 [(.gogoproto.moretags) = "yaml:&#92;"expiration_height&#92;""];</code>
      * @return The expirationHeight.
      */
+    @java.lang.Override
     public long getExpirationHeight() {
       return expirationHeight_;
     }
@@ -616,14 +635,14 @@ public final class Htlc {
      * <code>.irismod.htlc.HTLCState state = 8;</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
      * <code>.irismod.htlc.HTLCState state = 8;</code>
      * @return The state.
      */
-    public irismod.htlc.Htlc.HTLCState getState() {
+    @java.lang.Override public irismod.htlc.Htlc.HTLCState getState() {
       @SuppressWarnings("deprecation")
       irismod.htlc.Htlc.HTLCState result = irismod.htlc.Htlc.HTLCState.valueOf(state_);
       return result == null ? irismod.htlc.Htlc.HTLCState.UNRECOGNIZED : result;
@@ -1644,6 +1663,7 @@ public final class Htlc {
        * <code>uint64 timestamp = 6;</code>
        * @return The timestamp.
        */
+      @java.lang.Override
       public long getTimestamp() {
         return timestamp_;
       }
@@ -1674,6 +1694,7 @@ public final class Htlc {
        * <code>uint64 expiration_height = 7 [(.gogoproto.moretags) = "yaml:&#92;"expiration_height&#92;""];</code>
        * @return The expirationHeight.
        */
+      @java.lang.Override
       public long getExpirationHeight() {
         return expirationHeight_;
       }
@@ -1704,7 +1725,7 @@ public final class Htlc {
        * <code>.irismod.htlc.HTLCState state = 8;</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -1713,6 +1734,7 @@ public final class Htlc {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -1721,6 +1743,7 @@ public final class Htlc {
        * <code>.irismod.htlc.HTLCState state = 8;</code>
        * @return The state.
        */
+      @java.lang.Override
       public irismod.htlc.Htlc.HTLCState getState() {
         @SuppressWarnings("deprecation")
         irismod.htlc.Htlc.HTLCState result = irismod.htlc.Htlc.HTLCState.valueOf(state_);

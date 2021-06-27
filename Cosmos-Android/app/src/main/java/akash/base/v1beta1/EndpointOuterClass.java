@@ -36,7 +36,7 @@ public final class EndpointOuterClass {
    *
    * Protobuf type {@code akash.base.v1beta1.Endpoint}
    */
-  public  static final class Endpoint extends
+  public static final class Endpoint extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.base.v1beta1.Endpoint)
       EndpointOrBuilder {
@@ -207,6 +207,10 @@ public final class EndpointOuterClass {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -247,14 +251,14 @@ public final class EndpointOuterClass {
      * <code>.akash.base.v1beta1.Endpoint.Kind kind = 1;</code>
      * @return The enum numeric value on the wire for kind.
      */
-    public int getKindValue() {
+    @java.lang.Override public int getKindValue() {
       return kind_;
     }
     /**
      * <code>.akash.base.v1beta1.Endpoint.Kind kind = 1;</code>
      * @return The kind.
      */
-    public akash.base.v1beta1.EndpointOuterClass.Endpoint.Kind getKind() {
+    @java.lang.Override public akash.base.v1beta1.EndpointOuterClass.Endpoint.Kind getKind() {
       @SuppressWarnings("deprecation")
       akash.base.v1beta1.EndpointOuterClass.Endpoint.Kind result = akash.base.v1beta1.EndpointOuterClass.Endpoint.Kind.valueOf(kind_);
       return result == null ? akash.base.v1beta1.EndpointOuterClass.Endpoint.Kind.UNRECOGNIZED : result;
@@ -570,7 +574,7 @@ public final class EndpointOuterClass {
        * <code>.akash.base.v1beta1.Endpoint.Kind kind = 1;</code>
        * @return The enum numeric value on the wire for kind.
        */
-      public int getKindValue() {
+      @java.lang.Override public int getKindValue() {
         return kind_;
       }
       /**
@@ -579,6 +583,7 @@ public final class EndpointOuterClass {
        * @return This builder for chaining.
        */
       public Builder setKindValue(int value) {
+        
         kind_ = value;
         onChanged();
         return this;
@@ -587,6 +592,7 @@ public final class EndpointOuterClass {
        * <code>.akash.base.v1beta1.Endpoint.Kind kind = 1;</code>
        * @return The kind.
        */
+      @java.lang.Override
       public akash.base.v1beta1.EndpointOuterClass.Endpoint.Kind getKind() {
         @SuppressWarnings("deprecation")
         akash.base.v1beta1.EndpointOuterClass.Endpoint.Kind result = akash.base.v1beta1.EndpointOuterClass.Endpoint.Kind.valueOf(kind_);

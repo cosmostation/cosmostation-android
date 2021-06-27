@@ -46,7 +46,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.connection.v1.QueryConnectionRequest}
    */
-  public  static final class QueryConnectionRequest extends
+  public static final class QueryConnectionRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.QueryConnectionRequest)
       QueryConnectionRequestOrBuilder {
@@ -137,6 +137,7 @@ public final class QueryOuterClass {
      * <code>string connection_id = 1;</code>
      * @return The connectionId.
      */
+    @java.lang.Override
     public java.lang.String getConnectionId() {
       java.lang.Object ref = connectionId_;
       if (ref instanceof java.lang.String) {
@@ -157,6 +158,7 @@ public final class QueryOuterClass {
      * <code>string connection_id = 1;</code>
      * @return The bytes for connectionId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getConnectionIdBytes() {
       java.lang.Object ref = connectionId_;
@@ -703,7 +705,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.connection.v1.QueryConnectionResponse}
    */
-  public  static final class QueryConnectionResponse extends
+  public static final class QueryConnectionResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.QueryConnectionResponse)
       QueryConnectionResponseOrBuilder {
@@ -819,6 +821,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.connection.v1.ConnectionEnd connection = 1;</code>
      * @return Whether the connection field is set.
      */
+    @java.lang.Override
     public boolean hasConnection() {
       return connection_ != null;
     }
@@ -830,6 +833,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.connection.v1.ConnectionEnd connection = 1;</code>
      * @return The connection.
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.ConnectionEnd getConnection() {
       return connection_ == null ? ibc.core.connection.v1.Connection.ConnectionEnd.getDefaultInstance() : connection_;
     }
@@ -840,6 +844,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.connection.v1.ConnectionEnd connection = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.ConnectionEndOrBuilder getConnectionOrBuilder() {
       return getConnection();
     }
@@ -854,6 +859,7 @@ public final class QueryOuterClass {
      * <code>bytes proof = 2;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProof() {
       return proof_;
     }
@@ -868,6 +874,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -879,6 +886,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
@@ -889,6 +897,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -1425,6 +1434,7 @@ public final class QueryOuterClass {
        * <code>bytes proof = 2;</code>
        * @return The proof.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProof() {
         return proof_;
       }
@@ -1695,7 +1705,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.connection.v1.QueryConnectionsRequest}
    */
-  public  static final class QueryConnectionsRequest extends
+  public static final class QueryConnectionsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.QueryConnectionsRequest)
       QueryConnectionsRequestOrBuilder {
@@ -1788,6 +1798,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1795,12 +1806,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -2406,7 +2419,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.connection.v1.QueryConnectionsResponse}
    */
-  public  static final class QueryConnectionsResponse extends
+  public static final class QueryConnectionsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.QueryConnectionsResponse)
       QueryConnectionsResponseOrBuilder {
@@ -2529,6 +2542,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.connection.v1.IdentifiedConnection connections = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.connection.v1.Connection.IdentifiedConnection> getConnectionsList() {
       return connections_;
     }
@@ -2539,6 +2553,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.connection.v1.IdentifiedConnection connections = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.connection.v1.Connection.IdentifiedConnectionOrBuilder> 
         getConnectionsOrBuilderList() {
       return connections_;
@@ -2550,6 +2565,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.connection.v1.IdentifiedConnection connections = 1;</code>
      */
+    @java.lang.Override
     public int getConnectionsCount() {
       return connections_.size();
     }
@@ -2560,6 +2576,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.connection.v1.IdentifiedConnection connections = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.IdentifiedConnection getConnections(int index) {
       return connections_.get(index);
     }
@@ -2570,6 +2587,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.connection.v1.IdentifiedConnection connections = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.IdentifiedConnectionOrBuilder getConnectionsOrBuilder(
         int index) {
       return connections_.get(index);
@@ -2585,6 +2603,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2596,6 +2615,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -2606,6 +2626,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -2620,6 +2641,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the height field is set.
      */
+    @java.lang.Override
     public boolean hasHeight() {
       return height_ != null;
     }
@@ -2631,6 +2653,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The height.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getHeight() {
       return height_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : height_;
     }
@@ -2641,6 +2664,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getHeightOrBuilder() {
       return getHeight();
     }
@@ -3758,7 +3782,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.connection.v1.QueryClientConnectionsRequest}
    */
-  public  static final class QueryClientConnectionsRequest extends
+  public static final class QueryClientConnectionsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.QueryClientConnectionsRequest)
       QueryClientConnectionsRequestOrBuilder {
@@ -3849,6 +3873,7 @@ public final class QueryOuterClass {
      * <code>string client_id = 1;</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -3869,6 +3894,7 @@ public final class QueryOuterClass {
      * <code>string client_id = 1;</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -4428,7 +4454,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.connection.v1.QueryClientConnectionsResponse}
    */
-  public  static final class QueryClientConnectionsResponse extends
+  public static final class QueryClientConnectionsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.QueryClientConnectionsResponse)
       QueryClientConnectionsResponseOrBuilder {
@@ -4596,6 +4622,7 @@ public final class QueryOuterClass {
      * <code>bytes proof = 2;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProof() {
       return proof_;
     }
@@ -4610,6 +4637,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -4621,6 +4649,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
@@ -4631,6 +4660,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -5163,6 +5193,7 @@ public final class QueryOuterClass {
        * <code>bytes proof = 2;</code>
        * @return The proof.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProof() {
         return proof_;
       }
@@ -5438,7 +5469,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.connection.v1.QueryConnectionClientStateRequest}
    */
-  public  static final class QueryConnectionClientStateRequest extends
+  public static final class QueryConnectionClientStateRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.QueryConnectionClientStateRequest)
       QueryConnectionClientStateRequestOrBuilder {
@@ -5529,6 +5560,7 @@ public final class QueryOuterClass {
      * <code>string connection_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"connection_id&#92;""];</code>
      * @return The connectionId.
      */
+    @java.lang.Override
     public java.lang.String getConnectionId() {
       java.lang.Object ref = connectionId_;
       if (ref instanceof java.lang.String) {
@@ -5549,6 +5581,7 @@ public final class QueryOuterClass {
      * <code>string connection_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"connection_id&#92;""];</code>
      * @return The bytes for connectionId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getConnectionIdBytes() {
       java.lang.Object ref = connectionId_;
@@ -6094,7 +6127,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.connection.v1.QueryConnectionClientStateResponse}
    */
-  public  static final class QueryConnectionClientStateResponse extends
+  public static final class QueryConnectionClientStateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.QueryConnectionClientStateResponse)
       QueryConnectionClientStateResponseOrBuilder {
@@ -6210,6 +6243,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.IdentifiedClientState identified_client_state = 1;</code>
      * @return Whether the identifiedClientState field is set.
      */
+    @java.lang.Override
     public boolean hasIdentifiedClientState() {
       return identifiedClientState_ != null;
     }
@@ -6221,6 +6255,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.IdentifiedClientState identified_client_state = 1;</code>
      * @return The identifiedClientState.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.IdentifiedClientState getIdentifiedClientState() {
       return identifiedClientState_ == null ? ibc.core.client.v1.Client.IdentifiedClientState.getDefaultInstance() : identifiedClientState_;
     }
@@ -6231,6 +6266,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.IdentifiedClientState identified_client_state = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.IdentifiedClientStateOrBuilder getIdentifiedClientStateOrBuilder() {
       return getIdentifiedClientState();
     }
@@ -6245,6 +6281,7 @@ public final class QueryOuterClass {
      * <code>bytes proof = 2;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProof() {
       return proof_;
     }
@@ -6259,6 +6296,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -6270,6 +6308,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
@@ -6280,6 +6319,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -6815,6 +6855,7 @@ public final class QueryOuterClass {
        * <code>bytes proof = 2;</code>
        * @return The proof.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProof() {
         return proof_;
       }
@@ -7102,7 +7143,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.connection.v1.QueryConnectionConsensusStateRequest}
    */
-  public  static final class QueryConnectionConsensusStateRequest extends
+  public static final class QueryConnectionConsensusStateRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.QueryConnectionConsensusStateRequest)
       QueryConnectionConsensusStateRequestOrBuilder {
@@ -7203,6 +7244,7 @@ public final class QueryOuterClass {
      * <code>string connection_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"connection_id&#92;""];</code>
      * @return The connectionId.
      */
+    @java.lang.Override
     public java.lang.String getConnectionId() {
       java.lang.Object ref = connectionId_;
       if (ref instanceof java.lang.String) {
@@ -7223,6 +7265,7 @@ public final class QueryOuterClass {
      * <code>string connection_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"connection_id&#92;""];</code>
      * @return The bytes for connectionId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getConnectionIdBytes() {
       java.lang.Object ref = connectionId_;
@@ -7243,6 +7286,7 @@ public final class QueryOuterClass {
      * <code>uint64 revision_number = 2;</code>
      * @return The revisionNumber.
      */
+    @java.lang.Override
     public long getRevisionNumber() {
       return revisionNumber_;
     }
@@ -7253,6 +7297,7 @@ public final class QueryOuterClass {
      * <code>uint64 revision_height = 3;</code>
      * @return The revisionHeight.
      */
+    @java.lang.Override
     public long getRevisionHeight() {
       return revisionHeight_;
     }
@@ -7701,6 +7746,7 @@ public final class QueryOuterClass {
        * <code>uint64 revision_number = 2;</code>
        * @return The revisionNumber.
        */
+      @java.lang.Override
       public long getRevisionNumber() {
         return revisionNumber_;
       }
@@ -7731,6 +7777,7 @@ public final class QueryOuterClass {
        * <code>uint64 revision_height = 3;</code>
        * @return The revisionHeight.
        */
+      @java.lang.Override
       public long getRevisionHeight() {
         return revisionHeight_;
       }
@@ -7904,7 +7951,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.connection.v1.QueryConnectionConsensusStateResponse}
    */
-  public  static final class QueryConnectionConsensusStateResponse extends
+  public static final class QueryConnectionConsensusStateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.QueryConnectionConsensusStateResponse)
       QueryConnectionConsensusStateResponseOrBuilder {
@@ -8027,6 +8074,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return Whether the consensusState field is set.
      */
+    @java.lang.Override
     public boolean hasConsensusState() {
       return consensusState_ != null;
     }
@@ -8038,6 +8086,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return The consensusState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getConsensusState() {
       return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
     }
@@ -8048,6 +8097,7 @@ public final class QueryOuterClass {
      *
      * <code>.google.protobuf2.Any consensus_state = 1;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
       return getConsensusState();
     }
@@ -8062,6 +8112,7 @@ public final class QueryOuterClass {
      * <code>string client_id = 2;</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -8082,6 +8133,7 @@ public final class QueryOuterClass {
      * <code>string client_id = 2;</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -8106,6 +8158,7 @@ public final class QueryOuterClass {
      * <code>bytes proof = 3;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProof() {
       return proof_;
     }
@@ -8120,6 +8173,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -8131,6 +8185,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
@@ -8141,6 +8196,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -8789,6 +8845,7 @@ public final class QueryOuterClass {
        * <code>bytes proof = 3;</code>
        * @return The proof.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProof() {
         return proof_;
       }

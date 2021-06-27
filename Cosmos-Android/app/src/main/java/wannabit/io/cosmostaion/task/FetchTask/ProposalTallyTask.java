@@ -47,19 +47,6 @@ public class ProposalTallyTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
-                Response<ResLcdProposalTally> response = ApiClient.getBandChain(mApp).getTally(mProposalId).execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(BaseChain.CERTIK_MAIN)) {
                 Response<ResLcdProposalTally> response = ApiClient.getCertikChain(mApp).getTally(mProposalId).execute();
                 if (!response.isSuccessful()) {

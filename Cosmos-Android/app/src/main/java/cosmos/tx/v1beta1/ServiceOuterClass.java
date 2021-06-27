@@ -144,6 +144,10 @@ public final class ServiceOuterClass {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -258,7 +262,7 @@ public final class ServiceOuterClass {
    *
    * Protobuf type {@code cosmos.tx.v1beta1.GetTxsEventRequest}
    */
-  public  static final class GetTxsEventRequest extends
+  public static final class GetTxsEventRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.tx.v1beta1.GetTxsEventRequest)
       GetTxsEventRequestOrBuilder {
@@ -420,6 +424,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -431,6 +436,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -441,6 +447,7 @@ public final class ServiceOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -1281,7 +1288,7 @@ public final class ServiceOuterClass {
    *
    * Protobuf type {@code cosmos.tx.v1beta1.GetTxsEventResponse}
    */
-  public  static final class GetTxsEventResponse extends
+  public static final class GetTxsEventResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.tx.v1beta1.GetTxsEventResponse)
       GetTxsEventResponseOrBuilder {
@@ -1404,6 +1411,7 @@ public final class ServiceOuterClass {
      *
      * <code>repeated .cosmos.tx.v1beta1.Tx txs = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.tx.v1beta1.TxOuterClass.Tx> getTxsList() {
       return txs_;
     }
@@ -1414,6 +1422,7 @@ public final class ServiceOuterClass {
      *
      * <code>repeated .cosmos.tx.v1beta1.Tx txs = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.tx.v1beta1.TxOuterClass.TxOrBuilder> 
         getTxsOrBuilderList() {
       return txs_;
@@ -1425,6 +1434,7 @@ public final class ServiceOuterClass {
      *
      * <code>repeated .cosmos.tx.v1beta1.Tx txs = 1;</code>
      */
+    @java.lang.Override
     public int getTxsCount() {
       return txs_.size();
     }
@@ -1435,6 +1445,7 @@ public final class ServiceOuterClass {
      *
      * <code>repeated .cosmos.tx.v1beta1.Tx txs = 1;</code>
      */
+    @java.lang.Override
     public cosmos.tx.v1beta1.TxOuterClass.Tx getTxs(int index) {
       return txs_.get(index);
     }
@@ -1445,6 +1456,7 @@ public final class ServiceOuterClass {
      *
      * <code>repeated .cosmos.tx.v1beta1.Tx txs = 1;</code>
      */
+    @java.lang.Override
     public cosmos.tx.v1beta1.TxOuterClass.TxOrBuilder getTxsOrBuilder(
         int index) {
       return txs_.get(index);
@@ -1459,6 +1471,7 @@ public final class ServiceOuterClass {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.TxResponse tx_responses = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.abci.v1beta1.Abci.TxResponse> getTxResponsesList() {
       return txResponses_;
     }
@@ -1469,6 +1482,7 @@ public final class ServiceOuterClass {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.TxResponse tx_responses = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.abci.v1beta1.Abci.TxResponseOrBuilder> 
         getTxResponsesOrBuilderList() {
       return txResponses_;
@@ -1480,6 +1494,7 @@ public final class ServiceOuterClass {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.TxResponse tx_responses = 2;</code>
      */
+    @java.lang.Override
     public int getTxResponsesCount() {
       return txResponses_.size();
     }
@@ -1490,6 +1505,7 @@ public final class ServiceOuterClass {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.TxResponse tx_responses = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.TxResponse getTxResponses(int index) {
       return txResponses_.get(index);
     }
@@ -1500,6 +1516,7 @@ public final class ServiceOuterClass {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.TxResponse tx_responses = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.TxResponseOrBuilder getTxResponsesOrBuilder(
         int index) {
       return txResponses_.get(index);
@@ -1515,6 +1532,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1526,6 +1544,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -1536,6 +1555,7 @@ public final class ServiceOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 3;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -2836,7 +2856,7 @@ public final class ServiceOuterClass {
    *
    * Protobuf type {@code cosmos.tx.v1beta1.BroadcastTxRequest}
    */
-  public  static final class BroadcastTxRequest extends
+  public static final class BroadcastTxRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.tx.v1beta1.BroadcastTxRequest)
       BroadcastTxRequestOrBuilder {
@@ -2933,6 +2953,7 @@ public final class ServiceOuterClass {
      * <code>bytes tx_bytes = 1;</code>
      * @return The txBytes.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getTxBytes() {
       return txBytes_;
     }
@@ -2943,14 +2964,14 @@ public final class ServiceOuterClass {
      * <code>.cosmos.tx.v1beta1.BroadcastMode mode = 2;</code>
      * @return The enum numeric value on the wire for mode.
      */
-    public int getModeValue() {
+    @java.lang.Override public int getModeValue() {
       return mode_;
     }
     /**
      * <code>.cosmos.tx.v1beta1.BroadcastMode mode = 2;</code>
      * @return The mode.
      */
-    public cosmos.tx.v1beta1.ServiceOuterClass.BroadcastMode getMode() {
+    @java.lang.Override public cosmos.tx.v1beta1.ServiceOuterClass.BroadcastMode getMode() {
       @SuppressWarnings("deprecation")
       cosmos.tx.v1beta1.ServiceOuterClass.BroadcastMode result = cosmos.tx.v1beta1.ServiceOuterClass.BroadcastMode.valueOf(mode_);
       return result == null ? cosmos.tx.v1beta1.ServiceOuterClass.BroadcastMode.UNRECOGNIZED : result;
@@ -3288,6 +3309,7 @@ public final class ServiceOuterClass {
        * <code>bytes tx_bytes = 1;</code>
        * @return The txBytes.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getTxBytes() {
         return txBytes_;
       }
@@ -3329,7 +3351,7 @@ public final class ServiceOuterClass {
        * <code>.cosmos.tx.v1beta1.BroadcastMode mode = 2;</code>
        * @return The enum numeric value on the wire for mode.
        */
-      public int getModeValue() {
+      @java.lang.Override public int getModeValue() {
         return mode_;
       }
       /**
@@ -3338,6 +3360,7 @@ public final class ServiceOuterClass {
        * @return This builder for chaining.
        */
       public Builder setModeValue(int value) {
+        
         mode_ = value;
         onChanged();
         return this;
@@ -3346,6 +3369,7 @@ public final class ServiceOuterClass {
        * <code>.cosmos.tx.v1beta1.BroadcastMode mode = 2;</code>
        * @return The mode.
        */
+      @java.lang.Override
       public cosmos.tx.v1beta1.ServiceOuterClass.BroadcastMode getMode() {
         @SuppressWarnings("deprecation")
         cosmos.tx.v1beta1.ServiceOuterClass.BroadcastMode result = cosmos.tx.v1beta1.ServiceOuterClass.BroadcastMode.valueOf(mode_);
@@ -3467,7 +3491,7 @@ public final class ServiceOuterClass {
    *
    * Protobuf type {@code cosmos.tx.v1beta1.BroadcastTxResponse}
    */
-  public  static final class BroadcastTxResponse extends
+  public static final class BroadcastTxResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.tx.v1beta1.BroadcastTxResponse)
       BroadcastTxResponseOrBuilder {
@@ -3564,6 +3588,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.base.abci.v1beta1.TxResponse tx_response = 1;</code>
      * @return Whether the txResponse field is set.
      */
+    @java.lang.Override
     public boolean hasTxResponse() {
       return txResponse_ != null;
     }
@@ -3575,6 +3600,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.base.abci.v1beta1.TxResponse tx_response = 1;</code>
      * @return The txResponse.
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.TxResponse getTxResponse() {
       return txResponse_ == null ? cosmos.base.abci.v1beta1.Abci.TxResponse.getDefaultInstance() : txResponse_;
     }
@@ -3585,6 +3611,7 @@ public final class ServiceOuterClass {
      *
      * <code>.cosmos.base.abci.v1beta1.TxResponse tx_response = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.TxResponseOrBuilder getTxResponseOrBuilder() {
       return getTxResponse();
     }
@@ -4155,7 +4182,7 @@ public final class ServiceOuterClass {
    *
    * Protobuf type {@code cosmos.tx.v1beta1.SimulateRequest}
    */
-  public  static final class SimulateRequest extends
+  public static final class SimulateRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.tx.v1beta1.SimulateRequest)
       SimulateRequestOrBuilder {
@@ -4252,6 +4279,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
      * @return Whether the tx field is set.
      */
+    @java.lang.Override
     public boolean hasTx() {
       return tx_ != null;
     }
@@ -4263,6 +4291,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
      * @return The tx.
      */
+    @java.lang.Override
     public cosmos.tx.v1beta1.TxOuterClass.Tx getTx() {
       return tx_ == null ? cosmos.tx.v1beta1.TxOuterClass.Tx.getDefaultInstance() : tx_;
     }
@@ -4273,6 +4302,7 @@ public final class ServiceOuterClass {
      *
      * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
      */
+    @java.lang.Override
     public cosmos.tx.v1beta1.TxOuterClass.TxOrBuilder getTxOrBuilder() {
       return getTx();
     }
@@ -4870,7 +4900,7 @@ public final class ServiceOuterClass {
    *
    * Protobuf type {@code cosmos.tx.v1beta1.SimulateResponse}
    */
-  public  static final class SimulateResponse extends
+  public static final class SimulateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.tx.v1beta1.SimulateResponse)
       SimulateResponseOrBuilder {
@@ -4980,6 +5010,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.base.abci.v1beta1.GasInfo gas_info = 1;</code>
      * @return Whether the gasInfo field is set.
      */
+    @java.lang.Override
     public boolean hasGasInfo() {
       return gasInfo_ != null;
     }
@@ -4991,6 +5022,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.base.abci.v1beta1.GasInfo gas_info = 1;</code>
      * @return The gasInfo.
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.GasInfo getGasInfo() {
       return gasInfo_ == null ? cosmos.base.abci.v1beta1.Abci.GasInfo.getDefaultInstance() : gasInfo_;
     }
@@ -5001,6 +5033,7 @@ public final class ServiceOuterClass {
      *
      * <code>.cosmos.base.abci.v1beta1.GasInfo gas_info = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.GasInfoOrBuilder getGasInfoOrBuilder() {
       return getGasInfo();
     }
@@ -5015,6 +5048,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.base.abci.v1beta1.Result result = 2;</code>
      * @return Whether the result field is set.
      */
+    @java.lang.Override
     public boolean hasResult() {
       return result_ != null;
     }
@@ -5026,6 +5060,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.base.abci.v1beta1.Result result = 2;</code>
      * @return The result.
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.Result getResult() {
       return result_ == null ? cosmos.base.abci.v1beta1.Abci.Result.getDefaultInstance() : result_;
     }
@@ -5036,6 +5071,7 @@ public final class ServiceOuterClass {
      *
      * <code>.cosmos.base.abci.v1beta1.Result result = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.ResultOrBuilder getResultOrBuilder() {
       return getResult();
     }
@@ -5784,7 +5820,7 @@ public final class ServiceOuterClass {
    *
    * Protobuf type {@code cosmos.tx.v1beta1.GetTxRequest}
    */
-  public  static final class GetTxRequest extends
+  public static final class GetTxRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.tx.v1beta1.GetTxRequest)
       GetTxRequestOrBuilder {
@@ -5875,6 +5911,7 @@ public final class ServiceOuterClass {
      * <code>string hash = 1;</code>
      * @return The hash.
      */
+    @java.lang.Override
     public java.lang.String getHash() {
       java.lang.Object ref = hash_;
       if (ref instanceof java.lang.String) {
@@ -5895,6 +5932,7 @@ public final class ServiceOuterClass {
      * <code>string hash = 1;</code>
      * @return The bytes for hash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHashBytes() {
       java.lang.Object ref = hash_;
@@ -6429,7 +6467,7 @@ public final class ServiceOuterClass {
    *
    * Protobuf type {@code cosmos.tx.v1beta1.GetTxResponse}
    */
-  public  static final class GetTxResponse extends
+  public static final class GetTxResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.tx.v1beta1.GetTxResponse)
       GetTxResponseOrBuilder {
@@ -6539,6 +6577,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
      * @return Whether the tx field is set.
      */
+    @java.lang.Override
     public boolean hasTx() {
       return tx_ != null;
     }
@@ -6550,6 +6589,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
      * @return The tx.
      */
+    @java.lang.Override
     public cosmos.tx.v1beta1.TxOuterClass.Tx getTx() {
       return tx_ == null ? cosmos.tx.v1beta1.TxOuterClass.Tx.getDefaultInstance() : tx_;
     }
@@ -6560,6 +6600,7 @@ public final class ServiceOuterClass {
      *
      * <code>.cosmos.tx.v1beta1.Tx tx = 1;</code>
      */
+    @java.lang.Override
     public cosmos.tx.v1beta1.TxOuterClass.TxOrBuilder getTxOrBuilder() {
       return getTx();
     }
@@ -6574,6 +6615,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.base.abci.v1beta1.TxResponse tx_response = 2;</code>
      * @return Whether the txResponse field is set.
      */
+    @java.lang.Override
     public boolean hasTxResponse() {
       return txResponse_ != null;
     }
@@ -6585,6 +6627,7 @@ public final class ServiceOuterClass {
      * <code>.cosmos.base.abci.v1beta1.TxResponse tx_response = 2;</code>
      * @return The txResponse.
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.TxResponse getTxResponse() {
       return txResponse_ == null ? cosmos.base.abci.v1beta1.Abci.TxResponse.getDefaultInstance() : txResponse_;
     }
@@ -6595,6 +6638,7 @@ public final class ServiceOuterClass {
      *
      * <code>.cosmos.base.abci.v1beta1.TxResponse tx_response = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.TxResponseOrBuilder getTxResponseOrBuilder() {
       return getTxResponse();
     }

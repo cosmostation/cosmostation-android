@@ -49,7 +49,7 @@ public final class Genesis {
    *
    * Protobuf type {@code akash.audit.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.audit.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -142,12 +142,14 @@ public final class Genesis {
     /**
      * <code>repeated .akash.audit.v1beta1.AuditedAttributes attributes = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.audit.v1beta1.Audit.AuditedAttributes> getAttributesList() {
       return attributes_;
     }
     /**
      * <code>repeated .akash.audit.v1beta1.AuditedAttributes attributes = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.audit.v1beta1.Audit.AuditedAttributesOrBuilder> 
         getAttributesOrBuilderList() {
       return attributes_;
@@ -155,18 +157,21 @@ public final class Genesis {
     /**
      * <code>repeated .akash.audit.v1beta1.AuditedAttributes attributes = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
      * <code>repeated .akash.audit.v1beta1.AuditedAttributes attributes = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public akash.audit.v1beta1.Audit.AuditedAttributes getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
      * <code>repeated .akash.audit.v1beta1.AuditedAttributes attributes = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes", (.gogoproto.moretags) = "yaml:&#92;"attributes&#92;""];</code>
      */
+    @java.lang.Override
     public akash.audit.v1beta1.Audit.AuditedAttributesOrBuilder getAttributesOrBuilder(
         int index) {
       return attributes_.get(index);

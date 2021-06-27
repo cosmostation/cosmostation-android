@@ -66,7 +66,7 @@ public final class Auth {
    *
    * Protobuf type {@code cosmos.auth.v1beta1.BaseAccount}
    */
-  public  static final class BaseAccount extends
+  public static final class BaseAccount extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.auth.v1beta1.BaseAccount)
       BaseAccountOrBuilder {
@@ -176,6 +176,7 @@ public final class Auth {
      * <code>string address = 1;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -192,6 +193,7 @@ public final class Auth {
      * <code>string address = 1;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -212,6 +214,7 @@ public final class Auth {
      * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
      * @return Whether the pubKey field is set.
      */
+    @java.lang.Override
     public boolean hasPubKey() {
       return pubKey_ != null;
     }
@@ -219,12 +222,14 @@ public final class Auth {
      * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
      * @return The pubKey.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getPubKey() {
       return pubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
     }
     /**
      * <code>.google.protobuf2.Any pub_key = 2 [(.gogoproto.jsontag) = "public_key,omitempty", (.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder() {
       return getPubKey();
     }
@@ -235,6 +240,7 @@ public final class Auth {
      * <code>uint64 account_number = 3 [(.gogoproto.moretags) = "yaml:&#92;"account_number&#92;""];</code>
      * @return The accountNumber.
      */
+    @java.lang.Override
     public long getAccountNumber() {
       return accountNumber_;
     }
@@ -245,6 +251,7 @@ public final class Auth {
      * <code>uint64 sequence = 4;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -823,6 +830,7 @@ public final class Auth {
        * <code>uint64 account_number = 3 [(.gogoproto.moretags) = "yaml:&#92;"account_number&#92;""];</code>
        * @return The accountNumber.
        */
+      @java.lang.Override
       public long getAccountNumber() {
         return accountNumber_;
       }
@@ -853,6 +861,7 @@ public final class Auth {
        * <code>uint64 sequence = 4;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }
@@ -993,7 +1002,7 @@ public final class Auth {
    *
    * Protobuf type {@code cosmos.auth.v1beta1.ModuleAccount}
    */
-  public  static final class ModuleAccount extends
+  public static final class ModuleAccount extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.auth.v1beta1.ModuleAccount)
       ModuleAccountOrBuilder {
@@ -1107,6 +1116,7 @@ public final class Auth {
      * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
      * @return Whether the baseAccount field is set.
      */
+    @java.lang.Override
     public boolean hasBaseAccount() {
       return baseAccount_ != null;
     }
@@ -1114,12 +1124,14 @@ public final class Auth {
      * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
      * @return The baseAccount.
      */
+    @java.lang.Override
     public cosmos.auth.v1beta1.Auth.BaseAccount getBaseAccount() {
       return baseAccount_ == null ? cosmos.auth.v1beta1.Auth.BaseAccount.getDefaultInstance() : baseAccount_;
     }
     /**
      * <code>.cosmos.auth.v1beta1.BaseAccount base_account = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"base_account&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.auth.v1beta1.Auth.BaseAccountOrBuilder getBaseAccountOrBuilder() {
       return getBaseAccount();
     }
@@ -1130,6 +1142,7 @@ public final class Auth {
      * <code>string name = 2;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -1146,6 +1159,7 @@ public final class Auth {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -1965,7 +1979,7 @@ public final class Auth {
    *
    * Protobuf type {@code cosmos.auth.v1beta1.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.auth.v1beta1.Params)
       ParamsOrBuilder {
@@ -2070,6 +2084,7 @@ public final class Auth {
      * <code>uint64 max_memo_characters = 1 [(.gogoproto.moretags) = "yaml:&#92;"max_memo_characters&#92;""];</code>
      * @return The maxMemoCharacters.
      */
+    @java.lang.Override
     public long getMaxMemoCharacters() {
       return maxMemoCharacters_;
     }
@@ -2080,6 +2095,7 @@ public final class Auth {
      * <code>uint64 tx_sig_limit = 2 [(.gogoproto.moretags) = "yaml:&#92;"tx_sig_limit&#92;""];</code>
      * @return The txSigLimit.
      */
+    @java.lang.Override
     public long getTxSigLimit() {
       return txSigLimit_;
     }
@@ -2090,6 +2106,7 @@ public final class Auth {
      * <code>uint64 tx_size_cost_per_byte = 3 [(.gogoproto.moretags) = "yaml:&#92;"tx_size_cost_per_byte&#92;""];</code>
      * @return The txSizeCostPerByte.
      */
+    @java.lang.Override
     public long getTxSizeCostPerByte() {
       return txSizeCostPerByte_;
     }
@@ -2100,6 +2117,7 @@ public final class Auth {
      * <code>uint64 sig_verify_cost_ed25519 = 4 [(.gogoproto.customname) = "SigVerifyCostED25519", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_ed25519&#92;""];</code>
      * @return The sigVerifyCostEd25519.
      */
+    @java.lang.Override
     public long getSigVerifyCostEd25519() {
       return sigVerifyCostEd25519_;
     }
@@ -2110,6 +2128,7 @@ public final class Auth {
      * <code>uint64 sig_verify_cost_secp256k1 = 5 [(.gogoproto.customname) = "SigVerifyCostSecp256k1", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_secp256k1&#92;""];</code>
      * @return The sigVerifyCostSecp256k1.
      */
+    @java.lang.Override
     public long getSigVerifyCostSecp256K1() {
       return sigVerifyCostSecp256K1_;
     }
@@ -2498,6 +2517,7 @@ public final class Auth {
        * <code>uint64 max_memo_characters = 1 [(.gogoproto.moretags) = "yaml:&#92;"max_memo_characters&#92;""];</code>
        * @return The maxMemoCharacters.
        */
+      @java.lang.Override
       public long getMaxMemoCharacters() {
         return maxMemoCharacters_;
       }
@@ -2528,6 +2548,7 @@ public final class Auth {
        * <code>uint64 tx_sig_limit = 2 [(.gogoproto.moretags) = "yaml:&#92;"tx_sig_limit&#92;""];</code>
        * @return The txSigLimit.
        */
+      @java.lang.Override
       public long getTxSigLimit() {
         return txSigLimit_;
       }
@@ -2558,6 +2579,7 @@ public final class Auth {
        * <code>uint64 tx_size_cost_per_byte = 3 [(.gogoproto.moretags) = "yaml:&#92;"tx_size_cost_per_byte&#92;""];</code>
        * @return The txSizeCostPerByte.
        */
+      @java.lang.Override
       public long getTxSizeCostPerByte() {
         return txSizeCostPerByte_;
       }
@@ -2588,6 +2610,7 @@ public final class Auth {
        * <code>uint64 sig_verify_cost_ed25519 = 4 [(.gogoproto.customname) = "SigVerifyCostED25519", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_ed25519&#92;""];</code>
        * @return The sigVerifyCostEd25519.
        */
+      @java.lang.Override
       public long getSigVerifyCostEd25519() {
         return sigVerifyCostEd25519_;
       }
@@ -2618,6 +2641,7 @@ public final class Auth {
        * <code>uint64 sig_verify_cost_secp256k1 = 5 [(.gogoproto.customname) = "SigVerifyCostSecp256k1", (.gogoproto.moretags) = "yaml:&#92;"sig_verify_cost_secp256k1&#92;""];</code>
        * @return The sigVerifyCostSecp256k1.
        */
+      @java.lang.Override
       public long getSigVerifyCostSecp256K1() {
         return sigVerifyCostSecp256K1_;
       }

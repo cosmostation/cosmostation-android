@@ -56,7 +56,7 @@ public final class ProofOuterClass {
   /**
    * Protobuf type {@code tendermint.crypto.Proof}
    */
-  public  static final class Proof extends
+  public static final class Proof extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.crypto.Proof)
       ProofOrBuilder {
@@ -165,6 +165,7 @@ public final class ProofOuterClass {
      * <code>int64 total = 1;</code>
      * @return The total.
      */
+    @java.lang.Override
     public long getTotal() {
       return total_;
     }
@@ -175,6 +176,7 @@ public final class ProofOuterClass {
      * <code>int64 index = 2;</code>
      * @return The index.
      */
+    @java.lang.Override
     public long getIndex() {
       return index_;
     }
@@ -185,6 +187,7 @@ public final class ProofOuterClass {
      * <code>bytes leaf_hash = 3;</code>
      * @return The leafHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getLeafHash() {
       return leafHash_;
     }
@@ -195,6 +198,7 @@ public final class ProofOuterClass {
      * <code>repeated bytes aunts = 4;</code>
      * @return A list containing the aunts.
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf.ByteString>
         getAuntsList() {
       return aunts_;
@@ -595,6 +599,7 @@ public final class ProofOuterClass {
        * <code>int64 total = 1;</code>
        * @return The total.
        */
+      @java.lang.Override
       public long getTotal() {
         return total_;
       }
@@ -625,6 +630,7 @@ public final class ProofOuterClass {
        * <code>int64 index = 2;</code>
        * @return The index.
        */
+      @java.lang.Override
       public long getIndex() {
         return index_;
       }
@@ -655,6 +661,7 @@ public final class ProofOuterClass {
        * <code>bytes leaf_hash = 3;</code>
        * @return The leafHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getLeafHash() {
         return leafHash_;
       }
@@ -864,7 +871,7 @@ public final class ProofOuterClass {
   /**
    * Protobuf type {@code tendermint.crypto.ValueOp}
    */
-  public  static final class ValueOp extends
+  public static final class ValueOp extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.crypto.ValueOp)
       ValueOpOrBuilder {
@@ -967,6 +974,7 @@ public final class ProofOuterClass {
      * <code>bytes key = 1;</code>
      * @return The key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getKey() {
       return key_;
     }
@@ -981,6 +989,7 @@ public final class ProofOuterClass {
      * <code>.tendermint.crypto.Proof proof = 2;</code>
      * @return Whether the proof field is set.
      */
+    @java.lang.Override
     public boolean hasProof() {
       return proof_ != null;
     }
@@ -992,6 +1001,7 @@ public final class ProofOuterClass {
      * <code>.tendermint.crypto.Proof proof = 2;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public tendermint.crypto.ProofOuterClass.Proof getProof() {
       return proof_ == null ? tendermint.crypto.ProofOuterClass.Proof.getDefaultInstance() : proof_;
     }
@@ -1002,6 +1012,7 @@ public final class ProofOuterClass {
      *
      * <code>.tendermint.crypto.Proof proof = 2;</code>
      */
+    @java.lang.Override
     public tendermint.crypto.ProofOuterClass.ProofOrBuilder getProofOrBuilder() {
       return getProof();
     }
@@ -1347,6 +1358,7 @@ public final class ProofOuterClass {
        * <code>bytes key = 1;</code>
        * @return The key.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getKey() {
         return key_;
       }
@@ -1633,7 +1645,7 @@ public final class ProofOuterClass {
   /**
    * Protobuf type {@code tendermint.crypto.DominoOp}
    */
-  public  static final class DominoOp extends
+  public static final class DominoOp extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.crypto.DominoOp)
       DominoOpOrBuilder {
@@ -1734,6 +1746,7 @@ public final class ProofOuterClass {
      * <code>string key = 1;</code>
      * @return The key.
      */
+    @java.lang.Override
     public java.lang.String getKey() {
       java.lang.Object ref = key_;
       if (ref instanceof java.lang.String) {
@@ -1750,6 +1763,7 @@ public final class ProofOuterClass {
      * <code>string key = 1;</code>
      * @return The bytes for key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getKeyBytes() {
       java.lang.Object ref = key_;
@@ -1770,6 +1784,7 @@ public final class ProofOuterClass {
      * <code>string input = 2;</code>
      * @return The input.
      */
+    @java.lang.Override
     public java.lang.String getInput() {
       java.lang.Object ref = input_;
       if (ref instanceof java.lang.String) {
@@ -1786,6 +1801,7 @@ public final class ProofOuterClass {
      * <code>string input = 2;</code>
      * @return The bytes for input.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInputBytes() {
       java.lang.Object ref = input_;
@@ -1806,6 +1822,7 @@ public final class ProofOuterClass {
      * <code>string output = 3;</code>
      * @return The output.
      */
+    @java.lang.Override
     public java.lang.String getOutput() {
       java.lang.Object ref = output_;
       if (ref instanceof java.lang.String) {
@@ -1822,6 +1839,7 @@ public final class ProofOuterClass {
      * <code>string output = 3;</code>
      * @return The bytes for output.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOutputBytes() {
       java.lang.Object ref = output_;
@@ -2489,7 +2507,7 @@ public final class ProofOuterClass {
    *
    * Protobuf type {@code tendermint.crypto.ProofOp}
    */
-  public  static final class ProofOp extends
+  public static final class ProofOp extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.crypto.ProofOp)
       ProofOpOrBuilder {
@@ -2588,6 +2606,7 @@ public final class ProofOuterClass {
      * <code>string type = 1;</code>
      * @return The type.
      */
+    @java.lang.Override
     public java.lang.String getType() {
       java.lang.Object ref = type_;
       if (ref instanceof java.lang.String) {
@@ -2604,6 +2623,7 @@ public final class ProofOuterClass {
      * <code>string type = 1;</code>
      * @return The bytes for type.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTypeBytes() {
       java.lang.Object ref = type_;
@@ -2624,6 +2644,7 @@ public final class ProofOuterClass {
      * <code>bytes key = 2;</code>
      * @return The key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getKey() {
       return key_;
     }
@@ -2634,6 +2655,7 @@ public final class ProofOuterClass {
      * <code>bytes data = 3;</code>
      * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -3061,6 +3083,7 @@ public final class ProofOuterClass {
        * <code>bytes key = 2;</code>
        * @return The key.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getKey() {
         return key_;
       }
@@ -3094,6 +3117,7 @@ public final class ProofOuterClass {
        * <code>bytes data = 3;</code>
        * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
@@ -3209,7 +3233,7 @@ public final class ProofOuterClass {
    *
    * Protobuf type {@code tendermint.crypto.ProofOps}
    */
-  public  static final class ProofOps extends
+  public static final class ProofOps extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.crypto.ProofOps)
       ProofOpsOrBuilder {
@@ -3302,12 +3326,14 @@ public final class ProofOuterClass {
     /**
      * <code>repeated .tendermint.crypto.ProofOp ops = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<tendermint.crypto.ProofOuterClass.ProofOp> getOpsList() {
       return ops_;
     }
     /**
      * <code>repeated .tendermint.crypto.ProofOp ops = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends tendermint.crypto.ProofOuterClass.ProofOpOrBuilder> 
         getOpsOrBuilderList() {
       return ops_;
@@ -3315,18 +3341,21 @@ public final class ProofOuterClass {
     /**
      * <code>repeated .tendermint.crypto.ProofOp ops = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getOpsCount() {
       return ops_.size();
     }
     /**
      * <code>repeated .tendermint.crypto.ProofOp ops = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.crypto.ProofOuterClass.ProofOp getOps(int index) {
       return ops_.get(index);
     }
     /**
      * <code>repeated .tendermint.crypto.ProofOp ops = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.crypto.ProofOuterClass.ProofOpOrBuilder getOpsOrBuilder(
         int index) {
       return ops_.get(index);

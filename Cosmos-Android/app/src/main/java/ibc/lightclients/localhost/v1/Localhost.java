@@ -73,7 +73,7 @@ public final class Localhost {
    *
    * Protobuf type {@code ibc.lightclients.localhost.v1.ClientState}
    */
-  public  static final class ClientState extends
+  public static final class ClientState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.localhost.v1.ClientState)
       ClientStateOrBuilder {
@@ -177,6 +177,7 @@ public final class Localhost {
      * <code>string chain_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"chain_id&#92;""];</code>
      * @return The chainId.
      */
+    @java.lang.Override
     public java.lang.String getChainId() {
       java.lang.Object ref = chainId_;
       if (ref instanceof java.lang.String) {
@@ -197,6 +198,7 @@ public final class Localhost {
      * <code>string chain_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"chain_id&#92;""];</code>
      * @return The bytes for chainId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChainIdBytes() {
       java.lang.Object ref = chainId_;
@@ -221,6 +223,7 @@ public final class Localhost {
      * <code>.ibc.core.client.v1.Height height = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the height field is set.
      */
+    @java.lang.Override
     public boolean hasHeight() {
       return height_ != null;
     }
@@ -232,6 +235,7 @@ public final class Localhost {
      * <code>.ibc.core.client.v1.Height height = 2 [(.gogoproto.nullable) = false];</code>
      * @return The height.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getHeight() {
       return height_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : height_;
     }
@@ -242,6 +246,7 @@ public final class Localhost {
      *
      * <code>.ibc.core.client.v1.Height height = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getHeightOrBuilder() {
       return getHeight();
     }

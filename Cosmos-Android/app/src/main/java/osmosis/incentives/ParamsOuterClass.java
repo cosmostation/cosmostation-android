@@ -45,7 +45,7 @@ public final class ParamsOuterClass {
    *
    * Protobuf type {@code osmosis.incentives.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.Params)
       ParamsOrBuilder {
@@ -136,6 +136,7 @@ public final class ParamsOuterClass {
      * <code>string distr_epoch_identifier = 1 [(.gogoproto.moretags) = "yaml:&#92;"distr_epoch_identifier&#92;""];</code>
      * @return The distrEpochIdentifier.
      */
+    @java.lang.Override
     public java.lang.String getDistrEpochIdentifier() {
       java.lang.Object ref = distrEpochIdentifier_;
       if (ref instanceof java.lang.String) {
@@ -156,6 +157,7 @@ public final class ParamsOuterClass {
      * <code>string distr_epoch_identifier = 1 [(.gogoproto.moretags) = "yaml:&#92;"distr_epoch_identifier&#92;""];</code>
      * @return The bytes for distrEpochIdentifier.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDistrEpochIdentifierBytes() {
       java.lang.Object ref = distrEpochIdentifier_;

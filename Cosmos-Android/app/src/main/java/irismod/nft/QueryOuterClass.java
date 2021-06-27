@@ -49,7 +49,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.nft.QuerySupplyRequest}
    */
-  public  static final class QuerySupplyRequest extends
+  public static final class QuerySupplyRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.QuerySupplyRequest)
       QuerySupplyRequestOrBuilder {
@@ -143,6 +143,7 @@ public final class QueryOuterClass {
      * <code>string denom_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The denomId.
      */
+    @java.lang.Override
     public java.lang.String getDenomId() {
       java.lang.Object ref = denomId_;
       if (ref instanceof java.lang.String) {
@@ -159,6 +160,7 @@ public final class QueryOuterClass {
      * <code>string denom_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The bytes for denomId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomIdBytes() {
       java.lang.Object ref = denomId_;
@@ -179,6 +181,7 @@ public final class QueryOuterClass {
      * <code>string owner = 2;</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -195,6 +198,7 @@ public final class QueryOuterClass {
      * <code>string owner = 2;</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -753,7 +757,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.nft.QuerySupplyResponse}
    */
-  public  static final class QuerySupplyResponse extends
+  public static final class QuerySupplyResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.QuerySupplyResponse)
       QuerySupplyResponseOrBuilder {
@@ -838,6 +842,7 @@ public final class QueryOuterClass {
      * <code>uint64 amount = 1;</code>
      * @return The amount.
      */
+    @java.lang.Override
     public long getAmount() {
       return amount_;
     }
@@ -1154,6 +1159,7 @@ public final class QueryOuterClass {
        * <code>uint64 amount = 1;</code>
        * @return The amount.
        */
+      @java.lang.Override
       public long getAmount() {
         return amount_;
       }
@@ -1293,7 +1299,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.nft.QueryOwnerRequest}
    */
-  public  static final class QueryOwnerRequest extends
+  public static final class QueryOwnerRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.QueryOwnerRequest)
       QueryOwnerRequestOrBuilder {
@@ -1400,6 +1406,7 @@ public final class QueryOuterClass {
      * <code>string denom_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The denomId.
      */
+    @java.lang.Override
     public java.lang.String getDenomId() {
       java.lang.Object ref = denomId_;
       if (ref instanceof java.lang.String) {
@@ -1416,6 +1423,7 @@ public final class QueryOuterClass {
      * <code>string denom_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The bytes for denomId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomIdBytes() {
       java.lang.Object ref = denomId_;
@@ -1436,6 +1444,7 @@ public final class QueryOuterClass {
      * <code>string owner = 2 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -1452,6 +1461,7 @@ public final class QueryOuterClass {
      * <code>string owner = 2 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -1476,6 +1486,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1487,6 +1498,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -1497,6 +1509,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -2254,7 +2267,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.nft.QueryOwnerResponse}
    */
-  public  static final class QueryOwnerResponse extends
+  public static final class QueryOwnerResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.QueryOwnerResponse)
       QueryOwnerResponseOrBuilder {
@@ -2360,6 +2373,7 @@ public final class QueryOuterClass {
      * <code>.irismod.nft.Owner owner = 1;</code>
      * @return Whether the owner field is set.
      */
+    @java.lang.Override
     public boolean hasOwner() {
       return owner_ != null;
     }
@@ -2367,12 +2381,14 @@ public final class QueryOuterClass {
      * <code>.irismod.nft.Owner owner = 1;</code>
      * @return The owner.
      */
+    @java.lang.Override
     public irismod.nft.Nft.Owner getOwner() {
       return owner_ == null ? irismod.nft.Nft.Owner.getDefaultInstance() : owner_;
     }
     /**
      * <code>.irismod.nft.Owner owner = 1;</code>
      */
+    @java.lang.Override
     public irismod.nft.Nft.OwnerOrBuilder getOwnerOrBuilder() {
       return getOwner();
     }
@@ -2383,6 +2399,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2390,12 +2407,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -3089,7 +3108,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.nft.QueryCollectionRequest}
    */
-  public  static final class QueryCollectionRequest extends
+  public static final class QueryCollectionRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.QueryCollectionRequest)
       QueryCollectionRequestOrBuilder {
@@ -3189,6 +3208,7 @@ public final class QueryOuterClass {
      * <code>string denom_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The denomId.
      */
+    @java.lang.Override
     public java.lang.String getDenomId() {
       java.lang.Object ref = denomId_;
       if (ref instanceof java.lang.String) {
@@ -3205,6 +3225,7 @@ public final class QueryOuterClass {
      * <code>string denom_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The bytes for denomId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomIdBytes() {
       java.lang.Object ref = denomId_;
@@ -3229,6 +3250,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -3240,6 +3262,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -3250,6 +3273,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -3914,7 +3938,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.nft.QueryCollectionResponse}
    */
-  public  static final class QueryCollectionResponse extends
+  public static final class QueryCollectionResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.QueryCollectionResponse)
       QueryCollectionResponseOrBuilder {
@@ -4020,6 +4044,7 @@ public final class QueryOuterClass {
      * <code>.irismod.nft.Collection collection = 1;</code>
      * @return Whether the collection field is set.
      */
+    @java.lang.Override
     public boolean hasCollection() {
       return collection_ != null;
     }
@@ -4027,12 +4052,14 @@ public final class QueryOuterClass {
      * <code>.irismod.nft.Collection collection = 1;</code>
      * @return The collection.
      */
+    @java.lang.Override
     public irismod.nft.Nft.Collection getCollection() {
       return collection_ == null ? irismod.nft.Nft.Collection.getDefaultInstance() : collection_;
     }
     /**
      * <code>.irismod.nft.Collection collection = 1;</code>
      */
+    @java.lang.Override
     public irismod.nft.Nft.CollectionOrBuilder getCollectionOrBuilder() {
       return getCollection();
     }
@@ -4043,6 +4070,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -4050,12 +4078,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -4722,7 +4752,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.nft.QueryDenomRequest}
    */
-  public  static final class QueryDenomRequest extends
+  public static final class QueryDenomRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.QueryDenomRequest)
       QueryDenomRequestOrBuilder {
@@ -4809,6 +4839,7 @@ public final class QueryOuterClass {
      * <code>string denom_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The denomId.
      */
+    @java.lang.Override
     public java.lang.String getDenomId() {
       java.lang.Object ref = denomId_;
       if (ref instanceof java.lang.String) {
@@ -4825,6 +4856,7 @@ public final class QueryOuterClass {
      * <code>string denom_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The bytes for denomId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomIdBytes() {
       java.lang.Object ref = denomId_;
@@ -5299,7 +5331,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.nft.QueryDenomResponse}
    */
-  public  static final class QueryDenomResponse extends
+  public static final class QueryDenomResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.QueryDenomResponse)
       QueryDenomResponseOrBuilder {
@@ -5392,6 +5424,7 @@ public final class QueryOuterClass {
      * <code>.irismod.nft.Denom denom = 1;</code>
      * @return Whether the denom field is set.
      */
+    @java.lang.Override
     public boolean hasDenom() {
       return denom_ != null;
     }
@@ -5399,12 +5432,14 @@ public final class QueryOuterClass {
      * <code>.irismod.nft.Denom denom = 1;</code>
      * @return The denom.
      */
+    @java.lang.Override
     public irismod.nft.Nft.Denom getDenom() {
       return denom_ == null ? irismod.nft.Nft.Denom.getDefaultInstance() : denom_;
     }
     /**
      * <code>.irismod.nft.Denom denom = 1;</code>
      */
+    @java.lang.Override
     public irismod.nft.Nft.DenomOrBuilder getDenomOrBuilder() {
       return getDenom();
     }
@@ -5937,7 +5972,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.nft.QueryDenomsRequest}
    */
-  public  static final class QueryDenomsRequest extends
+  public static final class QueryDenomsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.QueryDenomsRequest)
       QueryDenomsRequestOrBuilder {
@@ -6034,6 +6069,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -6045,6 +6081,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -6055,6 +6092,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -6635,7 +6673,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.nft.QueryDenomsResponse}
    */
-  public  static final class QueryDenomsResponse extends
+  public static final class QueryDenomsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.QueryDenomsResponse)
       QueryDenomsResponseOrBuilder {
@@ -6741,12 +6779,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.nft.Denom denoms = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.nft.Nft.Denom> getDenomsList() {
       return denoms_;
     }
     /**
      * <code>repeated .irismod.nft.Denom denoms = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.nft.Nft.DenomOrBuilder> 
         getDenomsOrBuilderList() {
       return denoms_;
@@ -6754,18 +6794,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .irismod.nft.Denom denoms = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getDenomsCount() {
       return denoms_.size();
     }
     /**
      * <code>repeated .irismod.nft.Denom denoms = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.nft.Nft.Denom getDenoms(int index) {
       return denoms_.get(index);
     }
     /**
      * <code>repeated .irismod.nft.Denom denoms = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.nft.Nft.DenomOrBuilder getDenomsOrBuilder(
         int index) {
       return denoms_.get(index);
@@ -6777,6 +6820,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -6784,12 +6828,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -7616,7 +7662,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.nft.QueryNFTRequest}
    */
-  public  static final class QueryNFTRequest extends
+  public static final class QueryNFTRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.QueryNFTRequest)
       QueryNFTRequestOrBuilder {
@@ -7710,6 +7756,7 @@ public final class QueryOuterClass {
      * <code>string denom_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The denomId.
      */
+    @java.lang.Override
     public java.lang.String getDenomId() {
       java.lang.Object ref = denomId_;
       if (ref instanceof java.lang.String) {
@@ -7726,6 +7773,7 @@ public final class QueryOuterClass {
      * <code>string denom_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The bytes for denomId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomIdBytes() {
       java.lang.Object ref = denomId_;
@@ -7746,6 +7794,7 @@ public final class QueryOuterClass {
      * <code>string token_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"token_id&#92;""];</code>
      * @return The tokenId.
      */
+    @java.lang.Override
     public java.lang.String getTokenId() {
       java.lang.Object ref = tokenId_;
       if (ref instanceof java.lang.String) {
@@ -7762,6 +7811,7 @@ public final class QueryOuterClass {
      * <code>string token_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"token_id&#92;""];</code>
      * @return The bytes for tokenId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenIdBytes() {
       java.lang.Object ref = tokenId_;
@@ -8329,7 +8379,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.nft.QueryNFTResponse}
    */
-  public  static final class QueryNFTResponse extends
+  public static final class QueryNFTResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.QueryNFTResponse)
       QueryNFTResponseOrBuilder {
@@ -8422,6 +8472,7 @@ public final class QueryOuterClass {
      * <code>.irismod.nft.BaseNFT nft = 1 [(.gogoproto.customname) = "NFT"];</code>
      * @return Whether the nft field is set.
      */
+    @java.lang.Override
     public boolean hasNft() {
       return nft_ != null;
     }
@@ -8429,12 +8480,14 @@ public final class QueryOuterClass {
      * <code>.irismod.nft.BaseNFT nft = 1 [(.gogoproto.customname) = "NFT"];</code>
      * @return The nft.
      */
+    @java.lang.Override
     public irismod.nft.Nft.BaseNFT getNft() {
       return nft_ == null ? irismod.nft.Nft.BaseNFT.getDefaultInstance() : nft_;
     }
     /**
      * <code>.irismod.nft.BaseNFT nft = 1 [(.gogoproto.customname) = "NFT"];</code>
      */
+    @java.lang.Override
     public irismod.nft.Nft.BaseNFTOrBuilder getNftOrBuilder() {
       return getNft();
     }

@@ -194,6 +194,14 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                         }
                     });
 
+                    if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
+                        if (getBaseDao().mGrpcBandOracles != null && !getBaseDao().isEnable(validator.getOperatorAddress())) {
+                            holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+                        } else {
+                            holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+                        }
+                    }
+
                 } else {
                     final Validator validator = getBaseDao().mMyValidators.get(position);
                     final BigDecimal delegationAmount = getBaseDao().delegatedAmountByValidator(validator.operator_address);
@@ -222,14 +230,6 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                             getMainActivity().onStartValidatorDetail(validator);
                         }
                     });
-
-                    if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                        if (getBaseDao().mBandOracles != null && !getBaseDao().mBandOracles.isEnable(validator.operator_address)) {
-                            holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-                        } else {
-                            holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-                        }
-                    }
 
                 }
             }

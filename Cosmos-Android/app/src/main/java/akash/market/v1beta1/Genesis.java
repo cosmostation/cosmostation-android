@@ -88,7 +88,7 @@ public final class Genesis {
    *
    * Protobuf type {@code akash.market.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -207,12 +207,14 @@ public final class Genesis {
     /**
      * <code>repeated .akash.market.v1beta1.Order orders = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "orders", (.gogoproto.moretags) = "yaml:&#92;"orders&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.market.v1beta1.OrderOuterClass.Order> getOrdersList() {
       return orders_;
     }
     /**
      * <code>repeated .akash.market.v1beta1.Order orders = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "orders", (.gogoproto.moretags) = "yaml:&#92;"orders&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.market.v1beta1.OrderOuterClass.OrderOrBuilder> 
         getOrdersOrBuilderList() {
       return orders_;
@@ -220,18 +222,21 @@ public final class Genesis {
     /**
      * <code>repeated .akash.market.v1beta1.Order orders = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "orders", (.gogoproto.moretags) = "yaml:&#92;"orders&#92;""];</code>
      */
+    @java.lang.Override
     public int getOrdersCount() {
       return orders_.size();
     }
     /**
      * <code>repeated .akash.market.v1beta1.Order orders = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "orders", (.gogoproto.moretags) = "yaml:&#92;"orders&#92;""];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.Order getOrders(int index) {
       return orders_.get(index);
     }
     /**
      * <code>repeated .akash.market.v1beta1.Order orders = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "orders", (.gogoproto.moretags) = "yaml:&#92;"orders&#92;""];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.OrderOrBuilder getOrdersOrBuilder(
         int index) {
       return orders_.get(index);
@@ -242,12 +247,14 @@ public final class Genesis {
     /**
      * <code>repeated .akash.market.v1beta1.Lease leases = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "leases", (.gogoproto.moretags) = "yaml:&#92;"leases&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.market.v1beta1.LeaseOuterClass.Lease> getLeasesList() {
       return leases_;
     }
     /**
      * <code>repeated .akash.market.v1beta1.Lease leases = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "leases", (.gogoproto.moretags) = "yaml:&#92;"leases&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.market.v1beta1.LeaseOuterClass.LeaseOrBuilder> 
         getLeasesOrBuilderList() {
       return leases_;
@@ -255,18 +262,21 @@ public final class Genesis {
     /**
      * <code>repeated .akash.market.v1beta1.Lease leases = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "leases", (.gogoproto.moretags) = "yaml:&#92;"leases&#92;""];</code>
      */
+    @java.lang.Override
     public int getLeasesCount() {
       return leases_.size();
     }
     /**
      * <code>repeated .akash.market.v1beta1.Lease leases = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "leases", (.gogoproto.moretags) = "yaml:&#92;"leases&#92;""];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.Lease getLeases(int index) {
       return leases_.get(index);
     }
     /**
      * <code>repeated .akash.market.v1beta1.Lease leases = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "leases", (.gogoproto.moretags) = "yaml:&#92;"leases&#92;""];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.LeaseOrBuilder getLeasesOrBuilder(
         int index) {
       return leases_.get(index);
@@ -278,6 +288,7 @@ public final class Genesis {
      * <code>.akash.market.v1beta1.Params params = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "params", (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -285,12 +296,14 @@ public final class Genesis {
      * <code>.akash.market.v1beta1.Params params = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "params", (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      * @return The params.
      */
+    @java.lang.Override
     public akash.market.v1beta1.ParamsOuterClass.Params getParams() {
       return params_ == null ? akash.market.v1beta1.ParamsOuterClass.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.akash.market.v1beta1.Params params = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "params", (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }

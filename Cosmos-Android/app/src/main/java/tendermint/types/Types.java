@@ -106,6 +106,10 @@ public final class Types {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -248,6 +252,10 @@ public final class Types {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -305,7 +313,7 @@ public final class Types {
    *
    * Protobuf type {@code tendermint.types.PartSetHeader}
    */
-  public  static final class PartSetHeader extends
+  public static final class PartSetHeader extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.PartSetHeader)
       PartSetHeaderOrBuilder {
@@ -396,6 +404,7 @@ public final class Types {
      * <code>uint32 total = 1;</code>
      * @return The total.
      */
+    @java.lang.Override
     public int getTotal() {
       return total_;
     }
@@ -406,6 +415,7 @@ public final class Types {
      * <code>bytes hash = 2;</code>
      * @return The hash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getHash() {
       return hash_;
     }
@@ -738,6 +748,7 @@ public final class Types {
        * <code>uint32 total = 1;</code>
        * @return The total.
        */
+      @java.lang.Override
       public int getTotal() {
         return total_;
       }
@@ -768,6 +779,7 @@ public final class Types {
        * <code>bytes hash = 2;</code>
        * @return The hash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getHash() {
         return hash_;
       }
@@ -882,7 +894,7 @@ public final class Types {
   /**
    * Protobuf type {@code tendermint.types.Part}
    */
-  public  static final class Part extends
+  public static final class Part extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.Part)
       PartOrBuilder {
@@ -986,6 +998,7 @@ public final class Types {
      * <code>uint32 index = 1;</code>
      * @return The index.
      */
+    @java.lang.Override
     public int getIndex() {
       return index_;
     }
@@ -996,6 +1009,7 @@ public final class Types {
      * <code>bytes bytes = 2;</code>
      * @return The bytes.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getBytes() {
       return bytes_;
     }
@@ -1006,6 +1020,7 @@ public final class Types {
      * <code>.tendermint.crypto.Proof proof = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proof field is set.
      */
+    @java.lang.Override
     public boolean hasProof() {
       return proof_ != null;
     }
@@ -1013,12 +1028,14 @@ public final class Types {
      * <code>.tendermint.crypto.Proof proof = 3 [(.gogoproto.nullable) = false];</code>
      * @return The proof.
      */
+    @java.lang.Override
     public tendermint.crypto.ProofOuterClass.Proof getProof() {
       return proof_ == null ? tendermint.crypto.ProofOuterClass.Proof.getDefaultInstance() : proof_;
     }
     /**
      * <code>.tendermint.crypto.Proof proof = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.crypto.ProofOuterClass.ProofOrBuilder getProofOrBuilder() {
       return getProof();
     }
@@ -1377,6 +1394,7 @@ public final class Types {
        * <code>uint32 index = 1;</code>
        * @return The index.
        */
+      @java.lang.Override
       public int getIndex() {
         return index_;
       }
@@ -1407,6 +1425,7 @@ public final class Types {
        * <code>bytes bytes = 2;</code>
        * @return The bytes.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getBytes() {
         return bytes_;
       }
@@ -1638,7 +1657,7 @@ public final class Types {
    *
    * Protobuf type {@code tendermint.types.BlockID}
    */
-  public  static final class BlockID extends
+  public static final class BlockID extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.BlockID)
       BlockIDOrBuilder {
@@ -1737,6 +1756,7 @@ public final class Types {
      * <code>bytes hash = 1;</code>
      * @return The hash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getHash() {
       return hash_;
     }
@@ -1747,6 +1767,7 @@ public final class Types {
      * <code>.tendermint.types.PartSetHeader part_set_header = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the partSetHeader field is set.
      */
+    @java.lang.Override
     public boolean hasPartSetHeader() {
       return partSetHeader_ != null;
     }
@@ -1754,12 +1775,14 @@ public final class Types {
      * <code>.tendermint.types.PartSetHeader part_set_header = 2 [(.gogoproto.nullable) = false];</code>
      * @return The partSetHeader.
      */
+    @java.lang.Override
     public tendermint.types.Types.PartSetHeader getPartSetHeader() {
       return partSetHeader_ == null ? tendermint.types.Types.PartSetHeader.getDefaultInstance() : partSetHeader_;
     }
     /**
      * <code>.tendermint.types.PartSetHeader part_set_header = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.PartSetHeaderOrBuilder getPartSetHeaderOrBuilder() {
       return getPartSetHeader();
     }
@@ -2105,6 +2128,7 @@ public final class Types {
        * <code>bytes hash = 1;</code>
        * @return The hash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getHash() {
         return hash_;
       }
@@ -2492,7 +2516,7 @@ public final class Types {
    *
    * Protobuf type {@code tendermint.types.Header}
    */
-  public  static final class Header extends
+  public static final class Header extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.Header)
       HeaderOrBuilder {
@@ -2681,6 +2705,7 @@ public final class Types {
      * <code>.tendermint.version.Consensus version = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the version field is set.
      */
+    @java.lang.Override
     public boolean hasVersion() {
       return version_ != null;
     }
@@ -2692,6 +2717,7 @@ public final class Types {
      * <code>.tendermint.version.Consensus version = 1 [(.gogoproto.nullable) = false];</code>
      * @return The version.
      */
+    @java.lang.Override
     public tendermint.version.Types.Consensus getVersion() {
       return version_ == null ? tendermint.version.Types.Consensus.getDefaultInstance() : version_;
     }
@@ -2702,6 +2728,7 @@ public final class Types {
      *
      * <code>.tendermint.version.Consensus version = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.version.Types.ConsensusOrBuilder getVersionOrBuilder() {
       return getVersion();
     }
@@ -2712,6 +2739,7 @@ public final class Types {
      * <code>string chain_id = 2 [(.gogoproto.customname) = "ChainID"];</code>
      * @return The chainId.
      */
+    @java.lang.Override
     public java.lang.String getChainId() {
       java.lang.Object ref = chainId_;
       if (ref instanceof java.lang.String) {
@@ -2728,6 +2756,7 @@ public final class Types {
      * <code>string chain_id = 2 [(.gogoproto.customname) = "ChainID"];</code>
      * @return The bytes for chainId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChainIdBytes() {
       java.lang.Object ref = chainId_;
@@ -2748,6 +2777,7 @@ public final class Types {
      * <code>int64 height = 3;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -2758,6 +2788,7 @@ public final class Types {
      * <code>.google.protobuf.Timestamp time = 4 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return Whether the time field is set.
      */
+    @java.lang.Override
     public boolean hasTime() {
       return time_ != null;
     }
@@ -2765,12 +2796,14 @@ public final class Types {
      * <code>.google.protobuf.Timestamp time = 4 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return The time.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getTime() {
       return time_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : time_;
     }
     /**
      * <code>.google.protobuf.Timestamp time = 4 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getTimeOrBuilder() {
       return getTime();
     }
@@ -2785,6 +2818,7 @@ public final class Types {
      * <code>.tendermint.types.BlockID last_block_id = 5 [(.gogoproto.nullable) = false];</code>
      * @return Whether the lastBlockId field is set.
      */
+    @java.lang.Override
     public boolean hasLastBlockId() {
       return lastBlockId_ != null;
     }
@@ -2796,6 +2830,7 @@ public final class Types {
      * <code>.tendermint.types.BlockID last_block_id = 5 [(.gogoproto.nullable) = false];</code>
      * @return The lastBlockId.
      */
+    @java.lang.Override
     public tendermint.types.Types.BlockID getLastBlockId() {
       return lastBlockId_ == null ? tendermint.types.Types.BlockID.getDefaultInstance() : lastBlockId_;
     }
@@ -2806,6 +2841,7 @@ public final class Types {
      *
      * <code>.tendermint.types.BlockID last_block_id = 5 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.BlockIDOrBuilder getLastBlockIdOrBuilder() {
       return getLastBlockId();
     }
@@ -2820,6 +2856,7 @@ public final class Types {
      * <code>bytes last_commit_hash = 6;</code>
      * @return The lastCommitHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getLastCommitHash() {
       return lastCommitHash_;
     }
@@ -2834,6 +2871,7 @@ public final class Types {
      * <code>bytes data_hash = 7;</code>
      * @return The dataHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getDataHash() {
       return dataHash_;
     }
@@ -2848,6 +2886,7 @@ public final class Types {
      * <code>bytes validators_hash = 8;</code>
      * @return The validatorsHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValidatorsHash() {
       return validatorsHash_;
     }
@@ -2862,6 +2901,7 @@ public final class Types {
      * <code>bytes next_validators_hash = 9;</code>
      * @return The nextValidatorsHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getNextValidatorsHash() {
       return nextValidatorsHash_;
     }
@@ -2876,6 +2916,7 @@ public final class Types {
      * <code>bytes consensus_hash = 10;</code>
      * @return The consensusHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getConsensusHash() {
       return consensusHash_;
     }
@@ -2890,6 +2931,7 @@ public final class Types {
      * <code>bytes app_hash = 11;</code>
      * @return The appHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAppHash() {
       return appHash_;
     }
@@ -2904,6 +2946,7 @@ public final class Types {
      * <code>bytes last_results_hash = 12;</code>
      * @return The lastResultsHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getLastResultsHash() {
       return lastResultsHash_;
     }
@@ -2918,6 +2961,7 @@ public final class Types {
      * <code>bytes evidence_hash = 13;</code>
      * @return The evidenceHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getEvidenceHash() {
       return evidenceHash_;
     }
@@ -2932,6 +2976,7 @@ public final class Types {
      * <code>bytes proposer_address = 14;</code>
      * @return The proposerAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProposerAddress() {
       return proposerAddress_;
     }
@@ -3739,6 +3784,7 @@ public final class Types {
        * <code>int64 height = 3;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -4047,6 +4093,7 @@ public final class Types {
        * <code>bytes last_commit_hash = 6;</code>
        * @return The lastCommitHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getLastCommitHash() {
         return lastCommitHash_;
       }
@@ -4092,6 +4139,7 @@ public final class Types {
        * <code>bytes data_hash = 7;</code>
        * @return The dataHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getDataHash() {
         return dataHash_;
       }
@@ -4137,6 +4185,7 @@ public final class Types {
        * <code>bytes validators_hash = 8;</code>
        * @return The validatorsHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getValidatorsHash() {
         return validatorsHash_;
       }
@@ -4182,6 +4231,7 @@ public final class Types {
        * <code>bytes next_validators_hash = 9;</code>
        * @return The nextValidatorsHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getNextValidatorsHash() {
         return nextValidatorsHash_;
       }
@@ -4227,6 +4277,7 @@ public final class Types {
        * <code>bytes consensus_hash = 10;</code>
        * @return The consensusHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getConsensusHash() {
         return consensusHash_;
       }
@@ -4272,6 +4323,7 @@ public final class Types {
        * <code>bytes app_hash = 11;</code>
        * @return The appHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAppHash() {
         return appHash_;
       }
@@ -4317,6 +4369,7 @@ public final class Types {
        * <code>bytes last_results_hash = 12;</code>
        * @return The lastResultsHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getLastResultsHash() {
         return lastResultsHash_;
       }
@@ -4362,6 +4415,7 @@ public final class Types {
        * <code>bytes evidence_hash = 13;</code>
        * @return The evidenceHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getEvidenceHash() {
         return evidenceHash_;
       }
@@ -4407,6 +4461,7 @@ public final class Types {
        * <code>bytes proposer_address = 14;</code>
        * @return The proposerAddress.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProposerAddress() {
         return proposerAddress_;
       }
@@ -4541,7 +4596,7 @@ public final class Types {
    *
    * Protobuf type {@code tendermint.types.Data}
    */
-  public  static final class Data extends
+  public static final class Data extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.Data)
       DataOrBuilder {
@@ -4640,6 +4695,7 @@ public final class Types {
      * <code>repeated bytes txs = 1;</code>
      * @return A list containing the txs.
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf.ByteString>
         getTxsList() {
       return txs_;
@@ -5272,7 +5328,7 @@ public final class Types {
    *
    * Protobuf type {@code tendermint.types.Vote}
    */
-  public  static final class Vote extends
+  public static final class Vote extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.Vote)
       VoteOrBuilder {
@@ -5412,14 +5468,14 @@ public final class Types {
      * <code>.tendermint.types.SignedMsgType type = 1;</code>
      * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.tendermint.types.SignedMsgType type = 1;</code>
      * @return The type.
      */
-    public tendermint.types.Types.SignedMsgType getType() {
+    @java.lang.Override public tendermint.types.Types.SignedMsgType getType() {
       @SuppressWarnings("deprecation")
       tendermint.types.Types.SignedMsgType result = tendermint.types.Types.SignedMsgType.valueOf(type_);
       return result == null ? tendermint.types.Types.SignedMsgType.UNRECOGNIZED : result;
@@ -5431,6 +5487,7 @@ public final class Types {
      * <code>int64 height = 2;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -5441,6 +5498,7 @@ public final class Types {
      * <code>int32 round = 3;</code>
      * @return The round.
      */
+    @java.lang.Override
     public int getRound() {
       return round_;
     }
@@ -5455,6 +5513,7 @@ public final class Types {
      * <code>.tendermint.types.BlockID block_id = 4 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BlockID"];</code>
      * @return Whether the blockId field is set.
      */
+    @java.lang.Override
     public boolean hasBlockId() {
       return blockId_ != null;
     }
@@ -5466,6 +5525,7 @@ public final class Types {
      * <code>.tendermint.types.BlockID block_id = 4 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BlockID"];</code>
      * @return The blockId.
      */
+    @java.lang.Override
     public tendermint.types.Types.BlockID getBlockId() {
       return blockId_ == null ? tendermint.types.Types.BlockID.getDefaultInstance() : blockId_;
     }
@@ -5476,6 +5536,7 @@ public final class Types {
      *
      * <code>.tendermint.types.BlockID block_id = 4 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BlockID"];</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.BlockIDOrBuilder getBlockIdOrBuilder() {
       return getBlockId();
     }
@@ -5486,6 +5547,7 @@ public final class Types {
      * <code>.google.protobuf.Timestamp timestamp = 5 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return Whether the timestamp field is set.
      */
+    @java.lang.Override
     public boolean hasTimestamp() {
       return timestamp_ != null;
     }
@@ -5493,12 +5555,14 @@ public final class Types {
      * <code>.google.protobuf.Timestamp timestamp = 5 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getTimestamp() {
       return timestamp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : timestamp_;
     }
     /**
      * <code>.google.protobuf.Timestamp timestamp = 5 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder() {
       return getTimestamp();
     }
@@ -5509,6 +5573,7 @@ public final class Types {
      * <code>bytes validator_address = 6;</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValidatorAddress() {
       return validatorAddress_;
     }
@@ -5519,6 +5584,7 @@ public final class Types {
      * <code>int32 validator_index = 7;</code>
      * @return The validatorIndex.
      */
+    @java.lang.Override
     public int getValidatorIndex() {
       return validatorIndex_;
     }
@@ -5529,6 +5595,7 @@ public final class Types {
      * <code>bytes signature = 8;</code>
      * @return The signature.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getSignature() {
       return signature_;
     }
@@ -5990,7 +6057,7 @@ public final class Types {
        * <code>.tendermint.types.SignedMsgType type = 1;</code>
        * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
@@ -5999,6 +6066,7 @@ public final class Types {
        * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
@@ -6007,6 +6075,7 @@ public final class Types {
        * <code>.tendermint.types.SignedMsgType type = 1;</code>
        * @return The type.
        */
+      @java.lang.Override
       public tendermint.types.Types.SignedMsgType getType() {
         @SuppressWarnings("deprecation")
         tendermint.types.Types.SignedMsgType result = tendermint.types.Types.SignedMsgType.valueOf(type_);
@@ -6042,6 +6111,7 @@ public final class Types {
        * <code>int64 height = 2;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -6072,6 +6142,7 @@ public final class Types {
        * <code>int32 round = 3;</code>
        * @return The round.
        */
+      @java.lang.Override
       public int getRound() {
         return round_;
       }
@@ -6376,6 +6447,7 @@ public final class Types {
        * <code>bytes validator_address = 6;</code>
        * @return The validatorAddress.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getValidatorAddress() {
         return validatorAddress_;
       }
@@ -6409,6 +6481,7 @@ public final class Types {
        * <code>int32 validator_index = 7;</code>
        * @return The validatorIndex.
        */
+      @java.lang.Override
       public int getValidatorIndex() {
         return validatorIndex_;
       }
@@ -6439,6 +6512,7 @@ public final class Types {
        * <code>bytes signature = 8;</code>
        * @return The signature.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getSignature() {
         return signature_;
       }
@@ -6581,7 +6655,7 @@ public final class Types {
    *
    * Protobuf type {@code tendermint.types.Commit}
    */
-  public  static final class Commit extends
+  public static final class Commit extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.Commit)
       CommitOrBuilder {
@@ -6698,6 +6772,7 @@ public final class Types {
      * <code>int64 height = 1;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -6708,6 +6783,7 @@ public final class Types {
      * <code>int32 round = 2;</code>
      * @return The round.
      */
+    @java.lang.Override
     public int getRound() {
       return round_;
     }
@@ -6718,6 +6794,7 @@ public final class Types {
      * <code>.tendermint.types.BlockID block_id = 3 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BlockID"];</code>
      * @return Whether the blockId field is set.
      */
+    @java.lang.Override
     public boolean hasBlockId() {
       return blockId_ != null;
     }
@@ -6725,12 +6802,14 @@ public final class Types {
      * <code>.tendermint.types.BlockID block_id = 3 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BlockID"];</code>
      * @return The blockId.
      */
+    @java.lang.Override
     public tendermint.types.Types.BlockID getBlockId() {
       return blockId_ == null ? tendermint.types.Types.BlockID.getDefaultInstance() : blockId_;
     }
     /**
      * <code>.tendermint.types.BlockID block_id = 3 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BlockID"];</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.BlockIDOrBuilder getBlockIdOrBuilder() {
       return getBlockId();
     }
@@ -6740,12 +6819,14 @@ public final class Types {
     /**
      * <code>repeated .tendermint.types.CommitSig signatures = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<tendermint.types.Types.CommitSig> getSignaturesList() {
       return signatures_;
     }
     /**
      * <code>repeated .tendermint.types.CommitSig signatures = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends tendermint.types.Types.CommitSigOrBuilder> 
         getSignaturesOrBuilderList() {
       return signatures_;
@@ -6753,18 +6834,21 @@ public final class Types {
     /**
      * <code>repeated .tendermint.types.CommitSig signatures = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getSignaturesCount() {
       return signatures_.size();
     }
     /**
      * <code>repeated .tendermint.types.CommitSig signatures = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.CommitSig getSignatures(int index) {
       return signatures_.get(index);
     }
     /**
      * <code>repeated .tendermint.types.CommitSig signatures = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.CommitSigOrBuilder getSignaturesOrBuilder(
         int index) {
       return signatures_.get(index);
@@ -7186,6 +7270,7 @@ public final class Types {
        * <code>int64 height = 1;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -7216,6 +7301,7 @@ public final class Types {
        * <code>int32 round = 2;</code>
        * @return The round.
        */
+      @java.lang.Override
       public int getRound() {
         return round_;
       }
@@ -7701,7 +7787,7 @@ public final class Types {
    *
    * Protobuf type {@code tendermint.types.CommitSig}
    */
-  public  static final class CommitSig extends
+  public static final class CommitSig extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.CommitSig)
       CommitSigOrBuilder {
@@ -7813,14 +7899,14 @@ public final class Types {
      * <code>.tendermint.types.BlockIDFlag block_id_flag = 1;</code>
      * @return The enum numeric value on the wire for blockIdFlag.
      */
-    public int getBlockIdFlagValue() {
+    @java.lang.Override public int getBlockIdFlagValue() {
       return blockIdFlag_;
     }
     /**
      * <code>.tendermint.types.BlockIDFlag block_id_flag = 1;</code>
      * @return The blockIdFlag.
      */
-    public tendermint.types.Types.BlockIDFlag getBlockIdFlag() {
+    @java.lang.Override public tendermint.types.Types.BlockIDFlag getBlockIdFlag() {
       @SuppressWarnings("deprecation")
       tendermint.types.Types.BlockIDFlag result = tendermint.types.Types.BlockIDFlag.valueOf(blockIdFlag_);
       return result == null ? tendermint.types.Types.BlockIDFlag.UNRECOGNIZED : result;
@@ -7832,6 +7918,7 @@ public final class Types {
      * <code>bytes validator_address = 2;</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValidatorAddress() {
       return validatorAddress_;
     }
@@ -7842,6 +7929,7 @@ public final class Types {
      * <code>.google.protobuf.Timestamp timestamp = 3 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return Whether the timestamp field is set.
      */
+    @java.lang.Override
     public boolean hasTimestamp() {
       return timestamp_ != null;
     }
@@ -7849,12 +7937,14 @@ public final class Types {
      * <code>.google.protobuf.Timestamp timestamp = 3 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getTimestamp() {
       return timestamp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : timestamp_;
     }
     /**
      * <code>.google.protobuf.Timestamp timestamp = 3 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder() {
       return getTimestamp();
     }
@@ -7865,6 +7955,7 @@ public final class Types {
      * <code>bytes signature = 4;</code>
      * @return The signature.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getSignature() {
       return signature_;
     }
@@ -8243,7 +8334,7 @@ public final class Types {
        * <code>.tendermint.types.BlockIDFlag block_id_flag = 1;</code>
        * @return The enum numeric value on the wire for blockIdFlag.
        */
-      public int getBlockIdFlagValue() {
+      @java.lang.Override public int getBlockIdFlagValue() {
         return blockIdFlag_;
       }
       /**
@@ -8252,6 +8343,7 @@ public final class Types {
        * @return This builder for chaining.
        */
       public Builder setBlockIdFlagValue(int value) {
+        
         blockIdFlag_ = value;
         onChanged();
         return this;
@@ -8260,6 +8352,7 @@ public final class Types {
        * <code>.tendermint.types.BlockIDFlag block_id_flag = 1;</code>
        * @return The blockIdFlag.
        */
+      @java.lang.Override
       public tendermint.types.Types.BlockIDFlag getBlockIdFlag() {
         @SuppressWarnings("deprecation")
         tendermint.types.Types.BlockIDFlag result = tendermint.types.Types.BlockIDFlag.valueOf(blockIdFlag_);
@@ -8295,6 +8388,7 @@ public final class Types {
        * <code>bytes validator_address = 2;</code>
        * @return The validatorAddress.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getValidatorAddress() {
         return validatorAddress_;
       }
@@ -8447,6 +8541,7 @@ public final class Types {
        * <code>bytes signature = 4;</code>
        * @return The signature.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getSignature() {
         return signature_;
       }
@@ -8599,7 +8694,7 @@ public final class Types {
   /**
    * Protobuf type {@code tendermint.types.Proposal}
    */
-  public  static final class Proposal extends
+  public static final class Proposal extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.Proposal)
       ProposalOrBuilder {
@@ -8733,14 +8828,14 @@ public final class Types {
      * <code>.tendermint.types.SignedMsgType type = 1;</code>
      * @return The enum numeric value on the wire for type.
      */
-    public int getTypeValue() {
+    @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
      * <code>.tendermint.types.SignedMsgType type = 1;</code>
      * @return The type.
      */
-    public tendermint.types.Types.SignedMsgType getType() {
+    @java.lang.Override public tendermint.types.Types.SignedMsgType getType() {
       @SuppressWarnings("deprecation")
       tendermint.types.Types.SignedMsgType result = tendermint.types.Types.SignedMsgType.valueOf(type_);
       return result == null ? tendermint.types.Types.SignedMsgType.UNRECOGNIZED : result;
@@ -8752,6 +8847,7 @@ public final class Types {
      * <code>int64 height = 2;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -8762,6 +8858,7 @@ public final class Types {
      * <code>int32 round = 3;</code>
      * @return The round.
      */
+    @java.lang.Override
     public int getRound() {
       return round_;
     }
@@ -8772,6 +8869,7 @@ public final class Types {
      * <code>int32 pol_round = 4;</code>
      * @return The polRound.
      */
+    @java.lang.Override
     public int getPolRound() {
       return polRound_;
     }
@@ -8782,6 +8880,7 @@ public final class Types {
      * <code>.tendermint.types.BlockID block_id = 5 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BlockID"];</code>
      * @return Whether the blockId field is set.
      */
+    @java.lang.Override
     public boolean hasBlockId() {
       return blockId_ != null;
     }
@@ -8789,12 +8888,14 @@ public final class Types {
      * <code>.tendermint.types.BlockID block_id = 5 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BlockID"];</code>
      * @return The blockId.
      */
+    @java.lang.Override
     public tendermint.types.Types.BlockID getBlockId() {
       return blockId_ == null ? tendermint.types.Types.BlockID.getDefaultInstance() : blockId_;
     }
     /**
      * <code>.tendermint.types.BlockID block_id = 5 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BlockID"];</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.BlockIDOrBuilder getBlockIdOrBuilder() {
       return getBlockId();
     }
@@ -8805,6 +8906,7 @@ public final class Types {
      * <code>.google.protobuf.Timestamp timestamp = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return Whether the timestamp field is set.
      */
+    @java.lang.Override
     public boolean hasTimestamp() {
       return timestamp_ != null;
     }
@@ -8812,12 +8914,14 @@ public final class Types {
      * <code>.google.protobuf.Timestamp timestamp = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getTimestamp() {
       return timestamp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : timestamp_;
     }
     /**
      * <code>.google.protobuf.Timestamp timestamp = 6 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder() {
       return getTimestamp();
     }
@@ -8828,6 +8932,7 @@ public final class Types {
      * <code>bytes signature = 7;</code>
      * @return The signature.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getSignature() {
       return signature_;
     }
@@ -9267,7 +9372,7 @@ public final class Types {
        * <code>.tendermint.types.SignedMsgType type = 1;</code>
        * @return The enum numeric value on the wire for type.
        */
-      public int getTypeValue() {
+      @java.lang.Override public int getTypeValue() {
         return type_;
       }
       /**
@@ -9276,6 +9381,7 @@ public final class Types {
        * @return This builder for chaining.
        */
       public Builder setTypeValue(int value) {
+        
         type_ = value;
         onChanged();
         return this;
@@ -9284,6 +9390,7 @@ public final class Types {
        * <code>.tendermint.types.SignedMsgType type = 1;</code>
        * @return The type.
        */
+      @java.lang.Override
       public tendermint.types.Types.SignedMsgType getType() {
         @SuppressWarnings("deprecation")
         tendermint.types.Types.SignedMsgType result = tendermint.types.Types.SignedMsgType.valueOf(type_);
@@ -9319,6 +9426,7 @@ public final class Types {
        * <code>int64 height = 2;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -9349,6 +9457,7 @@ public final class Types {
        * <code>int32 round = 3;</code>
        * @return The round.
        */
+      @java.lang.Override
       public int getRound() {
         return round_;
       }
@@ -9379,6 +9488,7 @@ public final class Types {
        * <code>int32 pol_round = 4;</code>
        * @return The polRound.
        */
+      @java.lang.Override
       public int getPolRound() {
         return polRound_;
       }
@@ -9647,6 +9757,7 @@ public final class Types {
        * <code>bytes signature = 7;</code>
        * @return The signature.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getSignature() {
         return signature_;
       }
@@ -9764,7 +9875,7 @@ public final class Types {
   /**
    * Protobuf type {@code tendermint.types.SignedHeader}
    */
-  public  static final class SignedHeader extends
+  public static final class SignedHeader extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.SignedHeader)
       SignedHeaderOrBuilder {
@@ -9870,6 +9981,7 @@ public final class Types {
      * <code>.tendermint.types.Header header = 1;</code>
      * @return Whether the header field is set.
      */
+    @java.lang.Override
     public boolean hasHeader() {
       return header_ != null;
     }
@@ -9877,12 +9989,14 @@ public final class Types {
      * <code>.tendermint.types.Header header = 1;</code>
      * @return The header.
      */
+    @java.lang.Override
     public tendermint.types.Types.Header getHeader() {
       return header_ == null ? tendermint.types.Types.Header.getDefaultInstance() : header_;
     }
     /**
      * <code>.tendermint.types.Header header = 1;</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.HeaderOrBuilder getHeaderOrBuilder() {
       return getHeader();
     }
@@ -9893,6 +10007,7 @@ public final class Types {
      * <code>.tendermint.types.Commit commit = 2;</code>
      * @return Whether the commit field is set.
      */
+    @java.lang.Override
     public boolean hasCommit() {
       return commit_ != null;
     }
@@ -9900,12 +10015,14 @@ public final class Types {
      * <code>.tendermint.types.Commit commit = 2;</code>
      * @return The commit.
      */
+    @java.lang.Override
     public tendermint.types.Types.Commit getCommit() {
       return commit_ == null ? tendermint.types.Types.Commit.getDefaultInstance() : commit_;
     }
     /**
      * <code>.tendermint.types.Commit commit = 2;</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.CommitOrBuilder getCommitOrBuilder() {
       return getCommit();
     }
@@ -10582,7 +10699,7 @@ public final class Types {
   /**
    * Protobuf type {@code tendermint.types.LightBlock}
    */
-  public  static final class LightBlock extends
+  public static final class LightBlock extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.LightBlock)
       LightBlockOrBuilder {
@@ -10688,6 +10805,7 @@ public final class Types {
      * <code>.tendermint.types.SignedHeader signed_header = 1;</code>
      * @return Whether the signedHeader field is set.
      */
+    @java.lang.Override
     public boolean hasSignedHeader() {
       return signedHeader_ != null;
     }
@@ -10695,12 +10813,14 @@ public final class Types {
      * <code>.tendermint.types.SignedHeader signed_header = 1;</code>
      * @return The signedHeader.
      */
+    @java.lang.Override
     public tendermint.types.Types.SignedHeader getSignedHeader() {
       return signedHeader_ == null ? tendermint.types.Types.SignedHeader.getDefaultInstance() : signedHeader_;
     }
     /**
      * <code>.tendermint.types.SignedHeader signed_header = 1;</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.SignedHeaderOrBuilder getSignedHeaderOrBuilder() {
       return getSignedHeader();
     }
@@ -10711,6 +10831,7 @@ public final class Types {
      * <code>.tendermint.types.ValidatorSet validator_set = 2;</code>
      * @return Whether the validatorSet field is set.
      */
+    @java.lang.Override
     public boolean hasValidatorSet() {
       return validatorSet_ != null;
     }
@@ -10718,12 +10839,14 @@ public final class Types {
      * <code>.tendermint.types.ValidatorSet validator_set = 2;</code>
      * @return The validatorSet.
      */
+    @java.lang.Override
     public tendermint.types.ValidatorOuterClass.ValidatorSet getValidatorSet() {
       return validatorSet_ == null ? tendermint.types.ValidatorOuterClass.ValidatorSet.getDefaultInstance() : validatorSet_;
     }
     /**
      * <code>.tendermint.types.ValidatorSet validator_set = 2;</code>
      */
+    @java.lang.Override
     public tendermint.types.ValidatorOuterClass.ValidatorSetOrBuilder getValidatorSetOrBuilder() {
       return getValidatorSet();
     }
@@ -11412,7 +11535,7 @@ public final class Types {
   /**
    * Protobuf type {@code tendermint.types.BlockMeta}
    */
-  public  static final class BlockMeta extends
+  public static final class BlockMeta extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.BlockMeta)
       BlockMetaOrBuilder {
@@ -11528,6 +11651,7 @@ public final class Types {
      * <code>.tendermint.types.BlockID block_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BlockID"];</code>
      * @return Whether the blockId field is set.
      */
+    @java.lang.Override
     public boolean hasBlockId() {
       return blockId_ != null;
     }
@@ -11535,12 +11659,14 @@ public final class Types {
      * <code>.tendermint.types.BlockID block_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BlockID"];</code>
      * @return The blockId.
      */
+    @java.lang.Override
     public tendermint.types.Types.BlockID getBlockId() {
       return blockId_ == null ? tendermint.types.Types.BlockID.getDefaultInstance() : blockId_;
     }
     /**
      * <code>.tendermint.types.BlockID block_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BlockID"];</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.BlockIDOrBuilder getBlockIdOrBuilder() {
       return getBlockId();
     }
@@ -11551,6 +11677,7 @@ public final class Types {
      * <code>int64 block_size = 2;</code>
      * @return The blockSize.
      */
+    @java.lang.Override
     public long getBlockSize() {
       return blockSize_;
     }
@@ -11561,6 +11688,7 @@ public final class Types {
      * <code>.tendermint.types.Header header = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the header field is set.
      */
+    @java.lang.Override
     public boolean hasHeader() {
       return header_ != null;
     }
@@ -11568,12 +11696,14 @@ public final class Types {
      * <code>.tendermint.types.Header header = 3 [(.gogoproto.nullable) = false];</code>
      * @return The header.
      */
+    @java.lang.Override
     public tendermint.types.Types.Header getHeader() {
       return header_ == null ? tendermint.types.Types.Header.getDefaultInstance() : header_;
     }
     /**
      * <code>.tendermint.types.Header header = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.HeaderOrBuilder getHeaderOrBuilder() {
       return getHeader();
     }
@@ -11584,6 +11714,7 @@ public final class Types {
      * <code>int64 num_txs = 4;</code>
      * @return The numTxs.
      */
+    @java.lang.Override
     public long getNumTxs() {
       return numTxs_;
     }
@@ -12093,6 +12224,7 @@ public final class Types {
        * <code>int64 block_size = 2;</code>
        * @return The blockSize.
        */
+      @java.lang.Override
       public long getBlockSize() {
         return blockSize_;
       }
@@ -12242,6 +12374,7 @@ public final class Types {
        * <code>int64 num_txs = 4;</code>
        * @return The numTxs.
        */
+      @java.lang.Override
       public long getNumTxs() {
         return numTxs_;
       }
@@ -12357,7 +12490,7 @@ public final class Types {
    *
    * Protobuf type {@code tendermint.types.TxProof}
    */
-  public  static final class TxProof extends
+  public static final class TxProof extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.TxProof)
       TxProofOrBuilder {
@@ -12462,6 +12595,7 @@ public final class Types {
      * <code>bytes root_hash = 1;</code>
      * @return The rootHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getRootHash() {
       return rootHash_;
     }
@@ -12472,6 +12606,7 @@ public final class Types {
      * <code>bytes data = 2;</code>
      * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -12482,6 +12617,7 @@ public final class Types {
      * <code>.tendermint.crypto.Proof proof = 3;</code>
      * @return Whether the proof field is set.
      */
+    @java.lang.Override
     public boolean hasProof() {
       return proof_ != null;
     }
@@ -12489,12 +12625,14 @@ public final class Types {
      * <code>.tendermint.crypto.Proof proof = 3;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public tendermint.crypto.ProofOuterClass.Proof getProof() {
       return proof_ == null ? tendermint.crypto.ProofOuterClass.Proof.getDefaultInstance() : proof_;
     }
     /**
      * <code>.tendermint.crypto.Proof proof = 3;</code>
      */
+    @java.lang.Override
     public tendermint.crypto.ProofOuterClass.ProofOrBuilder getProofOrBuilder() {
       return getProof();
     }
@@ -12857,6 +12995,7 @@ public final class Types {
        * <code>bytes root_hash = 1;</code>
        * @return The rootHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getRootHash() {
         return rootHash_;
       }
@@ -12890,6 +13029,7 @@ public final class Types {
        * <code>bytes data = 2;</code>
        * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }

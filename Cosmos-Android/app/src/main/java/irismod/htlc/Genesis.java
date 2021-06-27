@@ -59,7 +59,7 @@ public final class Genesis {
    *
    * Protobuf type {@code irismod.htlc.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.htlc.GenesisState)
       GenesisStateOrBuilder {
@@ -189,6 +189,7 @@ public final class Genesis {
      * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
      */
 
+    @java.lang.Override
     public boolean containsPendingHtlcs(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -197,6 +198,7 @@ public final class Genesis {
     /**
      * Use {@link #getPendingHtlcsMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC> getPendingHtlcs() {
       return getPendingHtlcsMap();
@@ -204,6 +206,7 @@ public final class Genesis {
     /**
      * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC> getPendingHtlcsMap() {
       return internalGetPendingHtlcs().getMap();
@@ -211,6 +214,7 @@ public final class Genesis {
     /**
      * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
 
     public irismod.htlc.Htlc.HTLC getPendingHtlcsOrDefault(
         java.lang.String key,
@@ -223,6 +227,7 @@ public final class Genesis {
     /**
      * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
 
     public irismod.htlc.Htlc.HTLC getPendingHtlcsOrThrow(
         java.lang.String key) {
@@ -605,6 +610,7 @@ public final class Genesis {
        * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
        */
 
+      @java.lang.Override
       public boolean containsPendingHtlcs(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -613,6 +619,7 @@ public final class Genesis {
       /**
        * Use {@link #getPendingHtlcsMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC> getPendingHtlcs() {
         return getPendingHtlcsMap();
@@ -620,6 +627,7 @@ public final class Genesis {
       /**
        * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, irismod.htlc.Htlc.HTLC> getPendingHtlcsMap() {
         return internalGetPendingHtlcs().getMap();
@@ -627,6 +635,7 @@ public final class Genesis {
       /**
        * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
        */
+      @java.lang.Override
 
       public irismod.htlc.Htlc.HTLC getPendingHtlcsOrDefault(
           java.lang.String key,
@@ -639,6 +648,7 @@ public final class Genesis {
       /**
        * <code>map&lt;string, .irismod.htlc.HTLC&gt; pending_htlcs = 1 [(.gogoproto.nullable) = false];</code>
        */
+      @java.lang.Override
 
       public irismod.htlc.Htlc.HTLC getPendingHtlcsOrThrow(
           java.lang.String key) {

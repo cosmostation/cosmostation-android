@@ -44,7 +44,7 @@ public final class Multisig {
    *
    * Protobuf type {@code cosmos.crypto.multisig.v1beta1.MultiSignature}
    */
-  public  static final class MultiSignature extends
+  public static final class MultiSignature extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.crypto.multisig.v1beta1.MultiSignature)
       MultiSignatureOrBuilder {
@@ -137,6 +137,7 @@ public final class Multisig {
      * <code>repeated bytes signatures = 1;</code>
      * @return A list containing the signatures.
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf.ByteString>
         getSignaturesList() {
       return signatures_;
@@ -648,7 +649,7 @@ public final class Multisig {
    *
    * Protobuf type {@code cosmos.crypto.multisig.v1beta1.CompactBitArray}
    */
-  public  static final class CompactBitArray extends
+  public static final class CompactBitArray extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.crypto.multisig.v1beta1.CompactBitArray)
       CompactBitArrayOrBuilder {
@@ -739,6 +740,7 @@ public final class Multisig {
      * <code>uint32 extra_bits_stored = 1;</code>
      * @return The extraBitsStored.
      */
+    @java.lang.Override
     public int getExtraBitsStored() {
       return extraBitsStored_;
     }
@@ -749,6 +751,7 @@ public final class Multisig {
      * <code>bytes elems = 2;</code>
      * @return The elems.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getElems() {
       return elems_;
     }
@@ -1084,6 +1087,7 @@ public final class Multisig {
        * <code>uint32 extra_bits_stored = 1;</code>
        * @return The extraBitsStored.
        */
+      @java.lang.Override
       public int getExtraBitsStored() {
         return extraBitsStored_;
       }
@@ -1114,6 +1118,7 @@ public final class Multisig {
        * <code>bytes elems = 2;</code>
        * @return The elems.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getElems() {
         return elems_;
       }

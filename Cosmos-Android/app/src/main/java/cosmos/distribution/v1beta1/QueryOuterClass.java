@@ -25,7 +25,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -478,7 +478,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -575,6 +575,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -586,6 +587,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.Params getParams() {
       return params_ == null ? cosmos.distribution.v1beta1.Distribution.Params.getDefaultInstance() : params_;
     }
@@ -596,6 +598,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -1158,7 +1161,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryValidatorOutstandingRewardsRequest}
    */
-  public  static final class QueryValidatorOutstandingRewardsRequest extends
+  public static final class QueryValidatorOutstandingRewardsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryValidatorOutstandingRewardsRequest)
       QueryValidatorOutstandingRewardsRequestOrBuilder {
@@ -1249,6 +1252,7 @@ public final class QueryOuterClass {
      * <code>string validator_address = 1;</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -1269,6 +1273,7 @@ public final class QueryOuterClass {
      * <code>string validator_address = 1;</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -1765,7 +1770,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryValidatorOutstandingRewardsResponse}
    */
-  public  static final class QueryValidatorOutstandingRewardsResponse extends
+  public static final class QueryValidatorOutstandingRewardsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryValidatorOutstandingRewardsResponse)
       QueryValidatorOutstandingRewardsResponseOrBuilder {
@@ -1858,6 +1863,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.distribution.v1beta1.ValidatorOutstandingRewards rewards = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the rewards field is set.
      */
+    @java.lang.Override
     public boolean hasRewards() {
       return rewards_ != null;
     }
@@ -1865,12 +1871,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.distribution.v1beta1.ValidatorOutstandingRewards rewards = 1 [(.gogoproto.nullable) = false];</code>
      * @return The rewards.
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorOutstandingRewards getRewards() {
       return rewards_ == null ? cosmos.distribution.v1beta1.Distribution.ValidatorOutstandingRewards.getDefaultInstance() : rewards_;
     }
     /**
      * <code>.cosmos.distribution.v1beta1.ValidatorOutstandingRewards rewards = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorOutstandingRewardsOrBuilder getRewardsOrBuilder() {
       return getRewards();
     }
@@ -2398,7 +2406,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryValidatorCommissionRequest}
    */
-  public  static final class QueryValidatorCommissionRequest extends
+  public static final class QueryValidatorCommissionRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryValidatorCommissionRequest)
       QueryValidatorCommissionRequestOrBuilder {
@@ -2489,6 +2497,7 @@ public final class QueryOuterClass {
      * <code>string validator_address = 1;</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -2509,6 +2518,7 @@ public final class QueryOuterClass {
      * <code>string validator_address = 1;</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -3017,7 +3027,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryValidatorCommissionResponse}
    */
-  public  static final class QueryValidatorCommissionResponse extends
+  public static final class QueryValidatorCommissionResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryValidatorCommissionResponse)
       QueryValidatorCommissionResponseOrBuilder {
@@ -3114,6 +3124,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission commission = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the commission field is set.
      */
+    @java.lang.Override
     public boolean hasCommission() {
       return commission_ != null;
     }
@@ -3125,6 +3136,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission commission = 1 [(.gogoproto.nullable) = false];</code>
      * @return The commission.
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommission getCommission() {
       return commission_ == null ? cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommission.getDefaultInstance() : commission_;
     }
@@ -3135,6 +3147,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission commission = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommissionOrBuilder getCommissionOrBuilder() {
       return getCommission();
     }
@@ -3745,7 +3758,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryValidatorSlashesRequest}
    */
-  public  static final class QueryValidatorSlashesRequest extends
+  public static final class QueryValidatorSlashesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryValidatorSlashesRequest)
       QueryValidatorSlashesRequestOrBuilder {
@@ -3859,6 +3872,7 @@ public final class QueryOuterClass {
      * <code>string validator_address = 1;</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -3879,6 +3893,7 @@ public final class QueryOuterClass {
      * <code>string validator_address = 1;</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -3903,6 +3918,7 @@ public final class QueryOuterClass {
      * <code>uint64 starting_height = 2;</code>
      * @return The startingHeight.
      */
+    @java.lang.Override
     public long getStartingHeight() {
       return startingHeight_;
     }
@@ -3917,6 +3933,7 @@ public final class QueryOuterClass {
      * <code>uint64 ending_height = 3;</code>
      * @return The endingHeight.
      */
+    @java.lang.Override
     public long getEndingHeight() {
       return endingHeight_;
     }
@@ -3931,6 +3948,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 4;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -3942,6 +3960,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 4;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -3952,6 +3971,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 4;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -4434,6 +4454,7 @@ public final class QueryOuterClass {
        * <code>uint64 starting_height = 2;</code>
        * @return The startingHeight.
        */
+      @java.lang.Override
       public long getStartingHeight() {
         return startingHeight_;
       }
@@ -4476,6 +4497,7 @@ public final class QueryOuterClass {
        * <code>uint64 ending_height = 3;</code>
        * @return The endingHeight.
        */
+      @java.lang.Override
       public long getEndingHeight() {
         return endingHeight_;
       }
@@ -4799,7 +4821,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryValidatorSlashesResponse}
    */
-  public  static final class QueryValidatorSlashesResponse extends
+  public static final class QueryValidatorSlashesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryValidatorSlashesResponse)
       QueryValidatorSlashesResponseOrBuilder {
@@ -4909,6 +4931,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEvent slashes = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Distribution.ValidatorSlashEvent> getSlashesList() {
       return slashes_;
     }
@@ -4919,6 +4942,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEvent slashes = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Distribution.ValidatorSlashEventOrBuilder> 
         getSlashesOrBuilderList() {
       return slashes_;
@@ -4930,6 +4954,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEvent slashes = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getSlashesCount() {
       return slashes_.size();
     }
@@ -4940,6 +4965,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEvent slashes = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorSlashEvent getSlashes(int index) {
       return slashes_.get(index);
     }
@@ -4950,6 +4976,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEvent slashes = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorSlashEventOrBuilder getSlashesOrBuilder(
         int index) {
       return slashes_.get(index);
@@ -4965,6 +4992,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -4976,6 +5004,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -4986,6 +5015,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -5938,7 +5968,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryDelegationRewardsRequest}
    */
-  public  static final class QueryDelegationRewardsRequest extends
+  public static final class QueryDelegationRewardsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryDelegationRewardsRequest)
       QueryDelegationRewardsRequestOrBuilder {
@@ -6036,6 +6066,7 @@ public final class QueryOuterClass {
      * <code>string delegator_address = 1;</code>
      * @return The delegatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getDelegatorAddress() {
       java.lang.Object ref = delegatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -6056,6 +6087,7 @@ public final class QueryOuterClass {
      * <code>string delegator_address = 1;</code>
      * @return The bytes for delegatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDelegatorAddressBytes() {
       java.lang.Object ref = delegatorAddress_;
@@ -6080,6 +6112,7 @@ public final class QueryOuterClass {
      * <code>string validator_address = 2;</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -6100,6 +6133,7 @@ public final class QueryOuterClass {
      * <code>string validator_address = 2;</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -6738,7 +6772,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryDelegationRewardsResponse}
    */
-  public  static final class QueryDelegationRewardsResponse extends
+  public static final class QueryDelegationRewardsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryDelegationRewardsResponse)
       QueryDelegationRewardsResponseOrBuilder {
@@ -6835,6 +6869,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin rewards = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.DecCoin> getRewardsList() {
       return rewards_;
     }
@@ -6845,6 +6880,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin rewards = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder> 
         getRewardsOrBuilderList() {
       return rewards_;
@@ -6856,6 +6892,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin rewards = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public int getRewardsCount() {
       return rewards_.size();
     }
@@ -6866,6 +6903,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin rewards = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.DecCoin getRewards(int index) {
       return rewards_.get(index);
     }
@@ -6876,6 +6914,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin rewards = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder getRewardsOrBuilder(
         int index) {
       return rewards_.get(index);
@@ -7624,7 +7663,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryDelegationTotalRewardsRequest}
    */
-  public  static final class QueryDelegationTotalRewardsRequest extends
+  public static final class QueryDelegationTotalRewardsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryDelegationTotalRewardsRequest)
       QueryDelegationTotalRewardsRequestOrBuilder {
@@ -7715,6 +7754,7 @@ public final class QueryOuterClass {
      * <code>string delegator_address = 1;</code>
      * @return The delegatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getDelegatorAddress() {
       java.lang.Object ref = delegatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -7735,6 +7775,7 @@ public final class QueryOuterClass {
      * <code>string delegator_address = 1;</code>
      * @return The bytes for delegatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDelegatorAddressBytes() {
       java.lang.Object ref = delegatorAddress_;
@@ -8304,7 +8345,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryDelegationTotalRewardsResponse}
    */
-  public  static final class QueryDelegationTotalRewardsResponse extends
+  public static final class QueryDelegationTotalRewardsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryDelegationTotalRewardsResponse)
       QueryDelegationTotalRewardsResponseOrBuilder {
@@ -8414,6 +8455,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegationDelegatorReward rewards = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Distribution.DelegationDelegatorReward> getRewardsList() {
       return rewards_;
     }
@@ -8424,6 +8466,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegationDelegatorReward rewards = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Distribution.DelegationDelegatorRewardOrBuilder> 
         getRewardsOrBuilderList() {
       return rewards_;
@@ -8435,6 +8478,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegationDelegatorReward rewards = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getRewardsCount() {
       return rewards_.size();
     }
@@ -8445,6 +8489,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegationDelegatorReward rewards = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.DelegationDelegatorReward getRewards(int index) {
       return rewards_.get(index);
     }
@@ -8455,6 +8500,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegationDelegatorReward rewards = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.DelegationDelegatorRewardOrBuilder getRewardsOrBuilder(
         int index) {
       return rewards_.get(index);
@@ -8469,6 +8515,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.DecCoin> getTotalList() {
       return total_;
     }
@@ -8479,6 +8526,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder> 
         getTotalOrBuilderList() {
       return total_;
@@ -8490,6 +8538,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public int getTotalCount() {
       return total_.size();
     }
@@ -8500,6 +8549,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.DecCoin getTotal(int index) {
       return total_.get(index);
     }
@@ -8510,6 +8560,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin total = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder getTotalOrBuilder(
         int index) {
       return total_.get(index);
@@ -9625,7 +9676,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryDelegatorValidatorsRequest}
    */
-  public  static final class QueryDelegatorValidatorsRequest extends
+  public static final class QueryDelegatorValidatorsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryDelegatorValidatorsRequest)
       QueryDelegatorValidatorsRequestOrBuilder {
@@ -9716,6 +9767,7 @@ public final class QueryOuterClass {
      * <code>string delegator_address = 1;</code>
      * @return The delegatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getDelegatorAddress() {
       java.lang.Object ref = delegatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -9736,6 +9788,7 @@ public final class QueryOuterClass {
      * <code>string delegator_address = 1;</code>
      * @return The bytes for delegatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDelegatorAddressBytes() {
       java.lang.Object ref = delegatorAddress_;
@@ -10258,7 +10311,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryDelegatorValidatorsResponse}
    */
-  public  static final class QueryDelegatorValidatorsResponse extends
+  public static final class QueryDelegatorValidatorsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryDelegatorValidatorsResponse)
       QueryDelegatorValidatorsResponseOrBuilder {
@@ -10953,7 +11006,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryDelegatorWithdrawAddressRequest}
    */
-  public  static final class QueryDelegatorWithdrawAddressRequest extends
+  public static final class QueryDelegatorWithdrawAddressRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryDelegatorWithdrawAddressRequest)
       QueryDelegatorWithdrawAddressRequestOrBuilder {
@@ -11044,6 +11097,7 @@ public final class QueryOuterClass {
      * <code>string delegator_address = 1;</code>
      * @return The delegatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getDelegatorAddress() {
       java.lang.Object ref = delegatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -11064,6 +11118,7 @@ public final class QueryOuterClass {
      * <code>string delegator_address = 1;</code>
      * @return The bytes for delegatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDelegatorAddressBytes() {
       java.lang.Object ref = delegatorAddress_;
@@ -11565,7 +11620,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryDelegatorWithdrawAddressResponse}
    */
-  public  static final class QueryDelegatorWithdrawAddressResponse extends
+  public static final class QueryDelegatorWithdrawAddressResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryDelegatorWithdrawAddressResponse)
       QueryDelegatorWithdrawAddressResponseOrBuilder {
@@ -11656,6 +11711,7 @@ public final class QueryOuterClass {
      * <code>string withdraw_address = 1;</code>
      * @return The withdrawAddress.
      */
+    @java.lang.Override
     public java.lang.String getWithdrawAddress() {
       java.lang.Object ref = withdrawAddress_;
       if (ref instanceof java.lang.String) {
@@ -11676,6 +11732,7 @@ public final class QueryOuterClass {
      * <code>string withdraw_address = 1;</code>
      * @return The bytes for withdrawAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getWithdrawAddressBytes() {
       java.lang.Object ref = withdrawAddress_;
@@ -12157,7 +12214,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryCommunityPoolRequest}
    */
-  public  static final class QueryCommunityPoolRequest extends
+  public static final class QueryCommunityPoolRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryCommunityPoolRequest)
       QueryCommunityPoolRequestOrBuilder {
@@ -12629,7 +12686,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.QueryCommunityPoolResponse}
    */
-  public  static final class QueryCommunityPoolResponse extends
+  public static final class QueryCommunityPoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.QueryCommunityPoolResponse)
       QueryCommunityPoolResponseOrBuilder {
@@ -12726,6 +12783,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin pool = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.DecCoin> getPoolList() {
       return pool_;
     }
@@ -12736,6 +12794,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin pool = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder> 
         getPoolOrBuilderList() {
       return pool_;
@@ -12747,6 +12806,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin pool = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public int getPoolCount() {
       return pool_.size();
     }
@@ -12757,6 +12817,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin pool = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.DecCoin getPool(int index) {
       return pool_.get(index);
     }
@@ -12767,6 +12828,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin pool = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder getPoolOrBuilder(
         int index) {
       return pool_.get(index);

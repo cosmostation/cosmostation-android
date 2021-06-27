@@ -49,7 +49,7 @@ public final class Genesis {
    *
    * Protobuf type {@code irishub.guardian.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irishub.guardian.GenesisState)
       GenesisStateOrBuilder {
@@ -142,12 +142,14 @@ public final class Genesis {
     /**
      * <code>repeated .irishub.guardian.Super supers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irishub.guardian.Guardian.Super> getSupersList() {
       return supers_;
     }
     /**
      * <code>repeated .irishub.guardian.Super supers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irishub.guardian.Guardian.SuperOrBuilder> 
         getSupersOrBuilderList() {
       return supers_;
@@ -155,18 +157,21 @@ public final class Genesis {
     /**
      * <code>repeated .irishub.guardian.Super supers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getSupersCount() {
       return supers_.size();
     }
     /**
      * <code>repeated .irishub.guardian.Super supers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irishub.guardian.Guardian.Super getSupers(int index) {
       return supers_.get(index);
     }
     /**
      * <code>repeated .irishub.guardian.Super supers = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irishub.guardian.Guardian.SuperOrBuilder getSupersOrBuilder(
         int index) {
       return supers_.get(index);

@@ -72,7 +72,7 @@ package com.google.protobuf2;
  *
  * Protobuf type {@code google.protobuf2.Any}
  */
-public  final class Any extends
+public final class Any extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:google.protobuf2.Any)
     AnyOrBuilder {
@@ -191,6 +191,7 @@ private static final long serialVersionUID = 0L;
    * <code>string type_url = 1;</code>
    * @return The typeUrl.
    */
+  @java.lang.Override
   public java.lang.String getTypeUrl() {
     java.lang.Object ref = typeUrl_;
     if (ref instanceof java.lang.String) {
@@ -233,6 +234,7 @@ private static final long serialVersionUID = 0L;
    * <code>string type_url = 1;</code>
    * @return The bytes for typeUrl.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getTypeUrlBytes() {
     java.lang.Object ref = typeUrl_;
@@ -257,6 +259,7 @@ private static final long serialVersionUID = 0L;
    * <code>bytes value = 2;</code>
    * @return The value.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString getValue() {
     return value_;
   }
@@ -861,6 +864,7 @@ private static final long serialVersionUID = 0L;
      * <code>bytes value = 2;</code>
      * @return The value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValue() {
       return value_;
     }

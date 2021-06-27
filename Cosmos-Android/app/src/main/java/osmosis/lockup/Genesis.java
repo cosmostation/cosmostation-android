@@ -49,7 +49,7 @@ public final class Genesis {
    *
    * Protobuf type {@code osmosis.lockup.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.GenesisState)
       GenesisStateOrBuilder {
@@ -142,12 +142,14 @@ public final class Genesis {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.lockup.Lock.PeriodLock> getLocksList() {
       return locks_;
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.lockup.Lock.PeriodLockOrBuilder> 
         getLocksOrBuilderList() {
       return locks_;
@@ -155,18 +157,21 @@ public final class Genesis {
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
      */
+    @java.lang.Override
     public int getLocksCount() {
       return locks_.size();
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLock getLocks(int index) {
       return locks_.get(index);
     }
     /**
      * <code>repeated .osmosis.lockup.PeriodLock locks = 1;</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.PeriodLockOrBuilder getLocksOrBuilder(
         int index) {
       return locks_.get(index);

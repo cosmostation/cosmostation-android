@@ -51,7 +51,7 @@ public final class CoinOuterClass {
    *
    * Protobuf type {@code cosmos.base.v1beta1.Coin}
    */
-  public  static final class Coin extends
+  public static final class Coin extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.v1beta1.Coin)
       CoinOrBuilder {
@@ -145,6 +145,7 @@ public final class CoinOuterClass {
      * <code>string denom = 1;</code>
      * @return The denom.
      */
+    @java.lang.Override
     public java.lang.String getDenom() {
       java.lang.Object ref = denom_;
       if (ref instanceof java.lang.String) {
@@ -161,6 +162,7 @@ public final class CoinOuterClass {
      * <code>string denom = 1;</code>
      * @return The bytes for denom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomBytes() {
       java.lang.Object ref = denom_;
@@ -181,6 +183,7 @@ public final class CoinOuterClass {
      * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "Int"];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public java.lang.String getAmount() {
       java.lang.Object ref = amount_;
       if (ref instanceof java.lang.String) {
@@ -197,6 +200,7 @@ public final class CoinOuterClass {
      * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "Int"];</code>
      * @return The bytes for amount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAmountBytes() {
       java.lang.Object ref = amount_;
@@ -777,7 +781,7 @@ public final class CoinOuterClass {
    *
    * Protobuf type {@code cosmos.base.v1beta1.DecCoin}
    */
-  public  static final class DecCoin extends
+  public static final class DecCoin extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.v1beta1.DecCoin)
       DecCoinOrBuilder {
@@ -871,6 +875,7 @@ public final class CoinOuterClass {
      * <code>string denom = 1;</code>
      * @return The denom.
      */
+    @java.lang.Override
     public java.lang.String getDenom() {
       java.lang.Object ref = denom_;
       if (ref instanceof java.lang.String) {
@@ -887,6 +892,7 @@ public final class CoinOuterClass {
      * <code>string denom = 1;</code>
      * @return The bytes for denom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomBytes() {
       java.lang.Object ref = denom_;
@@ -907,6 +913,7 @@ public final class CoinOuterClass {
      * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "Dec"];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public java.lang.String getAmount() {
       java.lang.Object ref = amount_;
       if (ref instanceof java.lang.String) {
@@ -923,6 +930,7 @@ public final class CoinOuterClass {
      * <code>string amount = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "Dec"];</code>
      * @return The bytes for amount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAmountBytes() {
       java.lang.Object ref = amount_;
@@ -1489,7 +1497,7 @@ public final class CoinOuterClass {
    *
    * Protobuf type {@code cosmos.base.v1beta1.IntProto}
    */
-  public  static final class IntProto extends
+  public static final class IntProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.v1beta1.IntProto)
       IntProtoOrBuilder {
@@ -1576,6 +1584,7 @@ public final class CoinOuterClass {
      * <code>string int = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "Int"];</code>
      * @return The int.
      */
+    @java.lang.Override
     public java.lang.String getInt() {
       java.lang.Object ref = int_;
       if (ref instanceof java.lang.String) {
@@ -1592,6 +1601,7 @@ public final class CoinOuterClass {
      * <code>string int = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "Int"];</code>
      * @return The bytes for int.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIntBytes() {
       java.lang.Object ref = int_;
@@ -2063,7 +2073,7 @@ public final class CoinOuterClass {
    *
    * Protobuf type {@code cosmos.base.v1beta1.DecProto}
    */
-  public  static final class DecProto extends
+  public static final class DecProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.v1beta1.DecProto)
       DecProtoOrBuilder {
@@ -2150,6 +2160,7 @@ public final class CoinOuterClass {
      * <code>string dec = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "Dec"];</code>
      * @return The dec.
      */
+    @java.lang.Override
     public java.lang.String getDec() {
       java.lang.Object ref = dec_;
       if (ref instanceof java.lang.String) {
@@ -2166,6 +2177,7 @@ public final class CoinOuterClass {
      * <code>string dec = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "Dec"];</code>
      * @return The bytes for dec.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDecBytes() {
       java.lang.Object ref = dec_;

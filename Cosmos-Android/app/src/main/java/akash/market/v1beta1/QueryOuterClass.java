@@ -55,7 +55,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.QueryOrdersRequest}
    */
-  public  static final class QueryOrdersRequest extends
+  public static final class QueryOrdersRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.QueryOrdersRequest)
       QueryOrdersRequestOrBuilder {
@@ -161,6 +161,7 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.OrderFilters filters = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the filters field is set.
      */
+    @java.lang.Override
     public boolean hasFilters() {
       return filters_ != null;
     }
@@ -168,12 +169,14 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.OrderFilters filters = 1 [(.gogoproto.nullable) = false];</code>
      * @return The filters.
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.OrderFilters getFilters() {
       return filters_ == null ? akash.market.v1beta1.OrderOuterClass.OrderFilters.getDefaultInstance() : filters_;
     }
     /**
      * <code>.akash.market.v1beta1.OrderFilters filters = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.OrderFiltersOrBuilder getFiltersOrBuilder() {
       return getFilters();
     }
@@ -184,6 +187,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -191,12 +195,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -890,7 +896,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.QueryOrdersResponse}
    */
-  public  static final class QueryOrdersResponse extends
+  public static final class QueryOrdersResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.QueryOrdersResponse)
       QueryOrdersResponseOrBuilder {
@@ -996,12 +1002,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.market.v1beta1.Order orders = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Orders"];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.market.v1beta1.OrderOuterClass.Order> getOrdersList() {
       return orders_;
     }
     /**
      * <code>repeated .akash.market.v1beta1.Order orders = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Orders"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.market.v1beta1.OrderOuterClass.OrderOrBuilder> 
         getOrdersOrBuilderList() {
       return orders_;
@@ -1009,18 +1017,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.market.v1beta1.Order orders = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Orders"];</code>
      */
+    @java.lang.Override
     public int getOrdersCount() {
       return orders_.size();
     }
     /**
      * <code>repeated .akash.market.v1beta1.Order orders = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Orders"];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.Order getOrders(int index) {
       return orders_.get(index);
     }
     /**
      * <code>repeated .akash.market.v1beta1.Order orders = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Orders"];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.OrderOrBuilder getOrdersOrBuilder(
         int index) {
       return orders_.get(index);
@@ -1032,6 +1043,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1039,12 +1051,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -1862,7 +1876,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.QueryOrderRequest}
    */
-  public  static final class QueryOrderRequest extends
+  public static final class QueryOrderRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.QueryOrderRequest)
       QueryOrderRequestOrBuilder {
@@ -1955,6 +1969,7 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.OrderID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -1962,12 +1977,14 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.OrderID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.OrderID getId() {
       return id_ == null ? akash.market.v1beta1.OrderOuterClass.OrderID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.market.v1beta1.OrderID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.OrderIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -2488,7 +2505,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.QueryOrderResponse}
    */
-  public  static final class QueryOrderResponse extends
+  public static final class QueryOrderResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.QueryOrderResponse)
       QueryOrderResponseOrBuilder {
@@ -2581,6 +2598,7 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.Order order = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the order field is set.
      */
+    @java.lang.Override
     public boolean hasOrder() {
       return order_ != null;
     }
@@ -2588,12 +2606,14 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.Order order = 1 [(.gogoproto.nullable) = false];</code>
      * @return The order.
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.Order getOrder() {
       return order_ == null ? akash.market.v1beta1.OrderOuterClass.Order.getDefaultInstance() : order_;
     }
     /**
      * <code>.akash.market.v1beta1.Order order = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.OrderOrBuilder getOrderOrBuilder() {
       return getOrder();
     }
@@ -3129,7 +3149,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.QueryBidsRequest}
    */
-  public  static final class QueryBidsRequest extends
+  public static final class QueryBidsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.QueryBidsRequest)
       QueryBidsRequestOrBuilder {
@@ -3235,6 +3255,7 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.BidFilters filters = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the filters field is set.
      */
+    @java.lang.Override
     public boolean hasFilters() {
       return filters_ != null;
     }
@@ -3242,12 +3263,14 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.BidFilters filters = 1 [(.gogoproto.nullable) = false];</code>
      * @return The filters.
      */
+    @java.lang.Override
     public akash.market.v1beta1.BidOuterClass.BidFilters getFilters() {
       return filters_ == null ? akash.market.v1beta1.BidOuterClass.BidFilters.getDefaultInstance() : filters_;
     }
     /**
      * <code>.akash.market.v1beta1.BidFilters filters = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.BidOuterClass.BidFiltersOrBuilder getFiltersOrBuilder() {
       return getFilters();
     }
@@ -3258,6 +3281,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -3265,12 +3289,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -3964,7 +3990,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.QueryBidsResponse}
    */
-  public  static final class QueryBidsResponse extends
+  public static final class QueryBidsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.QueryBidsResponse)
       QueryBidsResponseOrBuilder {
@@ -4070,12 +4096,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.market.v1beta1.QueryBidResponse bids = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.market.v1beta1.QueryOuterClass.QueryBidResponse> getBidsList() {
       return bids_;
     }
     /**
      * <code>repeated .akash.market.v1beta1.QueryBidResponse bids = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.market.v1beta1.QueryOuterClass.QueryBidResponseOrBuilder> 
         getBidsOrBuilderList() {
       return bids_;
@@ -4083,18 +4111,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.market.v1beta1.QueryBidResponse bids = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getBidsCount() {
       return bids_.size();
     }
     /**
      * <code>repeated .akash.market.v1beta1.QueryBidResponse bids = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.QueryOuterClass.QueryBidResponse getBids(int index) {
       return bids_.get(index);
     }
     /**
      * <code>repeated .akash.market.v1beta1.QueryBidResponse bids = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.QueryOuterClass.QueryBidResponseOrBuilder getBidsOrBuilder(
         int index) {
       return bids_.get(index);
@@ -4106,6 +4137,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -4113,12 +4145,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -4936,7 +4970,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.QueryBidRequest}
    */
-  public  static final class QueryBidRequest extends
+  public static final class QueryBidRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.QueryBidRequest)
       QueryBidRequestOrBuilder {
@@ -5029,6 +5063,7 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.BidID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -5036,12 +5071,14 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.BidID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.market.v1beta1.BidOuterClass.BidID getId() {
       return id_ == null ? akash.market.v1beta1.BidOuterClass.BidID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.market.v1beta1.BidID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.BidOuterClass.BidIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -5577,7 +5614,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.QueryBidResponse}
    */
-  public  static final class QueryBidResponse extends
+  public static final class QueryBidResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.QueryBidResponse)
       QueryBidResponseOrBuilder {
@@ -5683,6 +5720,7 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.Bid bid = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the bid field is set.
      */
+    @java.lang.Override
     public boolean hasBid() {
       return bid_ != null;
     }
@@ -5690,12 +5728,14 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.Bid bid = 1 [(.gogoproto.nullable) = false];</code>
      * @return The bid.
      */
+    @java.lang.Override
     public akash.market.v1beta1.BidOuterClass.Bid getBid() {
       return bid_ == null ? akash.market.v1beta1.BidOuterClass.Bid.getDefaultInstance() : bid_;
     }
     /**
      * <code>.akash.market.v1beta1.Bid bid = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.BidOuterClass.BidOrBuilder getBidOrBuilder() {
       return getBid();
     }
@@ -5706,6 +5746,7 @@ public final class QueryOuterClass {
      * <code>.akash.escrow.v1beta1.Account escrow_account = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the escrowAccount field is set.
      */
+    @java.lang.Override
     public boolean hasEscrowAccount() {
       return escrowAccount_ != null;
     }
@@ -5713,12 +5754,14 @@ public final class QueryOuterClass {
      * <code>.akash.escrow.v1beta1.Account escrow_account = 2 [(.gogoproto.nullable) = false];</code>
      * @return The escrowAccount.
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.Account getEscrowAccount() {
       return escrowAccount_ == null ? akash.escrow.v1beta1.Types.Account.getDefaultInstance() : escrowAccount_;
     }
     /**
      * <code>.akash.escrow.v1beta1.Account escrow_account = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.AccountOrBuilder getEscrowAccountOrBuilder() {
       return getEscrowAccount();
     }
@@ -6403,7 +6446,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.QueryLeasesRequest}
    */
-  public  static final class QueryLeasesRequest extends
+  public static final class QueryLeasesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.QueryLeasesRequest)
       QueryLeasesRequestOrBuilder {
@@ -6509,6 +6552,7 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.LeaseFilters filters = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the filters field is set.
      */
+    @java.lang.Override
     public boolean hasFilters() {
       return filters_ != null;
     }
@@ -6516,12 +6560,14 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.LeaseFilters filters = 1 [(.gogoproto.nullable) = false];</code>
      * @return The filters.
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.LeaseFilters getFilters() {
       return filters_ == null ? akash.market.v1beta1.LeaseOuterClass.LeaseFilters.getDefaultInstance() : filters_;
     }
     /**
      * <code>.akash.market.v1beta1.LeaseFilters filters = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.LeaseFiltersOrBuilder getFiltersOrBuilder() {
       return getFilters();
     }
@@ -6532,6 +6578,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -6539,12 +6586,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -7238,7 +7287,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.QueryLeasesResponse}
    */
-  public  static final class QueryLeasesResponse extends
+  public static final class QueryLeasesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.QueryLeasesResponse)
       QueryLeasesResponseOrBuilder {
@@ -7344,12 +7393,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.market.v1beta1.QueryLeaseResponse leases = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.market.v1beta1.QueryOuterClass.QueryLeaseResponse> getLeasesList() {
       return leases_;
     }
     /**
      * <code>repeated .akash.market.v1beta1.QueryLeaseResponse leases = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.market.v1beta1.QueryOuterClass.QueryLeaseResponseOrBuilder> 
         getLeasesOrBuilderList() {
       return leases_;
@@ -7357,18 +7408,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.market.v1beta1.QueryLeaseResponse leases = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getLeasesCount() {
       return leases_.size();
     }
     /**
      * <code>repeated .akash.market.v1beta1.QueryLeaseResponse leases = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.QueryOuterClass.QueryLeaseResponse getLeases(int index) {
       return leases_.get(index);
     }
     /**
      * <code>repeated .akash.market.v1beta1.QueryLeaseResponse leases = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.QueryOuterClass.QueryLeaseResponseOrBuilder getLeasesOrBuilder(
         int index) {
       return leases_.get(index);
@@ -7380,6 +7434,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -7387,12 +7442,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -8210,7 +8267,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.QueryLeaseRequest}
    */
-  public  static final class QueryLeaseRequest extends
+  public static final class QueryLeaseRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.QueryLeaseRequest)
       QueryLeaseRequestOrBuilder {
@@ -8303,6 +8360,7 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.LeaseID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -8310,12 +8368,14 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.LeaseID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.LeaseID getId() {
       return id_ == null ? akash.market.v1beta1.LeaseOuterClass.LeaseID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.market.v1beta1.LeaseID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.LeaseIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -8851,7 +8911,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.QueryLeaseResponse}
    */
-  public  static final class QueryLeaseResponse extends
+  public static final class QueryLeaseResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.QueryLeaseResponse)
       QueryLeaseResponseOrBuilder {
@@ -8957,6 +9017,7 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.Lease lease = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the lease field is set.
      */
+    @java.lang.Override
     public boolean hasLease() {
       return lease_ != null;
     }
@@ -8964,12 +9025,14 @@ public final class QueryOuterClass {
      * <code>.akash.market.v1beta1.Lease lease = 1 [(.gogoproto.nullable) = false];</code>
      * @return The lease.
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.Lease getLease() {
       return lease_ == null ? akash.market.v1beta1.LeaseOuterClass.Lease.getDefaultInstance() : lease_;
     }
     /**
      * <code>.akash.market.v1beta1.Lease lease = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.LeaseOrBuilder getLeaseOrBuilder() {
       return getLease();
     }
@@ -8980,6 +9043,7 @@ public final class QueryOuterClass {
      * <code>.akash.escrow.v1beta1.Payment escrow_payment = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the escrowPayment field is set.
      */
+    @java.lang.Override
     public boolean hasEscrowPayment() {
       return escrowPayment_ != null;
     }
@@ -8987,12 +9051,14 @@ public final class QueryOuterClass {
      * <code>.akash.escrow.v1beta1.Payment escrow_payment = 2 [(.gogoproto.nullable) = false];</code>
      * @return The escrowPayment.
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.Payment getEscrowPayment() {
       return escrowPayment_ == null ? akash.escrow.v1beta1.Types.Payment.getDefaultInstance() : escrowPayment_;
     }
     /**
      * <code>.akash.escrow.v1beta1.Payment escrow_payment = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.PaymentOrBuilder getEscrowPaymentOrBuilder() {
       return getEscrowPayment();
     }

@@ -78,7 +78,7 @@ public final class Pagination {
    *
    * Protobuf type {@code cosmos.base.query.v1beta1.PageRequest}
    */
-  public  static final class PageRequest extends
+  public static final class PageRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.query.v1beta1.PageRequest)
       PageRequestOrBuilder {
@@ -185,6 +185,7 @@ public final class Pagination {
      * <code>bytes key = 1;</code>
      * @return The key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getKey() {
       return key_;
     }
@@ -201,6 +202,7 @@ public final class Pagination {
      * <code>uint64 offset = 2;</code>
      * @return The offset.
      */
+    @java.lang.Override
     public long getOffset() {
       return offset_;
     }
@@ -216,6 +218,7 @@ public final class Pagination {
      * <code>uint64 limit = 3;</code>
      * @return The limit.
      */
+    @java.lang.Override
     public long getLimit() {
       return limit_;
     }
@@ -233,6 +236,7 @@ public final class Pagination {
      * <code>bool count_total = 4;</code>
      * @return The countTotal.
      */
+    @java.lang.Override
     public boolean getCountTotal() {
       return countTotal_;
     }
@@ -613,6 +617,7 @@ public final class Pagination {
        * <code>bytes key = 1;</code>
        * @return The key.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getKey() {
         return key_;
       }
@@ -664,6 +669,7 @@ public final class Pagination {
        * <code>uint64 offset = 2;</code>
        * @return The offset.
        */
+      @java.lang.Override
       public long getOffset() {
         return offset_;
       }
@@ -711,6 +717,7 @@ public final class Pagination {
        * <code>uint64 limit = 3;</code>
        * @return The limit.
        */
+      @java.lang.Override
       public long getLimit() {
         return limit_;
       }
@@ -758,6 +765,7 @@ public final class Pagination {
        * <code>bool count_total = 4;</code>
        * @return The countTotal.
        */
+      @java.lang.Override
       public boolean getCountTotal() {
         return countTotal_;
       }
@@ -887,7 +895,7 @@ public final class Pagination {
    *
    * Protobuf type {@code cosmos.base.query.v1beta1.PageResponse}
    */
-  public  static final class PageResponse extends
+  public static final class PageResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.query.v1beta1.PageResponse)
       PageResponseOrBuilder {
@@ -983,6 +991,7 @@ public final class Pagination {
      * <code>bytes next_key = 1;</code>
      * @return The nextKey.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getNextKey() {
       return nextKey_;
     }
@@ -998,6 +1007,7 @@ public final class Pagination {
      * <code>uint64 total = 2;</code>
      * @return The total.
      */
+    @java.lang.Override
     public long getTotal() {
       return total_;
     }
@@ -1341,6 +1351,7 @@ public final class Pagination {
        * <code>bytes next_key = 1;</code>
        * @return The nextKey.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getNextKey() {
         return nextKey_;
       }
@@ -1389,6 +1400,7 @@ public final class Pagination {
        * <code>uint64 total = 2;</code>
        * @return The total.
        */
+      @java.lang.Override
       public long getTotal() {
         return total_;
       }

@@ -40,7 +40,7 @@ public final class GroupOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgCloseGroup}
    */
-  public  static final class MsgCloseGroup extends
+  public static final class MsgCloseGroup extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgCloseGroup)
       MsgCloseGroupOrBuilder {
@@ -133,6 +133,7 @@ public final class GroupOuterClass {
      * <code>.akash.deployment.v1beta1.GroupID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -140,12 +141,14 @@ public final class GroupOuterClass {
      * <code>.akash.deployment.v1beta1.GroupID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupID getId() {
       return id_ == null ? akash.deployment.v1beta1.GroupOuterClass.GroupID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.deployment.v1beta1.GroupID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -651,7 +654,7 @@ public final class GroupOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgCloseGroupResponse}
    */
-  public  static final class MsgCloseGroupResponse extends
+  public static final class MsgCloseGroupResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgCloseGroupResponse)
       MsgCloseGroupResponseOrBuilder {
@@ -1092,7 +1095,7 @@ public final class GroupOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgPauseGroup}
    */
-  public  static final class MsgPauseGroup extends
+  public static final class MsgPauseGroup extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgPauseGroup)
       MsgPauseGroupOrBuilder {
@@ -1185,6 +1188,7 @@ public final class GroupOuterClass {
      * <code>.akash.deployment.v1beta1.GroupID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -1192,12 +1196,14 @@ public final class GroupOuterClass {
      * <code>.akash.deployment.v1beta1.GroupID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupID getId() {
       return id_ == null ? akash.deployment.v1beta1.GroupOuterClass.GroupID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.deployment.v1beta1.GroupID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -1703,7 +1709,7 @@ public final class GroupOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgPauseGroupResponse}
    */
-  public  static final class MsgPauseGroupResponse extends
+  public static final class MsgPauseGroupResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgPauseGroupResponse)
       MsgPauseGroupResponseOrBuilder {
@@ -2144,7 +2150,7 @@ public final class GroupOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgStartGroup}
    */
-  public  static final class MsgStartGroup extends
+  public static final class MsgStartGroup extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgStartGroup)
       MsgStartGroupOrBuilder {
@@ -2237,6 +2243,7 @@ public final class GroupOuterClass {
      * <code>.akash.deployment.v1beta1.GroupID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -2244,12 +2251,14 @@ public final class GroupOuterClass {
      * <code>.akash.deployment.v1beta1.GroupID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupID getId() {
       return id_ == null ? akash.deployment.v1beta1.GroupOuterClass.GroupID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.deployment.v1beta1.GroupID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -2755,7 +2764,7 @@ public final class GroupOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.MsgStartGroupResponse}
    */
-  public  static final class MsgStartGroupResponse extends
+  public static final class MsgStartGroupResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.MsgStartGroupResponse)
       MsgStartGroupResponseOrBuilder {
@@ -3205,7 +3214,7 @@ public final class GroupOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.GroupID}
    */
-  public  static final class GroupID extends
+  public static final class GroupID extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.GroupID)
       GroupIDOrBuilder {
@@ -3302,6 +3311,7 @@ public final class GroupOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -3318,6 +3328,7 @@ public final class GroupOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -3338,6 +3349,7 @@ public final class GroupOuterClass {
      * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
      * @return The dseq.
      */
+    @java.lang.Override
     public long getDseq() {
       return dseq_;
     }
@@ -3348,6 +3360,7 @@ public final class GroupOuterClass {
      * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
      * @return The gseq.
      */
+    @java.lang.Override
     public int getGseq() {
       return gseq_;
     }
@@ -3774,6 +3787,7 @@ public final class GroupOuterClass {
        * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
        * @return The dseq.
        */
+      @java.lang.Override
       public long getDseq() {
         return dseq_;
       }
@@ -3804,6 +3818,7 @@ public final class GroupOuterClass {
        * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
        * @return The gseq.
        */
+      @java.lang.Override
       public int getGseq() {
         return gseq_;
       }
@@ -3943,7 +3958,7 @@ public final class GroupOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.GroupSpec}
    */
-  public  static final class GroupSpec extends
+  public static final class GroupSpec extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.GroupSpec)
       GroupSpecOrBuilder {
@@ -4057,6 +4072,7 @@ public final class GroupOuterClass {
      * <code>string name = 1 [(.gogoproto.jsontag) = "name", (.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -4073,6 +4089,7 @@ public final class GroupOuterClass {
      * <code>string name = 1 [(.gogoproto.jsontag) = "name", (.gogoproto.moretags) = "yaml:&#92;"name&#92;""];</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -4093,6 +4110,7 @@ public final class GroupOuterClass {
      * <code>.akash.base.v1beta1.PlacementRequirements requirements = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "requirements", (.gogoproto.moretags) = "yaml:&#92;"requirements&#92;""];</code>
      * @return Whether the requirements field is set.
      */
+    @java.lang.Override
     public boolean hasRequirements() {
       return requirements_ != null;
     }
@@ -4100,12 +4118,14 @@ public final class GroupOuterClass {
      * <code>.akash.base.v1beta1.PlacementRequirements requirements = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "requirements", (.gogoproto.moretags) = "yaml:&#92;"requirements&#92;""];</code>
      * @return The requirements.
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.PlacementRequirements getRequirements() {
       return requirements_ == null ? akash.base.v1beta1.AttributeOuterClass.PlacementRequirements.getDefaultInstance() : requirements_;
     }
     /**
      * <code>.akash.base.v1beta1.PlacementRequirements requirements = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "requirements", (.gogoproto.moretags) = "yaml:&#92;"requirements&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.PlacementRequirementsOrBuilder getRequirementsOrBuilder() {
       return getRequirements();
     }
@@ -4115,12 +4135,14 @@ public final class GroupOuterClass {
     /**
      * <code>repeated .akash.deployment.v1beta1.Resource resources = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "resources", (.gogoproto.moretags) = "yaml:&#92;"resources&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.deployment.v1beta1.GroupOuterClass.Resource> getResourcesList() {
       return resources_;
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.Resource resources = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "resources", (.gogoproto.moretags) = "yaml:&#92;"resources&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.deployment.v1beta1.GroupOuterClass.ResourceOrBuilder> 
         getResourcesOrBuilderList() {
       return resources_;
@@ -4128,18 +4150,21 @@ public final class GroupOuterClass {
     /**
      * <code>repeated .akash.deployment.v1beta1.Resource resources = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "resources", (.gogoproto.moretags) = "yaml:&#92;"resources&#92;""];</code>
      */
+    @java.lang.Override
     public int getResourcesCount() {
       return resources_.size();
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.Resource resources = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "resources", (.gogoproto.moretags) = "yaml:&#92;"resources&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.Resource getResources(int index) {
       return resources_.get(index);
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.Resource resources = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "resources", (.gogoproto.moretags) = "yaml:&#92;"resources&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.ResourceOrBuilder getResourcesOrBuilder(
         int index) {
       return resources_.get(index);
@@ -5083,7 +5108,7 @@ public final class GroupOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.Group}
    */
-  public  static final class Group extends
+  public static final class Group extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.Group)
       GroupOrBuilder {
@@ -5336,6 +5361,10 @@ public final class GroupOuterClass {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -5376,6 +5405,7 @@ public final class GroupOuterClass {
      * <code>.akash.deployment.v1beta1.GroupID group_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "GroupID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the groupId field is set.
      */
+    @java.lang.Override
     public boolean hasGroupId() {
       return groupId_ != null;
     }
@@ -5383,12 +5413,14 @@ public final class GroupOuterClass {
      * <code>.akash.deployment.v1beta1.GroupID group_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "GroupID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The groupId.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupID getGroupId() {
       return groupId_ == null ? akash.deployment.v1beta1.GroupOuterClass.GroupID.getDefaultInstance() : groupId_;
     }
     /**
      * <code>.akash.deployment.v1beta1.GroupID group_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "GroupID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupIDOrBuilder getGroupIdOrBuilder() {
       return getGroupId();
     }
@@ -5399,14 +5431,14 @@ public final class GroupOuterClass {
      * <code>.akash.deployment.v1beta1.Group.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
      * <code>.akash.deployment.v1beta1.Group.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
-    public akash.deployment.v1beta1.GroupOuterClass.Group.State getState() {
+    @java.lang.Override public akash.deployment.v1beta1.GroupOuterClass.Group.State getState() {
       @SuppressWarnings("deprecation")
       akash.deployment.v1beta1.GroupOuterClass.Group.State result = akash.deployment.v1beta1.GroupOuterClass.Group.State.valueOf(state_);
       return result == null ? akash.deployment.v1beta1.GroupOuterClass.Group.State.UNRECOGNIZED : result;
@@ -5418,6 +5450,7 @@ public final class GroupOuterClass {
      * <code>.akash.deployment.v1beta1.GroupSpec group_spec = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "spec", (.gogoproto.moretags) = "yaml:&#92;"spec&#92;""];</code>
      * @return Whether the groupSpec field is set.
      */
+    @java.lang.Override
     public boolean hasGroupSpec() {
       return groupSpec_ != null;
     }
@@ -5425,12 +5458,14 @@ public final class GroupOuterClass {
      * <code>.akash.deployment.v1beta1.GroupSpec group_spec = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "spec", (.gogoproto.moretags) = "yaml:&#92;"spec&#92;""];</code>
      * @return The groupSpec.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupSpec getGroupSpec() {
       return groupSpec_ == null ? akash.deployment.v1beta1.GroupOuterClass.GroupSpec.getDefaultInstance() : groupSpec_;
     }
     /**
      * <code>.akash.deployment.v1beta1.GroupSpec group_spec = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "spec", (.gogoproto.moretags) = "yaml:&#92;"spec&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupSpecOrBuilder getGroupSpecOrBuilder() {
       return getGroupSpec();
     }
@@ -5441,6 +5476,7 @@ public final class GroupOuterClass {
      * <code>int64 created_at = 4;</code>
      * @return The createdAt.
      */
+    @java.lang.Override
     public long getCreatedAt() {
       return createdAt_;
     }
@@ -5952,7 +5988,7 @@ public final class GroupOuterClass {
        * <code>.akash.deployment.v1beta1.Group.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -5961,6 +5997,7 @@ public final class GroupOuterClass {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -5969,6 +6006,7 @@ public final class GroupOuterClass {
        * <code>.akash.deployment.v1beta1.Group.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The state.
        */
+      @java.lang.Override
       public akash.deployment.v1beta1.GroupOuterClass.Group.State getState() {
         @SuppressWarnings("deprecation")
         akash.deployment.v1beta1.GroupOuterClass.Group.State result = akash.deployment.v1beta1.GroupOuterClass.Group.State.valueOf(state_);
@@ -6123,6 +6161,7 @@ public final class GroupOuterClass {
        * <code>int64 created_at = 4;</code>
        * @return The createdAt.
        */
+      @java.lang.Override
       public long getCreatedAt() {
         return createdAt_;
       }
@@ -6247,7 +6286,7 @@ public final class GroupOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.Resource}
    */
-  public  static final class Resource extends
+  public static final class Resource extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.Resource)
       ResourceOrBuilder {
@@ -6358,6 +6397,7 @@ public final class GroupOuterClass {
      * <code>.akash.base.v1beta1.ResourceUnits resources = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "unit", (.gogoproto.moretags) = "yaml:&#92;"unit&#92;""];</code>
      * @return Whether the resources field is set.
      */
+    @java.lang.Override
     public boolean hasResources() {
       return resources_ != null;
     }
@@ -6365,12 +6405,14 @@ public final class GroupOuterClass {
      * <code>.akash.base.v1beta1.ResourceUnits resources = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "unit", (.gogoproto.moretags) = "yaml:&#92;"unit&#92;""];</code>
      * @return The resources.
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resource.ResourceUnits getResources() {
       return resources_ == null ? akash.base.v1beta1.Resource.ResourceUnits.getDefaultInstance() : resources_;
     }
     /**
      * <code>.akash.base.v1beta1.ResourceUnits resources = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "unit", (.gogoproto.moretags) = "yaml:&#92;"unit&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resource.ResourceUnitsOrBuilder getResourcesOrBuilder() {
       return getResources();
     }
@@ -6381,6 +6423,7 @@ public final class GroupOuterClass {
      * <code>uint32 count = 2 [(.gogoproto.jsontag) = "count", (.gogoproto.moretags) = "yaml:&#92;"count&#92;""];</code>
      * @return The count.
      */
+    @java.lang.Override
     public int getCount() {
       return count_;
     }
@@ -6391,6 +6434,7 @@ public final class GroupOuterClass {
      * <code>.cosmos.base.v1beta1.Coin price = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "price", (.gogoproto.moretags) = "yaml:&#92;"price&#92;""];</code>
      * @return Whether the price field is set.
      */
+    @java.lang.Override
     public boolean hasPrice() {
       return price_ != null;
     }
@@ -6398,12 +6442,14 @@ public final class GroupOuterClass {
      * <code>.cosmos.base.v1beta1.Coin price = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "price", (.gogoproto.moretags) = "yaml:&#92;"price&#92;""];</code>
      * @return The price.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getPrice() {
       return price_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : price_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin price = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "price", (.gogoproto.moretags) = "yaml:&#92;"price&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getPriceOrBuilder() {
       return getPrice();
     }
@@ -6898,6 +6944,7 @@ public final class GroupOuterClass {
        * <code>uint32 count = 2 [(.gogoproto.jsontag) = "count", (.gogoproto.moretags) = "yaml:&#92;"count&#92;""];</code>
        * @return The count.
        */
+      @java.lang.Override
       public int getCount() {
         return count_;
       }

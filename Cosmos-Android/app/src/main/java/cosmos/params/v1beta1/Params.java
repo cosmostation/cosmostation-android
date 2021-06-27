@@ -73,7 +73,7 @@ public final class Params {
    *
    * Protobuf type {@code cosmos.params.v1beta1.ParameterChangeProposal}
    */
-  public  static final class ParameterChangeProposal extends
+  public static final class ParameterChangeProposal extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.params.v1beta1.ParameterChangeProposal)
       ParameterChangeProposalOrBuilder {
@@ -181,6 +181,7 @@ public final class Params {
      * <code>string title = 1;</code>
      * @return The title.
      */
+    @java.lang.Override
     public java.lang.String getTitle() {
       java.lang.Object ref = title_;
       if (ref instanceof java.lang.String) {
@@ -197,6 +198,7 @@ public final class Params {
      * <code>string title = 1;</code>
      * @return The bytes for title.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTitleBytes() {
       java.lang.Object ref = title_;
@@ -217,6 +219,7 @@ public final class Params {
      * <code>string description = 2;</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -233,6 +236,7 @@ public final class Params {
      * <code>string description = 2;</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -252,12 +256,14 @@ public final class Params {
     /**
      * <code>repeated .cosmos.params.v1beta1.ParamChange changes = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.params.v1beta1.Params.ParamChange> getChangesList() {
       return changes_;
     }
     /**
      * <code>repeated .cosmos.params.v1beta1.ParamChange changes = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.params.v1beta1.Params.ParamChangeOrBuilder> 
         getChangesOrBuilderList() {
       return changes_;
@@ -265,18 +271,21 @@ public final class Params {
     /**
      * <code>repeated .cosmos.params.v1beta1.ParamChange changes = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getChangesCount() {
       return changes_.size();
     }
     /**
      * <code>repeated .cosmos.params.v1beta1.ParamChange changes = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.params.v1beta1.Params.ParamChange getChanges(int index) {
       return changes_.get(index);
     }
     /**
      * <code>repeated .cosmos.params.v1beta1.ParamChange changes = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.params.v1beta1.Params.ParamChangeOrBuilder getChangesOrBuilder(
         int index) {
       return changes_.get(index);
@@ -1154,7 +1163,7 @@ public final class Params {
    *
    * Protobuf type {@code cosmos.params.v1beta1.ParamChange}
    */
-  public  static final class ParamChange extends
+  public static final class ParamChange extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.params.v1beta1.ParamChange)
       ParamChangeOrBuilder {
@@ -1255,6 +1264,7 @@ public final class Params {
      * <code>string subspace = 1;</code>
      * @return The subspace.
      */
+    @java.lang.Override
     public java.lang.String getSubspace() {
       java.lang.Object ref = subspace_;
       if (ref instanceof java.lang.String) {
@@ -1271,6 +1281,7 @@ public final class Params {
      * <code>string subspace = 1;</code>
      * @return The bytes for subspace.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSubspaceBytes() {
       java.lang.Object ref = subspace_;
@@ -1291,6 +1302,7 @@ public final class Params {
      * <code>string key = 2;</code>
      * @return The key.
      */
+    @java.lang.Override
     public java.lang.String getKey() {
       java.lang.Object ref = key_;
       if (ref instanceof java.lang.String) {
@@ -1307,6 +1319,7 @@ public final class Params {
      * <code>string key = 2;</code>
      * @return The bytes for key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getKeyBytes() {
       java.lang.Object ref = key_;
@@ -1327,6 +1340,7 @@ public final class Params {
      * <code>string value = 3;</code>
      * @return The value.
      */
+    @java.lang.Override
     public java.lang.String getValue() {
       java.lang.Object ref = value_;
       if (ref instanceof java.lang.String) {
@@ -1343,6 +1357,7 @@ public final class Params {
      * <code>string value = 3;</code>
      * @return The bytes for value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValueBytes() {
       java.lang.Object ref = value_;

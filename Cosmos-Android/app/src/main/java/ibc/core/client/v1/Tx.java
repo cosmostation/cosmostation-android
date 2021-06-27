@@ -102,7 +102,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.client.v1.MsgCreateClient}
    */
-  public  static final class MsgCreateClient extends
+  public static final class MsgCreateClient extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgCreateClient)
       MsgCreateClientOrBuilder {
@@ -219,6 +219,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
+    @java.lang.Override
     public boolean hasClientState() {
       return clientState_ != null;
     }
@@ -230,6 +231,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getClientState() {
       return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
     }
@@ -240,6 +242,7 @@ public final class Tx {
      *
      * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
       return getClientState();
     }
@@ -255,6 +258,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return Whether the consensusState field is set.
      */
+    @java.lang.Override
     public boolean hasConsensusState() {
       return consensusState_ != null;
     }
@@ -267,6 +271,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return The consensusState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getConsensusState() {
       return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
     }
@@ -278,6 +283,7 @@ public final class Tx {
      *
      * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
       return getConsensusState();
     }
@@ -292,6 +298,7 @@ public final class Tx {
      * <code>string signer = 3;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -312,6 +319,7 @@ public final class Tx {
      * <code>string signer = 3;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -1170,7 +1178,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.client.v1.MsgCreateClientResponse}
    */
-  public  static final class MsgCreateClientResponse extends
+  public static final class MsgCreateClientResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgCreateClientResponse)
       MsgCreateClientResponseOrBuilder {
@@ -1664,7 +1672,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.client.v1.MsgUpdateClient}
    */
-  public  static final class MsgUpdateClient extends
+  public static final class MsgUpdateClient extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgUpdateClient)
       MsgUpdateClientOrBuilder {
@@ -1775,6 +1783,7 @@ public final class Tx {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -1795,6 +1804,7 @@ public final class Tx {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -1819,6 +1829,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any header = 2;</code>
      * @return Whether the header field is set.
      */
+    @java.lang.Override
     public boolean hasHeader() {
       return header_ != null;
     }
@@ -1830,6 +1841,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any header = 2;</code>
      * @return The header.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getHeader() {
       return header_ == null ? com.google.protobuf2.Any.getDefaultInstance() : header_;
     }
@@ -1840,6 +1852,7 @@ public final class Tx {
      *
      * <code>.google.protobuf2.Any header = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getHeaderOrBuilder() {
       return getHeader();
     }
@@ -1854,6 +1867,7 @@ public final class Tx {
      * <code>string signer = 3;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -1874,6 +1888,7 @@ public final class Tx {
      * <code>string signer = 3;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -2652,7 +2667,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.client.v1.MsgUpdateClientResponse}
    */
-  public  static final class MsgUpdateClientResponse extends
+  public static final class MsgUpdateClientResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgUpdateClientResponse)
       MsgUpdateClientResponseOrBuilder {
@@ -3192,7 +3207,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.client.v1.MsgUpgradeClient}
    */
-  public  static final class MsgUpgradeClient extends
+  public static final class MsgUpgradeClient extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgUpgradeClient)
       MsgUpgradeClientOrBuilder {
@@ -3328,6 +3343,7 @@ public final class Tx {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -3348,6 +3364,7 @@ public final class Tx {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -3372,6 +3389,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
+    @java.lang.Override
     public boolean hasClientState() {
       return clientState_ != null;
     }
@@ -3383,6 +3401,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getClientState() {
       return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
     }
@@ -3393,6 +3412,7 @@ public final class Tx {
      *
      * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
       return getClientState();
     }
@@ -3407,6 +3427,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return Whether the consensusState field is set.
      */
+    @java.lang.Override
     public boolean hasConsensusState() {
       return consensusState_ != null;
     }
@@ -3418,6 +3439,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return The consensusState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getConsensusState() {
       return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
     }
@@ -3428,6 +3450,7 @@ public final class Tx {
      *
      * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
       return getConsensusState();
     }
@@ -3442,6 +3465,7 @@ public final class Tx {
      * <code>bytes proof_upgrade_client = 4 [(.gogoproto.moretags) = "yaml:&#92;"proof_upgrade_client&#92;""];</code>
      * @return The proofUpgradeClient.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProofUpgradeClient() {
       return proofUpgradeClient_;
     }
@@ -3456,6 +3480,7 @@ public final class Tx {
      * <code>bytes proof_upgrade_consensus_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"proof_upgrade_consensus_state&#92;""];</code>
      * @return The proofUpgradeConsensusState.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProofUpgradeConsensusState() {
       return proofUpgradeConsensusState_;
     }
@@ -3470,6 +3495,7 @@ public final class Tx {
      * <code>string signer = 6;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -3490,6 +3516,7 @@ public final class Tx {
      * <code>string signer = 6;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -4336,6 +4363,7 @@ public final class Tx {
        * <code>bytes proof_upgrade_client = 4 [(.gogoproto.moretags) = "yaml:&#92;"proof_upgrade_client&#92;""];</code>
        * @return The proofUpgradeClient.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProofUpgradeClient() {
         return proofUpgradeClient_;
       }
@@ -4381,6 +4409,7 @@ public final class Tx {
        * <code>bytes proof_upgrade_consensus_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"proof_upgrade_consensus_state&#92;""];</code>
        * @return The proofUpgradeConsensusState.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProofUpgradeConsensusState() {
         return proofUpgradeConsensusState_;
       }
@@ -4576,7 +4605,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.client.v1.MsgUpgradeClientResponse}
    */
-  public  static final class MsgUpgradeClientResponse extends
+  public static final class MsgUpgradeClientResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgUpgradeClientResponse)
       MsgUpgradeClientResponseOrBuilder {
@@ -5070,7 +5099,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.client.v1.MsgSubmitMisbehaviour}
    */
-  public  static final class MsgSubmitMisbehaviour extends
+  public static final class MsgSubmitMisbehaviour extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgSubmitMisbehaviour)
       MsgSubmitMisbehaviourOrBuilder {
@@ -5181,6 +5210,7 @@ public final class Tx {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -5201,6 +5231,7 @@ public final class Tx {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -5225,6 +5256,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any misbehaviour = 2;</code>
      * @return Whether the misbehaviour field is set.
      */
+    @java.lang.Override
     public boolean hasMisbehaviour() {
       return misbehaviour_ != null;
     }
@@ -5236,6 +5268,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any misbehaviour = 2;</code>
      * @return The misbehaviour.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getMisbehaviour() {
       return misbehaviour_ == null ? com.google.protobuf2.Any.getDefaultInstance() : misbehaviour_;
     }
@@ -5246,6 +5279,7 @@ public final class Tx {
      *
      * <code>.google.protobuf2.Any misbehaviour = 2;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getMisbehaviourOrBuilder() {
       return getMisbehaviour();
     }
@@ -5260,6 +5294,7 @@ public final class Tx {
      * <code>string signer = 3;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -5280,6 +5315,7 @@ public final class Tx {
      * <code>string signer = 3;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -6058,7 +6094,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.client.v1.MsgSubmitMisbehaviourResponse}
    */
-  public  static final class MsgSubmitMisbehaviourResponse extends
+  public static final class MsgSubmitMisbehaviourResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgSubmitMisbehaviourResponse)
       MsgSubmitMisbehaviourResponseOrBuilder {

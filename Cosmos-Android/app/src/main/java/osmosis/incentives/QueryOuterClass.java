@@ -21,7 +21,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.ModuleToDistributeCoinsRequest}
    */
-  public  static final class ModuleToDistributeCoinsRequest extends
+  public static final class ModuleToDistributeCoinsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.ModuleToDistributeCoinsRequest)
       ModuleToDistributeCoinsRequestOrBuilder {
@@ -463,7 +463,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.ModuleToDistributeCoinsResponse}
    */
-  public  static final class ModuleToDistributeCoinsResponse extends
+  public static final class ModuleToDistributeCoinsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.ModuleToDistributeCoinsResponse)
       ModuleToDistributeCoinsResponseOrBuilder {
@@ -556,12 +556,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -569,18 +571,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -1227,7 +1232,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.ModuleDistributedCoinsRequest}
    */
-  public  static final class ModuleDistributedCoinsRequest extends
+  public static final class ModuleDistributedCoinsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.ModuleDistributedCoinsRequest)
       ModuleDistributedCoinsRequestOrBuilder {
@@ -1669,7 +1674,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.ModuleDistributedCoinsResponse}
    */
-  public  static final class ModuleDistributedCoinsResponse extends
+  public static final class ModuleDistributedCoinsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.ModuleDistributedCoinsResponse)
       ModuleDistributedCoinsResponseOrBuilder {
@@ -1762,12 +1767,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -1775,18 +1782,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -2439,7 +2449,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.GaugeByIDRequest}
    */
-  public  static final class GaugeByIDRequest extends
+  public static final class GaugeByIDRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.GaugeByIDRequest)
       GaugeByIDRequestOrBuilder {
@@ -2524,6 +2534,7 @@ public final class QueryOuterClass {
      * <code>uint64 id = 1;</code>
      * @return The id.
      */
+    @java.lang.Override
     public long getId() {
       return id_;
     }
@@ -2836,6 +2847,7 @@ public final class QueryOuterClass {
        * <code>uint64 id = 1;</code>
        * @return The id.
        */
+      @java.lang.Override
       public long getId() {
         return id_;
       }
@@ -2935,7 +2947,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.GaugeByIDResponse}
    */
-  public  static final class GaugeByIDResponse extends
+  public static final class GaugeByIDResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.GaugeByIDResponse)
       GaugeByIDResponseOrBuilder {
@@ -3028,6 +3040,7 @@ public final class QueryOuterClass {
      * <code>.osmosis.incentives.Gauge gauge = 1;</code>
      * @return Whether the gauge field is set.
      */
+    @java.lang.Override
     public boolean hasGauge() {
       return gauge_ != null;
     }
@@ -3035,12 +3048,14 @@ public final class QueryOuterClass {
      * <code>.osmosis.incentives.Gauge gauge = 1;</code>
      * @return The gauge.
      */
+    @java.lang.Override
     public osmosis.incentives.GaugeOuterClass.Gauge getGauge() {
       return gauge_ == null ? osmosis.incentives.GaugeOuterClass.Gauge.getDefaultInstance() : gauge_;
     }
     /**
      * <code>.osmosis.incentives.Gauge gauge = 1;</code>
      */
+    @java.lang.Override
     public osmosis.incentives.GaugeOuterClass.GaugeOrBuilder getGaugeOrBuilder() {
       return getGauge();
     }
@@ -3565,7 +3580,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.GaugesRequest}
    */
-  public  static final class GaugesRequest extends
+  public static final class GaugesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.GaugesRequest)
       GaugesRequestOrBuilder {
@@ -3662,6 +3677,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -3673,6 +3689,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -3683,6 +3700,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -4267,7 +4285,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.GaugesResponse}
    */
-  public  static final class GaugesResponse extends
+  public static final class GaugesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.GaugesResponse)
       GaugesResponseOrBuilder {
@@ -4373,12 +4391,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> getDataList() {
       return data_;
     }
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> 
         getDataOrBuilderList() {
       return data_;
@@ -4386,18 +4406,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getDataCount() {
       return data_.size();
     }
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.incentives.GaugeOuterClass.Gauge getData(int index) {
       return data_.get(index);
     }
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.incentives.GaugeOuterClass.GaugeOrBuilder getDataOrBuilder(
         int index) {
       return data_.get(index);
@@ -4413,6 +4436,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -4424,6 +4448,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -4434,6 +4459,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -5291,7 +5317,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.ActiveGaugesRequest}
    */
-  public  static final class ActiveGaugesRequest extends
+  public static final class ActiveGaugesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.ActiveGaugesRequest)
       ActiveGaugesRequestOrBuilder {
@@ -5388,6 +5414,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -5399,6 +5426,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -5409,6 +5437,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -5993,7 +6022,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.ActiveGaugesResponse}
    */
-  public  static final class ActiveGaugesResponse extends
+  public static final class ActiveGaugesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.ActiveGaugesResponse)
       ActiveGaugesResponseOrBuilder {
@@ -6099,12 +6128,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> getDataList() {
       return data_;
     }
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> 
         getDataOrBuilderList() {
       return data_;
@@ -6112,18 +6143,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getDataCount() {
       return data_.size();
     }
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.incentives.GaugeOuterClass.Gauge getData(int index) {
       return data_.get(index);
     }
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.incentives.GaugeOuterClass.GaugeOrBuilder getDataOrBuilder(
         int index) {
       return data_.get(index);
@@ -6139,6 +6173,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -6150,6 +6185,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -6160,6 +6196,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -7017,7 +7054,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.UpcomingGaugesRequest}
    */
-  public  static final class UpcomingGaugesRequest extends
+  public static final class UpcomingGaugesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.UpcomingGaugesRequest)
       UpcomingGaugesRequestOrBuilder {
@@ -7114,6 +7151,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -7125,6 +7163,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -7135,6 +7174,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -7719,7 +7759,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.UpcomingGaugesResponse}
    */
-  public  static final class UpcomingGaugesResponse extends
+  public static final class UpcomingGaugesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.UpcomingGaugesResponse)
       UpcomingGaugesResponseOrBuilder {
@@ -7825,12 +7865,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.incentives.GaugeOuterClass.Gauge> getDataList() {
       return data_;
     }
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.incentives.GaugeOuterClass.GaugeOrBuilder> 
         getDataOrBuilderList() {
       return data_;
@@ -7838,18 +7880,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getDataCount() {
       return data_.size();
     }
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.incentives.GaugeOuterClass.Gauge getData(int index) {
       return data_.get(index);
     }
     /**
      * <code>repeated .osmosis.incentives.Gauge data = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.incentives.GaugeOuterClass.GaugeOrBuilder getDataOrBuilder(
         int index) {
       return data_.get(index);
@@ -7865,6 +7910,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -7876,6 +7922,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -7886,6 +7933,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -8751,7 +8799,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.RewardsEstRequest}
    */
-  public  static final class RewardsEstRequest extends
+  public static final class RewardsEstRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.RewardsEstRequest)
       RewardsEstRequestOrBuilder {
@@ -8869,6 +8917,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -8885,6 +8934,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -8905,6 +8955,7 @@ public final class QueryOuterClass {
      * <code>repeated uint64 lock_ids = 2;</code>
      * @return A list containing the lockIds.
      */
+    @java.lang.Override
     public java.util.List<java.lang.Long>
         getLockIdsList() {
       return lockIds_;
@@ -8932,6 +8983,7 @@ public final class QueryOuterClass {
      * <code>int64 end_epoch = 3;</code>
      * @return The endEpoch.
      */
+    @java.lang.Override
     public long getEndEpoch() {
       return endEpoch_;
     }
@@ -9463,6 +9515,7 @@ public final class QueryOuterClass {
        * <code>int64 end_epoch = 3;</code>
        * @return The endEpoch.
        */
+      @java.lang.Override
       public long getEndEpoch() {
         return endEpoch_;
       }
@@ -9571,7 +9624,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.RewardsEstResponse}
    */
-  public  static final class RewardsEstResponse extends
+  public static final class RewardsEstResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.RewardsEstResponse)
       RewardsEstResponseOrBuilder {
@@ -9664,12 +9717,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -9677,18 +9732,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -10335,7 +10393,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.QueryLockableDurationsRequest}
    */
-  public  static final class QueryLockableDurationsRequest extends
+  public static final class QueryLockableDurationsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.QueryLockableDurationsRequest)
       QueryLockableDurationsRequestOrBuilder {
@@ -10777,7 +10835,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.incentives.QueryLockableDurationsResponse}
    */
-  public  static final class QueryLockableDurationsResponse extends
+  public static final class QueryLockableDurationsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.QueryLockableDurationsResponse)
       QueryLockableDurationsResponseOrBuilder {
@@ -10870,12 +10928,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf.Duration> getLockableDurationsList() {
       return lockableDurations_;
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.google.protobuf.DurationOrBuilder> 
         getLockableDurationsOrBuilderList() {
       return lockableDurations_;
@@ -10883,18 +10943,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public int getLockableDurationsCount() {
       return lockableDurations_.size();
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getLockableDurations(int index) {
       return lockableDurations_.get(index);
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getLockableDurationsOrBuilder(
         int index) {
       return lockableDurations_.get(index);

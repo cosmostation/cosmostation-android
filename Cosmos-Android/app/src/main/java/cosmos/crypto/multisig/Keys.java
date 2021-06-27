@@ -57,7 +57,7 @@ public final class Keys {
    *
    * Protobuf type {@code cosmos.crypto.multisig.LegacyAminoPubKey}
    */
-  public  static final class LegacyAminoPubKey extends
+  public static final class LegacyAminoPubKey extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.crypto.multisig.LegacyAminoPubKey)
       LegacyAminoPubKeyOrBuilder {
@@ -156,6 +156,7 @@ public final class Keys {
      * <code>uint32 threshold = 1 [(.gogoproto.moretags) = "yaml:&#92;"threshold&#92;""];</code>
      * @return The threshold.
      */
+    @java.lang.Override
     public int getThreshold() {
       return threshold_;
     }
@@ -165,12 +166,14 @@ public final class Keys {
     /**
      * <code>repeated .google.protobuf2.Any public_keys = 2 [(.gogoproto.customname) = "PubKeys", (.gogoproto.moretags) = "yaml:&#92;"pubkeys&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf2.Any> getPublicKeysList() {
       return publicKeys_;
     }
     /**
      * <code>repeated .google.protobuf2.Any public_keys = 2 [(.gogoproto.customname) = "PubKeys", (.gogoproto.moretags) = "yaml:&#92;"pubkeys&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getPublicKeysOrBuilderList() {
       return publicKeys_;
@@ -178,18 +181,21 @@ public final class Keys {
     /**
      * <code>repeated .google.protobuf2.Any public_keys = 2 [(.gogoproto.customname) = "PubKeys", (.gogoproto.moretags) = "yaml:&#92;"pubkeys&#92;""];</code>
      */
+    @java.lang.Override
     public int getPublicKeysCount() {
       return publicKeys_.size();
     }
     /**
      * <code>repeated .google.protobuf2.Any public_keys = 2 [(.gogoproto.customname) = "PubKeys", (.gogoproto.moretags) = "yaml:&#92;"pubkeys&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getPublicKeys(int index) {
       return publicKeys_.get(index);
     }
     /**
      * <code>repeated .google.protobuf2.Any public_keys = 2 [(.gogoproto.customname) = "PubKeys", (.gogoproto.moretags) = "yaml:&#92;"pubkeys&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getPublicKeysOrBuilder(
         int index) {
       return publicKeys_.get(index);
@@ -565,6 +571,7 @@ public final class Keys {
        * <code>uint32 threshold = 1 [(.gogoproto.moretags) = "yaml:&#92;"threshold&#92;""];</code>
        * @return The threshold.
        */
+      @java.lang.Override
       public int getThreshold() {
         return threshold_;
       }

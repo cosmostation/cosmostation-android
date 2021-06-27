@@ -77,7 +77,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.MsgSubmitProposal}
    */
-  public  static final class MsgSubmitProposal extends
+  public static final class MsgSubmitProposal extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.MsgSubmitProposal)
       MsgSubmitProposalOrBuilder {
@@ -191,6 +191,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return Whether the content field is set.
      */
+    @java.lang.Override
     public boolean hasContent() {
       return content_ != null;
     }
@@ -198,12 +199,14 @@ public final class Tx {
      * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return The content.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getContent() {
       return content_ == null ? com.google.protobuf2.Any.getDefaultInstance() : content_;
     }
     /**
      * <code>.google.protobuf2.Any content = 1 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getContentOrBuilder() {
       return getContent();
     }
@@ -213,12 +216,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getInitialDepositList() {
       return initialDeposit_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getInitialDepositOrBuilderList() {
       return initialDeposit_;
@@ -226,18 +231,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getInitialDepositCount() {
       return initialDeposit_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getInitialDeposit(int index) {
       return initialDeposit_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin initial_deposit = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"initial_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getInitialDepositOrBuilder(
         int index) {
       return initialDeposit_.get(index);
@@ -249,6 +257,7 @@ public final class Tx {
      * <code>string proposer = 3;</code>
      * @return The proposer.
      */
+    @java.lang.Override
     public java.lang.String getProposer() {
       java.lang.Object ref = proposer_;
       if (ref instanceof java.lang.String) {
@@ -265,6 +274,7 @@ public final class Tx {
      * <code>string proposer = 3;</code>
      * @return The bytes for proposer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProposerBytes() {
       java.lang.Object ref = proposer_;
@@ -1177,7 +1187,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.MsgSubmitProposalResponse}
    */
-  public  static final class MsgSubmitProposalResponse extends
+  public static final class MsgSubmitProposalResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.MsgSubmitProposalResponse)
       MsgSubmitProposalResponseOrBuilder {
@@ -1262,6 +1272,7 @@ public final class Tx {
      * <code>uint64 proposal_id = 1 [(.gogoproto.jsontag) = "proposal_id", (.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -1578,6 +1589,7 @@ public final class Tx {
        * <code>uint64 proposal_id = 1 [(.gogoproto.jsontag) = "proposal_id", (.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -1695,7 +1707,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.MsgVote}
    */
-  public  static final class MsgVote extends
+  public static final class MsgVote extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.MsgVote)
       MsgVoteOrBuilder {
@@ -1794,6 +1806,7 @@ public final class Tx {
      * <code>uint64 proposal_id = 1 [(.gogoproto.jsontag) = "proposal_id", (.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -1804,6 +1817,7 @@ public final class Tx {
      * <code>string voter = 2;</code>
      * @return The voter.
      */
+    @java.lang.Override
     public java.lang.String getVoter() {
       java.lang.Object ref = voter_;
       if (ref instanceof java.lang.String) {
@@ -1820,6 +1834,7 @@ public final class Tx {
      * <code>string voter = 2;</code>
      * @return The bytes for voter.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getVoterBytes() {
       java.lang.Object ref = voter_;
@@ -1840,14 +1855,14 @@ public final class Tx {
      * <code>.cosmos.gov.v1beta1.VoteOption option = 3;</code>
      * @return The enum numeric value on the wire for option.
      */
-    public int getOptionValue() {
+    @java.lang.Override public int getOptionValue() {
       return option_;
     }
     /**
      * <code>.cosmos.gov.v1beta1.VoteOption option = 3;</code>
      * @return The option.
      */
-    public cosmos.gov.v1beta1.Gov.VoteOption getOption() {
+    @java.lang.Override public cosmos.gov.v1beta1.Gov.VoteOption getOption() {
       @SuppressWarnings("deprecation")
       cosmos.gov.v1beta1.Gov.VoteOption result = cosmos.gov.v1beta1.Gov.VoteOption.valueOf(option_);
       return result == null ? cosmos.gov.v1beta1.Gov.VoteOption.UNRECOGNIZED : result;
@@ -2198,6 +2213,7 @@ public final class Tx {
        * <code>uint64 proposal_id = 1 [(.gogoproto.jsontag) = "proposal_id", (.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -2304,7 +2320,7 @@ public final class Tx {
        * <code>.cosmos.gov.v1beta1.VoteOption option = 3;</code>
        * @return The enum numeric value on the wire for option.
        */
-      public int getOptionValue() {
+      @java.lang.Override public int getOptionValue() {
         return option_;
       }
       /**
@@ -2313,6 +2329,7 @@ public final class Tx {
        * @return This builder for chaining.
        */
       public Builder setOptionValue(int value) {
+        
         option_ = value;
         onChanged();
         return this;
@@ -2321,6 +2338,7 @@ public final class Tx {
        * <code>.cosmos.gov.v1beta1.VoteOption option = 3;</code>
        * @return The option.
        */
+      @java.lang.Override
       public cosmos.gov.v1beta1.Gov.VoteOption getOption() {
         @SuppressWarnings("deprecation")
         cosmos.gov.v1beta1.Gov.VoteOption result = cosmos.gov.v1beta1.Gov.VoteOption.valueOf(option_);
@@ -2414,7 +2432,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.MsgVoteResponse}
    */
-  public  static final class MsgVoteResponse extends
+  public static final class MsgVoteResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.MsgVoteResponse)
       MsgVoteResponseOrBuilder {
@@ -2882,7 +2900,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.MsgDeposit}
    */
-  public  static final class MsgDeposit extends
+  public static final class MsgDeposit extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.MsgDeposit)
       MsgDepositOrBuilder {
@@ -2988,6 +3006,7 @@ public final class Tx {
      * <code>uint64 proposal_id = 1 [(.gogoproto.jsontag) = "proposal_id", (.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -2998,6 +3017,7 @@ public final class Tx {
      * <code>string depositor = 2;</code>
      * @return The depositor.
      */
+    @java.lang.Override
     public java.lang.String getDepositor() {
       java.lang.Object ref = depositor_;
       if (ref instanceof java.lang.String) {
@@ -3014,6 +3034,7 @@ public final class Tx {
      * <code>string depositor = 2;</code>
      * @return The bytes for depositor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDepositorBytes() {
       java.lang.Object ref = depositor_;
@@ -3033,12 +3054,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getAmountList() {
       return amount_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getAmountOrBuilderList() {
       return amount_;
@@ -3046,18 +3069,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getAmountCount() {
       return amount_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount(int index) {
       return amount_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder(
         int index) {
       return amount_.get(index);
@@ -3449,6 +3475,7 @@ public final class Tx {
        * <code>uint64 proposal_id = 1 [(.gogoproto.jsontag) = "proposal_id", (.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -3853,7 +3880,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.MsgDepositResponse}
    */
-  public  static final class MsgDepositResponse extends
+  public static final class MsgDepositResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.MsgDepositResponse)
       MsgDepositResponseOrBuilder {

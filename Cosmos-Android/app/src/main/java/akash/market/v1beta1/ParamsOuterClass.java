@@ -46,7 +46,7 @@ public final class ParamsOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.Params)
       ParamsOrBuilder {
@@ -144,6 +144,7 @@ public final class ParamsOuterClass {
      * <code>.cosmos.base.v1beta1.Coin bid_min_deposit = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BidMinDeposit", (.gogoproto.jsontag) = "bid_min_deposit", (.gogoproto.moretags) = "yaml:&#92;"bid_min_deposit&#92;""];</code>
      * @return Whether the bidMinDeposit field is set.
      */
+    @java.lang.Override
     public boolean hasBidMinDeposit() {
       return bidMinDeposit_ != null;
     }
@@ -151,12 +152,14 @@ public final class ParamsOuterClass {
      * <code>.cosmos.base.v1beta1.Coin bid_min_deposit = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BidMinDeposit", (.gogoproto.jsontag) = "bid_min_deposit", (.gogoproto.moretags) = "yaml:&#92;"bid_min_deposit&#92;""];</code>
      * @return The bidMinDeposit.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getBidMinDeposit() {
       return bidMinDeposit_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : bidMinDeposit_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin bid_min_deposit = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BidMinDeposit", (.gogoproto.jsontag) = "bid_min_deposit", (.gogoproto.moretags) = "yaml:&#92;"bid_min_deposit&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getBidMinDepositOrBuilder() {
       return getBidMinDeposit();
     }
@@ -167,6 +170,7 @@ public final class ParamsOuterClass {
      * <code>uint32 order_max_bids = 2 [(.gogoproto.customname) = "OrderMaxBids", (.gogoproto.jsontag) = "order_max_bids", (.gogoproto.moretags) = "yaml:&#92;"order_max_bids&#92;""];</code>
      * @return The orderMaxBids.
      */
+    @java.lang.Override
     public int getOrderMaxBids() {
       return orderMaxBids_;
     }
@@ -631,6 +635,7 @@ public final class ParamsOuterClass {
        * <code>uint32 order_max_bids = 2 [(.gogoproto.customname) = "OrderMaxBids", (.gogoproto.jsontag) = "order_max_bids", (.gogoproto.moretags) = "yaml:&#92;"order_max_bids&#92;""];</code>
        * @return The orderMaxBids.
        */
+      @java.lang.Override
       public int getOrderMaxBids() {
         return orderMaxBids_;
       }

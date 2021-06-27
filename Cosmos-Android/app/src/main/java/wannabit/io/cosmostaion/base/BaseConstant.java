@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -142,7 +142,6 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_KAVA_DEPOSIT_HARD               = 2107;
     public final static int TASK_GEN_TX_KAVA_WITHDRAW_HARD              = 2108;
     public final static int TASK_GEN_TX_KAVA_CLAIM_HARVEST              = 2109;
-    public final static int TASK_FETCH_BAND_ORACLE_STATUS               = 2111;
     public final static int TASK_FETCH_MINT_PARAM                       = 2112;
     public final static int TASK_FETCH_OK_HISTORY                       = 2113;
     public final static int TASK_FETCH_OK_DEX_TICKERS                   = 2114;
@@ -200,6 +199,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_PROPOSAL_MY_VOTE            = 4023;
     public final static int TASK_GRPC_FETCH_NODE_INFO                   = 4024;
     public final static int TASK_GRPC_FETCH_AUTH                        = 4025;
+    public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4026;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
@@ -522,8 +522,6 @@ public class BaseConstant {
     public final static String KAVA_GAS_AMOUNT_HARD_POOL                = "800000";
     public final static String KAVA_GAS_AMOUNT_BEP3                     = "500000";
 
-    public final static String BAND_GAS_RATE_LOW                        = "0.0025";
-    public final static String BAND_GAS_RATE_AVERAGE                    = "0.025";
     public final static String BAND_GAS_AMOUNT_SEND                     = "100000";
     public final static String BAND_GAS_AMOUNT_STAKE                    = "200000";
     public final static String BAND_GAS_AMOUNT_REDELEGATE               = "240000";
@@ -628,6 +626,10 @@ public class BaseConstant {
     public final static String OSMOSIS_GAS_RATE_TINY                    = "0.000";
     public final static String OSMOSIS_GAS_RATE_LOW                     = "0.0025";
     public final static String OSMOSIS_GAS_RATE_AVERAGE                 = "0.025";
+
+    public final static String BAND_GAS_RATE_TINY                       = "0.000";
+    public final static String BAND_GAS_RATE_LOW                        = "0.0025";
+    public final static String BAND_GAS_RATE_AVERAGE                    = "0.025";
 
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";

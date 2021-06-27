@@ -67,7 +67,7 @@ public final class LeaseOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.LeaseID}
    */
-  public  static final class LeaseID extends
+  public static final class LeaseID extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.LeaseID)
       LeaseIDOrBuilder {
@@ -176,6 +176,7 @@ public final class LeaseOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -192,6 +193,7 @@ public final class LeaseOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -212,6 +214,7 @@ public final class LeaseOuterClass {
      * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
      * @return The dseq.
      */
+    @java.lang.Override
     public long getDseq() {
       return dseq_;
     }
@@ -222,6 +225,7 @@ public final class LeaseOuterClass {
      * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
      * @return The gseq.
      */
+    @java.lang.Override
     public int getGseq() {
       return gseq_;
     }
@@ -232,6 +236,7 @@ public final class LeaseOuterClass {
      * <code>uint32 oseq = 4 [(.gogoproto.customname) = "OSeq", (.gogoproto.jsontag) = "oseq", (.gogoproto.moretags) = "yaml:&#92;"oseq&#92;""];</code>
      * @return The oseq.
      */
+    @java.lang.Override
     public int getOseq() {
       return oseq_;
     }
@@ -242,6 +247,7 @@ public final class LeaseOuterClass {
      * <code>string provider = 5 [(.gogoproto.jsontag) = "provider", (.gogoproto.moretags) = "yaml:&#92;"provider&#92;""];</code>
      * @return The provider.
      */
+    @java.lang.Override
     public java.lang.String getProvider() {
       java.lang.Object ref = provider_;
       if (ref instanceof java.lang.String) {
@@ -258,6 +264,7 @@ public final class LeaseOuterClass {
      * <code>string provider = 5 [(.gogoproto.jsontag) = "provider", (.gogoproto.moretags) = "yaml:&#92;"provider&#92;""];</code>
      * @return The bytes for provider.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProviderBytes() {
       java.lang.Object ref = provider_;
@@ -728,6 +735,7 @@ public final class LeaseOuterClass {
        * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
        * @return The dseq.
        */
+      @java.lang.Override
       public long getDseq() {
         return dseq_;
       }
@@ -758,6 +766,7 @@ public final class LeaseOuterClass {
        * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
        * @return The gseq.
        */
+      @java.lang.Override
       public int getGseq() {
         return gseq_;
       }
@@ -788,6 +797,7 @@ public final class LeaseOuterClass {
        * <code>uint32 oseq = 4 [(.gogoproto.customname) = "OSeq", (.gogoproto.jsontag) = "oseq", (.gogoproto.moretags) = "yaml:&#92;"oseq&#92;""];</code>
        * @return The oseq.
        */
+      @java.lang.Override
       public int getOseq() {
         return oseq_;
       }
@@ -999,7 +1009,7 @@ public final class LeaseOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.Lease}
    */
-  public  static final class Lease extends
+  public static final class Lease extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.Lease)
       LeaseOrBuilder {
@@ -1235,6 +1245,10 @@ public final class LeaseOuterClass {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -1275,6 +1289,7 @@ public final class LeaseOuterClass {
      * <code>.akash.market.v1beta1.LeaseID lease_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "LeaseID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the leaseId field is set.
      */
+    @java.lang.Override
     public boolean hasLeaseId() {
       return leaseId_ != null;
     }
@@ -1282,12 +1297,14 @@ public final class LeaseOuterClass {
      * <code>.akash.market.v1beta1.LeaseID lease_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "LeaseID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The leaseId.
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.LeaseID getLeaseId() {
       return leaseId_ == null ? akash.market.v1beta1.LeaseOuterClass.LeaseID.getDefaultInstance() : leaseId_;
     }
     /**
      * <code>.akash.market.v1beta1.LeaseID lease_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "LeaseID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.LeaseIDOrBuilder getLeaseIdOrBuilder() {
       return getLeaseId();
     }
@@ -1298,14 +1315,14 @@ public final class LeaseOuterClass {
      * <code>.akash.market.v1beta1.Lease.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
      * <code>.akash.market.v1beta1.Lease.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
-    public akash.market.v1beta1.LeaseOuterClass.Lease.State getState() {
+    @java.lang.Override public akash.market.v1beta1.LeaseOuterClass.Lease.State getState() {
       @SuppressWarnings("deprecation")
       akash.market.v1beta1.LeaseOuterClass.Lease.State result = akash.market.v1beta1.LeaseOuterClass.Lease.State.valueOf(state_);
       return result == null ? akash.market.v1beta1.LeaseOuterClass.Lease.State.UNRECOGNIZED : result;
@@ -1317,6 +1334,7 @@ public final class LeaseOuterClass {
      * <code>.cosmos.base.v1beta1.Coin price = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "price", (.gogoproto.moretags) = "yaml:&#92;"price&#92;""];</code>
      * @return Whether the price field is set.
      */
+    @java.lang.Override
     public boolean hasPrice() {
       return price_ != null;
     }
@@ -1324,12 +1342,14 @@ public final class LeaseOuterClass {
      * <code>.cosmos.base.v1beta1.Coin price = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "price", (.gogoproto.moretags) = "yaml:&#92;"price&#92;""];</code>
      * @return The price.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getPrice() {
       return price_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : price_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin price = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "price", (.gogoproto.moretags) = "yaml:&#92;"price&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getPriceOrBuilder() {
       return getPrice();
     }
@@ -1340,6 +1360,7 @@ public final class LeaseOuterClass {
      * <code>int64 created_at = 4;</code>
      * @return The createdAt.
      */
+    @java.lang.Override
     public long getCreatedAt() {
       return createdAt_;
     }
@@ -1851,7 +1872,7 @@ public final class LeaseOuterClass {
        * <code>.akash.market.v1beta1.Lease.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -1860,6 +1881,7 @@ public final class LeaseOuterClass {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -1868,6 +1890,7 @@ public final class LeaseOuterClass {
        * <code>.akash.market.v1beta1.Lease.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The state.
        */
+      @java.lang.Override
       public akash.market.v1beta1.LeaseOuterClass.Lease.State getState() {
         @SuppressWarnings("deprecation")
         akash.market.v1beta1.LeaseOuterClass.Lease.State result = akash.market.v1beta1.LeaseOuterClass.Lease.State.valueOf(state_);
@@ -2022,6 +2045,7 @@ public final class LeaseOuterClass {
        * <code>int64 created_at = 4;</code>
        * @return The createdAt.
        */
+      @java.lang.Override
       public long getCreatedAt() {
         return createdAt_;
       }
@@ -2164,7 +2188,7 @@ public final class LeaseOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.LeaseFilters}
    */
-  public  static final class LeaseFilters extends
+  public static final class LeaseFilters extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.LeaseFilters)
       LeaseFiltersOrBuilder {
@@ -2280,6 +2304,7 @@ public final class LeaseOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -2296,6 +2321,7 @@ public final class LeaseOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -2316,6 +2342,7 @@ public final class LeaseOuterClass {
      * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
      * @return The dseq.
      */
+    @java.lang.Override
     public long getDseq() {
       return dseq_;
     }
@@ -2326,6 +2353,7 @@ public final class LeaseOuterClass {
      * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
      * @return The gseq.
      */
+    @java.lang.Override
     public int getGseq() {
       return gseq_;
     }
@@ -2336,6 +2364,7 @@ public final class LeaseOuterClass {
      * <code>uint32 oseq = 4 [(.gogoproto.customname) = "OSeq", (.gogoproto.jsontag) = "oseq", (.gogoproto.moretags) = "yaml:&#92;"oseq&#92;""];</code>
      * @return The oseq.
      */
+    @java.lang.Override
     public int getOseq() {
       return oseq_;
     }
@@ -2346,6 +2375,7 @@ public final class LeaseOuterClass {
      * <code>string provider = 5 [(.gogoproto.jsontag) = "provider", (.gogoproto.moretags) = "yaml:&#92;"provider&#92;""];</code>
      * @return The provider.
      */
+    @java.lang.Override
     public java.lang.String getProvider() {
       java.lang.Object ref = provider_;
       if (ref instanceof java.lang.String) {
@@ -2362,6 +2392,7 @@ public final class LeaseOuterClass {
      * <code>string provider = 5 [(.gogoproto.jsontag) = "provider", (.gogoproto.moretags) = "yaml:&#92;"provider&#92;""];</code>
      * @return The bytes for provider.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getProviderBytes() {
       java.lang.Object ref = provider_;
@@ -2382,6 +2413,7 @@ public final class LeaseOuterClass {
      * <code>string state = 6 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
+    @java.lang.Override
     public java.lang.String getState() {
       java.lang.Object ref = state_;
       if (ref instanceof java.lang.String) {
@@ -2398,6 +2430,7 @@ public final class LeaseOuterClass {
      * <code>string state = 6 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The bytes for state.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getStateBytes() {
       java.lang.Object ref = state_;
@@ -2885,6 +2918,7 @@ public final class LeaseOuterClass {
        * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
        * @return The dseq.
        */
+      @java.lang.Override
       public long getDseq() {
         return dseq_;
       }
@@ -2915,6 +2949,7 @@ public final class LeaseOuterClass {
        * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
        * @return The gseq.
        */
+      @java.lang.Override
       public int getGseq() {
         return gseq_;
       }
@@ -2945,6 +2980,7 @@ public final class LeaseOuterClass {
        * <code>uint32 oseq = 4 [(.gogoproto.customname) = "OSeq", (.gogoproto.jsontag) = "oseq", (.gogoproto.moretags) = "yaml:&#92;"oseq&#92;""];</code>
        * @return The oseq.
        */
+      @java.lang.Override
       public int getOseq() {
         return oseq_;
       }
@@ -3200,7 +3236,7 @@ public final class LeaseOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.MsgCreateLease}
    */
-  public  static final class MsgCreateLease extends
+  public static final class MsgCreateLease extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.MsgCreateLease)
       MsgCreateLeaseOrBuilder {
@@ -3293,6 +3329,7 @@ public final class LeaseOuterClass {
      * <code>.akash.market.v1beta1.BidID bid_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BidID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the bidId field is set.
      */
+    @java.lang.Override
     public boolean hasBidId() {
       return bidId_ != null;
     }
@@ -3300,12 +3337,14 @@ public final class LeaseOuterClass {
      * <code>.akash.market.v1beta1.BidID bid_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BidID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The bidId.
      */
+    @java.lang.Override
     public akash.market.v1beta1.BidOuterClass.BidID getBidId() {
       return bidId_ == null ? akash.market.v1beta1.BidOuterClass.BidID.getDefaultInstance() : bidId_;
     }
     /**
      * <code>.akash.market.v1beta1.BidID bid_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "BidID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.BidOuterClass.BidIDOrBuilder getBidIdOrBuilder() {
       return getBidId();
     }
@@ -3811,7 +3850,7 @@ public final class LeaseOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.MsgCreateLeaseResponse}
    */
-  public  static final class MsgCreateLeaseResponse extends
+  public static final class MsgCreateLeaseResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.MsgCreateLeaseResponse)
       MsgCreateLeaseResponseOrBuilder {
@@ -4252,7 +4291,7 @@ public final class LeaseOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.MsgWithdrawLease}
    */
-  public  static final class MsgWithdrawLease extends
+  public static final class MsgWithdrawLease extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.MsgWithdrawLease)
       MsgWithdrawLeaseOrBuilder {
@@ -4345,6 +4384,7 @@ public final class LeaseOuterClass {
      * <code>.akash.market.v1beta1.LeaseID bid_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "LeaseID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the bidId field is set.
      */
+    @java.lang.Override
     public boolean hasBidId() {
       return bidId_ != null;
     }
@@ -4352,12 +4392,14 @@ public final class LeaseOuterClass {
      * <code>.akash.market.v1beta1.LeaseID bid_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "LeaseID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The bidId.
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.LeaseID getBidId() {
       return bidId_ == null ? akash.market.v1beta1.LeaseOuterClass.LeaseID.getDefaultInstance() : bidId_;
     }
     /**
      * <code>.akash.market.v1beta1.LeaseID bid_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "LeaseID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.LeaseIDOrBuilder getBidIdOrBuilder() {
       return getBidId();
     }
@@ -4863,7 +4905,7 @@ public final class LeaseOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.MsgWithdrawLeaseResponse}
    */
-  public  static final class MsgWithdrawLeaseResponse extends
+  public static final class MsgWithdrawLeaseResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.MsgWithdrawLeaseResponse)
       MsgWithdrawLeaseResponseOrBuilder {
@@ -5304,7 +5346,7 @@ public final class LeaseOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.MsgCloseLease}
    */
-  public  static final class MsgCloseLease extends
+  public static final class MsgCloseLease extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.MsgCloseLease)
       MsgCloseLeaseOrBuilder {
@@ -5397,6 +5439,7 @@ public final class LeaseOuterClass {
      * <code>.akash.market.v1beta1.LeaseID lease_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "LeaseID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the leaseId field is set.
      */
+    @java.lang.Override
     public boolean hasLeaseId() {
       return leaseId_ != null;
     }
@@ -5404,12 +5447,14 @@ public final class LeaseOuterClass {
      * <code>.akash.market.v1beta1.LeaseID lease_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "LeaseID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The leaseId.
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.LeaseID getLeaseId() {
       return leaseId_ == null ? akash.market.v1beta1.LeaseOuterClass.LeaseID.getDefaultInstance() : leaseId_;
     }
     /**
      * <code>.akash.market.v1beta1.LeaseID lease_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "LeaseID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.LeaseOuterClass.LeaseIDOrBuilder getLeaseIdOrBuilder() {
       return getLeaseId();
     }
@@ -5915,7 +5960,7 @@ public final class LeaseOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.MsgCloseLeaseResponse}
    */
-  public  static final class MsgCloseLeaseResponse extends
+  public static final class MsgCloseLeaseResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.MsgCloseLeaseResponse)
       MsgCloseLeaseResponseOrBuilder {

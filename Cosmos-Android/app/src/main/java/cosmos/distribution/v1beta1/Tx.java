@@ -50,7 +50,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.MsgSetWithdrawAddress}
    */
-  public  static final class MsgSetWithdrawAddress extends
+  public static final class MsgSetWithdrawAddress extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.MsgSetWithdrawAddress)
       MsgSetWithdrawAddressOrBuilder {
@@ -144,6 +144,7 @@ public final class Tx {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The delegatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getDelegatorAddress() {
       java.lang.Object ref = delegatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -160,6 +161,7 @@ public final class Tx {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The bytes for delegatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDelegatorAddressBytes() {
       java.lang.Object ref = delegatorAddress_;
@@ -180,6 +182,7 @@ public final class Tx {
      * <code>string withdraw_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_address&#92;""];</code>
      * @return The withdrawAddress.
      */
+    @java.lang.Override
     public java.lang.String getWithdrawAddress() {
       java.lang.Object ref = withdrawAddress_;
       if (ref instanceof java.lang.String) {
@@ -196,6 +199,7 @@ public final class Tx {
      * <code>string withdraw_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_address&#92;""];</code>
      * @return The bytes for withdrawAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getWithdrawAddressBytes() {
       java.lang.Object ref = withdrawAddress_;
@@ -749,7 +753,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.MsgSetWithdrawAddressResponse}
    */
-  public  static final class MsgSetWithdrawAddressResponse extends
+  public static final class MsgSetWithdrawAddressResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.MsgSetWithdrawAddressResponse)
       MsgSetWithdrawAddressResponseOrBuilder {
@@ -1200,7 +1204,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward}
    */
-  public  static final class MsgWithdrawDelegatorReward extends
+  public static final class MsgWithdrawDelegatorReward extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward)
       MsgWithdrawDelegatorRewardOrBuilder {
@@ -1294,6 +1298,7 @@ public final class Tx {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The delegatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getDelegatorAddress() {
       java.lang.Object ref = delegatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -1310,6 +1315,7 @@ public final class Tx {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The bytes for delegatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDelegatorAddressBytes() {
       java.lang.Object ref = delegatorAddress_;
@@ -1330,6 +1336,7 @@ public final class Tx {
      * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -1346,6 +1353,7 @@ public final class Tx {
      * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -1899,7 +1907,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.MsgWithdrawDelegatorRewardResponse}
    */
-  public  static final class MsgWithdrawDelegatorRewardResponse extends
+  public static final class MsgWithdrawDelegatorRewardResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.MsgWithdrawDelegatorRewardResponse)
       MsgWithdrawDelegatorRewardResponseOrBuilder {
@@ -2338,7 +2346,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission}
    */
-  public  static final class MsgWithdrawValidatorCommission extends
+  public static final class MsgWithdrawValidatorCommission extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission)
       MsgWithdrawValidatorCommissionOrBuilder {
@@ -2425,6 +2433,7 @@ public final class Tx {
      * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -2441,6 +2450,7 @@ public final class Tx {
      * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -2901,7 +2911,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.MsgWithdrawValidatorCommissionResponse}
    */
-  public  static final class MsgWithdrawValidatorCommissionResponse extends
+  public static final class MsgWithdrawValidatorCommissionResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.MsgWithdrawValidatorCommissionResponse)
       MsgWithdrawValidatorCommissionResponseOrBuilder {
@@ -3364,7 +3374,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.MsgFundCommunityPool}
    */
-  public  static final class MsgFundCommunityPool extends
+  public static final class MsgFundCommunityPool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.MsgFundCommunityPool)
       MsgFundCommunityPoolOrBuilder {
@@ -3464,12 +3474,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getAmountList() {
       return amount_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getAmountOrBuilderList() {
       return amount_;
@@ -3477,18 +3489,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getAmountCount() {
       return amount_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount(int index) {
       return amount_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder(
         int index) {
       return amount_.get(index);
@@ -3500,6 +3515,7 @@ public final class Tx {
      * <code>string depositor = 2;</code>
      * @return The depositor.
      */
+    @java.lang.Override
     public java.lang.String getDepositor() {
       java.lang.Object ref = depositor_;
       if (ref instanceof java.lang.String) {
@@ -3516,6 +3532,7 @@ public final class Tx {
      * <code>string depositor = 2;</code>
      * @return The bytes for depositor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDepositorBytes() {
       java.lang.Object ref = depositor_;
@@ -4273,7 +4290,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.MsgFundCommunityPoolResponse}
    */
-  public  static final class MsgFundCommunityPoolResponse extends
+  public static final class MsgFundCommunityPoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.MsgFundCommunityPoolResponse)
       MsgFundCommunityPoolResponseOrBuilder {

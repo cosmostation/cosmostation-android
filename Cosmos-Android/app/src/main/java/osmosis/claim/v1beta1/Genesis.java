@@ -123,7 +123,7 @@ public final class Genesis {
    *
    * Protobuf type {@code osmosis.claim.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.claim.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -247,6 +247,7 @@ public final class Genesis {
      * <code>.cosmos.base.v1beta1.Coin module_account_balance = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"module_account_balance&#92;""];</code>
      * @return Whether the moduleAccountBalance field is set.
      */
+    @java.lang.Override
     public boolean hasModuleAccountBalance() {
       return moduleAccountBalance_ != null;
     }
@@ -258,6 +259,7 @@ public final class Genesis {
      * <code>.cosmos.base.v1beta1.Coin module_account_balance = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"module_account_balance&#92;""];</code>
      * @return The moduleAccountBalance.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getModuleAccountBalance() {
       return moduleAccountBalance_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : moduleAccountBalance_;
     }
@@ -268,6 +270,7 @@ public final class Genesis {
      *
      * <code>.cosmos.base.v1beta1.Coin module_account_balance = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"module_account_balance&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getModuleAccountBalanceOrBuilder() {
       return getModuleAccountBalance();
     }
@@ -282,6 +285,7 @@ public final class Genesis {
      * <code>.osmosis.claim.v1beta1.Params params = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -293,6 +297,7 @@ public final class Genesis {
      * <code>.osmosis.claim.v1beta1.Params params = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      * @return The params.
      */
+    @java.lang.Override
     public osmosis.claim.v1beta1.ParamsOuterClass.Params getParams() {
       return params_ == null ? osmosis.claim.v1beta1.ParamsOuterClass.Params.getDefaultInstance() : params_;
     }
@@ -303,6 +308,7 @@ public final class Genesis {
      *
      * <code>.osmosis.claim.v1beta1.Params params = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.claim.v1beta1.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -316,6 +322,7 @@ public final class Genesis {
      *
      * <code>repeated .osmosis.claim.v1beta1.ClaimRecord claim_records = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_records&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.claim.v1beta1.Claim.ClaimRecord> getClaimRecordsList() {
       return claimRecords_;
     }
@@ -326,6 +333,7 @@ public final class Genesis {
      *
      * <code>repeated .osmosis.claim.v1beta1.ClaimRecord claim_records = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_records&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.claim.v1beta1.Claim.ClaimRecordOrBuilder> 
         getClaimRecordsOrBuilderList() {
       return claimRecords_;
@@ -337,6 +345,7 @@ public final class Genesis {
      *
      * <code>repeated .osmosis.claim.v1beta1.ClaimRecord claim_records = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_records&#92;""];</code>
      */
+    @java.lang.Override
     public int getClaimRecordsCount() {
       return claimRecords_.size();
     }
@@ -347,6 +356,7 @@ public final class Genesis {
      *
      * <code>repeated .osmosis.claim.v1beta1.ClaimRecord claim_records = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_records&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.claim.v1beta1.Claim.ClaimRecord getClaimRecords(int index) {
       return claimRecords_.get(index);
     }
@@ -357,6 +367,7 @@ public final class Genesis {
      *
      * <code>repeated .osmosis.claim.v1beta1.ClaimRecord claim_records = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"claim_records&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.claim.v1beta1.Claim.ClaimRecordOrBuilder getClaimRecordsOrBuilder(
         int index) {
       return claimRecords_.get(index);

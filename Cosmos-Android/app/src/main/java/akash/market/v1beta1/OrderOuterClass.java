@@ -55,7 +55,7 @@ public final class OrderOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.OrderID}
    */
-  public  static final class OrderID extends
+  public static final class OrderID extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.OrderID)
       OrderIDOrBuilder {
@@ -157,6 +157,7 @@ public final class OrderOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -173,6 +174,7 @@ public final class OrderOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -193,6 +195,7 @@ public final class OrderOuterClass {
      * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
      * @return The dseq.
      */
+    @java.lang.Override
     public long getDseq() {
       return dseq_;
     }
@@ -203,6 +206,7 @@ public final class OrderOuterClass {
      * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
      * @return The gseq.
      */
+    @java.lang.Override
     public int getGseq() {
       return gseq_;
     }
@@ -213,6 +217,7 @@ public final class OrderOuterClass {
      * <code>uint32 oseq = 4 [(.gogoproto.customname) = "OSeq", (.gogoproto.jsontag) = "oseq", (.gogoproto.moretags) = "yaml:&#92;"oseq&#92;""];</code>
      * @return The oseq.
      */
+    @java.lang.Override
     public int getOseq() {
       return oseq_;
     }
@@ -656,6 +661,7 @@ public final class OrderOuterClass {
        * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
        * @return The dseq.
        */
+      @java.lang.Override
       public long getDseq() {
         return dseq_;
       }
@@ -686,6 +692,7 @@ public final class OrderOuterClass {
        * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
        * @return The gseq.
        */
+      @java.lang.Override
       public int getGseq() {
         return gseq_;
       }
@@ -716,6 +723,7 @@ public final class OrderOuterClass {
        * <code>uint32 oseq = 4 [(.gogoproto.customname) = "OSeq", (.gogoproto.jsontag) = "oseq", (.gogoproto.moretags) = "yaml:&#92;"oseq&#92;""];</code>
        * @return The oseq.
        */
+      @java.lang.Override
       public int getOseq() {
         return oseq_;
       }
@@ -851,7 +859,7 @@ public final class OrderOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.Order}
    */
-  public  static final class Order extends
+  public static final class Order extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.Order)
       OrderOrBuilder {
@@ -1087,6 +1095,10 @@ public final class OrderOuterClass {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -1127,6 +1139,7 @@ public final class OrderOuterClass {
      * <code>.akash.market.v1beta1.OrderID order_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "OrderID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the orderId field is set.
      */
+    @java.lang.Override
     public boolean hasOrderId() {
       return orderId_ != null;
     }
@@ -1134,12 +1147,14 @@ public final class OrderOuterClass {
      * <code>.akash.market.v1beta1.OrderID order_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "OrderID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The orderId.
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.OrderID getOrderId() {
       return orderId_ == null ? akash.market.v1beta1.OrderOuterClass.OrderID.getDefaultInstance() : orderId_;
     }
     /**
      * <code>.akash.market.v1beta1.OrderID order_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "OrderID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.market.v1beta1.OrderOuterClass.OrderIDOrBuilder getOrderIdOrBuilder() {
       return getOrderId();
     }
@@ -1150,14 +1165,14 @@ public final class OrderOuterClass {
      * <code>.akash.market.v1beta1.Order.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
      * <code>.akash.market.v1beta1.Order.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
-    public akash.market.v1beta1.OrderOuterClass.Order.State getState() {
+    @java.lang.Override public akash.market.v1beta1.OrderOuterClass.Order.State getState() {
       @SuppressWarnings("deprecation")
       akash.market.v1beta1.OrderOuterClass.Order.State result = akash.market.v1beta1.OrderOuterClass.Order.State.valueOf(state_);
       return result == null ? akash.market.v1beta1.OrderOuterClass.Order.State.UNRECOGNIZED : result;
@@ -1169,6 +1184,7 @@ public final class OrderOuterClass {
      * <code>.akash.deployment.v1beta1.GroupSpec spec = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "spec", (.gogoproto.moretags) = "yaml:&#92;"spec&#92;""];</code>
      * @return Whether the spec field is set.
      */
+    @java.lang.Override
     public boolean hasSpec() {
       return spec_ != null;
     }
@@ -1176,12 +1192,14 @@ public final class OrderOuterClass {
      * <code>.akash.deployment.v1beta1.GroupSpec spec = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "spec", (.gogoproto.moretags) = "yaml:&#92;"spec&#92;""];</code>
      * @return The spec.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupSpec getSpec() {
       return spec_ == null ? akash.deployment.v1beta1.GroupOuterClass.GroupSpec.getDefaultInstance() : spec_;
     }
     /**
      * <code>.akash.deployment.v1beta1.GroupSpec spec = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "spec", (.gogoproto.moretags) = "yaml:&#92;"spec&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupSpecOrBuilder getSpecOrBuilder() {
       return getSpec();
     }
@@ -1192,6 +1210,7 @@ public final class OrderOuterClass {
      * <code>int64 created_at = 4;</code>
      * @return The createdAt.
      */
+    @java.lang.Override
     public long getCreatedAt() {
       return createdAt_;
     }
@@ -1703,7 +1722,7 @@ public final class OrderOuterClass {
        * <code>.akash.market.v1beta1.Order.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -1712,6 +1731,7 @@ public final class OrderOuterClass {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -1720,6 +1740,7 @@ public final class OrderOuterClass {
        * <code>.akash.market.v1beta1.Order.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The state.
        */
+      @java.lang.Override
       public akash.market.v1beta1.OrderOuterClass.Order.State getState() {
         @SuppressWarnings("deprecation")
         akash.market.v1beta1.OrderOuterClass.Order.State result = akash.market.v1beta1.OrderOuterClass.Order.State.valueOf(state_);
@@ -1874,6 +1895,7 @@ public final class OrderOuterClass {
        * <code>int64 created_at = 4;</code>
        * @return The createdAt.
        */
+      @java.lang.Override
       public long getCreatedAt() {
         return createdAt_;
       }
@@ -2004,7 +2026,7 @@ public final class OrderOuterClass {
    *
    * Protobuf type {@code akash.market.v1beta1.OrderFilters}
    */
-  public  static final class OrderFilters extends
+  public static final class OrderFilters extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.market.v1beta1.OrderFilters)
       OrderFiltersOrBuilder {
@@ -2113,6 +2135,7 @@ public final class OrderOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -2129,6 +2152,7 @@ public final class OrderOuterClass {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -2149,6 +2173,7 @@ public final class OrderOuterClass {
      * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
      * @return The dseq.
      */
+    @java.lang.Override
     public long getDseq() {
       return dseq_;
     }
@@ -2159,6 +2184,7 @@ public final class OrderOuterClass {
      * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
      * @return The gseq.
      */
+    @java.lang.Override
     public int getGseq() {
       return gseq_;
     }
@@ -2169,6 +2195,7 @@ public final class OrderOuterClass {
      * <code>uint32 oseq = 4 [(.gogoproto.customname) = "OSeq", (.gogoproto.jsontag) = "oseq", (.gogoproto.moretags) = "yaml:&#92;"oseq&#92;""];</code>
      * @return The oseq.
      */
+    @java.lang.Override
     public int getOseq() {
       return oseq_;
     }
@@ -2179,6 +2206,7 @@ public final class OrderOuterClass {
      * <code>string state = 5 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
+    @java.lang.Override
     public java.lang.String getState() {
       java.lang.Object ref = state_;
       if (ref instanceof java.lang.String) {
@@ -2195,6 +2223,7 @@ public final class OrderOuterClass {
      * <code>string state = 5 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The bytes for state.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getStateBytes() {
       java.lang.Object ref = state_;
@@ -2665,6 +2694,7 @@ public final class OrderOuterClass {
        * <code>uint64 dseq = 2 [(.gogoproto.customname) = "DSeq", (.gogoproto.jsontag) = "dseq", (.gogoproto.moretags) = "yaml:&#92;"dseq&#92;""];</code>
        * @return The dseq.
        */
+      @java.lang.Override
       public long getDseq() {
         return dseq_;
       }
@@ -2695,6 +2725,7 @@ public final class OrderOuterClass {
        * <code>uint32 gseq = 3 [(.gogoproto.customname) = "GSeq", (.gogoproto.jsontag) = "gseq", (.gogoproto.moretags) = "yaml:&#92;"gseq&#92;""];</code>
        * @return The gseq.
        */
+      @java.lang.Override
       public int getGseq() {
         return gseq_;
       }
@@ -2725,6 +2756,7 @@ public final class OrderOuterClass {
        * <code>uint32 oseq = 4 [(.gogoproto.customname) = "OSeq", (.gogoproto.jsontag) = "oseq", (.gogoproto.moretags) = "yaml:&#92;"oseq&#92;""];</code>
        * @return The oseq.
        */
+      @java.lang.Override
       public int getOseq() {
         return oseq_;
       }

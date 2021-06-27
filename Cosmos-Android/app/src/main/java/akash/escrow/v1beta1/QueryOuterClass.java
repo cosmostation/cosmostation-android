@@ -88,7 +88,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.escrow.v1beta1.QueryAccountsRequest}
    */
-  public  static final class QueryAccountsRequest extends
+  public static final class QueryAccountsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.escrow.v1beta1.QueryAccountsRequest)
       QueryAccountsRequestOrBuilder {
@@ -209,6 +209,7 @@ public final class QueryOuterClass {
      * <code>string scope = 1;</code>
      * @return The scope.
      */
+    @java.lang.Override
     public java.lang.String getScope() {
       java.lang.Object ref = scope_;
       if (ref instanceof java.lang.String) {
@@ -225,6 +226,7 @@ public final class QueryOuterClass {
      * <code>string scope = 1;</code>
      * @return The bytes for scope.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getScopeBytes() {
       java.lang.Object ref = scope_;
@@ -245,6 +247,7 @@ public final class QueryOuterClass {
      * <code>string xid = 2;</code>
      * @return The xid.
      */
+    @java.lang.Override
     public java.lang.String getXid() {
       java.lang.Object ref = xid_;
       if (ref instanceof java.lang.String) {
@@ -261,6 +264,7 @@ public final class QueryOuterClass {
      * <code>string xid = 2;</code>
      * @return The bytes for xid.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getXidBytes() {
       java.lang.Object ref = xid_;
@@ -281,6 +285,7 @@ public final class QueryOuterClass {
      * <code>string owner = 3;</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -297,6 +302,7 @@ public final class QueryOuterClass {
      * <code>string owner = 3;</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -317,6 +323,7 @@ public final class QueryOuterClass {
      * <code>string state = 4;</code>
      * @return The state.
      */
+    @java.lang.Override
     public java.lang.String getState() {
       java.lang.Object ref = state_;
       if (ref instanceof java.lang.String) {
@@ -333,6 +340,7 @@ public final class QueryOuterClass {
      * <code>string state = 4;</code>
      * @return The bytes for state.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getStateBytes() {
       java.lang.Object ref = state_;
@@ -353,6 +361,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 5;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -360,12 +369,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 5;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 5;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -1282,7 +1293,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.escrow.v1beta1.QueryAccountsResponse}
    */
-  public  static final class QueryAccountsResponse extends
+  public static final class QueryAccountsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.escrow.v1beta1.QueryAccountsResponse)
       QueryAccountsResponseOrBuilder {
@@ -1388,12 +1399,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.escrow.v1beta1.Account accounts = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.escrow.v1beta1.Types.Account> getAccountsList() {
       return accounts_;
     }
     /**
      * <code>repeated .akash.escrow.v1beta1.Account accounts = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.escrow.v1beta1.Types.AccountOrBuilder> 
         getAccountsOrBuilderList() {
       return accounts_;
@@ -1401,18 +1414,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.escrow.v1beta1.Account accounts = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getAccountsCount() {
       return accounts_.size();
     }
     /**
      * <code>repeated .akash.escrow.v1beta1.Account accounts = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.Account getAccounts(int index) {
       return accounts_.get(index);
     }
     /**
      * <code>repeated .akash.escrow.v1beta1.Account accounts = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.AccountOrBuilder getAccountsOrBuilder(
         int index) {
       return accounts_.get(index);
@@ -1424,6 +1440,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1431,12 +1448,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -2314,7 +2333,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.escrow.v1beta1.QueryPaymentsRequest}
    */
-  public  static final class QueryPaymentsRequest extends
+  public static final class QueryPaymentsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.escrow.v1beta1.QueryPaymentsRequest)
       QueryPaymentsRequestOrBuilder {
@@ -2442,6 +2461,7 @@ public final class QueryOuterClass {
      * <code>string scope = 1;</code>
      * @return The scope.
      */
+    @java.lang.Override
     public java.lang.String getScope() {
       java.lang.Object ref = scope_;
       if (ref instanceof java.lang.String) {
@@ -2458,6 +2478,7 @@ public final class QueryOuterClass {
      * <code>string scope = 1;</code>
      * @return The bytes for scope.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getScopeBytes() {
       java.lang.Object ref = scope_;
@@ -2478,6 +2499,7 @@ public final class QueryOuterClass {
      * <code>string xid = 2;</code>
      * @return The xid.
      */
+    @java.lang.Override
     public java.lang.String getXid() {
       java.lang.Object ref = xid_;
       if (ref instanceof java.lang.String) {
@@ -2494,6 +2516,7 @@ public final class QueryOuterClass {
      * <code>string xid = 2;</code>
      * @return The bytes for xid.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getXidBytes() {
       java.lang.Object ref = xid_;
@@ -2514,6 +2537,7 @@ public final class QueryOuterClass {
      * <code>string id = 3;</code>
      * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -2530,6 +2554,7 @@ public final class QueryOuterClass {
      * <code>string id = 3;</code>
      * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -2550,6 +2575,7 @@ public final class QueryOuterClass {
      * <code>string owner = 4;</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -2566,6 +2592,7 @@ public final class QueryOuterClass {
      * <code>string owner = 4;</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -2586,6 +2613,7 @@ public final class QueryOuterClass {
      * <code>string state = 5;</code>
      * @return The state.
      */
+    @java.lang.Override
     public java.lang.String getState() {
       java.lang.Object ref = state_;
       if (ref instanceof java.lang.String) {
@@ -2602,6 +2630,7 @@ public final class QueryOuterClass {
      * <code>string state = 5;</code>
      * @return The bytes for state.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getStateBytes() {
       java.lang.Object ref = state_;
@@ -2622,6 +2651,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 6;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2629,12 +2659,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 6;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 6;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -3644,7 +3676,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.escrow.v1beta1.QueryPaymentsResponse}
    */
-  public  static final class QueryPaymentsResponse extends
+  public static final class QueryPaymentsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.escrow.v1beta1.QueryPaymentsResponse)
       QueryPaymentsResponseOrBuilder {
@@ -3750,12 +3782,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.escrow.v1beta1.Payment payments = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.escrow.v1beta1.Types.Payment> getPaymentsList() {
       return payments_;
     }
     /**
      * <code>repeated .akash.escrow.v1beta1.Payment payments = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.escrow.v1beta1.Types.PaymentOrBuilder> 
         getPaymentsOrBuilderList() {
       return payments_;
@@ -3763,18 +3797,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.escrow.v1beta1.Payment payments = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getPaymentsCount() {
       return payments_.size();
     }
     /**
      * <code>repeated .akash.escrow.v1beta1.Payment payments = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.Payment getPayments(int index) {
       return payments_.get(index);
     }
     /**
      * <code>repeated .akash.escrow.v1beta1.Payment payments = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.PaymentOrBuilder getPaymentsOrBuilder(
         int index) {
       return payments_.get(index);
@@ -3786,6 +3823,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -3793,12 +3831,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }

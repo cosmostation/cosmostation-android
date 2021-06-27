@@ -67,7 +67,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.DelegatorWithdrawInfo}
    */
-  public  static final class DelegatorWithdrawInfo extends
+  public static final class DelegatorWithdrawInfo extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.DelegatorWithdrawInfo)
       DelegatorWithdrawInfoOrBuilder {
@@ -165,6 +165,7 @@ public final class Genesis {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The delegatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getDelegatorAddress() {
       java.lang.Object ref = delegatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -185,6 +186,7 @@ public final class Genesis {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The bytes for delegatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDelegatorAddressBytes() {
       java.lang.Object ref = delegatorAddress_;
@@ -209,6 +211,7 @@ public final class Genesis {
      * <code>string withdraw_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_address&#92;""];</code>
      * @return The withdrawAddress.
      */
+    @java.lang.Override
     public java.lang.String getWithdrawAddress() {
       java.lang.Object ref = withdrawAddress_;
       if (ref instanceof java.lang.String) {
@@ -229,6 +232,7 @@ public final class Genesis {
      * <code>string withdraw_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_address&#92;""];</code>
      * @return The bytes for withdrawAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getWithdrawAddressBytes() {
       java.lang.Object ref = withdrawAddress_;
@@ -887,7 +891,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord}
    */
-  public  static final class ValidatorOutstandingRewardsRecord extends
+  public static final class ValidatorOutstandingRewardsRecord extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord)
       ValidatorOutstandingRewardsRecordOrBuilder {
@@ -992,6 +996,7 @@ public final class Genesis {
      * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -1012,6 +1017,7 @@ public final class Genesis {
      * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -1035,6 +1041,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.DecCoin> getOutstandingRewardsList() {
       return outstandingRewards_;
     }
@@ -1045,6 +1052,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder> 
         getOutstandingRewardsOrBuilderList() {
       return outstandingRewards_;
@@ -1056,6 +1064,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public int getOutstandingRewardsCount() {
       return outstandingRewards_.size();
     }
@@ -1066,6 +1075,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.DecCoin getOutstandingRewards(int index) {
       return outstandingRewards_.get(index);
     }
@@ -1076,6 +1086,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.DecCoin outstanding_rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.DecCoinOrBuilder getOutstandingRewardsOrBuilder(
         int index) {
       return outstandingRewards_.get(index);
@@ -1963,7 +1974,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord}
    */
-  public  static final class ValidatorAccumulatedCommissionRecord extends
+  public static final class ValidatorAccumulatedCommissionRecord extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord)
       ValidatorAccumulatedCommissionRecordOrBuilder {
@@ -2067,6 +2078,7 @@ public final class Genesis {
      * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -2087,6 +2099,7 @@ public final class Genesis {
      * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -2111,6 +2124,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
      * @return Whether the accumulated field is set.
      */
+    @java.lang.Override
     public boolean hasAccumulated() {
       return accumulated_ != null;
     }
@@ -2122,6 +2136,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
      * @return The accumulated.
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommission getAccumulated() {
       return accumulated_ == null ? cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommission.getDefaultInstance() : accumulated_;
     }
@@ -2132,6 +2147,7 @@ public final class Genesis {
      *
      * <code>.cosmos.distribution.v1beta1.ValidatorAccumulatedCommission accumulated = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"accumulated&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorAccumulatedCommissionOrBuilder getAccumulatedOrBuilder() {
       return getAccumulated();
     }
@@ -2845,7 +2861,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord}
    */
-  public  static final class ValidatorHistoricalRewardsRecord extends
+  public static final class ValidatorHistoricalRewardsRecord extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord)
       ValidatorHistoricalRewardsRecordOrBuilder {
@@ -2954,6 +2970,7 @@ public final class Genesis {
      * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -2974,6 +2991,7 @@ public final class Genesis {
      * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -2998,6 +3016,7 @@ public final class Genesis {
      * <code>uint64 period = 2;</code>
      * @return The period.
      */
+    @java.lang.Override
     public long getPeriod() {
       return period_;
     }
@@ -3012,6 +3031,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
      * @return Whether the rewards field is set.
      */
+    @java.lang.Override
     public boolean hasRewards() {
       return rewards_ != null;
     }
@@ -3023,6 +3043,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
      * @return The rewards.
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewards getRewards() {
       return rewards_ == null ? cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewards.getDefaultInstance() : rewards_;
     }
@@ -3033,6 +3054,7 @@ public final class Genesis {
      *
      * <code>.cosmos.distribution.v1beta1.ValidatorHistoricalRewards rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorHistoricalRewardsOrBuilder getRewardsOrBuilder() {
       return getRewards();
     }
@@ -3497,6 +3519,7 @@ public final class Genesis {
        * <code>uint64 period = 2;</code>
        * @return The period.
        */
+      @java.lang.Override
       public long getPeriod() {
         return period_;
       }
@@ -3795,7 +3818,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord}
    */
-  public  static final class ValidatorCurrentRewardsRecord extends
+  public static final class ValidatorCurrentRewardsRecord extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord)
       ValidatorCurrentRewardsRecordOrBuilder {
@@ -3899,6 +3922,7 @@ public final class Genesis {
      * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -3919,6 +3943,7 @@ public final class Genesis {
      * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -3943,6 +3968,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
      * @return Whether the rewards field is set.
      */
+    @java.lang.Override
     public boolean hasRewards() {
       return rewards_ != null;
     }
@@ -3954,6 +3980,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
      * @return The rewards.
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewards getRewards() {
       return rewards_ == null ? cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewards.getDefaultInstance() : rewards_;
     }
@@ -3964,6 +3991,7 @@ public final class Genesis {
      *
      * <code>.cosmos.distribution.v1beta1.ValidatorCurrentRewards rewards = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"rewards&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorCurrentRewardsOrBuilder getRewardsOrBuilder() {
       return getRewards();
     }
@@ -4685,7 +4713,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.DelegatorStartingInfoRecord}
    */
-  public  static final class DelegatorStartingInfoRecord extends
+  public static final class DelegatorStartingInfoRecord extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.DelegatorStartingInfoRecord)
       DelegatorStartingInfoRecordOrBuilder {
@@ -4796,6 +4824,7 @@ public final class Genesis {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The delegatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getDelegatorAddress() {
       java.lang.Object ref = delegatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -4816,6 +4845,7 @@ public final class Genesis {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The bytes for delegatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDelegatorAddressBytes() {
       java.lang.Object ref = delegatorAddress_;
@@ -4840,6 +4870,7 @@ public final class Genesis {
      * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -4860,6 +4891,7 @@ public final class Genesis {
      * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -4884,6 +4916,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
      * @return Whether the startingInfo field is set.
      */
+    @java.lang.Override
     public boolean hasStartingInfo() {
       return startingInfo_ != null;
     }
@@ -4895,6 +4928,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
      * @return The startingInfo.
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfo getStartingInfo() {
       return startingInfo_ == null ? cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfo.getDefaultInstance() : startingInfo_;
     }
@@ -4905,6 +4939,7 @@ public final class Genesis {
      *
      * <code>.cosmos.distribution.v1beta1.DelegatorStartingInfo starting_info = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"starting_info&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.DelegatorStartingInfoOrBuilder getStartingInfoOrBuilder() {
       return getStartingInfo();
     }
@@ -5739,7 +5774,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.ValidatorSlashEventRecord}
    */
-  public  static final class ValidatorSlashEventRecord extends
+  public static final class ValidatorSlashEventRecord extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.ValidatorSlashEventRecord)
       ValidatorSlashEventRecordOrBuilder {
@@ -5853,6 +5888,7 @@ public final class Genesis {
      * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -5873,6 +5909,7 @@ public final class Genesis {
      * <code>string validator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -5897,6 +5934,7 @@ public final class Genesis {
      * <code>uint64 height = 2;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -5911,6 +5949,7 @@ public final class Genesis {
      * <code>uint64 period = 3;</code>
      * @return The period.
      */
+    @java.lang.Override
     public long getPeriod() {
       return period_;
     }
@@ -5925,6 +5964,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
      * @return Whether the validatorSlashEvent field is set.
      */
+    @java.lang.Override
     public boolean hasValidatorSlashEvent() {
       return validatorSlashEvent_ != null;
     }
@@ -5936,6 +5976,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
      * @return The validatorSlashEvent.
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorSlashEvent getValidatorSlashEvent() {
       return validatorSlashEvent_ == null ? cosmos.distribution.v1beta1.Distribution.ValidatorSlashEvent.getDefaultInstance() : validatorSlashEvent_;
     }
@@ -5946,6 +5987,7 @@ public final class Genesis {
      *
      * <code>.cosmos.distribution.v1beta1.ValidatorSlashEvent validator_slash_event = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"event&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ValidatorSlashEventOrBuilder getValidatorSlashEventOrBuilder() {
       return getValidatorSlashEvent();
     }
@@ -6427,6 +6469,7 @@ public final class Genesis {
        * <code>uint64 height = 2;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -6469,6 +6512,7 @@ public final class Genesis {
        * <code>uint64 period = 3;</code>
        * @return The period.
        */
+      @java.lang.Override
       public long getPeriod() {
         return period_;
       }
@@ -7102,7 +7146,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.distribution.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.distribution.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -7311,6 +7355,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -7322,6 +7367,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      * @return The params.
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.Params getParams() {
       return params_ == null ? cosmos.distribution.v1beta1.Distribution.Params.getDefaultInstance() : params_;
     }
@@ -7332,6 +7378,7 @@ public final class Genesis {
      *
      * <code>.cosmos.distribution.v1beta1.Params params = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -7346,6 +7393,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
      * @return Whether the feePool field is set.
      */
+    @java.lang.Override
     public boolean hasFeePool() {
       return feePool_ != null;
     }
@@ -7357,6 +7405,7 @@ public final class Genesis {
      * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
      * @return The feePool.
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.FeePool getFeePool() {
       return feePool_ == null ? cosmos.distribution.v1beta1.Distribution.FeePool.getDefaultInstance() : feePool_;
     }
@@ -7367,6 +7416,7 @@ public final class Genesis {
      *
      * <code>.cosmos.distribution.v1beta1.FeePool fee_pool = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"fee_pool&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Distribution.FeePoolOrBuilder getFeePoolOrBuilder() {
       return getFeePool();
     }
@@ -7380,6 +7430,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo> getDelegatorWithdrawInfosList() {
       return delegatorWithdrawInfos_;
     }
@@ -7390,6 +7441,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfoOrBuilder> 
         getDelegatorWithdrawInfosOrBuilderList() {
       return delegatorWithdrawInfos_;
@@ -7401,6 +7453,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
      */
+    @java.lang.Override
     public int getDelegatorWithdrawInfosCount() {
       return delegatorWithdrawInfos_.size();
     }
@@ -7411,6 +7464,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfo getDelegatorWithdrawInfos(int index) {
       return delegatorWithdrawInfos_.get(index);
     }
@@ -7421,6 +7475,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegatorWithdrawInfo delegator_withdraw_infos = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_withdraw_infos&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.DelegatorWithdrawInfoOrBuilder getDelegatorWithdrawInfosOrBuilder(
         int index) {
       return delegatorWithdrawInfos_.get(index);
@@ -7436,6 +7491,7 @@ public final class Genesis {
      * <code>string previous_proposer = 4 [(.gogoproto.moretags) = "yaml:&#92;"previous_proposer&#92;""];</code>
      * @return The previousProposer.
      */
+    @java.lang.Override
     public java.lang.String getPreviousProposer() {
       java.lang.Object ref = previousProposer_;
       if (ref instanceof java.lang.String) {
@@ -7456,6 +7512,7 @@ public final class Genesis {
      * <code>string previous_proposer = 4 [(.gogoproto.moretags) = "yaml:&#92;"previous_proposer&#92;""];</code>
      * @return The bytes for previousProposer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPreviousProposerBytes() {
       java.lang.Object ref = previousProposer_;
@@ -7479,6 +7536,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord> getOutstandingRewardsList() {
       return outstandingRewards_;
     }
@@ -7489,6 +7547,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecordOrBuilder> 
         getOutstandingRewardsOrBuilderList() {
       return outstandingRewards_;
@@ -7500,6 +7559,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public int getOutstandingRewardsCount() {
       return outstandingRewards_.size();
     }
@@ -7510,6 +7570,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecord getOutstandingRewards(int index) {
       return outstandingRewards_.get(index);
     }
@@ -7520,6 +7581,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorOutstandingRewardsRecord outstanding_rewards = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"outstanding_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorOutstandingRewardsRecordOrBuilder getOutstandingRewardsOrBuilder(
         int index) {
       return outstandingRewards_.get(index);
@@ -7534,6 +7596,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord> getValidatorAccumulatedCommissionsList() {
       return validatorAccumulatedCommissions_;
     }
@@ -7544,6 +7607,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecordOrBuilder> 
         getValidatorAccumulatedCommissionsOrBuilderList() {
       return validatorAccumulatedCommissions_;
@@ -7555,6 +7619,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
      */
+    @java.lang.Override
     public int getValidatorAccumulatedCommissionsCount() {
       return validatorAccumulatedCommissions_.size();
     }
@@ -7565,6 +7630,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecord getValidatorAccumulatedCommissions(int index) {
       return validatorAccumulatedCommissions_.get(index);
     }
@@ -7575,6 +7641,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord validator_accumulated_commissions = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_accumulated_commissions&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorAccumulatedCommissionRecordOrBuilder getValidatorAccumulatedCommissionsOrBuilder(
         int index) {
       return validatorAccumulatedCommissions_.get(index);
@@ -7589,6 +7656,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord> getValidatorHistoricalRewardsList() {
       return validatorHistoricalRewards_;
     }
@@ -7599,6 +7667,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecordOrBuilder> 
         getValidatorHistoricalRewardsOrBuilderList() {
       return validatorHistoricalRewards_;
@@ -7610,6 +7679,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public int getValidatorHistoricalRewardsCount() {
       return validatorHistoricalRewards_.size();
     }
@@ -7620,6 +7690,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecord getValidatorHistoricalRewards(int index) {
       return validatorHistoricalRewards_.get(index);
     }
@@ -7630,6 +7701,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord validator_historical_rewards = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_historical_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorHistoricalRewardsRecordOrBuilder getValidatorHistoricalRewardsOrBuilder(
         int index) {
       return validatorHistoricalRewards_.get(index);
@@ -7644,6 +7716,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord> getValidatorCurrentRewardsList() {
       return validatorCurrentRewards_;
     }
@@ -7654,6 +7727,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecordOrBuilder> 
         getValidatorCurrentRewardsOrBuilderList() {
       return validatorCurrentRewards_;
@@ -7665,6 +7739,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public int getValidatorCurrentRewardsCount() {
       return validatorCurrentRewards_.size();
     }
@@ -7675,6 +7750,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecord getValidatorCurrentRewards(int index) {
       return validatorCurrentRewards_.get(index);
     }
@@ -7685,6 +7761,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord validator_current_rewards = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_current_rewards&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorCurrentRewardsRecordOrBuilder getValidatorCurrentRewardsOrBuilder(
         int index) {
       return validatorCurrentRewards_.get(index);
@@ -7699,6 +7776,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord> getDelegatorStartingInfosList() {
       return delegatorStartingInfos_;
     }
@@ -7709,6 +7787,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecordOrBuilder> 
         getDelegatorStartingInfosOrBuilderList() {
       return delegatorStartingInfos_;
@@ -7720,6 +7799,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
      */
+    @java.lang.Override
     public int getDelegatorStartingInfosCount() {
       return delegatorStartingInfos_.size();
     }
@@ -7730,6 +7810,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecord getDelegatorStartingInfos(int index) {
       return delegatorStartingInfos_.get(index);
     }
@@ -7740,6 +7821,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.DelegatorStartingInfoRecord delegator_starting_infos = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"delegator_starting_infos&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.DelegatorStartingInfoRecordOrBuilder getDelegatorStartingInfosOrBuilder(
         int index) {
       return delegatorStartingInfos_.get(index);
@@ -7754,6 +7836,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord> getValidatorSlashEventsList() {
       return validatorSlashEvents_;
     }
@@ -7764,6 +7847,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecordOrBuilder> 
         getValidatorSlashEventsOrBuilderList() {
       return validatorSlashEvents_;
@@ -7775,6 +7859,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
      */
+    @java.lang.Override
     public int getValidatorSlashEventsCount() {
       return validatorSlashEvents_.size();
     }
@@ -7785,6 +7870,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecord getValidatorSlashEvents(int index) {
       return validatorSlashEvents_.get(index);
     }
@@ -7795,6 +7881,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.distribution.v1beta1.ValidatorSlashEventRecord validator_slash_events = 10 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"validator_slash_events&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.distribution.v1beta1.Genesis.ValidatorSlashEventRecordOrBuilder getValidatorSlashEventsOrBuilder(
         int index) {
       return validatorSlashEvents_.get(index);

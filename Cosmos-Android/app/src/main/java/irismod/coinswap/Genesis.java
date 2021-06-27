@@ -52,7 +52,7 @@ public final class Genesis {
    *
    * Protobuf type {@code irismod.coinswap.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.coinswap.GenesisState)
       GenesisStateOrBuilder {
@@ -152,6 +152,7 @@ public final class Genesis {
      * <code>.irismod.coinswap.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -159,12 +160,14 @@ public final class Genesis {
      * <code>.irismod.coinswap.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public irismod.coinswap.Coinswap.Params getParams() {
       return params_ == null ? irismod.coinswap.Coinswap.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.irismod.coinswap.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.coinswap.Coinswap.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -175,6 +178,7 @@ public final class Genesis {
      * <code>string standard_denom = 2 [(.gogoproto.moretags) = "yaml:&#92;"standard_denom&#92;""];</code>
      * @return The standardDenom.
      */
+    @java.lang.Override
     public java.lang.String getStandardDenom() {
       java.lang.Object ref = standardDenom_;
       if (ref instanceof java.lang.String) {
@@ -191,6 +195,7 @@ public final class Genesis {
      * <code>string standard_denom = 2 [(.gogoproto.moretags) = "yaml:&#92;"standard_denom&#92;""];</code>
      * @return The bytes for standardDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getStandardDenomBytes() {
       java.lang.Object ref = standardDenom_;

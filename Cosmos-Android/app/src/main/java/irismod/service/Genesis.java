@@ -156,7 +156,7 @@ public final class Genesis {
    *
    * Protobuf type {@code irismod.service.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.service.GenesisState)
       GenesisStateOrBuilder {
@@ -316,6 +316,7 @@ public final class Genesis {
      * <code>.irismod.service.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -323,12 +324,14 @@ public final class Genesis {
      * <code>.irismod.service.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public irismod.service.Service.Params getParams() {
       return params_ == null ? irismod.service.Service.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.irismod.service.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.service.Service.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -338,12 +341,14 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.service.ServiceDefinition definitions = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.service.Service.ServiceDefinition> getDefinitionsList() {
       return definitions_;
     }
     /**
      * <code>repeated .irismod.service.ServiceDefinition definitions = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.service.Service.ServiceDefinitionOrBuilder> 
         getDefinitionsOrBuilderList() {
       return definitions_;
@@ -351,18 +356,21 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.service.ServiceDefinition definitions = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getDefinitionsCount() {
       return definitions_.size();
     }
     /**
      * <code>repeated .irismod.service.ServiceDefinition definitions = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.service.Service.ServiceDefinition getDefinitions(int index) {
       return definitions_.get(index);
     }
     /**
      * <code>repeated .irismod.service.ServiceDefinition definitions = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.service.Service.ServiceDefinitionOrBuilder getDefinitionsOrBuilder(
         int index) {
       return definitions_.get(index);
@@ -373,12 +381,14 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.service.ServiceBinding bindings = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.service.Service.ServiceBinding> getBindingsList() {
       return bindings_;
     }
     /**
      * <code>repeated .irismod.service.ServiceBinding bindings = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.service.Service.ServiceBindingOrBuilder> 
         getBindingsOrBuilderList() {
       return bindings_;
@@ -386,18 +396,21 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.service.ServiceBinding bindings = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getBindingsCount() {
       return bindings_.size();
     }
     /**
      * <code>repeated .irismod.service.ServiceBinding bindings = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.service.Service.ServiceBinding getBindings(int index) {
       return bindings_.get(index);
     }
     /**
      * <code>repeated .irismod.service.ServiceBinding bindings = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.service.Service.ServiceBindingOrBuilder getBindingsOrBuilder(
         int index) {
       return bindings_.get(index);
@@ -433,6 +446,7 @@ public final class Genesis {
      * <code>map&lt;string, string&gt; withdraw_addresses = 4 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_addresses&#92;""];</code>
      */
 
+    @java.lang.Override
     public boolean containsWithdrawAddresses(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -441,6 +455,7 @@ public final class Genesis {
     /**
      * Use {@link #getWithdrawAddressesMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, java.lang.String> getWithdrawAddresses() {
       return getWithdrawAddressesMap();
@@ -448,6 +463,7 @@ public final class Genesis {
     /**
      * <code>map&lt;string, string&gt; withdraw_addresses = 4 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_addresses&#92;""];</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, java.lang.String> getWithdrawAddressesMap() {
       return internalGetWithdrawAddresses().getMap();
@@ -455,6 +471,7 @@ public final class Genesis {
     /**
      * <code>map&lt;string, string&gt; withdraw_addresses = 4 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_addresses&#92;""];</code>
      */
+    @java.lang.Override
 
     public java.lang.String getWithdrawAddressesOrDefault(
         java.lang.String key,
@@ -467,6 +484,7 @@ public final class Genesis {
     /**
      * <code>map&lt;string, string&gt; withdraw_addresses = 4 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_addresses&#92;""];</code>
      */
+    @java.lang.Override
 
     public java.lang.String getWithdrawAddressesOrThrow(
         java.lang.String key) {
@@ -509,6 +527,7 @@ public final class Genesis {
      * <code>map&lt;string, .irismod.service.RequestContext&gt; request_contexts = 5 [(.gogoproto.moretags) = "yaml:&#92;"request_contexts&#92;""];</code>
      */
 
+    @java.lang.Override
     public boolean containsRequestContexts(
         java.lang.String key) {
       if (key == null) { throw new java.lang.NullPointerException(); }
@@ -517,6 +536,7 @@ public final class Genesis {
     /**
      * Use {@link #getRequestContextsMap()} instead.
      */
+    @java.lang.Override
     @java.lang.Deprecated
     public java.util.Map<java.lang.String, irismod.service.Service.RequestContext> getRequestContexts() {
       return getRequestContextsMap();
@@ -524,6 +544,7 @@ public final class Genesis {
     /**
      * <code>map&lt;string, .irismod.service.RequestContext&gt; request_contexts = 5 [(.gogoproto.moretags) = "yaml:&#92;"request_contexts&#92;""];</code>
      */
+    @java.lang.Override
 
     public java.util.Map<java.lang.String, irismod.service.Service.RequestContext> getRequestContextsMap() {
       return internalGetRequestContexts().getMap();
@@ -531,6 +552,7 @@ public final class Genesis {
     /**
      * <code>map&lt;string, .irismod.service.RequestContext&gt; request_contexts = 5 [(.gogoproto.moretags) = "yaml:&#92;"request_contexts&#92;""];</code>
      */
+    @java.lang.Override
 
     public irismod.service.Service.RequestContext getRequestContextsOrDefault(
         java.lang.String key,
@@ -543,6 +565,7 @@ public final class Genesis {
     /**
      * <code>map&lt;string, .irismod.service.RequestContext&gt; request_contexts = 5 [(.gogoproto.moretags) = "yaml:&#92;"request_contexts&#92;""];</code>
      */
+    @java.lang.Override
 
     public irismod.service.Service.RequestContext getRequestContextsOrThrow(
         java.lang.String key) {
@@ -1695,6 +1718,7 @@ public final class Genesis {
        * <code>map&lt;string, string&gt; withdraw_addresses = 4 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_addresses&#92;""];</code>
        */
 
+      @java.lang.Override
       public boolean containsWithdrawAddresses(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -1703,6 +1727,7 @@ public final class Genesis {
       /**
        * Use {@link #getWithdrawAddressesMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, java.lang.String> getWithdrawAddresses() {
         return getWithdrawAddressesMap();
@@ -1710,6 +1735,7 @@ public final class Genesis {
       /**
        * <code>map&lt;string, string&gt; withdraw_addresses = 4 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_addresses&#92;""];</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, java.lang.String> getWithdrawAddressesMap() {
         return internalGetWithdrawAddresses().getMap();
@@ -1717,6 +1743,7 @@ public final class Genesis {
       /**
        * <code>map&lt;string, string&gt; withdraw_addresses = 4 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_addresses&#92;""];</code>
        */
+      @java.lang.Override
 
       public java.lang.String getWithdrawAddressesOrDefault(
           java.lang.String key,
@@ -1729,6 +1756,7 @@ public final class Genesis {
       /**
        * <code>map&lt;string, string&gt; withdraw_addresses = 4 [(.gogoproto.moretags) = "yaml:&#92;"withdraw_addresses&#92;""];</code>
        */
+      @java.lang.Override
 
       public java.lang.String getWithdrawAddressesOrThrow(
           java.lang.String key) {
@@ -1818,6 +1846,7 @@ public final class Genesis {
        * <code>map&lt;string, .irismod.service.RequestContext&gt; request_contexts = 5 [(.gogoproto.moretags) = "yaml:&#92;"request_contexts&#92;""];</code>
        */
 
+      @java.lang.Override
       public boolean containsRequestContexts(
           java.lang.String key) {
         if (key == null) { throw new java.lang.NullPointerException(); }
@@ -1826,6 +1855,7 @@ public final class Genesis {
       /**
        * Use {@link #getRequestContextsMap()} instead.
        */
+      @java.lang.Override
       @java.lang.Deprecated
       public java.util.Map<java.lang.String, irismod.service.Service.RequestContext> getRequestContexts() {
         return getRequestContextsMap();
@@ -1833,6 +1863,7 @@ public final class Genesis {
       /**
        * <code>map&lt;string, .irismod.service.RequestContext&gt; request_contexts = 5 [(.gogoproto.moretags) = "yaml:&#92;"request_contexts&#92;""];</code>
        */
+      @java.lang.Override
 
       public java.util.Map<java.lang.String, irismod.service.Service.RequestContext> getRequestContextsMap() {
         return internalGetRequestContexts().getMap();
@@ -1840,6 +1871,7 @@ public final class Genesis {
       /**
        * <code>map&lt;string, .irismod.service.RequestContext&gt; request_contexts = 5 [(.gogoproto.moretags) = "yaml:&#92;"request_contexts&#92;""];</code>
        */
+      @java.lang.Override
 
       public irismod.service.Service.RequestContext getRequestContextsOrDefault(
           java.lang.String key,
@@ -1852,6 +1884,7 @@ public final class Genesis {
       /**
        * <code>map&lt;string, .irismod.service.RequestContext&gt; request_contexts = 5 [(.gogoproto.moretags) = "yaml:&#92;"request_contexts&#92;""];</code>
        */
+      @java.lang.Override
 
       public irismod.service.Service.RequestContext getRequestContextsOrThrow(
           java.lang.String key) {

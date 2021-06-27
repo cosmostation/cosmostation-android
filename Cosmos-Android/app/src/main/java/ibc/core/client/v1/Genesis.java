@@ -192,7 +192,7 @@ public final class Genesis {
    *
    * Protobuf type {@code ibc.core.client.v1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.GenesisState)
       GenesisStateOrBuilder {
@@ -338,6 +338,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedClientState clients = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "IdentifiedClientStates"];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.client.v1.Client.IdentifiedClientState> getClientsList() {
       return clients_;
     }
@@ -348,6 +349,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedClientState clients = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "IdentifiedClientStates"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.client.v1.Client.IdentifiedClientStateOrBuilder> 
         getClientsOrBuilderList() {
       return clients_;
@@ -359,6 +361,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedClientState clients = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "IdentifiedClientStates"];</code>
      */
+    @java.lang.Override
     public int getClientsCount() {
       return clients_.size();
     }
@@ -369,6 +372,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedClientState clients = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "IdentifiedClientStates"];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.IdentifiedClientState getClients(int index) {
       return clients_.get(index);
     }
@@ -379,6 +383,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedClientState clients = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "IdentifiedClientStates"];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.IdentifiedClientStateOrBuilder getClientsOrBuilder(
         int index) {
       return clients_.get(index);
@@ -393,6 +398,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.ClientConsensusStates clients_consensus = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"clients_consensus&#92;"", (.gogoproto.castrepeated) = "ClientsConsensusStates"];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.client.v1.Client.ClientConsensusStates> getClientsConsensusList() {
       return clientsConsensus_;
     }
@@ -403,6 +409,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.ClientConsensusStates clients_consensus = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"clients_consensus&#92;"", (.gogoproto.castrepeated) = "ClientsConsensusStates"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.client.v1.Client.ClientConsensusStatesOrBuilder> 
         getClientsConsensusOrBuilderList() {
       return clientsConsensus_;
@@ -414,6 +421,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.ClientConsensusStates clients_consensus = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"clients_consensus&#92;"", (.gogoproto.castrepeated) = "ClientsConsensusStates"];</code>
      */
+    @java.lang.Override
     public int getClientsConsensusCount() {
       return clientsConsensus_.size();
     }
@@ -424,6 +432,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.ClientConsensusStates clients_consensus = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"clients_consensus&#92;"", (.gogoproto.castrepeated) = "ClientsConsensusStates"];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.ClientConsensusStates getClientsConsensus(int index) {
       return clientsConsensus_.get(index);
     }
@@ -434,6 +443,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.ClientConsensusStates clients_consensus = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"clients_consensus&#92;"", (.gogoproto.castrepeated) = "ClientsConsensusStates"];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.ClientConsensusStatesOrBuilder getClientsConsensusOrBuilder(
         int index) {
       return clientsConsensus_.get(index);
@@ -448,6 +458,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedGenesisMetadata clients_metadata = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"clients_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.client.v1.Genesis.IdentifiedGenesisMetadata> getClientsMetadataList() {
       return clientsMetadata_;
     }
@@ -458,6 +469,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedGenesisMetadata clients_metadata = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"clients_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.client.v1.Genesis.IdentifiedGenesisMetadataOrBuilder> 
         getClientsMetadataOrBuilderList() {
       return clientsMetadata_;
@@ -469,6 +481,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedGenesisMetadata clients_metadata = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"clients_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public int getClientsMetadataCount() {
       return clientsMetadata_.size();
     }
@@ -479,6 +492,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedGenesisMetadata clients_metadata = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"clients_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Genesis.IdentifiedGenesisMetadata getClientsMetadata(int index) {
       return clientsMetadata_.get(index);
     }
@@ -489,6 +503,7 @@ public final class Genesis {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedGenesisMetadata clients_metadata = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"clients_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Genesis.IdentifiedGenesisMetadataOrBuilder getClientsMetadataOrBuilder(
         int index) {
       return clientsMetadata_.get(index);
@@ -500,6 +515,7 @@ public final class Genesis {
      * <code>.ibc.core.client.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -507,12 +523,14 @@ public final class Genesis {
      * <code>.ibc.core.client.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Params getParams() {
       return params_ == null ? ibc.core.client.v1.Client.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.ibc.core.client.v1.Params params = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -527,6 +545,7 @@ public final class Genesis {
      * <code>bool create_localhost = 5 [(.gogoproto.moretags) = "yaml:&#92;"create_localhost&#92;""];</code>
      * @return The createLocalhost.
      */
+    @java.lang.Override
     public boolean getCreateLocalhost() {
       return createLocalhost_;
     }
@@ -541,6 +560,7 @@ public final class Genesis {
      * <code>uint64 next_client_sequence = 6 [(.gogoproto.moretags) = "yaml:&#92;"next_client_sequence&#92;""];</code>
      * @return The nextClientSequence.
      */
+    @java.lang.Override
     public long getNextClientSequence() {
       return nextClientSequence_;
     }
@@ -2131,6 +2151,7 @@ public final class Genesis {
        * <code>bool create_localhost = 5 [(.gogoproto.moretags) = "yaml:&#92;"create_localhost&#92;""];</code>
        * @return The createLocalhost.
        */
+      @java.lang.Override
       public boolean getCreateLocalhost() {
         return createLocalhost_;
       }
@@ -2173,6 +2194,7 @@ public final class Genesis {
        * <code>uint64 next_client_sequence = 6 [(.gogoproto.moretags) = "yaml:&#92;"next_client_sequence&#92;""];</code>
        * @return The nextClientSequence.
        */
+      @java.lang.Override
       public long getNextClientSequence() {
         return nextClientSequence_;
       }
@@ -2290,7 +2312,7 @@ public final class Genesis {
    *
    * Protobuf type {@code ibc.core.client.v1.GenesisMetadata}
    */
-  public  static final class GenesisMetadata extends
+  public static final class GenesisMetadata extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.GenesisMetadata)
       GenesisMetadataOrBuilder {
@@ -2386,6 +2408,7 @@ public final class Genesis {
      * <code>bytes key = 1;</code>
      * @return The key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getKey() {
       return key_;
     }
@@ -2400,6 +2423,7 @@ public final class Genesis {
      * <code>bytes value = 2;</code>
      * @return The value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValue() {
       return value_;
     }
@@ -2737,6 +2761,7 @@ public final class Genesis {
        * <code>bytes key = 1;</code>
        * @return The key.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getKey() {
         return key_;
       }
@@ -2782,6 +2807,7 @@ public final class Genesis {
        * <code>bytes value = 2;</code>
        * @return The value.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getValue() {
         return value_;
       }
@@ -2917,7 +2943,7 @@ public final class Genesis {
    *
    * Protobuf type {@code ibc.core.client.v1.IdentifiedGenesisMetadata}
    */
-  public  static final class IdentifiedGenesisMetadata extends
+  public static final class IdentifiedGenesisMetadata extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.IdentifiedGenesisMetadata)
       IdentifiedGenesisMetadataOrBuilder {
@@ -3018,6 +3044,7 @@ public final class Genesis {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -3034,6 +3061,7 @@ public final class Genesis {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -3053,12 +3081,14 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.client.v1.GenesisMetadata client_metadata = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"client_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.client.v1.Genesis.GenesisMetadata> getClientMetadataList() {
       return clientMetadata_;
     }
     /**
      * <code>repeated .ibc.core.client.v1.GenesisMetadata client_metadata = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"client_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.client.v1.Genesis.GenesisMetadataOrBuilder> 
         getClientMetadataOrBuilderList() {
       return clientMetadata_;
@@ -3066,18 +3096,21 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.client.v1.GenesisMetadata client_metadata = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"client_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public int getClientMetadataCount() {
       return clientMetadata_.size();
     }
     /**
      * <code>repeated .ibc.core.client.v1.GenesisMetadata client_metadata = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"client_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Genesis.GenesisMetadata getClientMetadata(int index) {
       return clientMetadata_.get(index);
     }
     /**
      * <code>repeated .ibc.core.client.v1.GenesisMetadata client_metadata = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"client_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Genesis.GenesisMetadataOrBuilder getClientMetadataOrBuilder(
         int index) {
       return clientMetadata_.get(index);

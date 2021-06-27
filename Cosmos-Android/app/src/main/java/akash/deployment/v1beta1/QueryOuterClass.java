@@ -55,7 +55,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.QueryDeploymentsRequest}
    */
-  public  static final class QueryDeploymentsRequest extends
+  public static final class QueryDeploymentsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.QueryDeploymentsRequest)
       QueryDeploymentsRequestOrBuilder {
@@ -161,6 +161,7 @@ public final class QueryOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentFilters filters = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the filters field is set.
      */
+    @java.lang.Override
     public boolean hasFilters() {
       return filters_ != null;
     }
@@ -168,12 +169,14 @@ public final class QueryOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentFilters filters = 1 [(.gogoproto.nullable) = false];</code>
      * @return The filters.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentFilters getFilters() {
       return filters_ == null ? akash.deployment.v1beta1.DeploymentOuterClass.DeploymentFilters.getDefaultInstance() : filters_;
     }
     /**
      * <code>.akash.deployment.v1beta1.DeploymentFilters filters = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentFiltersOrBuilder getFiltersOrBuilder() {
       return getFilters();
     }
@@ -184,6 +187,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -191,12 +195,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -890,7 +896,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.QueryDeploymentsResponse}
    */
-  public  static final class QueryDeploymentsResponse extends
+  public static final class QueryDeploymentsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.QueryDeploymentsResponse)
       QueryDeploymentsResponseOrBuilder {
@@ -996,12 +1002,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.deployment.v1beta1.QueryDeploymentResponse deployments = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "DeploymentResponses"];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.deployment.v1beta1.QueryOuterClass.QueryDeploymentResponse> getDeploymentsList() {
       return deployments_;
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.QueryDeploymentResponse deployments = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "DeploymentResponses"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.deployment.v1beta1.QueryOuterClass.QueryDeploymentResponseOrBuilder> 
         getDeploymentsOrBuilderList() {
       return deployments_;
@@ -1009,18 +1017,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.deployment.v1beta1.QueryDeploymentResponse deployments = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "DeploymentResponses"];</code>
      */
+    @java.lang.Override
     public int getDeploymentsCount() {
       return deployments_.size();
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.QueryDeploymentResponse deployments = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "DeploymentResponses"];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.QueryOuterClass.QueryDeploymentResponse getDeployments(int index) {
       return deployments_.get(index);
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.QueryDeploymentResponse deployments = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "DeploymentResponses"];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.QueryOuterClass.QueryDeploymentResponseOrBuilder getDeploymentsOrBuilder(
         int index) {
       return deployments_.get(index);
@@ -1032,6 +1043,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1039,12 +1051,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -1862,7 +1876,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.QueryDeploymentRequest}
    */
-  public  static final class QueryDeploymentRequest extends
+  public static final class QueryDeploymentRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.QueryDeploymentRequest)
       QueryDeploymentRequestOrBuilder {
@@ -1955,6 +1969,7 @@ public final class QueryOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -1962,12 +1977,14 @@ public final class QueryOuterClass {
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentID getId() {
       return id_ == null ? akash.deployment.v1beta1.DeploymentOuterClass.DeploymentID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.deployment.v1beta1.DeploymentID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -2527,7 +2544,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.QueryDeploymentResponse}
    */
-  public  static final class QueryDeploymentResponse extends
+  public static final class QueryDeploymentResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.QueryDeploymentResponse)
       QueryDeploymentResponseOrBuilder {
@@ -2647,6 +2664,7 @@ public final class QueryOuterClass {
      * <code>.akash.deployment.v1beta1.Deployment deployment = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deployment", (.gogoproto.moretags) = "yaml:&#92;"deployment&#92;""];</code>
      * @return Whether the deployment field is set.
      */
+    @java.lang.Override
     public boolean hasDeployment() {
       return deployment_ != null;
     }
@@ -2654,12 +2672,14 @@ public final class QueryOuterClass {
      * <code>.akash.deployment.v1beta1.Deployment deployment = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deployment", (.gogoproto.moretags) = "yaml:&#92;"deployment&#92;""];</code>
      * @return The deployment.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.Deployment getDeployment() {
       return deployment_ == null ? akash.deployment.v1beta1.DeploymentOuterClass.Deployment.getDefaultInstance() : deployment_;
     }
     /**
      * <code>.akash.deployment.v1beta1.Deployment deployment = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deployment", (.gogoproto.moretags) = "yaml:&#92;"deployment&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentOrBuilder getDeploymentOrBuilder() {
       return getDeployment();
     }
@@ -2669,12 +2689,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.deployment.v1beta1.Group groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.deployment.v1beta1.GroupOuterClass.Group> getGroupsList() {
       return groups_;
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.Group groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.deployment.v1beta1.GroupOuterClass.GroupOrBuilder> 
         getGroupsOrBuilderList() {
       return groups_;
@@ -2682,18 +2704,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.deployment.v1beta1.Group groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public int getGroupsCount() {
       return groups_.size();
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.Group groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.Group getGroups(int index) {
       return groups_.get(index);
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.Group groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupOrBuilder getGroupsOrBuilder(
         int index) {
       return groups_.get(index);
@@ -2705,6 +2730,7 @@ public final class QueryOuterClass {
      * <code>.akash.escrow.v1beta1.Account escrow_account = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the escrowAccount field is set.
      */
+    @java.lang.Override
     public boolean hasEscrowAccount() {
       return escrowAccount_ != null;
     }
@@ -2712,12 +2738,14 @@ public final class QueryOuterClass {
      * <code>.akash.escrow.v1beta1.Account escrow_account = 3 [(.gogoproto.nullable) = false];</code>
      * @return The escrowAccount.
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.Account getEscrowAccount() {
       return escrowAccount_ == null ? akash.escrow.v1beta1.Types.Account.getDefaultInstance() : escrowAccount_;
     }
     /**
      * <code>.akash.escrow.v1beta1.Account escrow_account = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.AccountOrBuilder getEscrowAccountOrBuilder() {
       return getEscrowAccount();
     }
@@ -3684,7 +3712,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.QueryGroupRequest}
    */
-  public  static final class QueryGroupRequest extends
+  public static final class QueryGroupRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.QueryGroupRequest)
       QueryGroupRequestOrBuilder {
@@ -3777,6 +3805,7 @@ public final class QueryOuterClass {
      * <code>.akash.deployment.v1beta1.GroupID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -3784,12 +3813,14 @@ public final class QueryOuterClass {
      * <code>.akash.deployment.v1beta1.GroupID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupID getId() {
       return id_ == null ? akash.deployment.v1beta1.GroupOuterClass.GroupID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.deployment.v1beta1.GroupID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID"];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -4310,7 +4341,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.deployment.v1beta1.QueryGroupResponse}
    */
-  public  static final class QueryGroupResponse extends
+  public static final class QueryGroupResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.QueryGroupResponse)
       QueryGroupResponseOrBuilder {
@@ -4403,6 +4434,7 @@ public final class QueryOuterClass {
      * <code>.akash.deployment.v1beta1.Group group = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the group field is set.
      */
+    @java.lang.Override
     public boolean hasGroup() {
       return group_ != null;
     }
@@ -4410,12 +4442,14 @@ public final class QueryOuterClass {
      * <code>.akash.deployment.v1beta1.Group group = 1 [(.gogoproto.nullable) = false];</code>
      * @return The group.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.Group getGroup() {
       return group_ == null ? akash.deployment.v1beta1.GroupOuterClass.Group.getDefaultInstance() : group_;
     }
     /**
      * <code>.akash.deployment.v1beta1.Group group = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupOrBuilder getGroupOrBuilder() {
       return getGroup();
     }

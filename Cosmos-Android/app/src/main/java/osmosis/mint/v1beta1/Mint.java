@@ -45,7 +45,7 @@ public final class Mint {
    *
    * Protobuf type {@code osmosis.mint.v1beta1.Minter}
    */
-  public  static final class Minter extends
+  public static final class Minter extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.mint.v1beta1.Minter)
       MinterOrBuilder {
@@ -136,6 +136,7 @@ public final class Mint {
      * <code>string epoch_provisions = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"epoch_provisions&#92;""];</code>
      * @return The epochProvisions.
      */
+    @java.lang.Override
     public java.lang.String getEpochProvisions() {
       java.lang.Object ref = epochProvisions_;
       if (ref instanceof java.lang.String) {
@@ -156,6 +157,7 @@ public final class Mint {
      * <code>string epoch_provisions = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"epoch_provisions&#92;""];</code>
      * @return The bytes for epochProvisions.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getEpochProvisionsBytes() {
       java.lang.Object ref = epochProvisions_;
@@ -655,7 +657,7 @@ public final class Mint {
   /**
    * Protobuf type {@code osmosis.mint.v1beta1.WeightedAddress}
    */
-  public  static final class WeightedAddress extends
+  public static final class WeightedAddress extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.mint.v1beta1.WeightedAddress)
       WeightedAddressOrBuilder {
@@ -749,6 +751,7 @@ public final class Mint {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -765,6 +768,7 @@ public final class Mint {
      * <code>string address = 1 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -785,6 +789,7 @@ public final class Mint {
      * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"weight&#92;""];</code>
      * @return The weight.
      */
+    @java.lang.Override
     public java.lang.String getWeight() {
       java.lang.Object ref = weight_;
       if (ref instanceof java.lang.String) {
@@ -801,6 +806,7 @@ public final class Mint {
      * <code>string weight = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"weight&#92;""];</code>
      * @return The bytes for weight.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getWeightBytes() {
       java.lang.Object ref = weight_;
@@ -1433,7 +1439,7 @@ public final class Mint {
   /**
    * Protobuf type {@code osmosis.mint.v1beta1.DistributionProportions}
    */
-  public  static final class DistributionProportions extends
+  public static final class DistributionProportions extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.mint.v1beta1.DistributionProportions)
       DistributionProportionsOrBuilder {
@@ -1546,6 +1552,7 @@ public final class Mint {
      * <code>string staking = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"staking&#92;""];</code>
      * @return The staking.
      */
+    @java.lang.Override
     public java.lang.String getStaking() {
       java.lang.Object ref = staking_;
       if (ref instanceof java.lang.String) {
@@ -1567,6 +1574,7 @@ public final class Mint {
      * <code>string staking = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"staking&#92;""];</code>
      * @return The bytes for staking.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getStakingBytes() {
       java.lang.Object ref = staking_;
@@ -1592,6 +1600,7 @@ public final class Mint {
      * <code>string pool_incentives = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"pool_incentives&#92;""];</code>
      * @return The poolIncentives.
      */
+    @java.lang.Override
     public java.lang.String getPoolIncentives() {
       java.lang.Object ref = poolIncentives_;
       if (ref instanceof java.lang.String) {
@@ -1613,6 +1622,7 @@ public final class Mint {
      * <code>string pool_incentives = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"pool_incentives&#92;""];</code>
      * @return The bytes for poolIncentives.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPoolIncentivesBytes() {
       java.lang.Object ref = poolIncentives_;
@@ -1638,6 +1648,7 @@ public final class Mint {
      * <code>string developer_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"developer_rewards&#92;""];</code>
      * @return The developerRewards.
      */
+    @java.lang.Override
     public java.lang.String getDeveloperRewards() {
       java.lang.Object ref = developerRewards_;
       if (ref instanceof java.lang.String) {
@@ -1659,6 +1670,7 @@ public final class Mint {
      * <code>string developer_rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"developer_rewards&#92;""];</code>
      * @return The bytes for developerRewards.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDeveloperRewardsBytes() {
       java.lang.Object ref = developerRewards_;
@@ -1684,6 +1696,7 @@ public final class Mint {
      * <code>string community_pool = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"community_pool&#92;""];</code>
      * @return The communityPool.
      */
+    @java.lang.Override
     public java.lang.String getCommunityPool() {
       java.lang.Object ref = communityPool_;
       if (ref instanceof java.lang.String) {
@@ -1705,6 +1718,7 @@ public final class Mint {
      * <code>string community_pool = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"community_pool&#92;""];</code>
      * @return The bytes for communityPool.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCommunityPoolBytes() {
       java.lang.Object ref = communityPool_;
@@ -2710,7 +2724,7 @@ public final class Mint {
    *
    * Protobuf type {@code osmosis.mint.v1beta1.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.mint.v1beta1.Params)
       ParamsOrBuilder {
@@ -2859,6 +2873,7 @@ public final class Mint {
      * <code>string mint_denom = 1;</code>
      * @return The mintDenom.
      */
+    @java.lang.Override
     public java.lang.String getMintDenom() {
       java.lang.Object ref = mintDenom_;
       if (ref instanceof java.lang.String) {
@@ -2879,6 +2894,7 @@ public final class Mint {
      * <code>string mint_denom = 1;</code>
      * @return The bytes for mintDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMintDenomBytes() {
       java.lang.Object ref = mintDenom_;
@@ -2903,6 +2919,7 @@ public final class Mint {
      * <code>string genesis_epoch_provisions = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"genesis_epoch_provisions&#92;""];</code>
      * @return The genesisEpochProvisions.
      */
+    @java.lang.Override
     public java.lang.String getGenesisEpochProvisions() {
       java.lang.Object ref = genesisEpochProvisions_;
       if (ref instanceof java.lang.String) {
@@ -2923,6 +2940,7 @@ public final class Mint {
      * <code>string genesis_epoch_provisions = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"genesis_epoch_provisions&#92;""];</code>
      * @return The bytes for genesisEpochProvisions.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getGenesisEpochProvisionsBytes() {
       java.lang.Object ref = genesisEpochProvisions_;
@@ -2947,6 +2965,7 @@ public final class Mint {
      * <code>string epoch_identifier = 3 [(.gogoproto.moretags) = "yaml:&#92;"epoch_identifier&#92;""];</code>
      * @return The epochIdentifier.
      */
+    @java.lang.Override
     public java.lang.String getEpochIdentifier() {
       java.lang.Object ref = epochIdentifier_;
       if (ref instanceof java.lang.String) {
@@ -2967,6 +2986,7 @@ public final class Mint {
      * <code>string epoch_identifier = 3 [(.gogoproto.moretags) = "yaml:&#92;"epoch_identifier&#92;""];</code>
      * @return The bytes for epochIdentifier.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getEpochIdentifierBytes() {
       java.lang.Object ref = epochIdentifier_;
@@ -2991,6 +3011,7 @@ public final class Mint {
      * <code>int64 reduction_period_in_epochs = 4 [(.gogoproto.moretags) = "yaml:&#92;"reduction_period_in_epochs&#92;""];</code>
      * @return The reductionPeriodInEpochs.
      */
+    @java.lang.Override
     public long getReductionPeriodInEpochs() {
       return reductionPeriodInEpochs_;
     }
@@ -3005,6 +3026,7 @@ public final class Mint {
      * <code>string reduction_factor = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"reduction_factor&#92;""];</code>
      * @return The reductionFactor.
      */
+    @java.lang.Override
     public java.lang.String getReductionFactor() {
       java.lang.Object ref = reductionFactor_;
       if (ref instanceof java.lang.String) {
@@ -3025,6 +3047,7 @@ public final class Mint {
      * <code>string reduction_factor = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"reduction_factor&#92;""];</code>
      * @return The bytes for reductionFactor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getReductionFactorBytes() {
       java.lang.Object ref = reductionFactor_;
@@ -3049,6 +3072,7 @@ public final class Mint {
      * <code>.osmosis.mint.v1beta1.DistributionProportions distribution_proportions = 6 [(.gogoproto.nullable) = false];</code>
      * @return Whether the distributionProportions field is set.
      */
+    @java.lang.Override
     public boolean hasDistributionProportions() {
       return distributionProportions_ != null;
     }
@@ -3060,6 +3084,7 @@ public final class Mint {
      * <code>.osmosis.mint.v1beta1.DistributionProportions distribution_proportions = 6 [(.gogoproto.nullable) = false];</code>
      * @return The distributionProportions.
      */
+    @java.lang.Override
     public osmosis.mint.v1beta1.Mint.DistributionProportions getDistributionProportions() {
       return distributionProportions_ == null ? osmosis.mint.v1beta1.Mint.DistributionProportions.getDefaultInstance() : distributionProportions_;
     }
@@ -3070,6 +3095,7 @@ public final class Mint {
      *
      * <code>.osmosis.mint.v1beta1.DistributionProportions distribution_proportions = 6 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.mint.v1beta1.Mint.DistributionProportionsOrBuilder getDistributionProportionsOrBuilder() {
       return getDistributionProportions();
     }
@@ -3083,6 +3109,7 @@ public final class Mint {
      *
      * <code>repeated .osmosis.mint.v1beta1.WeightedAddress weighted_developer_rewards_receivers = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"developer_rewards_receiver&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.mint.v1beta1.Mint.WeightedAddress> getWeightedDeveloperRewardsReceiversList() {
       return weightedDeveloperRewardsReceivers_;
     }
@@ -3093,6 +3120,7 @@ public final class Mint {
      *
      * <code>repeated .osmosis.mint.v1beta1.WeightedAddress weighted_developer_rewards_receivers = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"developer_rewards_receiver&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.mint.v1beta1.Mint.WeightedAddressOrBuilder> 
         getWeightedDeveloperRewardsReceiversOrBuilderList() {
       return weightedDeveloperRewardsReceivers_;
@@ -3104,6 +3132,7 @@ public final class Mint {
      *
      * <code>repeated .osmosis.mint.v1beta1.WeightedAddress weighted_developer_rewards_receivers = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"developer_rewards_receiver&#92;""];</code>
      */
+    @java.lang.Override
     public int getWeightedDeveloperRewardsReceiversCount() {
       return weightedDeveloperRewardsReceivers_.size();
     }
@@ -3114,6 +3143,7 @@ public final class Mint {
      *
      * <code>repeated .osmosis.mint.v1beta1.WeightedAddress weighted_developer_rewards_receivers = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"developer_rewards_receiver&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.mint.v1beta1.Mint.WeightedAddress getWeightedDeveloperRewardsReceivers(int index) {
       return weightedDeveloperRewardsReceivers_.get(index);
     }
@@ -3124,6 +3154,7 @@ public final class Mint {
      *
      * <code>repeated .osmosis.mint.v1beta1.WeightedAddress weighted_developer_rewards_receivers = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"developer_rewards_receiver&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.mint.v1beta1.Mint.WeightedAddressOrBuilder getWeightedDeveloperRewardsReceiversOrBuilder(
         int index) {
       return weightedDeveloperRewardsReceivers_.get(index);
@@ -3139,6 +3170,7 @@ public final class Mint {
      * <code>int64 minting_rewards_distribution_start_epoch = 8 [(.gogoproto.moretags) = "yaml:&#92;"minting_rewards_distribution_start_epoch&#92;""];</code>
      * @return The mintingRewardsDistributionStartEpoch.
      */
+    @java.lang.Override
     public long getMintingRewardsDistributionStartEpoch() {
       return mintingRewardsDistributionStartEpoch_;
     }
@@ -3920,6 +3952,7 @@ public final class Mint {
        * <code>int64 reduction_period_in_epochs = 4 [(.gogoproto.moretags) = "yaml:&#92;"reduction_period_in_epochs&#92;""];</code>
        * @return The reductionPeriodInEpochs.
        */
+      @java.lang.Override
       public long getReductionPeriodInEpochs() {
         return reductionPeriodInEpochs_;
       }
@@ -4525,6 +4558,7 @@ public final class Mint {
        * <code>int64 minting_rewards_distribution_start_epoch = 8 [(.gogoproto.moretags) = "yaml:&#92;"minting_rewards_distribution_start_epoch&#92;""];</code>
        * @return The mintingRewardsDistributionStartEpoch.
        */
+      @java.lang.Override
       public long getMintingRewardsDistributionStartEpoch() {
         return mintingRewardsDistributionStartEpoch_;
       }

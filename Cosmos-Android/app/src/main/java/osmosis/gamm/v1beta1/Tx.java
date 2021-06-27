@@ -88,7 +88,7 @@ public final class Tx {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgCreatePool}
    */
-  public  static final class MsgCreatePool extends
+  public static final class MsgCreatePool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgCreatePool)
       MsgCreatePoolOrBuilder {
@@ -209,6 +209,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -225,6 +226,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -245,6 +247,7 @@ public final class Tx {
      * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      * @return Whether the poolParams field is set.
      */
+    @java.lang.Override
     public boolean hasPoolParams() {
       return poolParams_ != null;
     }
@@ -252,12 +255,14 @@ public final class Tx {
      * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      * @return The poolParams.
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolParams getPoolParams() {
       return poolParams_ == null ? osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.getDefaultInstance() : poolParams_;
     }
     /**
      * <code>.osmosis.gamm.v1beta1.PoolParams poolParams = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"pool_params&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolParamsOrBuilder getPoolParamsOrBuilder() {
       return getPoolParams();
     }
@@ -267,12 +272,14 @@ public final class Tx {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset> getPoolAssetsList() {
       return poolAssets_;
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder> 
         getPoolAssetsOrBuilderList() {
       return poolAssets_;
@@ -280,18 +287,21 @@ public final class Tx {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getPoolAssetsCount() {
       return poolAssets_.size();
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset getPoolAssets(int index) {
       return poolAssets_.get(index);
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder getPoolAssetsOrBuilder(
         int index) {
       return poolAssets_.get(index);
@@ -303,6 +313,7 @@ public final class Tx {
      * <code>string future_pool_governor = 4 [(.gogoproto.moretags) = "yaml:&#92;"future_pool_governor&#92;""];</code>
      * @return The futurePoolGovernor.
      */
+    @java.lang.Override
     public java.lang.String getFuturePoolGovernor() {
       java.lang.Object ref = futurePoolGovernor_;
       if (ref instanceof java.lang.String) {
@@ -319,6 +330,7 @@ public final class Tx {
      * <code>string future_pool_governor = 4 [(.gogoproto.moretags) = "yaml:&#92;"future_pool_governor&#92;""];</code>
      * @return The bytes for futurePoolGovernor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFuturePoolGovernorBytes() {
       java.lang.Object ref = futurePoolGovernor_;
@@ -1313,7 +1325,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgCreatePoolResponse}
    */
-  public  static final class MsgCreatePoolResponse extends
+  public static final class MsgCreatePoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgCreatePoolResponse)
       MsgCreatePoolResponseOrBuilder {
@@ -1789,7 +1801,7 @@ public final class Tx {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgJoinPool}
    */
-  public  static final class MsgJoinPool extends
+  public static final class MsgJoinPool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgJoinPool)
       MsgJoinPoolOrBuilder {
@@ -1902,6 +1914,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -1918,6 +1931,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -1938,6 +1952,7 @@ public final class Tx {
      * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -1948,6 +1963,7 @@ public final class Tx {
      * <code>string shareOutAmount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"pool_amount_out&#92;""];</code>
      * @return The shareOutAmount.
      */
+    @java.lang.Override
     public java.lang.String getShareOutAmount() {
       java.lang.Object ref = shareOutAmount_;
       if (ref instanceof java.lang.String) {
@@ -1964,6 +1980,7 @@ public final class Tx {
      * <code>string shareOutAmount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"pool_amount_out&#92;""];</code>
      * @return The bytes for shareOutAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getShareOutAmountBytes() {
       java.lang.Object ref = shareOutAmount_;
@@ -1983,12 +2000,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin tokenInMaxs = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_in_max_amounts&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getTokenInMaxsList() {
       return tokenInMaxs_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin tokenInMaxs = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_in_max_amounts&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getTokenInMaxsOrBuilderList() {
       return tokenInMaxs_;
@@ -1996,18 +2015,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin tokenInMaxs = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_in_max_amounts&#92;""];</code>
      */
+    @java.lang.Override
     public int getTokenInMaxsCount() {
       return tokenInMaxs_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin tokenInMaxs = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_in_max_amounts&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getTokenInMaxs(int index) {
       return tokenInMaxs_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin tokenInMaxs = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_in_max_amounts&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTokenInMaxsOrBuilder(
         int index) {
       return tokenInMaxs_.get(index);
@@ -2492,6 +2514,7 @@ public final class Tx {
        * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -2892,7 +2915,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgJoinPoolResponse}
    */
-  public  static final class MsgJoinPoolResponse extends
+  public static final class MsgJoinPoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgJoinPoolResponse)
       MsgJoinPoolResponseOrBuilder {
@@ -3368,7 +3391,7 @@ public final class Tx {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgExitPool}
    */
-  public  static final class MsgExitPool extends
+  public static final class MsgExitPool extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgExitPool)
       MsgExitPoolOrBuilder {
@@ -3481,6 +3504,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -3497,6 +3521,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -3517,6 +3542,7 @@ public final class Tx {
      * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -3527,6 +3553,7 @@ public final class Tx {
      * <code>string shareInAmount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"share_in_amount&#92;""];</code>
      * @return The shareInAmount.
      */
+    @java.lang.Override
     public java.lang.String getShareInAmount() {
       java.lang.Object ref = shareInAmount_;
       if (ref instanceof java.lang.String) {
@@ -3543,6 +3570,7 @@ public final class Tx {
      * <code>string shareInAmount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"share_in_amount&#92;""];</code>
      * @return The bytes for shareInAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getShareInAmountBytes() {
       java.lang.Object ref = shareInAmount_;
@@ -3562,12 +3590,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin tokenOutMins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_out_min_amounts&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getTokenOutMinsList() {
       return tokenOutMins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin tokenOutMins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_out_min_amounts&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getTokenOutMinsOrBuilderList() {
       return tokenOutMins_;
@@ -3575,18 +3605,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin tokenOutMins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_out_min_amounts&#92;""];</code>
      */
+    @java.lang.Override
     public int getTokenOutMinsCount() {
       return tokenOutMins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin tokenOutMins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_out_min_amounts&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getTokenOutMins(int index) {
       return tokenOutMins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin tokenOutMins = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_out_min_amounts&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTokenOutMinsOrBuilder(
         int index) {
       return tokenOutMins_.get(index);
@@ -4071,6 +4104,7 @@ public final class Tx {
        * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -4471,7 +4505,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgExitPoolResponse}
    */
-  public  static final class MsgExitPoolResponse extends
+  public static final class MsgExitPoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgExitPoolResponse)
       MsgExitPoolResponseOrBuilder {
@@ -4911,7 +4945,7 @@ public final class Tx {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.SwapAmountInRoute}
    */
-  public  static final class SwapAmountInRoute extends
+  public static final class SwapAmountInRoute extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.SwapAmountInRoute)
       SwapAmountInRouteOrBuilder {
@@ -5003,6 +5037,7 @@ public final class Tx {
      * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -5013,6 +5048,7 @@ public final class Tx {
      * <code>string tokenOutDenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"token_out_denom&#92;""];</code>
      * @return The tokenOutDenom.
      */
+    @java.lang.Override
     public java.lang.String getTokenOutDenom() {
       java.lang.Object ref = tokenOutDenom_;
       if (ref instanceof java.lang.String) {
@@ -5029,6 +5065,7 @@ public final class Tx {
      * <code>string tokenOutDenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"token_out_denom&#92;""];</code>
      * @return The bytes for tokenOutDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenOutDenomBytes() {
       java.lang.Object ref = tokenOutDenom_;
@@ -5372,6 +5409,7 @@ public final class Tx {
        * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -5595,7 +5633,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgSwapExactAmountIn}
    */
-  public  static final class MsgSwapExactAmountIn extends
+  public static final class MsgSwapExactAmountIn extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgSwapExactAmountIn)
       MsgSwapExactAmountInOrBuilder {
@@ -5716,6 +5754,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -5732,6 +5771,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -5751,12 +5791,14 @@ public final class Tx {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountInRoute routes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.gamm.v1beta1.Tx.SwapAmountInRoute> getRoutesList() {
       return routes_;
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountInRoute routes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.gamm.v1beta1.Tx.SwapAmountInRouteOrBuilder> 
         getRoutesOrBuilderList() {
       return routes_;
@@ -5764,18 +5806,21 @@ public final class Tx {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountInRoute routes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getRoutesCount() {
       return routes_.size();
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountInRoute routes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.Tx.SwapAmountInRoute getRoutes(int index) {
       return routes_.get(index);
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountInRoute routes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.Tx.SwapAmountInRouteOrBuilder getRoutesOrBuilder(
         int index) {
       return routes_.get(index);
@@ -5787,6 +5832,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin tokenIn = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
      * @return Whether the tokenIn field is set.
      */
+    @java.lang.Override
     public boolean hasTokenIn() {
       return tokenIn_ != null;
     }
@@ -5794,12 +5840,14 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin tokenIn = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
      * @return The tokenIn.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getTokenIn() {
       return tokenIn_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : tokenIn_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin tokenIn = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTokenInOrBuilder() {
       return getTokenIn();
     }
@@ -5810,6 +5858,7 @@ public final class Tx {
      * <code>string tokenOutMinAmount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_min_amount&#92;""];</code>
      * @return The tokenOutMinAmount.
      */
+    @java.lang.Override
     public java.lang.String getTokenOutMinAmount() {
       java.lang.Object ref = tokenOutMinAmount_;
       if (ref instanceof java.lang.String) {
@@ -5826,6 +5875,7 @@ public final class Tx {
      * <code>string tokenOutMinAmount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_min_amount&#92;""];</code>
      * @return The bytes for tokenOutMinAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenOutMinAmountBytes() {
       java.lang.Object ref = tokenOutMinAmount_;
@@ -6816,7 +6866,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgSwapExactAmountInResponse}
    */
-  public  static final class MsgSwapExactAmountInResponse extends
+  public static final class MsgSwapExactAmountInResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgSwapExactAmountInResponse)
       MsgSwapExactAmountInResponseOrBuilder {
@@ -7256,7 +7306,7 @@ public final class Tx {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.SwapAmountOutRoute}
    */
-  public  static final class SwapAmountOutRoute extends
+  public static final class SwapAmountOutRoute extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.SwapAmountOutRoute)
       SwapAmountOutRouteOrBuilder {
@@ -7348,6 +7398,7 @@ public final class Tx {
      * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -7358,6 +7409,7 @@ public final class Tx {
      * <code>string tokenInDenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"token_out_denom&#92;""];</code>
      * @return The tokenInDenom.
      */
+    @java.lang.Override
     public java.lang.String getTokenInDenom() {
       java.lang.Object ref = tokenInDenom_;
       if (ref instanceof java.lang.String) {
@@ -7374,6 +7426,7 @@ public final class Tx {
      * <code>string tokenInDenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"token_out_denom&#92;""];</code>
      * @return The bytes for tokenInDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenInDenomBytes() {
       java.lang.Object ref = tokenInDenom_;
@@ -7717,6 +7770,7 @@ public final class Tx {
        * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -7940,7 +7994,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgSwapExactAmountOut}
    */
-  public  static final class MsgSwapExactAmountOut extends
+  public static final class MsgSwapExactAmountOut extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgSwapExactAmountOut)
       MsgSwapExactAmountOutOrBuilder {
@@ -8061,6 +8115,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -8077,6 +8132,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -8096,12 +8152,14 @@ public final class Tx {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountOutRoute routes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.gamm.v1beta1.Tx.SwapAmountOutRoute> getRoutesList() {
       return routes_;
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountOutRoute routes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.gamm.v1beta1.Tx.SwapAmountOutRouteOrBuilder> 
         getRoutesOrBuilderList() {
       return routes_;
@@ -8109,18 +8167,21 @@ public final class Tx {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountOutRoute routes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getRoutesCount() {
       return routes_.size();
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountOutRoute routes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.Tx.SwapAmountOutRoute getRoutes(int index) {
       return routes_.get(index);
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountOutRoute routes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.Tx.SwapAmountOutRouteOrBuilder getRoutesOrBuilder(
         int index) {
       return routes_.get(index);
@@ -8132,6 +8193,7 @@ public final class Tx {
      * <code>string tokenInMaxAmount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_max_amount&#92;""];</code>
      * @return The tokenInMaxAmount.
      */
+    @java.lang.Override
     public java.lang.String getTokenInMaxAmount() {
       java.lang.Object ref = tokenInMaxAmount_;
       if (ref instanceof java.lang.String) {
@@ -8148,6 +8210,7 @@ public final class Tx {
      * <code>string tokenInMaxAmount = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_max_amount&#92;""];</code>
      * @return The bytes for tokenInMaxAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenInMaxAmountBytes() {
       java.lang.Object ref = tokenInMaxAmount_;
@@ -8168,6 +8231,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin tokenOut = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
      * @return Whether the tokenOut field is set.
      */
+    @java.lang.Override
     public boolean hasTokenOut() {
       return tokenOut_ != null;
     }
@@ -8175,12 +8239,14 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin tokenOut = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
      * @return The tokenOut.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getTokenOut() {
       return tokenOut_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : tokenOut_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin tokenOut = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTokenOutOrBuilder() {
       return getTokenOut();
     }
@@ -9161,7 +9227,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgSwapExactAmountOutResponse}
    */
-  public  static final class MsgSwapExactAmountOutResponse extends
+  public static final class MsgSwapExactAmountOutResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgSwapExactAmountOutResponse)
       MsgSwapExactAmountOutResponseOrBuilder {
@@ -9628,7 +9694,7 @@ public final class Tx {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgJoinSwapExternAmountIn}
    */
-  public  static final class MsgJoinSwapExternAmountIn extends
+  public static final class MsgJoinSwapExternAmountIn extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgJoinSwapExternAmountIn)
       MsgJoinSwapExternAmountInOrBuilder {
@@ -9740,6 +9806,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -9756,6 +9823,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -9776,6 +9844,7 @@ public final class Tx {
      * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -9786,6 +9855,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin tokenIn = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
      * @return Whether the tokenIn field is set.
      */
+    @java.lang.Override
     public boolean hasTokenIn() {
       return tokenIn_ != null;
     }
@@ -9793,12 +9863,14 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin tokenIn = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
      * @return The tokenIn.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getTokenIn() {
       return tokenIn_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : tokenIn_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin tokenIn = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTokenInOrBuilder() {
       return getTokenIn();
     }
@@ -9809,6 +9881,7 @@ public final class Tx {
      * <code>string shareOutMinAmount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"share_out_min_amount&#92;""];</code>
      * @return The shareOutMinAmount.
      */
+    @java.lang.Override
     public java.lang.String getShareOutMinAmount() {
       java.lang.Object ref = shareOutMinAmount_;
       if (ref instanceof java.lang.String) {
@@ -9825,6 +9898,7 @@ public final class Tx {
      * <code>string shareOutMinAmount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"share_out_min_amount&#92;""];</code>
      * @return The bytes for shareOutMinAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getShareOutMinAmountBytes() {
       java.lang.Object ref = shareOutMinAmount_;
@@ -10291,6 +10365,7 @@ public final class Tx {
        * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -10570,7 +10645,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgJoinSwapExternAmountInResponse}
    */
-  public  static final class MsgJoinSwapExternAmountInResponse extends
+  public static final class MsgJoinSwapExternAmountInResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgJoinSwapExternAmountInResponse)
       MsgJoinSwapExternAmountInResponseOrBuilder {
@@ -11046,7 +11121,7 @@ public final class Tx {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgJoinSwapShareAmountOut}
    */
-  public  static final class MsgJoinSwapShareAmountOut extends
+  public static final class MsgJoinSwapShareAmountOut extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgJoinSwapShareAmountOut)
       MsgJoinSwapShareAmountOutOrBuilder {
@@ -11159,6 +11234,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -11175,6 +11251,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -11195,6 +11272,7 @@ public final class Tx {
      * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -11205,6 +11283,7 @@ public final class Tx {
      * <code>string tokenInDenom = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in_denom&#92;""];</code>
      * @return The tokenInDenom.
      */
+    @java.lang.Override
     public java.lang.String getTokenInDenom() {
       java.lang.Object ref = tokenInDenom_;
       if (ref instanceof java.lang.String) {
@@ -11221,6 +11300,7 @@ public final class Tx {
      * <code>string tokenInDenom = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in_denom&#92;""];</code>
      * @return The bytes for tokenInDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenInDenomBytes() {
       java.lang.Object ref = tokenInDenom_;
@@ -11241,6 +11321,7 @@ public final class Tx {
      * <code>string shareOutAmount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"share_out_amount&#92;""];</code>
      * @return The shareOutAmount.
      */
+    @java.lang.Override
     public java.lang.String getShareOutAmount() {
       java.lang.Object ref = shareOutAmount_;
       if (ref instanceof java.lang.String) {
@@ -11257,6 +11338,7 @@ public final class Tx {
      * <code>string shareOutAmount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"share_out_amount&#92;""];</code>
      * @return The bytes for shareOutAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getShareOutAmountBytes() {
       java.lang.Object ref = shareOutAmount_;
@@ -11277,6 +11359,7 @@ public final class Tx {
      * <code>string tokenInMaxAmount = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_max_amount&#92;""];</code>
      * @return The tokenInMaxAmount.
      */
+    @java.lang.Override
     public java.lang.String getTokenInMaxAmount() {
       java.lang.Object ref = tokenInMaxAmount_;
       if (ref instanceof java.lang.String) {
@@ -11293,6 +11376,7 @@ public final class Tx {
      * <code>string tokenInMaxAmount = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_max_amount&#92;""];</code>
      * @return The bytes for tokenInMaxAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenInMaxAmountBytes() {
       java.lang.Object ref = tokenInMaxAmount_;
@@ -11763,6 +11847,7 @@ public final class Tx {
        * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -12075,7 +12160,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgJoinSwapShareAmountOutResponse}
    */
-  public  static final class MsgJoinSwapShareAmountOutResponse extends
+  public static final class MsgJoinSwapShareAmountOutResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgJoinSwapShareAmountOutResponse)
       MsgJoinSwapShareAmountOutResponseOrBuilder {
@@ -12551,7 +12636,7 @@ public final class Tx {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgExitSwapShareAmountIn}
    */
-  public  static final class MsgExitSwapShareAmountIn extends
+  public static final class MsgExitSwapShareAmountIn extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgExitSwapShareAmountIn)
       MsgExitSwapShareAmountInOrBuilder {
@@ -12664,6 +12749,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -12680,6 +12766,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -12700,6 +12787,7 @@ public final class Tx {
      * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -12710,6 +12798,7 @@ public final class Tx {
      * <code>string tokenOutDenom = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_out_denom&#92;""];</code>
      * @return The tokenOutDenom.
      */
+    @java.lang.Override
     public java.lang.String getTokenOutDenom() {
       java.lang.Object ref = tokenOutDenom_;
       if (ref instanceof java.lang.String) {
@@ -12726,6 +12815,7 @@ public final class Tx {
      * <code>string tokenOutDenom = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_out_denom&#92;""];</code>
      * @return The bytes for tokenOutDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenOutDenomBytes() {
       java.lang.Object ref = tokenOutDenom_;
@@ -12746,6 +12836,7 @@ public final class Tx {
      * <code>string shareInAmount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"share_in_amount&#92;""];</code>
      * @return The shareInAmount.
      */
+    @java.lang.Override
     public java.lang.String getShareInAmount() {
       java.lang.Object ref = shareInAmount_;
       if (ref instanceof java.lang.String) {
@@ -12762,6 +12853,7 @@ public final class Tx {
      * <code>string shareInAmount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"share_in_amount&#92;""];</code>
      * @return The bytes for shareInAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getShareInAmountBytes() {
       java.lang.Object ref = shareInAmount_;
@@ -12782,6 +12874,7 @@ public final class Tx {
      * <code>string tokenOutMinAmount = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_min_amount&#92;""];</code>
      * @return The tokenOutMinAmount.
      */
+    @java.lang.Override
     public java.lang.String getTokenOutMinAmount() {
       java.lang.Object ref = tokenOutMinAmount_;
       if (ref instanceof java.lang.String) {
@@ -12798,6 +12891,7 @@ public final class Tx {
      * <code>string tokenOutMinAmount = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_min_amount&#92;""];</code>
      * @return The bytes for tokenOutMinAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenOutMinAmountBytes() {
       java.lang.Object ref = tokenOutMinAmount_;
@@ -13268,6 +13362,7 @@ public final class Tx {
        * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -13580,7 +13675,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgExitSwapShareAmountInResponse}
    */
-  public  static final class MsgExitSwapShareAmountInResponse extends
+  public static final class MsgExitSwapShareAmountInResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgExitSwapShareAmountInResponse)
       MsgExitSwapShareAmountInResponseOrBuilder {
@@ -14047,7 +14142,7 @@ public final class Tx {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgExitSwapExternAmountOut}
    */
-  public  static final class MsgExitSwapExternAmountOut extends
+  public static final class MsgExitSwapExternAmountOut extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgExitSwapExternAmountOut)
       MsgExitSwapExternAmountOutOrBuilder {
@@ -14159,6 +14254,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -14175,6 +14271,7 @@ public final class Tx {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -14195,6 +14292,7 @@ public final class Tx {
      * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -14205,6 +14303,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin tokenOut = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
      * @return Whether the tokenOut field is set.
      */
+    @java.lang.Override
     public boolean hasTokenOut() {
       return tokenOut_ != null;
     }
@@ -14212,12 +14311,14 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin tokenOut = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
      * @return The tokenOut.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getTokenOut() {
       return tokenOut_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : tokenOut_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin tokenOut = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTokenOutOrBuilder() {
       return getTokenOut();
     }
@@ -14228,6 +14329,7 @@ public final class Tx {
      * <code>string shareInMaxAmount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"share_in_max_amount&#92;""];</code>
      * @return The shareInMaxAmount.
      */
+    @java.lang.Override
     public java.lang.String getShareInMaxAmount() {
       java.lang.Object ref = shareInMaxAmount_;
       if (ref instanceof java.lang.String) {
@@ -14244,6 +14346,7 @@ public final class Tx {
      * <code>string shareInMaxAmount = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"share_in_max_amount&#92;""];</code>
      * @return The bytes for shareInMaxAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getShareInMaxAmountBytes() {
       java.lang.Object ref = shareInMaxAmount_;
@@ -14710,6 +14813,7 @@ public final class Tx {
        * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -14989,7 +15093,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.MsgExitSwapExternAmountOutResponse}
    */
-  public  static final class MsgExitSwapExternAmountOutResponse extends
+  public static final class MsgExitSwapExternAmountOutResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.MsgExitSwapExternAmountOutResponse)
       MsgExitSwapExternAmountOutResponseOrBuilder {

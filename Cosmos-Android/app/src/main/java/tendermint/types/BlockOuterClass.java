@@ -81,7 +81,7 @@ public final class BlockOuterClass {
   /**
    * Protobuf type {@code tendermint.types.Block}
    */
-  public  static final class Block extends
+  public static final class Block extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.Block)
       BlockOrBuilder {
@@ -213,6 +213,7 @@ public final class BlockOuterClass {
      * <code>.tendermint.types.Header header = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the header field is set.
      */
+    @java.lang.Override
     public boolean hasHeader() {
       return header_ != null;
     }
@@ -220,12 +221,14 @@ public final class BlockOuterClass {
      * <code>.tendermint.types.Header header = 1 [(.gogoproto.nullable) = false];</code>
      * @return The header.
      */
+    @java.lang.Override
     public tendermint.types.Types.Header getHeader() {
       return header_ == null ? tendermint.types.Types.Header.getDefaultInstance() : header_;
     }
     /**
      * <code>.tendermint.types.Header header = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.HeaderOrBuilder getHeaderOrBuilder() {
       return getHeader();
     }
@@ -236,6 +239,7 @@ public final class BlockOuterClass {
      * <code>.tendermint.types.Data data = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the data field is set.
      */
+    @java.lang.Override
     public boolean hasData() {
       return data_ != null;
     }
@@ -243,12 +247,14 @@ public final class BlockOuterClass {
      * <code>.tendermint.types.Data data = 2 [(.gogoproto.nullable) = false];</code>
      * @return The data.
      */
+    @java.lang.Override
     public tendermint.types.Types.Data getData() {
       return data_ == null ? tendermint.types.Types.Data.getDefaultInstance() : data_;
     }
     /**
      * <code>.tendermint.types.Data data = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.DataOrBuilder getDataOrBuilder() {
       return getData();
     }
@@ -259,6 +265,7 @@ public final class BlockOuterClass {
      * <code>.tendermint.types.EvidenceList evidence = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the evidence field is set.
      */
+    @java.lang.Override
     public boolean hasEvidence() {
       return evidence_ != null;
     }
@@ -266,12 +273,14 @@ public final class BlockOuterClass {
      * <code>.tendermint.types.EvidenceList evidence = 3 [(.gogoproto.nullable) = false];</code>
      * @return The evidence.
      */
+    @java.lang.Override
     public tendermint.types.EvidenceOuterClass.EvidenceList getEvidence() {
       return evidence_ == null ? tendermint.types.EvidenceOuterClass.EvidenceList.getDefaultInstance() : evidence_;
     }
     /**
      * <code>.tendermint.types.EvidenceList evidence = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.types.EvidenceOuterClass.EvidenceListOrBuilder getEvidenceOrBuilder() {
       return getEvidence();
     }
@@ -282,6 +291,7 @@ public final class BlockOuterClass {
      * <code>.tendermint.types.Commit last_commit = 4;</code>
      * @return Whether the lastCommit field is set.
      */
+    @java.lang.Override
     public boolean hasLastCommit() {
       return lastCommit_ != null;
     }
@@ -289,12 +299,14 @@ public final class BlockOuterClass {
      * <code>.tendermint.types.Commit last_commit = 4;</code>
      * @return The lastCommit.
      */
+    @java.lang.Override
     public tendermint.types.Types.Commit getLastCommit() {
       return lastCommit_ == null ? tendermint.types.Types.Commit.getDefaultInstance() : lastCommit_;
     }
     /**
      * <code>.tendermint.types.Commit last_commit = 4;</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.CommitOrBuilder getLastCommitOrBuilder() {
       return getLastCommit();
     }

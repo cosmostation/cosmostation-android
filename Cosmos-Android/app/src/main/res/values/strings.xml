@@ -42,7 +42,7 @@
     <string name="url_api_iov_test" translatable="false"></string>
 
 
-    <string name="url_lcd_band_main" translatable="false">https://lcd-band.cosmostation.io/</string>
+<!--    <string name="url_lcd_band_main" translatable="false">https://lcd-band.cosmostation.io/</string>-->
     <string name="url_api_band_main" translatable="false">https://api-band.cosmostation.io/</string>
 
 
@@ -1478,7 +1478,9 @@
     <string name="tx_create_certificate">Create Certificate</string>
     <string name="tx_revoke_certificate">Revoke Certificate</string>
     <string name="tx_ibc_update_client">IBC Update Client</string>
-    <string name="tx_ibc_transfer">IBC Transfer</string>
+    <string name="tx_ibc_send">IBC Send</string>
+    <string name="tx_ibc_receive">IBC Received</string>
+    <string name="tx_ibc_acknowledgement">IBC Acknowledgement</string>
     <string name="tx_reinvest">Re-Invest</string>
     <string name="tx_new_order">New Order</string>
     <string name="tx_Cancel_order">Cancel Order</string>
