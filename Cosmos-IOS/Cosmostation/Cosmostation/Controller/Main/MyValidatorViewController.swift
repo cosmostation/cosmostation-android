@@ -203,11 +203,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         let reward = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), validator.operator_address)
         cell.rewardAmoutLabel.attributedText = WUtils.displayAmount2(reward.stringValue, cell.rewardAmoutLabel.font, WUtils.mainDivideDecimal(chainType), 6)
 
-        if (chainType == ChainType.BAND_MAIN) {
-            if let oracle = BaseData.instance.mBandOracleStatus?.isEnable(validator.operator_address) {
-                if (!oracle) { cell.bandOracleOffImg.isHidden = false }
-            }
-        }
     }
     
     func onSetClaimAllItem(_ cell: ClaimRewardAllCell) {

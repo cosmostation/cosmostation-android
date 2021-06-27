@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import Alamofire
+import GRPC
+import NIO
+import SwiftProtobuf
 
 class RegisterDomain0ViewController: BaseViewController {
 
@@ -43,7 +45,7 @@ class RegisterDomain0ViewController: BaseViewController {
     @objc func textFieldDidChange(_ textField: UITextField) {
         if (textField == userInput) {
             let userInputData = self.userInput.text?.trimmingCharacters(in: .whitespaces)
-            if (userInputData!.count > 0 && !WUtils.isValidDomain(userInputData!)) {
+            if (userInputData!.count > 0 && !WUtils.isStarnameValidDomain(userInputData!)) {
                 valideMsg.textColor = UIColor.init(hexString: "f31963")
             } else {
                 valideMsg.textColor = .white
@@ -55,7 +57,7 @@ class RegisterDomain0ViewController: BaseViewController {
     func onUpdateStarnameFee() {
         let userInputData = self.userInput.text?.trimmingCharacters(in: .whitespaces)
         let domainType = typeSwitch.isOn ? "open" : "closed"
-        let starnameFee = BaseData.instance.mStarNameFee!.getDomainFee(userInputData!, domainType)
+        let starnameFee = WUtils.getStarNameRegisterDomainFee(userInputData!, domainType)
         starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, starnameFeeAmount.font, 6, 6)
     }
     
@@ -79,29 +81,28 @@ class RegisterDomain0ViewController: BaseViewController {
         pageHolderVC.onBeforePage()
     }
     
-    
     @IBAction func onClickNext(_ sender: UIButton) {
         let userInputData = self.userInput.text?.trimmingCharacters(in: .whitespaces)
         let domainType = typeSwitch.isOn ? "open" : "closed"
-        let starnameFee = BaseData.instance.mStarNameFee!.getDomainFee(userInputData!, domainType)
-        if (!WUtils.isValidDomain(userInputData!)) {
+        if (!WUtils.isStarnameValidDomain(userInputData!)) {
             self.onShowToast(NSLocalizedString("error_invalid_domain_format", comment: ""))
             return
         }
         
-        var myAvailable = NSDecimalNumber.zero
-        if (chainType == ChainType.IOV_MAIN) {
-            myAvailable = WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).subtracting(NSDecimalNumber.init(string: "300000"))
-        } else if (chainType == ChainType.IOV_TEST) {
-            myAvailable = WUtils.getTokenAmount(balances, IOV_TEST_DENOM).subtracting(NSDecimalNumber.init(string: "300000"))
-        }
-        if (myAvailable.compare(starnameFee).rawValue < 0) {
+        let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
+        let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_REGISTER_DOMAIN, 0)
+        let starnameFee = WUtils.getStarNameRegisterDomainFee(userInputData!, domainType)
+//        print("userAvailable ", userAvailable)
+//        print("txFee ", txFee)
+//        print("starnameFee ", starnameFee)
+        
+        if (userAvailable.compare(starnameFee.adding(txFee)).rawValue < 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
             return
         }
-        self.view.endEditing(true)
-        self.onFetchDomainInfo(userInputData!)
         
+        self.view.endEditing(true)
+        self.onFetchgRPCDomainInfo(userInputData!)
     }
     
     func onGoNextPage() {
@@ -112,28 +113,31 @@ class RegisterDomain0ViewController: BaseViewController {
         pageHolderVC.onNextPage()
     }
     
-    func onFetchDomainInfo(_ domain: String) {
-        self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.domainInfoStarnameUrl(chainType), method: .post, parameters: ["name" : domain], encoding: JSONEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                self.hideWaittingAlert()
-                guard let info = res as? [String : Any] else {
-                    self.onShowToast(NSLocalizedString("error_network_msg", comment: ""))
-                    return
+    //check for already exist domain
+    func onFetchgRPCDomainInfo(_ domain: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let req = Starnamed_X_Starname_V1beta1_QueryDomainRequest.with {
+                    $0.name = domain
                 }
-                if (info["error"] == nil) {
+                let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).domain(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
+//                print("onFetchgRPCDomainInfo ", response)
+                DispatchQueue.main.async(execute: {
                     self.onShowToast(NSLocalizedString("error_already_registered_domain", comment: ""))
                     return
-                } else {
-                    self.onGoNextPage()
-                }
+                });
                 
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchDomainInfo ", error) }
-                self.hideWaittingAlert()
-                self.onShowToast(NSLocalizedString("error_network_msg", comment: ""))
+            } catch {
+                print("onFetchgRPCDomainInfo failed: \(error)")
+                DispatchQueue.main.async(execute: {
+                    self.onGoNextPage()
+                });
             }
         }
     }

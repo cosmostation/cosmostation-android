@@ -99,6 +99,19 @@ public struct Param {
         return params?.supply?.filter {$0.denom == denom }.first
     }
     
+    func getQuorum() -> NSDecimalNumber {
+        if let rawQuorum = params?.gov_tallying?.quorum {
+            return NSDecimalNumber.init(string: rawQuorum)
+        }
+        if let rawQuorum = params?.gov_tallying?.tally_params?.quorum {
+            return NSDecimalNumber.init(string: rawQuorum)
+        }
+        if let rawQuorum = params?.gov_tallying?.default_tally?.quorum {
+            return NSDecimalNumber.init(string: rawQuorum)
+        }
+        return NSDecimalNumber.zero
+    }
+    
 }
 
 public struct Params {

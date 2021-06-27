@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import Alamofire
+import GRPC
+import NIO
 
 class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
     
@@ -67,7 +68,7 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
     
     @IBAction func onClickNext(_ sender: Any) {
         let userInput = mTargetAddressTextField.text?.trimmingCharacters(in: .whitespaces)
-        if (WUtils.isValidStarName(userInput!.lowercased())) {
+        if (WUtils.isStarnameValidStarName(userInput!.lowercased())) {
             self.onCheckNameservice(userInput!.lowercased())
             return;
         }
@@ -231,28 +232,36 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
     }
     
     func onCheckNameservice(_ userInput: String) {
-        let request = Alamofire.request(BaseNetWork.resolveStarnameUrl(pageHolderVC.chainType), method: .post, parameters: ["starname" : userInput], encoding: JSONEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let info = res as? [String : Any], info["error"] == nil else {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let req = Starnamed_X_Starname_V1beta1_QueryStarnameRequest.with {
+                    $0.starname = userInput
+                }
+                let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).starname(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
+                DispatchQueue.main.async(execute: {
+                    guard let matchedAddress = WUtils.checkStarnameWithResource(self.pageHolderVC.chainType!, response) else {
+                        self.onShowToast(NSLocalizedString("error_no_mattched_starname", comment: ""))
+                        return
+                    }
+                    if (self.pageHolderVC.mAccount?.account_address == matchedAddress) {
+                        self.onShowToast(NSLocalizedString("error_starname_self_send", comment: ""))
+                        return;
+                    }
+                    self.onShowMatchedStarName(userInput, matchedAddress)
+                });
+                
+            } catch {
+                print("onFetchgRPCResolve failed: \(error)")
+                DispatchQueue.main.async(execute: {
                     self.onShowToast(NSLocalizedString("error_invalide_starname", comment: ""))
                     return
-                }
-                let nameResolve = IovStarNameResolve.init(info)
-                guard let matchedAddress = nameResolve.getAddressWithChain(self.pageHolderVC.chainType!) else {
-                    self.onShowToast(NSLocalizedString("error_no_mattched_starname", comment: ""))
-                    return
-                }
-                if (self.pageHolderVC.mAccount?.account_address == matchedAddress) {
-                    self.onShowToast(NSLocalizedString("error_starname_self_send", comment: ""))
-                    return;
-                }
-                self.onShowMatchedStarName(userInput, matchedAddress)
-                
-                
-            case .failure(let error):
-                print("failure ", error)
+                });
             }
         }
     }

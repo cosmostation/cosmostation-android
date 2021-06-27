@@ -15,7 +15,6 @@ class ReplaceResource0ViewController: BaseViewController, UITableViewDelegate, U
     @IBOutlet weak var replaceResourceTableView: UITableView!
     
     var pageHolderVC: StepGenTxViewController!
-    var mStarnameResources: Array<StarNameResource> = Array<StarNameResource>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,28 +37,28 @@ class ReplaceResource0ViewController: BaseViewController, UITableViewDelegate, U
     }
     
     func onInitData() {
-//        print("pageHolderVC.mStarnameResources ", pageHolderVC.mStarnameResources.count)
-        if (pageHolderVC.mStarnameResources.count == 0) {
-            let initResource = StarNameResource.init(STARNAME, self.account!.account_address)
-            pageHolderVC.mStarnameResources.append(initResource)
+//        print("pageHolderVC.mStarnameResources_gRPC ", pageHolderVC.mStarnameResources_gRPC.count)
+        if (pageHolderVC.mStarnameResources_gRPC.count == 0) {
+            let initResource = Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = STARNAME; $0.resource = self.account!.account_address }
+            pageHolderVC.mStarnameResources_gRPC.append(initResource)
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (pageHolderVC.mStarnameResources.count >= 14) {
-            return pageHolderVC.mStarnameResources.count
+        if (pageHolderVC.mStarnameResources_gRPC.count >= 14) {
+            return pageHolderVC.mStarnameResources_gRPC.count
         } else {
-            return pageHolderVC.mStarnameResources.count + 1
+            return pageHolderVC.mStarnameResources_gRPC.count + 1
             
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (pageHolderVC.mStarnameResources.count >= 14) {
+        if (pageHolderVC.mStarnameResources_gRPC.count >= 14) {
             return onBindResource(tableView, indexPath.row)
             
         } else {
-            if (indexPath.row == pageHolderVC.mStarnameResources.count) {
+            if (indexPath.row == pageHolderVC.mStarnameResources_gRPC.count) {
                 let cell:ResourceAddCell? = tableView.dequeueReusableCell(withIdentifier:"ResourceAddCell") as? ResourceAddCell
                 return cell!
             } else {
@@ -70,30 +69,30 @@ class ReplaceResource0ViewController: BaseViewController, UITableViewDelegate, U
     
     func onBindResource(_ tableView: UITableView,  _ position:Int) -> UITableViewCell  {
         let cell:ResourceEditCell? = tableView.dequeueReusableCell(withIdentifier:"ResourceEditCell") as? ResourceEditCell
-        let resource = pageHolderVC.mStarnameResources[position]
-        cell?.chainImg.image = WUtils.getStarNameChainImg(resource)
-        cell?.chainName.text = WUtils.getStarNameChainName(resource)
+        let resource = pageHolderVC.mStarnameResources_gRPC[position]
+        cell?.chainImg.image = WUtils.getStarNameChainImg2(resource)
+        cell?.chainName.text = WUtils.getStarNameChainName2(resource)
         cell?.chainAddress.text = resource.resource
-        if (pageHolderVC.mStarnameResources.count == 1) {
+        if (pageHolderVC.mStarnameResources_gRPC.count == 1) {
             cell?.btnRemove.isHidden = true
         }
         cell?.actionRemove = {
-            self.pageHolderVC.mStarnameResources.remove(at: position)
+            self.pageHolderVC.mStarnameResources_gRPC.remove(at: position)
             self.replaceResourceTableView.reloadData()
         }
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (pageHolderVC.mStarnameResources.count < 14 && indexPath.row == pageHolderVC.mStarnameResources.count) {
+        if (pageHolderVC.mStarnameResources_gRPC.count < 14 && indexPath.row == pageHolderVC.mStarnameResources_gRPC.count) {
             let replaceSelectVC = ReplaceSelectChainViewController(nibName: "ReplaceSelectChainViewController", bundle: nil)
             replaceSelectVC.modalPresentationStyle = .popover
             replaceSelectVC.resultDelegate = self
-            replaceSelectVC.starnameResources = pageHolderVC.mStarnameResources
+            replaceSelectVC.starnameResources_gRPC = pageHolderVC.mStarnameResources_gRPC
             present(replaceSelectVC, animated: true, completion: nil)
             
         } else {
-            let resource = pageHolderVC.mStarnameResources[indexPath.row]
+            let resource = pageHolderVC.mStarnameResources_gRPC[indexPath.row]
             let replaceEditVC = ReplaceEditAddressViewController(nibName: "ReplaceEditAddressViewController", bundle: nil)
             replaceEditVC.modalPresentationStyle = .popover
             replaceEditVC.chainNameResource = resource.uri
@@ -115,18 +114,18 @@ class ReplaceResource0ViewController: BaseViewController, UITableViewDelegate, U
     func addressEditedCallback(_ chain: String, _ address: String) {
 //        print("addressEdited ", chain, "  ", address)
         var already = -1
-        for i in 0..<self.pageHolderVC.mStarnameResources.count {
-            if (self.pageHolderVC.mStarnameResources[i].uri == chain) {
+        for i in 0..<self.pageHolderVC.mStarnameResources_gRPC.count {
+            if (self.pageHolderVC.mStarnameResources_gRPC[i].uri == chain) {
                 already = i;
                 break
             }
         }
         
-        let newResource = StarNameResource.init(chain, address)
+        let newResource = Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = chain; $0.resource = address }
         if (already >= 0) {
-            self.pageHolderVC.mStarnameResources[already] = newResource
+            self.pageHolderVC.mStarnameResources_gRPC[already] = newResource
         } else {
-            self.pageHolderVC.mStarnameResources.append(newResource)
+            self.pageHolderVC.mStarnameResources_gRPC.append(newResource)
         }
         self.replaceResourceTableView.reloadData()
     }
@@ -139,7 +138,7 @@ class ReplaceResource0ViewController: BaseViewController, UITableViewDelegate, U
     }
     
     @IBAction func onClickNext(_ sender: UIButton) {
-        if (self.pageHolderVC.mStarnameResources.count <= 0) {
+        if (self.pageHolderVC.mStarnameResources_gRPC.count <= 0) {
             self.onShowToast(NSLocalizedString("error_no_address_added", comment: ""))
             return
         } else {

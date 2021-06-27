@@ -108,7 +108,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mStarnameAccount: String?
     var mStarnameTime: Int64?
     var mStarnameDomainType: String?
-    var mStarnameResources: Array<StarNameResource> = Array<StarNameResource>()
+    var mStarnameResources_gRPC: Array<Starnamed_X_Starname_V1beta1_Resource> = Array<Starnamed_X_Starname_V1beta1_Resource>()
     
     var mToSendDenom: String?
     
@@ -307,33 +307,32 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         } else if (mType == IOV_MSG_TYPE_REGISTER_DOMAIN) {
             return [RegisterDomain0ViewController(nibName: "RegisterDomain0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
                     RegisterDomain3ViewController(nibName: "RegisterDomain3ViewController", bundle: nil)]
-            
             
         } else if (mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
             return [RegisterAccount0ViewController(nibName: "RegisterAccount0ViewController", bundle: nil),
                     RegisterAccount1ViewController(nibName: "RegisterAccount1ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
                     RegisterAccount4ViewController(nibName: "RegisterAccount4ViewController", bundle: nil)]
 
         } else if (mType == IOV_MSG_TYPE_DELETE_DOMAIN || mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
             return [DeleteStarname0ViewController(nibName: "DeleteStarname0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
                     DeleteStarname3ViewController(nibName: "DeleteStarname3ViewController", bundle: nil)]
 
         } else if (mType == IOV_MSG_TYPE_RENEW_DOMAIN || mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
             return [RenewStarname0ViewController(nibName: "RenewStarname0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
                     RenewStarname3ViewController(nibName: "RenewStarname3ViewController", bundle: nil)]
 
         } else if (mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
             return [ReplaceResource0ViewController(nibName: "ReplaceResource0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
                     ReplaceResource3ViewController(nibName: "ReplaceResource3ViewController", bundle: nil)]
 
         } else {

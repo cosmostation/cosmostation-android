@@ -44,6 +44,16 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
         self.txTableView.register(UINib(nibName: "TxCommissionCell", bundle: nil), forCellReuseIdentifier: "TxCommissionCell")
         self.txTableView.register(UINib(nibName: "TxEditRewardAddressCell", bundle: nil), forCellReuseIdentifier: "TxEditRewardAddressCell")
         self.txTableView.register(UINib(nibName: "TxVoteCell", bundle: nil), forCellReuseIdentifier: "TxVoteCell")
+        //for starname msg type
+        self.txTableView.register(UINib(nibName: "TxRegisterDomainCell", bundle: nil), forCellReuseIdentifier: "TxRegisterDomainCell")
+        self.txTableView.register(UINib(nibName: "TxRegisterAccountCell", bundle: nil), forCellReuseIdentifier: "TxRegisterAccountCell")
+        self.txTableView.register(UINib(nibName: "TxDeleteDomainCell", bundle: nil), forCellReuseIdentifier: "TxDeleteDomainCell")
+        self.txTableView.register(UINib(nibName: "TxDeleteAccountCell", bundle: nil), forCellReuseIdentifier: "TxDeleteAccountCell")
+        self.txTableView.register(UINib(nibName: "TxReplaceResourceCell", bundle: nil), forCellReuseIdentifier: "TxReplaceResourceCell")
+        self.txTableView.register(UINib(nibName: "TxRenewStarnameCell", bundle: nil), forCellReuseIdentifier: "TxRenewStarnameCell")
+        //for ibc msg type
+        self.txTableView.register(UINib(nibName: "TxIbcSendCell", bundle: nil), forCellReuseIdentifier: "TxIbcSendCell")
+        //for unknown msg type
         self.txTableView.register(UINib(nibName: "TxUnknownCell", bundle: nil), forCellReuseIdentifier: "TxUnknownCell")
         
         if (mIsGen) {
@@ -127,6 +137,45 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
                 
             } else if (msg.typeURL.contains(Cosmos_Gov_V1beta1_MsgVote.protoMessageName)) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TxVoteCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            }
+            
+            else if (msg.typeURL.contains(Starnamed_X_Starname_V1beta1_MsgRegisterDomain.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxRegisterDomainCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Starnamed_X_Starname_V1beta1_MsgRegisterAccount.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxRegisterAccountCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Starnamed_X_Starname_V1beta1_MsgDeleteDomain.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxDeleteDomainCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Starnamed_X_Starname_V1beta1_MsgDeleteAccount.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxDeleteAccountCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Starnamed_X_Starname_V1beta1_MsgRenewDomain.protoMessageName) || msg.typeURL.contains(Starnamed_X_Starname_V1beta1_MsgRenewAccount.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxRenewStarnameCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Starnamed_X_Starname_V1beta1_MsgReplaceAccountResources.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxReplaceResourceCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            }
+            
+            else if (msg.typeURL.contains(Ibc_Applications_Transfer_V1_MsgTransfer.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcSendCell") as? TxCell
                 cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
                 return cell!
                 

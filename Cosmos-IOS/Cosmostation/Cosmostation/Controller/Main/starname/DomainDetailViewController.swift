@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import Alamofire
+import GRPC
+import NIO
+import SwiftProtobuf
 
 class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -19,8 +21,9 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
     @IBOutlet weak var myDomainEmptyView: UIView!
     
     var mMyDomain: String?
-    var mMyDomainInfo: IovStarNameDomainInfo?
-    var mMyDomainResolve: IovStarNameResolve?
+    var mMyDomainInfo_gRPC: Starnamed_X_Starname_V1beta1_Domain?
+    var mMyDomainResolve_gRPC: Starnamed_X_Starname_V1beta1_QueryStarnameResponse?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,19 +54,14 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (mMyDomainResolve != nil && mMyDomainResolve?.result.account.resources != nil) {
-            return mMyDomainResolve!.result.account.resources.count
-        } else {
-            return 0
-        }
+        return mMyDomainResolve_gRPC?.account.resources.count ?? 0
     }
-    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:ResourceCell? = tableView.dequeueReusableCell(withIdentifier:"ResourceCell") as? ResourceCell
-        let resource = mMyDomainResolve?.result.account.resources[indexPath.row]
-        cell?.chainImg.image = WUtils.getStarNameChainImg(resource!)
-        cell?.chainName.text = WUtils.getStarNameChainName(resource!)
+        let resource = mMyDomainResolve_gRPC?.account.resources[indexPath.row]
+        cell?.chainImg.image = WUtils.getStarNameChainImg2(resource)
+        cell?.chainName.text = WUtils.getStarNameChainName2(resource)
         cell?.chainAddress.text = resource?.resource
         return cell!
     }
@@ -73,31 +71,22 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
             self.onShowAddMenomicDialog()
             return
         }
-        if (mMyDomainInfo?.result.domain?.type == "open") {
+        if (mMyDomainInfo_gRPC?.type == "open") {
             self.onShowToast(NSLocalizedString("error_cannot_delete_open_domain", comment: ""))
             return
         }
         
-        let needFee = NSDecimalNumber.init(string: "150000")
-        if (chainType == ChainType.IOV_MAIN) {
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
-        } else if (chainType == ChainType.IOV_TEST) {
-            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
-        } else {
-            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
+        let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
+        let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_DELETE_DOMAIN, 0)
+        if (userAvailable.compare(txFee).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
             return
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = IOV_MSG_TYPE_DELETE_DOMAIN
         txVC.mStarnameDomain = mMyDomain
-        txVC.mStarnameTime = mMyDomainInfo!.result.domain!.valid_until
+        txVC.mStarnameTime = mMyDomainInfo_gRPC?.validUntil
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
     }
@@ -108,27 +97,23 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
             return
         }
         
-        let needFee = BaseData.instance.mStarNameFee!.getDomainRenewFee(mMyDomainInfo!.result.domain!.type).adding(NSDecimalNumber.init(string: "300000"))
-        if (chainType == ChainType.IOV_MAIN) {
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
-        } else if (chainType == ChainType.IOV_TEST) {
-            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
-        } else {
-            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
+        let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
+        let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_RENEW_DOMAIN, 0)
+        let starnameFee = WUtils.getStarNameRenewDomainFee(mMyDomain!, mMyDomainInfo_gRPC!.type)
+//        print("userAvailable ", userAvailable)
+//        print("txFee ", txFee)
+//        print("starnameFee ", starnameFee)
+        
+        if (userAvailable.compare(txFee.adding(starnameFee)).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
             return
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = IOV_MSG_TYPE_RENEW_DOMAIN
         txVC.mStarnameDomain = mMyDomain
-        txVC.mStarnameTime = mMyDomainInfo!.result.domain!.valid_until
-        txVC.mStarnameDomainType = mMyDomainInfo?.result.domain?.type
+        txVC.mStarnameTime = mMyDomainInfo_gRPC?.validUntil
+        txVC.mStarnameDomainType = mMyDomainInfo_gRPC?.type
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
     }
@@ -139,28 +124,24 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
             return
         }
         
-        let needFee = BaseData.instance.mStarNameFee!.getReplaceFee().adding(NSDecimalNumber.init(string: "300000"))
-        if (chainType == ChainType.IOV_MAIN) {
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
-        } else if (chainType == ChainType.IOV_TEST) {
-            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
-        } else {
-            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
+        let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
+        let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE, 0)
+        let starnameFee = WUtils.getReplaceFee()
+//        print("userAvailable ", userAvailable)
+//        print("txFee ", txFee)
+//        print("starnameFee ", starnameFee)
+        
+        if (userAvailable.compare(txFee.adding(starnameFee)).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
             return
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE
         txVC.mStarnameDomain = mMyDomain
-        txVC.mStarnameTime = mMyDomainInfo!.result.domain!.valid_until
-        txVC.mStarnameDomainType = mMyDomainInfo?.result.domain?.type
-        txVC.mStarnameResources = mMyDomainResolve?.result.account.resources ?? Array<StarNameResource>()
+        txVC.mStarnameTime = mMyDomainInfo_gRPC?.validUntil
+        txVC.mStarnameDomainType = mMyDomainInfo_gRPC?.type
+        txVC.mStarnameResources_gRPC = mMyDomainResolve_gRPC?.account.resources ?? Array<Starnamed_X_Starname_V1beta1_Resource>()
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
     }
@@ -176,25 +157,25 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
             return
         }
         self.mFetchCnt = 2
-        self.onFetchDomainInfo(mMyDomain!)
-        self.onFetchResolve(mMyDomain!)
+        self.onFetchgRPCDomainInfo(mMyDomain!)
+        self.onFetchgRPCResolve(mMyDomain!)
     }
     
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt <= 0) {
-            if (mMyDomainResolve != nil && mMyDomainResolve?.result.account.resources != nil &&  mMyDomainResolve!.result.account.resources.count > 0) {
+            if (mMyDomainResolve_gRPC?.hasAccount ?? false &&  mMyDomainResolve_gRPC?.account.resources.count ?? 0 > 0) {
                 self.myDomainResourceTableView.reloadData()
                 self.myDomainEmptyView.isHidden = true
-                self.myDomainAddressCntLael.text = String(mMyDomainResolve!.result.account.resources.count)
+                self.myDomainAddressCntLael.text = String(mMyDomainResolve_gRPC!.account.resources.count)
             } else {
                 self.myDomainResourceTableView.isHidden = true
                 self.myDomainEmptyView.isHidden = false
                 self.myDomainAddressCntLael.text = "0"
             }
-            myDomainExpireTimeLabel.text = WUtils.longTimetoString(input: mMyDomainInfo!.result.domain!.valid_until * 1000)
-            myDomainType.text = mMyDomainInfo?.result.domain!.type.uppercased()
-            if (mMyDomainInfo?.result.domain?.type == "open") {
+            myDomainExpireTimeLabel.text = WUtils.longTimetoString(input: mMyDomainInfo_gRPC!.validUntil * 1000)
+            myDomainType.text = mMyDomainInfo_gRPC?.type.uppercased()
+            if (mMyDomainInfo_gRPC?.type == "open") {
                 myDomainType.textColor = COLOR_IOV
             } else {
                 myDomainType.textColor = .white
@@ -202,42 +183,55 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
         }
     }
     
-    func onFetchDomainInfo(_ domain: String) {
-        let request = Alamofire.request(BaseNetWork.domainInfoStarnameUrl(chainType), method: .post, parameters: ["name" : domain], encoding: JSONEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let info = res as? [String : Any] else {
-                    self.onFetchFinished()
-                    return
+    func onFetchgRPCDomainInfo(_ domain: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let req = Starnamed_X_Starname_V1beta1_QueryDomainRequest.with {
+                    $0.name = domain
                 }
-                self.mMyDomainInfo = IovStarNameDomainInfo.init(info)
-                self.onFetchFinished()
+                let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).domain(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
+//                print("onFetchDomainInfo_gRPC ", domain, " ", response)
+                self.mMyDomainInfo_gRPC = response.domain
                 
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchDomainInfo ", error) }
-                self.onFetchFinished()
+            } catch {
+                print("onFetchDomainInfo_gRPC failed: \(error)")
             }
+            
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
     
-    
-    func onFetchResolve(_ starname: String) {
-        let request = Alamofire.request(BaseNetWork.resolveStarnameUrl(chainType), method: .post, parameters: ["starname" : "*" + starname], encoding: JSONEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let info = res as? [String : Any], info["error"] == nil else {
-                    self.onFetchFinished()
-                    return
+    func onFetchgRPCResolve(_ starname: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let req = Starnamed_X_Starname_V1beta1_QueryStarnameRequest.with {
+                    $0.starname = "*" + starname
                 }
-                self.mMyDomainResolve = IovStarNameResolve.init(info)
-                self.onFetchFinished()
+                let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).starname(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
+//                print("onFetchgRPCResolve ", starname, " ", response)
+                self.mMyDomainResolve_gRPC = response
                 
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchResolve ", error) }
-                self.onFetchFinished()
+            } catch {
+                print("onFetchgRPCResolve failed: \(error)")
             }
+            
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
 }

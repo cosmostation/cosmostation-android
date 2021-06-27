@@ -66,6 +66,13 @@ class MyValidatorCell: UITableViewCell {
         
         cardView.backgroundColor = WUtils.getChainBg(chainType)
         validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType, validator.operatorAddress))!)
+        
+        if (chainType == ChainType.BAND_MAIN) {
+            if (!BaseData.instance.mBandOracle_gRPC.contains { $0.address == validator.operatorAddress}) {
+                bandOracleOffImg.isHidden = false
+            }
+        }
+            
     }
     
 }

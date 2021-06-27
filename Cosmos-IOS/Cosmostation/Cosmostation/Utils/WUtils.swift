@@ -402,6 +402,35 @@ class WUtils {
     }
     
     
+    static func newApiTimeToInt64(_ input: String) -> Date {
+        let nodeFormatter = DateFormatter()
+        nodeFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        return nodeFormatter.date(from: input) ?? Date.init()
+    }
+    
+    static func newApiTimeToString(_ input: String?) -> String {
+        if (input == nil) { return "??" }
+        guard let subString = input!.split(separator: ".").first else { return "??" }
+        let localFormatter = DateFormatter()
+        localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
+        return localFormatter.string(from: newApiTimeToInt64(String(subString)))
+    }
+    
+    static func newApiTimeGap(_ input: String?) -> String {
+        if (input == nil) { return "??" }
+        guard let subString = input!.split(separator: ".").first else { return "??" }
+        let secondsAgo = Int(Date().timeIntervalSince(newApiTimeToInt64(String(subString))))
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        if secondsAgo < minute { return "(\(secondsAgo) seconds ago)" }
+        else if secondsAgo < hour { return "(\(secondsAgo / minute) minutes ago)" }
+        else if secondsAgo < day { return "(\(secondsAgo / hour) hours ago)" }
+        else { return "(\(secondsAgo / day) days ago)" }
+    }
+    
+    
     static func sifNodeTimeToString(_ input: String) -> String {
         let nodeFormatter = DateFormatter()
         nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
@@ -2693,25 +2722,6 @@ class WUtils {
         return ""
     }
     
-    //TODO check confirm starname regular express
-    static func isValidStarName(_ starname: String) -> Bool {
-        let starNameRegEx = "[0-9a-z.-]{0,64}+\\*[a-z0-9.-]{3,16}"
-        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
-        return starNamePred.evaluate(with: starname)
-    }
-    
-    static func isValidDomain(_ starname: String) -> Bool {
-        let starNameRegEx = "[a-z0-9]{4,32}"
-        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
-        return starNamePred.evaluate(with: starname)
-    }
-    
-    static func isValidAccount(_ starname: String) -> Bool {
-        let starNameRegEx = "[0-9a-z.-]{1,63}"
-        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
-        return starNamePred.evaluate(with: starname)
-    }
-    
     static func clearBackgroundColor(of view: UIView) {
         if let effectsView = view as? UIVisualEffectView {
             effectsView.removeFromSuperview()
@@ -3007,6 +3017,16 @@ class WUtils {
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
+        } else if (chain == ChainType.BAND_MAIN) {
+            let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_TINY_BAND)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
+        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_IOV)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
         }
         
         else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -3021,14 +3041,6 @@ class WUtils {
         
         else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
             return NSDecimalNumber.zero
-            
-        } else if (chain == ChainType.BAND_MAIN) {
-            return NSDecimalNumber.zero
-            
-        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
-            let gasRate = NSDecimalNumber.init(string: IOV_GAS_RATE_AVERAGE)
-            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
-            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
             let gasRate = NSDecimalNumber.init(string: CERTIK_GAS_RATE_AVERAGE)
@@ -3120,6 +3132,24 @@ class WUtils {
                 return NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_OSMOSIS)
             }
             
+        } else if (chain == ChainType.BAND_MAIN) {
+            if (position == 0) {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_TINY_BAND)
+            } else if (position == 1) {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_LOW_BAND)
+            } else {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_BAND)
+            }
+            
+        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            if (position == 0) {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_TINY_IOV)
+            } else if (position == 1) {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_LOW_IOV)
+            } else {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_IOV)
+            }
+            
         }
         
         else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
@@ -3131,22 +3161,10 @@ class WUtils {
                 return NSDecimalNumber.init(string: KAVA_GAS_RATE_AVERAGE)
             }
             
-        } else if (chain == ChainType.BAND_MAIN) {
-            if (position == 0) {
-                return NSDecimalNumber.zero
-            } else if (position == 1) {
-                return NSDecimalNumber.init(string: BAND_GAS_RATE_LOW)
-            } else {
-                return NSDecimalNumber.init(string: BAND_GAS_RATE_AVERAGE)
-            }
-            
         }
         
         else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
             return NSDecimalNumber.zero
-            
-        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
-            return NSDecimalNumber.init(string: IOV_GAS_RATE_AVERAGE)
             
         } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             return NSDecimalNumber.init(string: OK_GAS_RATE_AVERAGE)
@@ -3432,91 +3450,209 @@ class WUtils {
         return false
     }
     
-    static func getStarNameChainImg(_ resource: StarNameResource) -> UIImage? {
-        if (resource.uri == BITCOINCASH) {
+    
+    
+    
+    //TODO check confirm starname regular express
+    static func isStarnameValidStarName(_ starname: String) -> Bool {
+        let starNameRegEx = "[0-9a-z.-]{0,64}+\\*[a-z0-9.-]{3,16}"
+        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
+        return starNamePred.evaluate(with: starname)
+    }
+    
+    static func isStarnameValidDomain(_ starname: String) -> Bool {
+        let starNameRegEx = "[a-z0-9]{4,32}"
+        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
+        return starNamePred.evaluate(with: starname)
+    }
+    
+    static func isStarnameValidAccount(_ starname: String) -> Bool {
+        let starNameRegEx = "[0-9a-z.-]{1,63}"
+        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
+        return starNamePred.evaluate(with: starname)
+    }
+    
+    static public func getStarNameRegisterDomainFee(_ domain: String, _ type: String) -> NSDecimalNumber {
+        let starNameFee = BaseData.instance.mStarNameFee_gRPC
+        if (starNameFee == nil) { return NSDecimalNumber.zero }
+        
+        var feeResult = NSDecimalNumber.zero
+        if (domain.isEmpty || domain.count <= 3) {
+            return feeResult
+        } else if (domain.count == 4) {
+            feeResult = NSDecimalNumber.init(string: starNameFee?.registerDomain4).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        } else if (domain.count == 5) {
+            feeResult = NSDecimalNumber.init(string: starNameFee?.registerDomain5).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        } else {
+            feeResult = NSDecimalNumber.init(string: starNameFee?.registerDomainDefault).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        }
+
+        if (type == "open") {
+            feeResult = feeResult.multiplying(by: NSDecimalNumber.init(string: starNameFee?.registerOpenDomainMultiplier).multiplying(byPowerOf10: -18))
+        }
+        return feeResult
+    }
+    
+    static public func getStarNameRegisterAccountFee(_ type: String) -> NSDecimalNumber {
+        let starNameFee = BaseData.instance.mStarNameFee_gRPC
+        if (starNameFee == nil) { return NSDecimalNumber.zero }
+        if (type == "open") {
+            return NSDecimalNumber.init(string: starNameFee?.registerAccountOpen).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        } else {
+            return NSDecimalNumber.init(string: starNameFee?.registerAccountClosed).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        }
+    }
+    
+    static public func getStarNameRenewDomainFee(_ domain: String, _ type: String) -> NSDecimalNumber {
+        let starNameFee = BaseData.instance.mStarNameFee_gRPC
+        if (starNameFee == nil) { return NSDecimalNumber.zero }
+        if (type == "open") {
+            return NSDecimalNumber.init(string: starNameFee?.renewDomainOpen).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        } else {
+            let registerFee = getStarNameRegisterDomainFee(domain, "closed")
+            let addtionalFee = NSDecimalNumber.init(string: starNameFee?.registerAccountClosed).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+            return registerFee.adding(addtionalFee)
+        }
+    }
+    
+    static public func getStarNameRenewAccountFee(_ type: String) -> NSDecimalNumber {
+        let starNameFee = BaseData.instance.mStarNameFee_gRPC
+        if (starNameFee == nil) { return NSDecimalNumber.zero }
+        if (type == "open") {
+            return NSDecimalNumber.init(string: starNameFee?.registerAccountOpen).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        } else {
+            return NSDecimalNumber.init(string: starNameFee?.registerAccountClosed).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        }
+    }
+    
+    static public func getReplaceFee() -> NSDecimalNumber {
+        let starNameFee = BaseData.instance.mStarNameFee_gRPC
+        if (starNameFee == nil) { return NSDecimalNumber.zero }
+        return NSDecimalNumber.init(string: starNameFee?.replaceAccountResources).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+    }
+    
+    static public func getRenewPeriod(_ type: String) -> Int64 {
+        let starNameConfig = BaseData.instance.mStarNameConfig_gRPC
+        if (type == IOV_MSG_TYPE_RENEW_DOMAIN) {
+            if let seconds = starNameConfig?.domainRenewalPeriod.seconds { return seconds * 1000 }
+        } else if (type == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+            if let seconds = starNameConfig?.accountRenewalPeriod.seconds { return seconds * 1000 }
+        }
+        return 0
+    }
+    
+    static func getStarNameRegisterDomainExpireTime() -> Int64 {
+        let starNameConfig = BaseData.instance.mStarNameConfig_gRPC
+        if let seconds = starNameConfig?.domainRenewalPeriod.seconds {
+            return seconds * 1000
+        }
+        return 0
+    }
+    
+    static func getStarNameChainImg2(_ resource: Starnamed_X_Starname_V1beta1_Resource?) -> UIImage? {
+        if (resource?.uri == BITCOINCASH) {
             return UIImage.init(named: "bcashChainImg")
-        } else if (resource.uri == BITCOIN) {
+        } else if (resource?.uri == BITCOIN) {
             return UIImage.init(named: "bitcoinChainImg")
-        } else if (resource.uri == LITECOIN) {
+        } else if (resource?.uri == LITECOIN) {
             return UIImage.init(named: "liteChainImg")
-        } else if (resource.uri == BINANCE) {
+        } else if (resource?.uri == BINANCE) {
             return UIImage.init(named: "binanceChImg")
-        } else if (resource.uri == LUNA) {
+        } else if (resource?.uri == LUNA) {
             return UIImage.init(named: "terraChainImg")
-        } else if (resource.uri == COSMOS) {
+        } else if (resource?.uri == COSMOS) {
             return UIImage.init(named: "cosmosWhMain")
-        } else if (resource.uri == EMONEY) {
+        } else if (resource?.uri == EMONEY) {
             return UIImage.init(named: "emoneyChainImg")
-        } else if (resource.uri == IRIS) {
+        } else if (resource?.uri == IRIS) {
             return UIImage.init(named: "irisWh")
-        } else if (resource.uri == KAVA) {
+        } else if (resource?.uri == KAVA) {
             return UIImage.init(named: "kavaImg")
-        } else if (resource.uri == ETHEREUM) {
+        } else if (resource?.uri == ETHEREUM) {
             return UIImage.init(named: "ethereumChainImg")
-        } else if (resource.uri == STARNAME) {
+        } else if (resource?.uri == STARNAME) {
             return UIImage.init(named: "iovChainImg")
-        } else if (resource.uri == BAND) {
+        } else if (resource?.uri == BAND) {
             return UIImage.init(named: "bandChainImg")
-        } else if (resource.uri == TEZOS) {
+        } else if (resource?.uri == TEZOS) {
             return UIImage.init(named: "tezosChainImg")
-        } else if (resource.uri == LISK) {
+        } else if (resource?.uri == LISK) {
             return UIImage.init(named: "liskChainImg")
         } else {
             return UIImage.init(named: "defaultChainImg")
         }
     }
-    
-    static func getStarNameChainName(_ resource: StarNameResource) -> String? {
-        if (resource.uri == BITCOINCASH) {
+
+    static func getStarNameChainName2(_ resource: Starnamed_X_Starname_V1beta1_Resource?) -> String? {
+        if (resource?.uri == BITCOINCASH) {
             return "Bitcoin Cash";
-        } else if (resource.uri == BITCOIN) {
+        } else if (resource?.uri == BITCOIN) {
             return "Bitcoin";
-        } else if (resource.uri == LITECOIN) {
+        } else if (resource?.uri == LITECOIN) {
             return "Litecoin";
-        } else if (resource.uri == BINANCE) {
+        } else if (resource?.uri == BINANCE) {
             return "Binance";
-        } else if (resource.uri == LUNA) {
+        } else if (resource?.uri == LUNA) {
             return "Terra";
-        } else if (resource.uri == COSMOS) {
+        } else if (resource?.uri == COSMOS) {
             return "Cosmos";
-        } else if (resource.uri == EMONEY) {
+        } else if (resource?.uri == EMONEY) {
             return "E-Money";
-        } else if (resource.uri == IRIS) {
+        } else if (resource?.uri == IRIS) {
             return "Iris";
-        } else if (resource.uri == KAVA) {
+        } else if (resource?.uri == KAVA) {
             return "Kava";
-        } else if (resource.uri == ETHEREUM) {
+        } else if (resource?.uri == ETHEREUM) {
             return "Ethereum";
-        } else if (resource.uri == STARNAME) {
+        } else if (resource?.uri == STARNAME) {
             return "Starname";
-        } else if (resource.uri == BAND) {
+        } else if (resource?.uri == BAND) {
             return "Band";
-        } else if (resource.uri == TEZOS) {
+        } else if (resource?.uri == TEZOS) {
             return "Tezos";
-        } else if (resource.uri == LISK) {
+        } else if (resource?.uri == LISK) {
             return "Lisk";
         } else {
-            return resource.uri;
+            return resource?.uri;
         }
     }
     
-    static func getStarNameAllResources() -> Array<StarNameResource> {
-        var result: Array<StarNameResource> = Array<StarNameResource>()
-        result.append(StarNameResource.init(STARNAME))
-        result.append(StarNameResource.init(COSMOS))
-        result.append(StarNameResource.init(BITCOIN))
-        result.append(StarNameResource.init(ETHEREUM))
-        result.append(StarNameResource.init(BINANCE))
-        result.append(StarNameResource.init(IRIS))
-        result.append(StarNameResource.init(KAVA))
-        result.append(StarNameResource.init(BAND))
-        result.append(StarNameResource.init(BITCOINCASH))
-        result.append(StarNameResource.init(LITECOIN))
-        result.append(StarNameResource.init(EMONEY))
-        result.append(StarNameResource.init(TEZOS))
-        result.append(StarNameResource.init(LISK))
-        result.append(StarNameResource.init(LUNA))
+    static func getStarNameAllResources2() -> Array<Starnamed_X_Starname_V1beta1_Resource> {
+        var result: Array<Starnamed_X_Starname_V1beta1_Resource> = Array<Starnamed_X_Starname_V1beta1_Resource>()
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = STARNAME; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = COSMOS; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = BITCOIN; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = ETHEREUM; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = BINANCE; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = IRIS; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = KAVA; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = BAND; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = BITCOINCASH; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = LITECOIN; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = EMONEY; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = TEZOS; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = LISK; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = LUNA; $0.resource = "" })
         return result
+    }
+    
+    static func checkStarnameWithResource(_ chainType: ChainType, _ response: Starnamed_X_Starname_V1beta1_QueryStarnameResponse) -> String? {
+        for resource in response.account.resources {
+            if (chainType == ChainType.COSMOS_MAIN && resource.uri == "asset:atom" && resource.resource.starts(with: "cosmos1")) {
+                return resource.resource
+            } else if (chainType == ChainType.IRIS_MAIN && resource.uri == "asset:iris" && resource.resource.starts(with: "iaa1")) {
+                return resource.resource
+            } else if (chainType == ChainType.BINANCE_MAIN && resource.uri == "asset:bnb" && resource.resource.starts(with: "bnb1")) {
+                return resource.resource
+            } else if (chainType == ChainType.KAVA_MAIN && resource.uri == "asset:kava" && resource.resource.starts(with: "kava1")) {
+                return resource.resource
+            } else if (chainType == ChainType.IOV_MAIN && resource.uri == "asset:iov" && resource.resource.starts(with: "star1")) {
+                return resource.resource
+            } else if (chainType == ChainType.BAND_MAIN && resource.uri == "asset:band" && resource.resource.starts(with: "band1")) {
+                return resource.resource
+            }
+        }
+        return nil
     }
     
     static func getChainTypeWithUri(_ uri: String?) -> ChainType? {
@@ -3902,14 +4038,10 @@ class WUtils {
     }
     
     static func systemQuorum(_ chain: ChainType?) -> NSDecimalNumber {
-        if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
-            return NSDecimalNumber.init(string: "0.5")
-        } else if (chain == ChainType.AKASH_MAIN || chain == ChainType.SENTINEL_MAIN || chain == ChainType.IOV_MAIN ||
-                    chain == ChainType.CERTIK_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CRYPTO_MAIN ||
-                    chain == ChainType.SIF_MAIN || chain == ChainType.KI_MAIN) {
-            return NSDecimalNumber.init(string: "0.334")
+        if (BaseData.instance.mParam != nil) {
+            return BaseData.instance.mParam!.getQuorum()
         }
-        return NSDecimalNumber.init(string: "0.4")
+        return NSDecimalNumber.zero
     }
     
     static func getHardSuppliedAmountByDenom(_ denom: String, _ mydeposit: Array<HardMyDeposit>?) -> NSDecimalNumber {
@@ -4688,7 +4820,8 @@ class WUtils {
     
     static func isGRPC(_ chain: ChainType?) -> Bool {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
-                chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN || chain == ChainType.OSMOSIS_MAIN ||
+                chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN ||
+                chain == ChainType.OSMOSIS_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.BAND_MAIN ||
                 chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             return true
         }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TxDeleteAccountCell: UITableViewCell {
+class TxDeleteAccountCell: TxCell {
     
     @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var txTitleLabel: UILabel!
@@ -18,6 +18,16 @@ class TxDeleteAccountCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+    }
+    
+    override func onBindMsg(_ chain: ChainType, _ response: Cosmos_Tx_V1beta1_GetTxResponse, _ position: Int) {
+        txIcon.image = txIcon.image?.withRenderingMode(.alwaysTemplate)
+        txIcon.tintColor = WUtils.getChainColor(chain)
+        
+        if let msg = try? Starnamed_X_Starname_V1beta1_MsgDeleteAccount.init(serializedData: response.tx.body.messages[position].value) {
+            accountLabel.text = msg.name + "*" + msg.domain
+            owenerLabel.text = msg.owner
+        }
     }
     
 }

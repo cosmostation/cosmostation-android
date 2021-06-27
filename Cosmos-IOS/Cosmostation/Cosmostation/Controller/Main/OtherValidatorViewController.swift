@@ -142,11 +142,6 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
             cell.cardView.backgroundColor = COLOR_BG_GRAY
         }
         
-        if (chainType == ChainType.BAND_MAIN) {
-            if let oracle = BaseData.instance.mBandOracleStatus?.isEnable(validator.operator_address) {
-                if (!oracle) { cell.bandOracleOffImg.isHidden = false }
-            }
-        }
         //temp hide apr for no mint param chain
         if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell.commissionLabel.text = "--"

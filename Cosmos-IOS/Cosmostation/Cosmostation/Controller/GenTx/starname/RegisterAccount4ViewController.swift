@@ -7,9 +7,10 @@
 //
 
 import UIKit
-import Alamofire
 import HDWalletKit
 import SwiftKeychainWrapper
+import GRPC
+import NIO
 
 class RegisterAccount4ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, PasswordViewDelegate {
     
@@ -44,16 +45,16 @@ class RegisterAccount4ViewController: BaseViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:RegistAccountCheckCell? = tableView.dequeueReusableCell(withIdentifier:"RegistAccountCheckCell") as? RegistAccountCheckCell
         
-        let starnameFee = BaseData.instance.mStarNameFee!.getAccountFee("open")
+        let starnameFee = WUtils.getStarNameRegisterAccountFee("open")
         cell?.feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, cell!.feeAmountLabel.font, 6, 6)
         cell?.starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, cell!.starnameFeeAmount.font, 6, 6)
         cell?.starnameLabel.text = pageHolderVC.mStarnameAccount! + "*iov"
         
-        let extendTime = BaseData.instance.mStarNameConfig!.getRegisterDomainExpireTime()
+        let extendTime = WUtils.getStarNameRegisterDomainExpireTime()
         cell?.expireDate.text = WUtils.longTimetoString(input: Date().millisecondsSince1970 + extendTime)
         cell?.memoLabel.text = pageHolderVC.mMemo
         
-        let resources = pageHolderVC.mStarnameResources
+        let resources = pageHolderVC.mStarnameResources_gRPC
         if (resources.count == 0) {
             cell?.connectedAddressesLabel.text = ""
         } else {
@@ -85,123 +86,67 @@ class RegisterAccount4ViewController: BaseViewController, UITableViewDelegate, U
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            self.onFetchAccountInfo(pageHolderVC.mAccount!)
+            self.onFetchgRPCAuth(pageHolderVC.mAccount!)
         }
     }
     
-    func onFetchAccountInfo(_ account: Account) {
+    
+    func onFetchgRPCAuth(_ account: Account) {
         self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary,
-                    let info = responseData.object(forKey: "result") as? [String : Any] else {
-                        _ = BaseData.instance.deleteBalance(account: account)
-                        self.hideWaittingAlert()
-                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                        return
-                }
-                let accountInfo = AccountInfo.init(info)
-                _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
-                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
-                self.onGenRegistAccountTx()
-                
-            case .failure( _):
-                self.hideWaittingAlert()
-                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
+                $0.address = account.account_address
+            }
+            do {
+                let response = try Cosmos_Auth_V1beta1_QueryClient(channel: channel).account(req).response.wait()
+                self.onBroadcastGrpcTx(response)
+            } catch {
+                print("onFetchgRPCAuth failed: \(error)")
             }
         }
     }
     
-    func onGenRegistAccountTx() {
+    func onBroadcastGrpcTx(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse?) {
         DispatchQueue.global().async {
-            var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
+            let reqTx = Signer.genSignedRegisterAccountMsgTxgRPC(auth!,
+                                                                 self.pageHolderVC.mStarnameDomain!,
+                                                                 self.pageHolderVC.mStarnameAccount!,
+                                                                 self.pageHolderVC.mAccount!.account_address,
+                                                                 self.pageHolderVC.mAccount!.account_address,
+                                                                 self.pageHolderVC.mStarnameResources_gRPC,
+                                                                 self.pageHolderVC.mFee!,
+                                                                 self.pageHolderVC.mMemo!,
+                                                                 WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!),
+                                                                 BaseData.instance.getChainId_gRPC())
+            
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
             
             do {
-                let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                let msg = MsgGenerator.genRegisterAccountMsg(self.pageHolderVC.mStarnameDomain!,
-                                                             self.pageHolderVC.mStarnameAccount!,
-                                                             self.pageHolderVC.mAccount!.account_address,
-                                                             self.pageHolderVC.mAccount!.account_address,
-                                                             self.pageHolderVC.mStarnameResources,
-                                                             self.pageHolderVC.chainType!)
-                
-                var msgList = Array<Msg>()
-                msgList.append(msg)
-                
-                let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
-                                                       String(self.pageHolderVC.mAccount!.account_account_numner),
-                                                       String(self.pageHolderVC.mAccount!.account_sequence_number),
-                                                       msgList,
-                                                       self.pageHolderVC.mFee!,
-                                                       self.pageHolderVC.mMemo!)
-                
-                let encoder = JSONEncoder()
-                encoder.outputFormatting = .sortedKeys
-                let data = try? encoder.encode(stdMsg)
-                let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-                let rawData: Data? = rawResult!.data(using: .utf8)
-                let hash = rawData!.sha256()
-                let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.raw)
-
-                var genedSignature = Signature.init()
-                var genPubkey =  PublicKey.init()
-                genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                genPubkey.value = pKey.publicKey.data.base64EncodedString()
-                genedSignature.pub_key = genPubkey
-                genedSignature.signature = signedData.base64EncodedString()
-                genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
-                genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
-                
-                var signatures: Array<Signature> = Array<Signature>()
-                signatures.append(genedSignature)
-                
-                stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
-                
-            } catch {
-                if (SHOW_LOG) { print(error) }
-            }
-            
-            DispatchQueue.main.async(execute: {
-                let postTx = PostTx.init("sync", stdTx.value)
-                let encoder = JSONEncoder()
-                encoder.outputFormatting = .sortedKeys
-                let data = try? encoder.encode(postTx)
-                do {
-                    let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
-                    request.validate().responseJSON { response in
-                        var txResult = [String:Any]()
-                        switch response.result {
-                        case .success(let res):
-                            if(SHOW_LOG) { print("onGenRenewStarnameTx ", res) }
-                            if let result = res as? [String : Any]  {
-                                txResult = result
-                            }
-                        case .failure(let error):
-                            if(SHOW_LOG) {
-                                print("onGenRenewStarnameTx error ", error)
-                            }
-                            if (response.response?.statusCode == 500) {
-                                txResult["net_error"] = 500
-                            }
-                        }
-
-                        if (self.waitAlert != nil) {
-                            self.waitAlert?.dismiss(animated: true, completion: {
-                                self.onStartTxDetail(txResult)
-                            })
-                        }
+                let response = try Cosmos_Tx_V1beta1_ServiceClient(channel: channel).broadcastTx(reqTx).response.wait()
+//                print("response ", response.txResponse.txhash)
+                DispatchQueue.main.async(execute: {
+                    if (self.waitAlert != nil) {
+                        self.waitAlert?.dismiss(animated: true, completion: {
+                            self.onStartTxDetailgRPC(response)
+                        })
                     }
-
-                } catch {
-                    if (SHOW_LOG) { print(error) }
-                }
-            });
+                });
+            } catch {
+                print("onBroadcastGrpcTx failed: \(error)")
+            }
         }
     }
 }

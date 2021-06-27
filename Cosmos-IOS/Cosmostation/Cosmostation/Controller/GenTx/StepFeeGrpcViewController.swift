@@ -236,6 +236,37 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
                                                 self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
             
         }
+        
+        //for starname custom msg
+        else if (pageHolderVC.mType == IOV_MSG_TYPE_REGISTER_DOMAIN) {
+            return Signer.genSimulateRegisterDomainMsgTxgRPC(auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mAccount!.account_address,
+                                                             self.pageHolderVC.mStarnameDomainType!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+            
+        } else if (pageHolderVC.mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
+            return Signer.genSimulateRegisterAccountMsgTxgRPC(auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mStarnameAccount!, self.pageHolderVC.mAccount!.account_address,
+                                                              self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mStarnameResources_gRPC, self.pageHolderVC.mFee!,
+                                                              self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+            
+        } else if (pageHolderVC.mType == IOV_MSG_TYPE_DELETE_DOMAIN) {
+            return Signer.genSimulateDeleteDomainMsgTxgRPC (auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mFee!,
+                                                            self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+            
+        } else if (pageHolderVC.mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
+            return Signer.genSimulateDeleteAccountMsgTxgRPC (auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mStarnameAccount!, self.pageHolderVC.mAccount!.account_address,
+                                                             self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+            
+        } else if (pageHolderVC.mType == IOV_MSG_TYPE_RENEW_DOMAIN) {
+            return Signer.genSimulateRenewDomainMsgTxgRPC (auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mFee!,
+                                                           self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+            
+        } else if (pageHolderVC.mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+            return Signer.genSimulateRenewAccountMsgTxgRPC (auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mStarnameAccount!, self.pageHolderVC.mAccount!.account_address,
+                                                            self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+            
+        } else if (pageHolderVC.mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
+            return Signer.genSimulateReplaceResourceMsgTxgRPC(auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mStarnameAccount, self.pageHolderVC.mAccount!.account_address,
+                                                              self.pageHolderVC.mStarnameResources_gRPC, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+        }
         return nil
     }
 }

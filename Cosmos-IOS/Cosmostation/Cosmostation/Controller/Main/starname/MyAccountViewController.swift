@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import Alamofire
+import GRPC
+import NIO
+import SwiftProtobuf
 
 class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -15,7 +17,8 @@ class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var myAccountCnt: UILabel!
     
     var refresher: UIRefreshControl!
-    var myAccounts: Array<StarNameAccount> = Array<StarNameAccount>()
+    
+    var myAccounts_gRPC: Array<Starnamed_X_Starname_V1beta1_Account> = Array<Starnamed_X_Starname_V1beta1_Account>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,28 +41,28 @@ class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableV
         self.myAccountTableView.isHidden = true
         
         self.showWaittingAlert()
-        self.onFetchMyAccount(self.account!)
+        self.onFetchgRPCMyAccount(self.account!)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (self.myAccounts.count <= 0) {
+        if (self.myAccounts_gRPC.count <= 0) {
             return 1
         } else {
-            return self.myAccounts.count
+            return self.myAccounts_gRPC.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (self.myAccounts.count <= 0) {
+        if (self.myAccounts_gRPC.count <= 0) {
             let cell:AccountPromotionCell? = tableView.dequeueReusableCell(withIdentifier:"AccountPromotionCell") as? AccountPromotionCell
             return cell!
             
         } else {
             let cell:AccountCell? = tableView.dequeueReusableCell(withIdentifier:"AccountCell") as? AccountCell
-            let starnameAccount = myAccounts[indexPath.row]
-            cell?.starNameLabel.text = starnameAccount.name + "*" + starnameAccount.domain
+            let starnameAccount = myAccounts_gRPC[indexPath.row]
+            cell?.starNameLabel.text = starnameAccount.name.value + "*" + starnameAccount.domain
             cell?.accountConnectedAddressLabel.text = String(starnameAccount.resources.count)
-            cell?.accountExpireTime.text = WUtils.longTimetoString(input: starnameAccount.valid_until * 1000)
+            cell?.accountExpireTime.text = WUtils.longTimetoString(input: starnameAccount.validUntil * 1000)
             return cell!
         }
     }
@@ -69,16 +72,16 @@ class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let starnameAccount = myAccounts[indexPath.row]
+        let starnameAccount = myAccounts_gRPC[indexPath.row]
         let accountDetailVC = AccountDetailViewController(nibName: "AccountDetailViewController", bundle: nil)
         accountDetailVC.mMyDomain = starnameAccount.domain
-        accountDetailVC.mMyAccount = starnameAccount.name
+        accountDetailVC.mMyAccount = starnameAccount.name.value
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(accountDetailVC, animated: true)
     }
     
     func onFetchFinished() {
-        self.myAccountCnt.text = String(myAccounts.count)
+        self.myAccountCnt.text = String(myAccounts_gRPC.count)
         self.myAccountTableView.reloadData()
         self.myAccountTableView.isHidden = false
         self.refresher.endRefreshing()
@@ -97,38 +100,42 @@ class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     @objc func onRequestFetch() {
-        self.myAccounts.removeAll()
-        self.onFetchMyAccount(self.account!)
+        self.myAccounts_gRPC.removeAll()
+        self.onFetchgRPCMyAccount(self.account!)
     }
     
-    var mAccountOffset = 1
-    func onFetchMyAccount(_ account:Account) {
-        let param = ["owner":account.account_address, "results_per_page": 100, "offset":mAccountOffset] as [String : Any]
-        let request = Alamofire.request(BaseNetWork.checkAccountStarnameUrl(chainType), method: .post, parameters: param, encoding: JSONEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let info = res as? [String : Any] else {
-                    self.onFetchFinished()
-                    return
+    func onFetchgRPCMyAccount(_ account:Account) {
+//        print("onFetchgRPCMyAccount ", account.account_address)
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let page = Cosmos_Base_Query_V1beta1_PageRequest.with {
+                    $0.limit = 500
                 }
-                let iovStarNameAccount = IovStarNameAccount.init(info)
-                for account in iovStarNameAccount.result.accounts {
-                    if (!account.name.isEmpty) {
-                        self.myAccounts.append(account)
+                let req = Starnamed_X_Starname_V1beta1_QueryOwnerAccountsRequest.with {
+                    $0.owner = account.account_address
+                    $0.pagination = page
+                }
+                let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).ownerAccounts(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
+//                print("onFetchgRPCMyAccount response ", response)
+                response.accounts.forEach { rawAccount in
+                    if (!rawAccount.name.value.isEmpty) {
+                        self.myAccounts_gRPC.append(rawAccount)
                     }
                 }
-                if (iovStarNameAccount.result.accounts.count == 100) {
-                    self.mAccountOffset = self.mAccountOffset + 1
-                    self.onFetchMyAccount(self.account!)
-                } else {
-                    self.onFetchFinished()
-                }
+//                print("onFetchgRPCMyAccount myAccounts_gRPC ", self.myAccounts_gRPC.count)
                 
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchMyAccount ", error) }
+            } catch {
+                print("onFetchgRPCMyAccount failed: \(error)")
             }
-            self.onFetchFinished()
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
 }

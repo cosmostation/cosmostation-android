@@ -104,19 +104,15 @@ extension String {
             let num = UInt8(byteString, radix: 16)!
             data.append(num)
         }
-        
         guard data.count > 0 else { return nil }
-        
         return data
     }
-    
 }
 extension Data {
     static func getxor (left: Data, right: Data) -> Data {
         if left.count != right.count {
             NSLog("Warning! XOR operands are not equal. left = \(left), right = \(right)")
         }
-
         var result: Data = Data()
         var smaller: Data, bigger: Data
         if left.count <= right.count {
@@ -126,7 +122,6 @@ extension Data {
             smaller = right
             bigger = left
         }
-
         let bs:[UInt8] = Array(smaller)
         let bb:[UInt8] = Array (bigger)
         var br = [UInt8] ()
@@ -139,5 +134,4 @@ extension Data {
         result = Data(br)
         return result
     }
-        
 }
