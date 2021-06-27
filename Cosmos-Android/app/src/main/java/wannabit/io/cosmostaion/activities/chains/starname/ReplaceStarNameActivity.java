@@ -31,7 +31,7 @@ import wannabit.io.cosmostaion.model.StarNameDomain;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameDomainInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.StarNameResolveTask;
+import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcResolveTask;
 import wannabit.io.cosmostaion.task.TaskResult;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
@@ -169,11 +169,11 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
     public void onFetchData() {
         mTaskCount = 2;
         new StarNameDomainInfoTask(getBaseApplication(), this, mBaseChain, mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        if (mIsDomain) {
-            new StarNameResolveTask(getBaseApplication(), this, mBaseChain, "*" + mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        } else {
-            new StarNameResolveTask(getBaseApplication(), this, mBaseChain, mToReplaceAccount + "*" + mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }
+//        if (mIsDomain) {
+//            new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, "*" + mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        } else {
+//            new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, mToReplaceAccount + "*" + mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        }
 
     }
 

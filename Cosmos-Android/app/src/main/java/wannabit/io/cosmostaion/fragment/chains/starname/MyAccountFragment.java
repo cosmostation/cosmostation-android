@@ -17,24 +17,22 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
-import wannabit.io.cosmostaion.activities.chains.starname.StarNameAccountDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.model.StarNameAccount;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class MyAccountFragment extends BaseFragment implements View.OnClickListener {
+    private SwipeRefreshLayout      mSwipeRefreshLayout;
+    private RecyclerView            mRecyclerView;
+    private TextView                mAccountCnt;
+    private Button                  mRegisterAccount;
 
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
-    private TextView            mAccountCnt;
-    private Button              mRegisterAccount;
-
-    private MyAccountAdapter    mMyAccountAdapter;
-    private ArrayList<StarNameAccount> mMyStarNameAccounts = new ArrayList<>();
+    private MyAccountAdapter        mMyAccountAdapter;
+    public ArrayList<Types.Account> mAccounts_gRPC = new ArrayList<>();
 
     public static MyAccountFragment newInstance(Bundle bundle) {
         MyAccountFragment fragment = new MyAccountFragment();
@@ -72,8 +70,8 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onRefreshTab() {
-        mMyStarNameAccounts = getSActivity().mMyStarNameAccounts;
-        mAccountCnt.setText("" + mMyStarNameAccounts.size());
+        mAccounts_gRPC = getSActivity().mAccounts_gRPC;
+        mAccountCnt.setText("" + mAccounts_gRPC.size());
         mMyAccountAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -123,18 +121,18 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_MY_ACCOUNT) {
-                final StarNameAccount account = mMyStarNameAccounts.get(position);
+                final Types.Account account = mAccounts_gRPC.get(position);
                 final MyAccountHolder holder = (MyAccountHolder)viewHolder;
-                holder.itemAccount.setText(account.name + "*" + account.domain);
-                holder.itemAddressCnt.setText("" + account.getResourceSize());
-                holder.itemExpireDate.setText(WDp.getDpTime(getContext(), account.valid_until * 1000));
+                holder.itemAccount.setText(account.getName().getValue() + "*" + account.getDomain());
+                holder.itemAddressCnt.setText("" + account.getResourcesCount());
+                holder.itemExpireDate.setText(WDp.getDpTime(getContext(), account.getValidUntil() * 1000));
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getSActivity(), StarNameAccountDetailActivity.class);
-                        intent.putExtra("domain", account.domain);
-                        intent.putExtra("account", account.name);
-                        startActivity(intent);
+//                        Intent intent = new Intent(getSActivity(), StarNameAccountDetailActivity.class);
+//                        intent.putExtra("domain", account.domain);
+//                        intent.putExtra("account", account.name);
+//                        startActivity(intent);
                     }
                 });
             }
@@ -142,16 +140,16 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
 
         @Override
         public int getItemCount() {
-            if (mMyStarNameAccounts.size() == 0) {
+            if (mAccounts_gRPC.size() == 0) {
                 return 1;
             } else {
-                return mMyStarNameAccounts.size();
+                return mAccounts_gRPC.size();
             }
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (mMyStarNameAccounts.size() == 0) {
+            if (mAccounts_gRPC.size() == 0) {
                 return TYPE_PROMOTION;
             } else {
                 return TYPE_MY_ACCOUNT;

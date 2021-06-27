@@ -95,14 +95,14 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mRecyclerView           = rootView.findViewById(R.id.recycler);
         mEmptyHistory           = rootView.findViewById(R.id.empty_history);
         mNotYet                 = rootView.findViewById(R.id.text_notyet);
-        mNotYet.setOnClickListener(new View.OnClickListener() {
+        mEmptyHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
-//                txDetail.putExtra("txHash", "8619CCDD36170CD5637D4495D278F85FD727FF1428AF4702C512B8AFE00EB8A8");
-//                txDetail.putExtra("isGen", false);
-//                txDetail.putExtra("isSuccess", true);
-//                startActivity(txDetail);
+                Intent txDetail = new Intent(getBaseActivity(), TxDetailgRPCActivity.class);
+                txDetail.putExtra("txHash", "7BFDD21ECA0D1A4BDA8C96EC34CA594A2B6F9436EF009EA3FDC9F90F6EACF6F5");
+                txDetail.putExtra("isGen", false);
+                txDetail.putExtra("isSuccess", true);
+                startActivity(txDetail);
             }
         });
 

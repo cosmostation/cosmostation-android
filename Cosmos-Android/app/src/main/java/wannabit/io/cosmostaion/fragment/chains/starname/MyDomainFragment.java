@@ -17,25 +17,22 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameDomainActivity;
-import wannabit.io.cosmostaion.activities.chains.starname.StarNameDomainDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.model.StarNameDomain;
-import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class MyDomainFragment extends BaseFragment implements View.OnClickListener {
+    private SwipeRefreshLayout      mSwipeRefreshLayout;
+    private RecyclerView            mRecyclerView;
+    private TextView                mDomainCnt;
+    private Button                  mRegisterDomain;
 
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
-    private TextView            mDomainCnt;
-    private Button              mRegisterDomain;
-
-    private MyDomainAdapter     mMyDomainAdapter;
-    private ArrayList<StarNameDomain> mMyStarNameDomains = new ArrayList<>();
+    private MyDomainAdapter         mMyDomainAdapter;
+    public ArrayList<Types.Domain>  mDomains_gRPC = new ArrayList<>();
 
     public static MyDomainFragment newInstance(Bundle bundle) {
         MyDomainFragment fragment = new MyDomainFragment();
@@ -73,8 +70,8 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onRefreshTab() {
-        mMyStarNameDomains = getSActivity().mMyStarNameDomains;
-        mDomainCnt.setText("" + mMyStarNameDomains.size());
+        mDomains_gRPC = getSActivity().mDomains_gRPC;
+        mDomainCnt.setText("" + mDomains_gRPC.size());
         mMyDomainAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -124,45 +121,42 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_MY_DOMAIN) {
-                final StarNameDomain                        domain          = mMyStarNameDomains.get(position);
-                final ResIovStarNameResolve.NameAccount     domainResolve   = getSActivity().getDomainResolve(domain.name);
-                final MyDomainHolder                        holder          = (MyDomainHolder)viewHolder;
-                holder.itemDomain.setText("*" + domain.name);
-                holder.itemType.setText(domain.type.toUpperCase());
-                if (domain.type.equals("open")) {
+                final Types.Domain domain = mDomains_gRPC.get(position);
+                final Types.Account domainAccount = getSActivity().getDomainResolve(domain.getName());
+                final MyDomainHolder holder = (MyDomainHolder)viewHolder;
+
+                holder.itemDomain.setText("*" + domain.getName());
+                holder.itemType.setText(domain.getType().toUpperCase());
+                if (domain.getType().equals("open")) {
                     holder.itemType.setTextColor(getResources().getColor(R.color.colorIov));
                 } else {
                     holder.itemType.setTextColor(getResources().getColor(R.color.colorWhite));
                 }
-                holder.itemExpireDate.setText(WDp.getDpTime(getContext(), domain.valid_until * 1000));
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getSActivity(), StarNameDomainDetailActivity.class);
-                        intent.putExtra("domain", domain.name);
-                        startActivity(intent);
-                    }
-                });
-                if (domainResolve != null && domainResolve.resources != null && domainResolve.resources.size() > 0) {
-                    holder.itemAddressCnt.setText("" + domainResolve.resources.size());
-                } else {
-                    holder.itemAddressCnt.setText("0");
-                }
+                holder.itemExpireDate.setText(WDp.getDpTime(getContext(), domain.getValidUntil() * 1000));
+                holder.itemAddressCnt.setText("" + domainAccount.getResourcesCount());
+//                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(getSActivity(), StarNameDomainDetailActivity.class);
+//                        intent.putExtra("domain", domain.name);
+//                        startActivity(intent);
+//                    }
+//                });
             }
         }
 
         @Override
         public int getItemCount() {
-            if (mMyStarNameDomains.size() == 0) {
+            if (mDomains_gRPC.size() == 0) {
                 return 1;
             } else {
-                return mMyStarNameDomains.size();
+                return mDomains_gRPC.size();
             }
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (mMyStarNameDomains.size() == 0) {
+            if (mDomains_gRPC.size() == 0) {
                 return TYPE_PROMOTION;
             } else {
                 return TYPE_MY_DOMAIN;

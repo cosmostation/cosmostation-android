@@ -122,7 +122,7 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_OK_WITHDRAW                     = 2087;
     public final static int TASK_GEN_TX_OK_DIRECT_VOTE                  = 2088;
     public final static int TASK_FETCH_KAVA_TOTAL_SUPPLY                = 2089;
-    public final static int TASK_FETCH_MY_STARNAME_ACCOUNT              = 2090;
+//    public final static int TASK_FETCH_MY_STARNAME_ACCOUNT              = 2090;
     public final static int TASK_FETCH_MY_STARNAME_DOMAIN               = 2091;
 //    public final static int TASK_FETCH_STARNAME_FEE                     = 2092;
 //    public final static int TASK_FETCH_STARNAME_CONFIG                  = 2093;
@@ -203,6 +203,9 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4100;
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;
     public final static int TASK_GRPC_FETCH_STARNAME_CONFIG             = 4102;
+    public final static int TASK_GRPC_FETCH_STARNAME_ACCOUNT            = 4103;
+    public final static int TASK_GRPC_FETCH_STARNAME_DOMAIN             = 4104;
+    public final static int TASK_GRPC_FETCH_STARNAME_RESOLVE            = 4105;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;

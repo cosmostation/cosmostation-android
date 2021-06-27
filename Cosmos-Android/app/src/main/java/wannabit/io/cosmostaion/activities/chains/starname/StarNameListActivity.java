@@ -17,6 +17,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -26,17 +27,17 @@ import wannabit.io.cosmostaion.fragment.chains.starname.MyDomainFragment;
 import wannabit.io.cosmostaion.model.StarNameAccount;
 import wannabit.io.cosmostaion.model.StarNameDomain;
 import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
-import wannabit.io.cosmostaion.task.FetchTask.StarNameMyAccountTask;
-import wannabit.io.cosmostaion.task.FetchTask.StarNameMyDomainTask;
-import wannabit.io.cosmostaion.task.FetchTask.StarNameResolveTask;
+import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcAccountTask;
+import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcDomainTask;
+import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcResolveTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MY_STARNAME_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MY_STARNAME_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_RESOLVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
 
 public class StarNameListActivity extends BaseActivity implements TaskListener {
 
@@ -49,6 +50,11 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
     public ArrayList<StarNameDomain>                        mMyStarNameDomains = new ArrayList<>();
     public ArrayList<ResIovStarNameResolve.NameAccount>     mMyStarNameDomainResolves = new ArrayList<>();
     public ArrayList<StarNameAccount>                       mMyStarNameAccounts = new ArrayList<>();
+
+    public ArrayList<Types.Domain>                          mDomains_gRPC = new ArrayList<>();
+    public ArrayList<Types.Account>                         mDomainResolves_gRPC = new ArrayList<>();
+    public ArrayList<Types.Account>                         mAccounts_gRPC = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,51 +131,54 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
             mPageAdapter.getCurrentFragment().onBusyFetch();
         }
         mTaskCount = 2;
-        new StarNameMyAccountTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new StarNameMyDomainTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        mDomains_gRPC.clear();
+        mDomainResolves_gRPC.clear();
+        mAccounts_gRPC.clear();
+        new StarNameGrpcAccountTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new StarNameGrpcDomainTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
     }
 
-    public ResIovStarNameResolve.NameAccount getDomainResolve(String domain) {
-        for (ResIovStarNameResolve.NameAccount resolve:mMyStarNameDomainResolves) {
-            if (resolve.domain.equals(domain)) {
+    public Types.Account getDomainResolve(String domain) {
+        for (Types.Account resolve: mDomainResolves_gRPC) {
+            if (resolve.getDomain().equals(domain)) {
                 return resolve;
             }
         }
         return null;
-
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if (isFinishing()) return;
-        if (result.taskType == TASK_FETCH_MY_STARNAME_ACCOUNT) {
-            mMyStarNameAccounts.clear();
-            mMyStarNameAccounts = (ArrayList<StarNameAccount>)result.resultData;
-
-        } else if (result.taskType == TASK_FETCH_MY_STARNAME_DOMAIN) {
-            mMyStarNameDomains.clear();
-            mMyStarNameDomainResolves.clear();
-            mMyStarNameDomains = (ArrayList<StarNameDomain>)result.resultData;
-            mTaskCount = mTaskCount + mMyStarNameDomains.size();
-            for (StarNameDomain domain:mMyStarNameDomains) {
-                new StarNameResolveTask(getBaseApplication(),this, mBaseChain, "*" + domain.name).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        if (result.taskType == TASK_GRPC_FETCH_STARNAME_ACCOUNT) {
+            if (result.isSuccess && result.resultData != null) {
+                mAccounts_gRPC = (ArrayList<Types.Account>)result.resultData;
             }
 
-        } else if (result.taskType == TASK_FETCH_STARNAME_RESOLVE) {
-            if (result.isSuccess) {
-                ResIovStarNameResolve.NameAccount temp = (ResIovStarNameResolve.NameAccount)result.resultData;
-                mMyStarNameDomainResolves.add(temp);
+        } else if (result.taskType == TASK_GRPC_FETCH_STARNAME_DOMAIN) {
+            if (result.isSuccess && result.resultData != null) {
+                mDomains_gRPC = (ArrayList<Types.Domain>)result.resultData;
+
+            }
+            mTaskCount = mTaskCount + mDomains_gRPC.size();
+            for (Types.Domain domain: mDomains_gRPC) {
+                new StarNameGrpcResolveTask(getBaseApplication(),this, mBaseChain, "", domain.getName()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
+        } else if (result.taskType == TASK_GRPC_FETCH_STARNAME_RESOLVE) {
+            if (result.isSuccess && result.resultData != null) {
+                mDomainResolves_gRPC.add((Types.Account)result.resultData);
+            }
         }
 
         if (mTaskCount == 0) {
             onHideWaitDialog();
             mPageAdapter.getCurrentFragment().onRefreshTab();
-//            WLog.w("mMyStarNameAccounts " + mMyStarNameAccounts.size());
-//            WLog.w("mMyStarNameDomains " + mMyStarNameDomains.size());
+            WLog.w("mAccounts_gRPC " + mAccounts_gRPC.size());
+            WLog.w("mDomains_gRPC " + mDomains_gRPC.size());
+            WLog.w("mDomainResolves_gRPC " + mDomainResolves_gRPC.size());
         }
     }
 

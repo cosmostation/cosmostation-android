@@ -952,6 +952,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     }
                     if (already) getBaseDao().mGRpcMyValidators.add(validator);
                 }
+
+//                WLog.w("mGRpcNodeInfo " + getBaseDao().mGRpcNodeInfo);
 //                WLog.w("mGRpcTopValidators " + getBaseDao().mGRpcTopValidators.size());
 //                WLog.w("mGRpcOtherValidators " + getBaseDao().mGRpcOtherValidators.size());
 //                WLog.w("mGRpcAllValidators " + getBaseDao().mGRpcAllValidators.size());

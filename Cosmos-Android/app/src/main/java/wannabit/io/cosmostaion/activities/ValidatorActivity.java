@@ -958,7 +958,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             if (mBaseChain.equals(BAND_MAIN)) {
-                if (mGrpcBandOracles != null && !getBaseDao().isEnable(mGrpcValidator.getOperatorAddress())) {
+                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
                     holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 } else {
@@ -1019,7 +1019,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             if (mBaseChain.equals(BAND_MAIN)) {
-                if (mGrpcBandOracles != null && !getBaseDao().isEnable(mGrpcValidator.getOperatorAddress())) {
+                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
                     holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 } else {

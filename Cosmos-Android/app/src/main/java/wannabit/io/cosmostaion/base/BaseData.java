@@ -25,7 +25,6 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
-import irismod.token.TokenOuterClass;
 import oracle.v1.Oracle;
 import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
@@ -34,8 +33,8 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.ChainParam;
+import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.BondingInfo;
@@ -106,10 +105,8 @@ public class BaseData {
     }
 
 
-
     public ArrayList<Price>         mPrices = new ArrayList<>();
     public ChainParam.Params        mChainParam;
-
 
     public Price getPrice(String denom) {
         for (Price price: mPrices) {
@@ -119,6 +116,7 @@ public class BaseData {
         }
         return null;
     }
+
 
     //COMMON DATA
     public NodeInfo                     mNodeInfo;
@@ -165,6 +163,14 @@ public class BaseData {
     //INCENTIVE DATA FOR SIF
     public SifIncentive.User        mSifVsIncentive;
     public SifIncentive.User        mSifLmIncentive;
+
+
+    public String getChainId() {
+        if (mNodeInfo != null) {
+            return mNodeInfo.network;
+        }
+        return "";
+    }
 
     public BigDecimal availableAmount(String denom) {
         BigDecimal result = BigDecimal.ZERO;
@@ -344,18 +350,6 @@ public class BaseData {
     public starnamed.x.configuration.v1beta1.Types.Fees         mGrpcStarNameFee;
     public starnamed.x.configuration.v1beta1.Types.Config       mGrpcStarNameConfig;
 
-
-
-    public irishub.mint.Mint.Params                             mGrpcIrisParamMint;
-    public ArrayList<TokenOuterClass.Token>                     mGrpcIrisTokens = new ArrayList<>();
-
-    public String getChainId() {
-        if (mNodeInfo != null) {
-            return mNodeInfo.network;
-        }
-        return "";
-    }
-
     //gRPC funcs
     public String getChainIdGrpc() {
         if (mGRpcNodeInfo != null) {
@@ -383,17 +377,6 @@ public class BaseData {
             }
         }
         return result;
-    }
-
-    // Band oracle Status
-    public boolean isEnable(String valOpAddress) {
-        if (mGrpcBandOracles == null) { return true; }
-        for (Oracle.ActiveValidator validator: mGrpcBandOracles) {
-            if (validator.getAddress().equals(valOpAddress)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public ArrayList<Vesting.Period> onParseRemainVestingsByDenom(String denom) {
@@ -541,7 +524,6 @@ public class BaseData {
         return getAvailable(denom).add(getVesting(denom)).add(getDelegationSum()).add(getUndelegationSum()).add(getRewardSum(denom));
     }
 
-
     public Staking.Validator getValidatorInfo(String valOpAddress) {
         for (Staking.Validator val: mGRpcAllValidators) {
             if (val.getOperatorAddress().equals(valOpAddress)) {
@@ -551,6 +533,21 @@ public class BaseData {
         return null;
     }
 
+    // Band oracle Status
+    public boolean isOracleEnable(String valOpAddress) {
+        if (mGrpcBandOracles == null) { return true; }
+        for (Oracle.ActiveValidator validator: mGrpcBandOracles) {
+            if (validator.getAddress().equals(valOpAddress)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
+
     public void setValSorting(int sort) {
         getSharedPreferences().edit().putInt(BaseConstant.PRE_VALIDATOR_SORTING, sort).commit();
     }
@@ -558,7 +555,6 @@ public class BaseData {
     public int getValSorting() {
         return getSharedPreferences().getInt(BaseConstant.PRE_VALIDATOR_SORTING, 1);
     }
-
 
     public void setMyValSorting(int sort) {
         getSharedPreferences().edit().putInt(BaseConstant.PRE_MY_VALIDATOR_SORTING, sort).commit();
