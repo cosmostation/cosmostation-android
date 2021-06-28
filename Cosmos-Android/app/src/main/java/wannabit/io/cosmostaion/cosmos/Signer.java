@@ -20,7 +20,6 @@ import cosmos.tx.v1beta1.TxOuterClass;
 import cosmos.vesting.v1beta1.Vesting;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.crypto.Sha256;
-import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WKey;

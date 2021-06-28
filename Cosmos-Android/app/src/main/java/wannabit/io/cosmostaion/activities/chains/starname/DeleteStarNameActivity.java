@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.DeleteStarName0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.DeleteStarName1Fragment;
@@ -193,7 +194,7 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(DeleteStarName0Fragment.newInstance(null));
             mFragments.add(DeleteStarName1Fragment.newInstance(null));
-            mFragments.add(StepFeeSetOldFragment.newInstance(null));
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(DeleteStarName3Fragment.newInstance(null));
         }
 

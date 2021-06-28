@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -17,6 +18,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import java.math.BigDecimal;
 
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
@@ -31,6 +34,8 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
 
@@ -45,8 +50,6 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
     private String                              mMyDomain;
     private String                              mMyAccount;
     private MyAccountAdapter                    mAdapter;
-//    private StarNameDomain                      mStarNameDomain;
-//    private ResIovStarNameResolve.NameAccount   mMyNameAccount;
     private Types.Domain                        mDomain_gRPC;
     private Types.Account                       mAccountResolve_gRPC;
 
@@ -113,25 +116,18 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
-//            if (mBaseChain.equals(IOV_MAIN)) {
-//                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("150000")) < 0) {
-//                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//            } else if (mBaseChain.equals(IOV_TEST)) {
-//                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("150000")) < 0) {
-//                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//            }
-//
-//            Intent intent = new Intent(this, DeleteStarNameActivity.class);
-//            intent.putExtra("ToDeleType", IOV_MSG_TYPE_DELETE_ACCOUNT);
-//            intent.putExtra("ToDeleDomain", mMyDomain);
-//            intent.putExtra("ToDeleAccount", mMyAccount);
-//            intent.putExtra("Time", mMyNameAccount.valid_until);
-//            startActivity(intent);
+            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_DELETE_DOMAIN, 0);
+            if (available.compareTo(txFee) < 0) {
+                Toast.makeText(this, R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent intent = new Intent(this, DeleteStarNameActivity.class);
+            intent.putExtra("ToDeleType", IOV_MSG_TYPE_DELETE_ACCOUNT);
+            intent.putExtra("ToDeleDomain", mAccountResolve_gRPC.getDomain());
+            intent.putExtra("ToDeleAccount", mAccountResolve_gRPC.getName().getValue());
+            intent.putExtra("Time", mDomain_gRPC.getValidUntil());
+            startActivity(intent);
 
         } else if (v.equals(mBtnRenew)) {
             if (!mAccount.hasPrivateKey) {

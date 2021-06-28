@@ -16,8 +16,6 @@ import wannabit.io.cosmostaion.activities.chains.starname.DeleteStarNameActivity
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
 
 public class DeleteStarName3Fragment extends BaseFragment implements View.OnClickListener {
@@ -54,11 +52,8 @@ public class DeleteStarName3Fragment extends BaseFragment implements View.OnClic
     @Override
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
 
-        if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-
-        }
         if (getSActivity().mDeleteType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
             mStarName.setText( "*" + getSActivity().mToDelDomain );
         } else {
