@@ -26,7 +26,6 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
-import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -39,8 +38,8 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimHarvestRewardTa
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimIncentiveTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleCreateCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDeleteAccountTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDeleteDomainTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.DeleteAccountGrpcTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.DeleteDomainGrpcTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
@@ -55,7 +54,6 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRenewAccountTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRenewDomainTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayHardTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleReplaceStarNameTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleUndelegateTask;
@@ -509,12 +507,12 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mName, mResources,  mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DELETE_DOMAIN) {
-            new SimpleDeleteDomainTask(getBaseApplication(), this, mAccount, mBaseChain,
-                    mDomain, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new DeleteDomainGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
+                    mDomain, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DELETE_ACCOUNT) {
-            new SimpleDeleteAccountTask(getBaseApplication(), this, mAccount, mBaseChain,
-                    mDomain,  mName, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new DeleteAccountGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
+                    mDomain, mName, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_RENEW_DOMAIN) {
             new SimpleRenewDomainTask(getBaseApplication(), this, mAccount, mBaseChain,

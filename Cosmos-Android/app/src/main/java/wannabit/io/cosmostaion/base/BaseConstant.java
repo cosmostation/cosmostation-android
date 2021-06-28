@@ -130,8 +130,8 @@ public class BaseConstant {
 //    public final static int TASK_GEN_TX_REGISTER_ACCOUNT                = 2095;
     public final static int TASK_FETCH_STARNAME_RESOLVE                 = 2096;
 //    public final static int TASK_FETCH_STARNAME_DOMAIN_INFO             = 2097;
-    public final static int TASK_GEN_TX_DELETE_DOMAIN                   = 2098;
-    public final static int TASK_GEN_TX_DELETE_ACCOUNT                  = 2099;
+//    public final static int TASK_GEN_TX_DELETE_DOMAIN                   = 2098;
+//    public final static int TASK_GEN_TX_DELETE_ACCOUNT                  = 2099;
     public final static int TASK_GEN_TX_RENEW_DOMAIN                    = 2100;
     public final static int TASK_GEN_TX_RENEW_ACCOUNT                   = 2101;
     public final static int TASK_GEN_TX_REPLACE_STARNAME                = 2102;
@@ -219,6 +219,8 @@ public class BaseConstant {
 
     public final static int TASK_GRPC_GEN_TX_REGISTER_DOMAIN            = 4308;
     public final static int TASK_GRPC_GEN_TX_REGISTER_ACCOUNT           = 4309;
+    public final static int TASK_GRPC_GEN_TX_DELETE_DOMAIN              = 4310;
+    public final static int TASK_GRPC_GEN_TX_DELETE_ACCOUNT             = 4311;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
