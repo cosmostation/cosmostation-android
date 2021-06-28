@@ -899,7 +899,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             } else {
                 getBaseDao().mGrpcBalance.add(new Coin(WDp.mainDenom(mBaseChain), "0"));
             }
-            WLog.w("getBaseDao().mGrpcBalance " + getBaseDao().mGrpcBalance.size());
+//            WLog.w("getBaseDao().mGrpcBalance " + getBaseDao().mGrpcBalance.size());
             mTaskCount = mTaskCount + 1;
             new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 

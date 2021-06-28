@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -55,20 +56,17 @@ public class RegisterAccount4Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onRefreshTab() {
-        BigDecimal starnameFeeAmount = getBaseDao().mStarNameFee.getAccountFee(true);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        BigDecimal starNameFee = getBaseDao().getStarNameRegisterAccountFee("open");
 
-        if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-            mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starnameFeeAmount, 6, 6));
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+        mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
+        mExpireTime.setText(WDp.getDpTime(getContext(), getBaseDao().getStarNameRegisterDomainExpireTime()));
 
-        }
-
-        mExpireTime.setText(getBaseDao().mStarNameConfig.getRegisterDomainExpireTime(getContext()));
         mAccount.setText(getSActivity().mToRegAccount+ "*" + getSActivity().mToRegDomain);
         String addresses = "";
-        for (StarNameResource resource:getSActivity().mResources) {
-            addresses = addresses + resource.uri + "\n" + resource.resource + "\n\n";
+        for (Types.Resource resource: getSActivity().mResources) {
+            addresses = addresses + resource.getUri() + "\n" + resource.getResource() + "\n\n";
         }
         mAddresses.setText(addresses);
         mMemo.setText(getSActivity().mTxMemo);

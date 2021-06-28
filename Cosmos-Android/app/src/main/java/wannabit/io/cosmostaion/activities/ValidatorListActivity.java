@@ -18,7 +18,6 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import cosmos.distribution.v1beta1.Distribution;
 import wannabit.io.cosmostaion.R;
@@ -34,17 +33,8 @@ import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class ValidatorListActivity extends BaseActivity implements FetchCallBack {
 

@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.fragment.chains.starname;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,34 +19,28 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 
 import java.math.BigDecimal;
+import java.util.concurrent.TimeUnit;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.grpc.stub.StreamObserver;
+import starnamed.x.starname.v1beta1.QueryGrpc;
+import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameDomainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.req.ReqStarNameDomainInfo;
-import wannabit.io.cosmostaion.network.res.ResIovStarNameDomainInfo;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class RegisterDomain0Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button mCancelBtn, mConfirmBtn;
     private EditText mDomainInput;
-    private TextView mStarNameFee;
+    private TextView mStarNameFeeTv;
     private TextView mDomainValid, mDomainType, mTypeDescription;
     private SwitchCompat mTypeSwitch;
-
-    private BigDecimal  mMyBalance = BigDecimal.ZERO;
-    private BigDecimal  mStarnameFee = BigDecimal.ZERO;
 
     public static RegisterDomain0Fragment newInstance(Bundle bundle) {
         RegisterDomain0Fragment fragment = new RegisterDomain0Fragment();
@@ -64,14 +60,14 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
         mConfirmBtn = rootView.findViewById(R.id.btn_next);
         mDomainInput = rootView.findViewById(R.id.et_user_input);
         mDomainValid = rootView.findViewById(R.id.domain_valid_msg);
-        mStarNameFee = rootView.findViewById(R.id.starname_fee_amount);
+        mStarNameFeeTv = rootView.findViewById(R.id.starname_fee_amount);
         mDomainType = rootView.findViewById(R.id.domain_type_txt);
         mTypeSwitch = rootView.findViewById(R.id.switch_domain_type);
         mTypeDescription = rootView.findViewById(R.id.domain_type_description);
         mCancelBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 
-        mStarNameFee.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 6, 6));
+        mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 6, 6));
         mDomainInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -87,9 +83,8 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
                 } else {
                     mDomainValid.setTextColor(getResources().getColor(R.color.colorRed));
                 }
-
-                mStarnameFee = getBaseDao().mStarNameFee.getDomainFee(userInput, mTypeSwitch.isChecked() ? "open" : "closed");
-                mStarNameFee.setText(WDp.getDpAmount2(getContext(), mStarnameFee, 6, 6));
+                BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput,  mTypeSwitch.isChecked() ? "open" : "closed");
+                mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
 
             }
         });
@@ -109,8 +104,8 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
                     }
 
                     String userInput = mDomainInput.getText().toString().trim();
-                    mStarnameFee = getBaseDao().mStarNameFee.getDomainFee(userInput, isChecked ? "open" : "closed");
-                    mStarNameFee.setText(WDp.getDpAmount2(getContext(), mStarnameFee, 6, 6));
+                    BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput,  mTypeSwitch.isChecked() ? "open" : "closed");
+                    mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
                 }
             }
         });
@@ -120,13 +115,6 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
-        if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
-            mMyBalance  = getSActivity().mAccount.getTokenBalance(TOKEN_IOV).subtract(new BigDecimal("300000"));
-
-        } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
-            mMyBalance  = getSActivity().mAccount.getTokenBalance(TOKEN_IOV_TEST).subtract(new BigDecimal("300000"));
-
-        }
     }
 
 
@@ -145,12 +133,13 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
                 Toast.makeText(getBaseActivity(), R.string.error_invalid_domain_format, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (mStarnameFee.compareTo(mMyBalance) > 0) {
+            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
+            BigDecimal starNameFee = getBaseDao().getStarNameRegisterDomainFee(userInput,  mTypeSwitch.isChecked() ? "open" : "closed");
+            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_REGISTER_DOMAIN, 0);
+            if (available.compareTo(starNameFee.add(txFee)) < 0) {
                 Toast.makeText(getBaseActivity(), R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
                 return;
-
             }
-
             onCheckDomainInfo(userInput);
         }
     }
@@ -164,44 +153,36 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
 
     private void onCheckDomainInfo(String domain) {
         getSActivity().onShowWaitDialog();
-        ReqStarNameDomainInfo req = new ReqStarNameDomainInfo(domain);
-        if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
-            ApiClient.getIovChain(getSActivity()).getStarnameDomainInfo(req).enqueue(new Callback<ResIovStarNameDomainInfo>() {
-                @Override
-                public void onResponse(Call<ResIovStarNameDomainInfo> call, Response<ResIovStarNameDomainInfo> response) {
-                    getSActivity().onHideWaitDialog();
-                    if (response.isSuccessful() && TextUtils.isEmpty(response.body().error)) {
+
+        QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(getSActivity().mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        QueryOuterClass.QueryDomainRequest request = QueryOuterClass.QueryDomainRequest.newBuilder().setName(domain).build();
+        mStub.domain(request, new StreamObserver<QueryOuterClass.QueryDomainResponse>() {
+            @Override
+            public void onNext(QueryOuterClass.QueryDomainResponse value) {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getSActivity().onHideWaitDialog();
                         Toast.makeText(getBaseActivity(), R.string.error_already_registered_domain, Toast.LENGTH_SHORT).show();
-                    } else {
+                    }
+                }, 500);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getSActivity().onHideWaitDialog();
                         onNextStep();
                     }
-                }
-                @Override
-                public void onFailure(Call<ResIovStarNameDomainInfo> call, Throwable t) {
-                    getSActivity().onHideWaitDialog();
-                    Toast.makeText(getBaseActivity(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                }
-            });
+                }, 500);
+            }
 
-        } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
-            ApiClient.getIovTestChain(getSActivity()).getStarnameDomainInfo(req).enqueue(new Callback<ResIovStarNameDomainInfo>() {
-                @Override
-                public void onResponse(Call<ResIovStarNameDomainInfo> call, Response<ResIovStarNameDomainInfo> response) {
-                    getSActivity().onHideWaitDialog();
-                    if (response.isSuccessful() && TextUtils.isEmpty(response.body().error)) {
-                        Toast.makeText(getBaseActivity(), R.string.error_already_registered_domain, Toast.LENGTH_SHORT).show();
-                    } else {
-                        onNextStep();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResIovStarNameDomainInfo> call, Throwable t) {
-                    getSActivity().onHideWaitDialog();
-                    Toast.makeText(getBaseActivity(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
+            @Override
+            public void onCompleted() {
+                getSActivity().onHideWaitDialog();
+            }
+        });
     }
 }

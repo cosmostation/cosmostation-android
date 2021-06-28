@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import starnamed.x.starname.v1beta1.Types;
@@ -81,7 +82,6 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
     public void onBusyFetch() {
         mSwipeRefreshLayout.setRefreshing(false);
     }
-
 
     public StarNameListActivity getSActivity() {
         return (StarNameListActivity)getBaseActivity();

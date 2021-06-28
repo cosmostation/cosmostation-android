@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterDomain0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterDomain1Fragment;
@@ -41,7 +42,6 @@ public class RegisterStarNameDomainActivity extends BaseBroadCastActivity {
     private ViewPager       mViewPager;
 
     private RegisterDomainPageAdapter mPageAdapter;
-
 
     public String       mToRegDomain;
     public String       mType;
@@ -175,7 +175,7 @@ public class RegisterStarNameDomainActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(RegisterDomain0Fragment.newInstance(null));
             mFragments.add(RegisterDomain1Fragment.newInstance(null));
-            mFragments.add(StepFeeSetOldFragment.newInstance(null));
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(RegisterDomain3Fragment.newInstance(null));
         }
 

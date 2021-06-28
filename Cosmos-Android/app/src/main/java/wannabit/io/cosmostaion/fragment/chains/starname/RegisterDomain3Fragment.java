@@ -10,14 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameDomainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class RegisterDomain3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -54,16 +54,13 @@ public class RegisterDomain3Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        BigDecimal starnameFeeAmount = getBaseDao().mStarNameFee.getDomainFee(getSActivity().mToRegDomain, getSActivity().mType);
+        BigDecimal starnameFeeAmount = getBaseDao().getStarNameRegisterDomainFee(getSActivity().mToRegDomain, getSActivity().mType);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-            mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starnameFeeAmount, 6, 6));
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+        mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starnameFeeAmount, 6, 6));
+        mExpireTime.setText(WDp.getDpTime(getContext(), getBaseDao().getStarNameRegisterDomainExpireTime()));
 
-        }
-
-        mExpireTime.setText(getBaseDao().mStarNameConfig.getRegisterDomainExpireTime(getContext()));
         mDomain.setText("*" + getSActivity().mToRegDomain);
         mDomainType.setText(getSActivity().mType);
         mMemo.setText(getSActivity().mTxMemo);

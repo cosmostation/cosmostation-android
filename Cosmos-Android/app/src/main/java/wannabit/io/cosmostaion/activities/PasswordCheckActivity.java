@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
@@ -75,6 +76,8 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.UndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
+import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
@@ -185,6 +188,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private ArrayList<StarNameResource> mResources = new ArrayList();
 
 
+    private ArrayList<Types.Resource>   mResourcesss = new ArrayList();
+
+
     private long                        mIdToDelete;
     private long                        mIdToCheck;
 
@@ -259,6 +265,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mDomainType = getIntent().getStringExtra("domainType");
         mName = getIntent().getStringExtra("name");
         mResources = getIntent().getParcelableArrayListExtra("resource");
+
+        StarnameResourceWrapper wrapper = (StarnameResourceWrapper) getIntent().getSerializableExtra("resourcess");
+        mResourcesss = wrapper.array;
 
 
         mIdToDelete = getIntent().getLongExtra("id", -1);

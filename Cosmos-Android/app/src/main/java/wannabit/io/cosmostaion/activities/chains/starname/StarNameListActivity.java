@@ -24,9 +24,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.MyAccountFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.MyDomainFragment;
-import wannabit.io.cosmostaion.model.StarNameAccount;
-import wannabit.io.cosmostaion.model.StarNameDomain;
-import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcAccountTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcDomainTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcResolveTask;
@@ -41,29 +38,25 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME
 
 public class StarNameListActivity extends BaseActivity implements TaskListener {
 
-    private Toolbar             mToolbar;
-    private TextView            mToolbarTitle;
-    private ViewPager           mNameServicePager;
-    private TabLayout           mNameServiceTapLayer;
-    private StarNamePageAdapter mPageAdapter;
+    private Toolbar                     mToolbar;
+    private TextView                    mToolbarTitle;
+    private ViewPager                   mNameServicePager;
+    private TabLayout                   mNameServiceTapLayer;
+    private StarNamePageAdapter         mPageAdapter;
 
-//    public ArrayList<StarNameDomain>                        mMyStarNameDomains = new ArrayList<>();
-//    public ArrayList<ResIovStarNameResolve.NameAccount>     mMyStarNameDomainResolves = new ArrayList<>();
-//    public ArrayList<StarNameAccount>                       mMyStarNameAccounts = new ArrayList<>();
-
-    public ArrayList<Types.Domain>                          mDomains_gRPC = new ArrayList<>();
-    public ArrayList<Types.Account>                         mDomainResolves_gRPC = new ArrayList<>();
-    public ArrayList<Types.Account>                         mAccounts_gRPC = new ArrayList<>();
+    public ArrayList<Types.Domain>      mDomains_gRPC = new ArrayList<>();
+    public ArrayList<Types.Account>     mDomainResolves_gRPC = new ArrayList<>();
+    public ArrayList<Types.Account>     mAccounts_gRPC = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starname_list);
-        mToolbar            = findViewById(R.id.tool_bar);
-        mToolbarTitle       = findViewById(R.id.toolbar_title);
-        mNameServiceTapLayer  = findViewById(R.id.name_service_tab);
-        mNameServicePager     = findViewById(R.id.name_service_view_pager);
+        mToolbar = findViewById(R.id.tool_bar);
+        mToolbarTitle = findViewById(R.id.toolbar_title);
+        mNameServiceTapLayer = findViewById(R.id.name_service_tab);
+        mNameServicePager = findViewById(R.id.name_service_view_pager);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);

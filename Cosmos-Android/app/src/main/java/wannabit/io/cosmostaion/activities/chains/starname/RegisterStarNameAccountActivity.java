@@ -16,37 +16,36 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount4Fragment;
-import wannabit.io.cosmostaion.model.StarNameResource;
-import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
 
 public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
 
-    private RelativeLayout mRootView;
-    private Toolbar mToolbar;
-    private TextView mTitle;
-    private ImageView mIvStep;
-    private TextView mTvStep;
-    private ViewPager mViewPager;
+    private RelativeLayout  mRootView;
+    private Toolbar         mToolbar;
+    private TextView        mTitle;
+    private ImageView       mIvStep;
+    private TextView        mTvStep;
+    private ViewPager       mViewPager;
 
-    private RegisterAccountPageAdapter mPageAdapter;
-
+    private RegisterAccountPageAdapter  mPageAdapter;
     public String                       mToRegDomain;
     public String                       mToRegAccount;
-    public ArrayList<StarNameResource>  mResources = new ArrayList();
-
+    public ArrayList<Types.Resource>    mResources = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +165,8 @@ public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
         intent.putExtra("domain", mToRegDomain);
         intent.putExtra("name", mToRegAccount);
         intent.putExtra("resource", mResources);
+        StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
+        intent.putExtra("resourcess", wrapper);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
@@ -184,7 +185,7 @@ public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
             mFragments.add(RegisterAccount0Fragment.newInstance(null));
             mFragments.add(RegisterAccount1Fragment.newInstance(null));
             mFragments.add(RegisterAccount2Fragment.newInstance(null));
-            mFragments.add(StepFeeSetOldFragment.newInstance(null));
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(RegisterAccount4Fragment.newInstance(null));
         }
 

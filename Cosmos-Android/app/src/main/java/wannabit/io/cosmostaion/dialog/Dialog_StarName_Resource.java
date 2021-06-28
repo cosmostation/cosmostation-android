@@ -19,16 +19,17 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
 
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.model.StarNameResource;
+import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
 
     private RecyclerView mRecyclerView;
     private ChainForResourceHolderAdapter mAdapter;
-    private ArrayList<StarNameResource> mAlreadyChains;
-    private ArrayList<StarNameResource> mAllChains;
+    private ArrayList<Types.Resource> mAlreadyChains;
+    private ArrayList<Types.Resource> mAllChains;
 
     public static Dialog_StarName_Resource newInstance(Bundle bundle) {
         Dialog_StarName_Resource frag = new Dialog_StarName_Resource();
@@ -40,13 +41,23 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_starname_resource, null);
         mRecyclerView = view.findViewById(R.id.recycler);
-        mAlreadyChains = getArguments().getParcelableArrayList("resources");
+        StarnameResourceWrapper wrapper = (StarnameResourceWrapper)getArguments().getSerializable("resources");
+        mAlreadyChains = wrapper.array;
         mAllChains = WUtil.getAllStarnameResources();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new ChainForResourceHolderAdapter();
         mRecyclerView.setAdapter(mAdapter);
         return view;
+    }
+
+    private boolean alreadyHave(Types.Resource toInsert) {
+        for (Types.Resource already: mAlreadyChains) {
+            if (already.getUri().equals(toInsert.getUri())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private class ChainForResourceHolderAdapter extends RecyclerView.Adapter<ChainForResourceHolderAdapter.ChainForResourceHolder> {
@@ -58,20 +69,21 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
 
         @Override
         public void onBindViewHolder(@NonNull ChainForResourceHolder holder, int position) {
-            final StarNameResource resource = mAllChains.get(position);
-            if (mAlreadyChains.contains(resource)) {
+            final Types.Resource resource = mAllChains.get(position);
+            if (alreadyHave(resource)) {
                 holder.rootLayer.setBackground(getResources().getDrawable(R.drawable.box_et_gary));
             } else {
                 holder.rootLayer.setBackground(getResources().getDrawable(R.drawable.box_et_white));
             }
-            holder.chainImg.setImageDrawable(WUtil.getStarNameChainImg(getContext(), resource));
-            holder.chainName.setText(WUtil.getStarNameChainName(resource));
+
+            holder.chainImg.setImageDrawable(WUtil.getStarNameChainImg2(getContext(), resource));
+            holder.chainName.setText(WUtil.getStarNameChainName2(resource));
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!mAlreadyChains.contains(resource)) {
+                    if (!alreadyHave(resource)) {
                         Intent resultIntent = new Intent();
-                        resultIntent.putExtra("resource", resource);
+                        resultIntent.putExtra("resource", resource.toByteArray());
                         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                         getDialog().dismiss();
                     }

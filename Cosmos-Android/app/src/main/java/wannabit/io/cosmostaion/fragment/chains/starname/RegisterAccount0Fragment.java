@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.fragment.chains.starname;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +15,19 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
+import java.util.concurrent.TimeUnit;
 
+import io.grpc.stub.StreamObserver;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import starnamed.x.starname.v1beta1.QueryGrpc;
+import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.network.req.ReqStarNameResolve;
 import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -28,19 +35,18 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class RegisterAccount0Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button mCancelBtn, mConfirmBtn;
     private EditText mAccountInput;
-    private TextView mStarNameFee;
+    private TextView mStarNameFeeTv;
     private TextView mFixedDomain;
-
-
-    private BigDecimal mMyBalance = BigDecimal.ZERO;
-    private BigDecimal mStarnameFee = BigDecimal.ZERO;
 
     public static RegisterAccount0Fragment newInstance(Bundle bundle) {
         RegisterAccount0Fragment fragment = new RegisterAccount0Fragment();
@@ -60,28 +66,16 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
         mConfirmBtn = rootView.findViewById(R.id.btn_next);
         mAccountInput = rootView.findViewById(R.id.et_user_input);
         mFixedDomain = rootView.findViewById(R.id.fixed_domain);
-        mStarNameFee = rootView.findViewById(R.id.starname_fee_amount);
+        mStarNameFeeTv = rootView.findViewById(R.id.starname_fee_amount);
         mFixedDomain.setOnClickListener(this);
         mCancelBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 
-        //now support only open "iov" domain!!
-        mStarnameFee = getBaseDao().mStarNameFee.getAccountFee(true);
-        mStarNameFee.setText(WDp.getDpAmount2(getContext(), mStarnameFee, 6, 6));
+        BigDecimal starNameFee = getBaseDao().getStarNameRegisterAccountFee("open");
+        mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
 
         return rootView;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
-            mMyBalance  = getSActivity().mAccount.getTokenBalance(TOKEN_IOV).subtract(new BigDecimal("300000"));
-        } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
-            mMyBalance  = getSActivity().mAccount.getTokenBalance(TOKEN_IOV_TEST).subtract(new BigDecimal("300000"));
-        }
-    }
-
 
     private RegisterStarNameAccountActivity getSActivity() {
         return (RegisterStarNameAccountActivity)getBaseActivity();
@@ -101,15 +95,15 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
                 Toast.makeText(getBaseActivity(), R.string.error_invalid_account_format, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (mStarnameFee.compareTo(mMyBalance) > 0) {
+            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
+            BigDecimal starNameFee = getBaseDao().getStarNameRegisterAccountFee("open");
+            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_REGISTER_ACCOUNT, 0);
+            if (available.compareTo(starNameFee.add(txFee)) < 0) {
                 Toast.makeText(getBaseActivity(), R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
                 return;
-
             }
-
-            onCheckAccountInfo(userInput + "*iov");
+            onCheckAccountInfo(userInput, "iov");
         }
-
     }
 
     private void onNextStep() {
@@ -118,47 +112,39 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
         getSActivity().onNextStep();
     }
 
-
-    private void onCheckAccountInfo(String starname) {
+    private void onCheckAccountInfo(String starnameAccount, String starnameDomain) {
         getSActivity().onShowWaitDialog();
-        ReqStarNameResolve req = new ReqStarNameResolve(starname);
-        if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
-            ApiClient.getIovChain(getSActivity()).getStarnameAddress(req).enqueue(new Callback<ResIovStarNameResolve>() {
-                @Override
-                public void onResponse(Call<ResIovStarNameResolve> call, Response<ResIovStarNameResolve> response) {
-                    getSActivity().onHideWaitDialog();
-                    if (response.isSuccessful() && TextUtils.isEmpty(response.body().error)) {
-                        Toast.makeText(getBaseActivity(), R.string.error_already_registered_account, Toast.LENGTH_SHORT).show();
-                    } else {
+
+        QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(getSActivity().mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        QueryOuterClass.QueryStarnameRequest request = QueryOuterClass.QueryStarnameRequest.newBuilder().setStarname(starnameAccount + "*" + starnameDomain).build();
+        mStub.starname(request, new StreamObserver<QueryOuterClass.QueryStarnameResponse>() {
+            @Override
+            public void onNext(QueryOuterClass.QueryStarnameResponse value) {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getSActivity().onHideWaitDialog();
+                        Toast.makeText(getBaseActivity(), R.string.error_already_registered_domain, Toast.LENGTH_SHORT).show();
+                    }
+                }, 500);
+
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getSActivity().onHideWaitDialog();
                         onNextStep();
                     }
-                }
-                @Override
-                public void onFailure(Call<ResIovStarNameResolve> call, Throwable t) {
-                    getSActivity().onHideWaitDialog();
-                    Toast.makeText(getBaseActivity(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                }
-            });
+                }, 500);
+            }
 
-        } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
-            ApiClient.getIovTestChain(getSActivity()).getStarnameAddress(req).enqueue(new Callback<ResIovStarNameResolve>() {
-                @Override
-                public void onResponse(Call<ResIovStarNameResolve> call, Response<ResIovStarNameResolve> response) {
-                    getSActivity().onHideWaitDialog();
-                    if (response.isSuccessful() && TextUtils.isEmpty(response.body().error)) {
-                        Toast.makeText(getBaseActivity(), R.string.error_already_registered_account, Toast.LENGTH_SHORT).show();
-                    } else {
-                        onNextStep();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResIovStarNameResolve> call, Throwable t) {
-                    getSActivity().onHideWaitDialog();
-                    Toast.makeText(getBaseActivity(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
+            @Override
+            public void onCompleted() {
+                getSActivity().onHideWaitDialog();
+            }
+        });
     }
 }

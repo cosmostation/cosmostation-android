@@ -73,6 +73,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
@@ -544,6 +546,40 @@ public class BaseData {
         return false;
     }
 
+    // for starname funcs
+    public BigDecimal getStarNameRegisterDomainFee(String domain, String type) {
+        BigDecimal feeAmount = BigDecimal.ZERO;
+        if (mGrpcStarNameFee == null) { return feeAmount; }
+        if (TextUtils.isEmpty(domain) || domain.length() <= 3) {
+            return feeAmount;
+        } else if (domain.length() == 4) {
+            feeAmount = new BigDecimal(mGrpcStarNameFee.getRegisterDomain4()).divide(new BigDecimal(mGrpcStarNameFee.getFeeCoinPrice()), 0, RoundingMode.DOWN);
+        } else if (domain.length() == 5) {
+            feeAmount = new BigDecimal(mGrpcStarNameFee.getRegisterDomain5()).divide(new BigDecimal(mGrpcStarNameFee.getFeeCoinPrice()), 0, RoundingMode.DOWN);
+        } else {
+            feeAmount = new BigDecimal(mGrpcStarNameFee.getRegisterDomainDefault()).divide(new BigDecimal(mGrpcStarNameFee.getFeeCoinPrice()), 0, RoundingMode.DOWN);
+        }
+        if (type.equals("open")) {
+            feeAmount = feeAmount.multiply(new BigDecimal(mGrpcStarNameFee.getRegisterOpenDomainMultiplier()).movePointLeft(18));
+        }
+        return feeAmount;
+    }
+
+    public BigDecimal getStarNameRegisterAccountFee(String type) {
+        BigDecimal feeAmount = BigDecimal.ZERO;
+        if (mGrpcStarNameFee == null) { return feeAmount; }
+        if (type.equals("open")) {
+            return new BigDecimal(mGrpcStarNameFee.getRegisterAccountOpen()).divide(new BigDecimal(mGrpcStarNameFee.getFeeCoinPrice()), 0, RoundingMode.DOWN);
+        } else {
+            return new BigDecimal(mGrpcStarNameFee.getRegisterAccountClosed()).divide(new BigDecimal(mGrpcStarNameFee.getFeeCoinPrice()), 0, RoundingMode.DOWN);
+        }
+    }
+
+
+    public long getStarNameRegisterDomainExpireTime() {
+        if (mGrpcStarNameConfig == null) { return 0; }
+        return Calendar.getInstance().getTimeInMillis() + mGrpcStarNameConfig.getDomainRenewalPeriod().getSeconds() * 1000;
+    }
 
 
 

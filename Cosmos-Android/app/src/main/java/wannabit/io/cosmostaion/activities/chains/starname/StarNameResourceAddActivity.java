@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -43,8 +44,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
     private ImageView mChainImg;
     private TextView mChainName;
 
-
-    private StarNameResource mStarNameResource;
+    private Types.Resource      mStarNameResource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +61,15 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
         mChainImg  = findViewById(R.id.chainImg);
         mChainName  = findViewById(R.id.chainName);
 
-        mStarNameResource = getIntent().getParcelableExtra("resource");
-        mChainImg.setImageDrawable(WUtil.getStarNameChainImg(getBaseContext(), mStarNameResource));
-        mChainName.setText(WUtil.getStarNameChainName(mStarNameResource));
+        try {
+            mStarNameResource = Types.Resource.parseFrom(getIntent().getByteArrayExtra("resource"));
+            mChainImg.setImageDrawable(WUtil.getStarNameChainImg2(getBaseContext(), mStarNameResource));
+            mChainName.setText(WUtil.getStarNameChainName2(mStarNameResource));
+            if (!TextUtils.isEmpty(mStarNameResource.getResource())) {
+                mUserInput.setText(mStarNameResource.getResource());
+            }
 
-        if (!TextUtils.isEmpty(mStarNameResource.resource)) {
-            mUserInput.setText(mStarNameResource.resource);
-        }
+        } catch (Exception e) { onBackPressed(); }
 
         mCancel.setOnClickListener(this);
         mConfirm.setOnClickListener(this);
@@ -89,8 +91,8 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
                 Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
                 return;
 
-            } else if (WUtil.getBaseChainWithUri(mStarNameResource.uri) != null){
-                BaseChain chain = WUtil.getBaseChainWithUri(mStarNameResource.uri);
+            } else if (WUtil.getBaseChainWithUri(mStarNameResource.getUri()) != null){
+                BaseChain chain = WUtil.getBaseChainWithUri(mStarNameResource.getUri());
                 if (chain.equals(COSMOS_MAIN) && (!userinput.startsWith("cosmos1") || !WKey.isValidBech32(userinput))) {
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
                     return;
@@ -117,24 +119,26 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
 
                 }
             }
+
+            Types.Resource temp = Types.Resource.newBuilder().setUri(mStarNameResource.getUri()).setResource(userinput).build();
+            mStarNameResource = temp;
             Intent result = getIntent();
-            mStarNameResource.resource = userinput;
-            result.putExtra("resource", mStarNameResource);
+            result.putExtra("resource", mStarNameResource.toByteArray());
             setResult(Activity.RESULT_OK, result);
             finish();
 
         } else if (v.equals(mWallet)) {
-            if (WUtil.getBaseChainWithUri(mStarNameResource.uri) == null) {
+            if (WUtil.getBaseChainWithUri(mStarNameResource.getUri()) == null) {
                 Toast.makeText(getBaseContext(), R.string.error_not_support_cosmostation, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (getBaseDao().onSelectAccountsByChain(WUtil.getBaseChainWithUri(mStarNameResource.uri)).size() == 0) {
+            if (getBaseDao().onSelectAccountsByChain(WUtil.getBaseChainWithUri(mStarNameResource.getUri())).size() == 0) {
                 Toast.makeText(getBaseContext(), R.string.error_no_wallet_this_chain, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             Bundle bundle = new Bundle();
-            bundle.putString("chainUri", mStarNameResource.uri);
+            bundle.putString("chainUri", mStarNameResource.getUri());
             Dialog_Wallet_for_Starname dialog = Dialog_Wallet_for_Starname.newInstance(bundle);
             dialog.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
