@@ -38,21 +38,21 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_REGISTER_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_REPLACE_STARNAME;
 
-public class RegisterAccountGrpcTask extends CommonTask {
-    private BaseChain                   mBaseChain;
-    private Account                     mAccount;
-    private String                      mDomain, mName, mMemo;
+public class ReplaceStarNameGrpcTask extends CommonTask {
+
+    private Account mAccount;
+    private BaseChain mBaseChain;
+    private String mDomain, mName, mMemo;
     private ArrayList<Types.Resource>   mResources = new ArrayList();
-    private Fee                         mFees;
-    private String                      mChainId;
+    private Fee mFees;
+    private String mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey    deterministicKey;
 
-
-    public RegisterAccountGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain,
+    public ReplaceStarNameGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain,
                                    String name, ArrayList<Types.Resource> resources, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
@@ -63,7 +63,7 @@ public class RegisterAccountGrpcTask extends CommonTask {
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_GEN_TX_REGISTER_ACCOUNT;
+        this.mResult.taskType = TASK_GEN_TX_REPLACE_STARNAME;
     }
 
     @Override
@@ -85,7 +85,7 @@ public class RegisterAccountGrpcTask extends CommonTask {
 
             //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcRegisterAccountReq(mAuthResponse, mDomain, mName, mAccount.address, mAccount.address, mResources, mFees, mMemo, deterministicKey, mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcReplaceResourceReq(mAuthResponse, mDomain, mName, mAccount.address, mResources, mFees, mMemo, deterministicKey, mChainId);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {
@@ -97,7 +97,7 @@ public class RegisterAccountGrpcTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            WLog.e( "RegisterDomainGrpcTask "+ e.getMessage());
+            WLog.e( "ReplaceStarNameGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

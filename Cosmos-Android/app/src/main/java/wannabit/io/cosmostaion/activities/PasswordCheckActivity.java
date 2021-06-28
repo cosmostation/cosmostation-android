@@ -29,7 +29,14 @@ import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.DeleteAccountGrpcTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.DeleteDomainGrpcTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RegisterAccountGrpcTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RegisterDomainGrpcTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RenewAccountGrpcTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RenewDomainGrpcTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReplaceStarNameGrpcTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBorrowHardTask;
@@ -38,8 +45,6 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimHarvestRewardTa
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleClaimIncentiveTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleCreateCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.DeleteAccountGrpcTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.DeleteDomainGrpcTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
@@ -48,10 +53,6 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RegisterAccountGrpcTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RegisterDomainGrpcTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RenewAccountGrpcTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RenewDomainGrpcTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
@@ -523,8 +524,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mName, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REPLACE_STARNAME) {
-//            new SimpleReplaceStarNameTask(getBaseApplication(),this, mAccount, mBaseChain,  mDomain,
-//                    mName, mResources, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new ReplaceStarNameGrpcTask(getBaseApplication(),this, mAccount, mBaseChain,  mDomain,
+                    mName, mResources, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DEPOSIT_HARD) {
             new SimpleDepositHardTask(getBaseApplication(), this, mAccount, mHardPoolCoins, mDepositor,
