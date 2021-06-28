@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
+package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -23,27 +23,28 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_RENEW_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_RENEW_ACCOUNT;
 
-public class RenewDomainGrpcTask extends CommonTask {
+public class RenewAccountGrpcTask extends CommonTask {
     private BaseChain           mBaseChain;
     private Account             mAccount;
-    private String              mDomain, mMemo;
+    private String              mDomain, mName, mMemo;
     private Fee                 mFees;
     private String              mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey    deterministicKey;
 
-    public RenewDomainGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain, String memo, Fee fee, String chainId) {
+    public RenewAccountGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain, String name, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
         this.mDomain = domain;
+        this.mName = name;
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GEN_TX_RENEW_DOMAIN;
+        this.mResult.taskType = TASK_GEN_TX_RENEW_ACCOUNT;
     }
 
     @Override
@@ -65,7 +66,7 @@ public class RenewDomainGrpcTask extends CommonTask {
 
             //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcRenewDomainReq(mAuthResponse, mDomain, mAccount.address, mFees, mMemo, deterministicKey, mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcRenewAccountReq(mAuthResponse, mDomain, mName, mAccount.address, mFees, mMemo, deterministicKey, mChainId);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {
@@ -77,7 +78,7 @@ public class RenewDomainGrpcTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            WLog.e( "RenewDomainGrpcTask "+ e.getMessage());
+            WLog.e( "RenewAccountGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

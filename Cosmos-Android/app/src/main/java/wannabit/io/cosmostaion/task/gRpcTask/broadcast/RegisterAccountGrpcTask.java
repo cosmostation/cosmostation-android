@@ -1,50 +1,69 @@
-package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
+package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
 import org.bitcoinj.crypto.DeterministicKey;
+
+import java.util.ArrayList;
 
 import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
+import retrofit2.Response;
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.network.req.ReqBroadCast;
+import wannabit.io.cosmostaion.network.res.ResBroadTx;
+import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_DELETE_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_REGISTER_ACCOUNT;
 
-public class DeleteDomainGrpcTask extends CommonTask {
-
-    private Account     mAccount;
-    private BaseChain   mBaseChain;
-    private String      mDomain, mMemo;
-    private Fee         mFees;
-    private String      mChainId;
+public class RegisterAccountGrpcTask extends CommonTask {
+    private BaseChain                   mBaseChain;
+    private Account                     mAccount;
+    private String                      mDomain, mName, mMemo;
+    private ArrayList<Types.Resource>   mResources = new ArrayList();
+    private Fee                         mFees;
+    private String                      mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey    deterministicKey;
 
-    public DeleteDomainGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain, String memo, Fee fee, String chainId) {
+
+    public RegisterAccountGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain,
+                                   String name, ArrayList<Types.Resource> resources, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
         this.mDomain = domain;
+        this.mName = name;
+        this.mResources = resources;
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_GEN_TX_DELETE_DOMAIN;
+        this.mResult.taskType = TASK_GRPC_GEN_TX_REGISTER_ACCOUNT;
     }
 
     @Override
@@ -66,7 +85,7 @@ public class DeleteDomainGrpcTask extends CommonTask {
 
             //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcDeleteDomainReq(mAuthResponse, mDomain, mAccount.address, mFees, mMemo, deterministicKey, mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcRegisterAccountReq(mAuthResponse, mDomain, mName, mAccount.address, mAccount.address, mResources, mFees, mMemo, deterministicKey, mChainId);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {
@@ -78,7 +97,7 @@ public class DeleteDomainGrpcTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            WLog.e( "DeleteDomainGrpcTask "+ e.getMessage());
+            WLog.e( "RegisterDomainGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

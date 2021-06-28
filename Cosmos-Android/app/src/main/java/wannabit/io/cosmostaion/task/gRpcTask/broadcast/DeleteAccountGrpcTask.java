@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
+package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
 import org.bitcoinj.crypto.DeterministicKey;
 

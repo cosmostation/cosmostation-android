@@ -22,15 +22,12 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterDomain0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterDomain1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterDomain3Fragment;
-import wannabit.io.cosmostaion.model.type.Fee;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
 
 public class RegisterStarNameDomainActivity extends BaseBroadCastActivity {
 

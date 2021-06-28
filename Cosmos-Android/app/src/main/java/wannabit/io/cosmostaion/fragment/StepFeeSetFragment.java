@@ -44,7 +44,14 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
@@ -300,6 +307,22 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             } else if (getSActivity().mTxType == CONST_PW_TX_VOTE) {
                 new SimulVoteGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mProposalId, getSActivity().mOpinion,
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+
+            else if (getSActivity().mTxType == CONST_PW_TX_REGISTER_DOMAIN) {
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_REGISTER_ACCOUNT) {
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_DELETE_DOMAIN) {
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_DELETE_ACCOUNT) {
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_RENEW_DOMAIN) {
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_RENEW_ACCOUNT) {
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_REPLACE_STARNAME) {
+
             }
         }
     }
