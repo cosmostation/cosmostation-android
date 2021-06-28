@@ -240,7 +240,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_HEADER) {
                 final MyDomainHeaderHolder holder = (MyDomainHeaderHolder)viewHolder;
-                if (mDomain_gRPC != null) {
+                if (mDomain_gRPC != null && mDomainResolve_gRPC != null) {
                     holder.itemDomain.setText("*" + mDomain_gRPC.getName());
                     holder.itemType.setText(mDomain_gRPC.getType().toUpperCase());
                     if (mDomain_gRPC.getType().equals("open")) {
@@ -249,6 +249,7 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                         holder.itemType.setTextColor(getResources().getColor(R.color.colorWhite));
                     }
                     holder.itemExpireDate.setText(WDp.getDpTime(getBaseContext(), mDomain_gRPC.getValidUntil() * 1000));
+                    holder.itemAddressCnt.setText("" + mDomainResolve_gRPC.getResourcesCount());
                     holder.itemBtnWebLink.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -256,12 +257,6 @@ public class StarNameDomainDetailActivity extends BaseActivity implements View.O
                             startActivity(guideIntent);
                         }
                     });
-
-                }
-                if (mDomainResolve_gRPC != null) {
-                    holder.itemAddressCnt.setText("" + mDomainResolve_gRPC.getResourcesCount());
-                } else {
-                    holder.itemAddressCnt.setText("0");
                 }
 
             } else  if (getItemViewType(position) == TYPE_RESOURCE) {

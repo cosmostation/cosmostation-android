@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.StarNameAccountDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -129,10 +130,10 @@ public class MyAccountFragment extends BaseFragment implements View.OnClickListe
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        Intent intent = new Intent(getSActivity(), StarNameAccountDetailActivity.class);
-//                        intent.putExtra("domain", account.domain);
-//                        intent.putExtra("account", account.name);
-//                        startActivity(intent);
+                        Intent intent = new Intent(getSActivity(), StarNameAccountDetailActivity.class);
+                        intent.putExtra("domain", account.getDomain());
+                        intent.putExtra("account", account.getName().getValue());
+                        startActivity(intent);
                     }
                 });
             }

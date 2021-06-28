@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -19,42 +18,37 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import java.math.BigDecimal;
-
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.model.StarNameDomain;
-import wannabit.io.cosmostaion.model.StarNameResource;
-import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcDomainInfoTask;
+import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcResolveTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
 
 public class StarNameAccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
-    private Toolbar                     mToolbar;
-    private TextView                    mToolTitle;
-    private SwipeRefreshLayout          mSwipeRefreshLayout;
-    private RecyclerView                mRecyclerView;
-    private Button                      mBtnDelete, mBtnRenew, mBtnEdit;
+    private Toolbar                             mToolbar;
+    private TextView                            mToolTitle;
+    private SwipeRefreshLayout                  mSwipeRefreshLayout;
+    private RecyclerView                        mRecyclerView;
+    private Button                              mBtnDelete, mBtnRenew, mBtnEdit;
 
     private String                              mMyDomain;
     private String                              mMyAccount;
-    private StarNameDomain                      mStarNameDomain;
-    private ResIovStarNameResolve.NameAccount   mMyNameAccount;
     private MyAccountAdapter                    mAdapter;
+//    private StarNameDomain                      mStarNameDomain;
+//    private ResIovStarNameResolve.NameAccount   mMyNameAccount;
+    private Types.Domain                        mDomain_gRPC;
+    private Types.Account                       mAccountResolve_gRPC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,25 +113,25 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
-            if (mBaseChain.equals(IOV_MAIN)) {
-                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("150000")) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(IOV_TEST)) {
-                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("150000")) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-
-            Intent intent = new Intent(this, DeleteStarNameActivity.class);
-            intent.putExtra("ToDeleType", IOV_MSG_TYPE_DELETE_ACCOUNT);
-            intent.putExtra("ToDeleDomain", mMyDomain);
-            intent.putExtra("ToDeleAccount", mMyAccount);
-            intent.putExtra("Time", mMyNameAccount.valid_until);
-            startActivity(intent);
+//            if (mBaseChain.equals(IOV_MAIN)) {
+//                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("150000")) < 0) {
+//                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//            } else if (mBaseChain.equals(IOV_TEST)) {
+//                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("150000")) < 0) {
+//                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//            }
+//
+//            Intent intent = new Intent(this, DeleteStarNameActivity.class);
+//            intent.putExtra("ToDeleType", IOV_MSG_TYPE_DELETE_ACCOUNT);
+//            intent.putExtra("ToDeleDomain", mMyDomain);
+//            intent.putExtra("ToDeleAccount", mMyAccount);
+//            intent.putExtra("Time", mMyNameAccount.valid_until);
+//            startActivity(intent);
 
         } else if (v.equals(mBtnRenew)) {
             if (!mAccount.hasPrivateKey) {
@@ -146,26 +140,26 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
-            if (mBaseChain.equals(IOV_MAIN)) {
-                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("300000")) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(IOV_TEST)) {
-                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("300000")) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-
-            Intent intent = new Intent(this, ReNewStarNameActivity.class);
-            intent.putExtra("ToRenewType", IOV_MSG_TYPE_RENEW_ACCOUNT);
-            intent.putExtra("IsOpen", mStarNameDomain.type.equals("open") ? true : false);
-            intent.putExtra("ToRenewDomain", mMyDomain);
-            intent.putExtra("ToRenewAccount", mMyAccount);
-            intent.putExtra("Time", mMyNameAccount.valid_until);
-            startActivity(intent);
+//            if (mBaseChain.equals(IOV_MAIN)) {
+//                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("300000")) < 0) {
+//                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//            } else if (mBaseChain.equals(IOV_TEST)) {
+//                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("300000")) < 0) {
+//                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//            }
+//
+//            Intent intent = new Intent(this, ReNewStarNameActivity.class);
+//            intent.putExtra("ToRenewType", IOV_MSG_TYPE_RENEW_ACCOUNT);
+//            intent.putExtra("IsOpen", mStarNameDomain.type.equals("open") ? true : false);
+//            intent.putExtra("ToRenewDomain", mMyDomain);
+//            intent.putExtra("ToRenewAccount", mMyAccount);
+//            intent.putExtra("Time", mMyNameAccount.valid_until);
+//            startActivity(intent);
 
         } else if (v.equals(mBtnEdit)) {
             if (!mAccount.hasPrivateKey) {
@@ -174,24 +168,24 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
-            if (mBaseChain.equals(IOV_MAIN)) {
-                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("300000")) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(IOV_TEST)) {
-                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("300000")) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
-
-            Intent intent = new Intent(this, ReplaceStarNameActivity.class);
-            intent.putExtra("IsDomain", false);
-            intent.putExtra("ToReplaceDomain", mMyDomain);
-            intent.putExtra("ToReplaceAccount", mMyAccount);
-            startActivity(intent);
+//            if (mBaseChain.equals(IOV_MAIN)) {
+//                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("300000")) < 0) {
+//                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//            } else if (mBaseChain.equals(IOV_TEST)) {
+//                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("300000")) < 0) {
+//                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//            }
+//
+//            Intent intent = new Intent(this, ReplaceStarNameActivity.class);
+//            intent.putExtra("IsDomain", false);
+//            intent.putExtra("ToReplaceDomain", mMyDomain);
+//            intent.putExtra("ToReplaceAccount", mMyAccount);
+//            startActivity(intent);
 
         }
     }
@@ -199,7 +193,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
     private void onFetchData() {
         mTaskCount = 2;
         new StarNameGrpcDomainInfoTask(getBaseApplication(), this, mBaseChain, mMyDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//        new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, mMyAccount + "*" + mMyDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, mMyAccount, mMyDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
     }
 
@@ -207,19 +201,17 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if (isFinishing()) return;
-//        if (result.taskType == TASK_FETCH_STARNAME_DOMAIN_INFO) {
-//            if (result.isSuccess) {
-//                mStarNameDomain = (StarNameDomain)result.resultData;
-//                WLog.w("mStarNameDomain " + mStarNameDomain.admin);
-//            }
-//
-//        } else if (result.taskType == TASK_FETCH_STARNAME_RESOLVE) {
-//            if (result.isSuccess) {
-//                mMyNameAccount = (ResIovStarNameResolve.NameAccount)result.resultData;
-//                WLog.w("mMyNameAccount " + mMyNameAccount.domain);
-//            }
-//
-//        }
+        if (result.taskType == TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO) {
+            if (result.isSuccess && result.resultData != null) {
+                mDomain_gRPC = (Types.Domain)result.resultData;
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_STARNAME_RESOLVE) {
+            if (result.isSuccess && result.resultData != null) {
+                mAccountResolve_gRPC = (Types.Account)result.resultData;
+            }
+
+        }
         if (mTaskCount == 0) {
             onHideWaitDialog();
             mAdapter.notifyDataSetChanged();
@@ -250,37 +242,33 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_HEADER) {
                 final MyAccountHeaderHolder holder = (MyAccountHeaderHolder)viewHolder;
-                if (mMyNameAccount != null) {
-                    holder.itemStarName.setText(mMyNameAccount.name + "*" + mMyNameAccount.domain);
-                    holder.itemExpireDate.setText(WDp.getDpTime(getBaseContext(), mMyNameAccount.valid_until * 1000));
+                if (mAccountResolve_gRPC != null) {
+                    holder.itemStarName.setText(mAccountResolve_gRPC.getName().getValue() + "*" + mAccountResolve_gRPC.getDomain());
+                    holder.itemExpireDate.setText(WDp.getDpTime(getBaseContext(), mAccountResolve_gRPC.getValidUntil() * 1000));
+                    holder.itemAddressCnt.setText("" + mAccountResolve_gRPC.getResourcesCount());
                     holder.itemBtnWebLink.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://starname.me/" + mMyNameAccount.name + "*" + mMyNameAccount.domain));
+                            Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://starname.me/" + mAccountResolve_gRPC.getName().getValue() + "*" + mAccountResolve_gRPC.getDomain()));
                             startActivity(guideIntent);
                         }
                     });
                 }
-                if (mMyNameAccount != null && mMyNameAccount.resources != null &&  mMyNameAccount.resources.size() > 0) {
-                    holder.itemAddressCnt.setText("" + mMyNameAccount.resources.size());
-                } else {
-                    holder.itemAddressCnt.setText("0");
-                }
 
             } else  if (getItemViewType(position) == TYPE_RESOURCE) {
                 final MyResourceHolder holder = (MyResourceHolder)viewHolder;
-                final StarNameResource resource = mMyNameAccount.resources.get(position - 1);
-                holder.itemChainImg.setImageDrawable(WUtil.getStarNameChainImg(getBaseContext(), resource));
-                holder.itemChainName.setText(WUtil.getStarNameChainName(resource));
-                holder.itemAddress.setText(resource.resource);
+                final Types.Resource resource = mAccountResolve_gRPC.getResources(position - 1);
+                holder.itemChainImg.setImageDrawable(WUtil.getStarNameChainImg2(getBaseContext(), resource));
+                holder.itemChainName.setText(WUtil.getStarNameChainName2(resource));
+                holder.itemAddress.setText(resource.getResource());
             }
 
         }
 
         @Override
         public int getItemCount() {
-            if (mMyNameAccount != null && mMyNameAccount.resources != null &&  mMyNameAccount.resources.size() > 0) {
-                return mMyNameAccount.resources.size() + 1;
+            if (mAccountResolve_gRPC != null && mAccountResolve_gRPC.getResourcesCount() > 0) {
+                return mAccountResolve_gRPC.getResourcesCount() + 1;
             } else {
                 return + 2;
             }
@@ -291,7 +279,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
             if (position == 0) {
                 return TYPE_HEADER;
             } else {
-                if (mMyNameAccount != null && mMyNameAccount.resources != null &&  mMyNameAccount.resources.size() > 0) {
+                if (mAccountResolve_gRPC != null && mAccountResolve_gRPC.getResourcesCount() > 0) {
                     return TYPE_RESOURCE;
                 } else {
                     return TYPE_EMPTY;
@@ -304,7 +292,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
         public class MyAccountHeaderHolder extends RecyclerView.ViewHolder {
             private CardView itemRoot;
             private ImageView itemBtnWebLink;
-            TextView itemStarName, itemAddressCnt, itemExpireDate;
+            private TextView itemStarName, itemAddressCnt, itemExpireDate;
 
             public MyAccountHeaderHolder(View v) {
                 super(v);
