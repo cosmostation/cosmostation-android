@@ -84,13 +84,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_REGISTER_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_REGISTER_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_COMMISSION;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_REDELEGATE;
@@ -360,12 +355,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private static final int TYPE_TX_REWARD_ALL = 21;
         private static final int TYPE_TX_OK_STAKE = 22;
         private static final int TYPE_TX_OK_DIRECT_VOTE = 23;
-        private static final int TYPE_REGISTER_DOMAIN = 24;
-        private static final int TYPE_REGISTER_ACCOUNT = 25;
-        private static final int TYPE_DELETE_ACCOUNT = 26;
-        private static final int TYPE_DELETE_DOMAIN = 27;
-        private static final int TYPE_REPLACE_ACCOUNT_RESOURCE = 28;
-        private static final int TYPE_TX_RENEW_STARNAME = 29;
 
 
         private static final int TYPE_TX_UNKNOWN = 999;
@@ -435,18 +424,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxOkStakeHolder(getLayoutInflater().inflate(R.layout.item_tx_ok_stake, viewGroup, false));
             } else if (viewType == TYPE_TX_OK_DIRECT_VOTE) {
                 return new TxOkVoteHolder(getLayoutInflater().inflate(R.layout.item_tx_ok_vote_validator, viewGroup, false));
-            } else if (viewType == TYPE_REGISTER_DOMAIN) {
-                return new TxRegisterDomainHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_register_domain, viewGroup, false));
-            } else if (viewType == TYPE_REGISTER_ACCOUNT) {
-                return new TxRegisterAccountHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_register_account, viewGroup, false));
-            } else if (viewType == TYPE_DELETE_ACCOUNT) {
-                return new TxDeleteAccountHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_delete_account, viewGroup, false));
-            } else if (viewType == TYPE_DELETE_DOMAIN) {
-                return new TxDeleteDomainHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_delete_domain, viewGroup, false));
-            } else if (viewType == TYPE_REPLACE_ACCOUNT_RESOURCE) {
-                return new TxReplaceResourceHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_resource, viewGroup, false));
-            } else if (viewType == TYPE_TX_RENEW_STARNAME) {
-                return new TxRenewStarNameHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_renew, viewGroup, false));
             }
             return new TxUnKnownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
@@ -516,18 +493,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindOkStake(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_OK_DIRECT_VOTE) {
                 onBindOkDirectVote(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_REGISTER_DOMAIN) {
-                onBindRegisterDomain(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_REGISTER_ACCOUNT) {
-                onBindRegisterAccount(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_DELETE_DOMAIN) {
-                onBindDeleteDomain(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_DELETE_ACCOUNT) {
-                onBindDeleteAccount(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_REPLACE_ACCOUNT_RESOURCE) {
-                onBindReplaceResource(viewHolder, position);
-            } else if (getItemViewType(position) == TYPE_TX_RENEW_STARNAME) {
-                onBindRenewStarName(viewHolder, position);
             } else {
                 onBindUnKnown(viewHolder, position);
             }
@@ -673,27 +638,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     } else if (mResTxInfo.getMsgType(position - 1).equals(OK_MSG_TYPE_DIRECT_VOTE)) {
                         return TYPE_TX_OK_DIRECT_VOTE;
 
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(IOV_MSG_TYPE_REGISTER_DOMAIN)) {
-                        return TYPE_REGISTER_DOMAIN;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(IOV_MSG_TYPE_REGISTER_ACCOUNT)) {
-                        return TYPE_REGISTER_ACCOUNT;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
-                        return TYPE_DELETE_DOMAIN;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(IOV_MSG_TYPE_DELETE_ACCOUNT)) {
-                        return TYPE_DELETE_ACCOUNT;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE)) {
-                        return TYPE_REPLACE_ACCOUNT_RESOURCE;
-
-                    } else if (mResTxInfo.getMsgType(position - 1).equals(IOV_MSG_TYPE_RENEW_DOMAIN) ||
-                            mResTxInfo.getMsgType(position - 1).equals(IOV_MSG_TYPE_RENEW_ACCOUNT)) {
-                        return TYPE_TX_RENEW_STARNAME;
-
                     }
-
                     return TYPE_TX_UNKNOWN;
                 }
             }
@@ -1340,120 +1285,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             }
         }
 
-
-        //Starname msg type
-        private void onBindRegisterDomain(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxRegisterDomainHolder holder = (TxRegisterDomainHolder) viewHolder;
-            if (mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemDomain.setText("*" + msg.value.domain);
-                holder.itemAdmin.setText(msg.value.admin);
-                holder.itemType.setText(msg.value.type);
-
-                BigDecimal starnameFee = getBaseDao().mStarNameFee.getDomainFee(msg.value.domain.trim(), msg.value.type);
-                holder.itemStarnameFee.setText(WDp.getDpAmount2(getBaseContext(), starnameFee, 6, 6));
-            }
-
-        }
-
-        private void onBindRegisterAccount(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxRegisterAccountHolder holder = (TxRegisterAccountHolder) viewHolder;
-            if (mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemStarname.setText(msg.value.name + "*" + msg.value.domain);
-                holder.itemOwner.setText(msg.value.owner);
-                holder.itemRegister.setText(msg.value.registerer);
-
-                BigDecimal starnameFee = getBaseDao().mStarNameFee.getAccountFee(true);
-                holder.itemStarnameFee.setText(WDp.getDpAmount2(getBaseContext(), starnameFee, 6, 6));
-
-                ArrayList<StarNameResource> resources = msg.value.resources;
-                if (resources != null && resources.size() > 0) {
-                    holder.itemResBar.setVisibility(View.VISIBLE);
-                    holder.itemResLayer.setVisibility(View.VISIBLE);
-                    holder.itemAddressCnt.setText("" + resources.size());
-                    for (int i = 0; i < resources.size(); i++) {
-                        holder.itemAddessLayer[i].setVisibility(View.VISIBLE);
-                        holder.itemChain[i].setText(WUtil.getStarNameChainName(resources.get(i)));
-                        holder.itemAddess[i].setText(resources.get(i).resource);
-                        holder.itemAddressImg[i].setImageDrawable(WUtil.getStarNameChainImg(getBaseContext(), resources.get(i)));
-                    }
-                }
-            }
-
-        }
-
-        private void onBindDeleteDomain(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxDeleteDomainHolder holder = (TxDeleteDomainHolder) viewHolder;
-            if (mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemDomain.setText("*" + msg.value.domain);
-                holder.itemOwner.setText(msg.value.owner);
-            }
-
-        }
-
-        private void onBindDeleteAccount(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxDeleteAccountHolder holder = (TxDeleteAccountHolder) viewHolder;
-            if (mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemAccount.setText(msg.value.name + "*" + msg.value.domain);
-                holder.itemOwner.setText(msg.value.owner);
-            }
-        }
-
-        private void onBindReplaceResource(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxReplaceResourceHolder holder = (TxReplaceResourceHolder) viewHolder;
-            if (mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemStarname.setText(msg.value.name + "*" + msg.value.domain);
-
-                BigDecimal starnameFee = getBaseDao().mStarNameFee.getReplaceFee();
-                holder.itemStarnameFee.setText(WDp.getDpAmount2(getBaseContext(), starnameFee, 6, 6));
-
-                ArrayList<StarNameResource> resources = msg.value.new_resources;
-                if (resources == null || resources.size() == 0) {
-                    holder.itemAddressCnt.setText("0");
-                } else {
-                    holder.itemAddressCnt.setText("" + resources.size());
-                    for (int i = 0; i < resources.size(); i++) {
-                        holder.itemAddessLayer[i].setVisibility(View.VISIBLE);
-                        holder.itemChain[i].setText(WUtil.getStarNameChainName(resources.get(i)));
-                        holder.itemAddess[i].setText(resources.get(i).resource);
-                        holder.itemAddressImg[i].setImageDrawable(WUtil.getStarNameChainImg(getBaseContext(), resources.get(i)));
-                    }
-                }
-            }
-
-        }
-
-        private void onBindRenewStarName(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxRenewStarNameHolder holder = (TxRenewStarNameHolder) viewHolder;
-            if (mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                if (msg.type.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
-                    holder.itemMsgImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_msgs_renewaccount));
-                    holder.itemMsgTitle.setText(getString(R.string.tx_starname_renew_domain));
-
-                } else if (msg.type.equals(IOV_MSG_TYPE_RENEW_ACCOUNT)) {
-                    holder.itemMsgImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_msgs_renewdomain));
-                    holder.itemMsgTitle.setText(getString(R.string.tx_starname_renew_account));
-                }
-
-                String starName = "";
-                if (!TextUtils.isEmpty(msg.value.name)) {
-                    starName = msg.value.name + "*" + msg.value.domain;
-                } else {
-
-                    starName = "*" + msg.value.domain;
-                }
-                holder.itemStarname.setText(starName);
-                holder.itemSigner.setText(msg.value.signer);
-            }
-
-        }
-
-
         private void onBindUnKnown(RecyclerView.ViewHolder viewHolder, int position) {
             final TxUnKnownHolder holder = (TxUnKnownHolder) viewHolder;
             holder.itemUnknownImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -2034,109 +1865,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemValList = itemView.findViewById(R.id.tx_vote_val_list);
             }
 
-        }
-
-
-        public class TxRegisterDomainHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemDomain, itemAdmin, itemType, itemStarnameFee;
-
-            public TxRegisterDomainHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemDomain = itemView.findViewById(R.id.tx_domain);
-                itemAdmin = itemView.findViewById(R.id.tx_admin_address);
-                itemType = itemView.findViewById(R.id.tx_domain_type);
-                itemStarnameFee = itemView.findViewById(R.id.tx_starname_fee_amount);
-            }
-
-        }
-
-        public class TxRegisterAccountHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemStarname, itemOwner, itemRegister, itemStarnameFee, itemAddressCnt;
-            View itemResBar;
-            LinearLayout itemResLayer;
-            LinearLayout[] itemAddessLayer = new LinearLayout[11];
-            ImageView[] itemAddressImg = new ImageView[11];
-            TextView[] itemChain = new TextView[11];
-            TextView[] itemAddess = new TextView[11];
-
-            public TxRegisterAccountHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemStarname = itemView.findViewById(R.id.tx_starname);
-                itemOwner = itemView.findViewById(R.id.tx_owner);
-                itemRegister = itemView.findViewById(R.id.tx_register);
-                itemStarnameFee = itemView.findViewById(R.id.tx_starname_fee_amount);
-                itemResBar = itemView.findViewById(R.id.tx_resource_bar);
-                itemResLayer = itemView.findViewById(R.id.tx_resource_layer);
-                itemAddressCnt = itemView.findViewById(R.id.tx_address_cnt);
-                for (int i = 0; i < itemAddessLayer.length; i++) {
-                    itemAddessLayer[i] = itemView.findViewById(getResources().getIdentifier("tx_resource_layer_" + i, "id", getPackageName()));
-                    itemAddressImg[i] = itemView.findViewById(getResources().getIdentifier("tx_resource_icon_" + i, "id", getPackageName()));
-                    itemChain[i] = itemView.findViewById(getResources().getIdentifier("tx_resource_chain_" + i, "id", getPackageName()));
-                    itemAddess[i] = itemView.findViewById(getResources().getIdentifier("tx_resource_address_" + i, "id", getPackageName()));
-                }
-            }
-        }
-
-        public class TxDeleteDomainHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemDomain, itemOwner;
-
-            public TxDeleteDomainHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemDomain = itemView.findViewById(R.id.tx_domain);
-                itemOwner = itemView.findViewById(R.id.tx_owner);
-            }
-        }
-
-        public class TxDeleteAccountHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemAccount, itemOwner;
-
-
-            public TxDeleteAccountHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemAccount = itemView.findViewById(R.id.tx_account);
-                itemOwner = itemView.findViewById(R.id.tx_owner);
-            }
-        }
-
-        public class TxReplaceResourceHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemStarname, itemStarnameFee, itemAddressCnt;
-            LinearLayout[] itemAddessLayer = new LinearLayout[11];
-            ImageView[] itemAddressImg = new ImageView[11];
-            TextView[] itemChain = new TextView[11];
-            TextView[] itemAddess = new TextView[11];
-
-            public TxReplaceResourceHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemStarname = itemView.findViewById(R.id.tx_starname);
-                itemStarnameFee = itemView.findViewById(R.id.tx_starname_fee_amount);
-                itemAddressCnt = itemView.findViewById(R.id.tx_address_cnt);
-                for (int i = 0; i < itemAddessLayer.length; i++) {
-                    itemAddessLayer[i] = itemView.findViewById(getResources().getIdentifier("tx_resource_layers_" + i, "id", getPackageName()));
-                    itemAddressImg[i] = itemView.findViewById(getResources().getIdentifier("tx_resource_icons_" + i, "id", getPackageName()));
-                    itemChain[i] = itemView.findViewById(getResources().getIdentifier("tx_resource_chains_" + i, "id", getPackageName()));
-                    itemAddess[i] = itemView.findViewById(getResources().getIdentifier("tx_resource_addresses_" + i, "id", getPackageName()));
-                }
-            }
         }
 
         public class TxRenewStarNameHolder extends RecyclerView.ViewHolder {

@@ -29,14 +29,14 @@
                     android:id="@+id/tx_msg_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tint="@color/colorIov"
-                    android:src="@drawable/ic_msgs_renewaccount"/>
+                    android:src="@drawable/ic_msgs_renewaccount"
+                    app:tint="@color/colorIov" />
                 <TextView
                     android:id="@+id/tx_msg_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:text="@string/tx_starname_renew_domain"
+                    android:text=""
                     style="@style/font_ss_17_white"/>
             </LinearLayout>
 
