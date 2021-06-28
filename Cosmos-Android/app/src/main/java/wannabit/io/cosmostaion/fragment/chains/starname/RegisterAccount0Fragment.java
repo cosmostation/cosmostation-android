@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.fragment.chains.starname;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,27 +17,16 @@ import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 
 import io.grpc.stub.StreamObserver;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import starnamed.x.starname.v1beta1.QueryGrpc;
 import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
-import wannabit.io.cosmostaion.network.req.ReqStarNameResolve;
-import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class RegisterAccount0Fragment extends BaseFragment implements View.OnClickListener {
@@ -107,8 +95,8 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
     }
 
     private void onNextStep() {
-        getSActivity().mToRegAccount = mAccountInput.getText().toString().trim();
-        getSActivity().mToRegDomain = "iov";
+        getSActivity().mStarNameAccount = mAccountInput.getText().toString().trim();
+        getSActivity().mStarNameDomain = "iov";
         getSActivity().onNextStep();
     }
 

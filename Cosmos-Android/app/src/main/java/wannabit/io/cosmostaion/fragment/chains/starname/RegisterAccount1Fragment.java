@@ -26,7 +26,6 @@ import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccoun
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameResourceAddActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Resource;
-import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -99,7 +98,7 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                 Toast.makeText(getSActivity(), R.string.error_no_address_added, Toast.LENGTH_SHORT).show();
                 return;
             }
-            getSActivity().mResources = tempResources;
+            getSActivity().mStarNameResources = tempResources;
             getSActivity().onNextStep();
         }
     }

@@ -40,9 +40,6 @@ public class RegisterStarNameDomainActivity extends BaseBroadCastActivity {
 
     private RegisterDomainPageAdapter mPageAdapter;
 
-    public String       mToRegDomain;
-    public String       mType;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,8 +151,8 @@ public class RegisterStarNameDomainActivity extends BaseBroadCastActivity {
     public void onStartRegDomain() {
         Intent intent = new Intent(RegisterStarNameDomainActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REGISTER_DOMAIN);
-        intent.putExtra("domain", mToRegDomain);
-        intent.putExtra("domainType", mType);
+        intent.putExtra("domain", mStarNameDomain);
+        intent.putExtra("domainType", mStarNameDomainType);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

@@ -145,8 +145,8 @@ public class RegisterDomain0Fragment extends BaseFragment implements View.OnClic
     }
 
     private void onNextStep() {
-        getSActivity().mToRegDomain = mDomainInput.getText().toString().trim();
-        getSActivity().mType = mTypeSwitch.isChecked() ? "open" : "closed";
+        getSActivity().mStarNameDomain = mDomainInput.getText().toString().trim();
+        getSActivity().mStarNameDomainType = mTypeSwitch.isChecked() ? "open" : "closed";
         getSActivity().onNextStep();
     }
 

@@ -15,11 +15,7 @@ import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 
 public class RegisterAccount4Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -63,9 +59,9 @@ public class RegisterAccount4Fragment extends BaseFragment implements View.OnCli
         mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
         mExpireTime.setText(WDp.getDpTime(getContext(), getBaseDao().getStarNameRegisterDomainExpireTime()));
 
-        mAccount.setText(getSActivity().mToRegAccount+ "*" + getSActivity().mToRegDomain);
+        mAccount.setText(getSActivity().mStarNameAccount + "*" + getSActivity().mStarNameDomain);
         String addresses = "";
-        for (Types.Resource resource: getSActivity().mResources) {
+        for (Types.Resource resource: getSActivity().mStarNameResources) {
             addresses = addresses + resource.getUri() + "\n" + resource.getResource() + "\n\n";
         }
         mAddresses.setText(addresses);

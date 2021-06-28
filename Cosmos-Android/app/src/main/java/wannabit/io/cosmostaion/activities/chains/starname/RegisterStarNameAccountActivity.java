@@ -16,14 +16,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
-import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount2Fragment;
@@ -43,9 +41,6 @@ public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
     private ViewPager       mViewPager;
 
     private RegisterAccountPageAdapter  mPageAdapter;
-    public String                       mToRegDomain;
-    public String                       mToRegAccount;
-    public ArrayList<Types.Resource>    mResources = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,10 +157,9 @@ public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
     public void onStartRegAccount() {
         Intent intent = new Intent(RegisterStarNameAccountActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REGISTER_ACCOUNT);
-        intent.putExtra("domain", "station");
-//        intent.putExtra("domain", mToRegDomain);
-        intent.putExtra("name", mToRegAccount);
-        StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
+        intent.putExtra("domain", mStarNameDomain);
+        intent.putExtra("name", mStarNameAccount);
+        StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mStarNameResources);
         intent.putExtra("resource", wrapper);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
