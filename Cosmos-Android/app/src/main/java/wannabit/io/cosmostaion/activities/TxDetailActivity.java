@@ -1867,22 +1867,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         }
 
-        public class TxRenewStarNameHolder extends RecyclerView.ViewHolder {
-            ImageView itemMsgImg;
-            TextView itemMsgTitle;
-            TextView itemStarname, itemSigner, itemStarnameFee;
-
-            public TxRenewStarNameHolder(@NonNull View itemView) {
-                super(itemView);
-                itemMsgImg = itemView.findViewById(R.id.tx_msg_icon);
-                itemMsgTitle = itemView.findViewById(R.id.tx_msg_text);
-                itemStarname = itemView.findViewById(R.id.tx_starname);
-                itemSigner = itemView.findViewById(R.id.tx_signer);
-                itemStarnameFee = itemView.findViewById(R.id.tx_starname_fee_amount);
-            }
-        }
-
-
         public class TxUnKnownHolder extends RecyclerView.ViewHolder {
             ImageView itemUnknownImg;
             TextView itemUnknownTitle;

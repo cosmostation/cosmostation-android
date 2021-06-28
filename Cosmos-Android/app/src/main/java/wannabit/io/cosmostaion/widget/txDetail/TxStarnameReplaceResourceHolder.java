@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import cosmos.tx.v1beta1.ServiceOuterClass;
@@ -48,8 +49,8 @@ public class TxStarnameReplaceResourceHolder extends TxHolder {
             Tx.MsgReplaceAccountResources msg = Tx.MsgReplaceAccountResources.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemStarname.setText(msg.getName() + "*" + msg.getDomain());
 
-//            BigDecimal starnameFee = baseData.mGrpcStarNameFee
-//            itemStarnameFee.setText(WDp.getDpAmount2(itemView.getContext(), starnameFee, 6, 6));
+            BigDecimal starnameFee = baseData.getReplaceFee();
+            itemStarnameFee.setText(WDp.getDpAmount2(c, starnameFee, 6, 6));
 
             List<Types.Resource> resources = msg.getNewResourcesList();
             if (resources == null || resources.size() == 0) {

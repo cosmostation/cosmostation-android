@@ -98,11 +98,11 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mEmptyHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent txDetail = new Intent(getBaseActivity(), TxDetailgRPCActivity.class);
-                txDetail.putExtra("txHash", "52334D3744318EB245B85D1878945453D3B67A80F6D055F943BE1D338DD33B42");
-                txDetail.putExtra("isGen", false);
-                txDetail.putExtra("isSuccess", true);
-                startActivity(txDetail);
+//                Intent txDetail = new Intent(getBaseActivity(), TxDetailgRPCActivity.class);
+//                txDetail.putExtra("txHash", "19EFC831F2DCC2B919094B4F32936F01B6F8953980227482FBE4753B10840244");
+//                txDetail.putExtra("isGen", false);
+//                txDetail.putExtra("isSuccess", true);
+//                startActivity(txDetail);
             }
         });
 

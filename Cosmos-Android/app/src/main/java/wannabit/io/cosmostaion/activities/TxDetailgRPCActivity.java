@@ -282,10 +282,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_STARNAME_REPLACE_ACCOUNT_RESOURCE) {
                 return new TxStarnameReplaceResourceHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_resource, viewGroup, false));
 
-            } else if (viewType == TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME) {
-                return new TxStarnameRenewHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_renew, viewGroup, false));
-
-            } else if (viewType == TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME) {
+            } else if (viewType == TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME || viewType == TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME) {
                 return new TxStarnameRenewHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_renew, viewGroup, false));
 
             }

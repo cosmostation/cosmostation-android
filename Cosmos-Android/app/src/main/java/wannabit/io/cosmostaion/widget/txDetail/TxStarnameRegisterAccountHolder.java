@@ -58,8 +58,8 @@ public class TxStarnameRegisterAccountHolder extends TxHolder {
             itemOwner.setText(msg.getOwner());
             itemRegister.setText(msg.getRegisterer());
 
-//            BigDecimal starnameFee = baseData.mGrpcStarNameFee
-//            itemStarnameFee.setText(WDp.getDpAmount2(itemView.getContext(), starnameFee, 6, 6));
+            BigDecimal starnameFee = baseData.getStarNameRegisterAccountFee("open");
+            itemStarnameFee.setText(WDp.getDpAmount2(c, starnameFee, 6, 6));
 
             List<Types.Resource> resources = msg.getResourcesList();
             if (resources != null && resources.size() > 0) {
