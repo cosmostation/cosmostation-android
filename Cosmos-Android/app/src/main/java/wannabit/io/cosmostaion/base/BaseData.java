@@ -610,9 +610,9 @@ public class BaseData {
 
     public long getRenewExpireTime(String type) {
         if (mGrpcStarNameConfig == null) { return 0; }
-        if (type == IOV_MSG_TYPE_RENEW_DOMAIN) {
+        if (type.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
             return Calendar.getInstance().getTimeInMillis() + mGrpcStarNameConfig.getDomainRenewalPeriod().getSeconds() * 1000;
-        } else if (type == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+        } else if (type.equals(IOV_MSG_TYPE_RENEW_ACCOUNT)) {
             return Calendar.getInstance().getTimeInMillis() + mGrpcStarNameConfig.getAccountRenewalPeriod().getSeconds() * 1000;
         }
         return 0;

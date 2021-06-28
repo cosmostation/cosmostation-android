@@ -147,7 +147,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                 Toast.makeText(this, R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
-            
+
             Intent intent = new Intent(this, ReNewStarNameActivity.class);
             intent.putExtra("ToRenewType", IOV_MSG_TYPE_RENEW_ACCOUNT);
             intent.putExtra("IsOpen", mDomain_gRPC.getType());

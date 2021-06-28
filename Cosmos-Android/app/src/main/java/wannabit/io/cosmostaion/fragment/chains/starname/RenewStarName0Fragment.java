@@ -15,8 +15,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.ReNewStarNameActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 
 public class RenewStarName0Fragment extends BaseFragment implements View.OnClickListener {
@@ -46,23 +46,19 @@ public class RenewStarName0Fragment extends BaseFragment implements View.OnClick
         mCancelBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 
-        long extendTime = 0l;
         BigDecimal starnameFee = BigDecimal.ZERO;
         if (getSActivity().mRenewType.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
             mStarName.setText( "*" + getSActivity().mToRenewDomain );
-            extendTime = getBaseDao().mStarNameConfig.getRenewPeriod(IOV_MSG_TYPE_RENEW_DOMAIN);
-            starnameFee = getBaseDao().mStarNameFee.getDomainRenewFee(getSActivity().mIsOpendomain);
+            starnameFee = getBaseDao().getStarNameRenewDomainFee(getSActivity().mToRenewDomain, getSActivity().mDomainType);
         } else {
             mStarName.setText(  getSActivity().mToRenewAccount + "*" + getSActivity().mToRenewDomain );
-            extendTime = getBaseDao().mStarNameConfig.getRenewPeriod(IOV_MSG_TYPE_RENEW_ACCOUNT);
-            starnameFee = getBaseDao().mStarNameFee.getAccountRenewFee(getSActivity().mIsOpendomain);
+            starnameFee = getBaseDao().getStarNameRenewAccountFee(getSActivity().mDomainType);
         }
         mCurrentExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mValidTime * 1000));
-        mToExpireTime.setText(WDp.getDpTime(getContext(), (getSActivity().mValidTime * 1000) + extendTime));
+        mToExpireTime.setText(WDp.getDpTime(getContext(), getBaseDao().getRenewExpireTime(getSActivity().mRenewType)));
         mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starnameFee, 6, 6));
         return rootView;
     }
-
 
     private ReNewStarNameActivity getSActivity() {
         return (ReNewStarNameActivity)getBaseActivity();

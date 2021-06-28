@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RenewStarName0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RenewStarName1Fragment;
@@ -42,7 +43,7 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
 
     private RenewStarNamePageAdapter    mPageAdapter;
     public String                       mRenewType = "";
-    public boolean                      mIsOpendomain;
+    public String                       mDomainType;
     public String                       mToRenewDomain;
     public String                       mToRenewAccount;
     public long                         mValidTime;
@@ -59,7 +60,7 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
         mViewPager  = findViewById(R.id.view_pager);
 
         mRenewType = getIntent().getStringExtra("ToRenewType");
-        mIsOpendomain = getIntent().getBooleanExtra("IsOpen", true);
+        mDomainType = getIntent().getStringExtra("IsOpen");
         mToRenewDomain = getIntent().getStringExtra("ToRenewDomain");
         mToRenewAccount = getIntent().getStringExtra("ToRenewAccount");
         mValidTime = getIntent().getLongExtra("Time", -1);
@@ -191,7 +192,7 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(RenewStarName0Fragment.newInstance(null));
             mFragments.add(RenewStarName1Fragment.newInstance(null));
-            mFragments.add(StepFeeSetOldFragment.newInstance(null));
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(RenewStarName3Fragment.newInstance(null));
         }
 
