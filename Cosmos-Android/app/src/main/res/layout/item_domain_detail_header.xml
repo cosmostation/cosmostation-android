@@ -50,7 +50,7 @@
                         android:paddingBottom="@dimen/space_4"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/wallet_detail_btn"/>
+                        android:src="@drawable/btn_explorer"/>
                 </RelativeLayout>
 
                 <RelativeLayout

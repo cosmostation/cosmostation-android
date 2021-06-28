@@ -28,8 +28,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.StarNameDomain;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
-import wannabit.io.cosmostaion.task.FetchTask.StarNameDomainInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcResolveTask;
+import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcDomainInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -40,8 +39,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_DOMAIN_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_RESOLVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 
@@ -201,7 +198,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
 
     private void onFetchData() {
         mTaskCount = 2;
-        new StarNameDomainInfoTask(getBaseApplication(), this, mBaseChain, mMyDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new StarNameGrpcDomainInfoTask(getBaseApplication(), this, mBaseChain, mMyDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 //        new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, mMyAccount + "*" + mMyDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
     }
@@ -210,19 +207,19 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if (isFinishing()) return;
-        if (result.taskType == TASK_FETCH_STARNAME_DOMAIN_INFO) {
-            if (result.isSuccess) {
-                mStarNameDomain = (StarNameDomain)result.resultData;
-                WLog.w("mStarNameDomain " + mStarNameDomain.admin);
-            }
-
-        } else if (result.taskType == TASK_FETCH_STARNAME_RESOLVE) {
-            if (result.isSuccess) {
-                mMyNameAccount = (ResIovStarNameResolve.NameAccount)result.resultData;
-                WLog.w("mMyNameAccount " + mMyNameAccount.domain);
-            }
-
-        }
+//        if (result.taskType == TASK_FETCH_STARNAME_DOMAIN_INFO) {
+//            if (result.isSuccess) {
+//                mStarNameDomain = (StarNameDomain)result.resultData;
+//                WLog.w("mStarNameDomain " + mStarNameDomain.admin);
+//            }
+//
+//        } else if (result.taskType == TASK_FETCH_STARNAME_RESOLVE) {
+//            if (result.isSuccess) {
+//                mMyNameAccount = (ResIovStarNameResolve.NameAccount)result.resultData;
+//                WLog.w("mMyNameAccount " + mMyNameAccount.domain);
+//            }
+//
+//        }
         if (mTaskCount == 0) {
             onHideWaitDialog();
             mAdapter.notifyDataSetChanged();

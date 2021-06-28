@@ -47,9 +47,9 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
     private TabLayout           mNameServiceTapLayer;
     private StarNamePageAdapter mPageAdapter;
 
-    public ArrayList<StarNameDomain>                        mMyStarNameDomains = new ArrayList<>();
-    public ArrayList<ResIovStarNameResolve.NameAccount>     mMyStarNameDomainResolves = new ArrayList<>();
-    public ArrayList<StarNameAccount>                       mMyStarNameAccounts = new ArrayList<>();
+//    public ArrayList<StarNameDomain>                        mMyStarNameDomains = new ArrayList<>();
+//    public ArrayList<ResIovStarNameResolve.NameAccount>     mMyStarNameDomainResolves = new ArrayList<>();
+//    public ArrayList<StarNameAccount>                       mMyStarNameAccounts = new ArrayList<>();
 
     public ArrayList<Types.Domain>                          mDomains_gRPC = new ArrayList<>();
     public ArrayList<Types.Account>                         mDomainResolves_gRPC = new ArrayList<>();
@@ -72,7 +72,6 @@ public class StarNameListActivity extends BaseActivity implements TaskListener {
         mNameServicePager.setAdapter(mPageAdapter);
         mNameServiceTapLayer.setupWithViewPager(mNameServicePager);
         mNameServiceTapLayer.setTabRippleColor(null);
-
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

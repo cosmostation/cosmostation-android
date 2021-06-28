@@ -30,14 +30,11 @@ import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName3Fragment
 import wannabit.io.cosmostaion.model.StarNameDomain;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
-import wannabit.io.cosmostaion.task.FetchTask.StarNameDomainInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcResolveTask;
+import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcDomainInfoTask;
 import wannabit.io.cosmostaion.task.TaskResult;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_DOMAIN_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_RESOLVE;
 
 public class ReplaceStarNameActivity extends BaseBroadCastActivity {
 
@@ -168,7 +165,7 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
 
     public void onFetchData() {
         mTaskCount = 2;
-        new StarNameDomainInfoTask(getBaseApplication(), this, mBaseChain, mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new StarNameGrpcDomainInfoTask(getBaseApplication(), this, mBaseChain, mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 //        if (mIsDomain) {
 //            new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, "*" + mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 //        } else {
@@ -195,17 +192,17 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if (isFinishing()) return;
-        if (result.taskType == TASK_FETCH_STARNAME_DOMAIN_INFO) {
-            if (result.isSuccess) {
-                mStarNameDomain = (StarNameDomain)result.resultData;
-            }
-
-        } else if (result.taskType == TASK_FETCH_STARNAME_RESOLVE) {
-            if (result.isSuccess) {
-                mMyNameAccount = (ResIovStarNameResolve.NameAccount)result.resultData;
-            }
-
-        }
+//        if (result.taskType == TASK_FETCH_STARNAME_DOMAIN_INFO) {
+//            if (result.isSuccess) {
+//                mStarNameDomain = (StarNameDomain)result.resultData;
+//            }
+//
+//        } else if (result.taskType == TASK_FETCH_STARNAME_RESOLVE) {
+//            if (result.isSuccess) {
+//                mMyNameAccount = (ResIovStarNameResolve.NameAccount)result.resultData;
+//            }
+//
+//        }
         if (mTaskCount == 0) {
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onRefreshTab();

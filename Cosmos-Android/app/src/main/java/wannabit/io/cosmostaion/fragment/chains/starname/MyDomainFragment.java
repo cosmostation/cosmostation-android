@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameDomainActivity;
+import wannabit.io.cosmostaion.activities.chains.starname.StarNameDomainDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -134,14 +135,14 @@ public class MyDomainFragment extends BaseFragment implements View.OnClickListen
                 }
                 holder.itemExpireDate.setText(WDp.getDpTime(getContext(), domain.getValidUntil() * 1000));
                 holder.itemAddressCnt.setText("" + domainAccount.getResourcesCount());
-//                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent intent = new Intent(getSActivity(), StarNameDomainDetailActivity.class);
-//                        intent.putExtra("domain", domain.name);
-//                        startActivity(intent);
-//                    }
-//                });
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getSActivity(), StarNameDomainDetailActivity.class);
+                        intent.putExtra("domain", domain.getName());
+                        startActivity(intent);
+                    }
+                });
             }
         }
 

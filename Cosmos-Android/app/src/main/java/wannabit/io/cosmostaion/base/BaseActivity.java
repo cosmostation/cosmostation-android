@@ -686,7 +686,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new BandOracleStatusGrpcTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(IOV_MAIN)) {
-            mTaskCount = 9;
+            mTaskCount = 11;
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
