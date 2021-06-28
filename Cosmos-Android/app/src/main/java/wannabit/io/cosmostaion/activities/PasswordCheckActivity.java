@@ -49,7 +49,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRegisterAccountTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RegisterAccountGrpcTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RegisterDomainGrpcTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRenewAccountTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRenewDomainTask;
@@ -510,8 +510,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mDomain, mDomainType, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REGISTER_ACCOUNT) {
-            new SimpleRegisterAccountTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
-                    mName, mResources,  mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new RegisterAccountGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
+                    mName, mResourcesss,  mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DELETE_DOMAIN) {
             new SimpleDeleteDomainTask(getBaseApplication(), this, mAccount, mBaseChain,

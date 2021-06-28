@@ -162,7 +162,8 @@ public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
     public void onStartRegAccount() {
         Intent intent = new Intent(RegisterStarNameAccountActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REGISTER_ACCOUNT);
-        intent.putExtra("domain", mToRegDomain);
+        intent.putExtra("domain", "station");
+//        intent.putExtra("domain", mToRegDomain);
         intent.putExtra("name", mToRegAccount);
         intent.putExtra("resource", mResources);
         StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
