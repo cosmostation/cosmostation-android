@@ -48,6 +48,12 @@ import wannabit.io.cosmostaion.widget.txDetail.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxReDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxSetAddressHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxStakingRewardHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxStarnameDeleteAccountHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxStarnameDeleteDomainHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxStarnameRegisterAccountHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxStarnameRegisterDomainHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxStarnameRenewHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxStarnameReplaceResourceHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxTransferHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxUnDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxUnjailHolder;
@@ -196,6 +202,15 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_CREATE_DEPLOYMENT = 14;
         private static final int TYPE_TX_CLOSE_DEPLOYMENT = 15;
         private static final int TYPE_TX_IBC_SEND = 16;
+
+        private static final int TYPE_STARNAME_REGISTER_DOMAIN = 30;
+        private static final int TYPE_STARNAME_REGISTER_ACCOUNT = 31;
+        private static final int TYPE_STARNAME_DELETE_ACCOUNT = 32;
+        private static final int TYPE_STARNAME_DELETE_DOMAIN = 33;
+        private static final int TYPE_STARNAME_REPLACE_ACCOUNT_RESOURCE = 34;
+        private static final int TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME = 35;
+        private static final int TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME = 36;
+
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -251,6 +266,27 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_IBC_SEND) {
                 return new TxIBCSendHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_send, viewGroup, false));
+
+            } else if (viewType == TYPE_STARNAME_REGISTER_DOMAIN) {
+                return new TxStarnameRegisterDomainHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_register_domain, viewGroup, false));
+
+            } else if (viewType == TYPE_STARNAME_REGISTER_ACCOUNT) {
+                return new TxStarnameRegisterAccountHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_register_account, viewGroup, false));
+
+            } else if (viewType == TYPE_STARNAME_DELETE_ACCOUNT) {
+                return new TxStarnameDeleteAccountHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_delete_account, viewGroup, false));
+
+            } else if (viewType == TYPE_STARNAME_DELETE_DOMAIN) {
+                return new TxStarnameDeleteDomainHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_delete_domain, viewGroup, false));
+
+            } else if (viewType == TYPE_STARNAME_REPLACE_ACCOUNT_RESOURCE) {
+                return new TxStarnameReplaceResourceHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_resource, viewGroup, false));
+
+            } else if (viewType == TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME) {
+                return new TxStarnameRenewHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_renew, viewGroup, false));
+
+            } else if (viewType == TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME) {
+                return new TxStarnameRenewHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_renew, viewGroup, false));
 
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
@@ -316,6 +352,20 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_CLOSE_DEPLOYMENT;
                 } else if (msg.getTypeUrl().contains(Tx.MsgTransfer.getDescriptor().getFullName())) {
                     return TYPE_TX_IBC_SEND;
+                } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain.getDescriptor().getFullName())) {
+                    return TYPE_STARNAME_REGISTER_DOMAIN;
+                } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRegisterAccount.getDescriptor().getFullName())) {
+                    return TYPE_STARNAME_REGISTER_ACCOUNT;
+                } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgDeleteAccount.getDescriptor().getFullName())) {
+                    return TYPE_STARNAME_DELETE_ACCOUNT;
+                } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgDeleteDomain.getDescriptor().getFullName())) {
+                    return TYPE_STARNAME_DELETE_DOMAIN;
+                } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgReplaceAccountResources.getDescriptor().getFullName())) {
+                    return TYPE_STARNAME_REPLACE_ACCOUNT_RESOURCE;
+                } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRenewAccount.getDescriptor().getFullName())) {
+                    return TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME;
+                } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRenewDomain.getDescriptor().getFullName())) {
+                    return TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME;
                 }
                 return TYPE_TX_UNKNOWN;
             }
