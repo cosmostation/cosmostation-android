@@ -330,8 +330,6 @@ public class BaseConstant {
     public final static String IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE        = "starname/ReplaceAccountResources";
     public final static String IOV_MSG_TYPE_RENEW_DOMAIN                    = "starname/RenewDomain";
     public final static String IOV_MSG_TYPE_RENEW_ACCOUNT                   = "starname/RenewAccount";
-    public final static String IOV_GRPC_MSG_TYPE_RENEW_ACCOUNT              = "/starnamed.x.starname.v1beta1.MsgRenewAccount";
-    public final static String IOV_GRPC_MSG_TYPE_RENEW_DOMAIN               = "/starnamed.x.starname.v1beta1.MsgRenewDomain";
 
     public final static String IOV_MSG_TYPE_ADD_ACCOUNT_CERT                = "starname/AddAccountCertificates";
     public final static String IOV_MSG_TYPE_DELETE_ACCOUNT_CERT             = "starname/DeleteAccountCertificates";

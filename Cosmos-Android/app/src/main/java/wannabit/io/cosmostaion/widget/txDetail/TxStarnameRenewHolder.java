@@ -7,14 +7,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-
-import com.google.protobuf2.Any;
-
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import starnamed.x.starname.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -34,8 +30,7 @@ public class TxStarnameRenewHolder extends TxHolder {
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
-        String RenewType = response.getTx().getBody().getMessages(position).getTypeUrl();
-        if (RenewType.equals(BaseConstant.IOV_GRPC_MSG_TYPE_RENEW_ACCOUNT)) {
+        if (response.getTx().getBody().getMessages(position).getTypeUrl().contains("MsgRenewAccount")) {
             try {
                 Tx.MsgRenewAccount msg = Tx.MsgRenewAccount.parseFrom(response.getTx().getBody().getMessages(position).getValue());
                 itemMsgImg.setImageDrawable(itemView.getResources().getDrawable(R.drawable.ic_msgs_renewaccount));
