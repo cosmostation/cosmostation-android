@@ -35,7 +35,10 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
 
@@ -126,7 +129,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
             intent.putExtra("ToDeleType", IOV_MSG_TYPE_DELETE_ACCOUNT);
             intent.putExtra("ToDeleDomain", mAccountResolve_gRPC.getDomain());
             intent.putExtra("ToDeleAccount", mAccountResolve_gRPC.getName().getValue());
-            intent.putExtra("Time", mDomain_gRPC.getValidUntil());
+            intent.putExtra("Time", mAccountResolve_gRPC.getValidUntil());
             startActivity(intent);
 
         } else if (v.equals(mBtnRenew)) {
@@ -136,26 +139,22 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
-//            if (mBaseChain.equals(IOV_MAIN)) {
-//                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("300000")) < 0) {
-//                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//            } else if (mBaseChain.equals(IOV_TEST)) {
-//                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("300000")) < 0) {
-//                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//            }
-//
-//            Intent intent = new Intent(this, ReNewStarNameActivity.class);
-//            intent.putExtra("ToRenewType", IOV_MSG_TYPE_RENEW_ACCOUNT);
-//            intent.putExtra("IsOpen", mStarNameDomain.type.equals("open") ? true : false);
-//            intent.putExtra("ToRenewDomain", mMyDomain);
-//            intent.putExtra("ToRenewAccount", mMyAccount);
-//            intent.putExtra("Time", mMyNameAccount.valid_until);
-//            startActivity(intent);
+
+            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal starNameFee = getBaseDao().getStarNameRenewAccountFee(mDomain_gRPC.getType());
+            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_RENEW_ACCOUNT, 0);
+            if (available.compareTo(starNameFee.add(txFee)) < 0) {
+                Toast.makeText(this, R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            Intent intent = new Intent(this, ReNewStarNameActivity.class);
+            intent.putExtra("ToRenewType", IOV_MSG_TYPE_RENEW_ACCOUNT);
+            intent.putExtra("IsOpen", mDomain_gRPC.getType());
+            intent.putExtra("ToRenewDomain", mMyDomain);
+            intent.putExtra("ToRenewAccount", mMyAccount);
+            intent.putExtra("Time", mAccountResolve_gRPC.getValidUntil());
+            startActivity(intent);
 
         } else if (v.equals(mBtnEdit)) {
             if (!mAccount.hasPrivateKey) {

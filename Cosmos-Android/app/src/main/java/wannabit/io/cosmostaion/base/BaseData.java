@@ -575,10 +575,47 @@ public class BaseData {
         }
     }
 
+    public BigDecimal getStarNameRenewDomainFee(String domain, String type) {
+        BigDecimal feeAmount = BigDecimal.ZERO;
+        if (mGrpcStarNameFee == null) { return feeAmount; }
+        if (type == "open") {
+            return new BigDecimal(mGrpcStarNameFee.getRenewDomainOpen()).divide(new BigDecimal(mGrpcStarNameFee.getFeeCoinPrice()), 0, RoundingMode.DOWN);
+        } else {
+            BigDecimal registerFee = getStarNameRegisterDomainFee(domain, type);
+            BigDecimal addtionalFee = new BigDecimal(mGrpcStarNameFee.getRegisterAccountClosed()).divide(new BigDecimal(mGrpcStarNameFee.getFeeCoinPrice()), 0, RoundingMode.DOWN);
+            return registerFee.add(addtionalFee);
+        }
+    }
+
+    public BigDecimal getStarNameRenewAccountFee(String type) {
+        BigDecimal feeAmount = BigDecimal.ZERO;
+        if (mGrpcStarNameFee == null) { return feeAmount; }
+        if (type.equals("open")) {
+            return new BigDecimal(mGrpcStarNameFee.getRegisterAccountOpen()).divide(new BigDecimal(mGrpcStarNameFee.getFeeCoinPrice()), 0, RoundingMode.DOWN);
+        } else {
+            return new BigDecimal(mGrpcStarNameFee.getRegisterAccountClosed()).divide(new BigDecimal(mGrpcStarNameFee.getFeeCoinPrice()), 0, RoundingMode.DOWN);
+        }
+    }
+
+    public BigDecimal getReplaceFee() {
+        BigDecimal feeAmount = BigDecimal.ZERO;
+        if (mGrpcStarNameFee == null) { return feeAmount; }
+        return new BigDecimal(mGrpcStarNameFee.getReplaceAccountResources()).divide(new BigDecimal(mGrpcStarNameFee.getFeeCoinPrice()), 0, RoundingMode.DOWN);
+    }
 
     public long getStarNameRegisterDomainExpireTime() {
         if (mGrpcStarNameConfig == null) { return 0; }
         return Calendar.getInstance().getTimeInMillis() + mGrpcStarNameConfig.getDomainRenewalPeriod().getSeconds() * 1000;
+    }
+
+    public long getRenewExpireTime(String type) {
+        if (mGrpcStarNameConfig == null) { return 0; }
+        if (type == IOV_MSG_TYPE_RENEW_DOMAIN) {
+            return Calendar.getInstance().getTimeInMillis() + mGrpcStarNameConfig.getDomainRenewalPeriod().getSeconds() * 1000;
+        } else if (type == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+            return Calendar.getInstance().getTimeInMillis() + mGrpcStarNameConfig.getAccountRenewalPeriod().getSeconds() * 1000;
+        }
+        return 0;
     }
 
 
