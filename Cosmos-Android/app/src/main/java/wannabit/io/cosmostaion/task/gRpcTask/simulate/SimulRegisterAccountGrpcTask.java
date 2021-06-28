@@ -1,11 +1,14 @@
-package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
+package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
 import org.bitcoinj.crypto.DeterministicKey;
+
+import java.util.ArrayList;
 
 import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -23,28 +26,31 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_REGISTER_ACCOUNT;
 
-public class RenewAccountGrpcTask extends CommonTask {
-    private BaseChain           mBaseChain;
-    private Account             mAccount;
-    private String              mDomain, mName, mMemo;
-    private Fee                 mFees;
-    private String              mChainId;
+public class SimulRegisterAccountGrpcTask extends CommonTask {
+    private BaseChain                   mBaseChain;
+    private Account                     mAccount;
+    private String                      mDomain, mName, mMemo;
+    private ArrayList<Types.Resource>   mResources = new ArrayList();
+    private Fee                         mFees;
+    private String                      mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
-    private DeterministicKey    deterministicKey;
+    private DeterministicKey deterministicKey;
 
-    public RenewAccountGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain, String name, String memo, Fee fee, String chainId) {
+    public SimulRegisterAccountGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain,
+                                   String name, ArrayList<Types.Resource> resources, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
         this.mDomain = domain;
         this.mName = name;
+        this.mResources = resources;
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_GEN_TX_RENEW_ACCOUNT;
+        this.mResult.taskType = TASK_GRPC_SIMULATE_REGISTER_ACCOUNT;
     }
 
     @Override
@@ -66,19 +72,13 @@ public class RenewAccountGrpcTask extends CommonTask {
 
             //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcRenewAccountReq(mAuthResponse, mDomain, mName, mAccount.address, mFees, mMemo, deterministicKey, mChainId);
-            ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
-            mResult.resultData = response.getTxResponse().getTxhash();
-            if (response.getTxResponse().getCode() > 0) {
-                mResult.errorCode = response.getTxResponse().getCode();
-                mResult.errorMsg = response.getTxResponse().getRawLog();
-                mResult.isSuccess = false;
-            } else {
-                mResult.isSuccess = true;
-            }
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcRegisterAccountSimulateReq(mAuthResponse, mDomain, mName, mAccount.address, mAccount.address, mResources, mFees, mMemo, deterministicKey, mChainId);
+            ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
+            mResult.resultData = response.getGasInfo();
+            mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.e( "RenewAccountGrpcTask "+ e.getMessage());
+            WLog.e( "SimulRegisterAccountGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

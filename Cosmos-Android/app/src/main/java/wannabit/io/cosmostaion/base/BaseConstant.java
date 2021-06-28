@@ -123,18 +123,18 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_OK_DIRECT_VOTE                  = 2088;
     public final static int TASK_FETCH_KAVA_TOTAL_SUPPLY                = 2089;
 //    public final static int TASK_FETCH_MY_STARNAME_ACCOUNT              = 2090;
-    public final static int TASK_FETCH_MY_STARNAME_DOMAIN               = 2091;
+//    public final static int TASK_FETCH_MY_STARNAME_DOMAIN               = 2091;
 //    public final static int TASK_FETCH_STARNAME_FEE                     = 2092;
 //    public final static int TASK_FETCH_STARNAME_CONFIG                  = 2093;
 //    public final static int TASK_GEN_TX_REGISTER_DOMAIN                 = 2094;
 //    public final static int TASK_GEN_TX_REGISTER_ACCOUNT                = 2095;
-    public final static int TASK_FETCH_STARNAME_RESOLVE                 = 2096;
+//    public final static int TASK_FETCH_STARNAME_RESOLVE                 = 2096;
 //    public final static int TASK_FETCH_STARNAME_DOMAIN_INFO             = 2097;
 //    public final static int TASK_GEN_TX_DELETE_DOMAIN                   = 2098;
 //    public final static int TASK_GEN_TX_DELETE_ACCOUNT                  = 2099;
-    public final static int TASK_GEN_TX_RENEW_DOMAIN                    = 2100;
-    public final static int TASK_GEN_TX_RENEW_ACCOUNT                   = 2101;
-    public final static int TASK_GEN_TX_REPLACE_STARNAME                = 2102;
+//    public final static int TASK_GEN_TX_RENEW_DOMAIN                    = 2100;
+//    public final static int TASK_GEN_TX_RENEW_ACCOUNT                   = 2101;
+//    public final static int TASK_GEN_TX_REPLACE_STARNAME                = 2102;
     public final static int TASK_FETCH_KAVA_HARVEST_PARAM               = 2103;
     public final static int TASK_FETCH_KAVA_HARVEST_DEPOSIT             = 2104;
     public final static int TASK_FETCH_KAVA_HARVEST_REWARD              = 2105;
@@ -216,11 +216,13 @@ public class BaseConstant {
     public final static int TASK_GRPC_BROAD_REINVEST                    = 4305;
     public final static int TASK_GRPC_BROAD_REWARD_ADDRESS_CHANGE       = 4306;
     public final static int TASK_GRPC_BROAD_VOTE                        = 4307;
-
     public final static int TASK_GRPC_GEN_TX_REGISTER_DOMAIN            = 4308;
     public final static int TASK_GRPC_GEN_TX_REGISTER_ACCOUNT           = 4309;
     public final static int TASK_GRPC_GEN_TX_DELETE_DOMAIN              = 4310;
     public final static int TASK_GRPC_GEN_TX_DELETE_ACCOUNT             = 4311;
+    public final static int TASK_GRPC_GEN_TX_RENEW_DOMAIN               = 4312;
+    public final static int TASK_GRPC_GEN_TX_RENEW_ACCOUNT              = 4313;
+    public final static int TASK_GRPC_GEN_TX_REPLACE_STARNAME           = 4314;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -230,6 +232,13 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_REINVEST                 = 4505;
     public final static int TASK_GRPC_SIMULATE_REWARD_ADDRESS_CHANGE    = 4506;
     public final static int TASK_GRPC_SIMULATE_VOTE                     = 4507;
+    public final static int TASK_GRPC_SIMULATE_REGISTER_DOMAIN          = 4508;
+    public final static int TASK_GRPC_SIMULATE_REGISTER_ACCOUNT         = 4509;
+    public final static int TASK_GRPC_SIMULATE_DELETE_DOMAIN            = 4510;
+    public final static int TASK_GRPC_SIMULATE_DELETE_ACCOUNT           = 4511;
+    public final static int TASK_GRPC_SIMULATE_RENEW_DOMAIN             = 4512;
+    public final static int TASK_GRPC_SIMULATE_RENEW_ACCOUNT            = 4513;
+    public final static int TASK_GRPC_SIMULATE_REPLACE_STARNAME         = 4514;
 
 
 

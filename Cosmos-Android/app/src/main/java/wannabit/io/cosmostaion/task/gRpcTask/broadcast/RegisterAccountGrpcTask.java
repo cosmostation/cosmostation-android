@@ -51,7 +51,6 @@ public class RegisterAccountGrpcTask extends CommonTask {
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey    deterministicKey;
 
-
     public RegisterAccountGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain,
                                    String name, ArrayList<Types.Resource> resources, String memo, Fee fee, String chainId) {
         super(app, listener);

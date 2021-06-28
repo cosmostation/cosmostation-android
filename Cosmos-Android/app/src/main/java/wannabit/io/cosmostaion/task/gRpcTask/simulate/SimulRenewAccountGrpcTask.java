@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
+package wannabit.io.cosmostaion.task.gRpcTask.simulate;
 
 import org.bitcoinj.crypto.DeterministicKey;
 
@@ -23,9 +23,9 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_RENEW_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_RENEW_ACCOUNT;
 
-public class RenewAccountGrpcTask extends CommonTask {
+public class SimulRenewAccountGrpcTask extends CommonTask {
     private BaseChain           mBaseChain;
     private Account             mAccount;
     private String              mDomain, mName, mMemo;
@@ -33,9 +33,9 @@ public class RenewAccountGrpcTask extends CommonTask {
     private String              mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
-    private DeterministicKey    deterministicKey;
+    private DeterministicKey deterministicKey;
 
-    public RenewAccountGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain, String name, String memo, Fee fee, String chainId) {
+    public SimulRenewAccountGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String domain, String name, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
@@ -44,7 +44,7 @@ public class RenewAccountGrpcTask extends CommonTask {
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GRPC_GEN_TX_RENEW_ACCOUNT;
+        this.mResult.taskType = TASK_GRPC_SIMULATE_RENEW_ACCOUNT;
     }
 
     @Override
@@ -66,19 +66,13 @@ public class RenewAccountGrpcTask extends CommonTask {
 
             //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcRenewAccountReq(mAuthResponse, mDomain, mName, mAccount.address, mFees, mMemo, deterministicKey, mChainId);
-            ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
-            mResult.resultData = response.getTxResponse().getTxhash();
-            if (response.getTxResponse().getCode() > 0) {
-                mResult.errorCode = response.getTxResponse().getCode();
-                mResult.errorMsg = response.getTxResponse().getRawLog();
-                mResult.isSuccess = false;
-            } else {
-                mResult.isSuccess = true;
-            }
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcRenewAccountSimulateReq(mAuthResponse, mDomain, mName, mAccount.address, mFees, mMemo, deterministicKey, mChainId);
+            ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
+            mResult.resultData = response.getGasInfo();
+            mResult.isSuccess = true;
 
         } catch (Exception e) {
-            WLog.e( "RenewAccountGrpcTask "+ e.getMessage());
+            WLog.e( "SimulRenewAccountGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

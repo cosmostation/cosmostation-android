@@ -23,7 +23,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_RENEW_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_RENEW_DOMAIN;
 
 public class RenewDomainGrpcTask extends CommonTask {
     private BaseChain           mBaseChain;
@@ -43,7 +43,7 @@ public class RenewDomainGrpcTask extends CommonTask {
         this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
-        this.mResult.taskType = TASK_GEN_TX_RENEW_DOMAIN;
+        this.mResult.taskType = TASK_GRPC_GEN_TX_RENEW_DOMAIN;
     }
 
     @Override
