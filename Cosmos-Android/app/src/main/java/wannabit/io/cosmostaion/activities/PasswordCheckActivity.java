@@ -50,8 +50,8 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RegisterAccountGrpcTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RegisterDomainGrpcTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRenewAccountTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRenewDomainTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RenewAccountGrpcTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RenewDomainGrpcTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
@@ -515,12 +515,12 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mDomain, mName, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_RENEW_DOMAIN) {
-            new SimpleRenewDomainTask(getBaseApplication(), this, mAccount, mBaseChain,
-                    mDomain,  mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new RenewDomainGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
+                    mDomain,  mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_RENEW_ACCOUNT) {
-            new SimpleRenewAccountTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
-                    mName, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new RenewAccountGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
+                    mName, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REPLACE_STARNAME) {
 //            new SimpleReplaceStarNameTask(getBaseApplication(),this, mAccount, mBaseChain,  mDomain,
