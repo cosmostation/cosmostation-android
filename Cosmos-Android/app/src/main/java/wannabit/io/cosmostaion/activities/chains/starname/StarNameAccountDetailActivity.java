@@ -36,7 +36,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
@@ -163,24 +163,20 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
-//            if (mBaseChain.equals(IOV_MAIN)) {
-//                if (mAccount.getTokenBalance(TOKEN_IOV).compareTo(new BigDecimal("300000")) < 0) {
-//                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//            } else if (mBaseChain.equals(IOV_TEST)) {
-//                if (mAccount.getTokenBalance(TOKEN_IOV_TEST).compareTo(new BigDecimal("300000")) < 0) {
-//                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//            }
-//
-//            Intent intent = new Intent(this, ReplaceStarNameActivity.class);
-//            intent.putExtra("IsDomain", false);
-//            intent.putExtra("ToReplaceDomain", mMyDomain);
-//            intent.putExtra("ToReplaceAccount", mMyAccount);
-//            startActivity(intent);
+
+            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            BigDecimal starNameFee = getBaseDao().getReplaceFee();
+            BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_REPLACE_STARNAME, 0);
+            if (available.compareTo(starNameFee.add(txFee)) < 0) {
+                Toast.makeText(this, R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Intent intent = new Intent(this, ReplaceStarNameActivity.class);
+            intent.putExtra("IsDomain", false);
+            intent.putExtra("ToReplaceDomain", mMyDomain);
+            intent.putExtra("ToReplaceAccount", mMyAccount);
+            startActivity(intent);
 
         }
     }

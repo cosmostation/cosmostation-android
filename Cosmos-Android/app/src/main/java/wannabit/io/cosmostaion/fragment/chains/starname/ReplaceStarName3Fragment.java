@@ -11,14 +11,12 @@ import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.ReplaceStarNameActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class ReplaceStarName3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -55,25 +53,22 @@ public class ReplaceStarName3Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onRefreshTab() {
-        BigDecimal starnameFeeAmount = getBaseDao().mStarNameFee.getReplaceFee();
+        BigDecimal starNameFee = getBaseDao().getReplaceFee();
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
-        if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-            mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starnameFeeAmount, 6, 6));
-
-        }
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+        mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
+        mExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mAccountResolve_gRPC.getValidUntil() * 1000));
 
         if (getSActivity().mIsDomain) {
             mStarName.setText("*" + getSActivity().mToReplaceDomain);
         } else {
             mStarName.setText(getSActivity().mToReplaceAccount+ "*" + getSActivity().mToReplaceDomain);
         }
-        mExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mMyNameAccount.valid_until * 1000));
 
         String addresses = "";
-        for (StarNameResource resource:getSActivity().mResources) {
-            addresses = addresses + resource.uri + "\n" + resource.resource + "\n\n";
+        for (Types.Resource resource: getSActivity().mResources) {
+            addresses = addresses + resource.getUri() + "\n" + resource.getResource() + "\n\n";
         }
         mAddresses.setText(addresses);
         mMemo.setText(getSActivity().mTxMemo);

@@ -184,10 +184,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mDomain;
     private String                      mDomainType;
     private String                      mName;
-    private ArrayList<StarNameResource> mResources = new ArrayList();
-
-
-    private ArrayList<Types.Resource>   mResourcesss = new ArrayList();
+    private ArrayList<Types.Resource>   mResources = new ArrayList();
 
 
     private long                        mIdToDelete;
@@ -263,11 +260,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mDomain = getIntent().getStringExtra("domain");
         mDomainType = getIntent().getStringExtra("domainType");
         mName = getIntent().getStringExtra("name");
-        mResources = getIntent().getParcelableArrayListExtra("resource");
-
         StarnameResourceWrapper wrapper = (StarnameResourceWrapper) getIntent().getSerializableExtra("resourcess");
         if (wrapper != null) {
-            mResourcesss = wrapper.array;
+            mResources = wrapper.array;
         }
 
 
@@ -511,7 +506,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_REGISTER_ACCOUNT) {
             new RegisterAccountGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
-                    mName, mResourcesss,  mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mName, mResources,  mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DELETE_DOMAIN) {
             new SimpleDeleteDomainTask(getBaseApplication(), this, mAccount, mBaseChain,
@@ -530,8 +525,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mName, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REPLACE_STARNAME) {
-            new SimpleReplaceStarNameTask(getBaseApplication(),this, mAccount, mBaseChain,  mDomain,
-                    mName, mResources, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+//            new SimpleReplaceStarNameTask(getBaseApplication(),this, mAccount, mBaseChain,  mDomain,
+//                    mName, mResources, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DEPOSIT_HARD) {
             new SimpleDepositHardTask(getBaseApplication(), this, mAccount, mHardPoolCoins, mDepositor,

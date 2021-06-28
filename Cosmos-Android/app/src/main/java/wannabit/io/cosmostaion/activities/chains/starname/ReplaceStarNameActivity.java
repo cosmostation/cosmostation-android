@@ -18,23 +18,26 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName3Fragment;
-import wannabit.io.cosmostaion.model.StarNameDomain;
-import wannabit.io.cosmostaion.model.StarNameResource;
-import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcDomainInfoTask;
+import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcResolveTask;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
 
 public class ReplaceStarNameActivity extends BaseBroadCastActivity {
 
@@ -45,14 +48,13 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
     private TextView        mTvStep;
     private ViewPager       mViewPager;
 
-    private ReplaceStarNamePageAdapter          mPageAdapter;
-    public StarNameDomain                       mStarNameDomain;
-    public ResIovStarNameResolve.NameAccount    mMyNameAccount;
-
+    private ReplaceStarNamePageAdapter  mPageAdapter;
     public boolean                      mIsDomain;
     public String                       mToReplaceDomain;
     public String                       mToReplaceAccount;
-    public ArrayList<StarNameResource>  mResources = new ArrayList();
+    public Types.Domain                 mDomain_gRPC;
+    public Types.Account                mAccountResolve_gRPC;
+    public ArrayList<Types.Resource>    mResources = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,12 +168,11 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
     public void onFetchData() {
         mTaskCount = 2;
         new StarNameGrpcDomainInfoTask(getBaseApplication(), this, mBaseChain, mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//        if (mIsDomain) {
-//            new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, "*" + mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//        } else {
-//            new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, mToReplaceAccount + "*" + mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//        }
-
+        if (mIsDomain) {
+            new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, "", mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, mToReplaceAccount, mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
     }
 
     public void onStartReplaceResource() {
@@ -179,30 +180,28 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REPLACE_STARNAME);
         intent.putExtra("domain", mToReplaceDomain);
         intent.putExtra("name", TextUtils.isEmpty(mToReplaceAccount) ? "" : mToReplaceAccount);
-        intent.putExtra("resource", mResources);
+        StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
+        intent.putExtra("resource", wrapper);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
-
-
     @Override
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if (isFinishing()) return;
-//        if (result.taskType == TASK_FETCH_STARNAME_DOMAIN_INFO) {
-//            if (result.isSuccess) {
-//                mStarNameDomain = (StarNameDomain)result.resultData;
-//            }
-//
-//        } else if (result.taskType == TASK_FETCH_STARNAME_RESOLVE) {
-//            if (result.isSuccess) {
-//                mMyNameAccount = (ResIovStarNameResolve.NameAccount)result.resultData;
-//            }
-//
-//        }
+        if (result.taskType == TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO) {
+            if (result.isSuccess && result.resultData != null) {
+                mDomain_gRPC = (Types.Domain)result.resultData;
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_STARNAME_RESOLVE) {
+            if (result.isSuccess && result.resultData != null) {
+                mAccountResolve_gRPC = (Types.Account)result.resultData;
+            }
+        }
         if (mTaskCount == 0) {
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onRefreshTab();
@@ -220,7 +219,7 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(ReplaceStarName0Fragment.newInstance(null));
             mFragments.add(ReplaceStarName1Fragment.newInstance(null));
-            mFragments.add(StepFeeSetOldFragment.newInstance(null));
+            mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(ReplaceStarName3Fragment.newInstance(null));
         }
 

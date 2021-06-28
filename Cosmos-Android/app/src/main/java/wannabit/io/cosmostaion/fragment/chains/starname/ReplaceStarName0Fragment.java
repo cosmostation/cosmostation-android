@@ -20,12 +20,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.ReplaceStarNameActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameResourceAddActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Resource;
-import wannabit.io.cosmostaion.model.StarNameResource;
+import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.utils.WUtil.STARNAME;
@@ -36,8 +37,9 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
 
     private Button mCancelBtn, mNextBtn;
     private RecyclerView mRecyclerView;
+
     private ResourceAdapter mResourceAdapter;
-    public ArrayList<StarNameResource> mResources = new ArrayList();
+    public ArrayList<Types.Resource> mResources = new ArrayList();
 
     public static ReplaceStarName0Fragment newInstance(Bundle bundle) {
         ReplaceStarName0Fragment fragment = new ReplaceStarName0Fragment();
@@ -70,10 +72,10 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onRefreshTab() {
-        mResources = getSActivity().mMyNameAccount.resources;
+        mResources = new ArrayList<Types.Resource>(getSActivity().mAccountResolve_gRPC.getResourcesList());
         if (mResources == null || mResources.size() == 0) {
             mResources = new ArrayList();
-            StarNameResource initData = new StarNameResource(STARNAME, getSActivity().mAccount.address);
+            Types.Resource initData = Types.Resource.newBuilder().setUri(STARNAME).setResource(getSActivity().mAccount.address).build();
             mResources.add(initData);
         }
         mResourceAdapter.notifyDataSetChanged();
@@ -89,9 +91,9 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            ArrayList<StarNameResource> tempResources = new ArrayList();
-            for (StarNameResource resource:mResources) {
-                if (!TextUtils.isEmpty(resource.resource) && !TextUtils.isEmpty(resource.uri)){
+            ArrayList<Types.Resource> tempResources = new ArrayList();
+            for (Types.Resource resource:mResources) {
+                if (!TextUtils.isEmpty(resource.getResource()) && !TextUtils.isEmpty(resource.getUri())){
                     tempResources.add(resource);
                 }
             }
@@ -107,30 +109,34 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SELECT_ADD_CHAIN && resultCode == Activity.RESULT_OK) {
-            StarNameResource temp = data.getParcelableExtra("resource");
-//            WLog.w("SELECT_ADD_CHAIN " + temp.uri);
-            Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
-            intent.putExtra("resource", temp);
-            startActivityForResult(intent, SELECT_ADD_ADDRESS);
-            getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+            try {
+                Types.Resource temp = Types.Resource.parseFrom(data.getByteArrayExtra("resource"));
+                Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
+                intent.putExtra("resource", temp.toByteArray());
+                startActivityForResult(intent, SELECT_ADD_ADDRESS);
+                getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+
+            } catch (Exception e) {}
 
         } else if (requestCode == SELECT_ADD_ADDRESS && resultCode == Activity.RESULT_OK) {
-            StarNameResource temp = data.getParcelableExtra("resource");
-//            WLog.w("SELECT_ADD_ADDRESS " + temp.uri + "  " + temp.resource);
-            int position = -1;
-            for (int i = 0 ; i < mResources.size(); i ++) {
-                if (mResources.get(i).uri.equals(temp.uri)) {
-                    position = i;
-                    break;
+            try {
+                Types.Resource temp = Types.Resource.parseFrom(data.getByteArrayExtra("resource"));
+                int position = -1;
+                for (int i = 0 ; i < mResources.size(); i ++) {
+                    if (mResources.get(i).getUri().equals(temp.getUri())) {
+                        position = i;
+                        break;
+                    }
                 }
-            }
 
-            if (position >= 0) {
-                mResources.set(position, temp);
-            } else {
-                mResources.add(temp);
-            }
-            mResourceAdapter.notifyDataSetChanged();
+                if (position >= 0) {
+                    mResources.set(position, temp);
+                } else {
+                    mResources.add(temp);
+                }
+                mResourceAdapter.notifyDataSetChanged();
+
+            } catch (Exception e) {}
         }
     }
 
@@ -148,31 +154,27 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
                 return new ResourceAddHolder(getLayoutInflater().inflate(R.layout.item_manage_starname_add, viewGroup, false));
             }
             return null;
-
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_RESOURCE) {
-                final StarNameResource resource = mResources.get(position);
+                final Types.Resource resource = mResources.get(position);
                 final ResourceHolder holder = (ResourceHolder)viewHolder;
-                holder.itemChainImg.setImageDrawable(WUtil.getStarNameChainImg(getContext(), resource));
-                holder.itemChainName.setText(WUtil.getStarNameChainName(resource));
-                holder.itemChainAddress.setText(resource.resource);
+                holder.itemChainImg.setImageDrawable(WUtil.getStarNameChainImg2(getContext(), resource));
+                holder.itemChainName.setText(WUtil.getStarNameChainName2(resource));
+                holder.itemChainAddress.setText(resource.getResource());
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
-                        intent.putExtra("resource", resource);
+                        intent.putExtra("resource", resource.toByteArray());
                         startActivityForResult(intent, SELECT_ADD_ADDRESS);
                         getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
                     }
                 });
-                if (mResources.size() <= 1) {
-                    holder.itemBtnRemove.setVisibility(View.GONE);
-                } else {
-                    holder.itemBtnRemove.setVisibility(View.VISIBLE);
-                }
+                if (mResources.size() <= 1) { holder.itemBtnRemove.setVisibility(View.GONE); }
+                else { holder.itemBtnRemove.setVisibility(View.VISIBLE); }
 
                 holder.itemBtnRemove.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -188,7 +190,8 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
                     @Override
                     public void onClick(View v) {
                         Bundle bundle = new Bundle();
-                        bundle.putParcelableArrayList("resources", mResources);
+                        StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
+                        bundle.putSerializable("resources", wrapper);
                         Dialog_StarName_Resource dialog = Dialog_StarName_Resource.newInstance(bundle);
                         dialog.setTargetFragment(ReplaceStarName0Fragment.this, SELECT_ADD_CHAIN);
                         dialog.show(getFragmentManager(), "dialog");

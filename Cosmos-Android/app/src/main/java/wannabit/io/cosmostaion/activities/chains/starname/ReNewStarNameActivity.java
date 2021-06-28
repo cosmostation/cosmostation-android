@@ -22,7 +22,6 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RenewStarName0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RenewStarName1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RenewStarName3Fragment;

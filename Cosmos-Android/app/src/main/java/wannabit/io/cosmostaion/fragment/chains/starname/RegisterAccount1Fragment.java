@@ -153,7 +153,6 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
                 return new ResourceAddHolder(getLayoutInflater().inflate(R.layout.item_manage_starname_add, viewGroup, false));
             }
             return null;
-
         }
 
         @Override

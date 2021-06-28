@@ -165,9 +165,8 @@ public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
         intent.putExtra("domain", "station");
 //        intent.putExtra("domain", mToRegDomain);
         intent.putExtra("name", mToRegAccount);
-        intent.putExtra("resource", mResources);
         StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
-        intent.putExtra("resourcess", wrapper);
+        intent.putExtra("resource", wrapper);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
