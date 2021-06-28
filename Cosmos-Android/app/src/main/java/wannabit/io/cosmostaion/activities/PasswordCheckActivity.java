@@ -50,7 +50,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRedelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRegisterAccountTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRegisterDomainTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.RegisterDomainGrpcTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRenewAccountTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRenewDomainTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayCdpTask;
@@ -77,7 +77,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.UndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
@@ -267,7 +266,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mResources = getIntent().getParcelableArrayListExtra("resource");
 
         StarnameResourceWrapper wrapper = (StarnameResourceWrapper) getIntent().getSerializableExtra("resourcess");
-        mResourcesss = wrapper.array;
+        if (wrapper != null) {
+            mResourcesss = wrapper.array;
+        }
+
 
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
@@ -504,8 +506,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mBaseChain, mOKVoteValidator, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REGISTER_DOMAIN) {
-            new SimpleRegisterDomainTask(getBaseApplication(), this, mAccount, mBaseChain,
-                    mDomain, mDomainType, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new RegisterDomainGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
+                    mDomain, mDomainType, mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REGISTER_ACCOUNT) {
             new SimpleRegisterAccountTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
