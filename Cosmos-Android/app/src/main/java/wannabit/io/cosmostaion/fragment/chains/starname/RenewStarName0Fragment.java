@@ -55,7 +55,7 @@ public class RenewStarName0Fragment extends BaseFragment implements View.OnClick
             starnameFee = getBaseDao().getStarNameRenewAccountFee(getSActivity().mDomainType);
         }
         mCurrentExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mValidTime * 1000));
-        mToExpireTime.setText(WDp.getDpTime(getContext(), getBaseDao().getRenewExpireTime(getSActivity().mRenewType)));
+        mToExpireTime.setText(WDp.getDpTime(getContext(), getBaseDao().getRenewExpireTime(getSActivity().mRenewType, getSActivity().mValidTime * 1000)));
         mStarnameFeeAmount.setText(WDp.getDpAmount2(getContext(), starnameFee, 6, 6));
         return rootView;
     }

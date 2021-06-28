@@ -608,12 +608,12 @@ public class BaseData {
         return Calendar.getInstance().getTimeInMillis() + mGrpcStarNameConfig.getDomainRenewalPeriod().getSeconds() * 1000;
     }
 
-    public long getRenewExpireTime(String type) {
+    public long getRenewExpireTime(String type, long currentExpire) {
         if (mGrpcStarNameConfig == null) { return 0; }
         if (type.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
-            return Calendar.getInstance().getTimeInMillis() + mGrpcStarNameConfig.getDomainRenewalPeriod().getSeconds() * 1000;
+            return currentExpire + mGrpcStarNameConfig.getDomainRenewalPeriod().getSeconds() * 1000;
         } else if (type.equals(IOV_MSG_TYPE_RENEW_ACCOUNT)) {
-            return Calendar.getInstance().getTimeInMillis() + mGrpcStarNameConfig.getAccountRenewalPeriod().getSeconds() * 1000;
+            return currentExpire + mGrpcStarNameConfig.getAccountRenewalPeriod().getSeconds() * 1000;
         }
         return 0;
     }
