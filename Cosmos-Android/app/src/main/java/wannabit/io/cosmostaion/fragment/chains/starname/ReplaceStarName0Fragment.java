@@ -101,7 +101,7 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
                 Toast.makeText(getSActivity(), R.string.error_no_address_added, Toast.LENGTH_SHORT).show();
                 return;
             }
-            getSActivity().mResources = tempResources;
+            getSActivity().mStarNameResources = tempResources;
             getSActivity().onNextStep();
         }
     }

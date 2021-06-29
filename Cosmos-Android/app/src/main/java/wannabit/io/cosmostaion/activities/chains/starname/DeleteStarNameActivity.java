@@ -22,11 +22,9 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.DeleteStarName0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.DeleteStarName1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.DeleteStarName3Fragment;
-import wannabit.io.cosmostaion.model.type.Fee;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOUNT;
@@ -44,10 +42,6 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
 
     private DeleteStarNamePageAdapter mPageAdapter;
 
-
-    public String       mDeleteType = "";
-    public String       mToDelDomain;
-    public String       mToDelAccount;
     public long         mValidTime;
 
     @Override
@@ -61,12 +55,12 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
         mTvStep     = findViewById(R.id.send_step_msg);
         mViewPager  = findViewById(R.id.view_pager);
 
-        mDeleteType = getIntent().getStringExtra("ToDeleType");
-        mToDelDomain = getIntent().getStringExtra("ToDeleDomain");
-        mToDelAccount = getIntent().getStringExtra("ToDeleAccount");
+        mStarNameDomainType = getIntent().getStringExtra("ToDeleType");
+        mStarNameDomain = getIntent().getStringExtra("ToDeleDomain");
+        mStarNameAccount = getIntent().getStringExtra("ToDeleAccount");
         mValidTime = getIntent().getLongExtra("Time", -1);
 
-        if (mDeleteType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
+        if (mStarNameDomainType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
             mTxType = CONST_PW_TX_DELETE_DOMAIN;
             mTitle.setText(getString(R.string.str_delete_domain));
         } else {
@@ -171,13 +165,13 @@ public class DeleteStarNameActivity extends BaseBroadCastActivity {
 
     public void onDeleteStarName() {
         Intent intent = new Intent(DeleteStarNameActivity.this, PasswordCheckActivity.class);
-        if (mDeleteType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
+        if (mStarNameDomainType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
             intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_DELETE_DOMAIN);
         } else {
             intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_DELETE_ACCOUNT);
         }
-        intent.putExtra("domain", mToDelDomain);
-        intent.putExtra("name", mToDelAccount);
+        intent.putExtra("domain", mStarNameDomain);
+        intent.putExtra("name", mStarNameAccount);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

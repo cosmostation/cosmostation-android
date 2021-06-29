@@ -26,8 +26,8 @@ public class BaseBroadCastActivity extends BaseActivity {
 
     public String                       mStarNameDomain;                            //starname domain
     public String                       mStarNameDomainType;                        //starname domain type
-    public String                       mStarNameAccount;
-    public ArrayList<Types.Resource>    mStarNameResources = new ArrayList();
+    public String                       mStarNameAccount;                           //starname
+    public ArrayList<Types.Resource>    mStarNameResources = new ArrayList();       //starname
 
 
 

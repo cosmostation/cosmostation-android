@@ -15,7 +15,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.cosmos.Signer;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -25,7 +24,6 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
-import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_REGISTER_ACCOUNT;
 
 public class SimulRegisterAccountGrpcTask extends CommonTask {
@@ -55,13 +53,6 @@ public class SimulRegisterAccountGrpcTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        Password checkPw = mApp.getBaseDao().onSelectPassword();
-        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
-            mResult.isSuccess = false;
-            mResult.errorCode = ERROR_CODE_INVALID_PASSWORD;
-            return mResult;
-        }
-
         try {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);

@@ -36,10 +36,15 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDelegateGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteAccountGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteDomainGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulReInvestGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRedelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRegisterAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRegisterDomainGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRenewAccountGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRenewDomainGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulReplaceStarNameGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulSendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulUndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulVoteGrpcTask;
@@ -323,14 +328,29 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_DELETE_DOMAIN) {
+                new SimulDeleteDomainGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
+                        getSActivity().mStarNameDomain,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_DELETE_ACCOUNT) {
+                new SimulDeleteAccountGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
+                        getSActivity().mStarNameDomain, getSActivity().mStarNameAccount,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_RENEW_DOMAIN) {
+                new SimulRenewDomainGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
+                        getSActivity().mStarNameDomain,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_RENEW_ACCOUNT) {
+                new SimulRenewAccountGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
+                        getSActivity().mStarNameDomain, getSActivity().mStarNameAccount,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_REPLACE_STARNAME) {
+                new SimulReplaceStarNameGrpcTask(getBaseApplication(),this, getSActivity().mAccount, getSActivity().mBaseChain,
+                        getSActivity().mStarNameDomain, getSActivity().mStarNameAccount, getSActivity().mStarNameResources,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             }
         }
@@ -342,7 +362,6 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             Abci.GasInfo gasInfo = ((Abci.GasInfo)result.resultData);
             long gasused = gasInfo.getGasUsed();
             gasused = (long)((double)gasused * 1.1d);
-//            WLog.w("padding gasused " +  gasused);
             mEstimateGasAmount = new BigDecimal(gasused);
             onUpdateView();
             Toast.makeText(getContext(), getString(R.string.str_apply_estimate_gas_amount), Toast.LENGTH_SHORT).show();

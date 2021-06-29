@@ -32,7 +32,6 @@ import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcDomainInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcResolveTask;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
@@ -50,11 +49,8 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
 
     private ReplaceStarNamePageAdapter  mPageAdapter;
     public boolean                      mIsDomain;
-    public String                       mToReplaceDomain;
-    public String                       mToReplaceAccount;
     public Types.Domain                 mDomain_gRPC;
     public Types.Account                mAccountResolve_gRPC;
-    public ArrayList<Types.Resource>    mResources = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +66,8 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
         mTitle.setText(getString(R.string.str_replace_starname));
 
         mIsDomain = getIntent().getBooleanExtra("IsDomain", false);
-        mToReplaceDomain = getIntent().getStringExtra("ToReplaceDomain");
-        mToReplaceAccount = getIntent().getStringExtra("ToReplaceAccount");
+        mStarNameDomain = getIntent().getStringExtra("ToReplaceDomain");
+        mStarNameAccount = getIntent().getStringExtra("ToReplaceAccount");
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -167,20 +163,20 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
 
     public void onFetchData() {
         mTaskCount = 2;
-        new StarNameGrpcDomainInfoTask(getBaseApplication(), this, mBaseChain, mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new StarNameGrpcDomainInfoTask(getBaseApplication(), this, mBaseChain, mStarNameDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         if (mIsDomain) {
-            new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, "", mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, "", mStarNameDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         } else {
-            new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, mToReplaceAccount, mToReplaceDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new StarNameGrpcResolveTask(getBaseApplication(), this, mBaseChain, mStarNameAccount, mStarNameDomain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
     public void onStartReplaceResource() {
         Intent intent = new Intent(ReplaceStarNameActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REPLACE_STARNAME);
-        intent.putExtra("domain", mToReplaceDomain);
-        intent.putExtra("name", TextUtils.isEmpty(mToReplaceAccount) ? "" : mToReplaceAccount);
-        StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mResources);
+        intent.putExtra("domain", mStarNameDomain);
+        intent.putExtra("name", TextUtils.isEmpty(mStarNameAccount) ? "" : mStarNameAccount);
+        StarnameResourceWrapper wrapper = new StarnameResourceWrapper(mStarNameResources);
         intent.putExtra("resource", wrapper);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);

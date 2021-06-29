@@ -16,7 +16,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.ReplaceStarNameActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class ReplaceStarName3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -61,13 +60,13 @@ public class ReplaceStarName3Fragment extends BaseFragment implements View.OnCli
         mExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mAccountResolve_gRPC.getValidUntil() * 1000));
 
         if (getSActivity().mIsDomain) {
-            mStarName.setText("*" + getSActivity().mToReplaceDomain);
+            mStarName.setText("*" + getSActivity().mStarNameDomain);
         } else {
-            mStarName.setText(getSActivity().mToReplaceAccount+ "*" + getSActivity().mToReplaceDomain);
+            mStarName.setText(getSActivity().mStarNameAccount + "*" + getSActivity().mStarNameDomain);
         }
 
         String addresses = "";
-        for (Types.Resource resource: getSActivity().mResources) {
+        for (Types.Resource resource: getSActivity().mStarNameResources) {
             addresses = addresses + resource.getUri() + "\n" + resource.getResource() + "\n\n";
         }
         mAddresses.setText(addresses);

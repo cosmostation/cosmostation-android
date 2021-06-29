@@ -42,9 +42,6 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
 
     private RenewStarNamePageAdapter    mPageAdapter;
     public String                       mRenewType = "";
-    public String                       mDomainType;
-    public String                       mToRenewDomain;
-    public String                       mToRenewAccount;
     public long                         mValidTime;
 
     @Override
@@ -59,9 +56,9 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
         mViewPager  = findViewById(R.id.view_pager);
 
         mRenewType = getIntent().getStringExtra("ToRenewType");
-        mDomainType = getIntent().getStringExtra("IsOpen");
-        mToRenewDomain = getIntent().getStringExtra("ToRenewDomain");
-        mToRenewAccount = getIntent().getStringExtra("ToRenewAccount");
+        mStarNameDomainType = getIntent().getStringExtra("IsOpen");
+        mStarNameDomain = getIntent().getStringExtra("ToRenewDomain");
+        mStarNameAccount = getIntent().getStringExtra("ToRenewAccount");
         mValidTime = getIntent().getLongExtra("Time", -1);
 
         if (mRenewType.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
@@ -173,8 +170,8 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
         } else {
             intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_RENEW_ACCOUNT);
         }
-        intent.putExtra("domain", mToRenewDomain);
-        intent.putExtra("name", mToRenewAccount);
+        intent.putExtra("domain", mStarNameDomain);
+        intent.putExtra("name", mStarNameAccount);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

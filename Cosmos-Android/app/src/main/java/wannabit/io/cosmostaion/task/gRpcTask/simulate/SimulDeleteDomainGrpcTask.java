@@ -49,13 +49,6 @@ public class SimulDeleteDomainGrpcTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        Password checkPw = mApp.getBaseDao().onSelectPassword();
-        if (!CryptoHelper.verifyData(strings[0], checkPw.resource, mApp.getString(R.string.key_password))) {
-            mResult.isSuccess = false;
-            mResult.errorCode = ERROR_CODE_INVALID_PASSWORD;
-            return mResult;
-        }
-
         try {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);

@@ -15,7 +15,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.ReNewStarNameActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 
@@ -48,11 +47,11 @@ public class RenewStarName0Fragment extends BaseFragment implements View.OnClick
 
         BigDecimal starnameFee = BigDecimal.ZERO;
         if (getSActivity().mRenewType.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
-            mStarName.setText( "*" + getSActivity().mToRenewDomain );
-            starnameFee = getBaseDao().getStarNameRenewDomainFee(getSActivity().mToRenewDomain, getSActivity().mDomainType);
+            mStarName.setText( "*" + getSActivity().mStarNameDomain);
+            starnameFee = getBaseDao().getStarNameRenewDomainFee(getSActivity().mStarNameDomain, getSActivity().mStarNameDomainType);
         } else {
-            mStarName.setText(  getSActivity().mToRenewAccount + "*" + getSActivity().mToRenewDomain );
-            starnameFee = getBaseDao().getStarNameRenewAccountFee(getSActivity().mDomainType);
+            mStarName.setText(  getSActivity().mStarNameAccount + "*" + getSActivity().mStarNameDomain);
+            starnameFee = getBaseDao().getStarNameRenewAccountFee(getSActivity().mStarNameDomainType);
         }
         mCurrentExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mValidTime * 1000));
         mToExpireTime.setText(WDp.getDpTime(getContext(), getBaseDao().getRenewExpireTime(getSActivity().mRenewType, getSActivity().mValidTime * 1000)));

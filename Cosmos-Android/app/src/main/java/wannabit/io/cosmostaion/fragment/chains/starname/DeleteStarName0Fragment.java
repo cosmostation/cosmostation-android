@@ -42,10 +42,10 @@ public class DeleteStarName0Fragment extends BaseFragment implements View.OnClic
         mCancelBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
 
-        if (getSActivity().mDeleteType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
-            mStarName.setText( "*" + getSActivity().mToDelDomain );
+        if (getSActivity().mStarNameDomainType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
+            mStarName.setText( "*" + getSActivity().mStarNameDomain);
         } else {
-            mStarName.setText(getSActivity().mToDelAccount + "*" + getSActivity().mToDelDomain);
+            mStarName.setText(getSActivity().mStarNameAccount + "*" + getSActivity().mStarNameDomain);
         }
         mExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mValidTime * 1000));
 
