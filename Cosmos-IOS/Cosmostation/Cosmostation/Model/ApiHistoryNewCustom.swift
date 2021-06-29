@@ -170,6 +170,29 @@ public struct ApiHistoryNewCustom {
                 
             }
             
+            else if (msgType.contains("RegisterDomain")) {
+                result = NSLocalizedString("tx_starname_registe_domain", comment: "")
+                
+            } else if (msgType.contains("RegisterAccount")) {
+                result = NSLocalizedString("tx_starname_registe_account", comment: "")
+                
+            } else if (msgType.contains("DeleteDomain")) {
+                result = NSLocalizedString("tx_starname_delete_domain", comment: "")
+                
+            } else if (msgType.contains("DeleteAccount")) {
+                result = NSLocalizedString("tx_starname_delete_account", comment: "")
+                
+            } else if (msgType.contains("RenewDomain")) {
+                result = NSLocalizedString("tx_starname_renew_domain", comment: "")
+                
+            } else if (msgType.contains("RenewAccount")) {
+                result = NSLocalizedString("tx_starname_renew_account", comment: "")
+                
+            } else if (msgType.contains("ReplaceAccountResources")) {
+                result = NSLocalizedString("tx_starname_update_resource", comment: "")
+                
+            }
+            
             if (getMsgCnt() > 1) {
                 result = result +  "\n+ " + String(getMsgCnt() - 1)
             }
