@@ -73,7 +73,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     @objc func onFech() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.BAND_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.IOV_MAIN) {
             self.mFetchCnt = 6
             BaseData.instance.mMyDelegations_gRPC.removeAll()
             BaseData.instance.mMyUnbondings_gRPC.removeAll()
@@ -85,6 +85,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchUndelegations_gRPC(account!.account_address, 0)
             onFetchRewards_gRPC(account!.account_address)
             onFetchNewApiHistoryCustom(account!.account_address, mValidator_gRPC!.operatorAddress)
+            return
             
         } else  if (WUtils.isGRPC(chainType!)) {
             self.mFetchCnt = 6
@@ -160,7 +161,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 if (BaseData.instance.mMyValidators_gRPC.contains{ $0.operatorAddress == mValidator_gRPC?.operatorAddress }) { return 2 }
                 else { return 1 }
             } else {
-                if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN) {
+                if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.IOV_MAIN) {
                     if (mApiCustomNewHistories.count > 0) { return mApiCustomNewHistories.count }
                     else { return 1 }
                 } else {
@@ -254,6 +255,18 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
         }
         
+        
+        //display band orcale status
+        if (chainType == ChainType.BAND_MAIN) {
+            if (BaseData.instance.mBandOracleStatus?.isEnable(mValidator!.operator_address) == true) {
+                cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
+            } else {
+                cell?.bandOracleImg.image = UIImage(named: "bandoracleoffl")
+                cell?.avergaeYield.textColor = UIColor.init(hexString: "f31963")
+            }
+            cell?.bandOracleImg.isHidden = false
+        }
+        
         //temp hide apr for no mint param chain
         if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell!.avergaeYield.text = "--"
@@ -300,6 +313,18 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else {
             cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
             cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
+        }
+        
+        
+        //display band orcale status
+        if (chainType == ChainType.BAND_MAIN) {
+            if (BaseData.instance.mBandOracleStatus?.isEnable(mValidator!.operator_address) == true) {
+                cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
+            } else {
+                cell?.bandOracleImg.image = UIImage(named: "bandoracleoffl")
+                cell?.avergaeYield.textColor = UIColor.init(hexString: "f31963")
+            }
+            cell?.bandOracleImg.isHidden = false
         }
         
         //temp hide apr for no mint param chain
@@ -463,7 +488,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onSetHistoryItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.IOV_MAIN) {
             if (mApiCustomNewHistories.count > 0) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"NewHistoryCell") as? NewHistoryCell
                 cell?.bindView(chainType!, mApiCustomNewHistories[indexPath.row], account!.account_address)

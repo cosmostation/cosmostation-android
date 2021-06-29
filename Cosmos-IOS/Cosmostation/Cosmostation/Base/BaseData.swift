@@ -54,6 +54,8 @@ final class BaseData : NSObject{
     var mOkStaking: OkStaking?
     var mOkUnbonding: OkUnbonding?
     var mOKBPrice: NSDecimalNumber = NSDecimalNumber.zero
+    
+    var mBandOracleStatus: BandOracleStatus?
         
     var mSifVsIncentive: SifIncentive?
     var mSifLmIncentive: SifIncentive?
@@ -74,7 +76,7 @@ final class BaseData : NSObject{
     var mMyVestings_gRPC = Array<Coin>()
     var mMyReward_gRPC = Array<Cosmos_Distribution_V1beta1_DelegationDelegatorReward>()
     
-    var mBandOracle_gRPC = Array<Oracle_V1_ActiveValidator>()
+//    var mBandOracle_gRPC = Array<Oracle_V1_ActiveValidator>()
     
     var mStarNameFee_gRPC: Starnamed_X_Configuration_V1beta1_Fees?
     var mStarNameConfig_gRPC: Starnamed_X_Configuration_V1beta1_Config?

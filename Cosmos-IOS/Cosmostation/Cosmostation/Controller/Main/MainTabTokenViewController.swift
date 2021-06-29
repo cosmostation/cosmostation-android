@@ -921,33 +921,53 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onSetBandItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+//        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+//        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+//        if (balance.denom == BAND_MAIN_DENOM) {
+//            cell?.tokenImg.image = UIImage(named: "bandTokenImg")
+//            cell?.tokenSymbol.text = "BAND"
+//            cell?.tokenSymbol.textColor = COLOR_BAND
+//            cell?.tokenTitle.text = "(" + balance.denom + ")"
+//            cell?.tokenDescription.text = "Band Staking Token"
+//
+//            let allBand = WUtils.getAllMainAsset(BAND_MAIN_DENOM)
+//            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, cell!.tokenAmount.font, 6, 6)
+//            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(BAND_MAIN_DENOM, allBand, 6, cell!.tokenValue.font)
+//
+//        } else if (balance.isIbc()) {
+//            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
+//            cell?.tokenSymbol.text = "IBC"
+//            cell?.tokenSymbol.textColor = UIColor.white
+//            cell?.tokenTitle.text = "(unKnown)"
+//            cell?.tokenDescription.text = balance.denom
+//            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+//
+//        } else {
+//            cell?.tokenImg.image = UIImage(named: "tokenIc")
+//            cell?.tokenSymbol.textColor = UIColor.white
+//            cell?.tokenSymbol.text = balance.denom.substring(from: 1).uppercased()
+//            cell?.tokenTitle.text = "(" + balance.denom + ")"
+//
+//        }
+//        return cell!
+        
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
-        if (balance.denom == BAND_MAIN_DENOM) {
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == BAND_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "bandTokenImg")
             cell?.tokenSymbol.text = "BAND"
             cell?.tokenSymbol.textColor = COLOR_BAND
-            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "Band Staking Token"
             
-            let allBand = WUtils.getAllMainAsset(BAND_MAIN_DENOM)
+            let allBand = WUtils.getAllMainAssetOld(BAND_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(BAND_MAIN_DENOM, allBand, 6, cell!.tokenValue.font)
-            
-        } else if (balance.isIbc()) {
-            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
-            cell?.tokenSymbol.text = "IBC"
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = "(unKnown)"
-            cell?.tokenDescription.text = balance.denom
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
-            
+
         } else {
+            // TODO no this case yet!
             cell?.tokenImg.image = UIImage(named: "tokenIc")
             cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenSymbol.text = balance.denom.substring(from: 1).uppercased()
-            cell?.tokenTitle.text = "(" + balance.denom + ")"
-            
         }
         return cell!
     }
