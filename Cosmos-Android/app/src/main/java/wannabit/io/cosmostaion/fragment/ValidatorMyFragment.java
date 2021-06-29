@@ -194,13 +194,13 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                         }
                     });
 
-                    if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                        if (getBaseDao().mGrpcBandOracles != null && !getBaseDao().isOracleEnable(validator.getOperatorAddress())) {
-                            holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-                        } else {
-                            holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-                        }
-                    }
+//                    if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
+//                        if (getBaseDao().mGrpcBandOracles != null && !getBaseDao().isOracleEnable(validator.getOperatorAddress())) {
+//                            holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+//                        } else {
+//                            holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+//                        }
+//                    }
 
                 } else {
                     final Validator validator = getBaseDao().mMyValidators.get(position);
@@ -231,6 +231,13 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                         }
                     });
 
+                    if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
+                        if (getBaseDao().mBandOracles != null && !getBaseDao().mBandOracles.isEnable(validator.operator_address)) {
+                            holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+                        } else {
+                            holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+                        }
+                    }
                 }
             }
         }

@@ -20,6 +20,8 @@ class BaseNetWork {
             return OKEX_URL + "node_info"
         } else if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "node_info"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "node_info"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "node_info"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -53,6 +55,8 @@ class BaseNetWork {
             return OKEX_URL + "auth/accounts/" + address
         } else if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "auth/accounts/" + address
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "auth/accounts/" + address
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "auth/accounts/" + address
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -84,6 +88,8 @@ class BaseNetWork {
             return OKEX_URL + "staking/validators"
         } else if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/validators"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "staking/validators"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/validators"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -111,6 +117,8 @@ class BaseNetWork {
     static func validatorUrl(_ chain: ChainType?, _ opAddress: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/validators" + "/" + opAddress
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "staking/validators" + "/" + opAddress
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/validators" + "/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -136,6 +144,8 @@ class BaseNetWork {
     static func bondingsUrl(_ chain: ChainType, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/delegators/" + address + "/delegations"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "staking/delegators/" + address + "/delegations"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/delegators/" + address + "/delegations"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -161,6 +171,8 @@ class BaseNetWork {
     static func bondingUrl(_ chain: ChainType?, _ address: String, _ opAddress: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/delegators/" + address + "/delegations/" + opAddress
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -186,6 +198,8 @@ class BaseNetWork {
     static func unbondingsUrl(_ chain: ChainType, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/delegators/" + address + "/unbonding_delegations"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -211,6 +225,8 @@ class BaseNetWork {
     static func unbondingUrl(_ chain: ChainType?, _ address: String, _ opAddress: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -236,6 +252,8 @@ class BaseNetWork {
     static func redelegationsUrl(_ chain: ChainType?) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/redelegations"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "staking/redelegations"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/redelegations"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -261,6 +279,8 @@ class BaseNetWork {
     static func rewardsUrl(_ chain: ChainType, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "distribution/delegators/" + address + "/rewards"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -286,6 +306,8 @@ class BaseNetWork {
     static func rewardUrl(_ chain: ChainType?, _ address: String, _ opAddress: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -311,6 +333,8 @@ class BaseNetWork {
     static func rewardAddressUrl(_ chain: ChainType?, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "distribution/delegators/" + address + "/withdraw_address"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "distribution/delegators/" + address + "/withdraw_address"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "distribution/delegators/" + address + "/withdraw_address"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -336,6 +360,8 @@ class BaseNetWork {
     static func proposalsUrl(_ chain: ChainType?) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "gov/proposals"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "gov/proposals"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "gov/proposals"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -361,6 +387,8 @@ class BaseNetWork {
     static func proposalUrl(_ chain: ChainType?, _ id: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "gov/proposals" + "/" + id
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "gov/proposals" + "/" + id
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "gov/proposals" + "/" + id
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -386,6 +414,8 @@ class BaseNetWork {
     static func tallyUrl(_ chain: ChainType?, _ id: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "gov/proposals" + "/" + id + "/tally"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "gov/proposals" + "/" + id + "/tally"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "gov/proposals" + "/" + id + "/tally"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -411,6 +441,8 @@ class BaseNetWork {
     static func voteUrl(_ chain: ChainType?, _ id: String, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "gov/proposals" +  "/" + id + "/votes/" + address
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "gov/proposals" + "/" + id + "/votes/" + address
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "gov/proposals" + "/" + id + "/votes/" + address
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -436,6 +468,8 @@ class BaseNetWork {
     static func proposerUrl(_ chain: ChainType?, _ id: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "gov/proposals" + "/" + id + "/proposer"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "gov/proposals" + "/" + id + "/proposer"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "gov/proposals" + "/" + id + "/proposer"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -461,6 +495,8 @@ class BaseNetWork {
     static func votesUrl(_ chain: ChainType?, _ id: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "gov/proposals" + "/" + id + "/votes"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "gov/proposals" + "/" + id + "/votes"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "gov/proposals" + "/" + id + "/votes"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -491,6 +527,8 @@ class BaseNetWork {
             return OKEX_URL + "txs/" + txhash
         } else if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "txs/" + txhash
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "txs/" + txhash
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "txs/" + txhash
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -522,6 +560,8 @@ class BaseNetWork {
             return OKEX_URL + "txs"
         } else if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "txs"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "txs"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "txs"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -817,6 +857,10 @@ class BaseNetWork {
         return ""
     }
     
+    //band
+    static func oracleBandUrl() -> String {
+        return BAND_URL + "oracle/active_validators"
+    }
     
     //sif
     static func vsIncentiveUrl(_ address: String) -> String {
@@ -846,7 +890,7 @@ class BaseNetWork {
         } else if (chain == ChainType.OSMOSIS_MAIN) {
             result = OSMOSIS_API + "v1/account/txs/" + address
         } else if (chain == ChainType.BAND_MAIN) {
-            result = BAND_API + "v1/account/new_txs/" + address
+            result = BAND_API + "v1/account/txs/" + address
         } else if (chain == ChainType.IOV_MAIN) {
             result = IOV_API + "v1/account/new_txs/" + address
         }
@@ -900,7 +944,7 @@ class BaseNetWork {
         } else if (chain == ChainType.OSMOSIS_MAIN) {
             result = OSMOSIS_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.BAND_MAIN) {
-            result = BAND_API + "v1/account/new_txs/" + address + "/" + valAddress
+            result = BAND_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.IOV_MAIN) {
             result = IOV_API + "v1/account/new_txs/" + address + "/" + valAddress
         }

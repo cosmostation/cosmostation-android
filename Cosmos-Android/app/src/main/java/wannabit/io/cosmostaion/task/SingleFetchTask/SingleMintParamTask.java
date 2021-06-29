@@ -47,6 +47,19 @@ public class SingleMintParamTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
+                
+            } else if (mChain.equals(BAND_MAIN)) {
+                Response<ResMintParam> response = ApiClient.getBandChain(mApp).getMintParam().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
 
             } else if (mChain.equals(CERTIK_MAIN)) {
                 Response<ResMintParam> response = ApiClient.getCertikChain(mApp).getMintParam().execute();

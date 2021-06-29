@@ -45,6 +45,19 @@ public class ProposalVotedListTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
+            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+                Response<ResLcdProposalVoted> response = ApiClient.getBandChain(mApp).getVotedList(mProposalId).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
             } else if (mChain.equals(BaseChain.CERTIK_MAIN)) {
                 Response<ResLcdProposalVoted> response = ApiClient.getCertikChain(mApp).getVotedList(mProposalId).execute();
                 if (!response.isSuccessful()) {

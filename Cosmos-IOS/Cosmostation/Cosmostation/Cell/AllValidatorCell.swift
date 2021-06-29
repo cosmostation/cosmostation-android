@@ -70,11 +70,12 @@ class AllValidatorCell: UITableViewCell {
             cardView.backgroundColor = COLOR_BG_GRAY
         }
         
-        if (chainType == ChainType.BAND_MAIN) {
-            if (!BaseData.instance.mBandOracle_gRPC.contains { $0.address == validator.operatorAddress}) {
-                bandOracleOffImg.isHidden = false
-            }
-        }
+        //hide for rollback band
+//        if (chainType == ChainType.BAND_MAIN) {
+//            if (!BaseData.instance.mBandOracle_gRPC.contains { $0.address == validator.operatorAddress}) {
+//                bandOracleOffImg.isHidden = false
+//            }
+//        }
         
         //temp hide apr for no mint param chain
         if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {

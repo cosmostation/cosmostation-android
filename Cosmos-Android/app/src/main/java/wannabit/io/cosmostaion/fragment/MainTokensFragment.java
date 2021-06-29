@@ -490,6 +490,24 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }
     }
 
+    private void onBindBandItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = getBaseDao().mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_BAND)) {
+            holder.itemSymbol.setText(getString(R.string.str_band_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BAND_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Band Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.band_token_img));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_BAND);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+
+        } else {
+
+        }
+    }
+
     private void onBindCertikItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = getBaseDao().mBalances.get(position);
         if (balance.symbol.equals(TOKEN_CERTIK)) {
@@ -951,40 +969,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-    private void onBindBandItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Coin coin = getBaseDao().mGrpcBalance.get(position);
-        if (coin.denom.equals(TOKEN_BAND)) {
-            holder.itemSymbol.setText(getString(R.string.str_band_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BAND_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
-            holder.itemFullName.setText("Band Staking Token");
-            Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.band_token_img));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_BAND);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
-
-        } else if (coin.denom.startsWith("ibc/")) {
-            holder.itemSymbol.setText("IBC");
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
-            holder.itemFullName.setText(coin.denom);
-            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
-
-        } else {
-
-        }
-    }
-
     private void onBindIovItem(TokensAdapter.AssetHolder holder, final int position) {
         final Coin coin = getBaseDao().mGrpcBalance.get(position);
         if (coin.denom.equals(TOKEN_IOV)) {
@@ -1019,7 +1003,39 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-
+//    private void onBindBandItem(TokensAdapter.AssetHolder holder, final int position) {
+//        final Coin coin = getBaseDao().mGrpcBalance.get(position);
+//        if (coin.denom.equals(TOKEN_BAND)) {
+//            holder.itemSymbol.setText(getString(R.string.str_band_c));
+//            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BAND_MAIN));
+//            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+//            holder.itemFullName.setText("Band Staking Token");
+//            Picasso.get().cancelRequest(holder.itemImg);
+//            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.band_token_img));
+//
+//            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_BAND);
+//            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+//            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+//            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+//                }
+//            });
+//
+//        } else if (coin.denom.startsWith("ibc/")) {
+//            holder.itemSymbol.setText("IBC");
+//            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+//            holder.itemInnerSymbol.setText("(unKnown)");
+//            holder.itemFullName.setText(coin.denom);
+//            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+//            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
+//            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+//
+//        } else {
+//
+//        }
+//    }
 
     private void onBindCosmosTestItem(TokensAdapter.AssetHolder holder, final int position) {
         final Coin coin = getBaseDao().mGrpcBalance.get(position);
