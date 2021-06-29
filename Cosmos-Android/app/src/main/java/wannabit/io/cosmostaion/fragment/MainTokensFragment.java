@@ -957,6 +957,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
 
         } else if (coin.denom.startsWith("gamm/")) {
             holder.itemSymbol.setText("AMM");
@@ -966,6 +967,17 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
+
+        } else {
+            holder.itemSymbol.setText("UnKnown");
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemInnerSymbol.setText("(unKnown)");
+            holder.itemFullName.setText("(unKnown)");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
+
         }
     }
 
