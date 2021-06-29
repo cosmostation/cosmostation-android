@@ -1442,14 +1442,7 @@ public class WDp {
     public static String getUnbondTime(Context c, BaseChain chain) {
         String result = "??";
         try {
-            if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.DATE, 3);
-                SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
-                result = unbondFormat.format(calendar.getTimeInMillis());
-                return result + "   " +c.getString(R.string.str_unbonding_3days_after);
-
-            } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST) || chain.equals(OSMOSIS_MAIN)) {
+            if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST) || chain.equals(OSMOSIS_MAIN)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 14);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
