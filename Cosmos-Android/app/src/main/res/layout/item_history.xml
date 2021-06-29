@@ -87,21 +87,19 @@
                     style="@style/font_ss_10_gray1"
                     android:text="(1D 4H ago)"/>
                 <RelativeLayout
-                    android:id="@+id/tx_ibc_send_single_coin_layer"
+                    android:id="@+id/history_amount_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:layout_toRightOf="@+id/tx_ibc_send_title"
-                    android:visibility="visible">
-
+                    android:visibility="gone">
                     <TextView
                         android:id="@+id/history_amount_symobl"
                         style="@style/font_ss_12_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="" />
-
+                        android:text="ATOM" />
                     <TextView
                         android:id="@+id/history_amount"
                         style="@style/font_ss_12_white"
@@ -110,7 +108,22 @@
                         android:layout_alignBaseline="@+id/history_amount_symobl"
                         android:layout_marginRight="@dimen/space_2"
                         android:layout_toLeftOf="@+id/history_amount_symobl"
-                        android:text="" />
+                        android:text="0.0001" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/history_block_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:visibility="gone">
+                    <TextView
+                        android:id="@+id/history_block_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_4"
+                        android:gravity="right"
+                        style="@style/font_ss_11_gray1"
+                        android:text="13123 block" />
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
