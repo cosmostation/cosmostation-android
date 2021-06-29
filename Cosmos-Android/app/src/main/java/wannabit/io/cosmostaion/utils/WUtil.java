@@ -43,6 +43,7 @@ import cosmos.distribution.v1beta1.Distribution;
 import cosmos.gov.v1beta1.Gov;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
+import jnr.ffi.Platform;
 import okhttp3.OkHttpClient;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
@@ -1506,6 +1507,9 @@ public class WUtil {
         } else if (basechain.equals(RIZON_TEST)) {
 
         } else if (basechain.equals(ALTHEA_TEST)) {
+
+        } else if (basechain.equals(OSMOSIS_MAIN)) {
+            result = result + ",uosmo,uion";
 
         }
 

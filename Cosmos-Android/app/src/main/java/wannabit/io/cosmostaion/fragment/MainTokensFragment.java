@@ -945,7 +945,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemFullName.setText("Ion Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
 
-            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_ION);
+            BigDecimal totalAmount = getBaseDao().getAvailable(TOKEN_ION);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
