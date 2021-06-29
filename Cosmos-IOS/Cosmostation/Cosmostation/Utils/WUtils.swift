@@ -1518,6 +1518,9 @@ class WUtils {
                 if (balance.denom != getMainDenom(chain)) {
                 }
             }
+            
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            result = result + ",uosmo"
         }
         
         else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
