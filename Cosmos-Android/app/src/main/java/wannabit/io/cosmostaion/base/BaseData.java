@@ -52,6 +52,7 @@ import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResIovConfig;
 import wannabit.io.cosmostaion.network.res.ResIovFee;
@@ -165,6 +166,9 @@ public class BaseData {
     //INCENTIVE DATA FOR SIF
     public SifIncentive.User        mSifVsIncentive;
     public SifIncentive.User        mSifLmIncentive;
+
+    //COMMON DATA FOR BAND
+    public ResBandOracleStatus mBandOracles;
 
 
     public String getChainId() {

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -272,20 +273,18 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
             if (isGRPC(getMainActivity().mBaseChain)) {
-                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) ||
-                        getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(IOV_MAIN)) {
+                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) || getMainActivity().mBaseChain.equals(IOV_MAIN)) {
                     final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
                     viewHolder.historyType.setText(history.getMsgType(getContext(), getMainActivity().mAccount.address));
                     viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), history.data.timestamp));
                     viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), history.data.timestamp));
+                    viewHolder.history_block_layout.setVisibility(View.GONE);
                     final Coin coin = history.getDpCoin();
                     if (coin != null) {
-                        viewHolder.history_amount_symbol.setVisibility(View.VISIBLE);
-                        viewHolder.history_amount.setVisibility(View.VISIBLE);
+                        viewHolder.history_block_layout.setVisibility(View.VISIBLE);
                         WDp.showCoinDp(getMainActivity(), history.getDpCoin().denom, history.getDpCoin().amount, viewHolder.history_amount_symbol, viewHolder.history_amount, getMainActivity().mBaseChain);
                     } else {
-                        viewHolder.history_amount_symbol.setVisibility(View.GONE);
-                        viewHolder.history_amount.setVisibility(View.GONE);
+                        viewHolder.history_block_layout.setVisibility(View.GONE);
                     }
                     if (history.isSuccess()) {
                         viewHolder.historySuccess.setVisibility(View.GONE);
@@ -313,7 +312,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     viewHolder.historyType.setText(history.getMsgType(getContext(), getMainActivity().mAccount.address));
                     viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), history.timestamp));
                     viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), history.timestamp));
-                    viewHolder.history_amount.setText(history.height + " block");
+                    viewHolder.history_amount_layout.setVisibility(View.GONE);
+                    viewHolder.history_block_layout.setVisibility(View.VISIBLE);
+                    viewHolder.history_block.setText(history.height + "block");
                     if (history.isSuccess()) {
                         viewHolder.historySuccess.setVisibility(View.GONE);
                     } else {
@@ -343,7 +344,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     viewHolder.historyType.setText(WDp.DpBNBTxType(getContext(), history, getMainActivity().mAccount.address));
                     viewHolder.history_time.setText(WDp.getTimeformat(getContext(), history.timeStamp));
                     viewHolder.history_time_gap.setText(WDp.getTimeGap(getContext(), history.timeStamp));
-                    viewHolder.history_amount.setText(history.blockHeight + " block");
+                    viewHolder.history_amount_layout.setVisibility(View.GONE);
+                    viewHolder.history_block_layout.setVisibility(View.VISIBLE);
+                    viewHolder.history_block.setText(history.blockHeight + "block");
                     viewHolder.historySuccess.setVisibility(View.GONE);
                     viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -370,7 +373,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     viewHolder.historyType.setText(WDp.DpOkTxType(getContext(), history));
                     viewHolder.history_time.setText(WDp.getDpTime(getContext(), history.timestamp * 1000));
                     viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), history.timestamp * 1000));
-                    viewHolder.history_amount.setText(history.txhash);
+                    viewHolder.history_amount_layout.setVisibility(View.GONE);
+                    viewHolder.history_block_layout.setVisibility(View.VISIBLE);
+                    viewHolder.history_block.setText(history.txhash + "block");
                     viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -392,7 +397,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     viewHolder.historyType.setText(WDp.DpTxType(getContext(), tx.messages, getMainActivity().mAccount.address));
                     viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), tx.time));
                     viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), tx.time));
-                    viewHolder.history_amount.setText("" + tx.height + " block");
+                    viewHolder.history_amount_layout.setVisibility(View.GONE);
+                    viewHolder.history_block_layout.setVisibility(View.VISIBLE);
+                    viewHolder.history_block.setText("" + tx.height + "block");
                     viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -440,8 +447,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 return mOkHistory.size();
             } else if (isGRPC(getMainActivity().mBaseChain)) {
-                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) ||
-                        getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(IOV_MAIN)) {
+                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) || getMainActivity().mBaseChain.equals(IOV_MAIN)) {
                     return mApiNewTxCustomHistory.size();
                 }
                 return mApiTxCustomHistory.size();
@@ -452,17 +458,20 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         public class HistoryHolder extends RecyclerView.ViewHolder {
             private CardView historyRoot;
-            private TextView historyType, historySuccess, history_time, history_amount, history_amount_symbol, history_time_gap;
-
+            private RelativeLayout history_amount_layout, history_block_layout;
+            private TextView historyType, historySuccess, history_time, history_block, history_amount, history_amount_symbol, history_time_gap;
             public HistoryHolder(View v) {
                 super(v);
-                historyRoot         = itemView.findViewById(R.id.card_history);
-                historyType         = itemView.findViewById(R.id.history_type);
-                historySuccess      = itemView.findViewById(R.id.history_success);
-                history_time        = itemView.findViewById(R.id.history_time);
-                history_amount       = itemView.findViewById(R.id.history_amount);
-                history_amount_symbol       = itemView.findViewById(R.id.history_amount_symobl);
-                history_time_gap    = itemView.findViewById(R.id.history_time_gap);
+                historyRoot                     = itemView.findViewById(R.id.card_history);
+                history_amount_layout           = itemView.findViewById(R.id.history_amount_layout);
+                history_block_layout            = itemView.findViewById(R.id.history_block_layout);
+                historyType                     = itemView.findViewById(R.id.history_type);
+                historySuccess                  = itemView.findViewById(R.id.history_success);
+                history_time                    = itemView.findViewById(R.id.history_time);
+                history_block                    = itemView.findViewById(R.id.history_block_height);
+                history_amount                  = itemView.findViewById(R.id.history_amount);
+                history_amount_symbol           = itemView.findViewById(R.id.history_amount_symobl);
+                history_time_gap                = itemView.findViewById(R.id.history_time_gap);
             }
         }
 

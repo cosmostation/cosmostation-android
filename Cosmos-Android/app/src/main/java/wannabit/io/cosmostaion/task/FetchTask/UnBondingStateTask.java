@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
@@ -37,6 +38,13 @@ public class UnBondingStateTask extends CommonTask {
         try {
             if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getKavaChain(mApp).getUnBondingList(mAccount.address).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(BAND_MAIN)) {
+                Response<ResLcdUnBondings> response = ApiClient.getBandChain(mApp).getUnBondingList(mAccount.address).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
