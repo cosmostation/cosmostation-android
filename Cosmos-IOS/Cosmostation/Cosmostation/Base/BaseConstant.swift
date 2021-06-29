@@ -49,7 +49,6 @@ let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/ka
 let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-testnet-12000/";
 
 
-let IOV_URL                             = "https://lcd-iov.cosmostation.io/";
 let IOV_API                             = "https://api-iov.cosmostation.io/";
 
 let IOV_TEST_URL                        = "https://api.cluster-stargatenet.iov.one/";
@@ -422,7 +421,7 @@ let GAS_FEE_RATE_TINY_BAND                  = "0.000"
 let GAS_FEE_RATE_LOW_BAND                   = "0.0025"
 let GAS_FEE_RATE_AVERAGE_BAND               = "0.025"
 
-let GAS_FEE_RATE_TINY_IOV                   = "1.00"
+let GAS_FEE_RATE_TINY_IOV                   = "0.10"
 let GAS_FEE_RATE_LOW_IOV                    = "1.00"
 let GAS_FEE_RATE_AVERAGE_IOV                = "1.00"
 
@@ -861,8 +860,7 @@ let CHAIN_ALTHEA_TEST_S = "SUPPORT_CHAIN_ALTHEA_TEST"
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "uiris"
 let BNB_MAIN_DENOM = "BNB"
-//let IOV_MAIN_DENOM = "uiov"
-let IOV_MAIN_DENOM = "uvoi"
+let IOV_MAIN_DENOM = "uiov"
 let KAVA_MAIN_DENOM = "ukava"
 let BAND_MAIN_DENOM = "uband"
 let SECRET_MAIN_DENOM = "uscrt"

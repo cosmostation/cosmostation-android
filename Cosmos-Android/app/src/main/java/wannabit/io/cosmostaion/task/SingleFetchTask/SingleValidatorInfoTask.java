@@ -50,16 +50,9 @@ public class SingleValidatorInfoTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
-
+                
             } else if (mChain.equals(BAND_MAIN)) {
                 Response<ResLcdSingleValidator> response = ApiClient.getBandChain(mApp).getValidatorDetail(mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(IOV_MAIN)) {
-                Response<ResLcdSingleValidator> response = ApiClient.getIovChain(mApp).getValidatorDetail(mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
@@ -104,13 +97,6 @@ public class SingleValidatorInfoTask extends CommonTask {
 
             else if (mChain.equals(KAVA_TEST)) {
                 Response<ResLcdSingleValidator> response = ApiClient.getKavaTestChain(mApp).getValidatorDetail(mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(IOV_TEST)) {
-                Response<ResLcdSingleValidator> response = ApiClient.getIovTestChain(mApp).getValidatorDetail(mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;

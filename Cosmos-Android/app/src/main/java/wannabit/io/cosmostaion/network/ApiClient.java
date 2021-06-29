@@ -192,20 +192,6 @@ public class ApiClient {
         return api_kava_test;
     }
 
-    //Rest for IOV main net
-    private static IovChain service_iov = null;
-    public static IovChain getIovChain(Context c) {
-        if (service_iov == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_iov_main))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_iov = retrofit.create(IovChain.class);
-            }
-        }
-        return service_iov;
-    }
 
     //Services for IOV api
     private static HistoryApi api_iov = null;
@@ -222,20 +208,6 @@ public class ApiClient {
         return api_iov;
     }
 
-    //Service for IOV testnet
-    private static IovChain service_iov_test = null;
-    public static IovChain getIovTestChain(Context c) {
-        if (service_iov_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_iov_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_iov_test = retrofit.create(IovChain.class);
-            }
-        }
-        return service_iov_test;
-    }
 
     //Rest for Band main net
     private static BandChain service_band = null;

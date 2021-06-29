@@ -857,63 +857,6 @@ class BaseNetWork {
         return ""
     }
     
-    
-    //starname
-    static func feesStarnameUrl(_ chain: ChainType) -> String {
-        if (chain == ChainType.IOV_MAIN ) {
-            return IOV_URL + "configuration/query/fees"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "configuration/query/fees"
-        }
-        return ""
-    }
-    
-    static func configStarnameUrl(_ chain: ChainType) -> String {
-        if (chain == ChainType.IOV_MAIN ) {
-            return IOV_URL + "configuration/query/configuration"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "configuration/query/configuration"
-        }
-        return ""
-    }
-    
-    static func resolveStarnameUrl(_ chain: ChainType?) -> String {
-        if (chain == ChainType.IOV_MAIN ) {
-            return IOV_URL + "starname/query/resolve"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "starname/query/resolve"
-        }
-        return ""
-    }
-    
-    static func checkDomainStarnameUrl(_ chain: ChainType?) -> String {
-        if (chain == ChainType.IOV_MAIN ) {
-            return IOV_URL + "starname/query/domainsWithOwner"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "starname/query/domainsWithOwner"
-        }
-        return ""
-    }
-    
-    static func checkAccountStarnameUrl(_ chain: ChainType?) -> String {
-        if (chain == ChainType.IOV_MAIN ) {
-            return IOV_URL + "starname/query/accountsWithOwner"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "starname/query/accountsWithOwner"
-        }
-        return ""
-    }
-    
-    static func domainInfoStarnameUrl(_ chain: ChainType?) -> String {
-        if (chain == ChainType.IOV_MAIN ) {
-            return IOV_URL + "starname/query/domainInfo"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "starname/query/domainInfo"
-        }
-        return ""
-    }
-    
-    
     //band
     static func oracleBandUrl() -> String {
         return BAND_URL + "oracle/active_validators"
@@ -1081,7 +1024,7 @@ class BaseNetWork {
             return ClientConnection.insecure(group: group).connect(host: "lcd-osmosis-app.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.IOV_MAIN) {
-            return ClientConnection.insecure(group: group).connect(host: "grpc.cluster-stargatenet.iov.one", port: 9090)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-iov-app.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.BAND_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 20200)

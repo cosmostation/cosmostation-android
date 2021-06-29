@@ -54,21 +54,9 @@ public class CheckWithdrawAddressTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
-
+                
             } else if (getChain(mAccount.baseChain).equals(BAND_MAIN)) {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getBandChain(mApp).getWithdrawAddress(mAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if(response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(IOV_MAIN)) {
-                Response<ResLcdWithDrawAddress> response = ApiClient.getIovChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = ERROR_CODE_NETWORK;
@@ -143,18 +131,6 @@ public class CheckWithdrawAddressTask extends CommonTask {
 
             else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getKavaTestChain(mApp).getWithdrawAddress(mAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if(response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(IOV_TEST)) {
-                Response<ResLcdWithDrawAddress> response = ApiClient.getIovTestChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = ERROR_CODE_NETWORK;

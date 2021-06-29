@@ -58,6 +58,7 @@ public class SingleAllRedelegateState extends CommonTask {
                     }
                 }
 
+<<<<<<< HEAD
             } else if (getChain(mAccount.baseChain).equals(BaseChain.BAND_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getBandChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
                 if(response.isSuccessful()) {
@@ -94,6 +95,8 @@ public class SingleAllRedelegateState extends CommonTask {
                     }
                 }
 
+=======
+>>>>>>> 3001491d6625cb29ddae83769562f63024686aec
             } else if (getChain(mAccount.baseChain).equals(BaseChain.CERTIK_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getCertikChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
                 if(response.isSuccessful()) {

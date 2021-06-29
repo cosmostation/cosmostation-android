@@ -47,16 +47,9 @@ public class SingleRewardTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
-
+                
             } else if (getChain(mAccount.baseChain).equals(BAND_MAIN)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getBandChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if (response.isSuccessful() && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(IOV_MAIN)) {
-                Response<ResLcdRewardFromVal> response = ApiClient.getIovChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
                 if (response.isSuccessful() && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
@@ -101,13 +94,6 @@ public class SingleRewardTask extends CommonTask {
 
             else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getKavaTestChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if (response.isSuccessful() && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(IOV_TEST)) {
-                Response<ResLcdRewardFromVal> response = ApiClient.getIovTestChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
                 if (response.isSuccessful() && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;

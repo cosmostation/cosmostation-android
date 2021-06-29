@@ -46,16 +46,9 @@ public class SingleBondingStateTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
-
+                
             } else if (getChain(mAccount.baseChain).equals(BAND_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getBandChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if (response.isSuccessful() && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(IOV_MAIN)) {
-                Response<ResLcdSingleBonding> response = ApiClient.getIovChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
                 if (response.isSuccessful() && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
@@ -100,13 +93,6 @@ public class SingleBondingStateTask extends CommonTask {
 
             else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getKavaTestChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if (response.isSuccessful() && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(IOV_TEST)) {
-                Response<ResLcdSingleBonding> response = ApiClient.getIovTestChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
                 if (response.isSuccessful() && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;

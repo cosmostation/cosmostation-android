@@ -48,22 +48,9 @@ public class SingleStakingPoolTask extends CommonTask {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }
-
+                
             } else if (mChain.equals(BAND_MAIN)) {
                 Response<ResStakingPool> response = ApiClient.getBandChain(mApp).getStakingPool().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(IOV_MAIN)) {
-                Response<ResStakingPool> response = ApiClient.getIovChain(mApp).getStakingPool().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
@@ -144,19 +131,6 @@ public class SingleStakingPoolTask extends CommonTask {
 
             else if (mChain.equals(KAVA_TEST)) {
                 Response<ResStakingPool> response = ApiClient.getKavaTestChain(mApp).getStakingPool().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(IOV_TEST)) {
-                Response<ResStakingPool> response = ApiClient.getIovTestChain(mApp).getStakingPool().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

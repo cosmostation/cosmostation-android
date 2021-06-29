@@ -4,9 +4,7 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResLcdProposal;
 import wannabit.io.cosmostaion.network.res.ResLcdProposalTally;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -62,19 +60,6 @@ public class ProposalTallyTask extends CommonTask {
 
             } else if (mChain.equals(BaseChain.CERTIK_MAIN)) {
                 Response<ResLcdProposalTally> response = ApiClient.getCertikChain(mApp).getTally(mProposalId).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if (response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
-                Response<ResLcdProposalTally> response = ApiClient.getIovChain(mApp).getTally(mProposalId).execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

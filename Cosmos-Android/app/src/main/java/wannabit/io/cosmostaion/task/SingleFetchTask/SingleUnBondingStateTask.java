@@ -46,16 +46,9 @@ public class SingleUnBondingStateTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
-
+                
             } else if (getChain(mAccount.baseChain).equals(BAND_MAIN)) {
                 Response<ResLcdSingleUnBonding> response = ApiClient.getBandChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(IOV_MAIN)) {
-                Response<ResLcdSingleUnBonding> response = ApiClient.getIovChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
@@ -100,13 +93,6 @@ public class SingleUnBondingStateTask extends CommonTask {
 
             else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
                 Response<ResLcdSingleUnBonding> response = ApiClient.getKavaTestChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(IOV_TEST)) {
-                Response<ResLcdSingleUnBonding> response = ApiClient.getIovTestChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
