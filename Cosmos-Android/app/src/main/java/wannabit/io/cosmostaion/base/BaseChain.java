@@ -317,9 +317,11 @@ public enum BaseChain {
             return true;
         } else if (baseChain.equals(OSMOSIS_MAIN)) {
             return true;
-        } else if (baseChain.equals(BAND_MAIN)) {
-            return true;
-        } else if (baseChain.equals(IOV_MAIN)) {
+        }
+//        else if (baseChain.equals(BAND_MAIN)) {
+//            return true;
+//        }
+        else if (baseChain.equals(IOV_MAIN)) {
             return true;
         } else if (baseChain.equals(RIZON_TEST)) {
             return true;
