@@ -281,10 +281,10 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     viewHolder.history_block_layout.setVisibility(View.GONE);
                     final Coin coin = history.getDpCoin();
                     if (coin != null) {
-                        viewHolder.history_block_layout.setVisibility(View.VISIBLE);
+                        viewHolder.history_amount_layout.setVisibility(View.VISIBLE);
                         WDp.showCoinDp(getMainActivity(), history.getDpCoin().denom, history.getDpCoin().amount, viewHolder.history_amount_symbol, viewHolder.history_amount, getMainActivity().mBaseChain);
                     } else {
-                        viewHolder.history_block_layout.setVisibility(View.GONE);
+                        viewHolder.history_amount_layout.setVisibility(View.GONE);
                     }
                     if (history.isSuccess()) {
                         viewHolder.historySuccess.setVisibility(View.GONE);

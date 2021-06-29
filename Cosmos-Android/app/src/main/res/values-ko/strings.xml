@@ -993,7 +993,7 @@
     <string name="str_delete_starname_step_3">입력하신 정보를 확인하세요</string>
     <string name="str_to_delete_starname">삭제할 스타네임</string>
     <string name="str_renew_domain">프리미엄 스타네임 갱신</string>
-    <string name="str_renew_account">베이직 스타네임 갱산</string>
+    <string name="str_renew_account">베이직 스타네임 갱신</string>
     <string name="str_renew_starname_step_0">갱신하실 스타네임을 확인하세요.</string>
     <string name="str_renew_starname_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_renew_starname_step_2">Tx 수수료를 선택하세요</string>
