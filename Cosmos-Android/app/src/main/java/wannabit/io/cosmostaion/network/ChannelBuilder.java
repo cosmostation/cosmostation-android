@@ -43,7 +43,7 @@ public class ChannelBuilder {
     private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
     private final static int PORT_BAND_MAIN = 20200;
 
-    private final static String GRPC_STARNAME_MAIN = "grpc.cluster-stargatenet.iov.one";
+    private final static String GRPC_STARNAME_MAIN = "lcd-iov-app.cosmostation.io";
     private final static int PORT_STARNAME_MAIN = 9090;
 
 

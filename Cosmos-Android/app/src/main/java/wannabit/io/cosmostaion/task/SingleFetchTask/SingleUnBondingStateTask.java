@@ -47,13 +47,6 @@ public class SingleUnBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(IOV_MAIN)) {
-                Response<ResLcdSingleUnBonding> response = ApiClient.getIovChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (getChain(mAccount.baseChain).equals(CERTIK_MAIN)) {
                 Response<ResLcdSingleUnBonding> response = ApiClient.getCertikChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
                 if (response.isSuccessful() && response.body() != null) {
@@ -93,13 +86,6 @@ public class SingleUnBondingStateTask extends CommonTask {
 
             else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
                 Response<ResLcdSingleUnBonding> response = ApiClient.getKavaTestChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(IOV_TEST)) {
-                Response<ResLcdSingleUnBonding> response = ApiClient.getIovTestChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;

@@ -454,8 +454,7 @@ public class BaseConstant {
     public final static String TOKEN_BNB            = "BNB";
     public final static String TOKEN_KAVA           = "ukava";
     public final static String TOKEN_HARD           = "hard";
-//    public final static String TOKEN_IOV            = "uiov";
-    public final static String TOKEN_IOV            = "uvoi";
+    public final static String TOKEN_IOV            = "uiov";
     public final static String TOKEN_CERTIK         = "uctk";
     public final static String TOKEN_BAND           = "uband";
     public final static String TOKEN_AKASH          = "uakt";
@@ -653,7 +652,7 @@ public class BaseConstant {
     public final static String BAND_GAS_RATE_LOW                        = "0.0025";
     public final static String BAND_GAS_RATE_AVERAGE                    = "0.025";
 
-    public final static String STARNAME_GAS_RATE_TINY                   = "1.00";
+    public final static String STARNAME_GAS_RATE_TINY                   = "0.10";
     public final static String STARNAME_GAS_RATE_LOW                    = "1.00";
     public final static String STARNAME_GAS_RATE_AVERAGE                = "1.00";
 

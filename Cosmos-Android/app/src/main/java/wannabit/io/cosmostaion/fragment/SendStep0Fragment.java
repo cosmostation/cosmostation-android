@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -24,19 +25,18 @@ import androidx.annotation.Nullable;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.concurrent.TimeUnit;
+
+import io.grpc.stub.StreamObserver;
+import starnamed.x.starname.v1beta1.QueryGrpc;
+import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Confirm;
-import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.req.ReqStarNameResolve;
-import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -66,6 +66,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_STAR_NAME_ADDRESS = 9102;
@@ -392,42 +393,51 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
     }
 
     private void onCheckNameService(String userInput, BaseChain chain) {
-        ReqStarNameResolve req = new ReqStarNameResolve(userInput);
-        ApiClient.getIovChain(getContext()).getStarnameAddress(req).enqueue(new Callback<ResIovStarNameResolve>() {
+        QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(IOV_MAIN)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        QueryOuterClass.QueryStarnameRequest request = QueryOuterClass.QueryStarnameRequest.newBuilder().setStarname(userInput).build();
+        mStub.starname(request, new StreamObserver<QueryOuterClass.QueryStarnameResponse>() {
             @Override
-            public void onResponse(Call<ResIovStarNameResolve> call, Response<ResIovStarNameResolve> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    ResIovStarNameResolve nameResolve = response.body();
-                    final String matchAddress = nameResolve.getAddressWithChain(chain);
-                    if (TextUtils.isEmpty(matchAddress)) {
-                        Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
-                        return;
+            public void onNext(QueryOuterClass.QueryStarnameResponse value) {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        final String matchAddress = WUtil.checkStarnameWithResource(chain, value.getAccount().getResourcesList());
+                        if (TextUtils.isEmpty(matchAddress)) {
+                            Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if (getSActivity().mAccount.address.equals(matchAddress)) {
+                            Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("starname", userInput);
+                        bundle.putString("originAddress", matchAddress);
+                        Dialog_StarName_Confirm dialog = Dialog_StarName_Confirm.newInstance(bundle);
+                        dialog.setCancelable(true);
+                        dialog.setTargetFragment(SendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
+                        getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
                     }
+                }, 0);
 
-                    if (getSActivity().mAccount.address.equals(matchAddress)) {
-                        Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString("starname", userInput);
-                    bundle.putString("originAddress", matchAddress);
-                    Dialog_StarName_Confirm dialog = Dialog_StarName_Confirm.newInstance(bundle);
-                    dialog.setCancelable(true);
-                    dialog.setTargetFragment(SendStep0Fragment.this, SELECT_STAR_NAME_ADDRESS);
-                    getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalide_starname, Toast.LENGTH_SHORT).show();
-                }
             }
 
             @Override
-            public void onFailure(Call<ResIovStarNameResolve> call, Throwable t) {
-                Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                return;
+            public void onError(Throwable t) {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), R.string.error_invalide_starname, Toast.LENGTH_SHORT).show();
+                    }
+                }, 0);
             }
+
+            @Override
+            public void onCompleted() { }
         });
+
 
     }
 }
