@@ -218,8 +218,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             }
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
             if (isGRPC(getMainActivity().mBaseChain)) {
-                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) ||
-                        getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(IOV_MAIN)) {
+                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) || getMainActivity().mBaseChain.equals(IOV_MAIN)) {
                     ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>)result.resultData;
                     if (hits != null && hits.size() > 0) {
 //                    WLog.w("Custom hit size " + hits.size());

@@ -196,6 +196,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
 //                }
 
             } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+//                WLog.w("IOV_MAIN " + ApiClient.getIovApi(mApp).getNewAccountTxCustom(mAddress, "50").request().url());
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getIovApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();

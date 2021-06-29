@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.network.res;
 
 import android.content.Context;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONArray;
@@ -71,11 +70,17 @@ public class ResApiNewTxListCustom {
         @SerializedName("body")
         public Body body;
 
+        @SerializedName("value")
+        public Body value;
+
     }
 
     public class Body {
         @SerializedName("messages")
         public ArrayList<Object> messages;
+
+        @SerializedName("msg")
+        public ArrayList<Object> msg;
 
         @SerializedName("memo")
         public String memo;
@@ -92,6 +97,8 @@ public class ResApiNewTxListCustom {
     public JSONArray getMsgs() {
         if (data != null && data.tx != null && data.tx.body != null && data.tx.body.messages != null) {
             return new JSONArray(data.tx.body.messages);
+        } else if  (data != null && data.tx != null && data.tx.value != null && data.tx.value.msg != null) {
+            return new JSONArray(data.tx.value.msg);
         }
         return null;
     }
@@ -147,6 +154,7 @@ public class ResApiNewTxListCustom {
                     msgType = getMsgs().getJSONObject(0).getString("type");
                 } catch (Exception e) {
                 }
+                WLog.w("msgType " +  msgType);
                 if (msgType.contains("MsgDelegate")) {
                     result = c.getString(R.string.tx_delegate);
                 } else if (msgType.contains("MsgUndelegate")) {
@@ -222,6 +230,24 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("MsgRequestRandom")) {
                     result = "Random Request";
                 }
+
+                else if (msgType.contains("RegisterDomain")) {
+                    result = c.getString(R.string.tx_starname_registe_domain);
+                } else if (msgType.contains("RegisterAccount")) {
+                    result = c.getString(R.string.tx_starname_registe_account);
+                } else if (msgType.contains("DeleteDomain")) {
+                    result = c.getString(R.string.tx_starname_delete_domain);
+                } else if (msgType.contains("DeleteAccount")) {
+                    result = c.getString(R.string.tx_starname_delete_account);
+                } else if (msgType.contains("RenewDomain")) {
+                    result = c.getString(R.string.tx_starname_renew_domain);
+                } else if (msgType.contains("RenewAccount")) {
+                    result = c.getString(R.string.tx_starname_renew_account);
+                } else if (msgType.contains("ReplaceAccountResources")) {
+                    result = c.getString(R.string.tx_starname_update_resource);
+                }
+
+
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
                 }
