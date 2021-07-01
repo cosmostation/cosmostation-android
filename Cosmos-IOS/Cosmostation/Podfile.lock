@@ -265,7 +265,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   HDWalletKit:
-    :commit: 20e1266b0156913ae71f6164a5a4969aaadeea8d
+    :commit: 6abf58b1320736b4a9b06a749fb5c791a5e2c181
     :git: https://github.com/cosmostation/HDWallet.git
   WalletConnect:
     :commit: 4204495771bc5eaee45d7381f0c71de1a65081a0
@@ -324,6 +324,6 @@ SPEC CHECKSUMS:
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
   WalletConnect: 0b21907c54b4bb324bf402dd14954c60a290ad36
 
-PODFILE CHECKSUM: 48a6d2c15ff80edda020bdb4c92389b9bc0ebdd7
+PODFILE CHECKSUM: 7ce4844f2d8e09d502475b0e8050f909652aae2e
 
 COCOAPODS: 1.10.1
