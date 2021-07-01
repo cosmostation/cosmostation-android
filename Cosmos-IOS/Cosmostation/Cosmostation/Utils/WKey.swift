@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import BinanceChain
 import CryptoSwift
 import HDWalletKit
 

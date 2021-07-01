@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 import HDWalletKit
-import BinanceChain
+import CryptoSwift
 import SwiftKeychainWrapper
 
 
@@ -201,64 +201,64 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
     
     func onGenBnbRefund() {
         self.showWaittingAlert()
-        DispatchQueue.global().async {
-            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
-                return
-            }
-            
-            var binance: BinanceChain?
-            var pKey: PrivateKey?
-            var wallet = Wallet()
-            var txResult = [String:Any]()
-            
-            if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN) {
-                //For Binance main-net refund
-                binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
-                pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                wallet = Wallet(privateKey: pKey!.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
-                
-            } else {
-                //For Binance test-net refund
-                binance = BinanceChain(endpoint: BinanceChain.Endpoint.testnet)
-                pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                wallet = Wallet(privateKey: pKey!.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
-            }
-            
-            wallet.synchronise(){ (error) in
-                if let error = error {
-                    if(SHOW_LOG) { print(error) }
-                    if (self.waitAlert != nil) {
-                        self.waitAlert?.dismiss(animated: true, completion: {
-                            txResult["type"] = TASK_TYPE_HTLC_REFUND
-                            self.onStartTxDetail(txResult)
-                        })
-                    }
-                }
-                
-                let bnbRefundMsg = Message.refundHtlc(swapId: self.pageHolderVC.mHtlcRefundSwapId!,
-                                                      memo: self.pageHolderVC.mMemo!,
-                                                      wallet: wallet)
-                
-                binance!.broadcast(message: bnbRefundMsg, sync: true) { (response) in
-                    if let error = response.error {
-                        if(SHOW_LOG) { print(error.localizedDescription) }
-                        if (self.waitAlert != nil) {
-                            self.waitAlert?.dismiss(animated: true, completion: {
-                                txResult["type"] = TASK_TYPE_HTLC_REFUND
-                                self.onStartTxDetail(txResult)
-                            })
-                        }
-                    }
-                    if (self.waitAlert != nil) {
-                        self.waitAlert?.dismiss(animated: true, completion: {
-                            txResult["type"] = TASK_TYPE_HTLC_REFUND
-                            txResult["hash"] = response.broadcast[0].hash
-                            self.onStartTxDetail(txResult)
-                        })
-                    }
-                    print(response.broadcast)
-                }
-            }
-        }
+//        DispatchQueue.global().async {
+//            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
+//                return
+//            }
+//            
+//            var binance: BinanceChain?
+//            var pKey: PrivateKey?
+//            var wallet = Wallet()
+//            var txResult = [String:Any]()
+//            
+//            if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN) {
+//                //For Binance main-net refund
+//                binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
+//                pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
+//                wallet = Wallet(privateKey: pKey!.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
+//                
+//            } else {
+//                //For Binance test-net refund
+//                binance = BinanceChain(endpoint: BinanceChain.Endpoint.testnet)
+//                pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
+//                wallet = Wallet(privateKey: pKey!.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
+//            }
+//            
+//            wallet.synchronise(){ (error) in
+//                if let error = error {
+//                    if(SHOW_LOG) { print(error) }
+//                    if (self.waitAlert != nil) {
+//                        self.waitAlert?.dismiss(animated: true, completion: {
+//                            txResult["type"] = TASK_TYPE_HTLC_REFUND
+//                            self.onStartTxDetail(txResult)
+//                        })
+//                    }
+//                }
+//                
+//                let bnbRefundMsg = Message.refundHtlc(swapId: self.pageHolderVC.mHtlcRefundSwapId!,
+//                                                      memo: self.pageHolderVC.mMemo!,
+//                                                      wallet: wallet)
+//                
+//                binance!.broadcast(message: bnbRefundMsg, sync: true) { (response) in
+//                    if let error = response.error {
+//                        if(SHOW_LOG) { print(error.localizedDescription) }
+//                        if (self.waitAlert != nil) {
+//                            self.waitAlert?.dismiss(animated: true, completion: {
+//                                txResult["type"] = TASK_TYPE_HTLC_REFUND
+//                                self.onStartTxDetail(txResult)
+//                            })
+//                        }
+//                    }
+//                    if (self.waitAlert != nil) {
+//                        self.waitAlert?.dismiss(animated: true, completion: {
+//                            txResult["type"] = TASK_TYPE_HTLC_REFUND
+//                            txResult["hash"] = response.broadcast[0].hash
+//                            self.onStartTxDetail(txResult)
+//                        })
+//                    }
+//                    print(response.broadcast)
+//                }
+//            }
+//        }
     }
 }

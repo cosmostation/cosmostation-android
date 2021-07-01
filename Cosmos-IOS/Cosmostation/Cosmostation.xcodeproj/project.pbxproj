@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		0428ACFE268AD31700EB438F /* BandOracleStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428ACFD268AD31700EB438F /* BandOracleStatus.swift */; };
+		0437E087268C0A6700088391 /* RIPEMD160.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437E086268C0A6700088391 /* RIPEMD160.swift */; };
+		046E9037268C3F29002CFFE1 /* BinanceMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E9036268C3F29002CFFE1 /* BinanceMessage.swift */; };
+		046E9039268C3F95002CFFE1 /* BinanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E9038268C3F95002CFFE1 /* BinanceModel.swift */; };
+		046E903B268C401E002CFFE1 /* BinanceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E903A268C401E002CFFE1 /* BinanceType.swift */; };
+		046E903D268C413A002CFFE1 /* BinanceProto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E903C268C413A002CFFE1 /* BinanceProto.swift */; };
+		046E903F268C45DC002CFFE1 /* BinanceHexlify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E903E268C45DC002CFFE1 /* BinanceHexlify.swift */; };
+		046E9041268C4863002CFFE1 /* BinanceInt+VarInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E9040268C4863002CFFE1 /* BinanceInt+VarInt.swift */; };
+		046E9043268C4995002CFFE1 /* BinanceSegwitAddrCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E9042268C4995002CFFE1 /* BinanceSegwitAddrCoder.swift */; };
+		046E9049268C7C2B002CFFE1 /* BinanceHexEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046E9048268C7C2B002CFFE1 /* BinanceHexEncoding.swift */; };
 		0497585826856DE30039872C /* oracle_v1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497585226856DE20039872C /* oracle_v1_genesis.pb.swift */; };
 		0497585926856DE30039872C /* oracle_v1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497585326856DE20039872C /* oracle_v1_query.pb.swift */; };
 		0497585A26856DE30039872C /* oracle_v1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497585426856DE20039872C /* oracle_v1_tx.grpc.swift */; };
@@ -899,6 +908,15 @@
 
 /* Begin PBXFileReference section */
 		0428ACFD268AD31700EB438F /* BandOracleStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandOracleStatus.swift; sourceTree = "<group>"; };
+		0437E086268C0A6700088391 /* RIPEMD160.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RIPEMD160.swift; sourceTree = "<group>"; };
+		046E9036268C3F29002CFFE1 /* BinanceMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceMessage.swift; sourceTree = "<group>"; };
+		046E9038268C3F95002CFFE1 /* BinanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceModel.swift; sourceTree = "<group>"; };
+		046E903A268C401E002CFFE1 /* BinanceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceType.swift; sourceTree = "<group>"; };
+		046E903C268C413A002CFFE1 /* BinanceProto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceProto.swift; sourceTree = "<group>"; };
+		046E903E268C45DC002CFFE1 /* BinanceHexlify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceHexlify.swift; sourceTree = "<group>"; };
+		046E9040268C4863002CFFE1 /* BinanceInt+VarInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BinanceInt+VarInt.swift"; sourceTree = "<group>"; };
+		046E9042268C4995002CFFE1 /* BinanceSegwitAddrCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceSegwitAddrCoder.swift; sourceTree = "<group>"; };
+		046E9048268C7C2B002CFFE1 /* BinanceHexEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceHexEncoding.swift; sourceTree = "<group>"; };
 		0497585226856DE20039872C /* oracle_v1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_v1_genesis.pb.swift; sourceTree = "<group>"; };
 		0497585326856DE20039872C /* oracle_v1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_v1_query.pb.swift; sourceTree = "<group>"; };
 		0497585426856DE20039872C /* oracle_v1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_v1_tx.grpc.swift; sourceTree = "<group>"; };
@@ -2797,6 +2815,7 @@
 				E1945E3D222E7E2900A1436F /* Bech32.swift */,
 				E1945E3C222E7E2900A1436F /* SegwitAddrCoder.swift */,
 				28CE973525872B7C006DEBEE /* Signer.swift */,
+				0437E086268C0A6700088391 /* RIPEMD160.swift */,
 			);
 			path = Crypto;
 			sourceTree = "<group>";
@@ -2944,6 +2963,14 @@
 				E16FACB02361ADFA00372052 /* Bytes.swift */,
 				E17748D82282C612003D8CD1 /* Cosmostation-Bridging-Header.h */,
 				28E3E370266D033100BA89C2 /* HdacUtil.swift */,
+				046E9036268C3F29002CFFE1 /* BinanceMessage.swift */,
+				046E9038268C3F95002CFFE1 /* BinanceModel.swift */,
+				046E903A268C401E002CFFE1 /* BinanceType.swift */,
+				046E903C268C413A002CFFE1 /* BinanceProto.swift */,
+				046E903E268C45DC002CFFE1 /* BinanceHexlify.swift */,
+				046E9040268C4863002CFFE1 /* BinanceInt+VarInt.swift */,
+				046E9042268C4995002CFFE1 /* BinanceSegwitAddrCoder.swift */,
+				046E9048268C7C2B002CFFE1 /* BinanceHexEncoding.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3464,12 +3491,14 @@
 				0497587C2685AA270039872C /* iov_configuration_v1beta1_msgs.pb.swift in Sources */,
 				28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */,
 				28D7BE7D25F10636006EECD7 /* HardListMyStatusCell.swift in Sources */,
+				046E903D268C413A002CFFE1 /* BinanceProto.swift in Sources */,
 				28617A7D243198E2006D66EA /* StepCreateCpdCheckViewController.swift in Sources */,
 				289EF82326824E4700F90AC1 /* osmosis_incentives_tx.grpc.swift in Sources */,
 				287AC64725FDF7260070837E /* cosmos_slashing_v1beta1_genesis.pb.swift in Sources */,
 				287AC5AA25FDF7250070837E /* cosmos_gov_v1beta1_tx.pb.swift in Sources */,
 				287AC61A25FDF7260070837E /* ibc_applications_transfer_v1_query.grpc.swift in Sources */,
 				283D2EA424F52FE700247424 /* OkToken.swift in Sources */,
+				046E9049268C7C2B002CFFE1 /* BinanceHexEncoding.swift in Sources */,
 				28474ED5241E06AF00AF5A81 /* TxCdpRepayCell.swift in Sources */,
 				E171A075225B091300C5756C /* StepGenTxViewController.swift in Sources */,
 				283439A12531D1CF00CCFADE /* MyDomainViewController.swift in Sources */,
@@ -3501,6 +3530,7 @@
 				287AC5DA25FDF7260070837E /* mint_genesis.pb.swift in Sources */,
 				287AC62925FDF7260070837E /* random_tx.pb.swift in Sources */,
 				287AC63825FDF7260070837E /* cosmos_gov_v1beta1_genesis.pb.swift in Sources */,
+				0437E087268C0A6700088391 /* RIPEMD160.swift in Sources */,
 				283E9458254901D9007A9291 /* RegisterDomain0ViewController.swift in Sources */,
 				2800CF9624719EC4003C3EF1 /* Tally.swift in Sources */,
 				E183EF1F22A75DFC003B3580 /* ReInvestAmountViewController.swift in Sources */,
@@ -3614,6 +3644,7 @@
 				2812956E250F81C3007B217E /* SelectCoinCell.swift in Sources */,
 				287AC5C725FDF7250070837E /* akash_audit_v1beta1_query.grpc.swift in Sources */,
 				E151B639224626990026B8C0 /* BorderButton.swift in Sources */,
+				046E9039268C3F95002CFFE1 /* BinanceModel.swift in Sources */,
 				283F3ADE265E283800DF1D93 /* tokenswap_query.pb.swift in Sources */,
 				287AC60825FDF7260070837E /* nft_query.pb.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
@@ -3649,6 +3680,7 @@
 				28105894262EE638009244B8 /* WalletSifCell.swift in Sources */,
 				2868558F24989A8F0099D18F /* Bep3SupplyPopup.swift in Sources */,
 				287AC63225FDF7260070837E /* cosmos_base_reflection_v1beta1_reflection.grpc.swift in Sources */,
+				046E9043268C4995002CFFE1 /* BinanceSegwitAddrCoder.swift in Sources */,
 				28B4302A24F76AD500BD7BB2 /* OkTransfer.swift in Sources */,
 				28D7BE6525F0FC75006EECD7 /* HardMyDeposit.swift in Sources */,
 				28D372B0254C07470071B136 /* RegistAccountCheckCell.swift in Sources */,
@@ -3656,6 +3688,7 @@
 				E19A321922544EB500A05E41 /* DashedView.swift in Sources */,
 				2888B800246BCA3200B2EB4A /* KavaSwapInfo.swift in Sources */,
 				285A33D624475DC00052BD3D /* SelectPopupViewController.swift in Sources */,
+				046E9037268C3F29002CFFE1 /* BinanceMessage.swift in Sources */,
 				289EF81E26824E4700F90AC1 /* osmosis_lockup_lock.pb.swift in Sources */,
 				2889FD7C260337C600CA9896 /* TxHardLiquidateCell.swift in Sources */,
 				289EF82A26824E4700F90AC1 /* osmosis_gamm_v1beta1_query.grpc.swift in Sources */,
@@ -3879,6 +3912,7 @@
 				2838501C2448A69D00E5DEF2 /* TxHtlcCreateCell.swift in Sources */,
 				287AC5FD25FDF7260070837E /* ibc_lightclients_tendermint_v1_tendermint.pb.swift in Sources */,
 				0497587D2685AA270039872C /* iov_starname_v1beta1_tx.pb.swift in Sources */,
+				046E9041268C4863002CFFE1 /* BinanceInt+VarInt.swift in Sources */,
 				2888B804246CE37200B2EB4A /* StepHtlcRefund3ViewController.swift in Sources */,
 				2815AA70243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift in Sources */,
 				287AC59A25FDF7250070837E /* cosmos_slashing_v1beta1_query.pb.swift in Sources */,
@@ -3928,6 +3962,7 @@
 				E191A5812379091A002577BC /* TokenDetailKavaCell.swift in Sources */,
 				287AC5C525FDF7250070837E /* htlc_genesis.pb.swift in Sources */,
 				287AC59025FDF7250070837E /* ibc_applications_transfer_v1_genesis.pb.swift in Sources */,
+				046E903B268C401E002CFFE1 /* BinanceType.swift in Sources */,
 				289EF82426824E4700F90AC1 /* osmosis_incentives_params.pb.swift in Sources */,
 				E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */,
 				28060E7725427F2C00F13510 /* EventStakeDropCell.swift in Sources */,
@@ -4004,6 +4039,7 @@
 				287AC5E825FDF7260070837E /* ibc_core_channel_v1_query.grpc.swift in Sources */,
 				2872B0F2252EF79900E8CACF /* WalletSecretCell.swift in Sources */,
 				283E948F25494896007A9291 /* ResourceCell.swift in Sources */,
+				046E903F268C45DC002CFFE1 /* BinanceHexlify.swift in Sources */,
 				2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */,
 				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
 				2845D87D246FAE16007CD497 /* VoteDetailsViewController.swift in Sources */,
@@ -4595,6 +4631,7 @@
 				CURRENT_PROJECT_VERSION = 108;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -4622,6 +4659,7 @@
 				CURRENT_PROJECT_VERSION = 108;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

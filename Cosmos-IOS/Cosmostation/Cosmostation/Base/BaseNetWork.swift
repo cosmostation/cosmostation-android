@@ -556,7 +556,9 @@ class BaseNetWork {
     }
     
     static func broadcastUrl(_ chain: ChainType?) -> String {
-        if (chain == ChainType.OKEX_MAIN) {
+        if (chain == ChainType.BINANCE_MAIN) {
+            return BNB_URL + "api/v1/broadcast"
+        } else if (chain == ChainType.OKEX_MAIN) {
             return OKEX_URL + "txs"
         } else if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "txs"
@@ -574,7 +576,9 @@ class BaseNetWork {
             return KI_URL + "txs"
         }
         
-        if (chain == ChainType.OKEX_TEST) {
+        else if (chain == ChainType.BINANCE_TEST) {
+            return BNB_URL + "api/v1/broadcast"
+        } else if (chain == ChainType.OKEX_TEST) {
             return OKEX_TEST_URL + "txs"
         } else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "txs"

@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import BinanceChain
 import SwiftKeychainWrapper
 import HDWalletKit
 import GRPC
@@ -136,12 +135,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
-                self.onGenBnbSendTx()
-                
-            } else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            if (WUtils.isGRPC(pageHolderVC.chainType!)) {
                 self.onFetchgRPCAuth(pageHolderVC.mAccount!)
-                
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
             }
@@ -155,7 +150,19 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN || self.pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
+                    guard let info = res as? [String : Any] else {
+                        _ = BaseData.instance.deleteBalance(account: account)
+                        self.hideWaittingAlert()
+                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        return
+                    }
+                    let bnbAccountInfo = BnbAccountInfo.init(info)
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithBnbAccountInfo(account, bnbAccountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithBnbAccountInfo(account, bnbAccountInfo))
+                    self.onGenBnbSendTx()
+                    
+                } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                     guard  let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -331,64 +338,51 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onGenBnbSendTx() {
-        self.showWaittingAlert()
         DispatchQueue.global().async {
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
+            let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
             
-            var binance: BinanceChain?
-            var pKey: PrivateKey?
-            var wallet = Wallet()
-            var txResult = [String:Any]()
+            let bnbMsg = BinanceMessage.transfer(symbol: self.pageHolderVC.mToSendAmount[0].denom,
+                                    amount: (self.pageHolderVC.mToSendAmount[0].amount as NSString).doubleValue,
+                                    toAddress: self.pageHolderVC.mToSendRecipientAddress!,
+                                    memo: self.pageHolderVC.mMemo!,
+                                    privateKey: pKey,
+                                    signerAddress: self.pageHolderVC.mAccount!.account_address,
+                                    sequence: Int(self.pageHolderVC.mAccount!.account_sequence_number),
+                                    accountNumber: Int(self.pageHolderVC.mAccount!.account_account_numner),
+                                    chainId: BaseData.instance.getChainId())
             
-            if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN) {
-                //For Binance maninet send
-                binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
-                pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                wallet = Wallet(privateKey: pKey!.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
-                
-            } else {
-                //For Binance testent send
-                binance = BinanceChain(endpoint: BinanceChain.Endpoint.testnet)
-                pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                wallet = Wallet(privateKey: pKey!.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
-            }
-            
-            wallet.synchronise(){ (error) in
-                if let error = error {
-                    if(SHOW_LOG) { print(error) }
-                    if (self.waitAlert != nil) {
-                        self.waitAlert?.dismiss(animated: true, completion: {
-                            self.onStartTxDetail(txResult)
-                        })
-                    }
-                }
-                
-                let bnbMsg = Message.transfer(symbol: self.pageHolderVC.mToSendAmount[0].denom,
-                                              amount: (self.pageHolderVC.mToSendAmount[0].amount as NSString).doubleValue,
-                                              to: self.pageHolderVC.mToSendRecipientAddress!,
-                                              memo: self.pageHolderVC.mMemo!,
-                                              wallet: wallet)
-                
-                binance!.broadcast(message: bnbMsg, sync: true) { (response) in
-                    if let error = response.error {
-                        if(SHOW_LOG) { print(error.localizedDescription) }
+            DispatchQueue.main.async(execute: {
+                do {
+                    var encoding: ParameterEncoding = URLEncoding.default
+                    encoding = HexEncoding(data: try bnbMsg.encode())
+                    let param: Parameters = [ "address": self.pageHolderVC.mAccount!.account_address ]
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: param, encoding: encoding, headers: [:])
+                    request.responseJSON { response in
+                        var txResult = [String:Any]()
+                        switch response.result {
+                        case .success(let res):
+                            print("res ", res)
+                            if let result = res as? Array<NSDictionary> {
+                                txResult["hash"] = result[0].object(forKey:"hash")
+                            }
+                            
+                        case .failure(let error):
+                            print("send error ", error)
+                        }
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
                                 self.onStartTxDetail(txResult)
                             })
                         }
                     }
-                    if (self.waitAlert != nil) {
-                        self.waitAlert?.dismiss(animated: true, completion: {
-                            txResult["hash"] = response.broadcast[0].hash
-                            self.onStartTxDetail(txResult)
-                        })
-                    }
-                    print(response.broadcast)
+
+                } catch {
+                    if(SHOW_LOG) { print(error) }
                 }
-            }
+            });
         }
     }
     
@@ -446,3 +440,5 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         }
     }
 }
+
+

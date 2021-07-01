@@ -8,7 +8,7 @@
 
 import Foundation
 import CryptoSwift
-import BinanceChain
+import HDWalletKit
 
 class MsgGenerator {
     
@@ -230,8 +230,8 @@ class MsgGenerator {
         return msg
     }
     
-    static func genCreateBnbSwapMsg(_ fromChain: ChainType, _ toChain: ChainType, _ fromAccount: Account, _ toAccount: Account,
-                                    _ sendCoin: Array<Coin>, _ timeStamp: Int64, _ randomNumberHash: String, _ wallet: Wallet) -> Message {
+    static func genBnbCreateHTLCSwapMsg(_ fromChain: ChainType, _ toChain: ChainType, _ fromAccount: Account, _ toAccount: Account,
+                                        _ sendCoin: Array<Coin>, _ timeStamp: Int64, _ randomNumberHash: String, _ pkey: PrivateKey) -> BinanceMessage {
         let sendAmount = NSDecimalNumber.init(string: sendCoin[0].amount).multiplying(byPowerOf10: 8)
         if (fromChain == ChainType.BINANCE_MAIN) {
             var bnb_duputy = ""
@@ -249,18 +249,22 @@ class MsgGenerator {
                 bnb_duputy = BINANCE_MAIN_BUSD_DEPUTY
                 kava_duputy = KAVA_MAIN_BUSD_DEPUTY
             }
-            return Message.createHtlc(toAddress: bnb_duputy,
-                                      otherFrom: kava_duputy,
-                                      otherTo: toAccount.account_address,
-                                      timestamp: timeStamp,
-                                      randomNumberHash: randomNumberHash,
-                                      sendAmount: sendAmount.int64Value,
-                                      sendDenom: sendCoin[0].denom,
-                                      expectedIncom: sendAmount.stringValue + ":" + sendCoin[0].denom,
-                                      heightSpan: 407547,
-                                      crossChain: true,
-                                      memo: SWAP_MEMO_CREATE,
-                                      wallet: wallet)
+            return BinanceMessage.createHtlc(toAddress: bnb_duputy,
+                                              otherFrom: kava_duputy,
+                                              otherTo: toAccount.account_address,
+                                              timestamp: timeStamp,
+                                              randomNumberHash: randomNumberHash,
+                                              sendAmount: sendAmount.int64Value,
+                                              sendDenom: sendCoin[0].denom,
+                                              expectedIncom: sendAmount.stringValue + ":" + sendCoin[0].denom,
+                                              heightSpan: 407547,
+                                              crossChain: true,
+                                              memo: SWAP_MEMO_CREATE,
+                                              privateKey: pkey,
+                                              signerAddress: fromAccount.account_address,
+                                              sequence: Int(fromAccount.account_sequence_number),
+                                              accountNumber: Int(fromAccount.account_account_numner),
+                                              chainId: BaseData.instance.getChainId())
             
         } else {
             var bnb_duputy = ""
@@ -272,19 +276,35 @@ class MsgGenerator {
                 bnb_duputy = BINANCE_TEST_BTC_DEPUTY
                 kava_duputy = KAVA_TEST_BTC_DEPUTY
             }
-            return Message.createHtlc(toAddress: bnb_duputy,
-                                      otherFrom: kava_duputy,
-                                      otherTo: toAccount.account_address,
-                                      timestamp: timeStamp,
-                                      randomNumberHash: randomNumberHash,
-                                      sendAmount: sendAmount.int64Value,
-                                      sendDenom: sendCoin[0].denom,
-                                      expectedIncom: sendAmount.stringValue + ":" + sendCoin[0].denom,
-                                      heightSpan: 407547,
-                                      crossChain: true,
-                                      memo: SWAP_MEMO_CREATE,
-                                      wallet: wallet)
+            return BinanceMessage.createHtlc(toAddress: bnb_duputy,
+                                             otherFrom: kava_duputy,
+                                             otherTo: toAccount.account_address,
+                                             timestamp: timeStamp,
+                                             randomNumberHash: randomNumberHash,
+                                             sendAmount: sendAmount.int64Value,
+                                             sendDenom: sendCoin[0].denom,
+                                             expectedIncom: sendAmount.stringValue + ":" + sendCoin[0].denom,
+                                             heightSpan: 407547,
+                                             crossChain: true,
+                                             memo: SWAP_MEMO_CREATE,
+                                             privateKey: pkey,
+                                             signerAddress: fromAccount.account_address,
+                                             sequence: Int(fromAccount.account_sequence_number),
+                                             accountNumber: Int(fromAccount.account_account_numner),
+                                             chainId: BaseData.instance.getChainId())
         }
+    }
+    
+    static func genBnbClaimHTLCSwapMsg(_ claimer: Account, _ randomNumber: String, _ swapId: String, _ pkey: PrivateKey, _ chainId: String) -> BinanceMessage {
+        return BinanceMessage.claimHtlc(randomNumber: randomNumber,
+                                        swapId: swapId,
+                                        memo: SWAP_MEMO_CLAIM,
+                                        privateKey: pkey,
+                                        signerAddress: claimer.account_address,
+                                        sequence: Int(claimer.account_sequence_number),
+                                        accountNumber: Int(claimer.account_account_numner),
+                                        chainId: chainId)
+        
     }
     
     

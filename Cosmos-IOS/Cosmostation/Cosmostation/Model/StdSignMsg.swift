@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 public struct StdSignMsg: Codable{
     var chain_id: String = ""

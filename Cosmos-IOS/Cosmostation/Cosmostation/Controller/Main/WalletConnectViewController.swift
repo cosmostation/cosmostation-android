@@ -9,7 +9,6 @@
 import UIKit
 import WalletConnect
 import Alamofire
-import BinanceChain
 import SwiftKeychainWrapper
 import HDWalletKit
 
@@ -108,7 +107,7 @@ class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
     func SBCardPopupResponse(type:Int, result: Int) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
             if(result == 1) {
-                self.signBnbOrder()
+                self.onFetchAccountInfo(self.account!)
             }
         })
     }
@@ -161,26 +160,38 @@ class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
         }
     }
     
-    func signBnbOrder() {
-        guard let words = KeychainWrapper.standard.string(forKey: account!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
-            return
+    func onFetchAccountInfo(_ account: Account) {
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let info = res as? [String : Any] else {
+                    _ = BaseData.instance.deleteBalance(account: account)
+                    self.hideWaittingAlert()
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
+                }
+                let bnbAccountInfo = BnbAccountInfo.init(info)
+                _ = BaseData.instance.updateAccount(WUtils.getAccountWithBnbAccountInfo(account, bnbAccountInfo))
+                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithBnbAccountInfo(account, bnbAccountInfo))
+                self.signBnbOrder()
+                
+            case .failure(let error):
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                print("onFetchAccountInfo ", error)
+            }
         }
-        let pKey = WKey.getHDKeyFromWords(words, account!)
-        let pubKeyString = pKey.publicKey.getPublicKey(compressed: false).dataToHexString()
+    }
     
-        var bnbWallet = Wallet()
-        if (chainType == ChainType.BINANCE_MAIN) {
-            bnbWallet = Wallet(privateKey: pKey.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
-        } else {
-            bnbWallet = Wallet(privateKey: pKey.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
-        }
-
-        bnbWallet.synchronise(){ (error) in
-            if let _ = error {
+    func signBnbOrder() {
+        do {
+            guard let words = KeychainWrapper.standard.string(forKey: account!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
-            
-            let signature = bnbWallet.sign(message: self.cOrder!.encoded)
+            let pKey = WKey.getHDKeyFromWords(words, account!)
+//            let pubKeyString = pKey.publicKey.getPublicKey(compressed: false).dataToHexString()
+            let pubKeyString = pKey.publicKey.uncompressedPublicKey.dataToHexString()
+            let signature = try ECDSA.compactsign(self.cOrder!.encoded.sha256(), privateKey: pKey.raw)
             let signed = WCBinanceOrderSignature(
                 signature: signature.dataToHexString(),
                 publicKey: pubKeyString
@@ -196,8 +207,10 @@ class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
                     }
                 }
             }).cauterize()
+            
+        } catch {
+            self.onShowToast(NSLocalizedString("error_network", comment: ""))
         }
-        
     }
     
 
