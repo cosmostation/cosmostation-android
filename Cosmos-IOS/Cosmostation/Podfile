@@ -3,9 +3,6 @@
 target 'Cosmostation' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-#    pod 'BinanceChain', :git => 'https://github.com/binance-chain/swift-sdk.git'
-#    pod 'BinanceChain', :git => 'https://github.com/cosmostation/swift-sdk.git'
-#    pod 'HDWalletKit', '~> 0.3.6'
     pod 'SwiftyJSON', '~> 4.3'
     pod 'HDWalletKit', :git => 'https://github.com/cosmostation/HDWallet.git', branch: 'develop'
     pod 'Starscream', '~> 3.1.1'
