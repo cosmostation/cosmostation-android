@@ -46,9 +46,10 @@ class HdacUtil {
     
     static func generateHdacAddress(_ publickey: HDWalletKit.PublicKey) -> String {
         let prefix = Data([0x28])
-        let publicKeyy = publickey.getPublicKey(compressed: true)
+//        let publicKeyy = publickey.getPublicKey(compressed: true)
+        let publicKeyy = publickey.compressedPublicKey
         let payload = RIPEMD160.hash(publicKeyy.sha256())
-        
+
         var checksum = (prefix + payload).sha256().sha256().prefix(4)
         checksum = swapUInt32Data(checksum)
         var hdacChecksum = dataWithHexString(hex: "48444143")
@@ -57,17 +58,15 @@ class HdacUtil {
         result = swapUInt32Data(result)
         return Base58.encode(prefix + payload + result)
     }
-    
+
     static func createSendTx(_ utxos: [UnspentTransaction], _ recipient: String, _ amount: NSDecimalNumber, _ key: PrivateKey) throws -> String {
         let utxoTransactionBuilder = UtxoTransactionBuilder()
         let utoxTransactionSigner = UtxoTransactionSigner()
-        
+
         let toAddress: Address = try! HdacAddress.init(recipient, coin: .hdac)
         let changeAddress: Address = try! HdacAddress.init(key.publicKey.address, coin: .hdac)
         let amount: UInt64 = amount.uint64Value
-        
-        
-        
+
         let totalAmount: UInt64 = utxos.sum()
         let fee: UInt64 = 10000000
         let change: UInt64 = totalAmount - amount - fee
@@ -100,7 +99,7 @@ class HdacUtil {
         outputs.append(TransactionOutput(value: 546, lockingScript: returnScript!.data))
         
         let unsignedInputs = utxos.map { TransactionInput(previousOutput: $0.outpoint, signatureScript: $0.output.lockingScript, sequence: UInt32.max) }
-        let tx = Transaction(version: 1, inputs: unsignedInputs, outputs: outputs, lockTime: 0)
+        let tx = HDWalletKit.Transaction(version: 1, inputs: unsignedInputs, outputs: outputs, lockTime: 0)
         return UnsignedTransaction(tx: tx, utxos: utxos)
     }
     
@@ -146,4 +145,10 @@ extension Data {
         return result
     }
         
+}
+
+extension Sequence where Element == UnspentTransaction {
+    public func sum() -> UInt64 {
+        return reduce(UInt64()) { $0 + $1.output.value }
+    }
 }
