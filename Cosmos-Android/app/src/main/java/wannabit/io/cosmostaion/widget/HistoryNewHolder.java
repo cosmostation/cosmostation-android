@@ -19,7 +19,7 @@ import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class HistoryNewHolder extends HistoryHolder {
+public class HistoryNewHolder extends BaseHolder {
     private CardView historyRoot;
     private TextView historyType, historySuccess, history_time, history_amount, history_amount_symbol, history_time_gap;
 

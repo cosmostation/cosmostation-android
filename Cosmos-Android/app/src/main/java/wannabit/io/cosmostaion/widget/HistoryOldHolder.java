@@ -30,7 +30,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_E
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_START;
 import static wannabit.io.cosmostaion.base.BaseConstant.TX_TYPE_SEND;
 
-public class HistoryOldHolder extends HistoryHolder {
+public class HistoryOldHolder extends BaseHolder {
     private CardView historyRoot;
     private TextView historyType, historySuccess, history_time, history_block, history_time_gap;
 
