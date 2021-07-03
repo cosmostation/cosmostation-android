@@ -43,11 +43,6 @@ public class ClaimHardIncentiveActivity extends BaseBroadCastActivity {
     private ViewPager                       mViewPager;
     private ClaimHarvestRewardPageAdapter   mPageAdapter;
 
-    public String                                   mHarvestDepositDenom;
-    public String                                   mHarvestDepositType;            // "lp" or "stake"
-//    public ResKavaHarvestParam                      mHarvestParam;
-    public BigDecimal                               mAllRewardAmount;
-    public BigDecimal                               mReceivableAmount;
     public ArrayList<ClaimMultiplier>               mClaimMultipliers;
     public ClaimMultiplier                          mSelectedMultiplier = null;
 
@@ -165,8 +160,6 @@ public class ClaimHardIncentiveActivity extends BaseBroadCastActivity {
     public void onStartHarvestRewardClaim() {
         Intent intent = new Intent(ClaimHardIncentiveActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_CLAIM_HARVEST_REWARD);
-        intent.putExtra("depositDenom", mHarvestDepositDenom);
-        intent.putExtra("depositType", mHarvestDepositType);
         intent.putExtra("multiplierName", mSelectedMultiplier.name);
         intent.putExtra("fee", mTxFee);
         intent.putExtra("memo", mTxMemo);

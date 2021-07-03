@@ -761,10 +761,10 @@ public class MsgGenerator {
                 msgs,
                 fee,
                 memo);
-//        WLog.w("tosign " + WUtil.prettyPrinter(tosign));
+        WLog.w("tosign " + WUtil.prettyPrinter(tosign));
 
         String signatureTx = MsgGenerator.getSignature(key, tosign.getToSignByte());
-//        WLog.w("signatureTx " + signatureTx);
+        WLog.w("signatureTx " + signatureTx);
 
         Signature signature = new Signature();
         Pub_key pubKey = new Pub_key();

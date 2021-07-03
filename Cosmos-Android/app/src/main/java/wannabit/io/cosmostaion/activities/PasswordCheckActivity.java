@@ -536,8 +536,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_CLAIM_HARVEST_REWARD) {
-            new SimpleClaimHarvestRewardTask(getBaseApplication(), this,  mAccount,  mDepositDenom,
-                    mDepositType, mMultiplierName,  mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleClaimHarvestRewardTask(getBaseApplication(), this,  mAccount, mMultiplierName,
+                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_BORROW_HARD) {
             new SimpleBorrowHardTask(getBaseApplication(), this, mAccount, mHardPoolCoins, mDepositor,
