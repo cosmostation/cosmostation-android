@@ -135,6 +135,8 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     func onBindMyCdp(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:CdpLisyMyCell? = tableView.dequeueReusableCell(withIdentifier:"CdpLisyMyCell") as? CdpLisyMyCell
         
+        
+        
         let myCdp = myCdps![position]
         let mCollateralParam = cdpParam!.getCollateralParamByType(myCdp.cdp!.type!)
         let mCDenom = myCdp.cdp!.getcDenom()
@@ -230,13 +232,18 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchCdpParam res ", res)
                 guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
-                        self.onFetchFinished()
-                        return
+                    self.onFetchFinished()
+                    return
                 }
                 let kavaCdpParam = KavaCdpParam.init(responseData)
                 BaseData.instance.mCdpParam = kavaCdpParam.result
+                if let collateral_params = BaseData.instance.mCdpParam?.collateral_params {
+                    self.mFetchCnt = self.mFetchCnt + collateral_params.count
+                    for collateral_param in collateral_params{
+                        self.onFetchPriceFeedPrice(collateral_param.liquidation_market_id!)
+                    }
+                }
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchCdpParam ", error) }
@@ -244,6 +251,25 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
             self.onFetchFinished()
         }
         
+    }
+    
+    func onFetchPriceFeedPrice(_ market: String) {
+        let request = Alamofire.request(BaseNetWork.priceFeedUrl(chainType, market), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
+                    self.onFetchFinished()
+                    return
+                }
+                let priceParam = KavaPriceFeedPrice.init(responseData)
+                BaseData.instance.mKavaPrice[priceParam.result.market_id] = priceParam
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchKavaPrice ", market , " ", error) }
+            }
+            self.onFetchFinished()
+        }
     }
     
     func onFetchIncentiveReward(_ address: String) {
@@ -283,7 +309,4 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
             self.onFetchFinished()
         }
     }
-    
-    
-
 }

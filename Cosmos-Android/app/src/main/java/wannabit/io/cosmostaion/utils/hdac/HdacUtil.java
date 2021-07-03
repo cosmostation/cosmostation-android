@@ -27,6 +27,12 @@ public class HdacUtil {
     private final static String         mBurnAddress    = "HDC1cXNDDuDgmmpmqxoR2Bwf2bzx2fxVZy";
     private final static BigDecimal     mTxFee          = new BigDecimal("10000000");
 
+    protected final static int          mAddressHeader_Mainnet = 40;
+    protected final static int          mAddressHeader_Testnet = 100;
+    protected final static String       mAddressChecksumValue_Mainnet = "48444143";;
+    protected final static String       mAddressChecksumValue_Testnet = "48545354";
+
+
     private HdacNetworkParams           mParams;
     private DeterministicHierarchy      mDeterministicHierarchy;
     private DeterministicKey            mMasterKey;
@@ -45,8 +51,8 @@ public class HdacUtil {
         return mDeterministicHierarchy.deriveChild(parentPath, true, true,  new ChildNumber(0));
     }
 
-    public String getAddress() {
-        return convPubkeyToHdacAddress(getKey().getPubKey());
+    public String getAddress(boolean mainnet) {
+        return convPubkeyToHdacAddress(getKey().getPubKey(), mainnet);
     }
 
     public BigDecimal getBalance(ArrayList<HdacUtxo> utxos) {
@@ -69,7 +75,7 @@ public class HdacUtil {
         return result;
     }
 
-    public String genRawTxSend(ArrayList<HdacUtxo> utxos, String toAddress, BigDecimal send_amount) {
+    public String genRawTxSend(boolean mainnet, ArrayList<HdacUtxo> utxos, String toAddress, BigDecimal send_amount) {
         String txHex = null;
         HdacTx hdacTx = new HdacTx();
         BigDecimal balance = getBalance(utxos);
@@ -77,7 +83,7 @@ public class HdacUtil {
         BigDecimal remain = balance.subtract(send_amount).subtract(fee);
 
         hdacTx.addOutput(toAddress, send_amount.longValue());
-        hdacTx.addOutput(getAddress(), remain.longValue());
+        hdacTx.addOutput(getAddress(mainnet), remain.longValue());
         for (int i=0; i<utxos.size();i++) {
             UTXO utxo = utxos.get(i).toUTXO();
             hdacTx.addInput(utxo);
@@ -86,7 +92,7 @@ public class HdacUtil {
         return txHex;
     }
 
-    public String genSignedTxSend(ArrayList<HdacUtxo> utxos, String toAddress, BigDecimal send_amount) {
+    public String genSignedTxSend(boolean mainnet, ArrayList<HdacUtxo> utxos, String toAddress, BigDecimal send_amount) {
         String txHex = null;
         HdacTx hdacTx = new HdacTx();
         BigDecimal balance = getBalance(utxos);
@@ -94,7 +100,7 @@ public class HdacUtil {
         BigDecimal remain = balance.subtract(send_amount).subtract(fee);
 
         hdacTx.addOutput(toAddress, send_amount.longValue());
-        hdacTx.addOutput(getAddress(), remain.longValue());
+        hdacTx.addOutput(getAddress(mainnet), remain.longValue());
 
         for (int i=0; i<utxos.size();i++) {
             UTXO utxo = utxos.get(i).toUTXO();
@@ -142,10 +148,13 @@ public class HdacUtil {
 
 
 
-    public String convPubkeyToHdacAddress(byte[] buf) {
+    public String convPubkeyToHdacAddress(byte[] buf, boolean mainnet) {
         byte[] hash = ripemd160(sha256(buf));
         byte[] payload = new byte[hash.length + 1];
-        payload[0] = (byte)mParams.getAddressHeader();
+//        payload[0] = (byte)mParams.getAddressHeader();
+        if (mainnet) { payload[0] = (byte)mAddressHeader_Mainnet; }
+        else { payload[0] = (byte)mAddressHeader_Testnet; }
+
         for(int i=0;i<hash.length;i++) {
             payload[i+1] = hash[i];
         }
@@ -161,7 +170,11 @@ public class HdacUtil {
         }
         ArrayUtils.reverse(checksum);
 
-        byte[] hdacChecksum = hexToByte(mParams.getAddressChecksumValue());
+//        byte[] hdacChecksum = hexToByte(mParams.getAddressChecksumValue());
+        byte[] hdacChecksum = null;
+        if (mainnet) { hdacChecksum = hexToByte(mAddressChecksumValue_Mainnet); }
+        else { hdacChecksum = hexToByte(mAddressChecksumValue_Testnet); }
+
         ArrayUtils.reverse(hdacChecksum);
         int length = hdacChecksum.length;//Math.max(checksum.length, hdacChecksum.length);
         byte[] checksumBuf = new byte[length];

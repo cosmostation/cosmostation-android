@@ -103,7 +103,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
         let dpDecimal = WUtils.getKavaCoinDecimal(mHardMoneyMarketDenom!)
         var targetPrice = NSDecimalNumber.one;
         if (mHardMoneyMarketDenom != "usdx") {
-            let targetPriceTic = BaseData.instance.mKavaPrice[hardParam!.getHardMoneyMarket(mHardMoneyMarketDenom!)!.spot_market_id! + ":30"]
+            let targetPriceTic = BaseData.instance.mKavaPrice[hardParam!.getHardMoneyMarket(mHardMoneyMarketDenom!)!.spot_market_id!]
             if (targetPriceTic != nil) {
                 targetPrice = NSDecimalNumber.init(string: targetPriceTic?.result.price)
             } else {
@@ -206,7 +206,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
         let targetAvailable = WUtils.availableAmount(balances, mHardMoneyMarketDenom!)
         var targetPrice = NSDecimalNumber.one;
         if (mHardMoneyMarketDenom != "usdx") {
-            let targetPriceTic = BaseData.instance.mKavaPrice[hardParam!.getHardMoneyMarket(mHardMoneyMarketDenom!)!.spot_market_id! + ":30"]
+            let targetPriceTic = BaseData.instance.mKavaPrice[hardParam!.getHardMoneyMarket(mHardMoneyMarketDenom!)!.spot_market_id!]
             if (targetPriceTic != nil) {
                 targetPrice = NSDecimalNumber.init(string: targetPriceTic?.result.price)
             } else {
@@ -219,7 +219,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
 
 
         let kavaAvailable = WUtils.availableAmount(balances, KAVA_MAIN_DENOM)
-        let kavaPriceTic = BaseData.instance.mKavaPrice["kava:usd:30"]
+        let kavaPriceTic = BaseData.instance.mKavaPrice["kava:usd"]
         let kavaPrice = NSDecimalNumber.init(string: kavaPriceTic?.result.price)
         let kavaValue = kavaAvailable.multiplying(byPowerOf10: -6).multiplying(by: kavaPrice, withBehavior: WUtils.handler2Down)
         cell?.kavaAmountLabel.attributedText = WUtils.displayAmount2(kavaAvailable.stringValue, cell!.kavaAmountLabel.font!, 6, 6)
