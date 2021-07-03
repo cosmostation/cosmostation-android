@@ -26,14 +26,18 @@ import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListHardFragment;
 import wannabit.io.cosmostaion.model.kava.AuctionParam;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.task.FetchTask.KavaAuctionParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaHardParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaPriceFeedParamTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -43,6 +47,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_PARA
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
 public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
@@ -137,6 +142,10 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         if (result.taskType == TASK_FETCH_KAVA_CDP_PARAM) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mCdpParam = (CdpParam)result.resultData;
+                for (CollateralParam collateralParam: getBaseDao().mCdpParam.collateral_params) {
+                    mTaskCount = mTaskCount + 1;
+                    new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), collateralParam.liquidation_market_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_HARD_PARAM) {
@@ -157,6 +166,12 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mIncentiveRewards = (IncentiveReward)result.resultData;
+            }
+
+        } else if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
+            if (result.isSuccess && result.resultData != null) {
+                final MarketPrice price = (MarketPrice)result.resultData;
+                getBaseDao().mKavaTokenPrices.put(price.market_id, price);
             }
 
         }

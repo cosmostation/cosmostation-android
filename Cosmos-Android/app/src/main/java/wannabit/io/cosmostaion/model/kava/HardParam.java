@@ -24,7 +24,7 @@ public class HardParam {
     public String getSpotMarketId(String denom) {
         for (HardMoneyMarket market: money_markets){
             if (market.denom.equals(denom)) {
-                return market.spot_market_id + ":30";
+                return market.spot_market_id;
             }
         }
         return null;

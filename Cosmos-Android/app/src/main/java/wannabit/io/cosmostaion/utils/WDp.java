@@ -498,27 +498,30 @@ public class WDp {
 
     public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal amount) {
         int dpDecimal = WUtil.getKavaCoinDecimal(denom);
-        if (denom.equals("usdx") || denom.equals("busd")) {
-            return amount.movePointLeft(dpDecimal);
+        HashMap<String, MarketPrice> prices = baseData.mKavaTokenPrices;
+        if (denom.equals("hard") && prices.get("hard:usd") != null) {
+            BigDecimal price = new BigDecimal(prices.get("hard:usd").price);
+            return amount.movePointLeft(dpDecimal).multiply(price);
 
-        } else {
-            HashMap<String, MarketPrice> prices = baseData.mKavaTokenPrices;
-            if (denom.equals("hard") && prices.get("hard:usd:30") != null) {
-                BigDecimal price = new BigDecimal(prices.get("hard:usd:30").price);
-                return amount.movePointLeft(dpDecimal).multiply(price);
+        } else if (denom.contains("btc") && prices.get("btc:usd") != null) {
+            BigDecimal price = new BigDecimal(prices.get("btc:usd").price);
+            return amount.movePointLeft(dpDecimal).multiply(price);
 
-            } else if (denom.contains("btc") && prices.get("btc:usd:30") != null) {
-                BigDecimal price = new BigDecimal(prices.get("btc:usd:30").price);
-                return amount.movePointLeft(dpDecimal).multiply(price);
+        } else if (denom.contains("bnb") && prices.get("bnb:usd") != null) {
+            BigDecimal price = new BigDecimal(prices.get("bnb:usd").price);
+            return amount.movePointLeft(dpDecimal).multiply(price);
 
-            } else if (denom.contains("bnb") && prices.get("bnb:usd:30") != null) {
-                BigDecimal price = new BigDecimal(prices.get("bnb:usd:30").price);
-                return amount.movePointLeft(dpDecimal).multiply(price);
+        } else if (denom.contains("xrp") && prices.get("xrp:usd") != null) {
+            BigDecimal price = new BigDecimal(prices.get("xrp:usd").price);
+            return amount.movePointLeft(dpDecimal).multiply(price);
 
-            } else if (denom.contains("xrp") && prices.get("xrp:usd:30") != null) {
-                BigDecimal price = new BigDecimal(prices.get("xrp:usd:30").price);
-                return amount.movePointLeft(dpDecimal).multiply(price);
-            }
+        } else if (denom.contains("usdx") && prices.get("usdx:usd") != null) {
+            BigDecimal price = new BigDecimal(prices.get("usdx:usd").price);
+            return amount.movePointLeft(dpDecimal).multiply(price);
+
+        } else if (denom.contains("busd") && prices.get("busd:usd") != null) {
+            BigDecimal price = new BigDecimal(prices.get("busd:usd").price);
+            return amount.movePointLeft(dpDecimal).multiply(price);
         }
         return BigDecimal.ZERO;
 

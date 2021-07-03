@@ -60,7 +60,7 @@ public class HardDetailMyAvailableHolder extends BaseHolder {
         // Display each usd value
         BigDecimal targetPrice = BigDecimal.ZERO;
         if (!denom.equals("usdx")) {
-            MarketPrice marketPrice = baseData.mKavaTokenPrices.get(hardMoneyMarket.spot_market_id + ":30");
+            MarketPrice marketPrice = baseData.mKavaTokenPrices.get(hardMoneyMarket.spot_market_id);
             if (marketPrice != null) {
                 targetPrice = new BigDecimal(marketPrice.price);
             }
