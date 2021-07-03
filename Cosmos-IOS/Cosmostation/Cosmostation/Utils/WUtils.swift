@@ -70,7 +70,7 @@ class WUtils {
             result.account_address = accountInfo.result.value.address
             result.account_sequence_number = Int64(accountInfo.result.value.sequence)!
             result.account_account_numner = Int64(accountInfo.result.value.account_number)!
-        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT || accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
+        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_V_VESTING_ACCOUNT || accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
             result.account_address = accountInfo.result.value.address
             result.account_sequence_number = Int64(accountInfo.result.value.sequence)!
             result.account_account_numner = Int64(accountInfo.result.value.account_number)!
@@ -146,7 +146,7 @@ class WUtils {
                 result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
             })
             
-        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT || accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
+        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_V_VESTING_ACCOUNT || accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
             var dpBalance = NSDecimalNumber.zero
             var dpVesting = NSDecimalNumber.zero
             var originalVesting = NSDecimalNumber.zero

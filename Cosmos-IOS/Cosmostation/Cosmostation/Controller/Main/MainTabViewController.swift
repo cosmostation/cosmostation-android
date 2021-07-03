@@ -422,8 +422,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             if (BaseData.instance.mNodeInfo_gRPC == nil) {
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             } else {
-//                print("nodeInfo ", BaseData.instance.mNodeInfo_gRPC?.network)
-//                print("authInfo ", BaseData.instance.mAccount_gRPC?.typeURL)
                 if (BaseData.instance.mAccount_gRPC != nil && BaseData.instance.mAccount_gRPC!.typeURL.contains(Cosmos_Auth_V1beta1_BaseAccount.protoMessageName) == false) {
                     if (mChainType == ChainType.PERSIS_MAIN) {
                         WUtils.onParsePersisVestingAccount()
