@@ -769,7 +769,7 @@ class WUtils {
         } else if (msgs[0].type == KAVA_MSG_TYPE_LIQUIDATE_HARD) {
             resultMsg = NSLocalizedString("tx_kava_hard_liquidate", comment: "")
             
-        } else if (msgs[0].type == KAVA_MSG_TYPE_CLAIM_HAVEST || msgs[0].type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
+        } else if (msgs[0].type == KAVA_MSG_TYPE_CLAIM_HAVEST || msgs[0].type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE || msgs[0].type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV) {
             resultMsg = NSLocalizedString("tx_kava_hard_hard_incentive", comment: "")
             
         } else if (msgs[0].type == KAVA_MSG_TYPE_INCENTIVE_REWARD || msgs[0].type == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
@@ -2800,7 +2800,7 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_REINVEST))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_VOTE))
-            } else if (type == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE || type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
+            } else if (type == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE || type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE || type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_CLAIM_INCENTIVE))
             } else if (type == KAVA_MSG_TYPE_CREATE_CDP || type == KAVA_MSG_TYPE_DEPOSIT_CDP || type == KAVA_MSG_TYPE_WITHDRAW_CDP ||
                         type == KAVA_MSG_TYPE_DRAWDEBT_CDP || type == KAVA_MSG_TYPE_REPAYDEBT_CDP) {

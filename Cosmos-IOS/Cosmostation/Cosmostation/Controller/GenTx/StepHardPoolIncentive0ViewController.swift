@@ -36,10 +36,6 @@ class StepHardPoolIncentive0ViewController: BaseViewController {
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
         self.pageHolderVC = self.parent as? StepGenTxViewController
-        print("mKavaAccountResult", BaseData.instance.mKavaAccountResult.type)
-        if (BaseData.instance.mKavaAccountResult.type == COSMOS_AUTH_TYPE_V_VESTING_ACCOUNT) {
-            print("display recipient address")
-        }
         
         mKavaIncentiveAmount = BaseData.instance.mIncentiveRewards!.getHardPoolKavaRewardAmount()
         mHardIncentiveAmount = BaseData.instance.mIncentiveRewards!.getHardPoolHardRewardAmount()

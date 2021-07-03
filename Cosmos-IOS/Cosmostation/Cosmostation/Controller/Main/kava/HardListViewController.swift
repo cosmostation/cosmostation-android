@@ -246,10 +246,19 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.onShowAddMenomicDialog()
             return
         }
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mType = KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(txVC, animated: true)
+//        if (BaseData.instance.mKavaAccountResult.type == COSMOS_AUTH_TYPE_V_VESTING_ACCOUNT) {
+//            let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+//            txVC.mType = KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV
+//            self.navigationItem.title = ""
+//            self.navigationController?.pushViewController(txVC, animated: true)
+//
+//
+//        } else {
+            let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+            txVC.mType = KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(txVC, animated: true)
+//        }
     }
     
     

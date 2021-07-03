@@ -303,6 +303,7 @@ let KAVA_MSG_TYPE_WITHDRAW_HAVEST           = "harvest/MsgWithdraw";
 let KAVA_MSG_TYPE_CLAIM_HAVEST              = "harvest/MsgClaimReward";
 let KAVA_MSG_TYPE_USDX_MINT_INCENTIVE       = "incentive/MsgClaimUSDXMintingReward";
 let KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE      = "incentive/MsgClaimHardReward";
+let KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV   = "incentive/MsgClaimHardRewardVVesting";
 let KAVA_MSG_TYPE_DEPOSIT_HARD              = "hard/MsgDeposit";
 let KAVA_MSG_TYPE_WITHDRAW_HARD             = "hard/MsgWithdraw";
 let KAVA_MSG_TYPE_BORROW_HARD               = "hard/MsgBorrow";
