@@ -822,9 +822,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 final ResKavaPriceFeedParam.KavaPriceParam kavaPriceParam = (ResKavaPriceFeedParam.KavaPriceParam)result.resultData;
                 if (kavaPriceParam != null && kavaPriceParam.markets != null && kavaPriceParam.markets.size() > 0) {
-                    mTaskCount = mTaskCount + (kavaPriceParam.markets.size()/2);
                     for (ResKavaPriceFeedParam.KavaPriceMarket market:kavaPriceParam.markets) {
-                        if (market.market_id.contains(":30")) {
+                        if (!market.market_id.contains(":30")) {
+                            mTaskCount = mTaskCount + 1;
                             new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), market.market_id).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                         }
                     }
