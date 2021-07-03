@@ -1628,25 +1628,26 @@ class WUtils {
     
     static func getKavaTokenDollorValue(_ denom: String, _ amount: NSDecimalNumber) -> NSDecimalNumber {
         let dpDeciaml = getKavaCoinDecimal(denom)
-        if (denom == "usdx" || denom == "busd") {
-            return amount.multiplying(byPowerOf10: -dpDeciaml)
-            
-        } else {
-            let prices = BaseData.instance.mKavaPrice
-            if let price = prices["hard:usd:30"], denom == "hard" {
-                return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
-            }
-            if let price = prices["btc:usd:30"], denom.contains("btc") {
-                return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
-            }
-            if let price = prices["bnb:usd:30"], denom.contains("bnb") {
-                return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
-            }
-            if let price = prices["xrp:usd:30"], denom.contains("xrp") {
-                return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
-            }
-            return NSDecimalNumber.zero
+        let prices = BaseData.instance.mKavaPrice
+        if let price = prices["hard:usd"], denom == "hard" {
+            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
         }
+        if let price = prices["btc:usd"], denom.contains("btc") {
+            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+        }
+        if let price = prices["bnb:usd"], denom.contains("bnb") {
+            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+        }
+        if let price = prices["xrp:usd"], denom.contains("xrp") {
+            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+        }
+        if let price = prices["usdx:usd"], denom.contains("usdx") {
+            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+        }
+        if let price = prices["busd:usd"], denom.contains("busd") {
+            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+        }
+        return NSDecimalNumber.zero
     }
     
     static func convertTokenToKava(_ denom: String) -> NSDecimalNumber {

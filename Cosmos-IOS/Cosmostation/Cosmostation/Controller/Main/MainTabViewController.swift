@@ -506,6 +506,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         print("BaseData.instance.mOtherValidator ", BaseData.instance.mOtherValidator.count)
         print("BaseData.instance.mMyValidator ", BaseData.instance.mMyValidator.count)
         
+        
         if (BaseData.instance.mNodeInfo == nil || BaseData.instance.mAllValidator.count <= 0) {
             self.onShowToast(NSLocalizedString("error_network", comment: ""))
         }
@@ -836,12 +837,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 let priceParam = KavaPriceFeedParam.init(responseData)
-                self.mFetchCnt = self.mFetchCnt + (priceParam.result.markets.count / 2)
                 for market in priceParam.result.markets {
-                    if (market.market_id.contains(":30")) {
+                    if (!market.market_id.contains(":30")) {
+                        self.mFetchCnt = self.mFetchCnt + 1
                         self.onFetchPriceFeedPrice(market.market_id)
                     }
                 }
+            
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchPriceFeedParam ", error) }
             }

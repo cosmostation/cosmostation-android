@@ -28,7 +28,7 @@ public struct HardParam {
     
     public func getSpotMarketId(_ denom: String) -> String? {
         if let market = money_markets?.filter { $0.denom == denom}.first {
-            return market.spot_market_id! + ":30"
+            return market.spot_market_id!
         }
         return ""
     }
