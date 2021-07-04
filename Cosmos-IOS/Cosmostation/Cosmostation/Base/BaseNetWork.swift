@@ -1002,7 +1002,14 @@ class BaseNetWork {
     
     static func getParams(_ chainId: String) -> String {
         return STATION_URL + "v1/params/" + chainId
-        
+    }
+    
+    static func getIbcPaths(_ chainId: String) -> String {
+        return STATION_URL + "v1/ibc/paths/" + chainId
+    }
+    
+    static func getIbcTokens(_ chainId: String) -> String {
+        return STATION_URL + "v1/ibc/tokens/" + chainId
     }
     
     static func getConnection(_ chain: ChainType, _ group: MultiThreadedEventLoopGroup) -> ClientConnection? {

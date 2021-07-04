@@ -19,6 +19,8 @@ final class BaseData : NSObject{
     var copySalt: String?
     var mPrices = Array<Price>()
     var mParam: Param?
+    var mIbcPaths = Array<IbcPath>()
+    var mIbcTokens = Array<IbcToken>()
     
     var mNodeInfo: NodeInfo?
     var mBalances = Array<Balance>()

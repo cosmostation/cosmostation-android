@@ -162,8 +162,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         if (self.mFetchCnt > 0)  {
             return false
         }
-        BaseData.instance.mPrices.removeAll()
+        
         BaseData.instance.mParam = nil
+        BaseData.instance.mPrices.removeAll()
+        BaseData.instance.mIbcPaths.removeAll()
+        BaseData.instance.mIbcTokens.removeAll()
+        
         
         BaseData.instance.mNodeInfo = nil
         BaseData.instance.mAllValidator.removeAll()
@@ -988,6 +992,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchSifVsIncentive(_ address: String) {
+        print("onFetchSifVsIncentive url ", BaseNetWork.vsIncentiveUrl(address))
         let request = Alamofire.request(BaseNetWork.vsIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -1008,6 +1013,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchSifLmIncentive(_ address: String) {
+        print("onFetchSifLmIncentive url ", BaseNetWork.lmIncentiveUrl(address))
         let request = Alamofire.request(BaseNetWork.lmIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -1064,8 +1070,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 print("onFetchgRPCNodeInfo failed: \(error)")
             }
             DispatchQueue.main.async(execute: {
-                self.mFetchCnt = self.mFetchCnt + 1
+                self.mFetchCnt = self.mFetchCnt + 3
                 self.onFetchParams(BaseData.instance.getChainId_gRPC())
+                self.onFetchIbcPaths(BaseData.instance.getChainId_gRPC())
+                self.onFetchIbcTokens(BaseData.instance.getChainId_gRPC())
                 self.onFetchFinished()
             });
         }
@@ -1404,11 +1412,51 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //                print("mParam ", BaseData.instance.mParam)
             
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchPriceInfo ", error) }
+                print("onFetchParams ", error)
             }
             self.onFetchFinished()
         }
-        
+    }
+    
+    func onFetchIbcPaths(_ chainId: String) {
+        print("onFetchIbcPaths ", chainId, "   ", BaseNetWork.getIbcPaths(chainId))
+        let request = Alamofire.request(BaseNetWork.getIbcPaths(chainId), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("onFetchIbcPaths res ", res)
+                if let resData = res as? NSDictionary, let senderables = resData.object(forKey: "sendable") as? Array<NSDictionary> {
+                    senderables.forEach { senderable in
+                        BaseData.instance.mIbcPaths.append(IbcPath.init(senderable))
+                    }
+                }
+                print("mIbcPaths ", BaseData.instance.mIbcPaths.count)
+            
+            case .failure(let error):
+                print("onFetchIbcPaths ", error)
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchIbcTokens(_ chainId: String) {
+        print("onFetchIbcTokens ", chainId, "   ", BaseNetWork.getIbcTokens(chainId))
+        let request = Alamofire.request(BaseNetWork.getIbcTokens(chainId), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if let resData = res as? NSDictionary, let ibcTokens = resData.object(forKey: "ibc_tokens") as? Array<NSDictionary> {
+                    ibcTokens.forEach { ibcToken in
+                        BaseData.instance.mIbcTokens.append(IbcToken.init(ibcToken))
+                    }
+                }
+                print("ibcTokens ", BaseData.instance.mIbcTokens.count)
+            
+            case .failure(let error):
+                print("onFetchIbcTokens ", error)
+            }
+            self.onFetchFinished()
+        }
     }
     
     
