@@ -692,6 +692,7 @@
 "tx_starname_renew_domain" = "Domain 갱신";
 "tx_starname_renew_account" = "Account 갱신";
 "tx_starname_update_resource" = "주소 등록";
+
 "tx_kava_hard_deposit" = "하드풀\n예치";
 "tx_kava_hard_withdraw" = "하드풀\n출금";
 "tx_kava_hard_borrow" = "하드풀\n대출";
@@ -699,10 +700,15 @@
 "tx_kava_hard_liquidate" = "하드풀\n청산";
 "tx_kava_hard_hard_incentive" = "인센티브\n하드풀";
 "tx_kava_hard_mint_incentive" = "인센티브\nUSDX 발행";
+
 "tx_ibc_send" = "IBC 보내기";
 "tx_ibc_receive" = "IBC 받기";
 "tx_ibc_client_update" = "IBC 클라이언트\n업데이트";
 "tx_ibc_acknowledgement" = "IBC 승인";
+
+"tx_osmosis_create_pool" = "풀 생성";
+"tx_osmosis_join_pool" = "풀 참가";
+"tx_osmosis_exit_pool" = "풀 나가기";
 "tx_known" = "알 수 없음";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

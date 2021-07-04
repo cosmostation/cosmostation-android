@@ -47,6 +47,12 @@
 		049758892685BF530039872C /* TokenDetailIovCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049758872685BF530039872C /* TokenDetailIovCell.xib */; };
 		04D1384D2691C78F00D6AF9F /* IbcPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1384C2691C78F00D6AF9F /* IbcPath.swift */; };
 		04D1384F2691CAF100D6AF9F /* IbcToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1384E2691CAF100D6AF9F /* IbcToken.swift */; };
+		04D138532691E23200D6AF9F /* TxCreatePoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D138512691E23200D6AF9F /* TxCreatePoolCell.swift */; };
+		04D138542691E23200D6AF9F /* TxCreatePoolCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D138522691E23200D6AF9F /* TxCreatePoolCell.xib */; };
+		04D138572691E25500D6AF9F /* TxJoinPoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D138552691E25500D6AF9F /* TxJoinPoolCell.swift */; };
+		04D138582691E25500D6AF9F /* TxJoinPoolCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D138562691E25500D6AF9F /* TxJoinPoolCell.xib */; };
+		04D1385B2691E26700D6AF9F /* TxExitPoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D138592691E26700D6AF9F /* TxExitPoolCell.swift */; };
+		04D1385C2691E26700D6AF9F /* TxExitPoolCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1385A2691E26700D6AF9F /* TxExitPoolCell.xib */; };
 		2800CF9624719EC4003C3EF1 /* Tally.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800CF9524719EC4003C3EF1 /* Tally.swift */; };
 		2800CF982471A004003C3EF1 /* CosmosProposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800CF972471A004003C3EF1 /* CosmosProposer.swift */; };
 		280524B4255CDA7D004D6172 /* StarnameWalletConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280524B2255CDA7D004D6172 /* StarnameWalletConnectViewController.swift */; };
@@ -949,6 +955,12 @@
 		049758872685BF530039872C /* TokenDetailIovCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailIovCell.xib; sourceTree = "<group>"; };
 		04D1384C2691C78F00D6AF9F /* IbcPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IbcPath.swift; sourceTree = "<group>"; };
 		04D1384E2691CAF100D6AF9F /* IbcToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IbcToken.swift; sourceTree = "<group>"; };
+		04D138512691E23200D6AF9F /* TxCreatePoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCreatePoolCell.swift; sourceTree = "<group>"; };
+		04D138522691E23200D6AF9F /* TxCreatePoolCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxCreatePoolCell.xib; sourceTree = "<group>"; };
+		04D138552691E25500D6AF9F /* TxJoinPoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxJoinPoolCell.swift; sourceTree = "<group>"; };
+		04D138562691E25500D6AF9F /* TxJoinPoolCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxJoinPoolCell.xib; sourceTree = "<group>"; };
+		04D138592691E26700D6AF9F /* TxExitPoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxExitPoolCell.swift; sourceTree = "<group>"; };
+		04D1385A2691E26700D6AF9F /* TxExitPoolCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxExitPoolCell.xib; sourceTree = "<group>"; };
 		2800CF9524719EC4003C3EF1 /* Tally.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tally.swift; sourceTree = "<group>"; };
 		2800CF972471A004003C3EF1 /* CosmosProposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmosProposer.swift; sourceTree = "<group>"; };
 		280524B2255CDA7D004D6172 /* StarnameWalletConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarnameWalletConnectViewController.swift; sourceTree = "<group>"; };
@@ -1876,6 +1888,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04D138502691E20D00D6AF9F /* osmosis */ = {
+			isa = PBXGroup;
+			children = (
+				04D138512691E23200D6AF9F /* TxCreatePoolCell.swift */,
+				04D138522691E23200D6AF9F /* TxCreatePoolCell.xib */,
+				04D138552691E25500D6AF9F /* TxJoinPoolCell.swift */,
+				04D138562691E25500D6AF9F /* TxJoinPoolCell.xib */,
+				04D138592691E26700D6AF9F /* TxExitPoolCell.swift */,
+				04D1385A2691E26700D6AF9F /* TxExitPoolCell.xib */,
+			);
+			path = osmosis;
+			sourceTree = "<group>";
+		};
 		282121BA25FDE71C0016ABFE /* ProtoBuff */ = {
 			isa = PBXGroup;
 			children = (
@@ -2398,6 +2423,7 @@
 		284D17F32535D69000C364F9 /* txs */ = {
 			isa = PBXGroup;
 			children = (
+				04D138502691E20D00D6AF9F /* osmosis */,
 				28641F2F2601AD59000AAEB8 /* TxCell.swift */,
 				2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */,
 				2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */,
@@ -3164,6 +3190,7 @@
 				282FF35A23F52FD40028CC66 /* TxRewardCell.xib in Resources */,
 				285A33DF2447633D0052BD3D /* SelectAccountCell.xib in Resources */,
 				E103DAC02281296E006C2146 /* QRScanViewController.xib in Resources */,
+				04D138542691E23200D6AF9F /* TxCreatePoolCell.xib in Resources */,
 				E126CFB42387A7BD002A546F /* TokenDetailKavaCell.xib in Resources */,
 				282FF34A23F50C540028CC66 /* TxUndelegateCell.xib in Resources */,
 				E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */,
@@ -3219,6 +3246,7 @@
 				2872B0F3252EF79900E8CACF /* WalletSecretCell.xib in Resources */,
 				28BB2A882533DA0B00CFF097 /* AccountPromotionCell.xib in Resources */,
 				283A80D2245141EB008FF813 /* CdpDetailMyActionCell.xib in Resources */,
+				04D138582691E25500D6AF9F /* TxJoinPoolCell.xib in Resources */,
 				28474ECB241E06AF00AF5A81 /* TxCdpWithdrawCell.xib in Resources */,
 				2842AB6F242C5C7200248EEB /* CdpLisyMyCell.xib in Resources */,
 				E15DA48122F1738C000557FC /* PromotionCell.xib in Resources */,
@@ -3272,6 +3300,7 @@
 				2845D881246FAED7007CD497 /* VoteInfoTableViewCell.xib in Resources */,
 				28CFB6A826133C9700A18634 /* StakingTokenDetailViewController.xib in Resources */,
 				280E1EF9254A7AC80007BA7D /* DeleteStarname0ViewController.xib in Resources */,
+				04D1385C2691E26700D6AF9F /* TxExitPoolCell.xib in Resources */,
 				E126CF822387A48F002A546F /* WalletAddressCell.xib in Resources */,
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
 				28BB2A922533DA2D00CFF097 /* AccountCell.xib in Resources */,
@@ -3669,6 +3698,7 @@
 				289EF82F26824E4700F90AC1 /* osmosis_incentives_query.grpc.swift in Sources */,
 				287AC61625FDF7260070837E /* service_service.pb.swift in Sources */,
 				E1F7F63623436B71000E597F /* BnbHistory.swift in Sources */,
+				04D138572691E25500D6AF9F /* TxJoinPoolCell.swift in Sources */,
 				288D24FD268321A40093121A /* ApiHistoryNewCustom.swift in Sources */,
 				287AC5DC25FDF7260070837E /* cosmos_slashing_v1beta1_query.grpc.swift in Sources */,
 				28248A9425DD3DD4004F3FB0 /* ApiHistoryCustom.swift in Sources */,
@@ -3754,6 +3784,7 @@
 				28592E772580616D00C31460 /* BaseNetWork.swift in Sources */,
 				2889FD872603485200CA9896 /* TxIncentiveMintingCell.swift in Sources */,
 				2868559724989AB80099D18F /* CdpWarnPopup.swift in Sources */,
+				04D1385B2691E26700D6AF9F /* TxExitPoolCell.swift in Sources */,
 				287AC63E25FDF7260070837E /* coinswap_query.pb.swift in Sources */,
 				288A14DD25199A9800E17808 /* WalletCertikCell.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
@@ -4037,6 +4068,7 @@
 				2836E19B2680B3F300119FD2 /* HdacAddress.swift in Sources */,
 				049758812685AA270039872C /* iov_configuration_v1beta1_types.pb.swift in Sources */,
 				287AC5D825FDF7260070837E /* cosmos_mint_v1beta1_query.pb.swift in Sources */,
+				04D138532691E23200D6AF9F /* TxCreatePoolCell.swift in Sources */,
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
 				287AC5F125FDF7260070837E /* akash_deployment_v1beta1_query.pb.swift in Sources */,
 				28B4304424F8B34100BD7BB2 /* OkValidatorListViewController.swift in Sources */,

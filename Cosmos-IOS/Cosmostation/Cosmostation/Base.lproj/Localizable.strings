@@ -689,6 +689,7 @@
 "tx_starname_renew_domain" = "Renew Domain";
 "tx_starname_renew_account" = "Renew Account";
 "tx_starname_update_resource" = "Replace Address";
+
 "tx_kava_hard_deposit" = "Hard Pool\nDeposit";
 "tx_kava_hard_withdraw" = "Hard Pool\nWithdraw";
 "tx_kava_hard_borrow" = "Hard Pool\nBorrow";
@@ -696,10 +697,15 @@
 "tx_kava_hard_liquidate" = "Hard Pool\nLiquidate";
 "tx_kava_hard_hard_incentive" = "Incentive\nHard Pool";
 "tx_kava_hard_mint_incentive" = "Incentive\nUSDX Minting";
+
 "tx_ibc_send" = "IBC Send";
 "tx_ibc_receive" = "IBC Received";
 "tx_ibc_client_update" = "IBC Client\nUpdate";
 "tx_ibc_acknowledgement" = "IBC Acknowledgement";
+
+"tx_osmosis_create_pool" = "Create Pool";
+"tx_osmosis_join_pool" = "Join Pool";
+"tx_osmosis_exit_pool" = "Exit Pool";
 "tx_known" = "Unknown";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

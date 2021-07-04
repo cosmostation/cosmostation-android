@@ -51,6 +51,11 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
         self.txTableView.register(UINib(nibName: "TxDeleteAccountCell", bundle: nil), forCellReuseIdentifier: "TxDeleteAccountCell")
         self.txTableView.register(UINib(nibName: "TxReplaceResourceCell", bundle: nil), forCellReuseIdentifier: "TxReplaceResourceCell")
         self.txTableView.register(UINib(nibName: "TxRenewStarnameCell", bundle: nil), forCellReuseIdentifier: "TxRenewStarnameCell")
+        //for osmosis msg type
+        self.txTableView.register(UINib(nibName: "TxCreatePoolCell", bundle: nil), forCellReuseIdentifier: "TxCreatePoolCell")
+        self.txTableView.register(UINib(nibName: "TxJoinPoolCell", bundle: nil), forCellReuseIdentifier: "TxJoinPoolCell")
+        self.txTableView.register(UINib(nibName: "TxExitPoolCell", bundle: nil), forCellReuseIdentifier: "TxExitPoolCell")
+        
         //for ibc msg type
         self.txTableView.register(UINib(nibName: "TxIbcSendCell", bundle: nil), forCellReuseIdentifier: "TxIbcSendCell")
         //for unknown msg type
@@ -173,6 +178,37 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
                 return cell!
                 
             }
+            
+            else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgCreatePool.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxCreatePoolCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgJoinPool.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxJoinPoolCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgExitPool.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxExitPoolCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgSwapExactAmountIn.protoMessageName)) {
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgSwapExactAmountOut.protoMessageName)) {
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgJoinSwapExternAmountIn.protoMessageName)) {
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgJoinSwapShareAmountOut.protoMessageName)) {
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgExitSwapExternAmountOut.protoMessageName)) {
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgExitSwapShareAmountIn.protoMessageName)) {
+                
+            }
+            
+            
             
             else if (msg.typeURL.contains(Ibc_Applications_Transfer_V1_MsgTransfer.protoMessageName)) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcSendCell") as? TxCell

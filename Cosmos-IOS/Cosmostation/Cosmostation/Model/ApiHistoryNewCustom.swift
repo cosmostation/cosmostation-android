@@ -193,6 +193,17 @@ public struct ApiHistoryNewCustom {
                 
             }
             
+            else if (msgType.contains("MsgCreatePool")) {
+                result = NSLocalizedString("tx_osmosis_create_pool", comment: "")
+                
+            } else if (msgType.contains("MsgJoinPool")) {
+                result = NSLocalizedString("tx_osmosis_join_pool", comment: "")
+                
+            } else if (msgType.contains("MsgExitPool")) {
+                result = NSLocalizedString("tx_osmosis_exit_pool", comment: "")
+                
+            }
+            
             if (getMsgCnt() > 1) {
                 result = result +  "\n+ " + String(getMsgCnt() - 1)
             }
