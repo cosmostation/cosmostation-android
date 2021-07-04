@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="183" id="KGk-i7-Jjw" customClass="TxIbcAcknowledgeCell" customModule="Cosmostation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="475" height="183"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="475" height="183"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7nw-2v-lan" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                        <rect key="frame" x="12" y="4" width="451" height="175"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="msgiconIbc" translatesAutoresizingMaskIntoConstraints="NO" id="e5Z-ko-oxS">
+                                <rect key="frame" x="16" y="16" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="jOZ-wX-VEw"/>
+                                    <constraint firstAttribute="height" constant="28" id="nYu-ap-nJb"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IBC Acknowledgement" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTg-70-PHs">
+                                <rect key="frame" x="50" y="23" width="127.5" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Signer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m2U-lH-FVH">
+                                <rect key="frame" x="16" y="53.5" width="34" height="13.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="do4-Mm-weg">
+                                <rect key="frame" x="16" y="71" width="419" height="13.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Acknowledgement" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ybm-rv-ZlH">
+                                <rect key="frame" x="16" y="100.5" width="96.5" height="13.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rlU-5i-MNK">
+                                <rect key="frame" x="16" y="118" width="419" height="13.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40287885270000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="rlU-5i-MNK" secondAttribute="bottom" constant="20" id="1ng-d8-wDO"/>
+                            <constraint firstItem="m2U-lH-FVH" firstAttribute="top" secondItem="OTg-70-PHs" secondAttribute="bottom" constant="16" id="33T-lr-TnD"/>
+                            <constraint firstItem="rlU-5i-MNK" firstAttribute="trailing" secondItem="do4-Mm-weg" secondAttribute="trailing" id="AgZ-Bu-GPd"/>
+                            <constraint firstItem="OTg-70-PHs" firstAttribute="leading" secondItem="e5Z-ko-oxS" secondAttribute="trailing" constant="6" id="C4U-9E-AIz"/>
+                            <constraint firstItem="do4-Mm-weg" firstAttribute="top" secondItem="m2U-lH-FVH" secondAttribute="bottom" constant="4" id="EOM-2f-kPz"/>
+                            <constraint firstItem="e5Z-ko-oxS" firstAttribute="top" secondItem="7nw-2v-lan" secondAttribute="top" constant="16" id="U9r-9H-z16"/>
+                            <constraint firstItem="do4-Mm-weg" firstAttribute="leading" secondItem="e5Z-ko-oxS" secondAttribute="leading" id="Wfk-1C-Ijj"/>
+                            <constraint firstItem="m2U-lH-FVH" firstAttribute="leading" secondItem="7nw-2v-lan" secondAttribute="leading" constant="16" id="Ytw-iQ-0AF"/>
+                            <constraint firstItem="Ybm-rv-ZlH" firstAttribute="leading" secondItem="m2U-lH-FVH" secondAttribute="leading" id="btZ-uu-TyA"/>
+                            <constraint firstItem="rlU-5i-MNK" firstAttribute="top" secondItem="Ybm-rv-ZlH" secondAttribute="bottom" constant="4" id="c4d-Yr-nIy"/>
+                            <constraint firstItem="Ybm-rv-ZlH" firstAttribute="top" secondItem="do4-Mm-weg" secondAttribute="bottom" constant="16" id="fyH-XE-DPN"/>
+                            <constraint firstAttribute="trailing" secondItem="do4-Mm-weg" secondAttribute="trailing" constant="16" id="hPq-4U-gA9"/>
+                            <constraint firstItem="OTg-70-PHs" firstAttribute="centerY" secondItem="e5Z-ko-oxS" secondAttribute="centerY" id="kBL-sr-HJz"/>
+                            <constraint firstItem="e5Z-ko-oxS" firstAttribute="leading" secondItem="7nw-2v-lan" secondAttribute="leading" constant="16" id="tLw-Hm-3u9"/>
+                            <constraint firstItem="do4-Mm-weg" firstAttribute="leading" secondItem="7nw-2v-lan" secondAttribute="leading" constant="16" id="vpd-dJ-hJH"/>
+                            <constraint firstItem="rlU-5i-MNK" firstAttribute="leading" secondItem="do4-Mm-weg" secondAttribute="leading" id="zvW-dH-Jxg"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                <integer key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.29999999999999999"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                <integer key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="7nw-2v-lan" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="YJL-4a-Xt0"/>
+                    <constraint firstItem="7nw-2v-lan" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="cU9-Gs-cfe"/>
+                    <constraint firstAttribute="bottom" secondItem="7nw-2v-lan" secondAttribute="bottom" constant="4" id="eRD-qY-TqP"/>
+                    <constraint firstAttribute="trailing" secondItem="7nw-2v-lan" secondAttribute="trailing" constant="12" id="oir-Ut-fcn"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="txAcknowledgementLabel" destination="rlU-5i-MNK" id="Zb6-ZL-JyE"/>
+                <outlet property="txIcon" destination="e5Z-ko-oxS" id="AfP-ta-P2X"/>
+                <outlet property="txSingerLabel" destination="do4-Mm-weg" id="ocw-Jf-oeY"/>
+            </connections>
+            <point key="canvasLocation" x="250.00000000000003" y="138.28125"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="msgiconIbc" width="28" height="28"/>
+    </resources>
+</document>

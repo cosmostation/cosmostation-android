@@ -211,7 +211,7 @@ public struct ApiHistoryNewCustom {
             }
             
             if (getMsgCnt() > 1) {
-                result = result +  "\n+ " + String(getMsgCnt() - 1)
+                result = result +  " + " + String(getMsgCnt() - 1)
             }
             
         }

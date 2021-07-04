@@ -59,6 +59,9 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
         
         //for ibc msg type
         self.txTableView.register(UINib(nibName: "TxIbcSendCell", bundle: nil), forCellReuseIdentifier: "TxIbcSendCell")
+        self.txTableView.register(UINib(nibName: "TxIbcReceiveCell", bundle: nil), forCellReuseIdentifier: "TxIbcReceiveCell")
+        self.txTableView.register(UINib(nibName: "TxIbcUpdateClientCell", bundle: nil), forCellReuseIdentifier: "TxIbcUpdateClientCell")
+        self.txTableView.register(UINib(nibName: "TxIbcAcknowledgeCell", bundle: nil), forCellReuseIdentifier: "TxIbcAcknowledgeCell")
         //for unknown msg type
         self.txTableView.register(UINib(nibName: "TxUnknownCell", bundle: nil), forCellReuseIdentifier: "TxUnknownCell")
         
@@ -211,12 +214,25 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
             }
             
             
-            
             else if (msg.typeURL.contains(Ibc_Applications_Transfer_V1_MsgTransfer.protoMessageName)) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcSendCell") as? TxCell
                 cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
                 return cell!
                 
+            } else if (msg.typeURL.contains(Ibc_Core_Channel_V1_MsgRecvPacket.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcReceiveCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Ibc_Core_Client_V1_MsgUpdateClient.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcUpdateClientCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Ibc_Core_Channel_V1_MsgAcknowledgement.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcAcknowledgeCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
             }
             return onBindUnknown(tableView)
         }

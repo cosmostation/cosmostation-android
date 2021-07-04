@@ -47,6 +47,12 @@
 		049758892685BF530039872C /* TokenDetailIovCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049758872685BF530039872C /* TokenDetailIovCell.xib */; };
 		04CFBD482691F8460013150B /* TxTokenSwapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFBD462691F8460013150B /* TxTokenSwapCell.swift */; };
 		04CFBD492691F8460013150B /* TxTokenSwapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CFBD472691F8460013150B /* TxTokenSwapCell.xib */; };
+		04CFBD4D2692274B0013150B /* TxIbcReceiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFBD4B2692274B0013150B /* TxIbcReceiveCell.swift */; };
+		04CFBD4E2692274B0013150B /* TxIbcReceiveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CFBD4C2692274B0013150B /* TxIbcReceiveCell.xib */; };
+		04CFBD51269227680013150B /* TxIbcAcknowledgeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFBD4F269227680013150B /* TxIbcAcknowledgeCell.swift */; };
+		04CFBD52269227680013150B /* TxIbcAcknowledgeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CFBD50269227680013150B /* TxIbcAcknowledgeCell.xib */; };
+		04CFBD552692278C0013150B /* TxIbcUpdateClientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFBD532692278C0013150B /* TxIbcUpdateClientCell.swift */; };
+		04CFBD562692278C0013150B /* TxIbcUpdateClientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CFBD542692278C0013150B /* TxIbcUpdateClientCell.xib */; };
 		04D1384D2691C78F00D6AF9F /* IbcPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1384C2691C78F00D6AF9F /* IbcPath.swift */; };
 		04D1384F2691CAF100D6AF9F /* IbcToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1384E2691CAF100D6AF9F /* IbcToken.swift */; };
 		04D138532691E23200D6AF9F /* TxCreatePoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D138512691E23200D6AF9F /* TxCreatePoolCell.swift */; };
@@ -957,6 +963,12 @@
 		049758872685BF530039872C /* TokenDetailIovCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailIovCell.xib; sourceTree = "<group>"; };
 		04CFBD462691F8460013150B /* TxTokenSwapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxTokenSwapCell.swift; sourceTree = "<group>"; };
 		04CFBD472691F8460013150B /* TxTokenSwapCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxTokenSwapCell.xib; sourceTree = "<group>"; };
+		04CFBD4B2692274B0013150B /* TxIbcReceiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxIbcReceiveCell.swift; sourceTree = "<group>"; };
+		04CFBD4C2692274B0013150B /* TxIbcReceiveCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxIbcReceiveCell.xib; sourceTree = "<group>"; };
+		04CFBD4F269227680013150B /* TxIbcAcknowledgeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxIbcAcknowledgeCell.swift; sourceTree = "<group>"; };
+		04CFBD50269227680013150B /* TxIbcAcknowledgeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxIbcAcknowledgeCell.xib; sourceTree = "<group>"; };
+		04CFBD532692278C0013150B /* TxIbcUpdateClientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxIbcUpdateClientCell.swift; sourceTree = "<group>"; };
+		04CFBD542692278C0013150B /* TxIbcUpdateClientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxIbcUpdateClientCell.xib; sourceTree = "<group>"; };
 		04D1384C2691C78F00D6AF9F /* IbcPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IbcPath.swift; sourceTree = "<group>"; };
 		04D1384E2691CAF100D6AF9F /* IbcToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IbcToken.swift; sourceTree = "<group>"; };
 		04D138512691E23200D6AF9F /* TxCreatePoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCreatePoolCell.swift; sourceTree = "<group>"; };
@@ -1892,6 +1904,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04CFBD4A269226CE0013150B /* ibc */ = {
+			isa = PBXGroup;
+			children = (
+				288D250226834E980093121A /* TxIbcSendCell.swift */,
+				288D250326834E980093121A /* TxIbcSendCell.xib */,
+				04CFBD4B2692274B0013150B /* TxIbcReceiveCell.swift */,
+				04CFBD4C2692274B0013150B /* TxIbcReceiveCell.xib */,
+				04CFBD4F269227680013150B /* TxIbcAcknowledgeCell.swift */,
+				04CFBD50269227680013150B /* TxIbcAcknowledgeCell.xib */,
+				04CFBD532692278C0013150B /* TxIbcUpdateClientCell.swift */,
+				04CFBD542692278C0013150B /* TxIbcUpdateClientCell.xib */,
+			);
+			path = ibc;
+			sourceTree = "<group>";
+		};
 		04D138502691E20D00D6AF9F /* osmosis */ = {
 			isa = PBXGroup;
 			children = (
@@ -2429,6 +2456,7 @@
 		284D17F32535D69000C364F9 /* txs */ = {
 			isa = PBXGroup;
 			children = (
+				04CFBD4A269226CE0013150B /* ibc */,
 				04D138502691E20D00D6AF9F /* osmosis */,
 				28641F2F2601AD59000AAEB8 /* TxCell.swift */,
 				2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */,
@@ -2501,8 +2529,6 @@
 				283E94762549030C007A9291 /* TxReplaceResourceCell.xib */,
 				283E947A25490322007A9291 /* TxRenewStarnameCell.swift */,
 				283E947B25490322007A9291 /* TxRenewStarnameCell.xib */,
-				288D250226834E980093121A /* TxIbcSendCell.swift */,
-				288D250326834E980093121A /* TxIbcSendCell.xib */,
 			);
 			path = txs;
 			sourceTree = "<group>";
@@ -3235,6 +3261,7 @@
 				2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */,
 				28D372A1254BFCCA0071B136 /* RegisterAccount0ViewController.xib in Resources */,
 				28BB2A822533D9FB00CFF097 /* DomainPromotionCell.xib in Resources */,
+				04CFBD52269227680013150B /* TxIbcAcknowledgeCell.xib in Resources */,
 				280E1EFE254A7AD60007BA7D /* DeleteStarname3ViewController.xib in Resources */,
 				283850212448A6B000E5DEF2 /* TxHtlcClaimCell.xib in Resources */,
 				049758612685902A0039872C /* TokenDetailBandCell.xib in Resources */,
@@ -3275,6 +3302,7 @@
 				28B4303A24F7996C00BD7BB2 /* TxOkStakeCell.xib in Resources */,
 				283A80E124514BD0008FF813 /* CdpDetailViewController.xib in Resources */,
 				2889FD78260337AD00CA9896 /* TxHardRepayCell.xib in Resources */,
+				04CFBD4E2692274B0013150B /* TxIbcReceiveCell.xib in Resources */,
 				2838501D2448A69D00E5DEF2 /* TxHtlcCreateCell.xib in Resources */,
 				28DB56EC25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib in Resources */,
 				288D2501268326060093121A /* NewHistoryCell.xib in Resources */,
@@ -3339,6 +3367,7 @@
 				2889FD6E2603378900CA9896 /* TxHardWithdrawCell.xib in Resources */,
 				282BDFE724A5BCCB00D3A5D4 /* WcCancelPopup.xib in Resources */,
 				28D372A6254BFCD70071B136 /* RegisterAccount1ViewController.xib in Resources */,
+				04CFBD562692278C0013150B /* TxIbcUpdateClientCell.xib in Resources */,
 				2852D7742477E83400D11DC4 /* CdpIncentiveCell.xib in Resources */,
 				283A80CD24514194008FF813 /* CdpDetailMyTopCell.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
@@ -3481,6 +3510,7 @@
 				2888B7FC246BC17300B2EB4A /* BnbNodeInfo.swift in Sources */,
 				049758842685AA270039872C /* iov_starname_v1beta1_query.pb.swift in Sources */,
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
+				04CFBD4D2692274B0013150B /* TxIbcReceiveCell.swift in Sources */,
 				286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */,
 				289EF83526824E4700F90AC1 /* osmosis_mint_v1beta1_genesis.pb.swift in Sources */,
 				287AC61225FDF7260070837E /* cosmos_base_reflection_v1beta1_reflection.pb.swift in Sources */,
@@ -3726,6 +3756,7 @@
 				287AC63225FDF7260070837E /* cosmos_base_reflection_v1beta1_reflection.grpc.swift in Sources */,
 				046E9043268C4995002CFFE1 /* BinanceSegwitAddrCoder.swift in Sources */,
 				28B4302A24F76AD500BD7BB2 /* OkTransfer.swift in Sources */,
+				04CFBD51269227680013150B /* TxIbcAcknowledgeCell.swift in Sources */,
 				28D7BE6525F0FC75006EECD7 /* HardMyDeposit.swift in Sources */,
 				28D372B0254C07470071B136 /* RegistAccountCheckCell.swift in Sources */,
 				28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */,
@@ -3810,6 +3841,7 @@
 				287AC65025FDF7260070837E /* cosmos_auth_v1beta1_query.pb.swift in Sources */,
 				28429196264A45FB00130651 /* NativeTokenDetailViewController.swift in Sources */,
 				287AC5D925FDF7260070837E /* oracle_oracle.pb.swift in Sources */,
+				04CFBD552692278C0013150B /* TxIbcUpdateClientCell.swift in Sources */,
 				E1F1CF08239F5737004EF8A2 /* Vote.swift in Sources */,
 				289EF81C26824E4700F90AC1 /* osmosis_incentives_tx.pb.swift in Sources */,
 				2889FD822603484000CA9896 /* TxIncentiveHardCell.swift in Sources */,
