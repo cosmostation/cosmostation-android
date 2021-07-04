@@ -706,6 +706,7 @@
 "tx_osmosis_create_pool" = "Create Pool";
 "tx_osmosis_join_pool" = "Join Pool";
 "tx_osmosis_exit_pool" = "Exit Pool";
+"tx_osmosis_coin_swap" = "Swap Coin";
 "tx_known" = "Unknown";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

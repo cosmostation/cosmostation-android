@@ -45,6 +45,8 @@
 		049758852685AA270039872C /* iov_starname_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497587B2685AA270039872C /* iov_starname_v1beta1_query.grpc.swift */; };
 		049758882685BF530039872C /* TokenDetailIovCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049758862685BF530039872C /* TokenDetailIovCell.swift */; };
 		049758892685BF530039872C /* TokenDetailIovCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049758872685BF530039872C /* TokenDetailIovCell.xib */; };
+		04CFBD482691F8460013150B /* TxTokenSwapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CFBD462691F8460013150B /* TxTokenSwapCell.swift */; };
+		04CFBD492691F8460013150B /* TxTokenSwapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CFBD472691F8460013150B /* TxTokenSwapCell.xib */; };
 		04D1384D2691C78F00D6AF9F /* IbcPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1384C2691C78F00D6AF9F /* IbcPath.swift */; };
 		04D1384F2691CAF100D6AF9F /* IbcToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1384E2691CAF100D6AF9F /* IbcToken.swift */; };
 		04D138532691E23200D6AF9F /* TxCreatePoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D138512691E23200D6AF9F /* TxCreatePoolCell.swift */; };
@@ -953,6 +955,8 @@
 		0497587B2685AA270039872C /* iov_starname_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iov_starname_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
 		049758862685BF530039872C /* TokenDetailIovCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailIovCell.swift; sourceTree = "<group>"; };
 		049758872685BF530039872C /* TokenDetailIovCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailIovCell.xib; sourceTree = "<group>"; };
+		04CFBD462691F8460013150B /* TxTokenSwapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxTokenSwapCell.swift; sourceTree = "<group>"; };
+		04CFBD472691F8460013150B /* TxTokenSwapCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxTokenSwapCell.xib; sourceTree = "<group>"; };
 		04D1384C2691C78F00D6AF9F /* IbcPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IbcPath.swift; sourceTree = "<group>"; };
 		04D1384E2691CAF100D6AF9F /* IbcToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IbcToken.swift; sourceTree = "<group>"; };
 		04D138512691E23200D6AF9F /* TxCreatePoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCreatePoolCell.swift; sourceTree = "<group>"; };
@@ -1897,6 +1901,8 @@
 				04D138562691E25500D6AF9F /* TxJoinPoolCell.xib */,
 				04D138592691E26700D6AF9F /* TxExitPoolCell.swift */,
 				04D1385A2691E26700D6AF9F /* TxExitPoolCell.xib */,
+				04CFBD462691F8460013150B /* TxTokenSwapCell.swift */,
+				04CFBD472691F8460013150B /* TxTokenSwapCell.xib */,
 			);
 			path = osmosis;
 			sourceTree = "<group>";
@@ -3313,6 +3319,7 @@
 				E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */,
 				282FF35623F518E00028CC66 /* TxMultiTransferCell.xib in Resources */,
 				E1CF42F123598AFE00907F45 /* ManageChainCell.xib in Resources */,
+				04CFBD492691F8460013150B /* TxTokenSwapCell.xib in Resources */,
 				28D372AB254BFCE70071B136 /* RegisterAccount4ViewController.xib in Resources */,
 				E1C3C89923B1E27800A693C0 /* NotificationView.xib in Resources */,
 				282BDFEB24A5BCE000D3A5D4 /* WcTransferPopup.xib in Resources */,
@@ -3757,6 +3764,7 @@
 				28D7BE6F25F0FDB3006EECD7 /* HardMyBorrow.swift in Sources */,
 				287AC58825FDF7250070837E /* cosmos_vesting_v1beta1_tx.grpc.swift in Sources */,
 				E1FD2328233E1BC4009327FE /* WalletIrisCell.swift in Sources */,
+				04CFBD482691F8460013150B /* TxTokenSwapCell.swift in Sources */,
 				287AC5E425FDF7260070837E /* confio_proofs.pb.swift in Sources */,
 				289DF184242DDF8300433CF4 /* CdpDetailAssetsCell.swift in Sources */,
 				287AC64C25FDF7260070837E /* cosmos_staking_v1beta1_genesis.pb.swift in Sources */,

@@ -202,6 +202,12 @@ public struct ApiHistoryNewCustom {
             } else if (msgType.contains("MsgExitPool")) {
                 result = NSLocalizedString("tx_osmosis_exit_pool", comment: "")
                 
+            } else if (msgType.contains("MsgSwapExactAmountIn") || msgType.contains("MsgSwapExactAmountOut")) {
+                result = NSLocalizedString("tx_osmosis_coin_swap", comment: "")
+                
+            } else if (msgType.contains("MsgJoinSwapExternAmountIn") || msgType.contains("MsgJoinSwapShareAmountOut") ||
+                        msgType.contains("MsgExitSwapExternAmountOut") || msgType.contains("MsgExitSwapShareAmountIn")) {
+                result = NSLocalizedString("tx_osmosis_coin_swap", comment: "")
             }
             
             if (getMsgCnt() > 1) {
