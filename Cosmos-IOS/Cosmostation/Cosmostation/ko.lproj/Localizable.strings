@@ -710,6 +710,9 @@
 "tx_osmosis_join_pool" = "풀 참가";
 "tx_osmosis_exit_pool" = "풀 나가기";
 "tx_osmosis_coin_swap" = "코인 스왑";
+"tx_osmosis_token_lockup" = "토큰 잠그기";
+"tx_osmosis_token_unluck" = "토큰 풀기";
+"tx_osmosis_token_unluck_all" = "모든 토큰 풀기";
 "tx_known" = "알 수 없음";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

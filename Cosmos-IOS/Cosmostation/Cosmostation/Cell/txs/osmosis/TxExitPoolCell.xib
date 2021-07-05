@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="szk-g3-rag" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                         <rect key="frame" x="12" y="4" width="504" height="359"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="msgiconPool" translatesAutoresizingMaskIntoConstraints="NO" id="V3x-Ab-wyg">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="msgiconPoolremove" translatesAutoresizingMaskIntoConstraints="NO" id="V3x-Ab-wyg">
                                 <rect key="frame" x="16" y="16" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="FA6-k2-Gzb"/>
@@ -176,6 +176,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="msgiconPool" width="28" height="28"/>
+        <image name="msgiconPoolremove" width="28" height="28"/>
     </resources>
 </document>

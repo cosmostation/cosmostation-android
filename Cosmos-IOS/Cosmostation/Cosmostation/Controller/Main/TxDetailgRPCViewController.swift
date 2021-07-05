@@ -56,6 +56,9 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
         self.txTableView.register(UINib(nibName: "TxJoinPoolCell", bundle: nil), forCellReuseIdentifier: "TxJoinPoolCell")
         self.txTableView.register(UINib(nibName: "TxExitPoolCell", bundle: nil), forCellReuseIdentifier: "TxExitPoolCell")
         self.txTableView.register(UINib(nibName: "TxTokenSwapCell", bundle: nil), forCellReuseIdentifier: "TxTokenSwapCell")
+        self.txTableView.register(UINib(nibName: "TxLockTokenCell", bundle: nil), forCellReuseIdentifier: "TxLockTokenCell")
+        self.txTableView.register(UINib(nibName: "TxUnlockTokenCell", bundle: nil), forCellReuseIdentifier: "TxUnlockTokenCell")
+        self.txTableView.register(UINib(nibName: "TxUnlockAllTokensCell", bundle: nil), forCellReuseIdentifier: "TxUnlockAllTokensCell")
         
         //for ibc msg type
         self.txTableView.register(UINib(nibName: "TxIbcSendCell", bundle: nil), forCellReuseIdentifier: "TxIbcSendCell")
@@ -210,6 +213,23 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
             } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgExitSwapExternAmountOut.protoMessageName)) {
                 
             } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgExitSwapShareAmountIn.protoMessageName)) {
+                
+            }
+            
+            else if (msg.typeURL.contains(Osmosis_Lockup_MsgLockTokens.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxLockTokenCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL == ("/" + Osmosis_Lockup_MsgBeginUnlocking.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxUnlockTokenCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL == ("/" + Osmosis_Lockup_MsgBeginUnlockingAll.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxUnlockAllTokensCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
                 
             }
             
