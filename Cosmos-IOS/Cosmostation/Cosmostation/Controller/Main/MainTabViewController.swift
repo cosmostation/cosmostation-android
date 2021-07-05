@@ -1217,7 +1217,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 let response = try Cosmos_Bank_V1beta1_QueryClient(channel: channel).allBalances(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
 //                print("onFetchgRPCBalance: \(response.balances)")
                 response.balances.forEach { balance in
-                    BaseData.instance.mMyBalances_gRPC.append(Coin.init(balance.denom, balance.amount))
+                    if (NSDecimalNumber.init(string: balance.amount) != NSDecimalNumber.zero) {
+                        BaseData.instance.mMyBalances_gRPC.append(Coin.init(balance.denom, balance.amount))
+                    }
                 }
                 if (BaseData.instance.mMyBalances_gRPC.count <= 0) {
                     BaseData.instance.mMyBalances_gRPC.append(Coin.init(WUtils.getMainDenom(self.mChainType), "0"))
@@ -1382,7 +1384,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     
     func onFetchPriceInfo(_ denoms: String) {
-//        print("onFetchPriceInfo ", denoms, "   ", BaseNetWork.getPrice(denoms))
+        print("onFetchPriceInfo ", denoms, "   ", BaseNetWork.getPrice(denoms))
         let request = Alamofire.request(BaseNetWork.getPrice(denoms), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {

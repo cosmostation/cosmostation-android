@@ -13,7 +13,7 @@ public struct IbcToken {
     var hash: String?
     var base_denom: String?
     var display_denom: String?
-    var decimal: Int?
+    var decimal: Int16?
     var channel_id: String?
     var port_id: String?
     var moniker: String?
@@ -24,7 +24,7 @@ public struct IbcToken {
         self.hash = dictionary?["hash"] as? String
         self.base_denom = dictionary?["base_denom"] as? String
         self.display_denom = dictionary?["display_denom"] as? String
-        self.decimal = dictionary?["decimal"] as? Int
+        self.decimal = dictionary?["decimal"] as? Int16
         self.channel_id = dictionary?["channel_id"] as? String
         self.port_id = dictionary?["port_id"] as? String
         self.moniker = dictionary?["moniker"] as? String

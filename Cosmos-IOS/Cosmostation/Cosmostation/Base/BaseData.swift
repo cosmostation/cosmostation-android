@@ -94,6 +94,10 @@ final class BaseData : NSObject{
         return mPrices.filter { $0.denom == denom.lowercased() }.first
     }
     
+    func getIbcToken(_ hash: String?) -> IbcToken? {
+        return mIbcTokens.filter { $0.hash == hash }.first
+    }
+    
     
     func getChainId() -> String {
         if (mNodeInfo != nil) { return mNodeInfo!.network! }

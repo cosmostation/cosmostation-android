@@ -1098,9 +1098,20 @@ class WUtils {
                     let amount = getAllMainAsset(coin.denom)
                     let assetValue = userCurrencyValue(coin.denom, amount, 6)
                     totalValue = totalValue.adding(assetValue)
-                } else {
-                    // not yet!
                     
+                } else if (chainType == ChainType.OSMOSIS_MAIN && coin.denom == OSMOSIS_ION_DENOM) {
+                    let amount = baseData.getAvailableAmount_gRPC(coin.denom)
+                    let assetValue = userCurrencyValue(coin.denom, amount, 6)
+                    totalValue = totalValue.adding(assetValue)
+                    
+                } else if (coin.isIbc()) {
+                    if let ibcToken = BaseData.instance.getIbcToken(coin.getIbcHash()) {
+                        if (ibcToken.auth == true) {
+                            let amount = baseData.getAvailableAmount_gRPC(coin.denom)
+                            let assetValue = userCurrencyValue(ibcToken.base_denom!, amount, ibcToken.decimal!)
+                            totalValue = totalValue.adding(assetValue)
+                        }
+                    }
                 }
             }
         }
@@ -1175,9 +1186,19 @@ class WUtils {
                     let btcValue = btcValue(coin.denom, amount, 6)
                     totalValue = totalValue.adding(btcValue)
                     
-                } else {
-                    // not yet!
+                } else if (chainType == ChainType.OSMOSIS_MAIN && coin.denom == OSMOSIS_ION_DENOM) {
+                    let amount = baseData.getAvailableAmount_gRPC(coin.denom)
+                    let btcValue = btcValue(coin.denom, amount, 6)
+                    totalValue = totalValue.adding(btcValue)
                     
+                } else if (coin.isIbc()) {
+                    if let ibcToken = BaseData.instance.getIbcToken(coin.getIbcHash()) {
+                        if (ibcToken.auth == true) {
+                            let amount = baseData.getAvailableAmount_gRPC(coin.denom)
+                            let btcValue = btcValue(ibcToken.base_denom!, amount, ibcToken.decimal!)
+                            totalValue = totalValue.adding(btcValue)
+                        }
+                    }
                 }
             }
         }
@@ -1532,7 +1553,12 @@ class WUtils {
             }
             
         } else if (chain == ChainType.OSMOSIS_MAIN) {
-            result = result + ",uosmo"
+            result = result + ",uosmo,uion"
+            BaseData.instance.mIbcTokens.forEach { ibcToken in
+                if (ibcToken.auth == true) {
+                    result = result + "," + ibcToken.base_denom!
+                }
+            }
         }
         
         else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
