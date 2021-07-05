@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UQQ-sF-Yfw" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                         <rect key="frame" x="12" y="4" width="478" height="223"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="msgiconIbcrecieve" translatesAutoresizingMaskIntoConstraints="NO" id="QPK-Ee-6dz">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="msgiconIbcsend" translatesAutoresizingMaskIntoConstraints="NO" id="QPK-Ee-6dz">
                                 <rect key="frame" x="16" y="16" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="28" id="AWQ-Sy-ZOm"/>
@@ -141,6 +141,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="msgiconIbcrecieve" width="28" height="28"/>
+        <image name="msgiconIbcsend" width="28" height="28"/>
     </resources>
 </document>

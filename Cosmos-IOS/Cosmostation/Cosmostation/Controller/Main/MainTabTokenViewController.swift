@@ -34,6 +34,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     var mainTabVC: MainTabViewController!
     var mBnbTics = [String : NSMutableDictionary]()
     var mOrder:Int?
+    
+    
+    var mBalances = Array<Balance>()
+    var mBalances_gRPC = Array<Coin>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +61,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         let tap = UITapGestureRecognizer(target: self, action: #selector(onStartSort))
         self.btnSort.addGestureRecognizer(tap)
         
+        self.mBalances = BaseData.instance.mBalances
+        self.mBalances_gRPC = BaseData.instance.mMyBalances_gRPC
         self.updateView()
     }
     
@@ -234,6 +240,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
+        self.mBalances = BaseData.instance.mBalances
+        self.mBalances_gRPC = BaseData.instance.mMyBalances_gRPC
+        
         self.updateView()
         self.refresher.endRefreshing()
     }
@@ -268,9 +277,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (WUtils.isGRPC(chainType!)) {
-            return BaseData.instance.mMyBalances_gRPC.count
+            return mBalances_gRPC.count
         } else {
-            return mainTabVC.mBalances.count;
+            return mBalances.count;
         }
     }
     
@@ -329,7 +338,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (WUtils.isGRPC(chainType!)) {
-            let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+            let balance = mBalances_gRPC[indexPath.row]
             if (balance.denom == WUtils.getMainDenom(chainType)) {
                 let sTokenDetailVC = StakingTokenDetailViewController(nibName: "StakingTokenDetailViewController", bundle: nil)
                 sTokenDetailVC.hidesBottomBarWhenPushed = true
@@ -342,7 +351,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else {
             //TODO update for all chains
-            let balance = mainTabVC.mBalances[indexPath.row]
+            let balance = mBalances[indexPath.row]
             if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
                 if (balance.balance_denom == WUtils.getMainDenom(chainType)) {
                     let sTokenDetailVC = StakingTokenDetailViewController(nibName: "StakingTokenDetailViewController", bundle: nil)
@@ -353,7 +362,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 } else {
                     let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
                     nTokenDetailVC.hidesBottomBarWhenPushed = true
-                    nTokenDetailVC.denom = mainTabVC.mBalances[indexPath.row].balance_denom
+                    nTokenDetailVC.denom = mBalances[indexPath.row].balance_denom
                     self.navigationItem.title = ""
                     self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
                 }
@@ -368,7 +377,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 } else {
                     let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
                     nTokenDetailVC.hidesBottomBarWhenPushed = true
-                    nTokenDetailVC.denom = mainTabVC.mBalances[indexPath.row].balance_denom
+                    nTokenDetailVC.denom = mBalances[indexPath.row].balance_denom
                     self.navigationItem.title = ""
                     self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
                 }
@@ -383,7 +392,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 } else {
                     let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
                     nTokenDetailVC.hidesBottomBarWhenPushed = true
-                    nTokenDetailVC.denom = mainTabVC.mBalances[indexPath.row].balance_denom
+                    nTokenDetailVC.denom = mBalances[indexPath.row].balance_denom
                     self.navigationItem.title = ""
                     self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
                 }
@@ -399,7 +408,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 } else {
                     let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
                     nTokenDetailVC.hidesBottomBarWhenPushed = true
-                    nTokenDetailVC.denom = mainTabVC.mBalances[indexPath.row].balance_denom
+                    nTokenDetailVC.denom = mBalances[indexPath.row].balance_denom
                     self.navigationItem.title = ""
                     self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
                 }
@@ -409,7 +418,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetBnbItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let denom = mainTabVC.mBalances[indexPath.row].balance_denom
+        let denom = mBalances[indexPath.row].balance_denom
         let amount = WUtils.getAllBnbToken(denom)
         let bnbToken = WUtils.getBnbToken(denom)
         if (bnbToken != nil) {
@@ -435,7 +444,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetKavaItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
+        let balance = mBalances[indexPath.row]
         if (balance.balance_denom == KAVA_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "kavaTokenImg")
             cell?.tokenSymbol.text = "KAVA"
@@ -454,7 +463,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "HardPool Gov. Token"
             
-            let totalTokenAmount = WUtils.getKavaTokenAll(balance.balance_denom, mainTabVC.mBalances)
+            let totalTokenAmount = WUtils.getKavaTokenAll(balance.balance_denom, mBalances)
             let convertedKavaAmount = WUtils.convertTokenToKava(balance.balance_denom)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalTokenAmount.stringValue, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, convertedKavaAmount, 6, cell!.tokenValue.font)
@@ -468,7 +477,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             else if (balance.balance_denom == "hard") { cell?.tokenDescription.text = "HardPool Gov. Token" }
             else { cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Chain" }
             
-            let totalTokenAmount = WUtils.getKavaTokenAll(balance.balance_denom, mainTabVC.mBalances)
+            let totalTokenAmount = WUtils.getKavaTokenAll(balance.balance_denom, mBalances)
             let convertedKavaAmount = WUtils.convertTokenToKava(balance.balance_denom)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalTokenAmount.stringValue, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, convertedKavaAmount, 6, cell!.tokenValue.font)
@@ -478,7 +487,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetOkItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
+        let balance = mBalances[indexPath.row]
         let okToken = WUtils.getOkToken(balance.balance_denom)
         if (okToken != nil) {
             cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
@@ -507,7 +516,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetSecretItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
+        let balance = mBalances[indexPath.row]
         if (balance.balance_denom == SECRET_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "secretTokenImg")
             cell?.tokenSymbol.text = "SCRT"
@@ -529,7 +538,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetCertikItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
+        let balance = mBalances[indexPath.row]
         if (balance.balance_denom == CERTIK_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "certikTokenImg")
             cell?.tokenSymbol.text = "CTK"
@@ -551,7 +560,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetFetchItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
+        let balance = mBalances[indexPath.row]
         if (balance.balance_denom == FETCH_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokenfetchai")
             cell?.tokenSymbol.text = "FET"
@@ -572,7 +581,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetSifItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
+        let balance = mBalances[indexPath.row]
         if (balance.balance_denom == SIF_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokensifchain")
             cell?.tokenSymbol.text = "ROWAN"
@@ -602,7 +611,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetKiItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
+        let balance = mBalances[indexPath.row]
         if (balance.balance_denom == KI_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokenKifoundation")
             cell?.tokenSymbol.text = "XKI"
@@ -620,7 +629,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetMediItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
+        let balance = mBalances[indexPath.row]
         if (balance.balance_denom == MEDI_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokenmedibloc")
             cell?.tokenSymbol.text = "MED"
@@ -642,7 +651,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     //with gRPC
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        let balance = mBalances_gRPC[indexPath.row]
         if (balance.denom == COSMOS_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "atom_ic")
             cell?.tokenSymbol.text = "ATOM"
@@ -654,12 +663,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(COSMOS_MAIN_DENOM, allAtom, 6, cell!.tokenValue.font)
 
         } else if (balance.isIbc()) {
-            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
-            cell?.tokenSymbol.text = "IBC"
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = "(unKnown)"
-            cell?.tokenDescription.text = balance.denom
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            onBindIbcToken(cell, balance)
             
         } else {
             cell?.tokenImg.image = UIImage(named: "tokenIc")
@@ -671,7 +675,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetIrisItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        let balance = mBalances_gRPC[indexPath.row]
         if (balance.denom == IRIS_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "irisTokenImg")
             cell?.tokenSymbol.text = "IRIS"
@@ -683,12 +687,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_MAIN_DENOM, allIris, 6, cell!.tokenValue.font)
             
         } else if (balance.isIbc()) {
-            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
-            cell?.tokenSymbol.text = "IBC"
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = "(unKnown)"
-            cell?.tokenDescription.text = balance.denom
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            onBindIbcToken(cell, balance)
             
         } else {
             cell?.tokenImg.image = UIImage(named: "tokenIc")
@@ -700,7 +699,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetAkashItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        let balance = mBalances_gRPC[indexPath.row]
         if (balance.denom == AKASH_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "akashTokenImg")
             cell?.tokenSymbol.text = "AKT"
@@ -713,12 +712,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(AKASH_MAIN_DENOM, allAkt, 6, cell!.tokenValue.font)
             
         } else if (balance.isIbc()) {
-            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
-            cell?.tokenSymbol.text = "IBC"
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = "(unKnown)"
-            cell?.tokenDescription.text = balance.denom
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            onBindIbcToken(cell, balance)
             
         } else {
             cell?.tokenImg.image = UIImage(named: "tokenIc")
@@ -730,7 +724,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetPersisItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        let balance = mBalances_gRPC[indexPath.row]
         if (balance.denom == PERSIS_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokenpersistence")
             cell?.tokenSymbol.text = "XPRT"
@@ -743,12 +737,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(PERSIS_MAIN_DENOM, allPersis, 6, cell!.tokenValue.font)
             
         } else if (balance.isIbc()) {
-            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
-            cell?.tokenSymbol.text = "IBC"
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = "(unKnown)"
-            cell?.tokenDescription.text = balance.denom
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            onBindIbcToken(cell, balance)
             
         } else {
             cell?.tokenImg.image = UIImage(named: "tokenIc")
@@ -760,7 +749,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetCrytoItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        let balance = mBalances_gRPC[indexPath.row]
         if (balance.denom == CRYPTO_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokencrypto")
             cell?.tokenSymbol.text = "CRO"
@@ -773,12 +762,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(CRYPTO_MAIN_DENOM, allCro, 8, cell!.tokenValue.font)
             
         } else if (balance.isIbc()) {
-            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
-            cell?.tokenSymbol.text = "IBC"
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = "(unKnown)"
-            cell?.tokenDescription.text = balance.denom
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            onBindIbcToken(cell, balance)
             
         } else {
             cell?.tokenImg.image = UIImage(named: "tokenIc")
@@ -790,7 +774,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetSentinelItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        let balance = mBalances_gRPC[indexPath.row]
         if (balance.denom == SENTINEL_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokensentinel")
             cell?.tokenSymbol.text = "DVPN"
@@ -802,12 +786,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(SENTINEL_MAIN_DENOM, allAtom, 6, cell!.tokenValue.font)
             
         } else if (balance.isIbc()) {
-            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
-            cell?.tokenSymbol.text = "IBC"
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = "(unKnown)"
-            cell?.tokenDescription.text = balance.denom
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            onBindIbcToken(cell, balance)
             
         } else {
             cell?.tokenImg.image = UIImage(named: "tokenIc")
@@ -819,7 +798,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetRizonItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        let balance = mBalances_gRPC[indexPath.row]
         if (balance.denom == RIZON_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokenRizon")
             cell?.tokenSymbol.text = "ATOLO"
@@ -832,12 +811,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(RIZON_MAIN_DENOM, allCro, 6, cell!.tokenValue.font)
             
         } else if (balance.isIbc()) {
-            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
-            cell?.tokenSymbol.text = "IBC"
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = "(unKnown)"
-            cell?.tokenDescription.text = balance.denom
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            onBindIbcToken(cell, balance)
             
         } else {
             cell?.tokenImg.image = UIImage(named: "tokenIc")
@@ -849,7 +823,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetAltheaItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        let balance = mBalances_gRPC[indexPath.row]
         if (balance.denom == ALTHEA_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokenAlthea")
             cell?.tokenSymbol.text = "ALTG"
@@ -862,12 +836,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(ALTHEA_MAIN_DENOM, allAlthea, 6, cell!.tokenValue.font)
             
         } else if (balance.isIbc()) {
-            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
-            cell?.tokenSymbol.text = "IBC"
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = "(unKnown)"
-            cell?.tokenDescription.text = balance.denom
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            onBindIbcToken(cell, balance)
             
         } else {
             cell?.tokenImg.image = UIImage(named: "tokenIc")
@@ -881,7 +850,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetOsmoItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        let balance = mBalances_gRPC[indexPath.row]
         if (balance.denom == OSMOSIS_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokenOsmosis")
             cell?.tokenSymbol.text = "OSMO"
@@ -902,19 +871,23 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(OSMOSIS_ION_DENOM, BaseData.instance.getAvailableAmount_gRPC(OSMOSIS_ION_DENOM), 6, cell!.tokenValue.font)
             
-        } else if (balance.isIbc()) {
-            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
-            cell?.tokenSymbol.text = "IBC"
+        } else if (balance.isOsmosisAmm()) {
+            cell?.tokenImg.image = UIImage(named: "tokenPool")
+            cell?.tokenSymbol.text = balance.isOsmosisAmmDpDenom()
             cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = "(unKnown)"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = balance.denom
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 18, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(balance.denom, NSDecimalNumber.init(string: balance.amount), 18, cell!.tokenValue.font)
+            
+        } else if (balance.isIbc()) {
+            onBindIbcToken(cell, balance)
             
         } else {
             cell?.tokenImg.image = UIImage(named: "tokenIc")
             cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenSymbol.text = balance.denom.substring(from: 1).uppercased()
-            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenSymbol.text = balance.denom.uppercased()
+            cell?.tokenTitle.text = ""
             
         }
         return cell!
@@ -922,7 +895,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetBandItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
 //        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-//        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+//        let balance = mBalances_gRPC[indexPath.row]
 //        if (balance.denom == BAND_MAIN_DENOM) {
 //            cell?.tokenImg.image = UIImage(named: "bandTokenImg")
 //            cell?.tokenSymbol.text = "BAND"
@@ -952,7 +925,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
 //        return cell!
         
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
+        let balance = mBalances[indexPath.row]
         if (balance.balance_denom == BAND_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "bandTokenImg")
             cell?.tokenSymbol.text = "BAND"
@@ -974,7 +947,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetIovItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        let balance = mBalances_gRPC[indexPath.row]
         if (balance.denom == IOV_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "iovTokenImg")
             cell?.tokenSymbol.text = "IOV"
@@ -987,12 +960,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IOV_MAIN_DENOM, allIov, 6, cell!.tokenValue.font)
             
         } else if (balance.isIbc()) {
-            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
-            cell?.tokenSymbol.text = "IBC"
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = "(unKnown)"
-            cell?.tokenDescription.text = balance.denom
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            onBindIbcToken(cell, balance)
             
         } else {
             cell?.tokenImg.image = UIImage(named: "tokenIc")
@@ -1004,10 +972,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return cell!
     }
     
-    
     func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        let balance = mBalances_gRPC[indexPath.row]
         if (balance.denom == COSMOS_TEST_DENOM) {
             cell?.tokenImg.image = UIImage(named: "atom_ic")
             cell?.tokenSymbol.text = "MUON"
@@ -1018,19 +985,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(COSMOS_TEST_DENOM, allAtom, 6, cell!.tokenValue.font)
             
-        } else if (balance.isIbc()) {
-            
-        } else {
-            cell?.tokenImg.image = UIImage(named: "tokenIc")
-            cell?.tokenSymbol.textColor = UIColor.white
-            
         }
         return cell!
     }
     
     func onSetIrisTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        let balance = mBalances_gRPC[indexPath.row]
         if (balance.denom == IRIS_TEST_DENOM) {
             cell?.tokenImg.image = UIImage(named: "irisTokenImg")
             cell?.tokenSymbol.text = "BIF"
@@ -1041,18 +1002,40 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_TEST_DENOM, allIris, 6, cell!.tokenValue.font)
             
-        } else if (balance.isIbc()) {
-            
-        } else {
-            
         }
         return cell!
     }
     
-    
-//    func onSetIbcToken(_ balance: Balance, _ cell: TokenCell) {
-//
-//    }
+    //bind ibc tokens
+    func onBindIbcToken(_ cell: TokenCell?, _ coin: Coin) {
+        cell?.tokenSymbol.textColor = UIColor.white
+        guard let ibcToken = BaseData.instance.getIbcToken(coin.getIbcHash()) else {
+            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
+            cell?.tokenSymbol.text = "UnKnown"
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = coin.denom
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(coin.amount, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(coin.denom, NSDecimalNumber.init(string: coin.amount), 6, cell!.tokenValue.font)
+            return
+        }
+        if (ibcToken.auth == true) {
+            cell?.tokenImg.af_setImage(withURL: URL(string: ibcToken.moniker!)!)
+            cell?.tokenSymbol.text = ibcToken.display_denom?.uppercased()
+            cell?.tokenTitle.text = "(" + ibcToken.base_denom! + ")"
+            cell?.tokenDescription.text = coin.denom
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(coin.amount, cell!.tokenAmount.font, ibcToken.decimal!, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(ibcToken.base_denom!, NSDecimalNumber.init(string: coin.amount), ibcToken.decimal!, cell!.tokenValue.font)
+            
+        } else {
+            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
+            cell?.tokenSymbol.text = "UnKnown"
+            cell?.tokenTitle.text = "(" + ibcToken.base_denom! + ")"
+            cell?.tokenDescription.text = coin.denom
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(coin.amount, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(coin.denom, NSDecimalNumber.init(string: coin.amount), 6, cell!.tokenValue.font)
+            
+        }
+    }
     
     
     
@@ -1112,13 +1095,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func sortByName() {
         if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            mainTabVC.mBalances.sort{
+            mBalances.sort{
                 if ($0.balance_denom == BNB_MAIN_DENOM) { return true }
                 if ($1.balance_denom == BNB_MAIN_DENOM) { return false }
                 return $0.balance_denom < $1.balance_denom
             }
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-            mainTabVC.mBalances.sort{
+            mBalances.sort{
                 if ($0.balance_denom == KAVA_MAIN_DENOM) { return true }
                 if ($1.balance_denom == KAVA_MAIN_DENOM) { return false }
                 if ($0.balance_denom == KAVA_HARD_DENOM) { return true }
@@ -1126,7 +1109,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.balance_denom < $1.balance_denom
             }
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
-            mainTabVC.mBalances.sort{
+            mBalances.sort{
                 if ($0.balance_denom == OKEX_MAIN_DENOM) { return true }
                 if ($1.balance_denom == OKEX_MAIN_DENOM) { return false }
                 if ($0.balance_denom == OKEX_MAIN_OKB) { return true }
@@ -1137,14 +1120,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
             
         } else if (chainType! == ChainType.SIF_MAIN) {
-            mainTabVC.mBalances.sort{
+            mBalances.sort{
                 if ($0.balance_denom == SIF_MAIN_DENOM) { return true }
                 if ($1.balance_denom == SIF_MAIN_DENOM) { return false }
                 return $0.balance_denom < $1.balance_denom
             }
         }
         else if (WUtils.isGRPC(chainType!)) {
-            BaseData.instance.mMyBalances_gRPC.sort {
+            mBalances_gRPC.sort {
                 if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
                 if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
                 if ($0.denom == OSMOSIS_ION_DENOM) { return true }
@@ -1156,7 +1139,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func sortByAmount() {
         if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            mainTabVC.mBalances.sort{
+            mBalances.sort{
                 if ($0.balance_denom == BNB_MAIN_DENOM) { return true }
                 if ($1.balance_denom == BNB_MAIN_DENOM) { return false }
                 let totalTokenAmount0 = WUtils.getAllBnbToken($0.balance_denom)
@@ -1165,7 +1148,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-            mainTabVC.mBalances.sort{
+            mBalances.sort{
                 if ($0.balance_denom == KAVA_MAIN_DENOM) { return true }
                 if ($1.balance_denom == KAVA_MAIN_DENOM) { return false }
                 if ($0.balance_denom == KAVA_HARD_DENOM) { return true }
@@ -1174,7 +1157,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
-            mainTabVC.mBalances.sort{
+            mBalances.sort{
                 if ($0.balance_denom == OKEX_MAIN_DENOM) { return true }
                 if ($1.balance_denom == OKEX_MAIN_DENOM) { return false }
                 if ($0.balance_denom == OKEX_MAIN_OKB) { return true }
@@ -1185,14 +1168,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
             
         } else if (chainType! == ChainType.SIF_MAIN) {
-            mainTabVC.mBalances.sort{
+            mBalances.sort{
                 if ($0.balance_denom == SIF_MAIN_DENOM) { return true }
                 if ($1.balance_denom == SIF_MAIN_DENOM) { return false }
                 return false
             }
         }
         else if (WUtils.isGRPC(chainType!)) {
-            BaseData.instance.mMyBalances_gRPC.sort {
+            mBalances_gRPC.sort {
                 if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
                 if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
                 if ($0.denom == OSMOSIS_ION_DENOM) { return true }
@@ -1204,7 +1187,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func sortByValue() {
         if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            mainTabVC.mBalances.sort{
+            mBalances.sort{
                 if ($0.balance_denom == BNB_MAIN_DENOM) { return true }
                 if ($1.balance_denom == BNB_MAIN_DENOM) { return false }
                 let totalTokenAmount0 = WUtils.getAllBnbToken($0.balance_denom)
@@ -1214,8 +1197,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return totalTokenValue0.compare(totalTokenValue1).rawValue > 0 ? true : false
             }
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-            let balances = mainTabVC.mBalances
-            mainTabVC.mBalances.sort {
+            let balances = mBalances
+            mBalances.sort {
                 if ($0.balance_denom == KAVA_MAIN_DENOM) { return true }
                 if ($1.balance_denom == KAVA_MAIN_DENOM){ return false }
                 if ($0.balance_denom == KAVA_HARD_DENOM) { return true }
@@ -1227,7 +1210,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return totalTokenValue0.compare(totalTokenValue1).rawValue > 0 ? true : false
             }
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
-            mainTabVC.mBalances.sort{
+            mBalances.sort{
                 if ($0.balance_denom == OKEX_MAIN_DENOM) { return true }
                 if ($1.balance_denom == OKEX_MAIN_DENOM){ return false }
                 if ($0.balance_denom == OKEX_MAIN_OKB) { return true }
@@ -1238,7 +1221,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
             
         } else if (chainType! == ChainType.SIF_MAIN) {
-            mainTabVC.mBalances.sort{
+            mBalances.sort{
                 if ($0.balance_denom == SIF_MAIN_DENOM) { return true }
                 if ($1.balance_denom == SIF_MAIN_DENOM) { return false }
                 return false
@@ -1246,7 +1229,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         }
         
         else if (WUtils.isGRPC(chainType!)) {
-            BaseData.instance.mMyBalances_gRPC.sort {
+            mBalances_gRPC.sort {
                 if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
                 if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
                 if ($0.denom == OSMOSIS_ION_DENOM) { return true }

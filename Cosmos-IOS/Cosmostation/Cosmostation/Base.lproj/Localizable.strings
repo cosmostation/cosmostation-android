@@ -355,6 +355,11 @@
 "reward_harvest_step_1" = "Insert memo (optional)";
 "reward_harvest_step_2" = "Select transaction fee";
 "reward_harvest_step_3" = "Check transaction detail";
+"reward_harvest_vv_step_0" = "Insert Recipient Address";
+"reward_harvest_vv_step_1" = "Select hard pool incentive option";
+"reward_harvest_vv_step_2" = "Insert memo (optional)";
+"reward_harvest_vv_step_3" = "Select transaction fee";
+"reward_harvest_vv_step_4" = "Check transaction detail";
 
 "deposit_hardpool_step_0" = "Enter deposit amount to supply";
 "deposit_hardpool_step_1" = "Insert memo (optional)";
@@ -684,6 +689,7 @@
 "tx_starname_renew_domain" = "Renew Domain";
 "tx_starname_renew_account" = "Renew Account";
 "tx_starname_update_resource" = "Replace Address";
+
 "tx_kava_hard_deposit" = "Hard Pool\nDeposit";
 "tx_kava_hard_withdraw" = "Hard Pool\nWithdraw";
 "tx_kava_hard_borrow" = "Hard Pool\nBorrow";
@@ -691,10 +697,20 @@
 "tx_kava_hard_liquidate" = "Hard Pool\nLiquidate";
 "tx_kava_hard_hard_incentive" = "Incentive\nHard Pool";
 "tx_kava_hard_mint_incentive" = "Incentive\nUSDX Minting";
+
 "tx_ibc_send" = "IBC Send";
 "tx_ibc_receive" = "IBC Received";
 "tx_ibc_client_update" = "IBC Client\nUpdate";
 "tx_ibc_acknowledgement" = "IBC Acknowledgement";
+
+"tx_osmosis_create_pool" = "Create Pool";
+"tx_osmosis_join_pool" = "Join Pool";
+"tx_osmosis_exit_pool" = "Exit Pool";
+"tx_osmosis_coin_swap" = "Swap Coin";
+"tx_osmosis_token_lockup" = "Lockup Token";
+"tx_osmosis_token_unluck" = "Unlock Token";
+"tx_osmosis_token_unluck_all" = "Unlock All Tokens";
+"tx_osmosis_preriodlock_unlock" = "Claim Unlocked Token";
 "tx_known" = "Unknown";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

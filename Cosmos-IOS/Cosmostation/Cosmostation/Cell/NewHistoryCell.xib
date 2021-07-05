@@ -21,7 +21,7 @@
                         <rect key="frame" x="12" y="4" width="447" height="86"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UnKnown" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymb-vi-rrd">
-                                <rect key="frame" x="12" y="12" width="94" height="13.5"/>
+                                <rect key="frame" x="12" y="12" width="99" height="13.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -33,7 +33,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vFu-7u-Ysp">
-                                <rect key="frame" x="110" y="12" width="0.5" height="62"/>
+                                <rect key="frame" x="115" y="12" width="0.5" height="62"/>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="0.5" id="y2b-QD-5bi"/>
@@ -89,7 +89,7 @@
                             <constraint firstItem="ymb-vi-rrd" firstAttribute="top" secondItem="F2E-wf-Kqu" secondAttribute="top" constant="12" id="f1R-UI-t93"/>
                             <constraint firstItem="t9U-Og-rfC" firstAttribute="centerY" secondItem="F2E-wf-Kqu" secondAttribute="centerY" id="nDN-KE-W0P"/>
                             <constraint firstItem="Jjg-p6-Zmb" firstAttribute="centerY" secondItem="ev2-wC-0p7" secondAttribute="centerY" id="p80-kt-aBb"/>
-                            <constraint firstItem="vFu-7u-Ysp" firstAttribute="leading" secondItem="F2E-wf-Kqu" secondAttribute="leading" constant="110" id="uuK-jY-XjM"/>
+                            <constraint firstItem="vFu-7u-Ysp" firstAttribute="leading" secondItem="F2E-wf-Kqu" secondAttribute="leading" constant="115" id="uuK-jY-XjM"/>
                             <constraint firstItem="A2W-3l-cw9" firstAttribute="top" secondItem="KQ2-fM-daw" secondAttribute="bottom" constant="2" id="vyM-aZ-D5e"/>
                             <constraint firstAttribute="bottom" secondItem="vFu-7u-Ysp" secondAttribute="bottom" constant="12" id="zUN-1Q-HBJ"/>
                         </constraints>

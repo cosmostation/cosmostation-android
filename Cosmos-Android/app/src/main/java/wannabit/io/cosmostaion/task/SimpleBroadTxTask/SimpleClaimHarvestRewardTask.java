@@ -30,17 +30,17 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_KAVA_CLAIM_H
 public class SimpleClaimHarvestRewardTask extends CommonTask {
 
     private Account mAccount;
-    private String mDepositDenom;
-    private String mDepositType;
+//    private String mDepositDenom;
+//    private String mDepositType;
     private String mMultiplierName;
     private String mMemo;
     private Fee mFees;
 
-    public SimpleClaimHarvestRewardTask(BaseApplication app, TaskListener listener, Account account, String depositDenom, String depositType, String multiplierName, String memo, Fee fees) {
+    public SimpleClaimHarvestRewardTask(BaseApplication app, TaskListener listener, Account account, String multiplierName, String memo, Fee fees) {
         super(app, listener);
         this.mAccount = account;
-        this.mDepositDenom = depositDenom;
-        this.mDepositType = depositType;
+//        this.mDepositDenom = depositDenom;
+//        this.mDepositType = depositType;
         this.mMultiplierName = multiplierName;
         this.mMemo = memo;
         this.mFees = fees;

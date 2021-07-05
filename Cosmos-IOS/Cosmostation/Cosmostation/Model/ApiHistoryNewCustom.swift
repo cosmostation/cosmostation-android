@@ -193,8 +193,45 @@ public struct ApiHistoryNewCustom {
                 
             }
             
+            else if (msgType.contains("MsgCreatePool")) {
+                result = NSLocalizedString("tx_osmosis_create_pool", comment: "")
+                
+            } else if (msgType.contains("MsgJoinPool")) {
+                result = NSLocalizedString("tx_osmosis_join_pool", comment: "")
+                
+            } else if (msgType.contains("MsgExitPool")) {
+                result = NSLocalizedString("tx_osmosis_exit_pool", comment: "")
+                
+            } else if (msgType.contains("MsgSwapExactAmountIn") || msgType.contains("MsgSwapExactAmountOut")) {
+                result = NSLocalizedString("tx_osmosis_coin_swap", comment: "")
+                
+            } else if (msgType.contains("MsgJoinSwapExternAmountIn") || msgType.contains("MsgJoinSwapShareAmountOut") ||
+                        msgType.contains("MsgExitSwapExternAmountOut") || msgType.contains("MsgExitSwapShareAmountIn")) {
+                result = NSLocalizedString("tx_osmosis_coin_swap", comment: "")
+                
+            } else if (msgType.contains("MsgLockTokens")) {
+                result = NSLocalizedString("tx_osmosis_token_lockup", comment: "")
+                
+            } else if (msgType.split(separator: ".").last == "MsgBeginUnlocking") {
+                result = NSLocalizedString("tx_osmosis_token_unluck", comment: "")
+                
+            } else if (msgType.split(separator: ".").last == "MsgBeginUnlockingAll") {
+                result = NSLocalizedString("tx_osmosis_token_unluck_all", comment: "")
+                
+            } else if (msgType.contains("MsgUnlockPeriodLock")) {
+                result = NSLocalizedString("tx_osmosis_preriodlock_unlock", comment: "")
+                
+            }
+            
+//            else if (msgType.contains("MsgUnlockTokens")) {
+//                result = NSLocalizedString("tx_osmosis_token_unluck", comment: "")
+//
+//            } else if (msgType.contains("MsgBeginUnlockPeriodLock")) {
+//
+//            }
+            
             if (getMsgCnt() > 1) {
-                result = result +  "\n+ " + String(getMsgCnt() - 1)
+                result = result +  " + " + String(getMsgCnt() - 1)
             }
             
         }

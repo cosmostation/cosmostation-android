@@ -18,14 +18,15 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
     var userInputWords: [String]?
     var usingBip44:Bool = false
     @IBOutlet weak var restoreTableView: UITableView!
+    @IBOutlet weak var loadingImg: LoadingImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.restoreTableView.delegate = self
         self.restoreTableView.dataSource = self
         self.restoreTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.restoreTableView.register(UINib(nibName: "RestorePathCell", bundle: nil), forCellReuseIdentifier: "RestorePathCell")
+        self.loadingImg.onStartAnimation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -126,6 +127,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                         } catch { }
                         DispatchQueue.main.async(execute: {
                             cell?.denomAmount.attributedText = WUtils.displayAmount2(amount, cell!.denomAmount.font!, WUtils.mainDivideDecimal(self.userChain), WUtils.mainDisplayDecimal(self.userChain))
+                            self.dispalyTableView()
                         });
                     }
                 }
@@ -136,6 +138,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     request.responseJSON { (response) in
                         switch response.result {
                         case .success(let res):
+                            self.dispalyTableView()
                             if (self.userChain == ChainType.BINANCE_MAIN || self.userChain == ChainType.BINANCE_TEST) {
                                 if let responseData = res as? NSDictionary {
                                     let bnbAccountInfo = BnbAccountInfo.init(responseData)
@@ -183,6 +186,13 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         return cell!
     }
+    
+    func dispalyTableView() {
+        self.loadingImg.onStopAnimation()
+        self.loadingImg.isHidden = true
+        self.restoreTableView.isHidden = false
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell:RestorePathCell? = tableView.cellForRow(at: indexPath) as? RestorePathCell
