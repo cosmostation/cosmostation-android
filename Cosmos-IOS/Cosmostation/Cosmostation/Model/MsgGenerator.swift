@@ -466,6 +466,17 @@ class MsgGenerator {
         return msg
     }
     
+    static func genClaimHardLiquidityProviderVVMsg(_ sender: String, _ multiplierName: String, _ receiver: String) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+        value.multiplier_name = multiplierName
+        value.receiver = receiver
+        msg.type = KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV
+        msg.value = value
+        return msg
+    }
+    
     static func genDepositHardMsg(_ chainType: ChainType, _ depositor: String, _ coins: Array<Coin>) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()

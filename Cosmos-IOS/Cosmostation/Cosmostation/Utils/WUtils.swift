@@ -70,7 +70,7 @@ class WUtils {
             result.account_address = accountInfo.result.value.address
             result.account_sequence_number = Int64(accountInfo.result.value.sequence)!
             result.account_account_numner = Int64(accountInfo.result.value.account_number)!
-        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT || accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
+        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_V_VESTING_ACCOUNT || accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
             result.account_address = accountInfo.result.value.address
             result.account_sequence_number = Int64(accountInfo.result.value.sequence)!
             result.account_account_numner = Int64(accountInfo.result.value.account_number)!
@@ -146,7 +146,7 @@ class WUtils {
                 result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
             })
             
-        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_VESTING_ACCOUNT || accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
+        } else if (accountInfo.result.type == COSMOS_AUTH_TYPE_V_VESTING_ACCOUNT || accountInfo.result.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
             var dpBalance = NSDecimalNumber.zero
             var dpVesting = NSDecimalNumber.zero
             var originalVesting = NSDecimalNumber.zero
@@ -442,7 +442,8 @@ class WUtils {
     }
     
     
-    static func sifNodeTimeToString(_ input: String) -> String {
+    static func sifNodeTimeToString(_ input: String?) -> String {
+        if (input == nil) { return ""}
         let nodeFormatter = DateFormatter()
         nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
@@ -450,8 +451,8 @@ class WUtils {
         let localFormatter = DateFormatter()
         localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
         
-        let fullDate = nodeFormatter.date(from: input)
-        return localFormatter.string(from: fullDate!)
+        guard let fullDate = nodeFormatter.date(from: input!) else { return "" }
+        return localFormatter.string(from: fullDate)
     }
     
     static func nodeTimeToInt64(input: String) -> Date {
@@ -769,7 +770,7 @@ class WUtils {
         } else if (msgs[0].type == KAVA_MSG_TYPE_LIQUIDATE_HARD) {
             resultMsg = NSLocalizedString("tx_kava_hard_liquidate", comment: "")
             
-        } else if (msgs[0].type == KAVA_MSG_TYPE_CLAIM_HAVEST || msgs[0].type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
+        } else if (msgs[0].type == KAVA_MSG_TYPE_CLAIM_HAVEST || msgs[0].type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE || msgs[0].type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV) {
             resultMsg = NSLocalizedString("tx_kava_hard_hard_incentive", comment: "")
             
         } else if (msgs[0].type == KAVA_MSG_TYPE_INCENTIVE_REWARD || msgs[0].type == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
@@ -1097,9 +1098,20 @@ class WUtils {
                     let amount = getAllMainAsset(coin.denom)
                     let assetValue = userCurrencyValue(coin.denom, amount, 6)
                     totalValue = totalValue.adding(assetValue)
-                } else {
-                    // not yet!
                     
+                } else if (chainType == ChainType.OSMOSIS_MAIN && coin.denom == OSMOSIS_ION_DENOM) {
+                    let amount = baseData.getAvailableAmount_gRPC(coin.denom)
+                    let assetValue = userCurrencyValue(coin.denom, amount, 6)
+                    totalValue = totalValue.adding(assetValue)
+                    
+                } else if (coin.isIbc()) {
+                    if let ibcToken = BaseData.instance.getIbcToken(coin.getIbcHash()) {
+                        if (ibcToken.auth == true) {
+                            let amount = baseData.getAvailableAmount_gRPC(coin.denom)
+                            let assetValue = userCurrencyValue(ibcToken.base_denom!, amount, ibcToken.decimal!)
+                            totalValue = totalValue.adding(assetValue)
+                        }
+                    }
                 }
             }
         }
@@ -1174,9 +1186,19 @@ class WUtils {
                     let btcValue = btcValue(coin.denom, amount, 6)
                     totalValue = totalValue.adding(btcValue)
                     
-                } else {
-                    // not yet!
+                } else if (chainType == ChainType.OSMOSIS_MAIN && coin.denom == OSMOSIS_ION_DENOM) {
+                    let amount = baseData.getAvailableAmount_gRPC(coin.denom)
+                    let btcValue = btcValue(coin.denom, amount, 6)
+                    totalValue = totalValue.adding(btcValue)
                     
+                } else if (coin.isIbc()) {
+                    if let ibcToken = BaseData.instance.getIbcToken(coin.getIbcHash()) {
+                        if (ibcToken.auth == true) {
+                            let amount = baseData.getAvailableAmount_gRPC(coin.denom)
+                            let btcValue = btcValue(ibcToken.base_denom!, amount, ibcToken.decimal!)
+                            totalValue = totalValue.adding(btcValue)
+                        }
+                    }
                 }
             }
         }
@@ -1531,7 +1553,12 @@ class WUtils {
             }
             
         } else if (chain == ChainType.OSMOSIS_MAIN) {
-            result = result + ",uosmo"
+            result = result + ",uosmo,uion"
+            BaseData.instance.mIbcTokens.forEach { ibcToken in
+                if (ibcToken.auth == true) {
+                    result = result + "," + ibcToken.base_denom!
+                }
+            }
         }
         
         else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -1755,7 +1782,23 @@ class WUtils {
     }
     
     static func showCoinDp(_ coin:Coin, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
+        if (isGRPC(chainType) && coin.isIbc()) {
+            if let ibcToken = BaseData.instance.getIbcToken(coin.getIbcHash()) {
+                if (ibcToken.auth == true) {
+                    denomLabel.textColor = .white
+                    denomLabel.text = ibcToken.display_denom!.uppercased()
+                    amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, ibcToken.decimal!, ibcToken.decimal!)
+                    return
+                    
+                } else {
+                    denomLabel.textColor = .white
+                    denomLabel.text = "Unknown"
+                    amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+                    return
+                }
+            }
+            
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             if (coin.denom == COSMOS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1924,11 +1967,20 @@ class WUtils {
         } else if (chainType == ChainType.OSMOSIS_MAIN) {
             if (coin.denom == OSMOSIS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+                amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            } else if (coin.denom == OSMOSIS_ION_DENOM) {
+                denomLabel.textColor = COLOR_ION
+                denomLabel.text = "ION"
+                amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            } else if (coin.isOsmosisAmm()) {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.isOsmosisAmmDpDenom()
+                amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 18, 18)
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = coin.denom.uppercased()
+                amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             }
-            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.IRIS_TEST) {
             if (coin.denom == IRIS_TEST_DENOM) {
@@ -1970,7 +2022,23 @@ class WUtils {
     }
     
     static func showCoinDp(_ denom:String, _ amount:String, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
+        if (isGRPC(chainType) && denom.starts(with: "ibc/")) {
+            if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")) {
+                if (ibcToken.auth == true) {
+                    denomLabel.textColor = .white
+                    denomLabel.text = ibcToken.display_denom?.uppercased()
+                    amountLabel.attributedText = displayAmount2(amount, amountLabel.font, ibcToken.decimal!, ibcToken.decimal!)
+                    return
+                    
+                } else {
+                    denomLabel.textColor = .white
+                    denomLabel.text = "Unknown"
+                    amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+                    return
+                }
+            }
+            
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             if (denom == COSMOS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -2139,11 +2207,20 @@ class WUtils {
         } else if (chainType == ChainType.OSMOSIS_MAIN) {
             if (denom == OSMOSIS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+                amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            } else if (denom == OSMOSIS_ION_DENOM) {
+                denomLabel.textColor = COLOR_ION
+                denomLabel.text = "ION"
+                amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            } else if (denom.starts(with: "gamm/pool/")) {
+                denomLabel.textColor = .white
+                denomLabel.text = "GAMM-" + String(denom.split(separator: "/").last!)
+                amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 18, 18)
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = denom.uppercased()
+                amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             }
-            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.IRIS_TEST) {
             if (denom == IRIS_TEST_DENOM) {
@@ -2800,7 +2877,7 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_REINVEST))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_VOTE))
-            } else if (type == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE || type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
+            } else if (type == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE || type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE || type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_CLAIM_INCENTIVE))
             } else if (type == KAVA_MSG_TYPE_CREATE_CDP || type == KAVA_MSG_TYPE_DEPOSIT_CDP || type == KAVA_MSG_TYPE_WITHDRAW_CDP ||
                         type == KAVA_MSG_TYPE_DRAWDEBT_CDP || type == KAVA_MSG_TYPE_REPAYDEBT_CDP) {

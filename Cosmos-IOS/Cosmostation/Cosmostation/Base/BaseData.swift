@@ -19,6 +19,8 @@ final class BaseData : NSObject{
     var copySalt: String?
     var mPrices = Array<Price>()
     var mParam: Param?
+    var mIbcPaths = Array<IbcPath>()
+    var mIbcTokens = Array<IbcToken>()
     
     var mNodeInfo: NodeInfo?
     var mBalances = Array<Balance>()
@@ -90,6 +92,10 @@ final class BaseData : NSObject{
     
     func getPrice(_ denom: String) -> Price? {
         return mPrices.filter { $0.denom == denom.lowercased() }.first
+    }
+    
+    func getIbcToken(_ hash: String?) -> IbcToken? {
+        return mIbcTokens.filter { $0.hash == hash }.first
     }
     
     

@@ -51,8 +51,21 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
         self.txTableView.register(UINib(nibName: "TxDeleteAccountCell", bundle: nil), forCellReuseIdentifier: "TxDeleteAccountCell")
         self.txTableView.register(UINib(nibName: "TxReplaceResourceCell", bundle: nil), forCellReuseIdentifier: "TxReplaceResourceCell")
         self.txTableView.register(UINib(nibName: "TxRenewStarnameCell", bundle: nil), forCellReuseIdentifier: "TxRenewStarnameCell")
+        //for osmosis msg type
+        self.txTableView.register(UINib(nibName: "TxCreatePoolCell", bundle: nil), forCellReuseIdentifier: "TxCreatePoolCell")
+        self.txTableView.register(UINib(nibName: "TxJoinPoolCell", bundle: nil), forCellReuseIdentifier: "TxJoinPoolCell")
+        self.txTableView.register(UINib(nibName: "TxExitPoolCell", bundle: nil), forCellReuseIdentifier: "TxExitPoolCell")
+        self.txTableView.register(UINib(nibName: "TxTokenSwapCell", bundle: nil), forCellReuseIdentifier: "TxTokenSwapCell")
+        self.txTableView.register(UINib(nibName: "TxLockTokenCell", bundle: nil), forCellReuseIdentifier: "TxLockTokenCell")
+        self.txTableView.register(UINib(nibName: "TxUnlockTokenCell", bundle: nil), forCellReuseIdentifier: "TxUnlockTokenCell")
+        self.txTableView.register(UINib(nibName: "TxUnlockAllTokensCell", bundle: nil), forCellReuseIdentifier: "TxUnlockAllTokensCell")
+        self.txTableView.register(UINib(nibName: "TxUnlockPeriodLockCell", bundle: nil), forCellReuseIdentifier: "TxUnlockPeriodLockCell")
+        
         //for ibc msg type
         self.txTableView.register(UINib(nibName: "TxIbcSendCell", bundle: nil), forCellReuseIdentifier: "TxIbcSendCell")
+        self.txTableView.register(UINib(nibName: "TxIbcReceiveCell", bundle: nil), forCellReuseIdentifier: "TxIbcReceiveCell")
+        self.txTableView.register(UINib(nibName: "TxIbcUpdateClientCell", bundle: nil), forCellReuseIdentifier: "TxIbcUpdateClientCell")
+        self.txTableView.register(UINib(nibName: "TxIbcAcknowledgeCell", bundle: nil), forCellReuseIdentifier: "TxIbcAcknowledgeCell")
         //for unknown msg type
         self.txTableView.register(UINib(nibName: "TxUnknownCell", bundle: nil), forCellReuseIdentifier: "TxUnknownCell")
         
@@ -174,11 +187,79 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
                 
             }
             
+            else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgCreatePool.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxCreatePoolCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgJoinPool.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxJoinPoolCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgExitPool.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxExitPoolCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgSwapExactAmountIn.protoMessageName) || msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgSwapExactAmountOut.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxTokenSwapCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgJoinSwapExternAmountIn.protoMessageName)) {
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgJoinSwapShareAmountOut.protoMessageName)) {
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgExitSwapExternAmountOut.protoMessageName)) {
+                
+            } else if (msg.typeURL.contains(Osmosis_Gamm_V1beta1_MsgExitSwapShareAmountIn.protoMessageName)) {
+                
+            }
+            
+            else if (msg.typeURL.contains(Osmosis_Lockup_MsgLockTokens.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxLockTokenCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL == ("/" + Osmosis_Lockup_MsgBeginUnlocking.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxUnlockTokenCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL == ("/" + Osmosis_Lockup_MsgBeginUnlockingAll.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxUnlockAllTokensCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Osmosis_Lockup_MsgUnlockPeriodLock.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxUnlockPeriodLockCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+                
+            }
+            
+            
             else if (msg.typeURL.contains(Ibc_Applications_Transfer_V1_MsgTransfer.protoMessageName)) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcSendCell") as? TxCell
                 cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
                 return cell!
                 
+            } else if (msg.typeURL.contains(Ibc_Core_Channel_V1_MsgRecvPacket.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcReceiveCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Ibc_Core_Client_V1_MsgUpdateClient.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcUpdateClientCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Ibc_Core_Channel_V1_MsgAcknowledgement.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcAcknowledgeCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
             }
             return onBindUnknown(tableView)
         }

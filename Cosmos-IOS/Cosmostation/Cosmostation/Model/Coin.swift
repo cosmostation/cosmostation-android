@@ -40,4 +40,15 @@ public struct Coin: Codable {
         if (!isIbc()) {return nil}
         return denom.replacingOccurrences(of: "ibc/", with: "")
     }
+    
+    func isOsmosisAmm() -> Bool {
+        if (denom.starts(with: "gamm/pool/")) {
+            return true
+        }
+        return false
+    }
+    
+    func isOsmosisAmmDpDenom() -> String {
+        return "GAMM-" + String(denom.split(separator: "/").last!)
+    }
 }
