@@ -211,7 +211,7 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_create_certificate);
                 } else if (msgType.contains("MsgRevokeCertificate")) {
                     result = c.getString(R.string.tx_revoke_certificate);
-                } else if (msgType.contains("MsgUpdateClient")) {
+                } else if (msgType.contains("ibc") && msgType.contains("MsgUpdateClient")) {
                     result = c.getString(R.string.tx_ibc_update_client);
                 } else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
                     result = c.getString(R.string.tx_ibc_send);

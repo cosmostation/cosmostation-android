@@ -66,7 +66,6 @@ import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxCreatePoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxExitPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxJoinPoolHolder;
-import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxTokenSwapHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
@@ -322,9 +321,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_EXIT_POOL) {
                 return new TxExitPoolHolder(getLayoutInflater().inflate(R.layout.item_tx_exit_pool, viewGroup, false));
 
-            } else if (viewType == TYPE_TX_SWAP_COIN) {
-                return new TxTokenSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_token_swap, viewGroup, false));
-
+//            } else if (viewType == TYPE_TX_SWAP_COIN) {
+//                return new TxTokenSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_token_swap, viewGroup, false));
+//
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
@@ -421,9 +420,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_JOIN_POOL;
                 } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgExitPool.getDescriptor().getFullName())) {
                     return TYPE_TX_EXIT_POOL;
-                } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.getDescriptor().getFullName()) ||
-                           msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountOut.getDescriptor().getFullName())) {
-                    return TYPE_TX_SWAP_COIN;
+//                } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.getDescriptor().getFullName()) ||
+//                           msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountOut.getDescriptor().getFullName())) {
+//                    return TYPE_TX_SWAP_COIN;
                 }
                 return TYPE_TX_UNKNOWN;
             }
