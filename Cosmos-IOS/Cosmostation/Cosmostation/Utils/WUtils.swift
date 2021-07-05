@@ -1782,7 +1782,23 @@ class WUtils {
     }
     
     static func showCoinDp(_ coin:Coin, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
+        if (isGRPC(chainType) && coin.isIbc()) {
+            if let ibcToken = BaseData.instance.getIbcToken(coin.getIbcHash()) {
+                if (ibcToken.auth == true) {
+                    denomLabel.textColor = .white
+                    denomLabel.text = ibcToken.display_denom!.uppercased()
+                    amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, ibcToken.decimal!, ibcToken.decimal!)
+                    return
+                    
+                } else {
+                    denomLabel.textColor = .white
+                    denomLabel.text = "Unknown"
+                    amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+                    return
+                }
+            }
+            
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             if (coin.denom == COSMOS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1951,11 +1967,20 @@ class WUtils {
         } else if (chainType == ChainType.OSMOSIS_MAIN) {
             if (coin.denom == OSMOSIS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+                amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            } else if (coin.denom == OSMOSIS_ION_DENOM) {
+                denomLabel.textColor = COLOR_ION
+                denomLabel.text = "ION"
+                amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            } else if (coin.isOsmosisAmm()) {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.isOsmosisAmmDpDenom()
+                amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 18, 18)
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = coin.denom.uppercased()
+                amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             }
-            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.IRIS_TEST) {
             if (coin.denom == IRIS_TEST_DENOM) {
@@ -1997,7 +2022,23 @@ class WUtils {
     }
     
     static func showCoinDp(_ denom:String, _ amount:String, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
+        if (isGRPC(chainType) && denom.starts(with: "ibc/")) {
+            if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")) {
+                if (ibcToken.auth == true) {
+                    denomLabel.textColor = .white
+                    denomLabel.text = ibcToken.display_denom?.uppercased()
+                    amountLabel.attributedText = displayAmount2(amount, amountLabel.font, ibcToken.decimal!, ibcToken.decimal!)
+                    return
+                    
+                } else {
+                    denomLabel.textColor = .white
+                    denomLabel.text = "Unknown"
+                    amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+                    return
+                }
+            }
+            
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             if (denom == COSMOS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -2166,11 +2207,20 @@ class WUtils {
         } else if (chainType == ChainType.OSMOSIS_MAIN) {
             if (denom == OSMOSIS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+                amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            } else if (denom == OSMOSIS_ION_DENOM) {
+                denomLabel.textColor = COLOR_ION
+                denomLabel.text = "ION"
+                amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            } else if (denom.starts(with: "gamm/pool/")) {
+                denomLabel.textColor = .white
+                denomLabel.text = "GAMM-" + String(denom.split(separator: "/").last!)
+                amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 18, 18)
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = denom.uppercased()
+                amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             }
-            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.IRIS_TEST) {
             if (denom == IRIS_TEST_DENOM) {

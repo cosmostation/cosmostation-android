@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="T4X-xR-oqI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="T4X-xR-oqI">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,7 +39,7 @@
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lJg-IO-0Tm">
                                 <rect key="frame" x="0.0" y="638" width="414" height="120"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqM-8h-gAN">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqM-8h-gAN">
                                         <rect key="frame" x="16" y="70" width="382" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="bHF-YG-cst"/>
@@ -63,7 +63,7 @@
                                             <action selector="onClickCreate:" destination="Iiy-m2-uEE" eventType="touchUpInside" id="d1X-aA-XQh"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jLS-QI-9ca">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jLS-QI-9ca">
                                         <rect key="frame" x="16" y="10" width="382" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="VJY-v6-m8V"/>
@@ -117,7 +117,7 @@
                                                                     <constraint firstItem="tNZ-y0-Nn3" firstAttribute="centerX" secondItem="Cmy-mN-U5M" secondAttribute="centerX" id="zvq-az-WQU"/>
                                                                 </constraints>
                                                             </stackView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="caY-pp-RFx">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="caY-pp-RFx">
                                                                 <rect key="frame" x="0.0" y="0.0" width="186" height="50"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -169,7 +169,7 @@
                                                                     <constraint firstItem="xRh-ge-bAh" firstAttribute="centerX" secondItem="h8k-Dh-i0g" secondAttribute="centerX" id="IpV-dn-Bod"/>
                                                                 </constraints>
                                                             </stackView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSS-lQ-ASR">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSS-lQ-ASR">
                                                                 <rect key="frame" x="0.0" y="0.0" width="186" height="50"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -227,6 +227,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="vud-fA-pPm"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vcc-qa-pnk" firstAttribute="height" secondItem="dIt-LH-x5i" secondAttribute="height" id="44R-T2-fqA"/>
@@ -243,7 +244,6 @@
                             <constraint firstItem="vud-fA-pPm" firstAttribute="trailing" secondItem="vcc-qa-pnk" secondAttribute="trailing" id="mOK-MQ-20t"/>
                             <constraint firstItem="vud-fA-pPm" firstAttribute="bottom" secondItem="x6t-zv-E8m" secondAttribute="bottom" constant="16" id="p4U-P8-RBY"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="vud-fA-pPm"/>
                     </view>
                     <navigationItem key="navigationItem" id="o1U-PM-Vyg"/>
                     <connections>
@@ -1105,7 +1105,7 @@
                                     <constraint firstItem="cgM-k7-H5E" firstAttribute="width" secondItem="c3k-tk-cAn" secondAttribute="width" id="vVF-hw-eUa"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVi-w5-xru">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVi-w5-xru">
                                 <rect key="frame" x="16" y="796" width="382" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="yay-Aw-YTX"/>
@@ -1130,6 +1130,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="gpv-fD-Lwa"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="gpv-fD-Lwa" firstAttribute="trailing" secondItem="rin-EF-A40" secondAttribute="trailing" constant="12" id="Blw-1P-ToA"/>
@@ -1148,7 +1149,6 @@
                             <constraint firstItem="gpv-fD-Lwa" firstAttribute="leading" secondItem="jOx-L3-dS5" secondAttribute="leading" id="met-RF-Wu0"/>
                             <constraint firstAttribute="top" secondItem="jOx-L3-dS5" secondAttribute="top" id="pVa-fj-53R"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="gpv-fD-Lwa"/>
                     </view>
                     <connections>
                         <outlet property="addressLabel" destination="sjR-GR-Mxr" id="pGc-HZ-nd4"/>
@@ -2088,7 +2088,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="1bj-e8-1ms">
                                 <rect key="frame" x="0.0" y="566.66666666666663" width="414" height="45"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ms6-S6-Zz4">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ms6-S6-Zz4">
                                         <rect key="frame" x="0.0" y="0.0" width="206" height="45"/>
                                         <color key="backgroundColor" red="0.086274509799999996" green="0.094117647060000004" blue="0.098039215690000001" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
@@ -2099,7 +2099,7 @@
                                             <action selector="onPasteClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="8Nz-76-sE1"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHd-GC-jER">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SHd-GC-jER">
                                         <rect key="frame" x="208" y="0.0" width="206" height="45"/>
                                         <color key="backgroundColor" red="0.086274509803921567" green="0.094117647058823528" blue="0.098039215686274508" alpha="1" colorSpace="deviceRGB"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
@@ -2121,7 +2121,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="YcB-VH-Rv6">
                                         <rect key="frame" x="2" y="6" width="410" height="47"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E5f-B8-LVU">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E5f-B8-LVU">
                                                 <rect key="frame" x="0.0" y="0.0" width="41" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="q">
@@ -2131,7 +2131,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="s5h-ZP-WdE"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9F-lq-R3b">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9F-lq-R3b">
                                                 <rect key="frame" x="41" y="0.0" width="41" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="w">
@@ -2141,7 +2141,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="t8Q-Gb-2pL"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e61-sR-5dr">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e61-sR-5dr">
                                                 <rect key="frame" x="82" y="0.0" width="41" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="e">
@@ -2151,7 +2151,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="h2h-Lk-5vB"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ksd-SJ-b5s">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ksd-SJ-b5s">
                                                 <rect key="frame" x="123" y="0.0" width="41" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="r">
@@ -2161,7 +2161,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="3QZ-ys-u7w"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9C-RR-L3h">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9C-RR-L3h">
                                                 <rect key="frame" x="164" y="0.0" width="41" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="t">
@@ -2171,7 +2171,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="bB5-PF-Y7G"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgk-aL-rIK">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgk-aL-rIK">
                                                 <rect key="frame" x="205" y="0.0" width="41" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="y">
@@ -2181,7 +2181,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="AZN-XO-ZMw"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mr7-3h-LHz">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mr7-3h-LHz">
                                                 <rect key="frame" x="246" y="0.0" width="41" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="u">
@@ -2191,7 +2191,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="rop-9Q-YKK"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHl-rB-L40">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHl-rB-L40">
                                                 <rect key="frame" x="287" y="0.0" width="41" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="i">
@@ -2201,7 +2201,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="QoS-TU-ULM"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxq-xs-k3v">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxq-xs-k3v">
                                                 <rect key="frame" x="328" y="0.0" width="41" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="o">
@@ -2211,7 +2211,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="VsD-9S-Q0G"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dn9-4M-7Yi">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dn9-4M-7Yi">
                                                 <rect key="frame" x="369" y="0.0" width="41" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="p">
@@ -2226,7 +2226,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="d2w-45-0Oe">
                                         <rect key="frame" x="24" y="62" width="366" height="47"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYT-7K-ski">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYT-7K-ski">
                                                 <rect key="frame" x="0.0" y="0.0" width="40.666666666666664" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="a">
@@ -2236,7 +2236,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="QT5-VM-4AK"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ypi-Su-lsf">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ypi-Su-lsf">
                                                 <rect key="frame" x="40.666666666666671" y="0.0" width="40.666666666666671" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="s">
@@ -2246,7 +2246,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="XUe-3G-fuM"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mYQ-wD-QSr">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mYQ-wD-QSr">
                                                 <rect key="frame" x="81.333333333333329" y="0.0" width="40.666666666666671" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="d">
@@ -2256,7 +2256,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="Z0L-hT-W9v"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GL3-3C-viB">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GL3-3C-viB">
                                                 <rect key="frame" x="122.00000000000001" y="0.0" width="40.666666666666671" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="f">
@@ -2266,7 +2266,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="4fH-xD-Jpu"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M3z-Ss-9zg">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M3z-Ss-9zg">
                                                 <rect key="frame" x="162.66666666666666" y="0.0" width="40.666666666666657" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="g">
@@ -2276,7 +2276,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="kqQ-RW-ceV"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Srl-JZ-Osv">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Srl-JZ-Osv">
                                                 <rect key="frame" x="203.33333333333334" y="0.0" width="40.666666666666657" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="h">
@@ -2286,7 +2286,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="97N-L7-l5u"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyx-9x-t0m">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyx-9x-t0m">
                                                 <rect key="frame" x="243.99999999999997" y="0.0" width="40.666666666666657" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="j">
@@ -2296,7 +2296,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="7L8-n1-ZaJ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PVl-kT-fc2">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PVl-kT-fc2">
                                                 <rect key="frame" x="284.66666666666669" y="0.0" width="40.666666666666686" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="k">
@@ -2306,7 +2306,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="7hD-b2-dWF"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0z0-Ba-2wt">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0z0-Ba-2wt">
                                                 <rect key="frame" x="325.33333333333331" y="0.0" width="40.666666666666686" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="l">
@@ -2321,7 +2321,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="7UI-Lc-dCx">
                                         <rect key="frame" x="32" y="118" width="302" height="47"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nP4-5b-eLI">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nP4-5b-eLI">
                                                 <rect key="frame" x="0.0" y="0.0" width="43" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="z">
@@ -2331,7 +2331,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="g2d-pu-Dxr"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fl-qQ-lyt">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fl-qQ-lyt">
                                                 <rect key="frame" x="43" y="0.0" width="43.333333333333343" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="x">
@@ -2341,7 +2341,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="RIy-6i-hJY"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZL-B9-PL4">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZL-B9-PL4">
                                                 <rect key="frame" x="86.333333333333329" y="0.0" width="42.999999999999986" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="c">
@@ -2351,7 +2351,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="MJ7-7I-Ld0"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uP0-RI-i0X">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uP0-RI-i0X">
                                                 <rect key="frame" x="129.33333333333334" y="0.0" width="43.333333333333343" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="v">
@@ -2361,7 +2361,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="hVt-6s-k1b"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wut-Aj-61s">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wut-Aj-61s">
                                                 <rect key="frame" x="172.66666666666666" y="0.0" width="43" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="b">
@@ -2371,7 +2371,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="e3t-kp-Dal"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDW-0A-2w2">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDW-0A-2w2">
                                                 <rect key="frame" x="215.66666666666666" y="0.0" width="43.333333333333343" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="n">
@@ -2381,7 +2381,7 @@
                                                     <action selector="onKeyClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="6kV-5S-Bcf"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYc-4P-U9y">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYc-4P-U9y">
                                                 <rect key="frame" x="259" y="0.0" width="43" height="47"/>
                                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="30"/>
                                                 <state key="normal" title="m">
@@ -2405,7 +2405,7 @@
                                             <action selector="onDeleteClick:" destination="HQd-ha-cei" eventType="touchUpInside" id="8Ti-uj-52s"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7t-S6-L4S">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7t-S6-L4S">
                                         <rect key="frame" x="16" y="174" width="382" height="40"/>
                                         <color key="backgroundColor" red="0.14117647058823529" green="0.14901960784313725" blue="0.15294117647058825" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
@@ -2452,6 +2452,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="3nd-GL-pS6"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="3nd-GL-pS6" firstAttribute="top" secondItem="YjX-hz-Soc" secondAttribute="top" id="5io-Zs-YDE"/>
@@ -2470,7 +2471,6 @@
                             <constraint firstItem="adB-Me-7vQ" firstAttribute="leading" secondItem="3nd-GL-pS6" secondAttribute="leading" constant="16" id="qN0-ol-BdY"/>
                             <constraint firstItem="NpT-4d-5xt" firstAttribute="top" secondItem="adB-Me-7vQ" secondAttribute="bottom" constant="8" id="vLD-GS-GHA"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="3nd-GL-pS6"/>
                     </view>
                     <connections>
                         <outlet property="actionView" destination="1bj-e8-1ms" id="QFV-7h-UBO"/>
@@ -2545,25 +2545,35 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_cosmos" translatesAutoresizingMaskIntoConstraints="NO" id="8TU-P7-grf">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BCw-72-J7S">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BCw-72-J7S">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EUJ-e0-bm9" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
+                                <rect key="frame" x="177" y="423" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="hPM-On-qc4"/>
+                                    <constraint firstAttribute="height" constant="60" id="nh6-e0-koO"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="YYV-ug-g8P"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="8TU-P7-grf" firstAttribute="height" secondItem="lBr-Zg-7Ur" secondAttribute="height" id="IXz-5L-DZL"/>
                             <constraint firstItem="8TU-P7-grf" firstAttribute="width" secondItem="lBr-Zg-7Ur" secondAttribute="width" id="LGi-6f-PQ6"/>
                             <constraint firstItem="YYV-ug-g8P" firstAttribute="bottom" secondItem="BCw-72-J7S" secondAttribute="bottom" id="OA0-br-Xnr"/>
                             <constraint firstItem="BCw-72-J7S" firstAttribute="leading" secondItem="YYV-ug-g8P" secondAttribute="leading" id="QBu-iJ-cFs"/>
+                            <constraint firstItem="EUJ-e0-bm9" firstAttribute="centerY" secondItem="YYV-ug-g8P" secondAttribute="centerY" id="TKS-p1-eQQ"/>
                             <constraint firstItem="YYV-ug-g8P" firstAttribute="trailing" secondItem="BCw-72-J7S" secondAttribute="trailing" id="b60-2L-Xer"/>
                             <constraint firstItem="8TU-P7-grf" firstAttribute="leading" secondItem="YYV-ug-g8P" secondAttribute="leading" id="kVV-Ip-PNn"/>
                             <constraint firstAttribute="top" secondItem="8TU-P7-grf" secondAttribute="top" id="rRz-r0-qAZ"/>
+                            <constraint firstItem="EUJ-e0-bm9" firstAttribute="centerX" secondItem="YYV-ug-g8P" secondAttribute="centerX" id="tpF-VR-yrB"/>
                             <constraint firstItem="BCw-72-J7S" firstAttribute="top" secondItem="YYV-ug-g8P" secondAttribute="top" id="vmX-aB-oKd"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="YYV-ug-g8P"/>
                     </view>
                     <connections>
+                        <outlet property="loadingImg" destination="EUJ-e0-bm9" id="upS-7C-zZJ"/>
                         <outlet property="restoreTableView" destination="BCw-72-J7S" id="GM1-5S-Ko4"/>
                     </connections>
                 </viewController>
@@ -2650,7 +2660,7 @@ To make transaction can add private information with later.</string>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5iO-aj-ihM">
                                 <rect key="frame" x="16" y="796" width="382" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0MK-Uk-7ku">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0MK-Uk-7ku">
                                         <rect key="frame" x="0.0" y="0.0" width="186" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="g3E-cE-5Gc"/>
@@ -2674,7 +2684,7 @@ To make transaction can add private information with later.</string>
                                             <action selector="onClickCancel:" destination="aKk-rD-wQP" eventType="touchUpInside" id="cZx-z5-bUQ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gL-tk-0g2">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gL-tk-0g2">
                                         <rect key="frame" x="196" y="0.0" width="186" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="6GG-kG-krG"/>
@@ -2701,6 +2711,7 @@ To make transaction can add private information with later.</string>
                                 </subviews>
                             </stackView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="MM3-VO-KQW"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Nmm-Yx-iF1" firstAttribute="top" secondItem="MM3-VO-KQW" secondAttribute="top" constant="16" id="0ED-zV-JA7"/>
@@ -2721,7 +2732,6 @@ To make transaction can add private information with later.</string>
                             <constraint firstItem="T58-EU-w1Y" firstAttribute="leading" secondItem="wmm-FO-ZWf" secondAttribute="leading" id="yzY-Ca-4XV"/>
                             <constraint firstItem="T58-EU-w1Y" firstAttribute="height" secondItem="wmm-FO-ZWf" secondAttribute="height" id="zJd-2c-d7v"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="MM3-VO-KQW"/>
                     </view>
                     <connections>
                         <outlet property="addAddressInputText" destination="WW3-aL-nwf" id="WMx-vs-74G"/>
