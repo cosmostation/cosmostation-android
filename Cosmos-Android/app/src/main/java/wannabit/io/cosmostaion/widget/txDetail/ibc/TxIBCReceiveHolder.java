@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.widget.txDetail.ibc;
 
 import android.content.Context;
-import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -9,24 +8,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.protobuf.Any;
-
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import ibc.core.channel.v1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxIBCReceiveHolder extends TxHolder {

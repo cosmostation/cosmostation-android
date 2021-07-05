@@ -166,6 +166,8 @@ public class BaseConstant {
 
     public final static int TASK_FETCH_PRICE_INFO                       = 2800;
     public final static int TASK_FETCH_PARAM_INFO                       = 2801;
+    public final static int TASK_FETCH_IBC_PATHS                        = 2802;
+    public final static int TASK_FETCH_IBC_TOKENS                       = 2803;
 
     public final static int TASK_HDAC_NODE_INFO                         = 2900;
     public final static int TASK_HDAC_UTXO                              = 2901;

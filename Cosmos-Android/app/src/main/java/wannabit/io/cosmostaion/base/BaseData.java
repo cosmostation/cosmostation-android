@@ -34,6 +34,8 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.ChainParam;
+import wannabit.io.cosmostaion.dao.IbcPath;
+import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Price;
@@ -110,6 +112,8 @@ public class BaseData {
 
     public ArrayList<Price>         mPrices = new ArrayList<>();
     public ChainParam.Params        mChainParam;
+    public ArrayList<IbcPath>       mIbcPaths = new ArrayList<>();
+    public ArrayList<IbcToken>      mIbcTokens = new ArrayList<>();
 
     public Price getPrice(String denom) {
         for (Price price: mPrices) {

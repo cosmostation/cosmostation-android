@@ -154,7 +154,7 @@ public class ResApiNewTxListCustom {
                     msgType = getMsgs().getJSONObject(0).getString("type");
                 } catch (Exception e) {
                 }
-                WLog.w("msgType " +  msgType);
+
                 if (msgType.contains("MsgDelegate")) {
                     result = c.getString(R.string.tx_delegate);
                 } else if (msgType.contains("MsgUndelegate")) {
@@ -289,7 +289,6 @@ public class ResApiNewTxListCustom {
             msgType = getMsgs().getJSONObject(0).getString("type");
         } catch (Exception e) {
         }
-        WLog.w("Type : " + msgType);
 
         if (msgType.contains("MsgSend")) {
             try {
