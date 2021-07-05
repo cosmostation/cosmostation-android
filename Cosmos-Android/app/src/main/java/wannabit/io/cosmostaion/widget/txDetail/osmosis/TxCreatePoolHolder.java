@@ -1,0 +1,60 @@
+package wannabit.io.cosmostaion.widget.txDetail.osmosis;
+
+import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
+
+import cosmos.base.v1beta1.CoinOuterClass;
+import cosmos.tx.v1beta1.ServiceOuterClass;
+import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.Tx;
+import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
+
+public class TxCreatePoolHolder extends TxHolder {
+    ImageView itemCreatePoolImg;
+    TextView itemCreateSender, itemCreateSwapFee, itemCreateExitFee,
+             itemCreatePoolAssetAmount1, itemCreatePoolAssetSymbol1, itemCreatePoolAssetAmount2, itemCreatePoolAssetSymbol2;
+
+    public TxCreatePoolHolder(@NonNull View itemView) {
+        super(itemView);
+        itemCreatePoolImg = itemView.findViewById(R.id.tx_create_pool_icon);
+        itemCreateSender = itemView.findViewById(R.id.tx_create_pool_sender);
+        itemCreateSwapFee = itemView.findViewById(R.id.tx_create_pool_swap_fee);
+        itemCreateExitFee = itemView.findViewById(R.id.tx_create_pool_exit_fee);
+        itemCreatePoolAssetAmount1 = itemView.findViewById(R.id.tx_create_pool_asset_amount1);
+        itemCreatePoolAssetSymbol1 = itemView.findViewById(R.id.tx_create_pool_asset_symbol1);
+        itemCreatePoolAssetAmount2 = itemView.findViewById(R.id.tx_create_pool_asset_amount2);
+        itemCreatePoolAssetSymbol2 = itemView.findViewById(R.id.tx_create_pool_asset_symbol2);
+    }
+
+    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
+        itemCreatePoolImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+
+        try {
+            Tx.MsgCreatePool msg = Tx.MsgCreatePool.parseFrom(response.getTx().getBody().getMessages(position).getValue());
+            itemCreateSender.setText(msg.getSender());
+            itemCreateSwapFee.setText("" + new BigDecimal(msg.getPoolParams().getSwapFee()).movePointLeft(18).setScale(2, RoundingMode.FLOOR));
+            itemCreateExitFee.setText("" + new BigDecimal(msg.getPoolParams().getExitFee()).movePointLeft(18).setScale(2, RoundingMode.FLOOR));
+
+            List<Coin> TokenCoin = new ArrayList<>();
+            for (PoolOuterClass.PoolAsset pool: msg.getPoolAssetsList()) {
+                TokenCoin.add(new Coin(pool.getToken().getDenom(), pool.getToken().getAmount()));
+            }
+            WDp.showCoinDp(c, TokenCoin.get(0), itemCreatePoolAssetSymbol1, itemCreatePoolAssetAmount1, baseChain);
+            WDp.showCoinDp(c, TokenCoin.get(1), itemCreatePoolAssetSymbol2, itemCreatePoolAssetAmount2, baseChain);
+        } catch (Exception e) { }
+    }
+}

@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.widget.txDetail;
+package wannabit.io.cosmostaion.widget.txDetail.ibc;
 
 import android.content.Context;
 import android.view.View;
@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxIBCSendHolder extends TxHolder {
     ImageView itemIbcSendImg;

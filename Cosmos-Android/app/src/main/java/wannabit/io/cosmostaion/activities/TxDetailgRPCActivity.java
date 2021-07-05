@@ -44,7 +44,9 @@ import wannabit.io.cosmostaion.widget.txDetail.TxCreateDeploymentHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateLeaseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
-import wannabit.io.cosmostaion.widget.txDetail.TxIBCSendHolder;
+import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCAcknowledgeHolder;
+import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCReceiveHolder;
+import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxReDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxSetAddressHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxStakingRewardHolder;
@@ -60,6 +62,10 @@ import wannabit.io.cosmostaion.widget.txDetail.TxUnjailHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxUnknownHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxVoterHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxWithdrawLeaseHolder;
+import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxCreatePoolHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxExitPoolHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxJoinPoolHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
@@ -202,6 +208,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_CREATE_DEPLOYMENT = 14;
         private static final int TYPE_TX_CLOSE_DEPLOYMENT = 15;
         private static final int TYPE_TX_IBC_SEND = 16;
+        private static final int TYPE_TX_IBC_RECEIVE = 17;
+        private static final int TYPE_TX_IBC_UPDATE_CLIENT = 18;
+        private static final int TYPE_TX_IBC_ACKNOWLEDGE = 19;
 
         private static final int TYPE_STARNAME_REGISTER_DOMAIN = 30;
         private static final int TYPE_STARNAME_REGISTER_ACCOUNT = 31;
@@ -210,6 +219,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_STARNAME_REPLACE_ACCOUNT_RESOURCE = 34;
         private static final int TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME = 35;
         private static final int TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME = 36;
+
+        private static final int TYPE_TX_CREATE_POOL = 40;
+        private static final int TYPE_TX_JOIN_POOL = 41;
+        private static final int TYPE_TX_EXIT_POOL = 42;
+        private static final int TYPE_TX_SWAP_COIN = 43;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -267,7 +281,18 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_IBC_SEND) {
                 return new TxIBCSendHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_send, viewGroup, false));
 
-            } else if (viewType == TYPE_STARNAME_REGISTER_DOMAIN) {
+            } else if (viewType == TYPE_TX_IBC_RECEIVE) {
+                return new TxIBCReceiveHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_receive, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_IBC_UPDATE_CLIENT) {
+                return new TxIBCUpdateClientHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_update_client, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_IBC_ACKNOWLEDGE) {
+                return new TxIBCAcknowledgeHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_acknowledge, viewGroup, false));
+
+            }
+
+            else if (viewType == TYPE_STARNAME_REGISTER_DOMAIN) {
                 return new TxStarnameRegisterDomainHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_register_domain, viewGroup, false));
 
             } else if (viewType == TYPE_STARNAME_REGISTER_ACCOUNT) {
@@ -285,6 +310,20 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME || viewType == TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME) {
                 return new TxStarnameRenewHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_renew, viewGroup, false));
 
+            }
+
+            else if (viewType == TYPE_TX_CREATE_POOL) {
+                return new TxCreatePoolHolder(getLayoutInflater().inflate(R.layout.item_tx_create_pool, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_JOIN_POOL) {
+                return new TxJoinPoolHolder(getLayoutInflater().inflate(R.layout.item_tx_join_pool, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_EXIT_POOL) {
+                return new TxExitPoolHolder(getLayoutInflater().inflate(R.layout.item_tx_exit_pool, viewGroup, false));
+
+//            } else if (viewType == TYPE_TX_SWAP_COIN) {
+//                return new TxTokenSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_token_swap, viewGroup, false));
+//
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
@@ -347,9 +386,19 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_CREATE_DEPLOYMENT;
                 } else if (msg.getTypeUrl().contains(DeploymentOuterClass.MsgCloseDeployment.getDescriptor().getFullName())) {
                     return TYPE_TX_CLOSE_DEPLOYMENT;
-                } else if (msg.getTypeUrl().contains(Tx.MsgTransfer.getDescriptor().getFullName())) {
+                }
+
+                else if (msg.getTypeUrl().contains(Tx.MsgTransfer.getDescriptor().getFullName())) {
                     return TYPE_TX_IBC_SEND;
-                } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain.getDescriptor().getFullName())) {
+                } else if (msg.getTypeUrl().contains(ibc.core.channel.v1.Tx.MsgRecvPacket.getDescriptor().getFullName())) {
+                    return TYPE_TX_IBC_RECEIVE;
+                } else if (msg.getTypeUrl().contains(ibc.core.client.v1.Tx.MsgUpdateClient.getDescriptor().getFullName())) {
+                    return TYPE_TX_IBC_UPDATE_CLIENT;
+                } else if (msg.getTypeUrl().contains(ibc.core.channel.v1.Tx.MsgAcknowledgement.getDescriptor().getFullName())) {
+                    return TYPE_TX_IBC_ACKNOWLEDGE;
+                }
+
+                else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRegisterDomain.getDescriptor().getFullName())) {
                     return TYPE_STARNAME_REGISTER_DOMAIN;
                 } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRegisterAccount.getDescriptor().getFullName())) {
                     return TYPE_STARNAME_REGISTER_ACCOUNT;
@@ -363,6 +412,17 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME;
                 } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRenewDomain.getDescriptor().getFullName())) {
                     return TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME;
+                }
+
+                else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgCreatePool.getDescriptor().getFullName())) {
+                    return TYPE_TX_CREATE_POOL;
+                } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinPool.getDescriptor().getFullName())) {
+                    return TYPE_TX_JOIN_POOL;
+                } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgExitPool.getDescriptor().getFullName())) {
+                    return TYPE_TX_EXIT_POOL;
+//                } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.getDescriptor().getFullName()) ||
+//                           msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountOut.getDescriptor().getFullName())) {
+//                    return TYPE_TX_SWAP_COIN;
                 }
                 return TYPE_TX_UNKNOWN;
             }

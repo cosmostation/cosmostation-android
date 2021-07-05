@@ -211,7 +211,7 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_create_certificate);
                 } else if (msgType.contains("MsgRevokeCertificate")) {
                     result = c.getString(R.string.tx_revoke_certificate);
-                } else if (msgType.contains("MsgUpdateClient")) {
+                } else if (msgType.contains("ibc") && msgType.contains("MsgUpdateClient")) {
                     result = c.getString(R.string.tx_ibc_update_client);
                 } else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
                     result = c.getString(R.string.tx_ibc_send);
@@ -247,6 +247,22 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_starname_update_resource);
                 }
 
+                else if (msgType.contains("MsgCreatePool")) {
+                    result = c.getString(R.string.tx_osmosis_create_pool);
+
+                } else if (msgType.contains("MsgJoinPool")) {
+                    result = c.getString(R.string.tx_osmosis_join_pool);
+
+                } else if (msgType.contains("MsgExitPool")) {
+                    result = c.getString(R.string.tx_osmosis_exit_pool);
+
+                } else if (msgType.contains("MsgSwapExactAmountIn") || msgType.contains("MsgSwapExactAmountOut")) {
+                    result = c.getString(R.string.tx_osmosis_coin_swap);
+
+                } else if (msgType.contains("MsgJoinSwapExternAmountIn") || msgType.contains("MsgJoinSwapShareAmountOut") ||
+                           msgType.contains("MsgExitSwapExternAmountOut") || msgType.contains("MsgExitSwapShareAmountIn")) {
+                    result = c.getString(R.string.tx_osmosis_coin_swap);
+            }
 
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
