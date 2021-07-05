@@ -24,11 +24,13 @@ public struct IbcPath {
 }
 
 public struct Path {
+    var auth: Bool?
     var channel_id: String?
     var port_id: String?
     var counter_party: CounterParty?
     
     init(_ dictionary: NSDictionary?) {
+        self.auth = dictionary?["auth"] as? Bool
         self.channel_id = dictionary?["channel_id"] as? String
         self.port_id = dictionary?["port_id"] as? String
         if let rawCounterParty = dictionary?["counter_party"] as? NSDictionary {

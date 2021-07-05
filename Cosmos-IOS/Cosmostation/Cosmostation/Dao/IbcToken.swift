@@ -9,17 +9,25 @@
 import Foundation
 
 public struct IbcToken {
+    var auth: Bool?
     var hash: String?
     var base_denom: String?
+    var display_denom: String?
+    var decimal: Int?
     var channel_id: String?
     var port_id: String?
+    var moniker: String?
     var counter_party: TokenCounterParty?
     
     init(_ dictionary: NSDictionary?) {
+        self.auth = dictionary?["auth"] as? Bool
         self.hash = dictionary?["hash"] as? String
         self.base_denom = dictionary?["base_denom"] as? String
+        self.display_denom = dictionary?["display_denom"] as? String
+        self.decimal = dictionary?["decimal"] as? Int
         self.channel_id = dictionary?["channel_id"] as? String
         self.port_id = dictionary?["port_id"] as? String
+        self.moniker = dictionary?["moniker"] as? String
         if let rawTokenCounterParty = dictionary?["counter_party"] as? NSDictionary {
             self.counter_party = TokenCounterParty.init(rawTokenCounterParty)
         }
