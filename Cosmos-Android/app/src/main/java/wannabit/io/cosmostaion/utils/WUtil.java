@@ -54,6 +54,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
@@ -1510,7 +1511,11 @@ public class WUtil {
 
         } else if (basechain.equals(OSMOSIS_MAIN)) {
             result = result + ",uosmo,uion";
-
+            for (IbcToken ibcToken: basedata.mIbcTokens) {
+                if (ibcToken.auth) {
+                    result = result + "," + ibcToken.base_denom;
+                }
+            }
         }
 
         else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {

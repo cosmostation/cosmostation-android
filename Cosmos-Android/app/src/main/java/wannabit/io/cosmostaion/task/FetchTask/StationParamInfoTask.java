@@ -18,15 +18,15 @@ public class StationParamInfoTask extends CommonTask {
 
     public StationParamInfoTask(BaseApplication app, TaskListener listener, String chainId) {
         super(app, listener);
-        this.mChainId            = chainId;
+        this.mChainId           = chainId;
         this.mResult.taskType   = TASK_FETCH_PARAM_INFO;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            WLog.w("chain param URL " +  ApiClient.getChainParam(mApp).getParam(mChainId).request().url());
-            Response<ChainParam> response = ApiClient.getChainParam(mApp).getParam(mChainId).execute();
+            WLog.w("chain param URL " +  ApiClient.getStation(mApp).getParam(mChainId).request().url());
+            Response<ChainParam> response = ApiClient.getStation(mApp).getParam(mChainId).execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

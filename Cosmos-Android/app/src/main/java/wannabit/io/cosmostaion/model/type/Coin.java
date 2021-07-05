@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import wannabit.io.cosmostaion.utils.WLog;
+
 public class Coin implements Parcelable {
 
     @SerializedName("denom")
@@ -53,5 +55,11 @@ public class Coin implements Parcelable {
             return new Coin[size];
         }
     };
+
+
+    public String osmosisAmmDpDenom() {
+        String[] split = denom.split("/");
+        return "GAMM-" + split[split.length - 1];
+    }
 
 }

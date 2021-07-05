@@ -44,7 +44,7 @@ public class PushUpdateTask extends CommonTask {
             reqPushAlarm.alarm_token = mPushToken;
             reqPushAlarm.alarm_status = mEnable;
 
-            Response<ResPushAlarm> response = ApiClient.getCosmostation(mApp).updateAlarm(reqPushAlarm).execute();
+            Response<ResPushAlarm> response = ApiClient.getCosmostationOld(mApp).updateAlarm(reqPushAlarm).execute();
             if (response.isSuccessful() && response.body() != null && response.body().result == true) {
                 mResult.isSuccess = true;
             }

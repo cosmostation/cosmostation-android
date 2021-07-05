@@ -47,7 +47,6 @@ import cosmos.auth.v1beta1.Auth;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
-import oracle.v1.Oracle;
 import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
@@ -106,6 +105,8 @@ import wannabit.io.cosmostaion.task.FetchTask.SifLmIncentiveTask;
 import wannabit.io.cosmostaion.task.FetchTask.SifVsIncentiveTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcConfigTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcFeeTask;
+import wannabit.io.cosmostaion.task.FetchTask.StationIbcPathsTask;
+import wannabit.io.cosmostaion.task.FetchTask.StationIbcTokensTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationParamInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationPriceInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
@@ -118,7 +119,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.AuthGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.BalanceGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.BandOracleStatusGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.DelegationsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
@@ -178,7 +178,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SIF_INCENTIVE
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_AUTH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BAND_ORACLE_STATUS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BONDED_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATIONS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
@@ -523,6 +522,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         mFetchCallback = callback;
 
         getBaseDao().mPrices.clear();
+        getBaseDao().mIbcPaths.clear();
+        getBaseDao().mIbcTokens.clear();
         getBaseDao().mChainParam = null;
 
         getBaseDao().mSifVsIncentive = null;
@@ -732,6 +733,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
             invalidateOptionsMenu();
             return;
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_PRICE_INFO) {
+            WLog.w("TASK_FETCH_PRICE_INFO");
         }
 
         mTaskCount--;
@@ -739,8 +743,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
             getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
 //            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
-            mTaskCount = mTaskCount + 1;
-            new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         } else if (result.taskType == TASK_FETCH_NODE_INFO) {
@@ -848,8 +850,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
             }
 //            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
-            mTaskCount = mTaskCount + 1;
-            new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (result.taskType == TASK_FETCH_OK_STAKING_INFO) {
             if (result.isSuccess && result.resultData != null) {
@@ -892,8 +892,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         else if (result.taskType == TASK_GRPC_FETCH_NODE_INFO) {
             Types.DefaultNodeInfo tempNodeInfo = (Types.DefaultNodeInfo) result.resultData;
             if (tempNodeInfo != null) { getBaseDao().mGRpcNodeInfo = tempNodeInfo;
-                mTaskCount = mTaskCount + 1;
+                mTaskCount = mTaskCount + 3;
                 new StationParamInfoTask(getBaseApplication(), this, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new StationIbcPathsTask(getBaseApplication(), this, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new StationIbcTokensTask(getBaseApplication(), this, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_AUTH) {
@@ -921,9 +923,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             } else {
                 getBaseDao().mGrpcBalance.add(new Coin(WDp.mainDenom(mBaseChain), "0"));
             }
-//            WLog.w("getBaseDao().mGrpcBalance " + getBaseDao().mGrpcBalance.size());
-            mTaskCount = mTaskCount + 1;
-            new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (result.taskType == TASK_GRPC_FETCH_DELEGATIONS) {
             ArrayList<Staking.DelegationResponse> delegations = (ArrayList<Staking.DelegationResponse>) result.resultData;
@@ -980,6 +979,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 //                WLog.w("mGRpcOtherValidators " + getBaseDao().mGRpcOtherValidators.size());
 //                WLog.w("mGRpcAllValidators " + getBaseDao().mGRpcAllValidators.size());
 //                WLog.w("mGRpcMyValidators " + getBaseDao().mGRpcMyValidators.size());
+                WLog.w("mIbcPaths " + getBaseDao().mIbcPaths.size());
+                WLog.w("mIbcTokens " + getBaseDao().mIbcTokens.size());
                 if (getBaseDao().mGRpcNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 } else {
@@ -989,7 +990,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         } else {
                             WUtil.onParseVestingAccount(getBaseDao());
                         }
-
                     }
 //                    WLog.w("getBaseDao().mGRpcNodeInfo " + getBaseDao().mGRpcNodeInfo.getNetwork());
                 }
@@ -997,8 +997,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                } else {
-//                    WLog.w("getBaseDao().mNodeInfo " + getBaseDao().mNodeInfo.network);
                 }
 //                WLog.w("mBnbTokens " + getBaseDao().mBnbTokens.size());
 //                WLog.w("mBnbTickers " + getBaseDao().mBnbTickers.size());
@@ -1028,8 +1026,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                } else {
-//                    WLog.w("getBaseDao().mNodeInfo " + getBaseDao().mNodeInfo.network);
                 }
 
             } else {
@@ -1052,23 +1048,21 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     }
                     if (already) getBaseDao().mMyValidators.add(top);
                 }
-
-                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
-                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
-                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
-                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
-                WLog.w("mBalances " + getBaseDao().mBalances.size());
-                WLog.w("mMyDelegations " + getBaseDao().mMyDelegations.size());
-                WLog.w("mMyUnbondings " + getBaseDao().mMyUnbondings.size());
-                WLog.w("mMyRewards " + getBaseDao().mMyRewards.size());
+//                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
+//                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
+//                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
+//                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
+//                WLog.w("mBalances " + getBaseDao().mBalances.size());
+//                WLog.w("mMyDelegations " + getBaseDao().mMyDelegations.size());
+//                WLog.w("mMyUnbondings " + getBaseDao().mMyUnbondings.size());
+//                WLog.w("mMyRewards " + getBaseDao().mMyRewards.size());
 
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                } else {
-//                    WLog.w("getBaseDao().mNodeInfo " + getBaseDao().mNodeInfo.network);
                 }
 
             }
+            new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             //callback with delay fix gRPC  timming issue
             mHandler.postDelayed(new Runnable() {

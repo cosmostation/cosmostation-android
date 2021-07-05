@@ -183,7 +183,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
 
     private void onCheckAppVersion() {
-        ApiClient.getCosmostation(this).getVersion().enqueue(new Callback<ResVersionCheck>() {
+        ApiClient.getCosmostationOld(this).getVersion().enqueue(new Callback<ResVersionCheck>() {
             @Override
             public void onResponse(Call<ResVersionCheck> call, Response<ResVersionCheck> response) {
                 if (response.isSuccessful()) {

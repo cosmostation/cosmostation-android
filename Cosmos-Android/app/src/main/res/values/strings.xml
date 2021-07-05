@@ -4,8 +4,8 @@
 
 <!--    <string name="url_coingecko" translatable="false">https://api.coingecko.com/</string>-->
     <string name="url_moon_pay" translatable="false">https://buy.moonpay.io</string>
+    <string name="url_station_old" translatable="false">https://api-wallet.cosmostation.io/</string>
     <string name="url_station" translatable="false">https://api-utility.cosmostation.io/</string>
-    <string name="url_css" translatable="false">https://api-wallet.cosmostation.io/</string>
 
 
     <string name="url_lcd_cosmos_main" translatable="false">https://lcd-cosmos-app-standby.cosmostation.io/</string>

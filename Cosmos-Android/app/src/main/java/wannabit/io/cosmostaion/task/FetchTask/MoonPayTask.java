@@ -25,7 +25,7 @@ public class MoonPayTask extends CommonTask {
         try {
             ReqMoonPayKey reqMoonPayKey = new ReqMoonPayKey();
             reqMoonPayKey.api_key = mQuery;
-            Response<ResMoonPaySignature> response = ApiClient.getCosmostation(mApp).getMoonPay(reqMoonPayKey).execute();
+            Response<ResMoonPaySignature> response = ApiClient.getCosmostationOld(mApp).getMoonPay(reqMoonPayKey).execute();
             if (response.isSuccessful() && response.body() != null && response.body().signature != null) {
                 mResult.isSuccess = true;
                 mResult.resultData = response.body().signature;
