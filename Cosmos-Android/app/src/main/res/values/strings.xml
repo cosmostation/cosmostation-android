@@ -1320,8 +1320,12 @@
     <string name="str_mnemonics_warning_title">Do NOT enter your mnemonics.</string>
     <string name="str_mnemonics_warning_msg"><b>Entering your mnemonics in\n the memo field may lead to loss of your funds.</b>\nPlease do not share your mnemonics with others. \nYou are soley responsible for the exposure or loss of your keys.</string>
     <string name="str_ibc_sender">Sender</string>
+    <string name="str_ibc_receiver">Receiver</string>
     <string name="str_ibc_recipent">Recipent</string>
+    <string name="str_ibc_siner">Siner</string>
+    <string name="str_ibc_client_id">Client ID</string>
     <string name="str_ibc_send_amount">Send Amount</string>
+    <string name="str_ibc_receive_amount">Receive Amount</string>
     <string name="str_pool_swap_fee">Swap Fee</string>
     <string name="str_pool_exit_fee">Exit Fee</string>
     <string name="str_pool_id">Pool ID</string>
