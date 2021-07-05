@@ -713,6 +713,7 @@
 "tx_osmosis_token_lockup" = "토큰 잠그기";
 "tx_osmosis_token_unluck" = "토큰 풀기";
 "tx_osmosis_token_unluck_all" = "모든 토큰 풀기";
+"tx_osmosis_preriodlock_unlock" = "풀린 토큰 받기";
 "tx_known" = "알 수 없음";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

@@ -710,6 +710,7 @@
 "tx_osmosis_token_lockup" = "Lockup Token";
 "tx_osmosis_token_unluck" = "Unlock Token";
 "tx_osmosis_token_unluck_all" = "Unlock All Tokens";
+"tx_osmosis_preriodlock_unlock" = "Claim Unlocked Token";
 "tx_known" = "Unknown";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

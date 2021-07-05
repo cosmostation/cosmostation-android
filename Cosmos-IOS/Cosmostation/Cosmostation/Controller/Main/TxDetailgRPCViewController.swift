@@ -59,6 +59,7 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
         self.txTableView.register(UINib(nibName: "TxLockTokenCell", bundle: nil), forCellReuseIdentifier: "TxLockTokenCell")
         self.txTableView.register(UINib(nibName: "TxUnlockTokenCell", bundle: nil), forCellReuseIdentifier: "TxUnlockTokenCell")
         self.txTableView.register(UINib(nibName: "TxUnlockAllTokensCell", bundle: nil), forCellReuseIdentifier: "TxUnlockAllTokensCell")
+        self.txTableView.register(UINib(nibName: "TxUnlockPeriodLockCell", bundle: nil), forCellReuseIdentifier: "TxUnlockPeriodLockCell")
         
         //for ibc msg type
         self.txTableView.register(UINib(nibName: "TxIbcSendCell", bundle: nil), forCellReuseIdentifier: "TxIbcSendCell")
@@ -230,6 +231,12 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TxUnlockAllTokensCell") as? TxCell
                 cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
                 return cell!
+                
+            } else if (msg.typeURL.contains(Osmosis_Lockup_MsgUnlockPeriodLock.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxUnlockPeriodLockCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
                 
             }
             
