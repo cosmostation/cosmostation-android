@@ -1095,6 +1095,13 @@
     <string name="str_ibc_sender">보내는 주소</string>
     <string name="str_ibc_recipent">받는 주소</string>
     <string name="str_ibc_send_amount">수량</string>
+    <string name="str_pool_swap_fee">Swap Fee</string>
+    <string name="str_pool_exit_fee">Exit Fee</string>
+    <string name="str_pool_id">Pool ID</string>
+    <string name="str_share_in_amount">Share In Amount</string>
+    <string name="str_share_out_amount">Share Out Amount</string>
+    <string name="str_token_in_maxs">Token In Maxs</string>
+    <string name="str_token_out_mins">Token Out Mins</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -1292,6 +1299,10 @@
     <string name="tx_starname_renew_account">Account 갱신</string>
     <string name="tx_starname_update_resource">주소 등록</string>
 
+    <string name="tx_osmosis_create_pool">풀 생성</string>
+    <string name="tx_osmosis_join_pool">풀 참가</string>
+    <string name="tx_osmosis_exit_pool">풀 나가기</string>
+    <string name="tx_osmosis_coin_swap">코인 스왑</string>
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>

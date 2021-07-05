@@ -247,6 +247,22 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_starname_update_resource);
                 }
 
+                else if (msgType.contains("MsgCreatePool")) {
+                    result = c.getString(R.string.tx_osmosis_create_pool);
+
+                } else if (msgType.contains("MsgJoinPool")) {
+                    result = c.getString(R.string.tx_osmosis_join_pool);
+
+                } else if (msgType.contains("MsgExitPool")) {
+                    result = c.getString(R.string.tx_osmosis_exit_pool);
+
+                } else if (msgType.contains("MsgSwapExactAmountIn") || msgType.contains("MsgSwapExactAmountOut")) {
+                    result = c.getString(R.string.tx_osmosis_coin_swap);
+
+                } else if (msgType.contains("MsgJoinSwapExternAmountIn") || msgType.contains("MsgJoinSwapShareAmountOut") ||
+                           msgType.contains("MsgExitSwapExternAmountOut") || msgType.contains("MsgExitSwapShareAmountIn")) {
+                    result = c.getString(R.string.tx_osmosis_coin_swap);
+            }
 
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);

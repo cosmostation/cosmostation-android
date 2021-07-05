@@ -60,6 +60,10 @@ import wannabit.io.cosmostaion.widget.txDetail.TxUnjailHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxUnknownHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxVoterHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxWithdrawLeaseHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxCreatePoolHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxExitPoolHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxJoinPoolHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxTokenSwapHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
@@ -211,6 +215,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME = 35;
         private static final int TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME = 36;
 
+        private static final int TYPE_TX_CREATE_POOL = 40;
+        private static final int TYPE_TX_JOIN_POOL = 41;
+        private static final int TYPE_TX_EXIT_POOL = 42;
+        private static final int TYPE_TX_SWAP_COIN = 43;
+
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -284,6 +293,20 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME || viewType == TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME) {
                 return new TxStarnameRenewHolder(getLayoutInflater().inflate(R.layout.item_tx_starname_renew, viewGroup, false));
+
+            }
+
+            else if (viewType == TYPE_TX_CREATE_POOL) {
+                return new TxCreatePoolHolder(getLayoutInflater().inflate(R.layout.item_tx_create_pool, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_JOIN_POOL) {
+                return new TxJoinPoolHolder(getLayoutInflater().inflate(R.layout.item_tx_join_pool, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_EXIT_POOL) {
+                return new TxExitPoolHolder(getLayoutInflater().inflate(R.layout.item_tx_exit_pool, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_SWAP_COIN) {
+                return new TxTokenSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_token_swap, viewGroup, false));
 
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
@@ -363,6 +386,17 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_STARNAME_TX_RENEW_ACCOUNT_STARNAME;
                 } else if (msg.getTypeUrl().contains(starnamed.x.starname.v1beta1.Tx.MsgRenewDomain.getDescriptor().getFullName())) {
                     return TYPE_STARNAME_TX_RENEW_DOMAIN_STARNAME;
+                }
+
+                else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgCreatePool.getDescriptor().getFullName())) {
+                    return TYPE_TX_CREATE_POOL;
+                } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgJoinPool.getDescriptor().getFullName())) {
+                    return TYPE_TX_JOIN_POOL;
+                } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgExitPool.getDescriptor().getFullName())) {
+                    return TYPE_TX_EXIT_POOL;
+                } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.getDescriptor().getFullName()) ||
+                           msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountOut.getDescriptor().getFullName())) {
+                    return TYPE_TX_SWAP_COIN;
                 }
                 return TYPE_TX_UNKNOWN;
             }
