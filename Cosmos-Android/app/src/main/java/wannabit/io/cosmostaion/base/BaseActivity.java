@@ -733,6 +733,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
             invalidateOptionsMenu();
             return;
+
+        } else if (result.taskType == BaseConstant.TASK_FETCH_PRICE_INFO) {
+            WLog.w("TASK_FETCH_PRICE_INFO");
         }
 
         mTaskCount--;
@@ -740,8 +743,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
             getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
 //            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
-            mTaskCount = mTaskCount + 1;
-            new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         } else if (result.taskType == TASK_FETCH_NODE_INFO) {
@@ -849,8 +850,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
             }
 //            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
-            mTaskCount = mTaskCount + 1;
-            new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (result.taskType == TASK_FETCH_OK_STAKING_INFO) {
             if (result.isSuccess && result.resultData != null) {
@@ -924,9 +923,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             } else {
                 getBaseDao().mGrpcBalance.add(new Coin(WDp.mainDenom(mBaseChain), "0"));
             }
-//            WLog.w("getBaseDao().mGrpcBalance " + getBaseDao().mGrpcBalance.size());
-            mTaskCount = mTaskCount + 1;
-            new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (result.taskType == TASK_GRPC_FETCH_DELEGATIONS) {
             ArrayList<Staking.DelegationResponse> delegations = (ArrayList<Staking.DelegationResponse>) result.resultData;
@@ -994,7 +990,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         } else {
                             WUtil.onParseVestingAccount(getBaseDao());
                         }
-
                     }
 //                    WLog.w("getBaseDao().mGRpcNodeInfo " + getBaseDao().mGRpcNodeInfo.getNetwork());
                 }
@@ -1002,8 +997,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                } else {
-//                    WLog.w("getBaseDao().mNodeInfo " + getBaseDao().mNodeInfo.network);
                 }
 //                WLog.w("mBnbTokens " + getBaseDao().mBnbTokens.size());
 //                WLog.w("mBnbTickers " + getBaseDao().mBnbTickers.size());
@@ -1033,8 +1026,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                } else {
-//                    WLog.w("getBaseDao().mNodeInfo " + getBaseDao().mNodeInfo.network);
                 }
 
             } else {
@@ -1057,23 +1048,21 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     }
                     if (already) getBaseDao().mMyValidators.add(top);
                 }
-
-                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
-                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
-                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
-                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
-                WLog.w("mBalances " + getBaseDao().mBalances.size());
-                WLog.w("mMyDelegations " + getBaseDao().mMyDelegations.size());
-                WLog.w("mMyUnbondings " + getBaseDao().mMyUnbondings.size());
-                WLog.w("mMyRewards " + getBaseDao().mMyRewards.size());
+//                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
+//                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
+//                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
+//                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
+//                WLog.w("mBalances " + getBaseDao().mBalances.size());
+//                WLog.w("mMyDelegations " + getBaseDao().mMyDelegations.size());
+//                WLog.w("mMyUnbondings " + getBaseDao().mMyUnbondings.size());
+//                WLog.w("mMyRewards " + getBaseDao().mMyRewards.size());
 
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                } else {
-//                    WLog.w("getBaseDao().mNodeInfo " + getBaseDao().mNodeInfo.network);
                 }
 
             }
+            new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             //callback with delay fix gRPC  timming issue
             mHandler.postDelayed(new Runnable() {

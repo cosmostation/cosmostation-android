@@ -124,6 +124,16 @@ public class BaseData {
         return null;
     }
 
+    public IbcToken getIbcToken(String denom) {
+        String ibcHash = denom.replace("ibc/", "");
+        for (IbcToken ibcToken: mIbcTokens) {
+            if (ibcToken.hash.equals(ibcHash)) {
+                return ibcToken;
+            }
+        }
+        return null;
+    }
+
 
     //COMMON DATA
     public NodeInfo                     mNodeInfo;

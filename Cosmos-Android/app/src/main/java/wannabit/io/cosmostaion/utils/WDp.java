@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.ChainParam;
+import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkTicker;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Price;
@@ -660,8 +661,17 @@ public class WDp {
                     BigDecimal amount = baseData.getAllMainAsset(mainDenom(baseChain));
                     BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, mainDivideDecimal(baseChain));
                     totalValue = totalValue.add(assetValue);
-                } else {
-                    // not yet!
+                } else if (baseChain.equals(OSMOSIS_MAIN) && coin.denom.equals(TOKEN_ION)) {
+                    BigDecimal amount = baseData.getAvailable(coin.denom);
+                    BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, 6);
+                    totalValue = totalValue.add(assetValue);
+                } else if (coin.denom.startsWith("ibc/")) {
+                    BigDecimal amount = baseData.getAvailable(coin.denom);
+                    IbcToken ibcToken = baseData.getIbcToken(coin.denom);
+                    if (ibcToken != null && ibcToken.auth) {
+                        BigDecimal assetValue = userCurrencyValue(baseData, ibcToken.base_denom, amount, ibcToken.decimal);
+                        totalValue = totalValue.add(assetValue);
+                    }
                 }
             }
         }
@@ -745,8 +755,17 @@ public class WDp {
                     BigDecimal amount = baseData.getAllMainAsset(mainDenom(baseChain));
                     BigDecimal btcValue = btcValue(baseData, coin.denom, amount, mainDivideDecimal(baseChain));
                     totalValue = totalValue.add(btcValue);
-                } else {
-                    // not yet!
+                } else if (baseChain.equals(OSMOSIS_MAIN) && coin.denom.equals(TOKEN_ION)) {
+                    BigDecimal amount = baseData.getAvailable(coin.denom);
+                    BigDecimal btcValue = btcValue(baseData, coin.denom, amount, 6);
+                    totalValue = totalValue.add(btcValue);
+                } else if (coin.denom.startsWith("ibc/")) {
+                    BigDecimal amount = baseData.getAvailable(coin.denom);
+                    IbcToken ibcToken = baseData.getIbcToken(coin.denom);
+                    if (ibcToken != null && ibcToken.auth) {
+                        BigDecimal btcValue = btcValue(baseData, ibcToken.base_denom, amount, ibcToken.decimal);
+                        totalValue = totalValue.add(btcValue);
+                    }
                 }
             }
         }

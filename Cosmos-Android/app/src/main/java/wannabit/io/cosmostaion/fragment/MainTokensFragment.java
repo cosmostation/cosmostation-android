@@ -23,7 +23,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -32,6 +31,7 @@ import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dialog.Dialog_TokenSorting;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -67,10 +67,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.ALTHEA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.OSMOSIS_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
@@ -86,7 +84,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -664,13 +661,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             });
 
         } else if (coin.denom.startsWith("ibc/")){
-            holder.itemSymbol.setText("IBC");
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
-            holder.itemFullName.setText(coin.denom);
-            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            onBincIbctoken(holder, coin);
 
         } else {
 
@@ -699,13 +690,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             });
 
         } else if (coin.denom.startsWith("ibc/")) {
-            holder.itemSymbol.setText("IBC");
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
-            holder.itemFullName.setText(coin.denom);
-            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            onBincIbctoken(holder, coin);
 
         } else {
 
@@ -733,13 +718,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             });
 
         } else if (coin.denom.startsWith("ibc/")) {
-            holder.itemSymbol.setText("IBC");
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
-            holder.itemFullName.setText(coin.denom);
-            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            onBincIbctoken(holder, coin);
 
         } else {
 
@@ -767,13 +746,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             });
 
         } else if (coin.denom.startsWith("ibc/")) {
-            holder.itemSymbol.setText("IBC");
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
-            holder.itemFullName.setText(coin.denom);
-            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            onBincIbctoken(holder, coin);
 
         } else {
 
@@ -801,13 +774,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             });
 
         } else if (coin.denom.startsWith("ibc/")) {
-            holder.itemSymbol.setText("IBC");
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
-            holder.itemFullName.setText(coin.denom);
-            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            onBincIbctoken(holder, coin);
 
         } else {
 
@@ -835,13 +802,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             });
 
         } else if (coin.denom.startsWith("ibc/")) {
-            holder.itemSymbol.setText("IBC");
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
-            holder.itemFullName.setText(coin.denom);
-            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            onBincIbctoken(holder, coin);
 
         } else {
 
@@ -870,13 +831,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             });
 
         } else if (coin.denom.startsWith("ibc/")) {
-            holder.itemSymbol.setText("IBC");
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
-            holder.itemFullName.setText(coin.denom);
-            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            onBincIbctoken(holder, coin);
 
         } else {
 
@@ -904,13 +859,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             });
 
         } else if (coin.denom.startsWith("ibc/")) {
-            holder.itemSymbol.setText("IBC");
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
-            holder.itemFullName.setText(coin.denom);
-            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            onBincIbctoken(holder, coin);
 
         } else {
 
@@ -938,7 +887,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 }
             });
 
-        } else if (coin.denom.startsWith("uion")) {
+        } else if (coin.denom.equals(TOKEN_ION)) {
             holder.itemSymbol.setText(getString(R.string.str_uion_c));
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorIon));
             holder.itemInnerSymbol.setText("(" + coin.denom + ")");
@@ -949,31 +898,23 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
-        } else if (coin.denom.startsWith("ibc/")) {
-            holder.itemSymbol.setText("IBC");
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
-            holder.itemFullName.setText(coin.denom);
-            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
-
         } else if (coin.denom.startsWith("gamm/")) {
-            holder.itemSymbol.setText("AMM");
+            holder.itemSymbol.setText(coin.osmosisAmmDpDenom());
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText(coin.denom);
-            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_pool));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 18, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 18));
+
+        } else if (coin.denom.startsWith("ibc/")) {
+            onBincIbctoken(holder, coin);
 
         } else {
-            holder.itemSymbol.setText("UnKnown");
+            holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
-            holder.itemFullName.setText("(unKnown)");
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
@@ -1002,13 +943,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             });
 
         } else if (coin.denom.startsWith("ibc/")) {
-            holder.itemSymbol.setText("IBC");
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
-            holder.itemFullName.setText(coin.denom);
-            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            onBincIbctoken(holder, coin);
 
         } else {
 
@@ -1081,6 +1016,43 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
         } else { }
+
+    }
+
+
+    private void onBincIbctoken(TokensAdapter.AssetHolder holder, Coin coin) {
+        final IbcToken ibcToken = getBaseDao().getIbcToken(coin.denom);
+        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+        if (ibcToken == null) {
+            holder.itemSymbol.setText("Unknown");
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText(coin.denom);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
+
+        } else {
+            if (ibcToken.auth) {
+                holder.itemSymbol.setText(ibcToken.display_denom.toUpperCase());
+                holder.itemInnerSymbol.setText("(" + ibcToken.base_denom + ")");
+                holder.itemFullName.setText(coin.denom);
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), ibcToken.decimal, 6));
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), ibcToken.base_denom, new BigDecimal(coin.amount), 6));
+                try {
+                    Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.itemImg);
+                } catch (Exception e){}
+
+            } else {
+                holder.itemSymbol.setText("Unknown");
+                holder.itemInnerSymbol.setText("(" + ibcToken.base_denom + ")");
+                holder.itemFullName.setText(coin.denom);
+                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 6));
+
+            }
+        }
 
     }
 

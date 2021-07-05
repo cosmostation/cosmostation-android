@@ -26,6 +26,7 @@ public class StationPriceInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
+            WLog.w("StationPriceInfoTask " + ApiClient.getStation(mApp).getPrice(mDenoms).request().url());
             Response<ArrayList<Price>> response = ApiClient.getStation(mApp).getPrice(mDenoms).execute();
             if (response.isSuccessful()) {
                 for (Price price: response.body()) {
