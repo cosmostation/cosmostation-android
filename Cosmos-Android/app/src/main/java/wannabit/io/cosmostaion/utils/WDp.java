@@ -302,6 +302,7 @@ public class WDp {
                 amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
 
             } else {
+                denomTv.setText(coin.denom.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
             }
@@ -471,6 +472,7 @@ public class WDp {
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
 
             } else {
+                denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
             }

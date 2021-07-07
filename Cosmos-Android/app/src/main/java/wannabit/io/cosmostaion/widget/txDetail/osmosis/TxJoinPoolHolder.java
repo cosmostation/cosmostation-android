@@ -48,13 +48,11 @@ public class TxJoinPoolHolder extends TxHolder {
             itemJoinSender.setText(msg.getSender());
             itemJoinPoolId.setText("" + msg.getPoolId());
             itemJoinPoolShareOutAmount.setText("" + new BigDecimal(msg.getShareOutAmount()).movePointLeft(18));
-
-            WLog.w("SSS : " + msg.getTokenInMaxsCount());
             if (msg.getTokenInMaxsCount() > 1) {
                 Coin coin0 = new Coin(msg.getTokenInMaxs(0).getDenom(), msg.getTokenInMaxs(0).getAmount());
                 Coin coin1 = new Coin(msg.getTokenInMaxs(1).getDenom(), msg.getTokenInMaxs(1).getAmount());
                 WDp.showCoinDp(c, coin0, itemJoinPoolTokenInMaxsSymbol1, itemJoinPoolTokenInMaxsAmount1, baseChain);
-                 WDp.showCoinDp(c, coin1, itemJoinPoolTokenInMaxsSymbol2, itemJoinPoolTokenInMaxsAmount2, baseChain);
+                WDp.showCoinDp(c, coin1, itemJoinPoolTokenInMaxsSymbol2, itemJoinPoolTokenInMaxsAmount2, baseChain);
 
             } else {
                 Coin coin0 = new Coin(msg.getTokenInMaxs(0).getDenom(), msg.getTokenInMaxs(0).getAmount());
