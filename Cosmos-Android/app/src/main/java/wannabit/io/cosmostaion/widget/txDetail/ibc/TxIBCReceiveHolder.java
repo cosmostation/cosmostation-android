@@ -16,6 +16,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxIBCReceiveHolder extends TxHolder {
@@ -47,9 +49,8 @@ public class TxIBCReceiveHolder extends TxHolder {
             itemIbcToAddress.setText(jsonObject.getString("receiver"));
             itemIbcFromAddress.setText(jsonObject.getString("sender"));
 
-            String denom = jsonObject.getString("denom");
-            String amount = jsonObject.getString("amount");
-            WDp.showCoinDp(c, denom, amount, itemIbcAmountDenom, itemIbcAmount, baseChain);
+            Coin receivedCoin = new Coin(jsonObject.getString("denom"), jsonObject.getString("amount"));
+            WDp.showCoinDp(c, receivedCoin, itemIbcAmountDenom, itemIbcAmount, baseChain);
         } catch (Exception e) {}
     }
 }
