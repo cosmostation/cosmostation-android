@@ -23,6 +23,7 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
     @IBOutlet weak var bioTypeLabel: UILabel!
     @IBOutlet weak var bioSwitch: UISwitch!
     @IBOutlet weak var explorerLabel: UILabel!
+    @IBOutlet weak var enginerModeSwitch: UISwitch!
     var hideBio = false
     
     override func viewDidLoad() {
@@ -49,6 +50,7 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
         
         appLockSwitch.setOn(BaseData.instance.getUsingAppLock(), animated: false)
         bioSwitch.setOn(BaseData.instance.getUsingBioAuth(), animated: false)
+        enginerModeSwitch.setOn(BaseData.instance.getUsingEnginerMode(), animated: false)
         
         if (laContext.canEvaluatePolicy(biometricsPolicy, error: &error)) {
             if error != nil { return }
@@ -355,6 +357,15 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
         BaseData.instance.setUsingBioAuth(sender.isOn)
     }
     
+    @IBAction func enginerToggle(_ sender: UISwitch) {
+        if (sender.isOn) {
+            onShowEnginerModeDialog()
+        } else {
+            BaseData.instance.setUsingEnginerMode(false)
+            self.onShowToast("Enginer Mode Disabled")
+        }
+    }
+    
     func checkBioAuth() {
         if(bioTypeLabel.text!.count > 0 && BaseData.instance.getUsingAppLock()) {
             self.hideBio = false
@@ -381,7 +392,8 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
     }
     
     func onShowStarnameWcDialog() {
-        let starnameWCAlert = UIAlertController(title: NSLocalizedString("str_starname_walletconnect_alert_title", comment: ""), message: NSLocalizedString("str_starname_walletconnect_alert_msg", comment: ""), preferredStyle: .alert)
+        let starnameWCAlert = UIAlertController(title: NSLocalizedString("str_starname_walletconnect_alert_title", comment: ""),
+                                                message: NSLocalizedString("str_starname_walletconnect_alert_msg", comment: ""), preferredStyle: .alert)
         starnameWCAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: { _ in
             self.dismiss(animated: true, completion: nil)
         }))
@@ -403,16 +415,29 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
         self.navigationController?.pushViewController(qrScanVC, animated: false)
     }
     
+    func onShowEnginerModeDialog() {
+        let enginerAlert = UIAlertController(title: NSLocalizedString("str_enginer_alert_title", comment: ""),
+                                             message: NSLocalizedString("str_enginer_alert_msg", comment: ""),
+                                             preferredStyle: .alert)
+        enginerAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: { _ in
+            self.enginerModeSwitch.setOn(false, animated: true)
+            self.dismiss(animated: true, completion: nil)
+        }))
+        enginerAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .destructive, handler: { _ in
+            BaseData.instance.setUsingEnginerMode(true)
+            self.onShowToast("Enginer Mode Enabled")
+        }))
+        self.present(enginerAlert, animated: true)
+    }
+    
     func scannedAddress(result: String) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(610), execute: {
-            print("result ", result)
             let wcDetailVC = StarnameWalletConnectViewController(nibName: "StarnameWalletConnectViewController", bundle: nil)
             wcDetailVC.hidesBottomBarWhenPushed = true
             wcDetailVC.wcURL = result
             wcDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(wcDetailVC, animated: true)
-            
         })
     }
     

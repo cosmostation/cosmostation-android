@@ -2319,6 +2319,67 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="6DY-jD-6WK">
+                                        <rect key="frame" x="0.0" y="771.5" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6DY-jD-6WK" id="y63-e4-734">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="poo-80-iOJ" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                                                    <rect key="frame" x="12" y="3" width="390" height="44"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enginer Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78j-Xx-73b">
+                                                            <rect key="frame" x="12" y="15" width="78.5" height="14.5"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bHW-nP-aUp">
+                                                            <rect key="frame" x="329" y="6.5" width="51" height="31"/>
+                                                            <color key="onTintColor" red="0.8980392157" green="0.039215686270000001" blue="0.074509803920000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <connections>
+                                                                <action selector="bioToggle:" destination="k2t-NI-3vK" eventType="valueChanged" id="BAF-2M-3gL"/>
+                                                                <action selector="enginerToggle:" destination="k2t-NI-3vK" eventType="valueChanged" id="1hU-KU-6JX"/>
+                                                            </connections>
+                                                        </switch>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40154109589999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="35j-Ju-kHc"/>
+                                                        <constraint firstItem="78j-Xx-73b" firstAttribute="leading" secondItem="poo-80-iOJ" secondAttribute="leading" constant="12" id="D8R-jp-Kwy"/>
+                                                        <constraint firstItem="bHW-nP-aUp" firstAttribute="centerY" secondItem="poo-80-iOJ" secondAttribute="centerY" id="XFq-Lq-XAY"/>
+                                                        <constraint firstItem="78j-Xx-73b" firstAttribute="centerY" secondItem="poo-80-iOJ" secondAttribute="centerY" id="e7m-Xy-GJn"/>
+                                                        <constraint firstAttribute="trailing" secondItem="bHW-nP-aUp" secondAttribute="trailing" constant="12" id="yEL-4R-mpb"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                                            <integer key="value" value="2"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <integer key="value" value="8"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                            <real key="value" value="0.29999999999999999"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                                            <integer key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="poo-80-iOJ" firstAttribute="top" secondItem="y63-e4-734" secondAttribute="top" constant="3" id="T4q-87-7n2"/>
+                                                <constraint firstAttribute="trailing" secondItem="poo-80-iOJ" secondAttribute="trailing" constant="12" id="ghD-Es-aOu"/>
+                                                <constraint firstAttribute="bottom" secondItem="poo-80-iOJ" secondAttribute="bottom" constant="3" id="mAH-Zl-G9T"/>
+                                                <constraint firstItem="poo-80-iOJ" firstAttribute="leading" secondItem="y63-e4-734" secondAttribute="leading" constant="12" id="qi2-Rj-YJc"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -2332,6 +2393,7 @@
                         <outlet property="bioSwitch" destination="FjT-LV-erL" id="eRg-2R-IzD"/>
                         <outlet property="bioTypeLabel" destination="Lme-Ht-n9U" id="noc-XE-gEh"/>
                         <outlet property="currecyLabel" destination="NJX-wz-eL3" id="rgJ-8F-gXp"/>
+                        <outlet property="enginerModeSwitch" destination="bHW-nP-aUp" id="JUk-zF-QUl"/>
                         <outlet property="explorerLabel" destination="j4V-kv-pau" id="hHi-Z9-rcL"/>
                         <outlet property="marketLabel" destination="Nuz-xq-Fds" id="EVZ-bA-y8B"/>
                         <outlet property="versionLabel" destination="IGV-pj-L9Y" id="rFa-mM-o0f"/>

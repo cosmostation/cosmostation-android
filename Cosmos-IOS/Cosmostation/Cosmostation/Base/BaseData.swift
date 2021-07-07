@@ -500,6 +500,14 @@ final class BaseData : NSObject{
         return UserDefaults.standard.bool(forKey: KEY_USING_BIO_AUTH)
     }
     
+    func setUsingEnginerMode(_ using : Bool) {
+        UserDefaults.standard.set(using, forKey: KEY_ENGINER_MODE)
+    }
+    
+    func getUsingEnginerMode() -> Bool {
+        return UserDefaults.standard.bool(forKey: KEY_ENGINER_MODE)
+    }
+    
     
     func setFCMToken(_ token : String) {
         UserDefaults.standard.set(token, forKey: KEY_FCM_TOKEN)

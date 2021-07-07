@@ -348,6 +348,9 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     }
     
     func initViewUpdate() {
+        if (BaseData.instance.getUsingEnginerMode()) {
+            self.onShowEnginerModeDialog()
+        }
         self.mNeminicImg.image = self.mNeminicImg.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         self.mNeminicImg.tintColor = WUtils.getChainColor(self.chainType!)
         self.topView.isHidden = false
@@ -661,5 +664,16 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         }
         updateWordCnt()
         updateFocus()
+    }
+    
+    func onShowEnginerModeDialog() {
+        let enginerAlert = UIAlertController(title: NSLocalizedString("str_enginer_is_on_title", comment: ""),
+                                             message: NSLocalizedString("str_enginer_is_on_msg", comment: ""),
+                                             preferredStyle: .alert)
+        enginerAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: { _ in
+            self.navigationController?.popViewController(animated: true)
+        }))
+        enginerAlert.addAction(UIAlertAction(title:NSLocalizedString("continue", comment: ""), style: .destructive))
+        self.present(enginerAlert, animated: true)
     }
 }
