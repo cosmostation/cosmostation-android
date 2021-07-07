@@ -39,10 +39,29 @@ class TxTokenSwapCell: TxCell {
             txPoolIdLabel.text = String(msg.routes[0].poolID)
             
             let coinIn = Coin.init(msg.tokenIn.denom, msg.tokenIn.amount)
-            let coinOut = Coin.init(msg.routes[0].tokenOutDenom, msg.tokenOutMinAmount)
-            
             WUtils.showCoinDp(coinIn, txSwapInDenomLabel, txSwapInAmountLabel, chain)
-            WUtils.showCoinDp(coinOut, txSwapOutDenomLabel, txSwapOutAmountLabel, chain)
+            
+            var coinOut: Coin?
+            if response.txResponse.logs.count > position {
+                response.txResponse.logs[position].events.forEach { event in
+                    if (event.type == "transfer") {
+                        let attributesCnt = event.attributes.count
+                        if (event.attributes[attributesCnt - 1].key == "amount") {
+                            let value = event.attributes[attributesCnt - 1].value
+                            if let range = value.range(of: "[0-9]*", options: .regularExpression){
+                                let amount = String(value[range])
+                                coinOut = Coin.init(value.replacingOccurrences(of: amount, with: ""), amount)
+                            }
+                        }
+                    }
+                }
+            }
+            if (coinOut != nil) {
+                WUtils.showCoinDp(coinOut!, txSwapOutDenomLabel, txSwapOutAmountLabel, chain)
+            } else {
+                txSwapOutDenomLabel.text = ""
+                txSwapOutAmountLabel.text = ""
+            }
         }
         
         if let msg = try? Osmosis_Gamm_V1beta1_MsgSwapExactAmountOut.init(serializedData: response.tx.body.messages[position].value) {
@@ -53,11 +72,30 @@ class TxTokenSwapCell: TxCell {
             
             txPoolIdLabel.text = String(msg.routes[0].poolID)
             
-            let coinIn = Coin.init(msg.routes[0].tokenInDenom, msg.tokenInMaxAmount)
-            let coinOut = Coin.init(msg.tokenOut.denom, msg.tokenOut.amount)
             
-            WUtils.showCoinDp(coinIn, txSwapInDenomLabel, txSwapInAmountLabel, chain)
+            let coinOut = Coin.init(msg.tokenOut.denom, msg.tokenOut.amount)
             WUtils.showCoinDp(coinOut, txSwapOutDenomLabel, txSwapOutAmountLabel, chain)
+            
+            var coinIn: Coin?
+            if response.txResponse.logs.count > position {
+                response.txResponse.logs[position].events.forEach { event in
+                    if (event.type == "transfer") {
+                        if (event.attributes.count >= 2 && event.attributes[2].key == "amount") {
+                            let value = event.attributes[2].value
+                            if let range = value.range(of: "[0-9]*", options: .regularExpression){
+                                let amount = String(value[range])
+                                coinIn = Coin.init(value.replacingOccurrences(of: amount, with: ""), amount)
+                            }
+                        }
+                    }
+                }
+            }
+            if (coinIn != nil) {
+                WUtils.showCoinDp(coinIn!, txSwapInDenomLabel, txSwapInAmountLabel, chain)
+            } else {
+                txSwapInDenomLabel.text = ""
+                txSwapInAmountLabel.text = ""
+            }
         }
     }
 }
