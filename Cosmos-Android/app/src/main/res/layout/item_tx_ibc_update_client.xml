@@ -29,13 +29,13 @@
                     android:id="@+id/tx_ibc_update_client_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/msgicon_delegate"/>
+                    android:src="@drawable/msgicon_ibc"/>
                 <TextView
                     android:id="@+id/tx_ibc_update_client_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:text="@string/tx_ibc_update_client"
+                    android:text="@string/tx_ibc_update_client2"
                     style="@style/font_ss_15_white"/>
             </LinearLayout>
             <LinearLayout

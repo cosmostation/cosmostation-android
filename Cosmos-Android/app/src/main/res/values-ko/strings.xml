@@ -1099,13 +1099,25 @@
     <string name="str_ibc_client_id">클라이언트 ID</string>
     <string name="str_ibc_send_amount">수량</string>
     <string name="str_ibc_receive_amount">수량</string>
-    <string name="str_pool_swap_fee">Swap Fee</string>
-    <string name="str_pool_exit_fee">Exit Fee</string>
+    <string name="str_ibc_acknowledgement">Acknowledgement</string>
+    <string name="str_pool_parms">Pool Params</string>
     <string name="str_pool_id">Pool ID</string>
+    <string name="str_pool_assets">Pool Assets</string>
     <string name="str_share_in_amount">Share In Amount</string>
     <string name="str_share_out_amount">Share Out Amount</string>
     <string name="str_token_in_maxs">Token In Maxs</string>
     <string name="str_token_out_mins">Token Out Mins</string>
+    <string name="str_lock_token_duration">기간</string>
+    <string name="str_unlock_token_id">ID</string>
+    <string name="str_unlock_token_complete_time">Unlock Complete Time</string>
+    <string name="str_unlock_all_token_cnt">Unlock Count</string>
+    <string name="str_unlock_period_unlocked_amount">Unlocked Amount</string>
+    <string name="str_swap_in">Swap In</string>
+    <string name="str_swap_out">Swap Out</string>
+    <string name="str_future_pool_governor">Future Pool Governor</string>
+    <string name="str_swap_coin_type">Type</string>
+    <string name="str_osmosis_token_lockup">토큰 잠그기\n(Start Farming)</string>
+    <string name="str_osmosis_token_unlock">토큰 풀기\n(End Farming)</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -1239,6 +1251,7 @@
     <string name="tx_create_certificate">인증서 생성</string>
     <string name="tx_revoke_certificate">인증서 해지</string>
     <string name="tx_ibc_update_client">IBC 클라이언트\n업데이트</string>
+    <string name="tx_ibc_update_client2">IBC 클라이언트 업데이트</string>
     <string name="tx_ibc_send">IBC 보내기</string>
     <string name="tx_ibc_receive">IBC 받기</string>
     <string name="tx_ibc_acknowledgement">IBC 승인</string>
@@ -1307,6 +1320,10 @@
     <string name="tx_osmosis_join_pool">풀 참가</string>
     <string name="tx_osmosis_exit_pool">풀 나가기</string>
     <string name="tx_osmosis_coin_swap">코인 스왑</string>
+    <string name="tx_osmosis_token_lockup">토큰 잠그기(Start Farming)</string>
+    <string name="tx_osmosis_token_unlock">토큰 풀기</string>
+    <string name="tx_osmosis_token_unlock_all">모든 토큰 풀기</string>
+    <string name="tx_osmosis_periodlock_unlock">풀린 토큰 받기</string>
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>

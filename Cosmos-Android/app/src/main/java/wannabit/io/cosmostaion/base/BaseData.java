@@ -110,10 +110,10 @@ public class BaseData {
     }
 
 
-    public ArrayList<Price>         mPrices = new ArrayList<>();
-    public ChainParam.Params        mChainParam;
-    public ArrayList<IbcPath>       mIbcPaths = new ArrayList<>();
-    public ArrayList<IbcToken>      mIbcTokens = new ArrayList<>();
+    public ArrayList<Price>                 mPrices = new ArrayList<>();
+    public ChainParam.Params                mChainParam;
+    public ArrayList<IbcPath>               mIbcPaths = new ArrayList<>();
+    public static ArrayList<IbcToken>       mIbcTokens = new ArrayList<>();
 
     public Price getPrice(String denom) {
         for (Price price: mPrices) {
@@ -124,7 +124,7 @@ public class BaseData {
         return null;
     }
 
-    public IbcToken getIbcToken(String denom) {
+    public static IbcToken getIbcToken(String denom) {
         String ibcHash = denom.replace("ibc/", "");
         for (IbcToken ibcToken: mIbcTokens) {
             if (ibcToken.hash.equals(ibcHash)) {

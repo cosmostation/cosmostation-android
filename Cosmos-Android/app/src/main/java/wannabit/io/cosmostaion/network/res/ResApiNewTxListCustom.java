@@ -262,7 +262,19 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("MsgJoinSwapExternAmountIn") || msgType.contains("MsgJoinSwapShareAmountOut") ||
                            msgType.contains("MsgExitSwapExternAmountOut") || msgType.contains("MsgExitSwapShareAmountIn")) {
                     result = c.getString(R.string.tx_osmosis_coin_swap);
-            }
+
+                } else if (msgType.contains("MsgLockTokens")) {
+                    result = c.getString(R.string.str_osmosis_token_lockup);
+
+                } else if (msgType.equals("/osmosis.lockup.MsgBeginUnlocking")) {
+                    result = c.getString(R.string.str_osmosis_token_unlock);
+
+                } else if (msgType.contains("/osmosis.lockup.MsgBeginUnlockingAll")) {
+                    result = c.getString(R.string.tx_osmosis_token_unlock_all);
+
+                } else if (msgType.contains("MsgUnlockPeriodLock")) {
+                    result = c.getString(R.string.tx_osmosis_periodlock_unlock);
+                }
 
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
