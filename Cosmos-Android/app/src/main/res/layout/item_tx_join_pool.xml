@@ -109,7 +109,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/str_token_in_maxs" />
                 <RelativeLayout
-                    android:id="@+id/tx_token_in_max_layer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/tx_join_token_in_maxs_title"
@@ -140,6 +139,7 @@
                                 android:text="-" />
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/tx_token_in_max_layer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"

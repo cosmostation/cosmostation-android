@@ -8,10 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
@@ -47,12 +43,11 @@ public class TxExitPoolHolder extends TxHolder {
             itemExitPoolId.setText("" + msg.getPoolId());
             itemExitPoolShareInAmount.setText("" + new BigDecimal(msg.getShareInAmount()).movePointLeft(18));
 
-            List<Coin> TokenCoin = new ArrayList<>();
-            for (CoinOuterClass.Coin coin: msg.getTokenOutMinsList()) {
-                TokenCoin.add(new Coin(coin.getDenom(), coin.getAmount()));
-            }
-            WDp.showCoinDp(c, TokenCoin.get(0), itemExitPoolTokenOutMinsSymbol1, itemExitPoolTokenOutMinsAmount1, baseChain);
-            WDp.showCoinDp(c, TokenCoin.get(1), itemExitPoolTokenOutMinsSymbol2, itemExitPoolTokenOutMinsAmount2, baseChain);
+            Coin coin0 = new Coin(msg.getTokenOutMins(0).getDenom(), msg.getTokenOutMins(0).getAmount());
+            Coin coin1 = new Coin(msg.getTokenOutMins(1).getDenom(), msg.getTokenOutMins(1).getAmount());
+
+            WDp.showCoinDp(c, coin0, itemExitPoolTokenOutMinsSymbol1, itemExitPoolTokenOutMinsAmount1, baseChain);
+            WDp.showCoinDp(c, coin1, itemExitPoolTokenOutMinsSymbol2, itemExitPoolTokenOutMinsAmount2, baseChain);
         } catch (Exception e) { }
     }
 }

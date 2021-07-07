@@ -13,17 +13,18 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxIBCAcknowledgeHolder extends TxHolder {
     ImageView itemIbcAcknowledgeImg;
-    TextView itemIbcAcknowledgeSiner, itemIbcAcknowledgeMsg;
+    TextView itemIbcAcknowledgeSiner, itemIbcAcknowledge;
 
     public TxIBCAcknowledgeHolder(@NonNull View itemView) {
         super(itemView);
         itemIbcAcknowledgeImg = itemView.findViewById(R.id.tx_ibc_acknowledge_icon);
         itemIbcAcknowledgeSiner = itemView.findViewById(R.id.tx_ibc_acknowledge_signer);
-        itemIbcAcknowledgeMsg = itemView.findViewById(R.id.tx_ibc_acknowledge_msg);
+        itemIbcAcknowledge = itemView.findViewById(R.id.tx_ibc_acknowledge_msg);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -32,7 +33,7 @@ public class TxIBCAcknowledgeHolder extends TxHolder {
         try {
             Tx.MsgAcknowledgement msg = Tx.MsgAcknowledgement.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemIbcAcknowledgeSiner.setText(msg.getSigner());
-            itemIbcAcknowledgeMsg.setText(msg.getAcknowledgement().toStringUtf8());
+            itemIbcAcknowledge.setText(WUtil.ByteArrayToHexString(msg.getAcknowledgement().toByteArray()));
         } catch (Exception e) {}
     }
 }
