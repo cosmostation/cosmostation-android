@@ -56,6 +56,24 @@ public class Coin implements Parcelable {
         }
     };
 
+    public boolean isIbc() {
+        if (denom.startsWith("ibc/")) {
+            return true;
+        }
+        return false;
+    }
+
+    public String getIbcHash() {
+        if (!isIbc()) { return null; }
+        return denom.replaceAll("ibc/", "");
+    }
+
+    public boolean osmosisAmm() {
+        if (denom.startsWith("gamm/pool/")) {
+            return true;
+        }
+        return false;
+    }
 
     public String osmosisAmmDpDenom() {
         String[] split = denom.split("/");
