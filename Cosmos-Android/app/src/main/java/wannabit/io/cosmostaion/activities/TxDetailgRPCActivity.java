@@ -66,6 +66,11 @@ import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCUpdateClientHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxCreatePoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxExitPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxJoinPoolHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxLockTokenHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxTokenSwapHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxUnlockAllTokensHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxUnlockPeriodHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxUnlockTokenHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
@@ -224,6 +229,10 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_JOIN_POOL = 41;
         private static final int TYPE_TX_EXIT_POOL = 42;
         private static final int TYPE_TX_SWAP_COIN = 43;
+        private static final int TYPE_TX_LOCK_TOKEN = 44;
+        private static final int TYPE_TX_UNLOCK_TOKEN = 45;
+        private static final int TYPE_TX_UNLOCK_TOKEN_ALL = 46;
+        private static final int TYPE_TX_UNLOCK_PERIOD_LOCK = 47;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -321,9 +330,20 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_EXIT_POOL) {
                 return new TxExitPoolHolder(getLayoutInflater().inflate(R.layout.item_tx_exit_pool, viewGroup, false));
 
-//            } else if (viewType == TYPE_TX_SWAP_COIN) {
-//                return new TxTokenSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_token_swap, viewGroup, false));
-//
+            } else if (viewType == TYPE_TX_SWAP_COIN) {
+                return new TxTokenSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_token_swap, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_LOCK_TOKEN) {
+                return new TxLockTokenHolder(getLayoutInflater().inflate(R.layout.item_tx_lock_token, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_UNLOCK_TOKEN) {
+                return new TxUnlockTokenHolder(getLayoutInflater().inflate(R.layout.item_tx_unlock_token, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_UNLOCK_TOKEN_ALL) {
+                return new TxUnlockAllTokensHolder(getLayoutInflater().inflate(R.layout.item_tx_unlock_all_token, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_UNLOCK_PERIOD_LOCK) {
+                return new TxUnlockPeriodHolder(getLayoutInflater().inflate(R.layout.item_tx_unlock_period, viewGroup, false));
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
@@ -420,9 +440,17 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_JOIN_POOL;
                 } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgExitPool.getDescriptor().getFullName())) {
                     return TYPE_TX_EXIT_POOL;
-//                } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.getDescriptor().getFullName()) ||
-//                           msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountOut.getDescriptor().getFullName())) {
-//                    return TYPE_TX_SWAP_COIN;
+                } else if (msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.getDescriptor().getFullName()) ||
+                           msg.getTypeUrl().contains(osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountOut.getDescriptor().getFullName())) {
+                    return TYPE_TX_SWAP_COIN;
+                } else if (msg.getTypeUrl().contains(osmosis.lockup.Tx.MsgLockTokens.getDescriptor().getFullName())) {
+                    return TYPE_TX_LOCK_TOKEN;
+                } else if (msg.getTypeUrl().equals("/" + osmosis.lockup.Tx.MsgBeginUnlocking.getDescriptor().getFullName())) {
+                    return TYPE_TX_UNLOCK_TOKEN;
+                } else if (msg.getTypeUrl().equals("/" + osmosis.lockup.Tx.MsgBeginUnlockingAll.getDescriptor().getFullName())) {
+                    return TYPE_TX_UNLOCK_TOKEN_ALL;
+                } else if (msg.getTypeUrl().contains(osmosis.lockup.Tx.MsgUnlockPeriodLock.getDescriptor().getFullName())) {
+                    return TYPE_TX_UNLOCK_PERIOD_LOCK;
                 }
                 return TYPE_TX_UNKNOWN;
             }

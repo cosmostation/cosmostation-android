@@ -173,10 +173,23 @@ public class WDp {
         return result;
     }
 
-
-
     public static void showCoinDp(Context c, Coin coin, TextView denomTv, TextView amountTv, BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN)) {
+        if (isGRPC(chain) && coin.isIbc()) {
+            IbcToken ibcToken = BaseData.getIbcToken(coin.getIbcHash());
+            if (ibcToken.auth == true) {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(ibcToken.display_denom.toUpperCase());
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), ibcToken.decimal, ibcToken.decimal));
+                return;
+
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText("Unknown");
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+                return;
+            }
+
+        } else if (chain.equals(COSMOS_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
@@ -276,16 +289,22 @@ public class WDp {
         } else if (chain.equals(OSMOSIS_MAIN)) {
             if (coin.denom.equals(TOKEN_OSMOSIS)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
             } else if (coin.denom.equals(TOKEN_ION)) {
-                denomTv.setText(coin.denom.toUpperCase());
+                denomTv.setText("ION");
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorIon));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
-            } else if (coin.denom.startsWith("ibc")) {
-                denomTv.setText("IBC (unknown)");
+            } else if (coin.osmosisAmm()) {
+                denomTv.setText(coin.osmosisAmmDpDenom());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
+
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(COSMOS_TEST)) {
             if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
@@ -322,7 +341,22 @@ public class WDp {
     }
 
     public static void showCoinDp(Context c, String symbol, String amount, TextView denomTv, TextView amountTv, BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN)) {
+        if (isGRPC(chain) && symbol.startsWith("ibc")) {
+            IbcToken ibcToken = BaseData.getIbcToken(symbol.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(ibcToken.display_denom.toUpperCase());
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), ibcToken.decimal, ibcToken.decimal));
+                return;
+
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText("Unknown");
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+                return;
+            }
+
+        } else if (chain.equals(COSMOS_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -423,16 +457,23 @@ public class WDp {
         } else if (chain.equals(OSMOSIS_MAIN)) {
             if (symbol.equals(TOKEN_OSMOSIS)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
             } else if (symbol.equals(TOKEN_ION)) {
-                denomTv.setText(symbol.toUpperCase());
+                denomTv.setText("ION");
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorIon));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
-            } else if (symbol.startsWith("ibc/")) {
-                denomTv.setText("IBC");
+            } else if (symbol.startsWith("gamm/pool/")) {
+                String[] value = symbol.split("/");
+                denomTv.setText("GAMM-" + value[value.length - 1]);
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
+
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(COSMOS_TEST)) {
             if (symbol.equals(TOKEN_COSMOS_TEST)) {

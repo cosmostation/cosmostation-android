@@ -3,15 +3,14 @@ package wannabit.io.cosmostaion.widget.txDetail.osmosis;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
-import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
@@ -19,16 +18,19 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxJoinPoolHolder extends TxHolder {
     ImageView itemJoinPoolImg;
+    LinearLayout itemJoinPoolTokenMaxLayer;
     TextView itemJoinSender, itemJoinPoolId, itemJoinPoolShareOutAmount,
              itemJoinPoolTokenInMaxsSymbol1, itemJoinPoolTokenInMaxsAmount1, itemJoinPoolTokenInMaxsSymbol2, itemJoinPoolTokenInMaxsAmount2;
 
     public TxJoinPoolHolder(@NonNull View itemView) {
         super(itemView);
         itemJoinPoolImg = itemView.findViewById(R.id.tx_join_pool_icon);
+        itemJoinPoolTokenMaxLayer = itemView.findViewById(R.id.tx_token_in_max_layer);
         itemJoinSender = itemView.findViewById(R.id.tx_join_pool_sender);
         itemJoinPoolId = itemView.findViewById(R.id.tx_join_pool_id);
         itemJoinPoolShareOutAmount = itemView.findViewById(R.id.tx_join_share_out_amount);
@@ -47,12 +49,18 @@ public class TxJoinPoolHolder extends TxHolder {
             itemJoinPoolId.setText("" + msg.getPoolId());
             itemJoinPoolShareOutAmount.setText("" + new BigDecimal(msg.getShareOutAmount()).movePointLeft(18));
 
-            List<Coin> TokenCoin = new ArrayList<>();
-            for (CoinOuterClass.Coin coin: msg.getTokenInMaxsList()) {
-                TokenCoin.add(new Coin(coin.getDenom(), coin.getAmount()));
+            WLog.w("SSS : " + msg.getTokenInMaxsCount());
+            if (msg.getTokenInMaxsCount() > 1) {
+                Coin coin0 = new Coin(msg.getTokenInMaxs(0).getDenom(), msg.getTokenInMaxs(0).getAmount());
+                Coin coin1 = new Coin(msg.getTokenInMaxs(1).getDenom(), msg.getTokenInMaxs(1).getAmount());
+                WDp.showCoinDp(c, coin0, itemJoinPoolTokenInMaxsSymbol1, itemJoinPoolTokenInMaxsAmount1, baseChain);
+                 WDp.showCoinDp(c, coin1, itemJoinPoolTokenInMaxsSymbol2, itemJoinPoolTokenInMaxsAmount2, baseChain);
+
+            } else {
+                Coin coin0 = new Coin(msg.getTokenInMaxs(0).getDenom(), msg.getTokenInMaxs(0).getAmount());
+                itemJoinPoolTokenMaxLayer.setVisibility(View.GONE);
+                WDp.showCoinDp(c, coin0, itemJoinPoolTokenInMaxsSymbol1, itemJoinPoolTokenInMaxsAmount1, baseChain);
             }
-            WDp.showCoinDp(c, TokenCoin.get(0), itemJoinPoolTokenInMaxsSymbol1, itemJoinPoolTokenInMaxsAmount1, baseChain);
-            WDp.showCoinDp(c, TokenCoin.get(1), itemJoinPoolTokenInMaxsSymbol2, itemJoinPoolTokenInMaxsAmount2, baseChain);
         } catch (Exception e) { }
     }
 }

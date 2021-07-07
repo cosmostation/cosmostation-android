@@ -9,10 +9,6 @@ import androidx.annotation.NonNull;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.List;
-
-import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import osmosis.gamm.v1beta1.Tx;
@@ -26,7 +22,7 @@ import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 public class TxCreatePoolHolder extends TxHolder {
     ImageView itemCreatePoolImg;
     TextView itemCreateSender, itemCreateSwapFee, itemCreateExitFee,
-             itemCreatePoolAssetAmount1, itemCreatePoolAssetSymbol1, itemCreatePoolAssetAmount2, itemCreatePoolAssetSymbol2;
+             itemCreatePoolAssetAmount1, itemCreatePoolAssetSymbol1, itemCreatePoolAssetAmount2, itemCreatePoolAssetSymbol2, itemCreatePoolFutureGovernor;
 
     public TxCreatePoolHolder(@NonNull View itemView) {
         super(itemView);
@@ -38,6 +34,7 @@ public class TxCreatePoolHolder extends TxHolder {
         itemCreatePoolAssetSymbol1 = itemView.findViewById(R.id.tx_create_pool_asset_symbol1);
         itemCreatePoolAssetAmount2 = itemView.findViewById(R.id.tx_create_pool_asset_amount2);
         itemCreatePoolAssetSymbol2 = itemView.findViewById(R.id.tx_create_pool_asset_symbol2);
+        itemCreatePoolFutureGovernor = itemView.findViewById(R.id.tx_create_pool_future_governor);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
@@ -46,15 +43,16 @@ public class TxCreatePoolHolder extends TxHolder {
         try {
             Tx.MsgCreatePool msg = Tx.MsgCreatePool.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemCreateSender.setText(msg.getSender());
-            itemCreateSwapFee.setText("" + new BigDecimal(msg.getPoolParams().getSwapFee()).movePointLeft(18).setScale(2, RoundingMode.FLOOR));
-            itemCreateExitFee.setText("" + new BigDecimal(msg.getPoolParams().getExitFee()).movePointLeft(18).setScale(2, RoundingMode.FLOOR));
+            itemCreateSwapFee.setText("swapFee : " + new BigDecimal(msg.getPoolParams().getSwapFee()).movePointLeft(18).setScale(2, RoundingMode.FLOOR));
+            itemCreateExitFee.setText("exitFee : " + new BigDecimal(msg.getPoolParams().getExitFee()).movePointLeft(18).setScale(2, RoundingMode.FLOOR));
 
-            List<Coin> TokenCoin = new ArrayList<>();
-            for (PoolOuterClass.PoolAsset pool: msg.getPoolAssetsList()) {
-                TokenCoin.add(new Coin(pool.getToken().getDenom(), pool.getToken().getAmount()));
-            }
-            WDp.showCoinDp(c, TokenCoin.get(0), itemCreatePoolAssetSymbol1, itemCreatePoolAssetAmount1, baseChain);
-            WDp.showCoinDp(c, TokenCoin.get(1), itemCreatePoolAssetSymbol2, itemCreatePoolAssetAmount2, baseChain);
+            Coin coin0 = new Coin(msg.getPoolAssets(0).getToken().getDenom(), msg.getPoolAssets(0).getToken().getAmount());
+            Coin coin1 = new Coin(msg.getPoolAssets(1).getToken().getDenom(), msg.getPoolAssets(1).getToken().getAmount());
+
+            WDp.showCoinDp(c, coin0, itemCreatePoolAssetSymbol1, itemCreatePoolAssetAmount1, baseChain);
+            WDp.showCoinDp(c, coin1, itemCreatePoolAssetSymbol2, itemCreatePoolAssetAmount2, baseChain);
+
+            itemCreatePoolFutureGovernor.setText(msg.getFuturePoolGovernor());
         } catch (Exception e) { }
     }
 }
