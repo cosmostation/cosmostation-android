@@ -1,0 +1,16 @@
+framework module BitcoinKit {
+    umbrella header "BitcoinKit.h"
+
+    export *
+    module * { export * }
+
+    explicit module Private {
+        header "BitcoinKitPrivate.h"
+        link "crypto"
+    }
+}
+
+module BitcoinKit.Swift {
+    header "BitcoinKit-Swift.h"
+    requires objc
+}
