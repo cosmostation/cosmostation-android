@@ -16,7 +16,8 @@
 
 
     <string name="url_lcd_iris_main" translatable="false">https://lcd-iris-app.cosmostation.io/</string>
-    <string name="url_api_iris_main" translatable="false">https://api-iris.cosmostation.io/</string>
+<!--    <string name="url_api_iris_main" translatable="false">https://api-iris.cosmostation.io/</string>-->
+    <string name="url_api_iris_main" translatable="false">https://api-office.cosmostation.io/irishub-1/</string>
 
     <string name="url_lcd_iris_test" translatable="false">https://lcd-office.cosmostation.io/bifrost/</string>
     <string name="url_api_iris_test" translatable="false">https://api-office.cosmostation.io/bifrost/</string>
