@@ -1332,8 +1332,8 @@
     <string name="str_pool_assets">Pool Assets</string>
     <string name="str_share_in_amount">Share In Amount</string>
     <string name="str_share_out_amount">Share Out Amount</string>
-    <string name="str_token_in_maxs">Token In Maxs</string>
-    <string name="str_token_out_mins">Token Out Mins</string>
+    <string name="str_token_in">Token In</string>
+    <string name="str_token_out">Token Out</string>
     <string name="str_lock_token_duration">Duration</string>
     <string name="str_unlock_token_id">ID</string>
     <string name="str_unlock_token_complete_time">Unlock Complete Time</string>
