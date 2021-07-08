@@ -1038,7 +1038,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 holder.itemInnerSymbol.setText("(" + ibcToken.base_denom + ")");
                 holder.itemFullName.setText(coin.denom);
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), ibcToken.decimal, 6));
-                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), ibcToken.base_denom, new BigDecimal(coin.amount), 6));
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), ibcToken.base_denom, new BigDecimal(coin.amount), ibcToken.decimal));
                 try {
                     Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.itemImg);
                 } catch (Exception e){}
