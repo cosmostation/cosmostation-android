@@ -171,7 +171,9 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
-            let simulateReq = self.genSimulateReq(auth!, WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!))
+            let privateKey = KeyFac.getPrivateRaw(words, self.pageHolderVC.mAccount!)
+            let publicKey = KeyFac.getPublicRaw(words, self.pageHolderVC.mAccount!)
+            let simulateReq = self.genSimulateReq(auth!, privateKey, publicKey)
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
@@ -197,75 +199,75 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
         }
     }
     
-    func genSimulateReq(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ pKey: PrivateKey)  -> Cosmos_Tx_V1beta1_SimulateRequest? {
+    func genSimulateReq(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ privateKey: Data, _ publicKey: Data)  -> Cosmos_Tx_V1beta1_SimulateRequest? {
         if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2) {
             return Signer.genSimulateSendTxgRPC(auth, self.pageHolderVC.mToSendRecipientAddress!, self.pageHolderVC.mToSendAmount,
-                                                self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey,
+                                                self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
                                                 BaseData.instance.getChainId_gRPC())
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
             return Signer.genSimulateDelegateTxgRPC(auth, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mToDelegateAmount!,
-                                                    self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey,
+                                                    self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
                                                     BaseData.instance.getChainId_gRPC())
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             return Signer.genSimulateUnDelegateTxgRPC(auth, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mToUndelegateAmount!,
-                                                      self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey,
+                                                      self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
                                                       BaseData.instance.getChainId_gRPC())
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
             return Signer.genSimulateReDelegateTxgRPC(auth, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mToReDelegateValidator_gRPC!.operatorAddress,
-                                                      self.pageHolderVC.mToReDelegateAmount!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey,
+                                                      self.pageHolderVC.mToReDelegateAmount!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
                                                       BaseData.instance.getChainId_gRPC())
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-            return Signer.genSimulateClaimRewardsTxgRPC(auth, self.pageHolderVC.mRewardTargetValidators_gRPC, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey,
+            return Signer.genSimulateClaimRewardsTxgRPC(auth, self.pageHolderVC.mRewardTargetValidators_gRPC, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
                                                         BaseData.instance.getChainId_gRPC())
             
         } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
             return Signer.genSimulateReInvestTxgRPC(auth, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mReinvestReward!,
-                                                    self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey,
+                                                    self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
                                                     BaseData.instance.getChainId_gRPC())
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
             return Signer.genSimulateetRewardAddressTxgRPC(auth, self.pageHolderVC.mToChangeRewardAddress!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!,
-                                                           pKey, BaseData.instance.getChainId_gRPC())
+                                                           privateKey, publicKey, BaseData.instance.getChainId_gRPC())
             
         } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
             return Signer.genSimulateVoteTxgRPC(auth, self.pageHolderVC.mProposeId!, self.pageHolderVC.mVoteOpinion!, self.pageHolderVC.mFee!,
-                                                self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+                                                self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
             
         }
         
         //for starname custom msg
         else if (pageHolderVC.mType == IOV_MSG_TYPE_REGISTER_DOMAIN) {
             return Signer.genSimulateRegisterDomainMsgTxgRPC(auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mAccount!.account_address,
-                                                             self.pageHolderVC.mStarnameDomainType!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+                                                             self.pageHolderVC.mStarnameDomainType!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
             
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
             return Signer.genSimulateRegisterAccountMsgTxgRPC(auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mStarnameAccount!, self.pageHolderVC.mAccount!.account_address,
                                                               self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mStarnameResources_gRPC, self.pageHolderVC.mFee!,
-                                                              self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+                                                              self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
             
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_DELETE_DOMAIN) {
             return Signer.genSimulateDeleteDomainMsgTxgRPC (auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mFee!,
-                                                            self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+                                                            self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
             
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
             return Signer.genSimulateDeleteAccountMsgTxgRPC (auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mStarnameAccount!, self.pageHolderVC.mAccount!.account_address,
-                                                             self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+                                                             self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
             
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_RENEW_DOMAIN) {
             return Signer.genSimulateRenewDomainMsgTxgRPC (auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mFee!,
-                                                           self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+                                                           self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
             
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
             return Signer.genSimulateRenewAccountMsgTxgRPC (auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mStarnameAccount!, self.pageHolderVC.mAccount!.account_address,
-                                                            self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+                                                            self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
             
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
             return Signer.genSimulateReplaceResourceMsgTxgRPC(auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mStarnameAccount, self.pageHolderVC.mAccount!.account_address,
-                                                              self.pageHolderVC.mStarnameResources_gRPC, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey, BaseData.instance.getChainId_gRPC())
+                                                              self.pageHolderVC.mStarnameResources_gRPC, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
         }
         return nil
     }

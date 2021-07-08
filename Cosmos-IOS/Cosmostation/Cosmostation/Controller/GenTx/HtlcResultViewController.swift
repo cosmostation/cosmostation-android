@@ -272,7 +272,6 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 self.onUpdateView(NSLocalizedString("error_invalid_password", comment: ""))
                 return
             }
-            let pKey = WKey.getHDKeyFromWords(words, self.account!)
             
             if (self.chainType == ChainType.BINANCE_MAIN || self.chainType == ChainType.BINANCE_TEST) {
                 let pKey = WKey.getHDKeyFromWords(words, self.account!)
@@ -314,7 +313,6 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 });
                 
             } else if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
-                var stdTx:StdTx!
                 self.mTimeStamp = Date().millisecondsSince1970 / 1000
                 self.mRandomNumber = WKey.generateRandomBytes()
                 self.mRandomNumberHash = WKey.getRandomNumnerHash(self.mRandomNumber!, self.mTimeStamp!)
@@ -332,27 +330,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                                                        self.mHtlcSendFee!,
                                                        SWAP_MEMO_CREATE)
                 
-                let encoder = JSONEncoder()
-                encoder.outputFormatting = .sortedKeys
-                let data = try? encoder.encode(stdMsg)
-                let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-                let rawData: Data? = rawResult!.data(using: .utf8)
-                let hash = rawData!.sha256()
-                let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.raw)
-                
-                var genedSignature = Signature.init()
-                var genPubkey =  PublicKey.init()
-                genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                genPubkey.value = pKey.publicKey.data.base64EncodedString()
-                genedSignature.pub_key = genPubkey
-                genedSignature.signature = signedData.base64EncodedString()
-                genedSignature.account_number = String(self.account!.account_account_numner)
-                genedSignature.sequence = String(self.account!.account_sequence_number)
-                
-                var signatures: Array<Signature> = Array<Signature>()
-                signatures.append(genedSignature)
-                
-                stdTx = MsgGenerator.genSignedTx(msgList, self.mHtlcSendFee!, SWAP_MEMO_CREATE, signatures)
+                let stdTx = KeyFac.getStdTx(words, msgList, stdMsg, self.account!, self.mHtlcSendFee!, SWAP_MEMO_CREATE)
                 
                 DispatchQueue.main.async(execute: {
                     let postTx = PostTx.init("sync", stdTx.value)
@@ -497,9 +475,9 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 self.onUpdateView(NSLocalizedString("error_invalid_password", comment: ""))
                 return
             }
-            let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
             
             if (self.mHtlcToChain == ChainType.BINANCE_MAIN || self.mHtlcToChain == ChainType.BINANCE_TEST) {
+                let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
                 let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
                 let bnbMsg = MsgGenerator.genBnbClaimHTLCSwapMsg(self.mHtlcToAccount!,
                                                                  self.mRandomNumber!,
@@ -550,28 +528,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                                                        self.mHtlcClaimFee!,
                                                        SWAP_MEMO_CLAIM)
                 
-                let encoder = JSONEncoder()
-                encoder.outputFormatting = .sortedKeys
-                let data = try? encoder.encode(stdMsg)
-                let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-                let rawData: Data? = rawResult!.data(using: .utf8)
-                let hash = rawData!.sha256()
-                let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.raw)
-                
-                var genedSignature = Signature.init()
-                var genPubkey =  PublicKey.init()
-                genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                genPubkey.value = pKey.publicKey.data.base64EncodedString()
-                genedSignature.pub_key = genPubkey
-                genedSignature.signature = signedData.base64EncodedString()
-                genedSignature.account_number = String(self.mHtlcToAccount!.account_account_numner)
-                genedSignature.sequence = String(self.mHtlcToAccount!.account_sequence_number)
-                
-                var signatures: Array<Signature> = Array<Signature>()
-                signatures.append(genedSignature)
-                
-                let stdTx = MsgGenerator.genSignedTx(msgList, self.mHtlcClaimFee!, SWAP_MEMO_CLAIM, signatures)
-                
+                let stdTx = KeyFac.getStdTx(words, msgList, stdMsg, self.mHtlcToAccount!, self.mHtlcClaimFee!, SWAP_MEMO_CLAIM)
                 
                 DispatchQueue.main.async(execute: {
                     let postTx = PostTx.init("sync", stdTx.value)
@@ -584,15 +541,15 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         request.validate().responseJSON { response in
                             switch response.result {
                             case .success(let res):
-                                if (SHOW_LOG) { print("onClaimHtlcSwap ", res) }
+                                print("onClaimHtlcSwap ", res)
                                 if let result = res as? [String : Any], let hash = result["txhash"] as? String  {
-                                    if (SHOW_LOG) { print("onClaimHtlcSwap OK ", hash) }
+                                    print("onClaimHtlcSwap OK ", hash)
                                     self.mClaimHash = hash
                                     self.onFetchSendTx()
                                     self.onFetchClaimTx()
                                 }
                             case .failure(let error):
-                                if (SHOW_LOG) { print("onClaimHtlcSwap error ", error) }
+                                print("onClaimHtlcSwap error ", error)
                                 self.onUpdateView(error.localizedDescription)
                             }
                         }

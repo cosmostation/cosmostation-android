@@ -102,13 +102,15 @@ class RegisterDomain3ViewController: BaseViewController, PasswordViewDelegate {
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
+            let privateKey = KeyFac.getPrivateRaw(words, self.pageHolderVC.mAccount!)
+            let publicKey = KeyFac.getPublicRaw(words, self.pageHolderVC.mAccount!)
             let reqTx = Signer.genSignedRegisterDomainMsgTxgRPC(auth!,
                                                                 self.pageHolderVC.mStarnameDomain!,
                                                                 self.pageHolderVC.mAccount!.account_address,
                                                                 self.pageHolderVC.mStarnameDomainType!,
                                                                 self.pageHolderVC.mFee!,
                                                                 self.pageHolderVC.mMemo!,
-                                                                WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!),
+                                                                privateKey, publicKey,
                                                                 BaseData.instance.getChainId_gRPC())
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)

@@ -117,6 +117,8 @@ class RegisterAccount4ViewController: BaseViewController, UITableViewDelegate, U
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
+            let privateKey = KeyFac.getPrivateRaw(words, self.pageHolderVC.mAccount!)
+            let publicKey = KeyFac.getPublicRaw(words, self.pageHolderVC.mAccount!)
             let reqTx = Signer.genSignedRegisterAccountMsgTxgRPC(auth!,
                                                                  self.pageHolderVC.mStarnameDomain!,
                                                                  self.pageHolderVC.mStarnameAccount!,
@@ -125,7 +127,7 @@ class RegisterAccount4ViewController: BaseViewController, UITableViewDelegate, U
                                                                  self.pageHolderVC.mStarnameResources_gRPC,
                                                                  self.pageHolderVC.mFee!,
                                                                  self.pageHolderVC.mMemo!,
-                                                                 WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!),
+                                                                 privateKey, publicKey,
                                                                  BaseData.instance.getChainId_gRPC())
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)

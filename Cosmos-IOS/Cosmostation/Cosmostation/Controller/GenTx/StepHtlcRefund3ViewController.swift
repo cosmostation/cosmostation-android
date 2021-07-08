@@ -115,48 +115,21 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
     
     func onGenKavaRefund() {
         DispatchQueue.global().async {
-            var stdTx:StdTx!
+//            var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
+            let msg = MsgGenerator.genRefundAtomicSwap(self.pageHolderVC.mAccount!.account_address,
+                                                       self.pageHolderVC.mHtlcRefundSwapId!)
+            var msgList = Array<Msg>()
+            msgList.append(msg)
             
-            do {
-                let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                let msg = MsgGenerator.genRefundAtomicSwap(self.pageHolderVC.mAccount!.account_address,
-                                                           self.pageHolderVC.mHtlcRefundSwapId!)
-                var msgList = Array<Msg>()
-                msgList.append(msg)
-                
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                    let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(), String(self.pageHolderVC.mAccount!.account_account_numner),
-                                                           String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
-                    let encoder = JSONEncoder()
-                    encoder.outputFormatting = .sortedKeys
-                    let data = try? encoder.encode(stdMsg)
-                    let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-                    let rawData: Data? = rawResult!.data(using: .utf8)
-                    let hash = rawData!.sha256()
-                    let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.raw)
-                    
-                    var genedSignature = Signature.init()
-                    var genPubkey =  PublicKey.init()
-                    genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                    genPubkey.value = pKey.publicKey.data.base64EncodedString()
-                    genedSignature.pub_key = genPubkey
-                    genedSignature.signature = signedData.base64EncodedString()
-                    genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
-                    genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
-                    
-                    var signatures: Array<Signature> = Array<Signature>()
-                    signatures.append(genedSignature)
-                    
-                    stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
-                }
-                
-            } catch {
-                print(error)
-            }
+            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
+                                                   String(self.pageHolderVC.mAccount!.account_account_numner),
+                                                   String(self.pageHolderVC.mAccount!.account_sequence_number),
+                                                   msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
             
+            let stdTx = KeyFac.getStdTx(words, msgList, stdMsg, self.pageHolderVC.mAccount!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
             
             DispatchQueue.main.async(execute: {
                 let postTx = PostTx.init("sync", stdTx.value)

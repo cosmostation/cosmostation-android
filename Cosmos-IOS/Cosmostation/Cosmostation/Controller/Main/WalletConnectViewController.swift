@@ -189,7 +189,6 @@ class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
                 return
             }
             let pKey = WKey.getHDKeyFromWords(words, account!)
-//            let pubKeyString = pKey.publicKey.getPublicKey(compressed: false).dataToHexString()
             let pubKeyString = pKey.publicKey.uncompressedPublicKey.dataToHexString()
             let signature = try ECDSA.compactsign(self.cOrder!.encoded.sha256(), privateKey: pKey.raw)
             let signed = WCBinanceOrderSignature(
