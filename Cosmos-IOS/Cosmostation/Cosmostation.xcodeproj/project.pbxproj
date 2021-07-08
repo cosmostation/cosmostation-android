@@ -1961,6 +1961,21 @@
 			path = osmosis;
 			sourceTree = "<group>";
 		};
+		281008462696B9DF002986A6 /* BinanceUtils */ = {
+			isa = PBXGroup;
+			children = (
+				046E9036268C3F29002CFFE1 /* BinanceMessage.swift */,
+				046E9038268C3F95002CFFE1 /* BinanceModel.swift */,
+				046E903A268C401E002CFFE1 /* BinanceType.swift */,
+				046E903C268C413A002CFFE1 /* BinanceProto.swift */,
+				046E903E268C45DC002CFFE1 /* BinanceHexlify.swift */,
+				046E9040268C4863002CFFE1 /* BinanceInt+VarInt.swift */,
+				046E9042268C4995002CFFE1 /* BinanceSegwitAddrCoder.swift */,
+				046E9048268C7C2B002CFFE1 /* BinanceHexEncoding.swift */,
+			);
+			path = BinanceUtils;
+			sourceTree = "<group>";
+		};
 		282121BA25FDE71C0016ABFE /* ProtoBuff */ = {
 			isa = PBXGroup;
 			children = (
@@ -3045,6 +3060,7 @@
 		E1A82DE622448E800097CAEE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				281008462696B9DF002986A6 /* BinanceUtils */,
 				E17748E42282D782003D8CD1 /* BTCProtocolSerialization.h */,
 				E17748E52282D782003D8CD1 /* BTCProtocolSerialization.m */,
 				E17748E22282D6AD003D8CD1 /* BTCMnemonic.h */,
@@ -3055,14 +3071,6 @@
 				E16FACB02361ADFA00372052 /* Bytes.swift */,
 				E17748D82282C612003D8CD1 /* Cosmostation-Bridging-Header.h */,
 				28E3E370266D033100BA89C2 /* HdacUtil.swift */,
-				046E9036268C3F29002CFFE1 /* BinanceMessage.swift */,
-				046E9038268C3F95002CFFE1 /* BinanceModel.swift */,
-				046E903A268C401E002CFFE1 /* BinanceType.swift */,
-				046E903C268C413A002CFFE1 /* BinanceProto.swift */,
-				046E903E268C45DC002CFFE1 /* BinanceHexlify.swift */,
-				046E9040268C4863002CFFE1 /* BinanceInt+VarInt.swift */,
-				046E9042268C4995002CFFE1 /* BinanceSegwitAddrCoder.swift */,
-				046E9048268C7C2B002CFFE1 /* BinanceHexEncoding.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
