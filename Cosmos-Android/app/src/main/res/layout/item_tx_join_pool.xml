@@ -73,65 +73,33 @@
                     android:text="-"
                     style="@style/font_ss_12_white"/>
             </LinearLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_10">
-
-                <TextView
-                    android:id="@+id/tx_join_share_out_amount_title"
-                    style="@style/font_ss_12_gray1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_share_out_amount" />
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tx_join_share_out_amount_title">
-                    <TextView
-                        android:id="@+id/tx_join_share_out_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:layout_alignParentRight="true"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                </RelativeLayout>
-            </RelativeLayout>
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12">
                 <TextView
-                    android:id="@+id/tx_join_token_in_maxs_title"
+                    android:id="@+id/tx_join_token_in_title"
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_token_in_maxs" />
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tx_join_token_in_maxs_title"
-                    android:gravity="right">
+                    android:text="@string/str_token_in" />
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_gravity="right">
                             <TextView
-                                android:id="@+id/tx_token_in_max_amount1"
+                                android:id="@+id/tx_token_in_amount1"
                                 style="@style/font_ssl_12_white"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
                             <TextView
-                                android:id="@+id/tx_token_in_max_symbol1"
+                                android:id="@+id/tx_token_in_symbol1"
                                 style="@style/font_ss_12_white"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -139,21 +107,18 @@
                                 android:text="-" />
                         </LinearLayout>
                         <LinearLayout
-                            android:id="@+id/tx_token_in_max_layer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_gravity="right">
                             <TextView
-                                android:id="@+id/tx_token_in_max_amount2"
+                                android:id="@+id/tx_token_in_amount2"
                                 style="@style/font_ssl_12_white"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="-" />
                             <TextView
-                                android:id="@+id/tx_token_in_max_symbol2"
+                                android:id="@+id/tx_token_in_symbol2"
                                 style="@style/font_ss_12_white"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -161,6 +126,37 @@
                                 android:text="-" />
                         </LinearLayout>
                     </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16">
+                <TextView
+                    android:id="@+id/tx_join_token_out_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_token_out"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tx_join_token_out_title">
+                    <TextView
+                        android:id="@+id/tx_join_token_out_symbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text=""
+                        style="@style/font_ss_12_white"/>
+                    <TextView
+                        android:id="@+id/tx_join_token_out_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/tx_join_token_out_symbol"
+                        android:layout_toLeftOf="@+id/tx_join_token_out_symbol"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text="-"
+                        style="@style/font_ss_12_white"/>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

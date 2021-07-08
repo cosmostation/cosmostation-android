@@ -129,15 +129,6 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 } else {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
-            } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getIrisApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("ApiStakeTxsHistoryTask : NOk");
-                }
-
             } else if (mChain.equals(BaseChain.AKASH_MAIN)) {
                 Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getAkashApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
@@ -195,6 +186,15 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getIrisApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
 
             }
