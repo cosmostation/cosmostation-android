@@ -181,7 +181,7 @@ class WKey {
         let masterKey = getMasterKeyFromWords(mnemonic)
         if ((chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) && newbip) {
             let pKey = masterKey.derived(at: .hardened(44)).derived(at: .hardened(996)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-            return generateAddressFromPriv("ex", pKey)
+            return generateAddressFromPriv("ex", pKey.raw)
             
         } else {
             return WKey.getHDKeyDpAddressWithPath(masterKey, path: path, chain: chain, newbip)
@@ -388,8 +388,8 @@ class WKey {
     }
     
     // Ethermint Style address gen (OKex)
-    static func generateAddressFromPriv(_ prefix: String, _ priKey: PrivateKey) -> String {
-        let uncompressedPubKey = HDWalletKit.Crypto.generatePublicKey(data: priKey.raw, compressed: false)
+    static func generateAddressFromPriv(_ prefix: String, _ priKey: Data) -> String {
+        let uncompressedPubKey = HDWalletKit.Crypto.generatePublicKey(data: priKey, compressed: false)
         var pub = Data(count: 64)
         pub = uncompressedPubKey.subdata(in: (1..<65))
         

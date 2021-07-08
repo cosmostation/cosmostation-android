@@ -100,6 +100,8 @@
 		280E1F2B254AD3A80007BA7D /* ResourceChainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E1F29254AD3A80007BA7D /* ResourceChainCell.xib */; };
 		280E6CDD2605D78900B3BCBB /* WalletPersisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E6CDB2605D78900B3BCBB /* WalletPersisCell.swift */; };
 		280E6CDE2605D78900B3BCBB /* WalletPersisCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E6CDC2605D78900B3BCBB /* WalletPersisCell.xib */; };
+		281008482696BA27002986A6 /* OldKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281008472696BA27002986A6 /* OldKey.swift */; };
+		2810084A2696D979002986A6 /* KeyFac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281008492696D979002986A6 /* KeyFac.swift */; };
 		28105894262EE638009244B8 /* WalletSifCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28105892262EE638009244B8 /* WalletSifCell.swift */; };
 		28105895262EE638009244B8 /* WalletSifCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28105893262EE638009244B8 /* WalletSifCell.xib */; };
 		28129567250F5072007B217E /* KavaSwapParam2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28129566250F5072007B217E /* KavaSwapParam2.swift */; };
@@ -1025,6 +1027,8 @@
 		280E1F29254AD3A80007BA7D /* ResourceChainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResourceChainCell.xib; sourceTree = "<group>"; };
 		280E6CDB2605D78900B3BCBB /* WalletPersisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPersisCell.swift; sourceTree = "<group>"; };
 		280E6CDC2605D78900B3BCBB /* WalletPersisCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletPersisCell.xib; sourceTree = "<group>"; };
+		281008472696BA27002986A6 /* OldKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldKey.swift; sourceTree = "<group>"; };
+		281008492696D979002986A6 /* KeyFac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyFac.swift; sourceTree = "<group>"; };
 		28105892262EE638009244B8 /* WalletSifCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSifCell.swift; sourceTree = "<group>"; };
 		28105893262EE638009244B8 /* WalletSifCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSifCell.xib; sourceTree = "<group>"; };
 		28129566250F5072007B217E /* KavaSwapParam2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapParam2.swift; sourceTree = "<group>"; };
@@ -3065,12 +3069,14 @@
 				E17748E52282D782003D8CD1 /* BTCProtocolSerialization.m */,
 				E17748E22282D6AD003D8CD1 /* BTCMnemonic.h */,
 				E17748E12282D6AD003D8CD1 /* BTCMnemonic.m */,
+				E16D9B1C2248E6A60019B7BB /* WKey.swift */,
+				281008472696BA27002986A6 /* OldKey.swift */,
 				E1A82DE722448E940097CAEE /* WUtils.swift */,
 				E1A82DF62244FA750097CAEE /* UIColor.swift */,
-				E16D9B1C2248E6A60019B7BB /* WKey.swift */,
 				E16FACB02361ADFA00372052 /* Bytes.swift */,
 				E17748D82282C612003D8CD1 /* Cosmostation-Bridging-Header.h */,
 				28E3E370266D033100BA89C2 /* HdacUtil.swift */,
+				281008492696D979002986A6 /* KeyFac.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3648,6 +3654,7 @@
 				E16D9B1B2248D1370019B7BB /* BoarderLabel.swift in Sources */,
 				287AC59125FDF7250070837E /* tendermint_types_block.pb.swift in Sources */,
 				283F3AE3265E283800DF1D93 /* treasury_params.pb.swift in Sources */,
+				2810084A2696D979002986A6 /* KeyFac.swift in Sources */,
 				287AC5EF25FDF7260070837E /* cosmos_bank_v1beta1_query.pb.swift in Sources */,
 				E151B64F22485B3B0026B8C0 /* Result.swift in Sources */,
 				28B4303C24F7EE0C00BD7BB2 /* StepOkDepositAmountViewController.swift in Sources */,
@@ -3759,6 +3766,7 @@
 				049758822685AA270039872C /* iov_configuration_v1beta1_query.pb.swift in Sources */,
 				287AC5C825FDF7250070837E /* cosmos_bank_v1beta1_tx.grpc.swift in Sources */,
 				E1827E2F225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift in Sources */,
+				281008482696BA27002986A6 /* OldKey.swift in Sources */,
 				285A33E624486DA20052BD3D /* HtlcResultSentCell.swift in Sources */,
 				28BB2A912533DA2D00CFF097 /* AccountCell.swift in Sources */,
 				287AC59925FDF7250070837E /* coinswap_tx.grpc.swift in Sources */,
