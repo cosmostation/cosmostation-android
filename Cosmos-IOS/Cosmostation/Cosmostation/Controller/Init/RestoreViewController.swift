@@ -113,6 +113,10 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         self.actionView.isHidden = true
         self.keyboardView.isHidden = true
         
+        if (BaseData.instance.getUsingEnginerMode()) {
+            self.onShowEnginerModeDialog()
+        }
+        
     }
     
     
@@ -348,9 +352,6 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     }
     
     func initViewUpdate() {
-        if (BaseData.instance.getUsingEnginerMode()) {
-            self.onShowEnginerModeDialog()
-        }
         self.mNeminicImg.image = self.mNeminicImg.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         self.mNeminicImg.tintColor = WUtils.getChainColor(self.chainType!)
         self.topView.isHidden = false

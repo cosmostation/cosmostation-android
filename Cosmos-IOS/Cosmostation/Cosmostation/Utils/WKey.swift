@@ -181,7 +181,7 @@ class WKey {
         let masterKey = getMasterKeyFromWords(mnemonic)
         if ((chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) && newbip) {
             let pKey = masterKey.derived(at: .hardened(44)).derived(at: .hardened(996)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-            return generateAddressFromPriv("ex", pKey)
+            return generateAddressFromPriv("ex", pKey.raw)
             
         } else {
             return WKey.getHDKeyDpAddressWithPath(masterKey, path: path, chain: chain, newbip)
@@ -388,8 +388,8 @@ class WKey {
     }
     
     // Ethermint Style address gen (OKex)
-    static func generateAddressFromPriv(_ prefix: String, _ priKey: PrivateKey) -> String {
-        let uncompressedPubKey = HDWalletKit.Crypto.generatePublicKey(data: priKey.raw, compressed: false)
+    static func generateAddressFromPriv(_ prefix: String, _ priKey: Data) -> String {
+        let uncompressedPubKey = HDWalletKit.Crypto.generatePublicKey(data: priKey, compressed: false)
         var pub = Data(count: 64)
         pub = uncompressedPubKey.subdata(in: (1..<65))
         
@@ -450,6 +450,39 @@ class WKey {
         return false
     }
     
+    
+    static func getPrivateRaw(_ mnemonic: [String], _ account: Account) -> Data {
+        return getHDKeyFromWords(mnemonic, account).raw
+    }
+    
+    static func getPublicRaw(_ mnemonic: [String], _ account: Account) -> Data {
+        return getHDKeyFromWords(mnemonic, account).publicKey.data
+    }
+    
+    static func getStdTx(_ words: [String], _ msgList: Array<Msg>, _ stdMsg: StdSignMsg, _ account: Account, _ fee: Fee, _ memo: String) -> StdTx {
+        let pKey = getHDKeyFromWords(words, account)
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .sortedKeys
+        let data = try? encoder.encode(stdMsg)
+        let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
+        let rawData: Data? = rawResult!.data(using: .utf8)
+        let hash = rawData!.sha256()
+        let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.raw)
+        
+        var genedSignature = Signature.init()
+        var genPubkey =  PublicKey.init()
+        genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
+        genPubkey.value = pKey.publicKey.data.base64EncodedString()
+        genedSignature.pub_key = genPubkey
+        genedSignature.signature = signedData.base64EncodedString()
+        genedSignature.account_number = String(account.account_account_numner)
+        genedSignature.sequence = String(account.account_sequence_number)
+        
+        var signatures: Array<Signature> = Array<Signature>()
+        signatures.append(genedSignature)
+        
+        return MsgGenerator.genSignedTx(msgList, fee, memo, signatures)
+    }
     
     
     

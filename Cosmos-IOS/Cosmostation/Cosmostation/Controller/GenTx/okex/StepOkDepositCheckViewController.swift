@@ -107,63 +107,62 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
+            let privateKey = KeyFac.getPrivateRaw(words, self.pageHolderVC.mAccount!)
+            let publicKey = KeyFac.getPublicRaw(words, self.pageHolderVC.mAccount!)
             
             do {
-                let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 let msg = MsgGenerator.genOkDepositMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mOkToStaking)
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
-                if (self.pageHolderVC.chainType! == ChainType.OKEX_MAIN || self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-                    let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
-                                                           String(self.pageHolderVC.mAccount!.account_account_numner),
-                                                           String(self.pageHolderVC.mAccount!.account_sequence_number),
-                                                           msgList,
-                                                           self.pageHolderVC.mFee!,
-                                                           self.pageHolderVC.mMemo!)
+                let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
+                                                       String(self.pageHolderVC.mAccount!.account_account_numner),
+                                                       String(self.pageHolderVC.mAccount!.account_sequence_number),
+                                                       msgList,
+                                                       self.pageHolderVC.mFee!,
+                                                       self.pageHolderVC.mMemo!)
+                
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = .sortedKeys
+                let data = try? encoder.encode(stdMsg)
+                let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
+                let rawData: Data? = rawResult!.data(using: .utf8)
+                
+                if (self.pageHolderVC.mAccount!.account_new_bip44) {
+                    let hash = HDWalletKit.Crypto.sha3keccak256(data: rawData!)
+                    let signedData: Data? = try ECDSA.compactsign(hash, privateKey: privateKey)
                     
-                    let encoder = JSONEncoder()
-                    encoder.outputFormatting = .sortedKeys
-                    let data = try? encoder.encode(stdMsg)
-                    let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-                    let rawData: Data? = rawResult!.data(using: .utf8)
+                    var genedSignature = Signature.init()
+                    var genPubkey =  PublicKey.init()
+                    genPubkey.type = ETHERMINT_KEY_TYPE_PUBLIC
+                    genPubkey.value = publicKey.base64EncodedString()
+                    genedSignature.pub_key = genPubkey
+                    genedSignature.signature = signedData!.base64EncodedString()
+                    genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
+                    genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
                     
-                    if (self.pageHolderVC.mAccount!.account_new_bip44) {
-                        let hash = HDWalletKit.Crypto.sha3keccak256(data: rawData!)
-                        let signedData: Data? = try ECDSA.compactsign(hash, privateKey: pKey.raw)
-                        
-                        var genedSignature = Signature.init()
-                        var genPubkey =  PublicKey.init()
-                        genPubkey.type = ETHERMINT_KEY_TYPE_PUBLIC
-                        genPubkey.value = pKey.publicKey.data.base64EncodedString()
-                        genedSignature.pub_key = genPubkey
-                        genedSignature.signature = signedData!.base64EncodedString()
-                        genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
-                        genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
-                        
-                        var signatures: Array<Signature> = Array<Signature>()
-                        signatures.append(genedSignature)
-                        
-                        stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
-                        
-                    } else {
-                        let hash = rawData!.sha256()
-                        let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.raw)
+                    var signatures: Array<Signature> = Array<Signature>()
+                    signatures.append(genedSignature)
+                    
+                    stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
+                    
+                } else {
+                    let hash = rawData!.sha256()
+                    let signedData = try! ECDSA.compactsign(hash, privateKey: privateKey)
 
-                        var genedSignature = Signature.init()
-                        var genPubkey =  PublicKey.init()
-                        genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                        genPubkey.value = pKey.publicKey.data.base64EncodedString()
-                        genedSignature.pub_key = genPubkey
-                        genedSignature.signature = signedData.base64EncodedString()
-                        genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
-                        genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
-                        
-                        var signatures: Array<Signature> = Array<Signature>()
-                        signatures.append(genedSignature)
-                        
-                        stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
-                    }
+                    var genedSignature = Signature.init()
+                    var genPubkey =  PublicKey.init()
+                    genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
+                    genPubkey.value = publicKey.base64EncodedString()
+                    genedSignature.pub_key = genPubkey
+                    genedSignature.signature = signedData.base64EncodedString()
+                    genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
+                    genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
+                    
+                    var signatures: Array<Signature> = Array<Signature>()
+                    signatures.append(genedSignature)
+                    
+                    stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
                 }
                 
                 
@@ -184,12 +183,12 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            if(SHOW_LOG) { print("Send ", res) }
+                            print("Deposit ", res)
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
-                            if(SHOW_LOG) { print("send error ", error) }
+                            print("Deposit error ", error)
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500
                             }

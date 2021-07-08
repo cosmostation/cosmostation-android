@@ -84,7 +84,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         
         DispatchQueue.global().async {
-            let address = WKey.getDpAddressPath(self.userInputWords!, indexPath.row, self.userChain!, self.usingBip44)
+            let address = KeyFac.getDpAddressPath(self.userInputWords!, indexPath.row, self.userChain!, self.usingBip44)
             var dpAddress = address
             if (self.userChain == ChainType.OKEX_MAIN || self.userChain == ChainType.OKEX_TEST) {
                 dpAddress = WKey.convertAddressOkexToEth(dpAddress)
@@ -224,7 +224,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             let keyResult = KeychainWrapper.standard.set(resource, forKey: newAccount.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
             var insertResult :Int64 = -1
             if(keyResult) {
-                newAccount.account_address = WKey.getDpAddressPath(mnemonic, path, chain, newBip)
+                newAccount.account_address = KeyFac.getDpAddressPath(mnemonic, path, chain, newBip)
                 newAccount.account_base_chain = WUtils.getChainDBName(chain)
                 newAccount.account_has_private = true
                 newAccount.account_from_mnemonic = true
@@ -261,7 +261,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                 resource = resource + " " + word
             }
             
-            let existedAccount = BaseData.instance.selectExistAccount(address: WKey.getDpAddressPath(mnemonic, path, chain, newBip), chain: WUtils.getChainDBName(chain))
+            let existedAccount = BaseData.instance.selectExistAccount(address: KeyFac.getDpAddressPath(mnemonic, path, chain, newBip), chain: WUtils.getChainDBName(chain))
             let keyResult = KeychainWrapper.standard.set(resource, forKey: existedAccount!.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
             var updateResult :Int64 = -1
             if(keyResult) {

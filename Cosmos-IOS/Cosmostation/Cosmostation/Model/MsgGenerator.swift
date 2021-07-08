@@ -614,7 +614,6 @@ class MsgGenerator {
         
         return stdSignedMsg
     }
-
     
     /*
     static func genIovSendTx(_ nonce:Int64, _ fromAddr:String, _ toAddr:String, _ sendCoins: Array<Coin>, _ fee:Fee,  _ memo:String, _ key:WKey.Ed25519Key) -> String {

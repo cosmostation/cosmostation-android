@@ -101,59 +101,26 @@ class StepHardPoolIncentive3ViewController: BaseViewController, PasswordViewDele
     
     func onGenHarvestRewardTx() {
         DispatchQueue.global().async {
-            var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
-            
-            do {
-//                print("mType ", self.pageHolderVC.mType )
-//                print("account_address ", self.pageHolderVC.mAccount!.account_address)
-//                print("mIncentiveMultiplier ", self.pageHolderVC.mIncentiveMultiplier!.name)
-//                print("mToSendRecipientAddress ", self.pageHolderVC.mToSendRecipientAddress)
-                
-                let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                var msg: Msg?
-                if (self.pageHolderVC.mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
-                    msg = MsgGenerator.genClaimHardLiquidityProviderMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mIncentiveMultiplier!.name!)
-                } else if (self.pageHolderVC.mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV) {
-                    msg = MsgGenerator.genClaimHardLiquidityProviderVVMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mIncentiveMultiplier!.name!, self.pageHolderVC.mToSendRecipientAddress!)
-                }
-                var msgList = Array<Msg>()
-                msgList.append(msg!)
-                
-                let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
-                                                       String(self.pageHolderVC.mAccount!.account_account_numner),
-                                                       String(self.pageHolderVC.mAccount!.account_sequence_number),
-                                                       msgList,
-                                                       self.pageHolderVC.mFee!,
-                                                       self.pageHolderVC.mMemo!)
-                
-                let encoder = JSONEncoder()
-                encoder.outputFormatting = .sortedKeys
-                let data = try? encoder.encode(stdMsg)
-                let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-                let rawData: Data? = rawResult!.data(using: .utf8)
-                let hash = rawData!.sha256()
-                let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.raw)
-
-                var genedSignature = Signature.init()
-                var genPubkey =  PublicKey.init()
-                genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                genPubkey.value = pKey.publicKey.data.base64EncodedString()
-                genedSignature.pub_key = genPubkey
-                genedSignature.signature = signedData.base64EncodedString()
-                genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
-                genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
-                
-                var signatures: Array<Signature> = Array<Signature>()
-                signatures.append(genedSignature)
-                
-                stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
-                
-            } catch {
-                if (SHOW_LOG) { print(error) }
+            var msg: Msg?
+            if (self.pageHolderVC.mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
+                msg = MsgGenerator.genClaimHardLiquidityProviderMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mIncentiveMultiplier!.name!)
+            } else if (self.pageHolderVC.mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV) {
+                msg = MsgGenerator.genClaimHardLiquidityProviderVVMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mIncentiveMultiplier!.name!, self.pageHolderVC.mToSendRecipientAddress!)
             }
+            var msgList = Array<Msg>()
+            msgList.append(msg!)
+            
+            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
+                                                   String(self.pageHolderVC.mAccount!.account_account_numner),
+                                                   String(self.pageHolderVC.mAccount!.account_sequence_number),
+                                                   msgList,
+                                                   self.pageHolderVC.mFee!,
+                                                   self.pageHolderVC.mMemo!)
+            
+            let stdTx = KeyFac.getStdTx(words, msgList, stdMsg, self.pageHolderVC.mAccount!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
  
             DispatchQueue.main.async(execute: {
                 let postTx = PostTx.init("sync", stdTx.value)
