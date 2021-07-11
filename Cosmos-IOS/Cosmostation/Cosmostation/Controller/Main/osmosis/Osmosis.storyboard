@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--OsmosisD App View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="OsmosisDAppViewController" id="Y6W-OH-hqX" customClass="OsmosisDAppViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_cosmos" translatesAutoresizingMaskIntoConstraints="NO" id="wM3-he-0CT">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="JOm-f5-fUa">
+                                <rect key="frame" x="102.5" y="52" width="209" height="32"/>
+                                <segments>
+                                    <segment title="Swap"/>
+                                    <segment title="Pool"/>
+                                    <segment title="Farming"/>
+                                </segments>
+                                <color key="tintColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <action selector="switchView:" destination="Y6W-OH-hqX" eventType="valueChanged" id="1h2-r6-bl7"/>
+                                </connections>
+                            </segmentedControl>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkA-M8-RMO">
+                                <rect key="frame" x="0.0" y="91" width="414" height="805"/>
+                                <connections>
+                                    <segue destination="xuv-jM-I2o" kind="embed" id="GVc-MR-dR3"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kxM-uH-a0c">
+                                <rect key="frame" x="0.0" y="91" width="414" height="805"/>
+                                <connections>
+                                    <segue destination="yPD-W3-zAg" kind="embed" id="nUE-5g-Ce7"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5T-TH-A6x">
+                                <rect key="frame" x="0.0" y="91" width="414" height="805"/>
+                                <connections>
+                                    <segue destination="nMM-eS-J08" kind="embed" id="nE6-IC-xSo"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="top" secondItem="wM3-he-0CT" secondAttribute="top" id="04w-c8-7US"/>
+                            <constraint firstItem="M5T-TH-A6x" firstAttribute="trailing" secondItem="NkA-M8-RMO" secondAttribute="trailing" id="0ws-yF-XU4"/>
+                            <constraint firstItem="NkA-M8-RMO" firstAttribute="bottom" secondItem="5EZ-qb-Rvc" secondAttribute="bottom" id="9qV-ZB-5BI"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="NkA-M8-RMO" secondAttribute="trailing" id="Ehv-Rd-q9z"/>
+                            <constraint firstItem="NkA-M8-RMO" firstAttribute="top" secondItem="JOm-f5-fUa" secondAttribute="bottom" constant="8" id="Lj6-Fs-TBd"/>
+                            <constraint firstItem="M5T-TH-A6x" firstAttribute="leading" secondItem="NkA-M8-RMO" secondAttribute="leading" id="MZS-yr-8Zf"/>
+                            <constraint firstItem="NkA-M8-RMO" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="S9o-OX-waE"/>
+                            <constraint firstItem="kxM-uH-a0c" firstAttribute="trailing" secondItem="NkA-M8-RMO" secondAttribute="trailing" id="TuO-uL-WNL"/>
+                            <constraint firstItem="JOm-f5-fUa" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="8" id="VpZ-gM-fXu"/>
+                            <constraint firstItem="wM3-he-0CT" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="aiQ-1x-UXU"/>
+                            <constraint firstItem="NkA-M8-RMO" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="47" id="bJa-nx-EDk"/>
+                            <constraint firstItem="kxM-uH-a0c" firstAttribute="bottom" secondItem="NkA-M8-RMO" secondAttribute="bottom" id="bRO-ZS-ulP"/>
+                            <constraint firstItem="wM3-he-0CT" firstAttribute="bottom" secondItem="5EZ-qb-Rvc" secondAttribute="bottom" id="by7-f9-a7l"/>
+                            <constraint firstItem="M5T-TH-A6x" firstAttribute="top" secondItem="NkA-M8-RMO" secondAttribute="top" id="dPO-uf-I6L"/>
+                            <constraint firstItem="wM3-he-0CT" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="h9M-Wd-pJg"/>
+                            <constraint firstItem="kxM-uH-a0c" firstAttribute="leading" secondItem="NkA-M8-RMO" secondAttribute="leading" id="hyZ-jg-dIP"/>
+                            <constraint firstItem="JOm-f5-fUa" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="iIS-5t-t7X"/>
+                            <constraint firstItem="kxM-uH-a0c" firstAttribute="top" secondItem="NkA-M8-RMO" secondAttribute="top" id="mfv-gs-QT4"/>
+                            <constraint firstItem="M5T-TH-A6x" firstAttribute="bottom" secondItem="NkA-M8-RMO" secondAttribute="bottom" id="wfP-Ah-KWY"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dAppsSegment" destination="JOm-f5-fUa" id="Bik-U2-sFi"/>
+                        <outlet property="farmingView" destination="M5T-TH-A6x" id="SaK-u7-UvJ"/>
+                        <outlet property="poolView" destination="kxM-uH-a0c" id="I45-BS-vO0"/>
+                        <outlet property="swapView" destination="NkA-M8-RMO" id="btd-uP-k1M"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="132.58928571428572"/>
+        </scene>
+        <!--Swap View Controller-->
+        <scene sceneID="TXo-az-Dsh">
+            <objects>
+                <viewController storyboardIdentifier="SwapViewController" id="xuv-jM-I2o" customClass="SwapViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Sk8-Cf-NFU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_1" translatesAutoresizingMaskIntoConstraints="NO" id="GYA-19-WCd" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
+                                <rect key="frame" x="177" y="372.5" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="ct8-cY-5FA"/>
+                                    <constraint firstAttribute="width" constant="60" id="j56-En-dMa"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="GYA-19-WCd" firstAttribute="centerX" secondItem="Sk8-Cf-NFU" secondAttribute="centerX" id="oOk-4R-XFT"/>
+                            <constraint firstItem="GYA-19-WCd" firstAttribute="centerY" secondItem="Sk8-Cf-NFU" secondAttribute="centerY" id="zXn-EV-Gid"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="loadingImg" destination="GYA-19-WCd" id="UHb-kv-mfa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U1I-UL-WYo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-707" y="954"/>
+        </scene>
+        <!--Pool View Controller-->
+        <scene sceneID="KyU-tg-edm">
+            <objects>
+                <viewController storyboardIdentifier="PoolViewController" id="yPD-W3-zAg" customClass="PoolViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Z5N-Nr-1xy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oJO-P4-odY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="220" y="954"/>
+        </scene>
+        <!--Farming View Controller-->
+        <scene sceneID="3kk-WS-91s">
+            <objects>
+                <viewController storyboardIdentifier="FarmingViewController" id="nMM-eS-J08" customClass="FarmingViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zfd-Dt-Txe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yti-bU-f7M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1107" y="954"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bg_cosmos" width="360" height="740"/>
+        <image name="loading_1" width="144" height="144"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

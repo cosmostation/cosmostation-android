@@ -504,6 +504,7 @@
 "title_withdraw_hardpool" = "Withdraw Hard Pool";
 "title_borrow_hardpool" = "Borrow from Hard Pool";
 "title_repay_hardpool" = "Repay to Hard Pool";
+"title_dapp_osmosis" = "Osmosis Lab";
 
 
 "proposal_type_basic" = "Basic";

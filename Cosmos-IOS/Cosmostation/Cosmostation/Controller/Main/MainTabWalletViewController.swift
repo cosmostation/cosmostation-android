@@ -1025,6 +1025,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
+            cell?.actionLab = { self.onClickOsmosisLab() }
             return cell!
 
         } else if (indexPath.row == 2) {
@@ -1333,6 +1334,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.onShowToast(NSLocalizedString("prepare", comment: ""))
     }
     
+    func onClickOsmosisLab() {
+        print("onClickOsmosisLab")
+        let osmosisDappVC = UIStoryboard(name: "Osmosis", bundle: nil).instantiateViewController(withIdentifier: "OsmosisDAppViewController") as! OsmosisDAppViewController
+        osmosisDappVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(osmosisDappVC, animated: true)
+    }
+    
     func onClickAprHelp() {
         guard let param = BaseData.instance.mParam else { return }
         let msg1 = NSLocalizedString("str_apr_help_onchain_msg", comment: "") + "\n"
@@ -1424,6 +1433,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.KI_MAIN) {
             guard let url = URL(string: "https://foundation.ki/") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.OSMOSIS_MAIN) {
+            guard let url = URL(string: "https://osmosis.zone/") else { return }
+            self.onShowSafariWeb(url)
         }
         
     }
@@ -1496,6 +1509,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (chainType! == ChainType.KI_MAIN) {
             guard let url = URL(string: "https://medium.com/ki-foundation") else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.OSMOSIS_MAIN) {
+            guard let url = URL(string: "https://medium.com/osmosis") else { return }
             self.onShowSafariWeb(url)
         }
         
