@@ -136,7 +136,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.AKASH_MAIN)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getAkashApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAkashApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -145,7 +145,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.SENTINEL_MAIN)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getSentinelApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getSentinelApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -154,7 +154,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.PERSIS_MAIN)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getPersisApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getPersisApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
