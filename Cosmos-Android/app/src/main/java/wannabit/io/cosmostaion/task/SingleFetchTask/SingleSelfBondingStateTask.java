@@ -49,13 +49,6 @@ public class SingleSelfBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
                 
-            } else if (mChain.equals(BAND_MAIN)) {
-                Response<ResLcdSingleBonding> response = ApiClient.getBandChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(CERTIK_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getCertikChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
