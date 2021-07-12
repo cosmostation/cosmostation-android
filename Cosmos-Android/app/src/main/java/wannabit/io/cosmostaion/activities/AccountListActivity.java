@@ -244,7 +244,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 } else if (chain.equals(BAND_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
-                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.band_chain_img));
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_bandprotocal));
                     holder.chainName.setText(getString(R.string.str_band));
 
                 } else if (chain.equals(CERTIK_MAIN)) {

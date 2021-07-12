@@ -98,7 +98,7 @@ public class WalletGuideHolder extends BaseHolder {
             itemBtnGuide2.setText(R.string.str_guide_iov);
 
         } else if (mainActivity.mBaseChain.equals(BAND_MAIN)) {
-            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.bandprotocol_img));
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_bandprotocol));
             itemGuideTitle.setText(R.string.str_front_guide_title_band);
             itemGuideMsg.setText(R.string.str_front_guide_msg_band);
             itemBtnGuide1.setText(R.string.str_faq_band);

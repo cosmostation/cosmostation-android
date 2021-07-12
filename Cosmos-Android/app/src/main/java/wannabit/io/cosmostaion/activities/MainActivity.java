@@ -292,7 +292,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorIov));
 
         } else if (mBaseChain.equals(BAND_MAIN)) {
-            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.band_chain_img));
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_bandprotocal));
             mToolbarChainName.setText(getString(R.string.str_band_chain));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBand));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBand));
@@ -686,7 +686,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 } else if (chain.equals(BAND_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
-                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.band_chain_img));
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_bandprotocal));
                     holder.chainName.setText(getString(R.string.str_band));
 
                 } else if (chain.equals(CERTIK_MAIN)) {
