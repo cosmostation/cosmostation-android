@@ -48,7 +48,6 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
-import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.task.FetchTask.ApiStakeTxsHistoryTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleBondingStateTask;
@@ -99,7 +98,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private RecyclerView                                mRecyclerView;
     private SpannableString                             mSelfBondingRate;
     private int                                         mTaskCount;
-    private ResBandOracleStatus                         mBandOracles;
     private ArrayList<Oracle.ActiveValidator>           mGrpcBandOracles;
 
     private ValidatorAdapter                            mValidatorAdapter;
@@ -137,7 +135,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mValidator = getIntent().getParcelableExtra("validator");
         mValOpAddress = getIntent().getStringExtra("valOpAddress");
-        mBandOracles = getBaseDao().mBandOracles;
         mGrpcBandOracles = getBaseDao().mGrpcBandOracles;
 
         setSupportActionBar(mToolbar);
@@ -639,7 +636,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 mGrpcMyReward       = getBaseDao().getRewardInfo(mValOpAddress);
 
             }
-            mBandOracles = getBaseDao().mBandOracles;
 
             mRecyclerView.setVisibility(View.VISIBLE);
             mValidatorAdapter.notifyDataSetChanged();
@@ -742,16 +738,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValidator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) { }
 
-            if (mBaseChain.equals(BAND_MAIN)) {
-                if (mBandOracles != null && !mBandOracles.isEnable(mValidator.operator_address)) {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-                } else {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
-                }
-                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-            }
-
             if (mBaseChain.equals(SIF_MAIN)) {
                 holder.itemTvYieldRate.setText("--");
             }
@@ -810,15 +796,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValidator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) { }
 
-            if (mBaseChain.equals(BAND_MAIN)) {
-                if (mBandOracles != null && !mBandOracles.isEnable(mValidator.operator_address)) {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-                } else {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
-                }
-                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-            }
             if (mBaseChain.equals(SIF_MAIN)) {
                 holder.itemTvYieldRate.setText("--");
             }
@@ -979,15 +956,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemImgRevoked.setVisibility(View.GONE);
             }
 
-//            if (mBaseChain.equals(BAND_MAIN)) {
-//                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
-//                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-//                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-//                } else {
-//                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
-//                }
-//                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-//            }
+            if (mBaseChain.equals(BAND_MAIN)) {
+                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
+                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                } else {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
+                }
+                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+            }
 
             holder.itemTvCommissionRate.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
             holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
@@ -1040,15 +1017,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemImgRevoked.setVisibility(View.GONE);
             }
 
-//            if (mBaseChain.equals(BAND_MAIN)) {
-//                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
-//                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-//                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-//                } else {
-//                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
-//                }
-//                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-//            }
+            if (mBaseChain.equals(BAND_MAIN)) {
+                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
+                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                } else {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
+                }
+                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+            }
 
             holder.itemTvCommissionRate.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
             holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
