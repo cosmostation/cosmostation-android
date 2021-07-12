@@ -14,10 +14,10 @@ import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
 
-public class Dialog_Help_Msg extends DialogFragment {
+public class Dialog_Help_Mint_Msg extends DialogFragment {
 
-    public static Dialog_Help_Msg newInstance(Bundle bundle) {
-        Dialog_Help_Msg frag = new Dialog_Help_Msg();
+    public static Dialog_Help_Mint_Msg newInstance(Bundle bundle) {
+        Dialog_Help_Mint_Msg frag = new Dialog_Help_Mint_Msg();
         frag.setArguments(bundle);
         return frag;
     }
@@ -30,11 +30,15 @@ public class Dialog_Help_Msg extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_help_msg, null);
-        TextView title1 = view.findViewById(R.id.dialog_title);
-        TextView title2 = view.findViewById(R.id.dialog_msg);
-        title1.setText(getArguments().getString("title"));
-        title2.setText(getArguments().getString("msg"));
+        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_help_mint_msg, null);
+        TextView msg1 = view.findViewById(R.id.dialog_msg1);
+        TextView msg2 = view.findViewById(R.id.dialog_msg2);
+        TextView msg3 = view.findViewById(R.id.dialog_msg3);
+        TextView msg4 = view.findViewById(R.id.dialog_msg4);
+        msg1.setText(getArguments().getString("msg1"));
+        msg2.setText(getArguments().getString("msg2"));
+        msg3.setText(getArguments().getString("msg3"));
+        msg4.setText(getArguments().getString("msg4"));
 
         Button btn_negative = view.findViewById(R.id.btn_nega);
         btn_negative.setOnClickListener(new View.OnClickListener() {
