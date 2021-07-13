@@ -60,3 +60,80 @@ class OsmosisDAppViewController: BaseViewController {
     }
 
 }
+
+extension WUtils {
+    static func DpOsmosisTokenImg(_ imgView: UIImageView, _ denom: String) {
+        if (denom == OSMOSIS_MAIN_DENOM) {
+            imgView.image = UIImage(named: "tokenOsmosis")
+            
+        } else if (denom == OSMOSIS_ION_DENOM) {
+            imgView.image = UIImage(named: "tokenIon")
+            
+        } else if (denom.starts(with: "gamm/pool/")) {
+            imgView.image = UIImage(named: "tokenPool")
+            
+        } else if (denom.starts(with: "ibc/")) {
+            if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")) {
+                imgView.af_setImage(withURL: URL(string: ibcToken.moniker!)!)
+            } else {
+                imgView.image = UIImage(named: "tokenDefaultIbc")
+            }
+        }
+    }
+    
+    static func DpOsmosisTokenName(_ label: UILabel, _ denom: String) {
+        if (denom == OSMOSIS_MAIN_DENOM) {
+            label.textColor = COLOR_OSMOSIS
+            label.text = "OSMO"
+            
+        } else if (denom == OSMOSIS_ION_DENOM) {
+            label.textColor = COLOR_ION
+            label.text = "ION"
+            
+        } else if (denom.starts(with: "gamm/pool/")) {
+            label.textColor = .white
+            label.text = "GAMM-" + String(denom.split(separator: "/").last!)
+            
+        } else if (denom.starts(with: "ibc/")) {
+            print("denom ", denom)
+            label.textColor = .white
+            if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")) {
+                print("ibcToken ", ibcToken)
+                label.text = ibcToken.display_denom?.uppercased()
+            } else {
+                label.text = "UnKnown"
+            }
+            
+        }
+    }
+    
+    static func getOsmosisTokenName(_ denom: String) -> String {
+        if (denom == OSMOSIS_MAIN_DENOM) {
+            return "OSMO"
+            
+        } else if (denom == OSMOSIS_ION_DENOM) {
+            return "ION"
+            
+        } else if (denom.starts(with: "gamm/pool/")) {
+            return "GAMM-" + String(denom.split(separator: "/").last!)
+            
+        } else if (denom.starts(with: "ibc/")) {
+            if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")) {
+                return  ibcToken.display_denom!.uppercased()
+            } else {
+                return"UnKnown"
+            }
+        }
+        return denom
+    }
+    
+    
+    
+    static func isAssetHasDenom(_ assets: [Osmosis_Gamm_V1beta1_PoolAsset], _ denom: String?) -> Bool {
+        guard let token = assets.filter { $0.token.denom == denom }.first else {
+            return false
+        }
+        return true
+    }
+    
+}
