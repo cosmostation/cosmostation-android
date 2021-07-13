@@ -10,7 +10,8 @@ import Foundation
 import HDWalletKit
 
 class HdacUtil {
-    static let HDAC_BURN_ADDRESS = "HDC1cXNDDuDgmmpmqxoR2Bwf2bzx2fxVZy"
+    static let HDAC_BURN_ADDRESS_TEST = "hXXXXXXXXXXXXXXXXXXXXXXXXXXXYHCpEz"
+    static let HDAC_BURN_ADDRESS_MAIN = "HJXXXXXXXXXXXXXXXXXXXXXXXXXXVarS5i"
     
     static func getMasterKeyFromWords(_ seed: String) -> HDWalletKit.PrivateKey {
         return PrivateKey(seed: Mnemonic.createSeed(mnemonic: seed), coin: .bitcoin)
