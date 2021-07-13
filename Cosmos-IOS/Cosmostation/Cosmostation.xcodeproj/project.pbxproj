@@ -631,16 +631,22 @@
 		289EF83B26824E4700F90AC1 /* osmosis_incentives_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289EF81826824E4700F90AC1 /* osmosis_incentives_query.pb.swift */; };
 		28A209DF248897F400C2C078 /* TokenDetailVestingDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A209DD248897F400C2C078 /* TokenDetailVestingDetailCell.swift */; };
 		28A209E0248897F400C2C078 /* TokenDetailVestingDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28A209DE248897F400C2C078 /* TokenDetailVestingDetailCell.xib */; };
-		28A36FF8269D35B200990696 /* gravity_v1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A36FEE269D35B100990696 /* gravity_v1_query.pb.swift */; };
-		28A36FF9269D35B200990696 /* gravity_v1_msgs.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A36FEF269D35B100990696 /* gravity_v1_msgs.pb.swift */; };
-		28A36FFA269D35B200990696 /* gravity_v1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A36FF0269D35B100990696 /* gravity_v1_genesis.pb.swift */; };
-		28A36FFB269D35B200990696 /* gravity_v1_attestation.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A36FF1269D35B100990696 /* gravity_v1_attestation.pb.swift */; };
-		28A36FFC269D35B200990696 /* gravity_v1_pool.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A36FF2269D35B100990696 /* gravity_v1_pool.pb.swift */; };
-		28A36FFD269D35B200990696 /* gravity_v1_batch.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A36FF3269D35B200990696 /* gravity_v1_batch.pb.swift */; };
-		28A36FFE269D35B200990696 /* gravity_v1_ethereum_signer.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A36FF4269D35B200990696 /* gravity_v1_ethereum_signer.pb.swift */; };
-		28A36FFF269D35B200990696 /* gravity_v1_msgs.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A36FF5269D35B200990696 /* gravity_v1_msgs.grpc.swift */; };
-		28A37000269D35B200990696 /* gravity_v1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A36FF6269D35B200990696 /* gravity_v1_query.grpc.swift */; };
-		28A37001269D35B200990696 /* gravity_v1_types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A36FF7269D35B200990696 /* gravity_v1_types.pb.swift */; };
+		28A37008269DA17000990696 /* tendermint_liquidity_v1beta1_liquidity.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37002269DA16F00990696 /* tendermint_liquidity_v1beta1_liquidity.pb.swift */; };
+		28A37009269DA17000990696 /* tendermint_liquidity_v1beta1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37003269DA16F00990696 /* tendermint_liquidity_v1beta1_tx.grpc.swift */; };
+		28A3700A269DA17000990696 /* tendermint_liquidity_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37004269DA16F00990696 /* tendermint_liquidity_v1beta1_genesis.pb.swift */; };
+		28A3700B269DA17000990696 /* tendermint_liquidity_v1beta1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37005269DA17000990696 /* tendermint_liquidity_v1beta1_tx.pb.swift */; };
+		28A3700C269DA17000990696 /* tendermint_liquidity_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37006269DA17000990696 /* tendermint_liquidity_v1beta1_query.grpc.swift */; };
+		28A3700D269DA17000990696 /* tendermint_liquidity_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37007269DA17000990696 /* tendermint_liquidity_v1beta1_query.pb.swift */; };
+		28A37018269DA20600990696 /* gravity_v1_ethereum_signer.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A3700E269DA20300990696 /* gravity_v1_ethereum_signer.pb.swift */; };
+		28A37019269DA20600990696 /* gravity_v1_pool.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A3700F269DA20400990696 /* gravity_v1_pool.pb.swift */; };
+		28A3701A269DA20600990696 /* gravity_v1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37010269DA20400990696 /* gravity_v1_query.pb.swift */; };
+		28A3701B269DA20600990696 /* gravity_v1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37011269DA20400990696 /* gravity_v1_genesis.pb.swift */; };
+		28A3701C269DA20600990696 /* gravity_v1_batch.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37012269DA20400990696 /* gravity_v1_batch.pb.swift */; };
+		28A3701D269DA20600990696 /* gravity_v1_msgs.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37013269DA20500990696 /* gravity_v1_msgs.grpc.swift */; };
+		28A3701E269DA20600990696 /* gravity_v1_msgs.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37014269DA20500990696 /* gravity_v1_msgs.pb.swift */; };
+		28A3701F269DA20600990696 /* gravity_v1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37015269DA20500990696 /* gravity_v1_query.grpc.swift */; };
+		28A37020269DA20600990696 /* gravity_v1_attestation.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37016269DA20500990696 /* gravity_v1_attestation.pb.swift */; };
+		28A37021269DA20600990696 /* gravity_v1_types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37017269DA20600990696 /* gravity_v1_types.pb.swift */; };
 		28A8401F2605A3D8008C2D61 /* NodeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8401E2605A3D8008C2D61 /* NodeInfo.swift */; };
 		28AABEC525F8CB860019091F /* KavaHardModuleAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AABEC425F8CB860019091F /* KavaHardModuleAccount.swift */; };
 		28AABEC825F8CBBA0019091F /* HardModuleAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AABEC725F8CBBA0019091F /* HardModuleAccount.swift */; };
@@ -1586,16 +1592,22 @@
 		289EF81826824E4700F90AC1 /* osmosis_incentives_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = osmosis_incentives_query.pb.swift; sourceTree = "<group>"; };
 		28A209DD248897F400C2C078 /* TokenDetailVestingDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailVestingDetailCell.swift; sourceTree = "<group>"; };
 		28A209DE248897F400C2C078 /* TokenDetailVestingDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailVestingDetailCell.xib; sourceTree = "<group>"; };
-		28A36FEE269D35B100990696 /* gravity_v1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = gravity_v1_query.pb.swift; path = "../../../../../cosmostation-archive-temp/protobuf/output_swift/gravity_v1_query.pb.swift"; sourceTree = "<group>"; };
-		28A36FEF269D35B100990696 /* gravity_v1_msgs.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = gravity_v1_msgs.pb.swift; path = "../../../../../cosmostation-archive-temp/protobuf/output_swift/gravity_v1_msgs.pb.swift"; sourceTree = "<group>"; };
-		28A36FF0269D35B100990696 /* gravity_v1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = gravity_v1_genesis.pb.swift; path = "../../../../../cosmostation-archive-temp/protobuf/output_swift/gravity_v1_genesis.pb.swift"; sourceTree = "<group>"; };
-		28A36FF1269D35B100990696 /* gravity_v1_attestation.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = gravity_v1_attestation.pb.swift; path = "../../../../../cosmostation-archive-temp/protobuf/output_swift/gravity_v1_attestation.pb.swift"; sourceTree = "<group>"; };
-		28A36FF2269D35B100990696 /* gravity_v1_pool.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = gravity_v1_pool.pb.swift; path = "../../../../../cosmostation-archive-temp/protobuf/output_swift/gravity_v1_pool.pb.swift"; sourceTree = "<group>"; };
-		28A36FF3269D35B200990696 /* gravity_v1_batch.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = gravity_v1_batch.pb.swift; path = "../../../../../cosmostation-archive-temp/protobuf/output_swift/gravity_v1_batch.pb.swift"; sourceTree = "<group>"; };
-		28A36FF4269D35B200990696 /* gravity_v1_ethereum_signer.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = gravity_v1_ethereum_signer.pb.swift; path = "../../../../../cosmostation-archive-temp/protobuf/output_swift/gravity_v1_ethereum_signer.pb.swift"; sourceTree = "<group>"; };
-		28A36FF5269D35B200990696 /* gravity_v1_msgs.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = gravity_v1_msgs.grpc.swift; path = "../../../../../cosmostation-archive-temp/protobuf/output_swift/gravity_v1_msgs.grpc.swift"; sourceTree = "<group>"; };
-		28A36FF6269D35B200990696 /* gravity_v1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = gravity_v1_query.grpc.swift; path = "../../../../../cosmostation-archive-temp/protobuf/output_swift/gravity_v1_query.grpc.swift"; sourceTree = "<group>"; };
-		28A36FF7269D35B200990696 /* gravity_v1_types.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = gravity_v1_types.pb.swift; path = "../../../../../cosmostation-archive-temp/protobuf/output_swift/gravity_v1_types.pb.swift"; sourceTree = "<group>"; };
+		28A37002269DA16F00990696 /* tendermint_liquidity_v1beta1_liquidity.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_liquidity_v1beta1_liquidity.pb.swift; sourceTree = "<group>"; };
+		28A37003269DA16F00990696 /* tendermint_liquidity_v1beta1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_liquidity_v1beta1_tx.grpc.swift; sourceTree = "<group>"; };
+		28A37004269DA16F00990696 /* tendermint_liquidity_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_liquidity_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		28A37005269DA17000990696 /* tendermint_liquidity_v1beta1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_liquidity_v1beta1_tx.pb.swift; sourceTree = "<group>"; };
+		28A37006269DA17000990696 /* tendermint_liquidity_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_liquidity_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		28A37007269DA17000990696 /* tendermint_liquidity_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_liquidity_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		28A3700E269DA20300990696 /* gravity_v1_ethereum_signer.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gravity_v1_ethereum_signer.pb.swift; sourceTree = "<group>"; };
+		28A3700F269DA20400990696 /* gravity_v1_pool.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gravity_v1_pool.pb.swift; sourceTree = "<group>"; };
+		28A37010269DA20400990696 /* gravity_v1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gravity_v1_query.pb.swift; sourceTree = "<group>"; };
+		28A37011269DA20400990696 /* gravity_v1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gravity_v1_genesis.pb.swift; sourceTree = "<group>"; };
+		28A37012269DA20400990696 /* gravity_v1_batch.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gravity_v1_batch.pb.swift; sourceTree = "<group>"; };
+		28A37013269DA20500990696 /* gravity_v1_msgs.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gravity_v1_msgs.grpc.swift; sourceTree = "<group>"; };
+		28A37014269DA20500990696 /* gravity_v1_msgs.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gravity_v1_msgs.pb.swift; sourceTree = "<group>"; };
+		28A37015269DA20500990696 /* gravity_v1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gravity_v1_query.grpc.swift; sourceTree = "<group>"; };
+		28A37016269DA20500990696 /* gravity_v1_attestation.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gravity_v1_attestation.pb.swift; sourceTree = "<group>"; };
+		28A37017269DA20600990696 /* gravity_v1_types.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gravity_v1_types.pb.swift; sourceTree = "<group>"; };
 		28A8401E2605A3D8008C2D61 /* NodeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInfo.swift; sourceTree = "<group>"; };
 		28AABEC425F8CB860019091F /* KavaHardModuleAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHardModuleAccount.swift; sourceTree = "<group>"; };
 		28AABEC725F8CBBA0019091F /* HardModuleAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardModuleAccount.swift; sourceTree = "<group>"; };
@@ -2017,16 +2029,22 @@
 		282121BA25FDE71C0016ABFE /* ProtoBuff */ = {
 			isa = PBXGroup;
 			children = (
-				28A36FF1269D35B100990696 /* gravity_v1_attestation.pb.swift */,
-				28A36FF3269D35B200990696 /* gravity_v1_batch.pb.swift */,
-				28A36FF4269D35B200990696 /* gravity_v1_ethereum_signer.pb.swift */,
-				28A36FF0269D35B100990696 /* gravity_v1_genesis.pb.swift */,
-				28A36FF5269D35B200990696 /* gravity_v1_msgs.grpc.swift */,
-				28A36FEF269D35B100990696 /* gravity_v1_msgs.pb.swift */,
-				28A36FF2269D35B100990696 /* gravity_v1_pool.pb.swift */,
-				28A36FF6269D35B200990696 /* gravity_v1_query.grpc.swift */,
-				28A36FEE269D35B100990696 /* gravity_v1_query.pb.swift */,
-				28A36FF7269D35B200990696 /* gravity_v1_types.pb.swift */,
+				28A37016269DA20500990696 /* gravity_v1_attestation.pb.swift */,
+				28A37012269DA20400990696 /* gravity_v1_batch.pb.swift */,
+				28A3700E269DA20300990696 /* gravity_v1_ethereum_signer.pb.swift */,
+				28A37011269DA20400990696 /* gravity_v1_genesis.pb.swift */,
+				28A37013269DA20500990696 /* gravity_v1_msgs.grpc.swift */,
+				28A37014269DA20500990696 /* gravity_v1_msgs.pb.swift */,
+				28A3700F269DA20400990696 /* gravity_v1_pool.pb.swift */,
+				28A37015269DA20500990696 /* gravity_v1_query.grpc.swift */,
+				28A37010269DA20400990696 /* gravity_v1_query.pb.swift */,
+				28A37017269DA20600990696 /* gravity_v1_types.pb.swift */,
+				28A37004269DA16F00990696 /* tendermint_liquidity_v1beta1_genesis.pb.swift */,
+				28A37002269DA16F00990696 /* tendermint_liquidity_v1beta1_liquidity.pb.swift */,
+				28A37006269DA17000990696 /* tendermint_liquidity_v1beta1_query.grpc.swift */,
+				28A37007269DA17000990696 /* tendermint_liquidity_v1beta1_query.pb.swift */,
+				28A37003269DA16F00990696 /* tendermint_liquidity_v1beta1_tx.grpc.swift */,
+				28A37005269DA17000990696 /* tendermint_liquidity_v1beta1_tx.pb.swift */,
 				049758722685AA1B0039872C /* iov_configuration_v1beta1_msgs.pb.swift */,
 				049758752685AA1E0039872C /* iov_configuration_v1beta1_query.grpc.swift */,
 				049758782685AA230039872C /* iov_configuration_v1beta1_query.pb.swift */,
@@ -3611,6 +3629,7 @@
 				E16D9B26224A08510019B7BB /* DecimalViewController.swift in Sources */,
 				E1827E112254C92900BC0350 /* WalletDetailViewController.swift in Sources */,
 				2815AA72243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift in Sources */,
+				28A37009269DA17000990696 /* tendermint_liquidity_v1beta1_tx.grpc.swift in Sources */,
 				E1069B12229698BA007517DC /* StepChangeAddressViewController.swift in Sources */,
 				E1406FC02260643200D9440C /* BlockInfo.swift in Sources */,
 				0497586C2685AA0E0039872C /* cosmwasm_wasm_v1beta1_proposal.pb.swift in Sources */,
@@ -3659,6 +3678,7 @@
 				282FF34923F50C540028CC66 /* TxUndelegateCell.swift in Sources */,
 				28D7BE6925F0FCA1006EECD7 /* HardIndex.swift in Sources */,
 				E1BA208E22F8117000EAB87F /* IrisStdSignMsg.swift in Sources */,
+				28A3700D269DA17000990696 /* tendermint_liquidity_v1beta1_query.pb.swift in Sources */,
 				28AABEC525F8CB860019091F /* KavaHardModuleAccount.swift in Sources */,
 				E1FD232C233E1BDB009327FE /* WalletCosmosCell.swift in Sources */,
 				28A8401F2605A3D8008C2D61 /* NodeInfo.swift in Sources */,
@@ -3671,6 +3691,7 @@
 				287AC5FC25FDF7260070837E /* akash_base_v1beta1_resource.pb.swift in Sources */,
 				28B4303524F7766200BD7BB2 /* TxOkDirectVoteCell.swift in Sources */,
 				E16B89152341C558003E0922 /* TokenCell.swift in Sources */,
+				28A3700A269DA17000990696 /* tendermint_liquidity_v1beta1_genesis.pb.swift in Sources */,
 				287AC63725FDF7260070837E /* akash_cert_v1beta1_cert.grpc.swift in Sources */,
 				0497585D26856DE30039872C /* oracle_v1_oracle.pb.swift in Sources */,
 				E151B6492248583F0026B8C0 /* StdTx.swift in Sources */,
@@ -3688,6 +3709,7 @@
 				287AC5D625FDF7250070837E /* cosmos_distribution_v1beta1_query.grpc.swift in Sources */,
 				E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */,
 				28DB56EB25F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift in Sources */,
+				28A3701D269DA20600990696 /* gravity_v1_msgs.grpc.swift in Sources */,
 				2800CF982471A004003C3EF1 /* CosmosProposer.swift in Sources */,
 				280524B4255CDA7D004D6172 /* StarnameWalletConnectViewController.swift in Sources */,
 				287AC5A625FDF7250070837E /* ibc_applications_transfer_v1_tx.grpc.swift in Sources */,
@@ -3700,15 +3722,16 @@
 				28D7BE7D25F10636006EECD7 /* HardListMyStatusCell.swift in Sources */,
 				046E903D268C413A002CFFE1 /* BinanceProto.swift in Sources */,
 				28617A7D243198E2006D66EA /* StepCreateCpdCheckViewController.swift in Sources */,
+				28A37019269DA20600990696 /* gravity_v1_pool.pb.swift in Sources */,
 				289EF82326824E4700F90AC1 /* osmosis_incentives_tx.grpc.swift in Sources */,
 				28E04592269B52290022A366 /* Swap0ViewController.swift in Sources */,
 				287AC64725FDF7260070837E /* cosmos_slashing_v1beta1_genesis.pb.swift in Sources */,
 				287AC5AA25FDF7250070837E /* cosmos_gov_v1beta1_tx.pb.swift in Sources */,
 				287AC61A25FDF7260070837E /* ibc_applications_transfer_v1_query.grpc.swift in Sources */,
+				28A37018269DA20600990696 /* gravity_v1_ethereum_signer.pb.swift in Sources */,
 				283D2EA424F52FE700247424 /* OkToken.swift in Sources */,
 				046E9049268C7C2B002CFFE1 /* BinanceHexEncoding.swift in Sources */,
 				28474ED5241E06AF00AF5A81 /* TxCdpRepayCell.swift in Sources */,
-				28A36FFE269D35B200990696 /* gravity_v1_ethereum_signer.pb.swift in Sources */,
 				E171A075225B091300C5756C /* StepGenTxViewController.swift in Sources */,
 				283439A12531D1CF00CCFADE /* MyDomainViewController.swift in Sources */,
 				049758882685BF530039872C /* TokenDetailIovCell.swift in Sources */,
@@ -3718,7 +3741,6 @@
 				04CFBD5D269301780013150B /* TxUnlockTokenCell.swift in Sources */,
 				28E667072699483E00BA2C68 /* OsmosisDAppViewController.swift in Sources */,
 				287AC5BB25FDF7250070837E /* cosmos_bank_v1beta1_tx.pb.swift in Sources */,
-				28A36FFA269D35B200990696 /* gravity_v1_genesis.pb.swift in Sources */,
 				28E3E37D2670BA8D00BA89C2 /* TokenDetailAltheaCell.swift in Sources */,
 				287AC64B25FDF7260070837E /* cosmos_gov_v1beta1_query.pb.swift in Sources */,
 				287AC5A025FDF7250070837E /* cosmos_evidence_v1beta1_genesis.pb.swift in Sources */,
@@ -3759,6 +3781,7 @@
 				E1FD2320233E1B8E009327FE /* WalletAddressCell.swift in Sources */,
 				289EF83926824E4700F90AC1 /* osmosis_pool-incentives_v1beta1_genesis.pb.swift in Sources */,
 				28D372A0254BFCCA0071B136 /* RegisterAccount0ViewController.swift in Sources */,
+				28A37021269DA20600990696 /* gravity_v1_types.pb.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
 				0497586E2685AA0E0039872C /* cosmwasm_wasm_v1beta1_ibc.pb.swift in Sources */,
 				28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */,
@@ -3773,6 +3796,7 @@
 				2812BE15261170810050AE7C /* WalletSentinelCell.swift in Sources */,
 				287AC64625FDF7260070837E /* ibc_core_types_v1_genesis.pb.swift in Sources */,
 				2842AB5D242C2D4D00248EEB /* Cdp.swift in Sources */,
+				28A3701B269DA20600990696 /* gravity_v1_genesis.pb.swift in Sources */,
 				0497585B26856DE30039872C /* oracle_v1_tx.pb.swift in Sources */,
 				288D2500268326060093121A /* NewHistoryCell.swift in Sources */,
 				2852EAF42681B92C003A5E74 /* TokenDetailOsmoCell.swift in Sources */,
@@ -3783,7 +3807,6 @@
 				284FF3C225A6C13E00505E7A /* OkAccountInfo.swift in Sources */,
 				2845D884246FAEED007CD497 /* VoteTallyTableViewCell.swift in Sources */,
 				284B0F02247D5FD800B5A2D0 /* StepUSDXMintingIncentive0ViewController.swift in Sources */,
-				28A36FFD269D35B200990696 /* gravity_v1_batch.pb.swift in Sources */,
 				286EB38626035FB00021C79D /* TxCdpLiquidateCell.swift in Sources */,
 				2877013625F78E0E00E9663F /* KavaCdpDeposits.swift in Sources */,
 				280E1F0C254AB5BA0007BA7D /* ReplaceResource0ViewController.swift in Sources */,
@@ -3792,6 +3815,7 @@
 				287AC58925FDF7250070837E /* cosmos_mint_v1beta1_genesis.pb.swift in Sources */,
 				2812BE1A2611E9F50050AE7C /* VestingAccountInfo.swift in Sources */,
 				E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */,
+				28A37020269DA20600990696 /* gravity_v1_attestation.pb.swift in Sources */,
 				287AC5E025FDF7260070837E /* cosmos_slashing_v1beta1_tx.pb.swift in Sources */,
 				289EF81926824E4700F90AC1 /* osmosis_lockup_query.grpc.swift in Sources */,
 				285F8C8E25CFB27D00317B30 /* OkTickerList.swift in Sources */,
@@ -3840,7 +3864,6 @@
 				049758822685AA270039872C /* iov_configuration_v1beta1_query.pb.swift in Sources */,
 				287AC5C825FDF7250070837E /* cosmos_bank_v1beta1_tx.grpc.swift in Sources */,
 				E1827E2F225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift in Sources */,
-				28A36FF9269D35B200990696 /* gravity_v1_msgs.pb.swift in Sources */,
 				281008482696BA27002986A6 /* OldKey.swift in Sources */,
 				285A33E624486DA20052BD3D /* HtlcResultSentCell.swift in Sources */,
 				28BB2A912533DA2D00CFF097 /* AccountCell.swift in Sources */,
@@ -3852,9 +3875,9 @@
 				283F3ADC265E283800DF1D93 /* treasury_genesis.pb.swift in Sources */,
 				284D17DF2535573D00C364F9 /* HardListViewController.swift in Sources */,
 				287AC60125FDF7260070837E /* htlc_tx.grpc.swift in Sources */,
+				28A3701E269DA20600990696 /* gravity_v1_msgs.pb.swift in Sources */,
 				E151B64B224859E10026B8C0 /* StdSignMsg.swift in Sources */,
 				2845D880246FAED7007CD497 /* VoteInfoTableViewCell.swift in Sources */,
-				28A36FFB269D35B200990696 /* gravity_v1_attestation.pb.swift in Sources */,
 				E191A57D237902C5002577BC /* WalletKavaCell.swift in Sources */,
 				28617A812432944F006D66EA /* StepDepositCdpCheckViewController.swift in Sources */,
 				E19A32262254AE7A00A05E41 /* ManageHeader.swift in Sources */,
@@ -3878,6 +3901,7 @@
 				287AC62A25FDF7260070837E /* cosmos_proto_cosmos.pb.swift in Sources */,
 				285A33D32446CDB80052BD3D /* StepHtlcSend3ViewController.swift in Sources */,
 				289EF82F26824E4700F90AC1 /* osmosis_incentives_query.grpc.swift in Sources */,
+				28A3701C269DA20600990696 /* gravity_v1_batch.pb.swift in Sources */,
 				287AC61625FDF7260070837E /* service_service.pb.swift in Sources */,
 				E1F7F63623436B71000E597F /* BnbHistory.swift in Sources */,
 				04D138572691E25500D6AF9F /* TxJoinPoolCell.swift in Sources */,
@@ -3923,7 +3947,6 @@
 				E1406FCC2260A11300D9440C /* StepRewardCheckViewController.swift in Sources */,
 				2868559324989AA50099D18F /* Bep3WarnPopup.swift in Sources */,
 				28CFB6AD2613422200A18634 /* TokenDetailAkashCell.swift in Sources */,
-				28A36FFF269D35B200990696 /* gravity_v1_msgs.grpc.swift in Sources */,
 				287AC64525FDF7260070837E /* tendermint_abci_types.pb.swift in Sources */,
 				0497585A26856DE30039872C /* oracle_v1_tx.grpc.swift in Sources */,
 				28DB571525FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.swift in Sources */,
@@ -3933,11 +3956,11 @@
 				287AC66025FDF7260070837E /* record_tx.grpc.swift in Sources */,
 				E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */,
 				287AC5EC25FDF7260070837E /* akash_deployment_v1beta1_genesis.pb.swift in Sources */,
+				28A3701F269DA20600990696 /* gravity_v1_query.grpc.swift in Sources */,
 				282FF35123F5172E0028CC66 /* TxTransferCell.swift in Sources */,
 				287AC62225FDF7260070837E /* gogoproto_gogo.pb.swift in Sources */,
 				287AC62D25FDF7260070837E /* tendermint_types_types.pb.swift in Sources */,
 				28E0458C269B35580022A366 /* PoolViewController.swift in Sources */,
-				28A37000269D35B200990696 /* gravity_v1_query.grpc.swift in Sources */,
 				E1069B1022968E05007517DC /* StepRedelegateCheckViewController.swift in Sources */,
 				287AC61325FDF7260070837E /* akash_base_v1beta1_endpoint.pb.swift in Sources */,
 				28D7BE6F25F0FDB3006EECD7 /* HardMyBorrow.swift in Sources */,
@@ -3973,6 +3996,7 @@
 				2889FD872603485200CA9896 /* TxIncentiveMintingCell.swift in Sources */,
 				2868559724989AB80099D18F /* CdpWarnPopup.swift in Sources */,
 				04D1385B2691E26700D6AF9F /* TxExitPoolCell.swift in Sources */,
+				28A37008269DA17000990696 /* tendermint_liquidity_v1beta1_liquidity.pb.swift in Sources */,
 				287AC63E25FDF7260070837E /* coinswap_query.pb.swift in Sources */,
 				288A14DD25199A9800E17808 /* WalletCertikCell.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
@@ -4126,7 +4150,6 @@
 				287AC64A25FDF7260070837E /* akash_market_v1beta1_query.pb.swift in Sources */,
 				28BB2A872533DA0B00CFF097 /* AccountPromotionCell.swift in Sources */,
 				E16D9B1D2248E6A60019B7BB /* WKey.swift in Sources */,
-				28A36FF8269D35B200990696 /* gravity_v1_query.pb.swift in Sources */,
 				287AC5CA25FDF7250070837E /* cosmos_staking_v1beta1_query.pb.swift in Sources */,
 				287AC65F25FDF7260070837E /* token_query.grpc.swift in Sources */,
 				285A33CF2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift in Sources */,
@@ -4139,7 +4162,6 @@
 				28F553492641790100590056 /* WalletKiCell.swift in Sources */,
 				287AC60625FDF7260070837E /* ibc_core_channel_v1_tx.pb.swift in Sources */,
 				2838501C2448A69D00E5DEF2 /* TxHtlcCreateCell.swift in Sources */,
-				28A36FFC269D35B200990696 /* gravity_v1_pool.pb.swift in Sources */,
 				287AC5FD25FDF7260070837E /* ibc_lightclients_tendermint_v1_tendermint.pb.swift in Sources */,
 				0497587D2685AA270039872C /* iov_starname_v1beta1_tx.pb.swift in Sources */,
 				046E9041268C4863002CFFE1 /* BinanceInt+VarInt.swift in Sources */,
@@ -4219,7 +4241,6 @@
 				280E1F1B254ABB1D0007BA7D /* ResourceEditCell.swift in Sources */,
 				287AC5B425FDF7250070837E /* cosmos_evidence_v1beta1_evidence.pb.swift in Sources */,
 				E19A322022547EA100A05E41 /* AddViewController.swift in Sources */,
-				28A37001269D35B200990696 /* gravity_v1_types.pb.swift in Sources */,
 				E151B63C22467E520026B8C0 /* HistoryCell.swift in Sources */,
 				283D2EAF24F5742000247424 /* WalletOkCell.swift in Sources */,
 				E10492152347C5D900A2980F /* WalletConnectImageView.swift in Sources */,
@@ -4268,7 +4289,9 @@
 				287AC5F125FDF7260070837E /* akash_deployment_v1beta1_query.pb.swift in Sources */,
 				28B4304424F8B34100BD7BB2 /* OkValidatorListViewController.swift in Sources */,
 				2888B802246CE35D00B2EB4A /* StepHtlcRefund0ViewController.swift in Sources */,
+				28A3700B269DA17000990696 /* tendermint_liquidity_v1beta1_tx.pb.swift in Sources */,
 				2889FD722603379A00CA9896 /* TxHardBorrowCell.swift in Sources */,
+				28A3700C269DA17000990696 /* tendermint_liquidity_v1beta1_query.grpc.swift in Sources */,
 				049758702685AA0E0039872C /* cosmwasm_wasm_v1beta1_query.pb.swift in Sources */,
 				287AC5DD25FDF7260070837E /* cosmos_evidence_v1beta1_query.pb.swift in Sources */,
 				287AC5E825FDF7260070837E /* ibc_core_channel_v1_query.grpc.swift in Sources */,
@@ -4276,6 +4299,7 @@
 				283E948F25494896007A9291 /* ResourceCell.swift in Sources */,
 				046E903F268C45DC002CFFE1 /* BinanceHexlify.swift in Sources */,
 				2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */,
+				28A3701A269DA20600990696 /* gravity_v1_query.pb.swift in Sources */,
 				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
 				2845D87D246FAE16007CD497 /* VoteDetailsViewController.swift in Sources */,
 				287AC60E25FDF7260070837E /* tendermint_p2p_types.pb.swift in Sources */,
