@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.ChainParam;
+import wannabit.io.cosmostaion.dialog.Dialog_Help_Mint_Msg;
 import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -50,7 +51,7 @@ public class WalletMintHolder extends BaseHolder {
                 } else {
                     bundle.putString("msg4" , "" + WDp.getPercentDp(param.getDpRealApr(baseChain)));
                 }
-                Dialog_Help_Msg dialog = Dialog_Help_Msg.newInstance(bundle);
+                Dialog_Help_Mint_Msg dialog = Dialog_Help_Mint_Msg.newInstance(bundle);
                 dialog.setCancelable(true);
                 mainActivity.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
             }

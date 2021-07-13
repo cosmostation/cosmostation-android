@@ -48,9 +48,7 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
-import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.task.FetchTask.ApiStakeTxsHistoryTask;
-import wannabit.io.cosmostaion.task.FetchTask.BandOracleStatusTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleBondingStateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRedelegateStateTask;
@@ -73,11 +71,8 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_BONDED;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -103,7 +98,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private RecyclerView                                mRecyclerView;
     private SpannableString                             mSelfBondingRate;
     private int                                         mTaskCount;
-    private ResBandOracleStatus                         mBandOracles;
     private ArrayList<Oracle.ActiveValidator>           mGrpcBandOracles;
 
     private ValidatorAdapter                            mValidatorAdapter;
@@ -141,7 +135,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mValidator = getIntent().getParcelableExtra("validator");
         mValOpAddress = getIntent().getStringExtra("valOpAddress");
-        mBandOracles = getBaseDao().mBandOracles;
         mGrpcBandOracles = getBaseDao().mGrpcBandOracles;
 
         setSupportActionBar(mToolbar);
@@ -199,15 +192,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ReDelegationsToGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(BAND_MAIN)) {
-            mTaskCount = 6;
-            new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)), mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleRedelegateStateTask(getBaseApplication(), this, mAccount, mValidator).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BandOracleStatusTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
             mTaskCount = 5;
@@ -597,17 +581,18 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_STAKE_HISTORY) {
             if (isGRPC(mBaseChain)) {
-                if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(OSMOSIS_MAIN) || mBaseChain.equals(IOV_MAIN)) {
+                if (mBaseChain.equals(CRYPTO_MAIN)) {
+                    ArrayList<ResApiTxListCustom> hits = (ArrayList<ResApiTxListCustom>)result.resultData;
+                    if (hits != null && hits.size() > 0) {
+                        mApiTxCustomHistory = hits;
+                    }
+//                WLog.w("mApiTxCustomHistory " + mApiTxCustomHistory.size());
+                } else {
                     ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>)result.resultData;
                     if (hits != null && hits.size() > 0) {
                         mApiNewTxCustomHistory = hits;
                     }
                 }
-                ArrayList<ResApiTxListCustom> hits = (ArrayList<ResApiTxListCustom>)result.resultData;
-                if (hits != null && hits.size() > 0) {
-                    mApiTxCustomHistory = hits;
-                }
-//                WLog.w("mApiTxCustomHistory " + mApiTxCustomHistory.size());
 
             } else {
                 ArrayList<ResApiTxList.Data> hits = (ArrayList<ResApiTxList.Data>)result.resultData;
@@ -651,7 +636,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 mGrpcMyReward       = getBaseDao().getRewardInfo(mValOpAddress);
 
             }
-            mBandOracles = getBaseDao().mBandOracles;
 
             mRecyclerView.setVisibility(View.VISIBLE);
             mValidatorAdapter.notifyDataSetChanged();
@@ -754,16 +738,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValidator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) { }
 
-            if (mBaseChain.equals(BAND_MAIN)) {
-                if (mBandOracles != null && !mBandOracles.isEnable(mValidator.operator_address)) {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-                } else {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
-                }
-                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-            }
-
             if (mBaseChain.equals(SIF_MAIN)) {
                 holder.itemTvYieldRate.setText("--");
             }
@@ -822,15 +796,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValidator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) { }
 
-            if (mBaseChain.equals(BAND_MAIN)) {
-                if (mBandOracles != null && !mBandOracles.isEnable(mValidator.operator_address)) {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-                } else {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
-                }
-                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-            }
             if (mBaseChain.equals(SIF_MAIN)) {
                 holder.itemTvYieldRate.setText("--");
             }
@@ -991,15 +956,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemImgRevoked.setVisibility(View.GONE);
             }
 
-//            if (mBaseChain.equals(BAND_MAIN)) {
-//                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
-//                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-//                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-//                } else {
-//                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
-//                }
-//                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-//            }
+            if (mBaseChain.equals(BAND_MAIN)) {
+                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
+                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                } else {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
+                }
+                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+            }
 
             holder.itemTvCommissionRate.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
             holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
@@ -1052,15 +1017,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemImgRevoked.setVisibility(View.GONE);
             }
 
-//            if (mBaseChain.equals(BAND_MAIN)) {
-//                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
-//                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-//                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-//                } else {
-//                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
-//                }
-//                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-//            }
+            if (mBaseChain.equals(BAND_MAIN)) {
+                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
+                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                } else {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
+                }
+                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+            }
 
             holder.itemTvCommissionRate.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
             holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
@@ -1131,41 +1096,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         private void onBindApiHistoryGrpc(RecyclerView.ViewHolder viewHolder, int position) {
             final HistoryHolder holder = (HistoryHolder) viewHolder;
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(OSMOSIS_MAIN) || mBaseChain.equals(IOV_MAIN)) {
-                final ResApiNewTxListCustom history;
-                if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
-                    history = mApiNewTxCustomHistory.get(position - 2);
-                } else {
-                    history = mApiNewTxCustomHistory.get(position - 3);
-                }
-                holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
-                holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
-                holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.data.timestamp));
-                holder.history_block.setText(history.data.height + " block");
-                if (history.isSuccess()) {
-                    holder.historySuccess.setVisibility(View.GONE);
-                } else {
-                    holder.historySuccess.setVisibility(View.VISIBLE);
-                }
-                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
-                            String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                            startActivity(intent);
-
-                        } else {
-                            Intent txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
-                            txDetail.putExtra("txHash", history.data.txhash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            startActivity(txDetail);
-                        }
-                    }
-                });
-
-            } else {
+            if (mBaseChain.equals(CRYPTO_MAIN)) {
                 final ResApiTxListCustom history;
                 if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
                     history = mApiTxCustomHistory.get(position - 2);
@@ -1198,7 +1129,39 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         }
                     }
                 });
+            } else {
+                final ResApiNewTxListCustom history;
+                if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
+                    history = mApiNewTxCustomHistory.get(position - 2);
+                } else {
+                    history = mApiNewTxCustomHistory.get(position - 3);
+                }
+                holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
+                holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
+                holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.data.timestamp));
+                holder.history_block.setText(history.data.height + " block");
+                if (history.isSuccess()) {
+                    holder.historySuccess.setVisibility(View.GONE);
+                } else {
+                    holder.historySuccess.setVisibility(View.VISIBLE);
+                }
+                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
+                            String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
 
+                        } else {
+                            Intent txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
+                            txDetail.putExtra("txHash", history.data.txhash);
+                            txDetail.putExtra("isGen", false);
+                            txDetail.putExtra("isSuccess", true);
+                            startActivity(txDetail);
+                        }
+                    }
+                });
             }
         }
 

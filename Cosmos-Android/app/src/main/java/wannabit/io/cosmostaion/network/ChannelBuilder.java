@@ -40,14 +40,12 @@ public class ChannelBuilder {
     private final static String GRPC_OSMOSIS_MAIN = "lcd-osmosis.cosmostation.io";
     private final static int PORT_OSMOSIS_MAIN = 9090;
 
-    private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
-    private final static int PORT_BAND_MAIN = 20200;
-
     private final static String GRPC_STARNAME_MAIN = "lcd-iov-app.cosmostation.io";
     private final static int PORT_STARNAME_MAIN = 9090;
 
-//    private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
-//    private final static int PORT_BAND_MAIN = 20200;
+    private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
+    private final static int PORT_BAND_MAIN = 21700;
+
 
 
 
@@ -84,8 +82,8 @@ public class ChannelBuilder {
             return getOsmosisMain();
         } else if (chain.equals(IOV_MAIN)) {
             return getStarnameMain();
-//        } else if (chain.equals(BAND_MAIN)) {
-//            return getBandMain();
+        } else if (chain.equals(BAND_MAIN)) {
+            return getBandMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -193,19 +191,6 @@ public class ChannelBuilder {
         return channel_osmosis_main;
     }
 
-//    //Channel for band main
-//    private static ManagedChannel channel_band_main = null;
-//    public static ManagedChannel getBandMain() {
-//        if (channel_band_main == null) {
-//            synchronized (ChannelBuilder.class) {
-//                channel_band_main = ManagedChannelBuilder.forAddress(GRPC_BAND_MAIN, PORT_BAND_MAIN)
-//                        .usePlaintext()
-//                        .build();
-//            }
-//        }
-//        return channel_band_main;
-//    }
-
     //Channel for starname main
     private static ManagedChannel channel_starname_main = null;
     public static ManagedChannel getStarnameMain() {
@@ -219,7 +204,18 @@ public class ChannelBuilder {
         return channel_starname_main;
     }
 
-
+    //Channel for band main
+    private static ManagedChannel channel_band_main = null;
+    public static ManagedChannel getBandMain() {
+        if (channel_band_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_band_main = ManagedChannelBuilder.forAddress(GRPC_BAND_MAIN, PORT_BAND_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_band_main;
+    }
 
 
     //Channel for stargate testnet
