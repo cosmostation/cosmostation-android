@@ -716,10 +716,11 @@ support@cosmostation.io";
 "tx_ibc_client_update" = "IBC Client\nUpdate";
 "tx_ibc_acknowledgement" = "IBC Acknowledgement";
 
-"tx_osmosis_create_pool" = "Create Pool";
-"tx_osmosis_join_pool" = "Join Pool";
-"tx_osmosis_exit_pool" = "Exit Pool";
-"tx_osmosis_coin_swap" = "Swap Coin";
+"tx_create_pool" = "Create Pool";
+"tx_join_pool" = "Join Pool";
+"tx_exit_pool" = "Exit Pool";
+"tx_coin_swap" = "Swap Coin";
+
 "tx_osmosis_token_lockup" = "Lockup Token";
 "tx_osmosis_token_unluck" = "Unlock Token";
 "tx_osmosis_token_unluck_all" = "Unlock All Tokens";

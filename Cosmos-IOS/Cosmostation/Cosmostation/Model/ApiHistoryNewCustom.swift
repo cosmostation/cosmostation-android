@@ -194,20 +194,20 @@ public struct ApiHistoryNewCustom {
             }
             
             else if (msgType.contains("MsgCreatePool")) {
-                result = NSLocalizedString("tx_osmosis_create_pool", comment: "")
+                result = NSLocalizedString("tx_create_pool", comment: "")
                 
             } else if (msgType.contains("MsgJoinPool")) {
-                result = NSLocalizedString("tx_osmosis_join_pool", comment: "")
+                result = NSLocalizedString("tx_join_pool", comment: "")
                 
             } else if (msgType.contains("MsgExitPool")) {
-                result = NSLocalizedString("tx_osmosis_exit_pool", comment: "")
+                result = NSLocalizedString("tx_exit_pool", comment: "")
                 
             } else if (msgType.contains("MsgSwapExactAmountIn") || msgType.contains("MsgSwapExactAmountOut")) {
-                result = NSLocalizedString("tx_osmosis_coin_swap", comment: "")
+                result = NSLocalizedString("tx_coin_swap", comment: "")
                 
             } else if (msgType.contains("MsgJoinSwapExternAmountIn") || msgType.contains("MsgJoinSwapShareAmountOut") ||
                         msgType.contains("MsgExitSwapExternAmountOut") || msgType.contains("MsgExitSwapShareAmountIn")) {
-                result = NSLocalizedString("tx_osmosis_coin_swap", comment: "")
+                result = NSLocalizedString("tx_coin_swap", comment: "")
                 
             } else if (msgType.contains("MsgLockTokens")) {
                 result = NSLocalizedString("tx_osmosis_token_lockup", comment: "")
@@ -229,6 +229,17 @@ public struct ApiHistoryNewCustom {
 //            } else if (msgType.contains("MsgBeginUnlockPeriodLock")) {
 //
 //            }
+            
+            else if (msgType.contains("MsgDepositWithinBatch")) {
+                result = NSLocalizedString("tx_join_pool", comment: "")
+                
+            } else if (msgType.contains("MsgSwapWithinBatch")) {
+                result = NSLocalizedString("tx_coin_swap", comment: "")
+                
+            } else if (msgType.contains("MsgWithdrawWithinBatch")) {
+                result = NSLocalizedString("tx_exit_pool", comment: "")
+                
+            }
             
             if (getMsgCnt() > 1) {
                 result = result +  " + " + String(getMsgCnt() - 1)

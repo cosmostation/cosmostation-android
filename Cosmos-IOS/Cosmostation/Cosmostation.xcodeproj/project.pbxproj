@@ -680,6 +680,14 @@
 		28BBAAC7264945890013A555 /* WalletOkAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28BBAAC5264945890013A555 /* WalletOkAddressCell.xib */; };
 		28BBAACA264A2C1B0013A555 /* TokenDetailExCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BBAAC8264A2C1B0013A555 /* TokenDetailExCell.swift */; };
 		28BBAACB264A2C1B0013A555 /* TokenDetailExCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28BBAAC9264A2C1B0013A555 /* TokenDetailExCell.xib */; };
+		28C3F501269DC4FB00F4A58C /* TxGravityCreatePoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C3F4FF269DC4FB00F4A58C /* TxGravityCreatePoolCell.swift */; };
+		28C3F502269DC4FB00F4A58C /* TxGravityCreatePoolCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C3F500269DC4FB00F4A58C /* TxGravityCreatePoolCell.xib */; };
+		28C3F505269DC52600F4A58C /* TxGravityDepositBatchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C3F503269DC52600F4A58C /* TxGravityDepositBatchCell.swift */; };
+		28C3F506269DC52600F4A58C /* TxGravityDepositBatchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C3F504269DC52600F4A58C /* TxGravityDepositBatchCell.xib */; };
+		28C3F509269DC53700F4A58C /* TxGravityWithdrawBatchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C3F507269DC53700F4A58C /* TxGravityWithdrawBatchCell.swift */; };
+		28C3F50A269DC53700F4A58C /* TxGravityWithdrawBatchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C3F508269DC53700F4A58C /* TxGravityWithdrawBatchCell.xib */; };
+		28C3F50D269DC54C00F4A58C /* TxGravitySwapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C3F50B269DC54C00F4A58C /* TxGravitySwapCell.swift */; };
+		28C3F50E269DC54C00F4A58C /* TxGravitySwapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C3F50C269DC54C00F4A58C /* TxGravitySwapCell.xib */; };
 		28C41FEC24A1FF60007C5072 /* TxRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */; };
 		28C41FED24A1FF60007C5072 /* TxRewardAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */; };
 		28CAAB6C25AC414A00416AA5 /* OkHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CAAB6B25AC414A00416AA5 /* OkHistory.swift */; };
@@ -1642,6 +1650,14 @@
 		28BBAAC5264945890013A555 /* WalletOkAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletOkAddressCell.xib; sourceTree = "<group>"; };
 		28BBAAC8264A2C1B0013A555 /* TokenDetailExCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailExCell.swift; sourceTree = "<group>"; };
 		28BBAAC9264A2C1B0013A555 /* TokenDetailExCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailExCell.xib; sourceTree = "<group>"; };
+		28C3F4FF269DC4FB00F4A58C /* TxGravityCreatePoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxGravityCreatePoolCell.swift; sourceTree = "<group>"; };
+		28C3F500269DC4FB00F4A58C /* TxGravityCreatePoolCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxGravityCreatePoolCell.xib; sourceTree = "<group>"; };
+		28C3F503269DC52600F4A58C /* TxGravityDepositBatchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxGravityDepositBatchCell.swift; sourceTree = "<group>"; };
+		28C3F504269DC52600F4A58C /* TxGravityDepositBatchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxGravityDepositBatchCell.xib; sourceTree = "<group>"; };
+		28C3F507269DC53700F4A58C /* TxGravityWithdrawBatchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxGravityWithdrawBatchCell.swift; sourceTree = "<group>"; };
+		28C3F508269DC53700F4A58C /* TxGravityWithdrawBatchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxGravityWithdrawBatchCell.xib; sourceTree = "<group>"; };
+		28C3F50B269DC54C00F4A58C /* TxGravitySwapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxGravitySwapCell.swift; sourceTree = "<group>"; };
+		28C3F50C269DC54C00F4A58C /* TxGravitySwapCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxGravitySwapCell.xib; sourceTree = "<group>"; };
 		28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxRewardAllCell.swift; sourceTree = "<group>"; };
 		28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxRewardAllCell.xib; sourceTree = "<group>"; };
 		28CAAB6B25AC414A00416AA5 /* OkHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkHistory.swift; sourceTree = "<group>"; };
@@ -2564,6 +2580,7 @@
 		284D17F32535D69000C364F9 /* txs */ = {
 			isa = PBXGroup;
 			children = (
+				28C3F4FE269DC4C700F4A58C /* gravity */,
 				04CFBD4A269226CE0013150B /* ibc */,
 				04D138502691E20D00D6AF9F /* osmosis */,
 				28641F2F2601AD59000AAEB8 /* TxCell.swift */,
@@ -2711,6 +2728,21 @@
 				28D372AF254C07470071B136 /* RegistAccountCheckCell.xib */,
 			);
 			path = starname;
+			sourceTree = "<group>";
+		};
+		28C3F4FE269DC4C700F4A58C /* gravity */ = {
+			isa = PBXGroup;
+			children = (
+				28C3F4FF269DC4FB00F4A58C /* TxGravityCreatePoolCell.swift */,
+				28C3F500269DC4FB00F4A58C /* TxGravityCreatePoolCell.xib */,
+				28C3F503269DC52600F4A58C /* TxGravityDepositBatchCell.swift */,
+				28C3F504269DC52600F4A58C /* TxGravityDepositBatchCell.xib */,
+				28C3F507269DC53700F4A58C /* TxGravityWithdrawBatchCell.swift */,
+				28C3F508269DC53700F4A58C /* TxGravityWithdrawBatchCell.xib */,
+				28C3F50B269DC54C00F4A58C /* TxGravitySwapCell.swift */,
+				28C3F50C269DC54C00F4A58C /* TxGravitySwapCell.xib */,
+			);
+			path = gravity;
 			sourceTree = "<group>";
 		};
 		28D7BDAB25F0B8DE006EECD7 /* KavaModel */ = {
@@ -3359,6 +3391,7 @@
 				28DB56F825FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.xib in Resources */,
 				28474ED3241E06AF00AF5A81 /* TxCdpCreateCell.xib in Resources */,
 				28156EA02536DE29006FF06C /* HarvestDetailMyActionCell.xib in Resources */,
+				28C3F502269DC4FB00F4A58C /* TxGravityCreatePoolCell.xib in Resources */,
 				283E949025494896007A9291 /* ResourceCell.xib in Resources */,
 				283E94822549331D007A9291 /* DomainDetailViewController.xib in Resources */,
 				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
@@ -3382,6 +3415,7 @@
 				28641F2D2601959E000AAEB8 /* TxDetailgRPCViewController.xib in Resources */,
 				E126CF7D2387A3E1002A546F /* WalletCosmosCell.xib in Resources */,
 				28DB570225FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.xib in Resources */,
+				28C3F506269DC52600F4A58C /* TxGravityDepositBatchCell.xib in Resources */,
 				285A33E724486DA20052BD3D /* HtlcResultSentCell.xib in Resources */,
 				2852EAF52681B92C003A5E74 /* TokenDetailOsmoCell.xib in Resources */,
 				28E1D4592658E32D002FDF9B /* StepFeeOldViewController.xib in Resources */,
@@ -3419,6 +3453,7 @@
 				2889FD882603485200CA9896 /* TxIncentiveMintingCell.xib in Resources */,
 				288A14E125199C6200E17808 /* WalletCertikCell.xib in Resources */,
 				282FF35223F5172E0028CC66 /* TxTransferCell.xib in Resources */,
+				28C3F50A269DC53700F4A58C /* TxGravityWithdrawBatchCell.xib in Resources */,
 				2842919B264A586B00130651 /* TokenDetailNativeCell.xib in Resources */,
 				28B325222637FDDD00275AED /* MemoMnemonicPopup.xib in Resources */,
 				2889FD832603484000CA9896 /* TxIncentiveHardCell.xib in Resources */,
@@ -3493,6 +3528,7 @@
 				28CFB6B82613594D00A18634 /* TokenDetailPersistenceCell.xib in Resources */,
 				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
 				282FF34623F5062A0028CC66 /* TxDelegateCell.xib in Resources */,
+				28C3F50E269DC54C00F4A58C /* TxGravitySwapCell.xib in Resources */,
 				2868559824989AB80099D18F /* CdpWarnPopup.xib in Resources */,
 				28156E8A2536912C006FF06C /* HarvestListRewardCell.xib in Resources */,
 				E103DAB9228127D8006C2146 /* ValidatorDetailMyActionCell.xib in Resources */,
@@ -3692,6 +3728,7 @@
 				28B4303524F7766200BD7BB2 /* TxOkDirectVoteCell.swift in Sources */,
 				E16B89152341C558003E0922 /* TokenCell.swift in Sources */,
 				28A3700A269DA17000990696 /* tendermint_liquidity_v1beta1_genesis.pb.swift in Sources */,
+				28C3F50D269DC54C00F4A58C /* TxGravitySwapCell.swift in Sources */,
 				287AC63725FDF7260070837E /* akash_cert_v1beta1_cert.grpc.swift in Sources */,
 				0497585D26856DE30039872C /* oracle_v1_oracle.pb.swift in Sources */,
 				E151B6492248583F0026B8C0 /* StdTx.swift in Sources */,
@@ -3721,6 +3758,7 @@
 				28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */,
 				28D7BE7D25F10636006EECD7 /* HardListMyStatusCell.swift in Sources */,
 				046E903D268C413A002CFFE1 /* BinanceProto.swift in Sources */,
+				28C3F505269DC52600F4A58C /* TxGravityDepositBatchCell.swift in Sources */,
 				28617A7D243198E2006D66EA /* StepCreateCpdCheckViewController.swift in Sources */,
 				28A37019269DA20600990696 /* gravity_v1_pool.pb.swift in Sources */,
 				289EF82326824E4700F90AC1 /* osmosis_incentives_tx.grpc.swift in Sources */,
@@ -4053,8 +4091,10 @@
 				28E3E3802671BE8D00BA89C2 /* Param.swift in Sources */,
 				287AC62825FDF7260070837E /* random_genesis.pb.swift in Sources */,
 				287AC5D025FDF7250070837E /* random_tx.grpc.swift in Sources */,
+				28C3F509269DC53700F4A58C /* TxGravityWithdrawBatchCell.swift in Sources */,
 				283F3AE5265E283800DF1D93 /* treasury_query.grpc.swift in Sources */,
 				287AC63925FDF7260070837E /* cosmos_upgrade_v1beta1_query.grpc.swift in Sources */,
+				28C3F501269DC4FB00F4A58C /* TxGravityCreatePoolCell.swift in Sources */,
 				287AC5BF25FDF7250070837E /* akash_deployment_v1beta1_deployment.grpc.swift in Sources */,
 				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
 				E1406FC822608ABA00D9440C /* StepUndelegateCheckViewController.swift in Sources */,
