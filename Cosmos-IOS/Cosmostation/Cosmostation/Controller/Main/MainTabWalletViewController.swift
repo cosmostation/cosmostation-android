@@ -1331,15 +1331,17 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickRizonSwap() {
+        print("onClickRizonSwap")
         self.onShowToast(NSLocalizedString("prepare", comment: ""))
     }
     
     func onClickOsmosisLab() {
         print("onClickOsmosisLab")
-        let osmosisDappVC = UIStoryboard(name: "Osmosis", bundle: nil).instantiateViewController(withIdentifier: "OsmosisDAppViewController") as! OsmosisDAppViewController
-        osmosisDappVC.hidesBottomBarWhenPushed = true
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(osmosisDappVC, animated: true)
+//        self.onShowToast(NSLocalizedString("prepare", comment: ""))
+//        let osmosisDappVC = UIStoryboard(name: "Osmosis", bundle: nil).instantiateViewController(withIdentifier: "OsmosisDAppViewController") as! OsmosisDAppViewController
+//        osmosisDappVC.hidesBottomBarWhenPushed = true
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(osmosisDappVC, animated: true)
     }
     
     func onClickAprHelp() {
