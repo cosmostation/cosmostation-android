@@ -3445,7 +3445,7 @@ class WUtils {
             img?.image = UIImage(named: "iovImg")
         } else if (chain == ChainType.BAND_MAIN) {
             label.text = NSLocalizedString("chain_title_band", comment: "")
-            img?.image = UIImage(named: "bandChainImg")
+            img?.image = UIImage(named: "chainBandprotocal")
         } else if (chain == ChainType.BINANCE_TEST) {
             label.text = NSLocalizedString("chain_title_test_bnb", comment: "")
             img?.image = UIImage(named: "binancetestnet")
@@ -3665,7 +3665,7 @@ class WUtils {
         } else if (resource?.uri == STARNAME) {
             return UIImage.init(named: "iovChainImg")
         } else if (resource?.uri == BAND) {
-            return UIImage.init(named: "bandChainImg")
+            return UIImage.init(named: "chainBandprotocal")
         } else if (resource?.uri == TEZOS) {
             return UIImage.init(named: "tezosChainImg")
         } else if (resource?.uri == LISK) {
@@ -4913,7 +4913,7 @@ class WUtils {
     static func isGRPC(_ chain: ChainType?) -> Bool {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
                 chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN ||
-                chain == ChainType.OSMOSIS_MAIN || chain == ChainType.IOV_MAIN ||
+                chain == ChainType.OSMOSIS_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.BAND_MAIN ||
                 chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             return true
         }

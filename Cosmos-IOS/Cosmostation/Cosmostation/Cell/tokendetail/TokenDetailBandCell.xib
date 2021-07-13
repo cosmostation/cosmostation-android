@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="prT-NL-P1T" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                         <rect key="frame" x="12" y="4" width="451" height="208"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bandTokenImg" translatesAutoresizingMaskIntoConstraints="NO" id="TPw-yu-9Jp">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tokenBand" translatesAutoresizingMaskIntoConstraints="NO" id="TPw-yu-9Jp">
                                 <rect key="frame" x="12" y="16" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="Ubd-c8-Ntf"/>
@@ -173,6 +173,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="bandTokenImg" width="22" height="22"/>
+        <image name="tokenBand" width="22" height="22"/>
     </resources>
 </document>

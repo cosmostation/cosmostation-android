@@ -102,7 +102,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainName.text = "(Starname Mainnet)"
             titleAlarmBtn.isHidden = true
         }  else if (chainType! == ChainType.BAND_MAIN) {
-            titleChainImg.image = UIImage(named: "bandChainImg")
+            titleChainImg.image = UIImage(named: "chainBandprotocal")
             titleChainName.text = "(Band Mainnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.SECRET_MAIN) {

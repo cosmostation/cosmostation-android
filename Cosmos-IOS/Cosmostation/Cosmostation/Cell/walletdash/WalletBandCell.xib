@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xK3-eO-xog" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                         <rect key="frame" x="12" y="4" width="414" height="293"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bandTokenImg" translatesAutoresizingMaskIntoConstraints="NO" id="BJf-9w-WPd">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tokenBand" translatesAutoresizingMaskIntoConstraints="NO" id="BJf-9w-WPd">
                                 <rect key="frame" x="12" y="16" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="1GJ-SU-7cs"/>
@@ -231,8 +231,8 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="bandTokenImg" width="22" height="22"/>
         <image name="rewardIc" width="20" height="20"/>
+        <image name="tokenBand" width="22" height="22"/>
         <image name="voteIc" width="20" height="20"/>
     </resources>
 </document>
