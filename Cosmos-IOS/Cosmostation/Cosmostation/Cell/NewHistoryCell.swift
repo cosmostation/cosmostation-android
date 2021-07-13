@@ -33,11 +33,21 @@ class NewHistoryCell: UITableViewCell {
         txResultLabel.isHidden = history.isSuccess()
         txTimeLabel.text = WUtils.newApiTimeToString(history.header?.timestamp)
         txTimeGapLabel.text = WUtils.newApiTimeGap(history.header?.timestamp)
-        guard let dpCoin = history.getDpCoin() else {
+        
+        if (NSLocalizedString("tx_vote", comment: "") == history.getMsgType(address)) {
+            txDenomLabel.textColor = .white
+            txDenomLabel.text = history.getVoteOption()
+            txAmountLabel.isHidden = true
+            return
+        }
+        
+        guard let dpCoin = history.getDpCoin(chainType) else {
             txDenomLabel.isHidden = true
             txAmountLabel.isHidden = true
             return
         }
+        txDenomLabel.isHidden = false
+        txAmountLabel.isHidden = false
         WUtils.showCoinDp(dpCoin, txDenomLabel, txAmountLabel, chainType)
     }
     

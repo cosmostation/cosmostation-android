@@ -718,10 +718,11 @@ support@cosmostation.io";
 "tx_ibc_client_update" = "IBC 클라이언트\n업데이트";
 "tx_ibc_acknowledgement" = "IBC 승인";
 
-"tx_osmosis_create_pool" = "풀 생성";
-"tx_osmosis_join_pool" = "풀 참가";
-"tx_osmosis_exit_pool" = "풀 나가기";
-"tx_osmosis_coin_swap" = "코인 스왑";
+"tx_create_pool" = "풀 생성";
+"tx_join_pool" = "풀 참가";
+"tx_exit_pool" = "풀 나가기";
+"tx_coin_swap" = "코인 스왑";
+
 "tx_osmosis_token_lockup" = "토큰 잠그기";
 "tx_osmosis_token_unluck" = "토큰 풀기";
 "tx_osmosis_token_unluck_all" = "모든 토큰 풀기";

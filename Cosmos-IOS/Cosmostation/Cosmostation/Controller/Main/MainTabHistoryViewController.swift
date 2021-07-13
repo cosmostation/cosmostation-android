@@ -71,7 +71,17 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
         self.updateTitle()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
+    }
+    
+    @objc func onFetchDone(_ notification: NSNotification) {
+        self.historyTableView.reloadData()
     }
     
     func updateTitle() {
