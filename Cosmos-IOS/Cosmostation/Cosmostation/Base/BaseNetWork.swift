@@ -1038,7 +1038,7 @@ class BaseNetWork {
             return ClientConnection.insecure(group: group).connect(host: "lcd-iov-app.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.BAND_MAIN) {
-            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 20200)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 21700)
         }
         
         else if (chain == ChainType.COSMOS_TEST) {

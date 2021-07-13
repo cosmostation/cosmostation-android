@@ -101,17 +101,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchApiHistoryCustom(account!.account_address, mValidator_gRPC!.operatorAddress)
             
         }
-//        else if () {
-//            mRewardCoins.removeAll()
-//            mFetchCnt = 5
-//            onFetchValidatorInfo(mValidator!)
-//            onFetchSignleBondingInfo(account!, mValidator!)
-//            onFetchSignleUnBondingInfo(account!, mValidator!)
-//            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
-//            onFetchApiHistory(account!, mValidator!)
-////            onFetchBandOracleStatus()
-//            
-//        }
         
         else {
             mRewardCoins.removeAll()
@@ -255,18 +244,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
         }
         
-        
-        //display band orcale status
-        if (chainType == ChainType.BAND_MAIN) {
-            if (BaseData.instance.mBandOracleStatus?.isEnable(mValidator!.operator_address) == true) {
-                cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
-            } else {
-                cell?.bandOracleImg.image = UIImage(named: "bandoracleoffl")
-                cell?.avergaeYield.textColor = UIColor.init(hexString: "f31963")
-            }
-            cell?.bandOracleImg.isHidden = false
-        }
-        
         //temp hide apr for no mint param chain
         if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell!.avergaeYield.text = "--"
@@ -313,18 +290,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else {
             cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
             cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
-        }
-        
-        
-        //display band orcale status
-        if (chainType == ChainType.BAND_MAIN) {
-            if (BaseData.instance.mBandOracleStatus?.isEnable(mValidator!.operator_address) == true) {
-                cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
-            } else {
-                cell?.bandOracleImg.image = UIImage(named: "bandoracleoffl")
-                cell?.avergaeYield.textColor = UIColor.init(hexString: "f31963")
-            }
-            cell?.bandOracleImg.isHidden = false
         }
         
         //temp hide apr for no mint param chain
