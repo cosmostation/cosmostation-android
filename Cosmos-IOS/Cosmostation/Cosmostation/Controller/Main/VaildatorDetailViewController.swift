@@ -73,7 +73,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     @objc func onFech() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.IOV_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.RIZON_TEST) {
             self.mFetchCnt = 6
             BaseData.instance.mMyDelegations_gRPC.removeAll()
             BaseData.instance.mMyUnbondings_gRPC.removeAll()
@@ -161,7 +161,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 if (BaseData.instance.mMyValidators_gRPC.contains{ $0.operatorAddress == mValidator_gRPC?.operatorAddress }) { return 2 }
                 else { return 1 }
             } else {
-                if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.IOV_MAIN) {
+                if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.RIZON_TEST) {
                     if (mApiCustomNewHistories.count > 0) { return mApiCustomNewHistories.count }
                     else { return 1 }
                 } else {
@@ -488,7 +488,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onSetHistoryItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.IOV_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.RIZON_TEST) {
             if (mApiCustomNewHistories.count > 0) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"NewHistoryCell") as? NewHistoryCell
                 cell?.bindView(chainType!, mApiCustomNewHistories[indexPath.row], account!.account_address)
@@ -938,6 +938,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onFetchApiHistoryCustom(_ address: String, _ valAddress: String) {
+        print("onFetchApiHistoryCustom ", address)
         let url = BaseNetWork.accountStakingHistory(chainType!, address, valAddress)
         let request = Alamofire.request(url, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -962,6 +963,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onFetchNewApiHistoryCustom(_ address: String, _ valAddress: String) {
+        print("onFetchNewApiHistoryCustom ", address)
         let url = BaseNetWork.accountStakingHistory(chainType!, address, valAddress)
         let request = Alamofire.request(url, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in

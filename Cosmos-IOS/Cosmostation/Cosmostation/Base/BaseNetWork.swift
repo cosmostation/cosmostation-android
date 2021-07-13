@@ -892,9 +892,9 @@ class BaseNetWork {
         } else if (chain == ChainType.CRYPTO_MAIN) {
             result = CRYTO_API + "v1/account/txs/" + address
         } else if (chain == ChainType.OSMOSIS_MAIN) {
-            result = OSMOSIS_API + "v1/account/txs/" + address
+            result = OSMOSIS_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.BAND_MAIN) {
-            result = BAND_API + "v1/account/txs/" + address
+            result = BAND_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.IOV_MAIN) {
             result = IOV_API + "v1/account/new_txs/" + address
         }
@@ -919,7 +919,7 @@ class BaseNetWork {
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_API + "v1/account/txs/" + address
         } else if (chain == ChainType.RIZON_TEST) {
-            result = RIZON_TEST_API + "v1/account/txs/" + address
+            result = RIZON_TEST_API + "v1/account/new_txs/" + address
         }
         else if (chain == ChainType.KAVA_TEST) {
             result = KAVA_TEST_API + "v1/account/txs/" + address
@@ -946,9 +946,9 @@ class BaseNetWork {
         } else if (chain == ChainType.CRYPTO_MAIN) {
             result = CRYTO_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.OSMOSIS_MAIN) {
-            result = OSMOSIS_API + "v1/account/txs/" + address + "/" + valAddress
+            result = OSMOSIS_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.BAND_MAIN) {
-            result = BAND_API + "v1/account/txs/" + address + "/" + valAddress
+            result = BAND_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.IOV_MAIN) {
             result = IOV_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
@@ -972,7 +972,7 @@ class BaseNetWork {
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.RIZON_TEST) {
-            result = RIZON_TEST_API + "v1/account/txs/" + address + "/" + valAddress
+            result = RIZON_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
         else if (chain == ChainType.KAVA_TEST) {
             result = KAVA_TEST_API + "v1/account/txs/" + address + "/" + valAddress

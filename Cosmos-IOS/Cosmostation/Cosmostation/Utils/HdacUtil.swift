@@ -79,9 +79,15 @@ class HdacUtil {
         return signedTx.serialized().hex
     }
     
-    static func createSwapTx(_ utxos: [UnspentTransaction], _ rizonAddress: String, _ key: PrivateKey) throws -> String {
+    static func createSwapTx(_ utxos: [UnspentTransaction], _ rizonAddress: String, _ key: PrivateKey, _ isMain: Bool) throws -> String {
         let utoxTransactionSigner = UtxoTransactionSigner()
-        let burnAddress: Address = try! HdacAddress.init(HDAC_BURN_ADDRESS, coin: .hdac)
+        var burnAddress: Address
+        if (isMain) {
+            burnAddress = try! HdacAddress.init(HDAC_BURN_ADDRESS_MAIN, coin: .hdac)
+        } else {
+            burnAddress = try! HdacAddress.init(HDAC_BURN_ADDRESS_TEST, coin: .hdac)
+        }
+        
         let totalAmount: UInt64 = utxos.sum()
         let fee: UInt64 = 10000000
         let burnAmount: UInt64 = totalAmount - fee
