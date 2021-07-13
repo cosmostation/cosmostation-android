@@ -424,9 +424,16 @@
 "str_starname_walletconnect_alert_msg" = "You can easily export the addresses in Cosmostaion Wallet and link it with Starname Manager. This function only links your addresses using WalletConnect, and does not export your private keys or moves your assets.\n\nWould you like to link your wallets to Starname Manager?";
 "str_starname_walletconnect_alert_msg2" = "Ready to Export %@ Addresses";
 "str_starname_walletconnect_complete" = "Export Complete";
-"str_enginer_alert_title" = "Enginer Mode";
-"str_enginer_alert_msg" = "Be very careful.\nIf you have not had any problems with mnemonic keys while using a mobile wallet, please do not press this function.\nIt may cause problems for the user's asset situation.\n\nDue to a problem with the 1.0.2 version of the BitcoinKit library, it was found that very few accounts initially created through Cosmostation had compatibility problems.\nThis function is for the restoration of assets of very few users as above.\nIf you try to create, restore, or transfer a wallet with this feature turned on, there may be problems in use.\nProblems caused by using this feature are no longer supported.\n\nBefore use, be sure to consult with the Cosmo Station administrator team before use.";
-"str_enginer_is_on_title" = "Enginer Mode Enabled";
+"str_enginer_alert_title" = "Engineer Mode";
+"str_enginer_alert_msg" = "\nPlease be very careful and read the warning below thoroughly before enabling this mode.
+This feature is specifically for users having issues with their mnemonics importing a different set of addresses after the latest Cosmostation iOS update.
+Do NOT enable this feature if you’re not experiencing this issue.\n
+It has been identified that BitcoinKit Library v1.0.2 caused very few accounts generated on the Cosmostation iOS app to have compatibility issues.\n
+This function allows the few affected users to securely restore assets on their original accounts.
+If you use this feature for purposes other than the issue mentioned above, you may encounter unexpected errors that Cosmostation will not be responsible for.
+Please consult with the Cosmostation support team before enabling this feature.\n
+support@cosmostation.io";
+"str_enginer_is_on_title" = "Engineer Mode Enabled";
 "str_enginer_is_on_msg" = "Engineer mode is currently on.\n\nThere is a very low probability that an account with incompatibility may be created, which may cause inconvenience to users.\n\nBefore use, be sure to consult with the Cosmo Station administrator team before use.";
 
 
