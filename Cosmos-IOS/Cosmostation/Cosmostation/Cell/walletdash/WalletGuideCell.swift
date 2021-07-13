@@ -90,7 +90,7 @@ class WalletGuideCell: UITableViewCell {
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_iov", comment: ""), for: .normal)
             
         } else if (chainType == ChainType.BAND_MAIN) {
-            guideImg.image = UIImage(named: "bandprotocolImg")
+            guideImg.image = UIImage(named: "infoiconBandprotocol")
             guideTitle.text = NSLocalizedString("send_guide_title_band", comment: "")
             guideMsg.text = NSLocalizedString("send_guide_msg_band", comment: "")
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_band", comment: ""), for: .normal)

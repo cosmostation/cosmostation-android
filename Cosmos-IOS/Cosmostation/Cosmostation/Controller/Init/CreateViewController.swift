@@ -163,7 +163,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             self.chainType = ChainType.BAND_MAIN
             self.onGenNewKey()
         })
-        bandAction.setValue(UIImage(named: "bandChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        bandAction.setValue(UIImage(named: "chainBandprotocal")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let persisAction = UIAlertAction(title: NSLocalizedString("chain_title_persis", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.PERSIS_MAIN
