@@ -694,7 +694,7 @@ let COLOR_STAKE_DROP                        = UIColor.init(hexString: "E1AA4C")
 let COLOR_STAKE_DROP_BG                     = UIColor.init(hexString: "E1AA4C", alpha: 0.15)
 
 
-enum ChainType: String {
+public enum ChainType: String {
     case COSMOS_MAIN
     case IRIS_MAIN
     case BINANCE_MAIN
