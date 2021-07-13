@@ -507,6 +507,7 @@
 "title_withdraw_hardpool" = "하드 풀 서플라이 출금";
 "title_borrow_hardpool" = "하드 풀 대출";
 "title_repay_hardpool" = "하드 풀 상환";
+"title_dapp_osmosis" = "오스모시스 Lab";
 
 
 "proposal_type_basic" = "기본";
