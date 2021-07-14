@@ -1343,6 +1343,21 @@
     <string name="str_swap_coin_type">Type</string>
     <string name="str_osmosis_token_lockup">Lock Token\n(Start Farming)</string>
     <string name="str_osmosis_token_unlock">Unlock Token\n(End Farming)</string>
+    <string name="str_gravity_create_pool_address">Pool Create Address</string>
+    <string name="str_gravity_create_pool_id">Pool Type ID</string>
+    <string name="str_gravity_deposit_batch_address">Depositor Address</string>
+    <string name="str_gravity_deposit_batch_id">Pool ID</string>
+    <string name="str_gravity_create_pool_deposit">Deposit Coins</string>
+    <string name="str_gravity_swap_request_address">Swap Requester Address</string>
+    <string name="str_gravity_swap_pool_id">Pool ID</string>
+    <string name="str_gravity_swap_type_id">Swap Type ID</string>
+    <string name="str_gravity_swap_offer">Offer</string>
+    <string name="str_gravity_swap_offer_coin">Coin</string>
+    <string name="str_gravity_swap_offer_coin_fee">Coin Fee</string>
+    <string name="str_gravity_swap_demand_coin_denom">Demand Coin Denom</string>
+    <string name="str_gravity_swap_order_price">Order Price</string>
+    <string name="str_gravity_withdraw_address">Withdraw Address</string>
+    <string name="str_gravity_withdraw_pool_id">Pool ID</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1574,6 +1589,11 @@
     <string name="tx_osmosis_token_unlock">Unlock Token(End Farming)</string>
     <string name="tx_osmosis_token_unlock_all">Unlock All Tokens</string>
     <string name="tx_osmosis_periodlock_unlock">Claim Unlocked Token</string>
+
+    <string name="tx_gravity_create_pool">Create Pool</string>
+    <string name="tx_gravity_swap_batch">Swap Within Batch</string>
+    <string name="tx_gravity_deposit_batch">Deposit Within Batch</string>
+    <string name="tx_gravity_withdraw_batch">Withdraw Within Batch</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

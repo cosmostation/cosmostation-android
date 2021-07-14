@@ -1,0 +1,62 @@
+package wannabit.io.cosmostaion.widget.txDetail.gravity;
+
+import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+
+import java.math.BigDecimal;
+
+import cosmos.tx.v1beta1.ServiceOuterClass;
+import tendermint.liquidity.v1beta1.Tx;
+import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
+
+public class TxGravitySwapHolder extends TxHolder {
+    ImageView itemGravitySwapImg;
+    TextView itemGravitySwapRequestAddress, itemGravitySwapPoolId, itemGravitySwapTypeId,
+            itemGravitySwapCoinAmount, itemGravitySwapCoinSymbol, itemGravitySwapCoinFeeAmount, itemGravitySwapCoinFeeSymbol,
+            itemGravitySwapDemandDenom, itemGravitySwapOrderPrice;
+
+    public TxGravitySwapHolder(@NonNull View itemView) {
+        super(itemView);
+        itemGravitySwapImg = itemView.findViewById(R.id.tx_gravity_swap_icon);
+        itemGravitySwapRequestAddress = itemView.findViewById(R.id.tx_gravity_swap_request_address);
+        itemGravitySwapPoolId = itemView.findViewById(R.id.tx_gravity_swap_pool_id);
+        itemGravitySwapTypeId = itemView.findViewById(R.id.tx_gravity_swap_type_id);
+        itemGravitySwapCoinAmount = itemView.findViewById(R.id.tx_gravity_swap_offer_coin_amount);
+        itemGravitySwapCoinSymbol = itemView.findViewById(R.id.tx_gravity_swap_offer_coin_symbol);
+        itemGravitySwapCoinFeeAmount = itemView.findViewById(R.id.tx_gravity_swap_offer_coin_fee_amount);
+        itemGravitySwapCoinFeeSymbol = itemView.findViewById(R.id.tx_gravity_swap_offer_coin_fee_symbol);
+        itemGravitySwapDemandDenom = itemView.findViewById(R.id.tx_gravity_swap_demand_coin_denom);
+        itemGravitySwapOrderPrice = itemView.findViewById(R.id.tx_gravity_swap_order_price);
+    }
+
+    public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
+        itemGravitySwapImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+
+        try {
+            Tx.MsgSwapWithinBatch msg = Tx.MsgSwapWithinBatch.parseFrom(response.getTx().getBody().getMessages(position).getValue());
+            itemGravitySwapRequestAddress.setText(msg.getSwapRequesterAddress());
+            itemGravitySwapPoolId.setText("" + msg.getPoolId());
+            itemGravitySwapTypeId.setText("" + msg.getSwapTypeId());
+
+            Coin coin0 = new Coin(msg.getOfferCoin().getDenom(), msg.getOfferCoin().getAmount());
+            Coin coin1 = new Coin(msg.getOfferCoinFee().getDenom(), msg.getOfferCoinFee().getAmount());
+
+            WDp.showCoinDp(c, coin0, itemGravitySwapCoinSymbol, itemGravitySwapCoinAmount, baseChain);
+            WDp.showCoinDp(c, coin1, itemGravitySwapCoinFeeSymbol, itemGravitySwapCoinFeeAmount, baseChain);
+
+            itemGravitySwapDemandDenom.setText(msg.getDemandCoinDenom());
+            itemGravitySwapOrderPrice.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getOrderPrice()),18, 18));
+
+        } catch (Exception e) { }
+    }
+}

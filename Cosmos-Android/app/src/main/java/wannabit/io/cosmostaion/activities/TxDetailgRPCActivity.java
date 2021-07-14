@@ -27,6 +27,8 @@ import akash.market.v1beta1.BidOuterClass;
 import akash.market.v1beta1.LeaseOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
+import gravity.v1.Pool;
+import gravity.v1.Types;
 import ibc.applications.transfer.v1.Tx;
 import io.grpc.stub.StreamObserver;
 import wannabit.io.cosmostaion.R;
@@ -44,6 +46,10 @@ import wannabit.io.cosmostaion.widget.txDetail.TxCreateDeploymentHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateLeaseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
+import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityCreatePoolHolder;
+import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityDepositHolder;
+import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravitySwapHolder;
+import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityWithdrawHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCAcknowledgeHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCReceiveHolder;
 import wannabit.io.cosmostaion.widget.txDetail.ibc.TxIBCSendHolder;
@@ -234,6 +240,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_UNLOCK_TOKEN_ALL = 46;
         private static final int TYPE_TX_UNLOCK_PERIOD_LOCK = 47;
 
+        private static final int TYPE_TX_GRAVITY_CREATE_POOL = 50;
+        private static final int TYPE_TX_GRAVITY_SWAP_WITHIN_BATCH = 51;
+        private static final int TYPE_TX_GRAVITY_DEPOSIT_WITHIN_BATCH = 52;
+        private static final int TYPE_TX_GRAVITY_WITHDRAW_WITHIN_BATCH = 53;
+
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -345,6 +356,19 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_UNLOCK_PERIOD_LOCK) {
                 return new TxUnlockPeriodHolder(getLayoutInflater().inflate(R.layout.item_tx_unlock_period, viewGroup, false));
             }
+
+            else if (viewType == TYPE_TX_GRAVITY_CREATE_POOL) {
+                return new TxGravityCreatePoolHolder(getLayoutInflater().inflate(R.layout.item_tx_gravity_create_pool, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_GRAVITY_SWAP_WITHIN_BATCH) {
+                return new TxGravitySwapHolder(getLayoutInflater().inflate(R.layout.item_tx_gravity_swap_within_batch, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_GRAVITY_DEPOSIT_WITHIN_BATCH) {
+                return new TxGravityDepositHolder(getLayoutInflater().inflate(R.layout.item_tx_gravity_deposit_within_batch, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_GRAVITY_WITHDRAW_WITHIN_BATCH) {
+                return new TxGravityWithdrawHolder(getLayoutInflater().inflate(R.layout.item_tx_gravity_withdraw_within_batch, viewGroup, false));
+            }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
         }
@@ -451,6 +475,16 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_UNLOCK_TOKEN_ALL;
                 } else if (msg.getTypeUrl().contains(osmosis.lockup.Tx.MsgUnlockPeriodLock.getDescriptor().getFullName())) {
                     return TYPE_TX_UNLOCK_PERIOD_LOCK;
+                }
+
+                else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgCreatePool.getDescriptor().getFullName())) {
+                    return TYPE_TX_GRAVITY_CREATE_POOL;
+                } else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgSwapWithinBatch.getDescriptor().getFullName())) {
+                    return TYPE_TX_GRAVITY_SWAP_WITHIN_BATCH;
+                } else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgDepositWithinBatch.getDescriptor().getFullName())) {
+                    return TYPE_TX_GRAVITY_DEPOSIT_WITHIN_BATCH;
+                } else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgWithdrawWithinBatch.getDescriptor().getFullName())) {
+                    return TYPE_TX_GRAVITY_WITHDRAW_WITHIN_BATCH;
                 }
                 return TYPE_TX_UNKNOWN;
             }
