@@ -47,6 +47,15 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
+            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getBandApi(mApp).getAccountTxs(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
             } else if (mChain.equals(BaseChain.CERTIK_MAIN)) {
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getCertikApi(mApp).getAccountTxs(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
@@ -186,12 +195,12 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getBandApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                }
+//            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+//                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getBandApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+//                if (response.isSuccessful() && response.body() != null) {
+//                    mResult.resultData = response.body();
+//                    mResult.isSuccess = true;
+//                }
 
             }
 

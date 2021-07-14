@@ -189,8 +189,6 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_submit_proposal);
                 } else if (msgType.contains("MsgVote")) {
                     result = c.getString(R.string.tx_vote);
-                } else if (msgType.contains("MsgDeposit")) {
-                    result = c.getString(R.string.tx_deposit);
                 } else if (msgType.contains("MsgWithdrawValidatorCommission")) {
                     result = c.getString(R.string.tx_get_commission);
                 } else if (msgType.contains("MsgCreateBid")) {
@@ -274,6 +272,20 @@ public class ResApiNewTxListCustom {
 
                 } else if (msgType.contains("MsgUnlockPeriodLock")) {
                     result = c.getString(R.string.tx_osmosis_periodlock_unlock);
+                }
+
+                else if (msgType.contains("MsgSwapWithinBatch")) {
+                    result = c.getString(R.string.tx_gravity_swap_batch);
+
+                } else if (msgType.contains("MsgDepositWithinBatch")) {
+                    result = c.getString(R.string.tx_gravity_deposit_batch);
+
+                } else if (msgType.contains("MsgWithdrawWithinBatch")) {
+                    result = c.getString(R.string.tx_gravity_withdraw_batch);
+                }
+
+                else if (msgType.contains("MsgDeposit")) {
+                    result = c.getString(R.string.tx_deposit);
                 }
 
                 if (getMsgCnt() > 1) {

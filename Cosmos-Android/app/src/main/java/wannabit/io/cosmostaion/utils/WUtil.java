@@ -1497,12 +1497,12 @@ public class WUtil {
                 }
             }
 
-        } else if (basechain.equals(BAND_MAIN)) {
-            result = result + ",uband";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
+//        } else if (basechain.equals(BAND_MAIN)) {
+//            result = result + ",uband";
+//            for (Coin coin: basedata.mGrpcBalance) {
+//                if (coin.denom != WDp.mainDenom(basechain)) {
+//                }
+//            }
 
         } else if (basechain.equals(OSMOSIS_MAIN)) {
             result = result + ",uosmo,uion";
@@ -1525,6 +1525,9 @@ public class WUtil {
 
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
             result = result + ",okb,okt";
+
+        } else if (basechain.equals(BAND_MAIN)) {
+            result = result + ",uband";
 
         } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
             result = result + ",uctk";
@@ -2557,10 +2560,10 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(BAND_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(BAND_GAS_RATE_TINY);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+//        } else if (basechain.equals(BAND_MAIN)) {
+//            BigDecimal gasRate = new BigDecimal(BAND_GAS_RATE_TINY);
+//            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+//            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(RIZON_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
@@ -2584,6 +2587,9 @@ public class WUtil {
         }
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
+            return BigDecimal.ZERO;
+
+        } else if (basechain.equals(BAND_MAIN)) {
             return BigDecimal.ZERO;
 
         } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
@@ -2677,13 +2683,13 @@ public class WUtil {
             }
             return new BigDecimal(STARNAME_GAS_RATE_AVERAGE);
 
-        } else if (basechain.equals(BAND_MAIN)) {
-            if (position == 0) {
-                return new BigDecimal(BAND_GAS_RATE_TINY);
-            } else if (position == 1) {
-                return new BigDecimal(BAND_GAS_RATE_LOW);
-            }
-            return new BigDecimal(BAND_GAS_RATE_AVERAGE);
+//        } else if (basechain.equals(BAND_MAIN)) {
+//            if (position == 0) {
+//                return new BigDecimal(BAND_GAS_RATE_TINY);
+//            } else if (position == 1) {
+//                return new BigDecimal(BAND_GAS_RATE_LOW);
+//            }
+//            return new BigDecimal(BAND_GAS_RATE_AVERAGE);
 
         }
 
@@ -2694,6 +2700,14 @@ public class WUtil {
                 return new BigDecimal(KAVA_GAS_RATE_LOW);
             }
             return new BigDecimal(KAVA_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(BAND_MAIN)) {
+            if (position == 0) {
+                return BigDecimal.ZERO.setScale(3);
+            } else if (position == 1) {
+                return new BigDecimal(BAND_GAS_RATE_LOW);
+            }
+            return new BigDecimal(BAND_GAS_RATE_AVERAGE);
 
         } else if (basechain.equals(BAND_MAIN)) {
             if (position == 0) {
