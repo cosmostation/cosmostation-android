@@ -194,20 +194,20 @@ public struct ApiHistoryNewCustom {
             }
             
             else if (msgType.contains("MsgCreatePool")) {
-                result = NSLocalizedString("tx_osmosis_create_pool", comment: "")
+                result = NSLocalizedString("tx_create_pool", comment: "")
                 
             } else if (msgType.contains("MsgJoinPool")) {
-                result = NSLocalizedString("tx_osmosis_join_pool", comment: "")
+                result = NSLocalizedString("tx_join_pool", comment: "")
                 
             } else if (msgType.contains("MsgExitPool")) {
-                result = NSLocalizedString("tx_osmosis_exit_pool", comment: "")
+                result = NSLocalizedString("tx_exit_pool", comment: "")
                 
             } else if (msgType.contains("MsgSwapExactAmountIn") || msgType.contains("MsgSwapExactAmountOut")) {
-                result = NSLocalizedString("tx_osmosis_coin_swap", comment: "")
+                result = NSLocalizedString("tx_coin_swap", comment: "")
                 
             } else if (msgType.contains("MsgJoinSwapExternAmountIn") || msgType.contains("MsgJoinSwapShareAmountOut") ||
                         msgType.contains("MsgExitSwapExternAmountOut") || msgType.contains("MsgExitSwapShareAmountIn")) {
-                result = NSLocalizedString("tx_osmosis_coin_swap", comment: "")
+                result = NSLocalizedString("tx_coin_swap", comment: "")
                 
             } else if (msgType.contains("MsgLockTokens")) {
                 result = NSLocalizedString("tx_osmosis_token_lockup", comment: "")
@@ -230,6 +230,17 @@ public struct ApiHistoryNewCustom {
 //
 //            }
             
+            else if (msgType.contains("MsgDepositWithinBatch")) {
+                result = NSLocalizedString("tx_join_pool", comment: "")
+                
+            } else if (msgType.contains("MsgSwapWithinBatch")) {
+                result = NSLocalizedString("tx_coin_swap", comment: "")
+                
+            } else if (msgType.contains("MsgWithdrawWithinBatch")) {
+                result = NSLocalizedString("tx_exit_pool", comment: "")
+                
+            }
+            
             if (getMsgCnt() > 1) {
                 result = result +  " + " + String(getMsgCnt() - 1)
             }
@@ -238,7 +249,51 @@ public struct ApiHistoryNewCustom {
         return result
     }
     
-    public func getDpCoin() -> Coin? {
+    public func getDpCoin(_ chain: ChainType) -> Coin? {
+        //display staking reward amount
+        if (getMsgCnt() > 0) {
+            var allReward = true
+            for msg in getMsgs()! {
+                var msgType = ""
+                if let rawMsgType = msg.object(forKey: "@type") as? String { msgType = rawMsgType }
+                if let rawMsgType = msg.object(forKey: "type") as? String { msgType = rawMsgType }
+                if (!msgType.contains("MsgWithdrawDelegatorReward")) {
+                    allReward = false
+                }
+            }
+            if (allReward) {
+                if (self.data != nil && self.data?.logs != nil) {
+                    var totalRewardSum = NSDecimalNumber.zero
+                    for log in self.data!.logs! {
+                        if let rawEvents = log.value(forKeyPath: "events") as? Array<NSDictionary> {
+                            if let rawAttributes = rawEvents[1].object(forKey: "attributes") as? Array<NSDictionary> {
+                                if let amount = rawAttributes[2].object(forKey: "value") as? String {
+                                    totalRewardSum = totalRewardSum.adding(NSDecimalNumber.init(string: amount.filter{$0.isNumber}))
+                                }
+                            }
+                        }
+                    }
+                    return Coin.init(WUtils.getMainDenom(chain), totalRewardSum.stringValue)
+                }
+            }
+        }
+        
+        //display re-invset amount
+        if (getMsgCnt() == 2) {
+            var msgType0 = ""
+            var msgType1 = ""
+            if let rawMsgType = getMsgs()?[0].object(forKey: "@type") as? String { msgType0 = rawMsgType }
+            if let rawMsgType = getMsgs()?[0].object(forKey: "type") as? String { msgType0 = rawMsgType }
+            if let rawMsgType = getMsgs()?[1].object(forKey: "@type") as? String { msgType1 = rawMsgType }
+            if let rawMsgType = getMsgs()?[1].object(forKey: "type") as? String { msgType1 = rawMsgType }
+            if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
+                if let rawAmount = getMsgs()?[1].object(forKey: "amount") as? NSDictionary {
+                    return Coin.init(rawAmount)
+                }
+            }
+        }
+        
+        
         if (getMsgCnt() == 0 || getMsgCnt() > 1) { return nil }
         
         var msgType = ""
@@ -267,6 +322,28 @@ public struct ApiHistoryNewCustom {
             }
         }
         return nil
+    }
+    
+    public func getVoteOption() -> String {
+        var result = ""
+        
+        var msgType = ""
+        if let rawMsgType = getMsgs()?[0].object(forKey: "@type") as? String { msgType = rawMsgType }
+        if let rawMsgType = getMsgs()?[0].object(forKey: "type") as? String { msgType = rawMsgType }
+        if (msgType.contains("MsgVote")) {
+            if let rawOption = getMsgs()?[0].object(forKey: "option") as? String {
+                if (rawOption == "VOTE_OPTION_YES") {
+                    result = "YES"
+                } else if (rawOption == "VOTE_OPTION_ABSTAIN") {
+                    result = "ABSTAIN"
+                } else if (rawOption == "VOTE_OPTION_NO") {
+                    result = "NO"
+                } else if (rawOption == "VOTE_OPTION_NO_WITH_VETO") {
+                    result = "VETO"
+                }
+            }
+        }
+        return result
     }
     
     
@@ -298,7 +375,7 @@ public struct ApiHistoryNewCustomData {
     var gas_used: String?
     var timestamp: String?
     var tx: NSDictionary?
-    var logs: NSDictionary?
+    var logs: Array<NSDictionary>?
     
     init(_ dictionary: NSDictionary?) {
         self.height = dictionary?["height"] as? String
@@ -312,7 +389,7 @@ public struct ApiHistoryNewCustomData {
         self.gas_used = dictionary?["gas_used"] as? String
         self.timestamp = dictionary?["timestamp"] as? String
         self.tx = dictionary?["tx"] as? NSDictionary
-        self.logs = dictionary?["logs"] as? NSDictionary
+        self.logs = dictionary?["logs"] as? Array<NSDictionary>
     }
     
 }

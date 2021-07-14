@@ -362,7 +362,7 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
             onShowEnginerModeDialog()
         } else {
             BaseData.instance.setUsingEnginerMode(false)
-            self.onShowToast("Enginer Mode Disabled")
+            self.onShowToast("Engineer Mode Disabled")
         }
     }
     
@@ -424,10 +424,36 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
             self.dismiss(animated: true, completion: nil)
         }))
         enginerAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .destructive, handler: { _ in
-            BaseData.instance.setUsingEnginerMode(true)
-            self.onShowToast("Enginer Mode Enabled")
+            self.onShowPasscodeEnginerModeDialog()
         }))
         self.present(enginerAlert, animated: true)
+    }
+    
+    func onShowPasscodeEnginerModeDialog() {
+        let passcodeAlert = UIAlertController(title: "password", message: nil, preferredStyle: .alert)
+        passcodeAlert.addTextField { (textField) in
+            textField.placeholder = "insert password"
+        }
+        passcodeAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: { _ in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        
+        passcodeAlert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { _ in
+            let textField = passcodeAlert.textFields![0]
+            let trimmedString = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            if (trimmedString == "ibcwallet") {
+                self.enginerModeSwitch.setOn(true, animated: false)
+                BaseData.instance.setUsingEnginerMode(true)
+                self.onShowToast("Engineer Mode Enabled")
+            } else {
+                self.onShowToast("Wrong Password")
+            }
+        }))
+        self.present(passcodeAlert, animated: true) {
+            self.enginerModeSwitch.setOn(false, animated: false)
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            passcodeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
     }
     
     func scannedAddress(result: String) {

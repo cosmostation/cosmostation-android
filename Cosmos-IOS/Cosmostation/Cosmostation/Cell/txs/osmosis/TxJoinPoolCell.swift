@@ -18,7 +18,9 @@ class TxJoinPoolCell: TxCell {
     @IBOutlet weak var txPoolAsset1DenomLabel: UILabel!
     @IBOutlet weak var txPoolAsset2AmountLabel: UILabel!
     @IBOutlet weak var txPoolAsset2DenomLabel: UILabel!
-
+    @IBOutlet weak var txPoolOutAmountLabel: UILabel!
+    @IBOutlet weak var txPoolOutDenomLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -39,11 +41,59 @@ class TxJoinPoolCell: TxCell {
         
         txPoolShareOutAmountLabel.text = NSDecimalNumber.init(string: msg.shareOutAmount).multiplying(byPowerOf10: -18).rounding(accordingToBehavior: WUtils.handler18).stringValue
         
-        let coin0 = Coin.init(msg.tokenInMaxs[0].denom, msg.tokenInMaxs[0].amount)
-        let coin1 = Coin.init(msg.tokenInMaxs[1].denom, msg.tokenInMaxs[1].amount)
+        var inCoins: Array<Coin> = Array<Coin>()
+        if response.txResponse.logs.count > position {
+            response.txResponse.logs[position].events.forEach { event in
+                if (event.type == "transfer") {
+                    if (event.attributes.count >= 6) {
+                        for rawInCoin in event.attributes[2].value.split(separator: ",") {
+                            let inCoin = String(rawInCoin)
+                            if let range = inCoin.range(of: "[0-9]*", options: .regularExpression) {
+                                let amount = String(inCoin[range])
+                                inCoins.append(Coin.init(inCoin.replacingOccurrences(of: amount, with: ""), amount))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        print("inCoins ", inCoins)
+        if (inCoins.count == 2) {
+            WUtils.showCoinDp(inCoins[0], txPoolAsset1DenomLabel, txPoolAsset1AmountLabel, chain)
+            WUtils.showCoinDp(inCoins[1], txPoolAsset2DenomLabel, txPoolAsset2AmountLabel, chain)
+            
+        } else {
+            txPoolAsset1AmountLabel.text = ""
+            txPoolAsset1DenomLabel.text = ""
+            txPoolAsset2AmountLabel.text = ""
+            txPoolAsset2DenomLabel.text = ""
+        }
         
-        WUtils.showCoinDp(coin0, txPoolAsset1DenomLabel, txPoolAsset1AmountLabel, chain)
-        WUtils.showCoinDp(coin1, txPoolAsset2DenomLabel, txPoolAsset2AmountLabel, chain)
+        
+        var outCoin: Coin?
+        if response.txResponse.logs.count > position {
+            response.txResponse.logs[position].events.forEach { event in
+                if (event.type == "transfer") {
+                    if (event.attributes.count >= 6) {
+                        for rawCoin in event.attributes[5].value.split(separator: ",") {
+                            let coin = String(rawCoin)
+                            if let range = coin.range(of: "[0-9]*", options: .regularExpression){
+                                let amount = String(coin[range])
+                                outCoin = Coin.init(coin.replacingOccurrences(of: amount, with: ""), amount)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        print("outCoin ", outCoin)
+        if (outCoin != nil) {
+            WUtils.showCoinDp(outCoin!, txPoolOutDenomLabel, txPoolOutAmountLabel, chain)
+            
+        } else {
+            txPoolOutAmountLabel.text = ""
+            txPoolOutDenomLabel.text = ""
+        }
     }
     
 }
