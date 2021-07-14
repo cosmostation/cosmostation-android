@@ -207,7 +207,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             }
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
             if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) ||
-                    getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(RIZON_TEST)) {
+                    getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(RIZON_TEST)) {
                 ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>) result.resultData;
                 if (hits != null && hits.size() > 0) {
 //                  WLog.w("Custom hit size " + hits.size());
@@ -267,7 +267,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) ||
-                    getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(RIZON_TEST)) {
+                    getMainActivity().mBaseChain.equals(IOV_MAIN) ||  getMainActivity().mBaseChain.equals(RIZON_TEST)) {
                 HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
                 holder.onBindNewHistory(getMainActivity(), history);
@@ -294,7 +294,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         @Override
         public int getItemViewType(int position) {
             if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) ||
-                    getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(RIZON_TEST)) {
+                    getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(RIZON_TEST)) {
                 return TYPE_NEW_HISTORY;
             } else {
                 return TYPE_OLD_HISTORY;
@@ -308,7 +308,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 return mOkHistory.size();
             } else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) ||
-                getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(BAND_MAIN) || getMainActivity().mBaseChain.equals(RIZON_TEST)) {
+                getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(RIZON_TEST)) {
                 return mApiNewTxCustomHistory.size();
             } else if (isGRPC(getMainActivity().mBaseChain)) {
                 return mApiTxCustomHistory.size();
