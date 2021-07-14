@@ -77,16 +77,16 @@ class ValidatorDetailMyDetailCell: UITableViewCell {
         }
         validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType, validator!.operatorAddress))!)
         
-        //display for band oracle status
-        if (chainType == ChainType.BAND_MAIN) {
-            if (!BaseData.instance.mBandOracle_gRPC.contains { $0.address == validator?.operatorAddress}) {
-                bandOracleImg.image = UIImage(named: "bandoracleoffl")
-                avergaeYield.textColor = UIColor.init(hexString: "f31963")
-            } else {
-                bandOracleImg.image = UIImage(named: "bandoracleonl")
-            }
-            bandOracleImg.isHidden = false
-        }
+//        //display for band oracle status
+//        if (chainType == ChainType.BAND_MAIN) {
+//            if (!BaseData.instance.mBandOracle_gRPC.contains { $0.address == validator?.operatorAddress}) {
+//                bandOracleImg.image = UIImage(named: "bandoracleoffl")
+//                avergaeYield.textColor = UIColor.init(hexString: "f31963")
+//            } else {
+//                bandOracleImg.image = UIImage(named: "bandoracleonl")
+//            }
+//            bandOracleImg.isHidden = false
+//        }
         
         
         //temp hide apr for no mint param chain
