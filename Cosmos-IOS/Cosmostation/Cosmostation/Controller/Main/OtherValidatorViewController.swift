@@ -142,6 +142,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
             cell.cardView.backgroundColor = COLOR_BG_GRAY
         }
         
+        //band rollback
         if (chainType == ChainType.BAND_MAIN) {
             cell.bandOracleOffImg.isHidden = false
         }
