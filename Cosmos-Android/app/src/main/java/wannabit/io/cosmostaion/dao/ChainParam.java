@@ -11,6 +11,7 @@ import java.util.List;
 
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -56,6 +57,15 @@ public class ChainParam {
 
         @SerializedName("gov_tallying")
         public GovTallyings govTallyings;
+
+        @SerializedName("osmosis_minting_params")
+        public OsmosisMingtingParams osmosisMingtingParams;
+
+        @SerializedName("minting_epoch_provisions")
+        public MintingEpochProvision mintingEpochProvision;
+
+        @SerializedName("enabled_pools")
+        public ArrayList<Integer> mEnabledPools;
 
 
         public BigDecimal getMintInflation(BaseChain baseChain) {
@@ -177,6 +187,10 @@ public class ChainParam {
                 return new BigDecimal(govTallyings.quorum).movePointRight(2);
             }
         }
+    }
+
+    public boolean isPoolEnabled(int id) {
+        return params.mEnabledPools.contains(id);
     }
 
 
@@ -414,8 +428,52 @@ public class ChainParam {
             @SerializedName("initial_supply")
             public String inital_supply;
         }
-
     }
+
+    public class OsmosisMingtingParams {
+        @SerializedName("params")
+        public OsmosisMingtingParam params;
+
+        public class OsmosisMingtingParam {
+            @SerializedName("mint_denom")
+            public String mint_denom;
+
+            @SerializedName("epoch_identifier")
+            public String epoch_identifier;
+
+            @SerializedName("reduction_factor")
+            public String reduction_factor;
+
+            @SerializedName("genesis_epoch_provisions")
+            public String genesis_epoch_provisions;
+
+            @SerializedName("reduction_period_in_epochs")
+            public String reduction_period_in_epochs;
+
+            @SerializedName("distribution_proportions")
+            public DistributionProportions distributionProportions;
+        }
+    }
+
+    public class DistributionProportions {
+        @SerializedName("staking")
+        public String staking;
+
+        @SerializedName("community_pool")
+        public String community_pool;
+
+        @SerializedName("pool_incentives")
+        public String pool_incentives;
+
+        @SerializedName("developer_rewards")
+        public String developer_rewards;
+    }
+
+    public class MintingEpochProvision {
+        @SerializedName("epoch_provisions")
+        public String epoch_provisions;
+    }
+
 }
 
 

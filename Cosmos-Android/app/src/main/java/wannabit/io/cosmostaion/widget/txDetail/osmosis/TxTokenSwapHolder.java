@@ -94,9 +94,6 @@ public class TxTokenSwapHolder extends TxHolder {
                 itemSwapCoinSender.setText(msg.getSender());
                 itemSwapCoinPoolId.setText("" + msg.getRoutes(0).getPoolId());
 
-                Coin coinOut = new Coin(msg.getTokenOut().getDenom(), msg.getTokenOut().getAmount());
-                WDp.showCoinDp(c, coinOut, itemSwapTokenOutAmountSymbol, itemSwapTokenOutAmount, baseChain);
-
                 Coin inCoin = null;
                 if (response.getTxResponse().getLogsCount() > position) {
                     for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
