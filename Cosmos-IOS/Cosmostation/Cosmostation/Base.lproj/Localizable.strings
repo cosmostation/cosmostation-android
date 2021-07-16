@@ -306,6 +306,8 @@
 "str_apr_help_onchain_msg" = "With on chain params";
 "str_apr_help_real_msg" = "With real block time";
 "str_apr_help_msg" = "This figure is an estimated percentage calculated by taking into account the current average network block time.";
+"str_select_coin_swap_in" = "Select Coin to Swap In.";
+"str_select_coin_swap_out" = "Select Coin to Swap Out.";
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";
 "creat_cdp_step_1" = "Insert memo (optional)";

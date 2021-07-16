@@ -278,6 +278,8 @@
 "str_apr_help_onchain_msg" = "체인 타겟 수익율";
 "str_apr_help_real_msg" = "실제 블럭타임 기준 수익율";
 "str_apr_help_msg" = "현재 체인의 평균 블럭 시간을 바탕으로 계산한 연간 위임 예상 수익율 입니다.";
+"str_select_coin_swap_in" = "스왑 할 코인을 골라주세요.";
+"str_select_coin_swap_out" = "스왑 할 코인을 골라주세요.";
 
 "current_price_format" = "현재 %@ 가격";
 "liquidation_price_format" = "청산 %@ 가격";

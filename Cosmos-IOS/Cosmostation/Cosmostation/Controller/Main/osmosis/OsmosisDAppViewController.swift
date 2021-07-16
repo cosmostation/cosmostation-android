@@ -107,6 +107,25 @@ extension WUtils {
         }
     }
     
+    static func getOsmosisTokenImg(_ denom: String) -> UIImage? {
+        if (denom == OSMOSIS_MAIN_DENOM) {
+            return UIImage(named: "tokenOsmosis")
+            
+        } else if (denom == OSMOSIS_ION_DENOM) {
+            return UIImage(named: "tokenIon")
+            
+        } else if (denom.starts(with: "gamm/pool/")) {
+            return UIImage(named: "tokenPool")
+            
+        } else if (denom.starts(with: "ibc/")) {
+            if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")), let url = URL(string: ibcToken.moniker!), let data = try? Data(contentsOf: url) {
+                return UIImage(data: data)?.resized(to: CGSize(width: 20, height: 20))
+            }
+        }
+        return UIImage(named: "tokenDefaultIbc")
+            
+    }
+    
     static func getOsmosisTokenName(_ denom: String) -> String {
         if (denom == OSMOSIS_MAIN_DENOM) {
             return "OSMO"
@@ -127,6 +146,18 @@ extension WUtils {
         return denom
     }
     
+    static func getOsmosisCoinDecimal(_ denom: String?) -> Int16 {
+        if (denom?.caseInsensitiveCompare(OSMOSIS_MAIN_DENOM) == .orderedSame) { return 6; }
+        else if (denom?.caseInsensitiveCompare(OSMOSIS_ION_DENOM) == .orderedSame) { return 6; }
+        else if (denom!.starts(with: "gamm/pool/")) { return 18; }
+        else if (denom!.starts(with: "ibc/")) {
+            if let ibcToken = BaseData.instance.getIbcToken(denom!.replacingOccurrences(of: "ibc/", with: "")) {
+                return ibcToken.decimal!
+            }
+        }
+        return 6;
+    }
+    
     
     
     static func isAssetHasDenom(_ assets: [Osmosis_Gamm_V1beta1_PoolAsset], _ denom: String?) -> Bool {
@@ -136,4 +167,12 @@ extension WUtils {
         return true
     }
     
+}
+
+extension UIImage {
+    func resized(to size: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
 }

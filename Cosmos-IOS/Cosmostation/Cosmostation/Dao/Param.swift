@@ -112,6 +112,10 @@ public struct Param {
         return NSDecimalNumber.zero
     }
     
+    func isPoolEnabled(_ id: Int) -> Bool? {
+        return params?.enabled_pools?.contains(id)
+    }
+    
 }
 
 public struct Params {
