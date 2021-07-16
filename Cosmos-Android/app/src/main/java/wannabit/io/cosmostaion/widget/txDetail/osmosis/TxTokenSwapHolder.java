@@ -46,26 +46,41 @@ public class TxTokenSwapHolder extends TxHolder {
                 itemSwapCoinSender.setText(msg.getSender());
                 itemSwapCoinPoolId.setText("" + msg.getRoutes(0).getPoolId());
 
-                Coin coinIn = new Coin(msg.getTokenIn().getDenom(), msg.getTokenIn().getAmount());
-                WDp.showCoinDp(c, coinIn, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount, baseChain);
-
-                Coin coinOut = null;
+                Coin inCoin = null;
                 if (response.getTxResponse().getLogsCount() > position) {
                     for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
                         if (event.getType().equals("transfer")) {
-                            int attributeCnt = event.getAttributesCount();
-                            if (event.getAttributes(attributeCnt - 1).getKey().equals("amount")) {
-                                String value = event.getAttributes(attributeCnt - 1).getValue();
-                                coinOut = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
+                            if (event.getAttributesCount() >= 6) {
+                                String value = event.getAttributes(2).getValue();
+                                inCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
                             }
                         }
                     }
                 }
-                if (coinOut != null) {
-                    WDp.showCoinDp(c, coinOut, itemSwapTokenOutAmountSymbol, itemSwapTokenOutAmount, baseChain);
+                if (inCoin != null) {
+                    WDp.showCoinDp(c, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount, baseChain );
                 } else {
-                    itemSwapTokenOutAmountSymbol.setText("");
+                    itemSwapTokenInAmount.setText("");
+                    itemSwapTokenInAmountSymbol.setText("");
+                }
+
+                Coin outCoin = null;
+                if (response.getTxResponse().getLogsCount() > position) {
+                    for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
+                        if (event.getType().equals("transfer")) {
+                            if (event.getAttributesCount() >= 6) {
+                                String value = event.getAttributes(event.getAttributesCount() - 1).getValue();
+                                WLog.w("SSS : " + value);
+                                outCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                            }
+                        }
+                    }
+                }
+                if (outCoin != null) {
+                    WDp.showCoinDp(c, outCoin, itemSwapTokenOutAmountSymbol, itemSwapTokenOutAmount, baseChain);
+                } else {
                     itemSwapTokenOutAmount.setText("");
+                    itemSwapTokenOutAmountSymbol.setText("");
                 }
                 return;
             } catch (Exception e) { }
@@ -82,22 +97,41 @@ public class TxTokenSwapHolder extends TxHolder {
                 Coin coinOut = new Coin(msg.getTokenOut().getDenom(), msg.getTokenOut().getAmount());
                 WDp.showCoinDp(c, coinOut, itemSwapTokenOutAmountSymbol, itemSwapTokenOutAmount, baseChain);
 
-                Coin coinIn = null;
+                Coin inCoin = null;
                 if (response.getTxResponse().getLogsCount() > position) {
                     for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
                         if (event.getType().equals("transfer")) {
-                            if (event.getAttributesCount() >= 2 && event.getAttributes(2).getKey().equals("amount")) {
+                            if (event.getAttributesCount() >= 6) {
                                 String value = event.getAttributes(2).getValue();
-                                coinIn = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
+                                inCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
                             }
                         }
                     }
                 }
-                if (coinIn != null) {
-                    WDp.showCoinDp(c, coinIn, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount, baseChain);
+                if (inCoin != null) {
+                    WDp.showCoinDp(c, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount, baseChain);
                 } else {
-                    itemSwapTokenInAmountSymbol.setText("");
                     itemSwapTokenInAmount.setText("");
+                    itemSwapTokenInAmountSymbol.setText("");
+                }
+
+                Coin outCoin = null;
+                if (response.getTxResponse().getLogsCount() > position) {
+                    for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
+                        if (event.getType().equals("transfer")) {
+                            if (event.getAttributesCount() >= 6) {
+                                String value = event.getAttributes(event.getAttributesCount() - 1).getValue();
+                                WLog.w("SSS : " + value);
+                                outCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                            }
+                        }
+                    }
+                }
+                if (outCoin != null) {
+                    WDp.showCoinDp(c, outCoin, itemSwapTokenOutAmountSymbol, itemSwapTokenOutAmount, baseChain);
+                } else {
+                    itemSwapTokenOutAmount.setText("");
+                    itemSwapTokenOutAmountSymbol.setText("");
                 }
                 return;
             } catch (Exception e) { }
