@@ -202,7 +202,7 @@ class SwapViewController: BaseViewController, SBCardPopupDelegate {
                         self.mPoolList.append(rawPool)
                     }
                 }
-                print("mPoolList ", self.mPoolList.count)
+//                print("mPoolList ", self.mPoolList.count)
                 self.mPoolList.forEach { pool in
                     pool.poolAssets.forEach { poolAsset in
                         if (!self.mAllDenoms.contains(poolAsset.token.denom)) {
@@ -210,7 +210,7 @@ class SwapViewController: BaseViewController, SBCardPopupDelegate {
                         }
                     }
                 }
-                print("mAllDenoms ", self.mAllDenoms.count)
+//                print("mAllDenoms ", self.mAllDenoms.count)
                 
                 self.mSelectedPool = self.mPoolList[0]
                 self.mInputCoinDenom = "uosmo"

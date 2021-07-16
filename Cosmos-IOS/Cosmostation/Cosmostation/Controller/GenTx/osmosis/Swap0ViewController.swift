@@ -9,22 +9,43 @@
 import UIKit
 
 class Swap0ViewController: UIViewController {
-
+    
+    @IBOutlet weak var btnCancel: UIButton!
+    @IBOutlet weak var btnNext: UIButton!
+    @IBOutlet weak var loadingImg: LoadingImageView!
+    
+    
+    @IBOutlet weak var inputCoinImg: UIImageView!
+    @IBOutlet weak var inputCoinName: UILabel!
+    @IBOutlet weak var inputCoinAvailableLabel: UILabel!
+    @IBOutlet weak var inputCoinAvailableDenomLabel: UILabel!
+    @IBOutlet weak var inputTextFiled: AmountInputTextField!
+    
+    @IBOutlet weak var outputCoinImg: UIImageView!
+    @IBOutlet weak var outputCoinName: UILabel!
+    @IBOutlet weak var outputCoinAmountLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    
+    @IBAction func onClick1_4(_ sender: UIButton) {
     }
-    */
-
+    
+    @IBAction func onClickHalf(_ sender: UIButton) {
+    }
+    
+    @IBAction func onClick3_4(_ sender: UIButton) {
+    }
+    
+    @IBAction func onClickMax(_ sender: UIButton) {
+    }
+    
+    @IBAction func onClickCancel(_ sender: UIButton) {
+    }
+    
+    @IBAction func onClickNext(_ sender: UIButton) {
+    }
 }

@@ -736,6 +736,8 @@
 		28D7BE7E25F10636006EECD7 /* HardListMyStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28D7BE7C25F10636006EECD7 /* HardListMyStatusCell.xib */; };
 		28D809BD26A177A30030B1BE /* PoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D809BB26A177A30030B1BE /* PoolCell.swift */; };
 		28D809BE26A177A30030B1BE /* PoolCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28D809BC26A177A30030B1BE /* PoolCell.xib */; };
+		28D809C126A19DBA0030B1BE /* MyPoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D809BF26A19DBA0030B1BE /* MyPoolCell.swift */; };
+		28D809C226A19DBA0030B1BE /* MyPoolCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28D809C026A19DBA0030B1BE /* MyPoolCell.xib */; };
 		28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */; };
 		28DB56EB25F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB56E925F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift */; };
 		28DB56EC25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB56EA25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib */; };
@@ -1708,6 +1710,8 @@
 		28D7BE7C25F10636006EECD7 /* HardListMyStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardListMyStatusCell.xib; sourceTree = "<group>"; };
 		28D809BB26A177A30030B1BE /* PoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolCell.swift; sourceTree = "<group>"; };
 		28D809BC26A177A30030B1BE /* PoolCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PoolCell.xib; sourceTree = "<group>"; };
+		28D809BF26A19DBA0030B1BE /* MyPoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPoolCell.swift; sourceTree = "<group>"; };
+		28D809C026A19DBA0030B1BE /* MyPoolCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPoolCell.xib; sourceTree = "<group>"; };
 		28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCheckPopupViewController.swift; sourceTree = "<group>"; };
 		28DB56E925F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardDetailAssetsCell.swift; sourceTree = "<group>"; };
 		28DB56EA25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardDetailAssetsCell.xib; sourceTree = "<group>"; };
@@ -2793,6 +2797,8 @@
 			children = (
 				28D809BB26A177A30030B1BE /* PoolCell.swift */,
 				28D809BC26A177A30030B1BE /* PoolCell.xib */,
+				28D809BF26A19DBA0030B1BE /* MyPoolCell.swift */,
+				28D809C026A19DBA0030B1BE /* MyPoolCell.xib */,
 			);
 			path = osmosis;
 			sourceTree = "<group>";
@@ -3422,6 +3428,7 @@
 				280E1F08254A9B780007BA7D /* RenewStarname3ViewController.xib in Resources */,
 				285A33EB24486DB60052BD3D /* HtlcResultClaimCell.xib in Resources */,
 				283A80D72451436A008FF813 /* CdpDetailAssetsCell.xib in Resources */,
+				28D809C226A19DBA0030B1BE /* MyPoolCell.xib in Resources */,
 				E17748F02284229B003D8CD1 /* GuideListTableViewCell.xib in Resources */,
 				28DB56FD25FA3B9C00B2F0E5 /* HardPoolWithdraw0ViewController.xib in Resources */,
 				04CFBD5E269301780013150B /* TxUnlockTokenCell.xib in Resources */,
@@ -4275,6 +4282,7 @@
 				287AC59025FDF7250070837E /* ibc_applications_transfer_v1_genesis.pb.swift in Sources */,
 				046E903B268C401E002CFFE1 /* BinanceType.swift in Sources */,
 				289EF82426824E4700F90AC1 /* osmosis_incentives_params.pb.swift in Sources */,
+				28D809C126A19DBA0030B1BE /* MyPoolCell.swift in Sources */,
 				E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */,
 				28060E7725427F2C00F13510 /* EventStakeDropCell.swift in Sources */,
 				287AC5F825FDF7260070837E /* token_tx.pb.swift in Sources */,

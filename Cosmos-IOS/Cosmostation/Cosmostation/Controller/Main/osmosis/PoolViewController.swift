@@ -11,12 +11,13 @@ import GRPC
 import NIO
 import SwiftProtobuf
 
-class PoolViewController: BaseViewController {
+class PoolViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var loadingImg: LoadingImageView!
     @IBOutlet weak var poolListTableView: UITableView!
     
-    var mPoolList: Array<Osmosis_Gamm_V1beta1_Pool> = Array<Osmosis_Gamm_V1beta1_Pool>()
+    var mMyPoolList: Array<Osmosis_Gamm_V1beta1_Pool> = Array<Osmosis_Gamm_V1beta1_Pool>()
+    var mOtherPoolList: Array<Osmosis_Gamm_V1beta1_Pool> = Array<Osmosis_Gamm_V1beta1_Pool>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +25,41 @@ class PoolViewController: BaseViewController {
         self.chainType = WUtils.getChainType(account!.account_base_chain)
         self.loadingImg.onStartAnimation()
         
+        self.poolListTableView.delegate = self
+        self.poolListTableView.dataSource = self
+        self.poolListTableView.register(UINib(nibName: "PoolCell", bundle: nil), forCellReuseIdentifier: "PoolCell")
+        self.poolListTableView.register(UINib(nibName: "MyPoolCell", bundle: nil), forCellReuseIdentifier: "MyPoolCell")
+        
         self.onFetchPoolData()
     }
     
     func updateView() {
+        self.poolListTableView.reloadData()
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (section == 0) {
+            return mMyPoolList.count
+        } else {
+            return mOtherPoolList.count
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.section == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"MyPoolCell") as? MyPoolCell
+            cell?.onBindView(mMyPoolList[indexPath.row])
+            return cell!
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"PoolCell") as? PoolCell
+            cell?.onBindView(mOtherPoolList[indexPath.row])
+            return cell!
+        }
     }
 
     
@@ -37,7 +69,8 @@ class PoolViewController: BaseViewController {
             return
         }
         self.mFetchCnt = 1
-        self.mPoolList.removeAll()
+        self.mMyPoolList.removeAll()
+        self.mOtherPoolList.removeAll()
         
         self.onFetchGammPools()
     }
@@ -47,7 +80,7 @@ class PoolViewController: BaseViewController {
         if (mFetchCnt <= 0) {
             self.loadingImg.stopAnimating()
             self.loadingImg.isHidden = true
-//            self.updateView()
+            self.updateView()
         }
     }
     
@@ -68,10 +101,15 @@ class PoolViewController: BaseViewController {
                 response.pools.forEach { pool in
                     let rawPool = try! Osmosis_Gamm_V1beta1_Pool.init(serializedData: pool.value)
                     if (BaseData.instance.mParam?.isPoolEnabled(Int(rawPool.id)) == true) {
-                        self.mPoolList.append(rawPool)
+                        if (BaseData.instance.getAvailableAmount_gRPC("gamm/pool/" + String(rawPool.id)) != NSDecimalNumber.zero) {
+                            self.mMyPoolList.append(rawPool)
+                        } else {
+                            self.mOtherPoolList.append(rawPool)
+                        }
                     }
                 }
-                print("mPoolList ", self.mPoolList.count)
+                print("mMyPoolList ", self.mMyPoolList.count)
+                print("mOtherPoolList ", self.mOtherPoolList.count)
                 
             } catch {
                 print("onFetchGammPools failed: \(error)")
