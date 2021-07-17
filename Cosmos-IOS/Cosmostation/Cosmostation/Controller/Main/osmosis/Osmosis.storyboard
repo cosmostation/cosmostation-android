@@ -95,7 +95,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mp4-KU-Vc6" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                <rect key="frame" x="12" y="36" width="390" height="110"/>
+                                <rect key="frame" x="12" y="60" width="390" height="110"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input Coin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wKX-x2-cRi">
                                         <rect key="frame" x="16" y="16" width="54" height="13.5"/>
@@ -181,7 +181,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zXe-69-Fto" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                <rect key="frame" x="12" y="162" width="390" height="110"/>
+                                <rect key="frame" x="12" y="186" width="390" height="110"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Output Coin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwS-j7-vNx">
                                         <rect key="frame" x="16" y="16" width="63.5" height="13.5"/>
@@ -267,7 +267,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ktP-l6-0WB" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                <rect key="frame" x="12" y="288" width="390" height="120"/>
+                                <rect key="frame" x="12" y="312" width="390" height="120"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pool ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNz-3f-wYd">
                                         <rect key="frame" x="16" y="16" width="37.5" height="13.5"/>
@@ -408,7 +408,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zXe-69-Fto" firstAttribute="leading" secondItem="ktP-l6-0WB" secondAttribute="leading" id="7nj-E2-iUS"/>
-                            <constraint firstItem="JU1-1h-XFL" firstAttribute="top" secondItem="Mp4-KU-Vc6" secondAttribute="top" constant="8" id="CCs-L2-SnO"/>
+                            <constraint firstItem="JU1-1h-XFL" firstAttribute="top" secondItem="Mp4-KU-Vc6" secondAttribute="top" constant="-16" id="CCs-L2-SnO"/>
                             <constraint firstItem="ktP-l6-0WB" firstAttribute="top" secondItem="zXe-69-Fto" secondAttribute="bottom" constant="16" id="QmL-l9-I94"/>
                             <constraint firstItem="Mp4-KU-Vc6" firstAttribute="leading" secondItem="ktP-l6-0WB" secondAttribute="leading" id="Sds-CU-fNt"/>
                             <constraint firstItem="Mp4-KU-Vc6" firstAttribute="trailing" secondItem="ktP-l6-0WB" secondAttribute="trailing" id="WKJ-ey-HIs"/>
@@ -452,7 +452,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DwS-M1-jX2">
-                                <rect key="frame" x="0.0" y="36" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="60" width="414" height="745"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_1" translatesAutoresizingMaskIntoConstraints="NO" id="GVm-z4-LK0" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
@@ -470,7 +470,7 @@
                             <constraint firstItem="GVm-z4-LK0" firstAttribute="centerX" secondItem="zfS-Ui-OfR" secondAttribute="centerX" id="9J5-rr-5wj"/>
                             <constraint firstItem="DwS-M1-jX2" firstAttribute="leading" secondItem="zfS-Ui-OfR" secondAttribute="leading" id="Bxk-DM-Xdm"/>
                             <constraint firstItem="zfS-Ui-OfR" firstAttribute="bottom" secondItem="DwS-M1-jX2" secondAttribute="bottom" id="J7r-q9-RgT"/>
-                            <constraint firstItem="zfS-Ui-OfR" firstAttribute="top" secondItem="DwS-M1-jX2" secondAttribute="top" constant="8" id="KxV-eT-Ezd"/>
+                            <constraint firstItem="zfS-Ui-OfR" firstAttribute="top" secondItem="DwS-M1-jX2" secondAttribute="top" constant="-16" id="KxV-eT-Ezd"/>
                             <constraint firstItem="zfS-Ui-OfR" firstAttribute="trailing" secondItem="DwS-M1-jX2" secondAttribute="trailing" id="WrM-3A-x5T"/>
                         </constraints>
                     </view>

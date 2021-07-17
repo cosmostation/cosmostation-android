@@ -112,6 +112,13 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     var mToSendDenom: String?
     
+    var mPoolId: String?
+    var mSwapInDenom: String?
+    var mSwapOutDenom: String?
+    var mSwapInAmount: NSDecimalNumber?
+    var mSwapOutAmount: NSDecimalNumber?
+    var mPool: Osmosis_Gamm_V1beta1_Pool?
+    
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
             if (WUtils.isGRPC(chainType!)) {
@@ -342,7 +349,17 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
                     ReplaceResource3ViewController(nibName: "ReplaceResource3ViewController", bundle: nil)]
 
-        } else {
+        }
+        
+        else if (mType == OSMOSIS_MSG_TYPE_SWAP) {
+            return [Swap0ViewController(nibName: "Swap0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                    Swap3ViewController(nibName: "Swap3ViewController", bundle: nil)]
+        }
+        
+        
+        else {
             if (WUtils.isGRPC(chainType!)) {
                 return [self.newVc(viewController: "StepRewardViewController"),
                         self.newVc(viewController: "StepMemoViewController"),

@@ -56,7 +56,7 @@ class MyPoolCell: UITableViewCell {
         myLpAmountLabel.attributedText = WUtils.displayAmount2(lpCoin!.amount, myLpAmountLabel.font, 18, 6)
         myLpDenomLabel.text = WUtils.getOsmosisTokenName(lpCoin!.denom)
         
-        let padding = NSDecimalNumber(string: "0.975")
+        let padding = NSDecimalNumber(string: "0.97")
         let totalShares = NSDecimalNumber.init(string: pool.totalShares.amount)
         let myShare = NSDecimalNumber.init(string: lpCoin?.amount)
         let poolAmount0 = NSDecimalNumber.init(string: pool.poolAssets[0].token.amount)
