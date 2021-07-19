@@ -421,6 +421,14 @@
 "str_osmosis_swap_step_1" = "메모를 입력하세요 (선택사항)";
 "str_osmosis_swap_step_2" = "Tx 수수료를 선택하세요";
 "str_osmosis_swap_step_3" = "입력하신 정보를 확인하세요";
+"str_osmosis_join_pool_step_0" = "입금 수량을 입력해주세요";
+"str_osmosis_join_pool_step_1" = "메모를 입력하세요 (선택사항)";
+"str_osmosis_join_pool_step_2" = "Tx 수수료를 선택하세요";
+"str_osmosis_join_pool_step_3" = "입력하신 정보를 확인하세요";
+"str_osmosis_exit_pool_step_0" = "출금 수량을 입력해주세요";
+"str_osmosis_exit_pool_step_1" = "메모를 입력하세요 (선택사항)";
+"str_osmosis_exit_pool_step_2" = "Tx 수수료를 선택하세요";
+"str_osmosis_exit_pool_step_3" = "입력하신 정보를 확인하세요";
 
 "str_description_open_domain" = "Open 타입은 계정 소유자가 계정에 대한 작업을 수행 할 수있는 유일한 엔티티인 도메인 유형입니다.";
 "str_description_closed_domain" = "Closed 타입은 도메인 소유자가 계정을 제어 할 수있는 도메인 유형입니다.";
@@ -522,6 +530,8 @@ support@cosmostation.io";
 "title_repay_hardpool" = "하드 풀 상환";
 "title_dapp_osmosis" = "오스모시스 Lab";
 "title_swap_osmosis" = "코인 스왑";
+"title_pool_join_osmosis" = "풀에 자산 넣기";
+"title_pool_exit_osmosis" = "풀에서 자산 빼기";
 
 
 "proposal_type_basic" = "기본";

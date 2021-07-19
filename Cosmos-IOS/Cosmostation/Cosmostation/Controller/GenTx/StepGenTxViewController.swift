@@ -356,6 +356,18 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepMemoViewController"),
                     StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
                     Swap3ViewController(nibName: "Swap3ViewController", bundle: nil)]
+            
+        } else if (mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
+            return [JoinPool0ViewController(nibName: "JoinPool0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                    JoinPool3ViewController(nibName: "JoinPool3ViewController", bundle: nil)]
+            
+        } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
+            return [ExitPool0ViewController(nibName: "ExitPool0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                    ExitPool3ViewController(nibName: "ExitPool3ViewController", bundle: nil)]
         }
         
         
