@@ -71,7 +71,7 @@ class SwapViewController: BaseViewController, SBCardPopupDelegate {
         }
         inputAssetAmount = inputAssetAmount.multiplying(byPowerOf10: -WUtils.getOsmosisCoinDecimal(mInputCoinDenom))
         outputAssetAmount = outputAssetAmount.multiplying(byPowerOf10: -WUtils.getOsmosisCoinDecimal(mOutputCoinDenom))
-        let swapRate = outputAssetAmount.multiplying(by: outputAssetWeight).dividing(by: inputAssetAmount, withBehavior: WUtils.handler18).dividing(by: inputAssetWeight, withBehavior: WUtils.handler6)
+        let swapRate = outputAssetAmount.multiplying(by: inputAssetWeight).dividing(by: inputAssetAmount, withBehavior: WUtils.handler18).dividing(by: outputAssetWeight, withBehavior: WUtils.handler6)
         print("swapRate ", swapRate)
         
         inputCoinRateAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.one.stringValue, inputCoinRateAmount.font, 0, 6)

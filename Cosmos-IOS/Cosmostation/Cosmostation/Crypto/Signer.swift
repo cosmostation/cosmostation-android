@@ -781,7 +781,6 @@ class Signer {
             $0.denom = inputDenom
             $0.amount = inputAmount
         }
-        
         let rgisterdomainMsg = Osmosis_Gamm_V1beta1_MsgSwapExactAmountIn.with {
             $0.sender = WUtils.onParseAuthGrpc(auth).0!
             $0.routes = swapRoutes
@@ -803,6 +802,32 @@ class Signer {
         }
     }
     
+    static func genSimulateSwapInMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                           _ swapRoutes: [Osmosis_Gamm_V1beta1_SwapAmountInRoute], _ inputDenom: String, _ inputAmount: String, _ outputAmount: String,
+                                           _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        let inputCoin = Cosmos_Base_V1beta1_Coin.with {
+            $0.denom = inputDenom
+            $0.amount = inputAmount
+        }
+        let rgisterdomainMsg = Osmosis_Gamm_V1beta1_MsgSwapExactAmountIn.with {
+            $0.sender = WUtils.onParseAuthGrpc(auth).0!
+            $0.routes = swapRoutes
+            $0.tokenIn = inputCoin
+            $0.tokenOutMinAmount = outputAmount
+            
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/osmosis.gamm.v1beta1.MsgSwapExactAmountIn"
+            $0.value = try! rgisterdomainMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
     
     
     

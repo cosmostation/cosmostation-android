@@ -74,7 +74,7 @@ class Swap0ViewController: BaseViewController, UITextFieldDelegate {
                 outputAssetWeight = NSDecimalNumber.init(string: poolAsset.weight)
             }
         }
-        swapRate = outputAssetAmount.multiplying(by: outputAssetWeight).dividing(by: inputAssetAmount, withBehavior: WUtils.handler18).dividing(by: inputAssetWeight, withBehavior: WUtils.handler18)
+        swapRate = outputAssetAmount.multiplying(by: inputAssetWeight).dividing(by: inputAssetAmount, withBehavior: WUtils.handler18).dividing(by: outputAssetWeight, withBehavior: WUtils.handler18)
         print("swapRate ", swapRate)
     }
     
