@@ -118,6 +118,9 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mSwapInAmount: NSDecimalNumber?
     var mSwapOutAmount: NSDecimalNumber?
     var mPool: Osmosis_Gamm_V1beta1_Pool?
+    var mPoolCoin0: Coin?
+    var mPoolCoin1: Coin?
+    var mLPCoin: Coin?
     
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {

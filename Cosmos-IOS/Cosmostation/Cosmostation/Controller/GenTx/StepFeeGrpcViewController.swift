@@ -290,6 +290,15 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
                                                      self.pageHolderVC.mSwapOutAmount!.stringValue,
                                                      self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
                                                      BaseData.instance.getChainId_gRPC())
+            
+        } else if (pageHolderVC.mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
+            return Signer.genSimulateDepositPoolMsgTxgRPC(auth,
+                                                          self.pageHolderVC.mPoolId!, self.pageHolderVC.mPoolCoin0!, self.pageHolderVC.mPoolCoin1!,
+                                                          self.pageHolderVC.mLPCoin!.amount, self.pageHolderVC.mFee!,
+                                                          self.pageHolderVC.mMemo!,
+                                                          privateKey, publicKey,
+                                                          BaseData.instance.getChainId_gRPC())
+            
         }
         return nil
     }

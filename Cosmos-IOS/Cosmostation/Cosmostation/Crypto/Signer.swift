@@ -781,7 +781,7 @@ class Signer {
             $0.denom = inputDenom
             $0.amount = inputAmount
         }
-        let rgisterdomainMsg = Osmosis_Gamm_V1beta1_MsgSwapExactAmountIn.with {
+        let swapMsg = Osmosis_Gamm_V1beta1_MsgSwapExactAmountIn.with {
             $0.sender = WUtils.onParseAuthGrpc(auth).0!
             $0.routes = swapRoutes
             $0.tokenIn = inputCoin
@@ -790,7 +790,7 @@ class Signer {
         }
         let anyMsg = Google_Protobuf2_Any.with {
             $0.typeURL = "/osmosis.gamm.v1beta1.MsgSwapExactAmountIn"
-            $0.value = try! rgisterdomainMsg.serializedData()
+            $0.value = try! swapMsg.serializedData()
         }
         let txBody = getGrpcTxBody([anyMsg], memo);
         let signerInfo = getGrpcSignerInfo(auth, publicKey);
@@ -809,7 +809,7 @@ class Signer {
             $0.denom = inputDenom
             $0.amount = inputAmount
         }
-        let rgisterdomainMsg = Osmosis_Gamm_V1beta1_MsgSwapExactAmountIn.with {
+        let swapMsg = Osmosis_Gamm_V1beta1_MsgSwapExactAmountIn.with {
             $0.sender = WUtils.onParseAuthGrpc(auth).0!
             $0.routes = swapRoutes
             $0.tokenIn = inputCoin
@@ -818,7 +818,64 @@ class Signer {
         }
         let anyMsg = Google_Protobuf2_Any.with {
             $0.typeURL = "/osmosis.gamm.v1beta1.MsgSwapExactAmountIn"
-            $0.value = try! rgisterdomainMsg.serializedData()
+            $0.value = try! swapMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
+    
+    static func genSignedDepositPoolMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                              _ poolId: String, _ deposit0Coin: Coin, _ deposit1Coin: Coin, _ shareAmount: String,
+                                                 _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let input0Coin = Cosmos_Base_V1beta1_Coin.with { $0.denom = deposit0Coin.denom; $0.amount = deposit0Coin.amount }
+        let input1Coin = Cosmos_Base_V1beta1_Coin.with { $0.denom = deposit1Coin.denom; $0.amount = deposit1Coin.amount }
+        var tokenMax = Array<Cosmos_Base_V1beta1_Coin>()
+        tokenMax.append(input0Coin)
+        tokenMax.append(input1Coin)
+        
+        let joinPoolMsg = Osmosis_Gamm_V1beta1_MsgJoinPool.with {
+            $0.sender = WUtils.onParseAuthGrpc(auth).0!
+            $0.poolID = UInt64(poolId)!
+            $0.tokenInMaxs = tokenMax
+            $0.shareOutAmount = shareAmount
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/osmosis.gamm.v1beta1.MsgJoinPool"
+            $0.value = try! joinPoolMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSimulateDepositPoolMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                _ poolId: String, _ deposit0Coin: Coin, _ deposit1Coin: Coin, _ shareAmount: String,
+                                                _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        let input0Coin = Cosmos_Base_V1beta1_Coin.with { $0.denom = deposit0Coin.denom; $0.amount = deposit0Coin.amount }
+        let input1Coin = Cosmos_Base_V1beta1_Coin.with { $0.denom = deposit1Coin.denom; $0.amount = deposit1Coin.amount }
+        var tokenMax = Array<Cosmos_Base_V1beta1_Coin>()
+        tokenMax.append(input0Coin)
+        tokenMax.append(input1Coin)
+        
+        let joinPoolMsg = Osmosis_Gamm_V1beta1_MsgJoinPool.with {
+            $0.sender = WUtils.onParseAuthGrpc(auth).0!
+            $0.poolID = UInt64(poolId)!
+            $0.tokenInMaxs = tokenMax
+            $0.shareOutAmount = shareAmount
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/osmosis.gamm.v1beta1.MsgJoinPool"
+            $0.value = try! joinPoolMsg.serializedData()
         }
         let txBody = getGrpcTxBody([anyMsg], memo);
         let signerInfo = getGrpcSignerInfo(auth, publicKey);

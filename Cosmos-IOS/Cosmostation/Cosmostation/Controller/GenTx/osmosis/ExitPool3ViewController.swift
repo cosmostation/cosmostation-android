@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExitPool3ViewController: UIViewController {
+class ExitPool3ViewController: BaseViewController {
     
     @IBOutlet weak var txFeeAmountLabel: UILabel!
     @IBOutlet weak var txFeeDenomLabel: UILabel!
@@ -21,9 +21,14 @@ class ExitPool3ViewController: UIViewController {
     @IBOutlet weak var memoLabel: UILabel!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnConfirm: UIButton!
+    
+    var pageHolderVC: StepGenTxViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.pageHolderVC = self.parent as? StepGenTxViewController
     }
     
     

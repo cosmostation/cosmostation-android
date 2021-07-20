@@ -40,6 +40,7 @@ class Swap0ViewController: BaseViewController, UITextFieldDelegate {
         inputTextFiled.delegate = self
         inputTextFiled.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
+        loadingImg.startAnimating()
         onFetchGammPool(pageHolderVC.mPoolId!)
     }
     
