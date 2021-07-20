@@ -45,6 +45,10 @@ class TransactionViewController: UIViewController {
     
     var mToSendDenom: String?
     
+    var mPoolId: String?
+    var mSwapInDenom: String?
+    var mSwapOutDenom: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
@@ -220,6 +224,21 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_starname_update_resource", comment: "")
             
+        } else if (mType == OSMOSIS_MSG_TYPE_SWAP) {
+            stepDescription.text = NSLocalizedString("str_osmosis_swap_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_swap_osmosis", comment: "")
+            
+        } else if (mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
+            stepDescription.text = NSLocalizedString("str_osmosis_join_pool_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_pool_join_osmosis", comment: "")
+            
+        } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
+            stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_pool_exit_osmosis", comment: "")
+            
         }
         
         self.titleLabel.adjustsFontSizeToFitWidth = true
@@ -271,6 +290,10 @@ class TransactionViewController: UIViewController {
             StepVc.mStarnameTime = self.mStarnameTime
             StepVc.mStarnameDomainType = self.mStarnameDomainType
             StepVc.mStarnameResources_gRPC = self.mStarnameResources_gRPC
+            
+            StepVc.mPoolId = self.mPoolId
+            StepVc.mSwapInDenom = self.mSwapInDenom
+            StepVc.mSwapOutDenom = self.mSwapOutDenom
         }
     }
     
@@ -406,6 +429,17 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("str_starname_replace_starname_step_0", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     
+                } else if (mType == OSMOSIS_MSG_TYPE_SWAP) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_swap_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_join_pool_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
                 }
                 
                 
@@ -538,6 +572,17 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("str_starname_replace_starname_step_1", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     
+                } else if (mType == OSMOSIS_MSG_TYPE_SWAP) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_swap_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_join_pool_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
                 }
                 
                 
@@ -670,6 +715,17 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("str_starname_replace_starname_step_2", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     
+                } else if (mType == OSMOSIS_MSG_TYPE_SWAP) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_swap_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_join_pool_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
                 }
                 
                 
@@ -802,6 +858,17 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("str_starname_replace_starname_step_3", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     
+                } else if (mType == OSMOSIS_MSG_TYPE_SWAP) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_swap_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_join_pool_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
                 }
                 
             } else if (step == 4) {

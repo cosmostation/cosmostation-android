@@ -53,11 +53,18 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
         } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
             self.popupTitle.text = NSLocalizedString("select_account", comment: "")
             self.toAccountList = BaseData.instance.selectAllAccountsByChain(toChain!)
+            
+        } else if (type == SELECT_POPUP_OSMOSIS_COIN_IN) {
+            self.popupTitle.text = NSLocalizedString("str_select_coin_swap_in", comment: "")
+            
+        } else if (type == SELECT_POPUP_OSMOSIS_COIN_OUT) {
+            self.popupTitle.text = NSLocalizedString("str_select_coin_swap_out", comment: "")
+            
         }
     }
     
     override func viewDidLayoutSubviews() {
-        var esHeight: CGFloat = 250
+        var esHeight: CGFloat = 350
         if (type == SELECT_POPUP_HTLC_TO_CHAIN) {
             esHeight = (CGFloat)((toChainList.count * 55) + 55)
         } else if (type == SELECT_POPUP_HTLC_TO_COIN) {
@@ -67,7 +74,7 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
         } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
             esHeight = (CGFloat)((toAccountList.count * 55) + 55)
         }
-        esHeight = (esHeight > 250) ? 250 : esHeight
+        esHeight = (esHeight > 350) ? 350 : esHeight
         cardView.frame = CGRect(x: cardView.frame.origin.x, y: cardView.frame.origin.y, width: cardView.frame.size.width, height: esHeight)
         cardView.layoutIfNeeded()
     }
@@ -82,6 +89,10 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             return toAccountList.count
         } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
             return toAccountList.count
+        } else if (type == SELECT_POPUP_OSMOSIS_COIN_IN) {
+            return toCoinList.count
+        } else if (type == SELECT_POPUP_OSMOSIS_COIN_OUT) {
+            return toCoinList.count
         }
         return 0
     }
@@ -175,6 +186,20 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
                 cell?.keyStatusImg.tintColor = UIColor.init(hexString: "7A7f88")
             }
             cell?.accountBalance.attributedText = WUtils.displayAmount2(account.account_last_total, cell!.accountBalance.font, 0, 6)
+            return cell!
+            
+        } else if (type == SELECT_POPUP_OSMOSIS_COIN_IN) {
+            let cell:SelectCoinCell? = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
+            let swapInDenom = toCoinList[indexPath.row]
+            WUtils.DpOsmosisTokenImg(cell!.coinImg, swapInDenom)
+            cell!.coinTitle.text = WUtils.getOsmosisTokenName(swapInDenom)
+            return cell!
+            
+        } else if (type == SELECT_POPUP_OSMOSIS_COIN_OUT) {
+            let cell:SelectCoinCell? = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
+            let swapOutDenom = toCoinList[indexPath.row]
+            WUtils.DpOsmosisTokenImg(cell!.coinImg, swapOutDenom)
+            cell!.coinTitle.text = WUtils.getOsmosisTokenName(swapOutDenom)
             return cell!
             
         } else {

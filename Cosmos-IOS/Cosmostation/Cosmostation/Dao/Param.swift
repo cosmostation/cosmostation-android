@@ -112,6 +112,10 @@ public struct Param {
         return NSDecimalNumber.zero
     }
     
+    func isPoolEnabled(_ id: Int) -> Bool? {
+        return params?.enabled_pools?.contains(id)
+    }
+    
 }
 
 public struct Params {
@@ -125,6 +129,10 @@ public struct Params {
     var supply: Array<Coin>?
     var gov_tallying: GovTallying?
     var iris_tokens: Array<IrisToken>?
+
+    var enabled_pools: Array<Int>?
+    var osmosis_minting_params: OsmosisMintingParam?
+    var osmosis_minting_epoch_provisions: String?
     
     init(_ dictionary: NSDictionary?) {
         if let rawIbcParams = dictionary?["ibc_params"] as? NSDictionary {
@@ -164,7 +172,6 @@ public struct Params {
                 self.supply?.append(Coin.init(rawSupply))
             }
         }
-        
         if let rawGovTallying = dictionary?["gov_tallying"] as? NSDictionary {
             self.gov_tallying = GovTallying.init(rawGovTallying)
         }
@@ -173,6 +180,18 @@ public struct Params {
             for rawIrisToken in rawIrisTokens {
                 self.iris_tokens?.append(IrisToken.init(rawIrisToken))
             }
+        }
+        if let rawEnabledPools = dictionary?["enabled_pools"] as? Array<Int> {
+            self.enabled_pools = Array<Int>()
+            for rawEnabledPool in rawEnabledPools {
+                self.enabled_pools?.append(rawEnabledPool)
+            }
+        }
+        if let rawOsmosisMintingParams = dictionary?["osmosis_minting_params"] as? NSDictionary {
+            self.osmosis_minting_params = OsmosisMintingParam.init(rawOsmosisMintingParams)
+        }
+        if let rawOsmosisMintingEpochProvisions = dictionary?["minting_epoch_provisions"] as? NSDictionary {
+            self.osmosis_minting_epoch_provisions = OsmosisMintingEpochProvisions.init(rawOsmosisMintingEpochProvisions).epoch_provisions
         }
     }
 }
@@ -456,5 +475,58 @@ public struct IrisToken {
             self.max_supply = dictionary?["max_supply"] as? String
             self.initial_supply = dictionary?["initial_supply"] as? String
         }
+    }
+}
+
+
+public struct OsmosisMintingParam {
+    var params: Params?
+    
+    init(_ dictionary: NSDictionary?) {
+        if let rawParams = dictionary?["params"] as? NSDictionary {
+            self.params = Params.init(rawParams)
+        }
+    }
+    
+    public struct Params {
+        var mint_denom: String?
+        var epoch_identifier: String?
+        var reduction_factor: String?
+        var genesis_epoch_provisions: String?
+        var reduction_period_in_epochs: String?
+        var distribution_proportions: DistributionProportions?
+        
+        init(_ dictionary: NSDictionary?) {
+            self.mint_denom = dictionary?["mint_denom"] as? String
+            self.epoch_identifier = dictionary?["epoch_identifier"] as? String
+            self.reduction_factor = dictionary?["reduction_factor"] as? String
+            self.genesis_epoch_provisions = dictionary?["genesis_epoch_provisions"] as? String
+            self.reduction_period_in_epochs = dictionary?["reduction_period_in_epochs"] as? String
+            if let rawDistributionProportions = dictionary?["distribution_proportions"] as? NSDictionary {
+                self.distribution_proportions = DistributionProportions.init(rawDistributionProportions)
+            }
+        }
+    }
+    
+    public struct DistributionProportions {
+        var staking: String?
+        var community_pool: String?
+        var pool_incentives: String?
+        var developer_rewards: String?
+        
+        init(_ dictionary: NSDictionary?) {
+            self.staking = dictionary?["staking"] as? String
+            self.community_pool = dictionary?["community_pool"] as? String
+            self.pool_incentives = dictionary?["pool_incentives"] as? String
+            self.developer_rewards = dictionary?["developer_rewards"] as? String
+        }
+    }
+}
+
+public struct OsmosisMintingEpochProvisions {
+    var epoch_provisions: String?
+    
+    init(_ dictionary: NSDictionary?) {
+        self.epoch_provisions = dictionary?["epoch_provisions"] as? String
     }
 }

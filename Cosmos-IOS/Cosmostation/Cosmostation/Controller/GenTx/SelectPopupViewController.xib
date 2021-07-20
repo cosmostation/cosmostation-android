@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ei5-5I-1c8" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                    <rect key="frame" x="18" y="195" width="378" height="250"/>
+                    <rect key="frame" x="18" y="145" width="378" height="350"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Risk Rate Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTK-sc-rFz">
                             <rect key="frame" x="0.0" y="12" width="378" height="20"/>
@@ -31,14 +31,14 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xOa-g8-C1m">
-                            <rect key="frame" x="0.0" y="40" width="378" height="202"/>
+                            <rect key="frame" x="0.0" y="40" width="378" height="302"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tableView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="xOa-g8-C1m" secondAttribute="trailing" id="G3I-XU-oeM"/>
-                        <constraint firstAttribute="height" constant="250" id="HPA-0n-q6P"/>
+                        <constraint firstAttribute="height" constant="350" id="HPA-0n-q6P"/>
                         <constraint firstItem="WTK-sc-rFz" firstAttribute="leading" secondItem="Ei5-5I-1c8" secondAttribute="leading" id="Vct-4H-H89"/>
                         <constraint firstItem="xOa-g8-C1m" firstAttribute="leading" secondItem="Ei5-5I-1c8" secondAttribute="leading" id="ai6-EE-REi"/>
                         <constraint firstItem="xOa-g8-C1m" firstAttribute="top" secondItem="WTK-sc-rFz" secondAttribute="bottom" constant="8" id="iB1-0c-Ck0"/>
@@ -65,16 +65,16 @@
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Ei5-5I-1c8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="0as-13-dsa"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ei5-5I-1c8" secondAttribute="trailing" constant="18" id="6Cg-JL-NJU"/>
-                <constraint firstItem="Ei5-5I-1c8" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="151" id="neW-To-p9e"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Ei5-5I-1c8" secondAttribute="bottom" constant="151" id="rLR-lz-wNx"/>
+                <constraint firstItem="Ei5-5I-1c8" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="101" id="hit-kQ-jOs"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Ei5-5I-1c8" secondAttribute="bottom" constant="101" id="lfy-O6-gRH"/>
                 <constraint firstItem="Ei5-5I-1c8" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="xMS-Ba-Grf"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="52.901785714285715"/>
         </view>
     </objects>

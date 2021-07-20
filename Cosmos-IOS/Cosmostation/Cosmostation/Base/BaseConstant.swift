@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -178,7 +178,8 @@ let DB_ACCOUNT_IMPORT_TIME          = Expression<Int64>("importTime")
 let DB_ACCOUNT_LAST_TOTAL           = Expression<String>("lastTotal")
 let DB_ACCOUNT_SORT_ORDER           = Expression<Int64>("sortOrder")
 let DB_ACCOUNT_PUSHALARM            = Expression<Bool>("pushAlarm")
-let DB_ACCOUNT_NEW_BIP              = Expression<Bool>("newBip")                //using alternative ket gen path or type(OKex)
+let DB_ACCOUNT_NEW_BIP              = Expression<Bool>("newBip")            //using alternative ket gen path or type(OKex)
+let DB_ACCOUNT_CUSTOM_PATH          = Expression<Int64>("customPath")
 
 
 ////DB for Password
@@ -330,6 +331,11 @@ let IOV_MSG_TYPE_RENEW_DOMAIN               = "starname/RenewDomain";
 let IOV_MSG_TYPE_RENEW_ACCOUNT              = "starname/RenewAccount";
 
 
+let OSMOSIS_MSG_TYPE_SWAP                   = "osmosis/MsgSwapExactAmountIn";
+let OSMOSIS_MSG_TYPE_JOIN_POOL              = "osmosis/MsgJoinPool";
+let OSMOSIS_MSG_TYPE_EXIT_POOL              = "osmosis/MsgExitPool";
+
+
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
 let PASSWORD_ACTION_SIMPLE_CHECK            = "ACTION_SIMPLE_CHECK"
 let PASSWORD_ACTION_DELETE_ACCOUNT          = "ACTION_DELETE_ACCOUNT"
@@ -357,6 +363,11 @@ let CRYPTO_BASE_PATH                        = "m/44'/394'/0'/0/"
 let RIZON_BASE_PATH                         = "m/44'/1217'/0'/0/"
 let MEDI_BASE_PATH                          = "m/44'/371'/0'/0/"
 let ALTHEA_BASE_PATH                        = "m/44'/60'/0'/0/"
+let FETCH_BASE_PATH                         = "m/44'/118'/0'/0/"
+let ETH_NON_LEDGER_PATH                     = "m/44'/60'/0'/0/"
+let ETH_LEDGER_LIVE_PATH_1                  = "m/44'/60'/"
+let ETH_LEDGER_LIVE_PATH_2                  = "'/0/0"
+let ETH_LEDGER_LEGACY_PATH                  = "m/44'/60'/0'/"
 
 
 
@@ -432,6 +443,11 @@ let GAS_FEE_AMOUNT_MID                      = "200000"
 let GAS_FEE_AMOUNT_HIGH                     = "300000"
 let GAS_FEE_AMOUNT_REINVEST                 = "220000"
 let GAS_FEE_AMOUNT_REDELE                   = "240000"
+
+
+let GAS_FEE_AMOUNT_OSMOS_SWAP               = "400000"
+let GAS_FEE_AMOUNT_OSMOS_JOIN_POOL          = "400000"
+let GAS_FEE_AMOUNT_OSMOS_EXIT_POOL          = "400000"
 
 let FEE_BNB_TRANSFER                            = "0.000075"
 
@@ -915,6 +931,8 @@ let SELECT_POPUP_HTLC_TO_CHAIN = 0
 let SELECT_POPUP_HTLC_TO_COIN = 1
 let SELECT_POPUP_HTLC_TO_ACCOUNT = 2
 let SELECT_POPUP_STARNAME_ACCOUNT = 3
+let SELECT_POPUP_OSMOSIS_COIN_IN = 4
+let SELECT_POPUP_OSMOSIS_COIN_OUT = 5
 
 
 let EXPLORER_COSMOS_MAIN    = "https://www.mintscan.io/cosmos/";

@@ -21,7 +21,7 @@ class OldKey {
         let chainType = WUtils.getChainType(account.account_base_chain)
 
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.AKASH_MAIN ||
-                chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN || chainType == ChainType.SIF_MAIN || chainType == ChainType.KI_MAIN || chainType == ChainType.OSMOSIS_MAIN ||
+                chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.SIF_MAIN || chainType == ChainType.KI_MAIN || chainType == ChainType.OSMOSIS_MAIN ||
                 chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST || chainType == ChainType.CERTIK_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
 
@@ -66,6 +66,20 @@ class OldKey {
         } else if (chainType == ChainType.ALTHEA_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 60, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
 
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            if (account.account_custom_path == 1) {
+                return try! masterKey.derived(at: 44, hardened: true).derived(at: 60, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+                
+            } else if (account.account_custom_path == 2) {
+                return try! masterKey.derived(at: 44, hardened: true).derived(at: 60, hardened: true).derived(at: UInt32(account.account_path)!, hardened: true).derived(at: 0).derived(at: 0)
+                
+            } else if (account.account_custom_path == 3) {
+                return try! masterKey.derived(at: 44, hardened: true).derived(at: 60, hardened: true).derived(at: 0, hardened: true).derived(at: UInt32(account.account_path)!)
+                
+            } else {
+                return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+            }
+            
         } else {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
         }

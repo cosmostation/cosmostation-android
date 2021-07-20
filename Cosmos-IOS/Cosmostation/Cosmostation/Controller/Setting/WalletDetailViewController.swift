@@ -169,7 +169,15 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             
         } else if (chainType! == ChainType.FETCH_MAIN) {
             chainImg.image = UIImage(named: "chainfetchai")
-            keyPath.text = BASE_PATH.appending(account!.account_path)
+            if (account!.account_custom_path == 1) {
+                keyPath.text = ETH_NON_LEDGER_PATH.appending(String(account!.account_path))
+            } else if (account!.account_custom_path == 2) {
+                keyPath.text = ETH_LEDGER_LIVE_PATH_1.appending(String(account!.account_path)) + ETH_LEDGER_LIVE_PATH_2
+            } else if (account!.account_custom_path == 3) {
+                keyPath.text = ETH_LEDGER_LEGACY_PATH.appending(String(account!.account_path))
+            } else {
+                keyPath.text = FETCH_BASE_PATH.appending(String(account!.account_path))
+            }
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
