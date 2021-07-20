@@ -112,6 +112,16 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     var mToSendDenom: String?
     
+    var mPoolId: String?
+    var mSwapInDenom: String?
+    var mSwapOutDenom: String?
+    var mSwapInAmount: NSDecimalNumber?
+    var mSwapOutAmount: NSDecimalNumber?
+    var mPool: Osmosis_Gamm_V1beta1_Pool?
+    var mPoolCoin0: Coin?
+    var mPoolCoin1: Coin?
+    var mLPCoin: Coin?
+    
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
             if (WUtils.isGRPC(chainType!)) {
@@ -342,7 +352,29 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
                     ReplaceResource3ViewController(nibName: "ReplaceResource3ViewController", bundle: nil)]
 
-        } else {
+        }
+        
+        else if (mType == OSMOSIS_MSG_TYPE_SWAP) {
+            return [Swap0ViewController(nibName: "Swap0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                    Swap3ViewController(nibName: "Swap3ViewController", bundle: nil)]
+            
+        } else if (mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
+            return [JoinPool0ViewController(nibName: "JoinPool0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                    JoinPool3ViewController(nibName: "JoinPool3ViewController", bundle: nil)]
+            
+        } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
+            return [ExitPool0ViewController(nibName: "ExitPool0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                    ExitPool3ViewController(nibName: "ExitPool3ViewController", bundle: nil)]
+        }
+        
+        
+        else {
             if (WUtils.isGRPC(chainType!)) {
                 return [self.newVc(viewController: "StepRewardViewController"),
                         self.newVc(viewController: "StepMemoViewController"),

@@ -98,6 +98,18 @@ final class BaseData : NSObject{
         return mIbcTokens.filter { $0.hash == hash }.first
     }
     
+    func getBaseDenom(_ denom: String) -> String {
+        if (denom.starts(with: "ibc/")) {
+            guard let ibcToken = getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")) else {
+                return denom
+            }
+            if (ibcToken.auth == true) {
+                return ibcToken.base_denom!
+            }
+        }
+        return denom
+    }
+    
     
     func getChainId() -> String {
         if (mNodeInfo != nil) { return mNodeInfo!.network! }

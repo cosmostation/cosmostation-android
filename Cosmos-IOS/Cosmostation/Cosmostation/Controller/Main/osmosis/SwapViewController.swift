@@ -11,7 +11,7 @@ import GRPC
 import NIO
 import SwiftProtobuf
 
-class SwapViewController: BaseViewController {
+class SwapViewController: BaseViewController, SBCardPopupDelegate {
     
     @IBOutlet weak var loadingImg: LoadingImageView!
     @IBOutlet weak var inputCoinLayer: CardView!
@@ -30,6 +30,8 @@ class SwapViewController: BaseViewController {
     
     var mPoolList: Array<Osmosis_Gamm_V1beta1_Pool> = Array<Osmosis_Gamm_V1beta1_Pool>()
     var mAllDenoms: Array<String> = Array<String>()
+    var mSwapablePools: Array<Osmosis_Gamm_V1beta1_Pool> = Array<Osmosis_Gamm_V1beta1_Pool>()
+    var mSwapableDenoms: Array<String> = Array<String>()
     var mSelectedPool: Osmosis_Gamm_V1beta1_Pool?
     var mInputCoinDenom: String?
     var mOutputCoinDenom: String?
@@ -67,7 +69,9 @@ class SwapViewController: BaseViewController {
                 outputAssetWeight = NSDecimalNumber.init(string: poolAsset.weight)
             }
         }
-        let swapRate = outputAssetAmount.multiplying(by: outputAssetWeight).dividing(by: inputAssetAmount, withBehavior: WUtils.handler18).dividing(by: inputAssetWeight, withBehavior: WUtils.handler6)
+        inputAssetAmount = inputAssetAmount.multiplying(byPowerOf10: -WUtils.getOsmosisCoinDecimal(mInputCoinDenom))
+        outputAssetAmount = outputAssetAmount.multiplying(byPowerOf10: -WUtils.getOsmosisCoinDecimal(mOutputCoinDenom))
+        let swapRate = outputAssetAmount.multiplying(by: inputAssetWeight).dividing(by: inputAssetAmount, withBehavior: WUtils.handler18).dividing(by: outputAssetWeight, withBehavior: WUtils.handler6)
         print("swapRate ", swapRate)
         
         inputCoinRateAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.one.stringValue, inputCoinRateAmount.font, 0, 6)
@@ -75,7 +79,8 @@ class SwapViewController: BaseViewController {
         outputCoinRateAmount.attributedText = WUtils.displayAmount2(swapRate.stringValue, outputCoinRateAmount.font, 0, 6)
         WUtils.DpOsmosisTokenName(outputCoinRateDenom, mOutputCoinDenom!)
         
-        
+        inputCoinImg.image = UIImage(named: "tokenDefaultIbc")
+        outputCoinImg.image = UIImage(named: "tokenDefaultIbc")
         WUtils.DpOsmosisTokenImg(inputCoinImg, mInputCoinDenom!)
         WUtils.DpOsmosisTokenName(inputCoinName, mInputCoinDenom!)
         WUtils.DpOsmosisTokenImg(outputCoinImg, mOutputCoinDenom!)
@@ -85,64 +90,88 @@ class SwapViewController: BaseViewController {
     
     
     @objc func onClickInput (_ sender: UITapGestureRecognizer) {
-        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        mAllDenoms.forEach { denom in
-            let action = UIAlertAction(title: WUtils.getOsmosisTokenName(denom), style: .default, handler: { _ in
-                outerLoop: for pool in self.mPoolList {
-                    for asset in pool.poolAssets {
-                        if (asset.token.denom == denom) {
-                            self.mSelectedPool = pool
-                            break outerLoop
-                        }
-                    }
-                }
-//                print("mSelectedPool ", self.mSelectedPool?.id, "   ",  self.mSelectedPool)
-                
-                self.mInputCoinDenom = denom
-                for asset in self.mSelectedPool!.poolAssets {
-                    if (asset.token.denom != self.mInputCoinDenom) {
-                        self.mOutputCoinDenom = asset.token.denom
-                        break
-                    }
-                }
-//                print("mOutputCoinDenom ", self.mOutputCoinDenom)
-                self.updateView()
-            })
-            showAlert.addAction(action)
-        }
-        self.present(showAlert, animated: true, completion: nil)
+        let popupVC = SelectPopupViewController(nibName: "SelectPopupViewController", bundle: nil)
+        popupVC.type = SELECT_POPUP_OSMOSIS_COIN_IN
+        popupVC.toCoinList = mAllDenoms
+        let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
+        cardPopup.resultDelegate = self
+        cardPopup.show(onViewController: self)
         
     }
     
     @objc func onClickOutput (_ sender: UITapGestureRecognizer) {
-        print("onClickOutput ",self.mInputCoinDenom, "  ", self.mOutputCoinDenom)
-        var swapablePools: Array<Osmosis_Gamm_V1beta1_Pool> = Array<Osmosis_Gamm_V1beta1_Pool>()
-        var swapableDenoms: Array<String> = Array<String>()
-        
+        self.mSwapableDenoms.removeAll()
+        self.mSwapablePools.removeAll()
         self.mPoolList.forEach { pool in
-//            if (WUtils.isAssetHasDenom(pool.poolAssets, self.mInputCoinDenom) && !WUtils.isAssetHasDenom(pool.poolAssets, self.mOutputCoinDenom)) {
             if (WUtils.isAssetHasDenom(pool.poolAssets, self.mInputCoinDenom)) {
-                swapablePools.append(pool)
+                mSwapablePools.append(pool)
             }
         }
-        
-        swapablePools.forEach { swapablePool in
+        self.mSwapablePools.forEach { swapablePool in
             swapablePool.poolAssets.forEach { poolAsset in
                 if (poolAsset.token.denom != self.mInputCoinDenom) {
-                    swapableDenoms.append(poolAsset.token.denom)
+                    mSwapableDenoms.append(poolAsset.token.denom)
                 }
             }
         }
         
-        print("swapablePools ", swapablePools.count)
-        print("swapablePools ", swapablePools)
-        print("swapableDenoms ", swapableDenoms.count)
-        print("swapableDenoms ", swapableDenoms)
+        let popupVC = SelectPopupViewController(nibName: "SelectPopupViewController", bundle: nil)
+        popupVC.type = SELECT_POPUP_OSMOSIS_COIN_OUT
+        popupVC.toCoinList = mSwapableDenoms
+        let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
+        cardPopup.resultDelegate = self
+        cardPopup.show(onViewController: self)
     }
     
     
     @IBAction func onClickSwap(_ sender: UIButton) {
         print("onClickSwap")
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = OSMOSIS_MSG_TYPE_SWAP
+        txVC.mPoolId = String(mSelectedPool!.id)
+        txVC.mSwapInDenom = mInputCoinDenom
+        txVC.mSwapOutDenom = mOutputCoinDenom
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    
+    func SBCardPopupResponse(type: Int, result: Int) {
+        if (type == SELECT_POPUP_OSMOSIS_COIN_IN) {
+            self.mInputCoinDenom = self.mAllDenoms[result]
+            outerLoop: for pool in self.mPoolList {
+                for asset in pool.poolAssets {
+                    if (asset.token.denom == self.mInputCoinDenom) {
+                        self.mSelectedPool = pool
+                        break outerLoop
+                    }
+                }
+            }
+            for asset in self.mSelectedPool!.poolAssets {
+                if (asset.token.denom != self.mInputCoinDenom) {
+                    self.mOutputCoinDenom = asset.token.denom
+                    break
+                }
+            }
+            self.updateView()
+            
+        } else if (type == SELECT_POPUP_OSMOSIS_COIN_OUT) {
+            self.mOutputCoinDenom = self.mSwapableDenoms[result]
+            outerLoop: for pool in self.mSwapablePools {
+                for asset in pool.poolAssets {
+                    if (asset.token.denom == self.mOutputCoinDenom) {
+                        self.mSelectedPool = pool
+                        break outerLoop
+                    }
+                }
+            }
+            self.updateView()
+        }
     }
     
     var mFetchCnt = 0
@@ -174,19 +203,18 @@ class SwapViewController: BaseViewController {
             defer { try! channel.close().wait() }
             
             do {
-                
                 let page = Cosmos_Base_Query_V1beta1_PageRequest.with { $0.limit = 300 }
                 let req = Osmosis_Gamm_V1beta1_QueryPoolsRequest.with { $0.pagination = page }
                 let response = try Osmosis_Gamm_V1beta1_QueryClient(channel: channel).pools(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
                 
-                //filter only 2 asset pool
+                //filter pool
                 response.pools.forEach { pool in
                     let rawPool = try! Osmosis_Gamm_V1beta1_Pool.init(serializedData: pool.value)
-                    if (rawPool.poolAssets.count == 2) {
+                    if (BaseData.instance.mParam?.isPoolEnabled(Int(rawPool.id)) == true) {
                         self.mPoolList.append(rawPool)
                     }
                 }
-                print("mPoolList ", self.mPoolList.count)
+//                print("mPoolList ", self.mPoolList.count)
                 self.mPoolList.forEach { pool in
                     pool.poolAssets.forEach { poolAsset in
                         if (!self.mAllDenoms.contains(poolAsset.token.denom)) {
@@ -194,7 +222,7 @@ class SwapViewController: BaseViewController {
                         }
                     }
                 }
-                print("mAllDenoms ", self.mAllDenoms.count)
+//                print("mAllDenoms ", self.mAllDenoms.count)
                 
                 self.mSelectedPool = self.mPoolList[0]
                 self.mInputCoinDenom = "uosmo"

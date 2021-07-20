@@ -193,8 +193,14 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
                     }
                 });
             } catch {
-                self.onShowToast(NSLocalizedString("error_network", comment: ""))
-//                print("onSimulateGrpcTx failed: \(error)")
+                DispatchQueue.main.async(execute: {
+                    if (self.waitAlert != nil) {
+                        self.waitAlert?.dismiss(animated: true, completion: {
+                            self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                        })
+                    }
+                    print("onSimulateGrpcTx failed: \(error)")
+                });
             }
         }
     }
@@ -268,6 +274,39 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
             return Signer.genSimulateReplaceResourceMsgTxgRPC(auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mStarnameAccount, self.pageHolderVC.mAccount!.account_address,
                                                               self.pageHolderVC.mStarnameResources_gRPC, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+        }
+        
+        //for osmosis custom msg
+        else if (pageHolderVC.mType == OSMOSIS_MSG_TYPE_SWAP) {
+            var swapRoutes = Array<Osmosis_Gamm_V1beta1_SwapAmountInRoute>()
+            let swapRoute = Osmosis_Gamm_V1beta1_SwapAmountInRoute.with {
+                $0.poolID = self.pageHolderVC.mPool!.id
+                $0.tokenOutDenom = self.pageHolderVC.mSwapOutDenom!
+            }
+            swapRoutes.append(swapRoute)
+            return Signer.genSimulateSwapInMsgTxgRPC(auth, swapRoutes,
+                                                     self.pageHolderVC.mSwapInDenom!,
+                                                     self.pageHolderVC.mSwapInAmount!.stringValue,
+                                                     self.pageHolderVC.mSwapOutAmount!.stringValue,
+                                                     self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
+                                                     BaseData.instance.getChainId_gRPC())
+            
+        } else if (pageHolderVC.mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
+            return Signer.genSimulateDepositPoolMsgTxgRPC(auth,
+                                                          self.pageHolderVC.mPoolId!, self.pageHolderVC.mPoolCoin0!, self.pageHolderVC.mPoolCoin1!,
+                                                          self.pageHolderVC.mLPCoin!.amount, self.pageHolderVC.mFee!,
+                                                          self.pageHolderVC.mMemo!,
+                                                          privateKey, publicKey,
+                                                          BaseData.instance.getChainId_gRPC())
+            
+        } else if (pageHolderVC.mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
+            return Signer.genSimulateWithdrawPoolMsgTxgRPC(auth,
+                                                           self.pageHolderVC.mPoolId!, self.pageHolderVC.mPoolCoin0!, self.pageHolderVC.mPoolCoin1!,
+                                                           self.pageHolderVC.mLPCoin!.amount, self.pageHolderVC.mFee!,
+                                                           self.pageHolderVC.mMemo!,
+                                                           privateKey, publicKey,
+                                                           BaseData.instance.getChainId_gRPC())
+            
         }
         return nil
     }

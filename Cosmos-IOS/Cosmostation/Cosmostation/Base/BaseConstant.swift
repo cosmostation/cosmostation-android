@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -330,6 +330,11 @@ let IOV_MSG_TYPE_RENEW_DOMAIN               = "starname/RenewDomain";
 let IOV_MSG_TYPE_RENEW_ACCOUNT              = "starname/RenewAccount";
 
 
+let OSMOSIS_MSG_TYPE_SWAP                   = "osmosis/MsgSwapExactAmountIn";
+let OSMOSIS_MSG_TYPE_JOIN_POOL              = "osmosis/MsgJoinPool";
+let OSMOSIS_MSG_TYPE_EXIT_POOL              = "osmosis/MsgExitPool";
+
+
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
 let PASSWORD_ACTION_SIMPLE_CHECK            = "ACTION_SIMPLE_CHECK"
 let PASSWORD_ACTION_DELETE_ACCOUNT          = "ACTION_DELETE_ACCOUNT"
@@ -432,6 +437,11 @@ let GAS_FEE_AMOUNT_MID                      = "200000"
 let GAS_FEE_AMOUNT_HIGH                     = "300000"
 let GAS_FEE_AMOUNT_REINVEST                 = "220000"
 let GAS_FEE_AMOUNT_REDELE                   = "240000"
+
+
+let GAS_FEE_AMOUNT_OSMOS_SWAP               = "400000"
+let GAS_FEE_AMOUNT_OSMOS_JOIN_POOL          = "400000"
+let GAS_FEE_AMOUNT_OSMOS_EXIT_POOL          = "400000"
 
 let FEE_BNB_TRANSFER                            = "0.000075"
 
@@ -915,6 +925,8 @@ let SELECT_POPUP_HTLC_TO_CHAIN = 0
 let SELECT_POPUP_HTLC_TO_COIN = 1
 let SELECT_POPUP_HTLC_TO_ACCOUNT = 2
 let SELECT_POPUP_STARNAME_ACCOUNT = 3
+let SELECT_POPUP_OSMOSIS_COIN_IN = 4
+let SELECT_POPUP_OSMOSIS_COIN_OUT = 5
 
 
 let EXPLORER_COSMOS_MAIN    = "https://www.mintscan.io/cosmos/";

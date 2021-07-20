@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Swap3ViewController" customModule="Cosmostation" customModuleProvider="target">
+            <connections>
+                <outlet property="btnBack" destination="8JX-ZS-UEa" id="M5E-oZ-tjq"/>
+                <outlet property="btnConfirm" destination="ung-sn-OZh" id="kOy-Tj-l4B"/>
+                <outlet property="mMemoLabel" destination="RUM-hf-VnW" id="U95-0m-2s7"/>
+                <outlet property="swapFeeLabel" destination="pgV-TI-pSM" id="tvk-Z7-Ajg"/>
+                <outlet property="swapInAmountLabel" destination="cQF-wE-6LW" id="u4l-aW-fEa"/>
+                <outlet property="swapInDenomLabel" destination="hf2-3W-EgX" id="puC-2g-CuP"/>
+                <outlet property="swapOutAmountLabel" destination="kZK-GC-iKa" id="qvr-ra-bNf"/>
+                <outlet property="swapOutDenomLabel" destination="ZZl-NE-S2a" id="2YC-ju-WFg"/>
+                <outlet property="txFeeAmountLabel" destination="zxX-b5-ZaN" id="u42-Ud-awL"/>
+                <outlet property="txFeeDenomLabel" destination="aA2-gk-AOL" id="25J-kz-hPN"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JBB-e1-rjb">
+                    <rect key="frame" x="16" y="796" width="382" height="50"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8JX-ZS-UEa">
+                            <rect key="frame" x="0.0" y="0.0" width="186" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="Jvh-Qu-P24"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                            <state key="normal" title="Back">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickBack:" destination="-1" eventType="touchUpInside" id="7vb-SD-XC4"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ung-sn-OZh">
+                            <rect key="frame" x="196" y="0.0" width="186" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="j4i-WI-0ef"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                            <state key="normal" title="Confirm">
+                                <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickConfirm:" destination="-1" eventType="touchUpInside" id="7JL-tA-Prl"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zw5-Do-zCr" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
+                    <rect key="frame" x="12" y="56" width="390" height="250"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swap Fee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUE-9W-DXu">
+                            <rect key="frame" x="16" y="48.5" width="63.5" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgV-TI-pSM">
+                            <rect key="frame" x="369" y="48.5" width="5" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tx Fee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4O-QE-j5G">
+                            <rect key="frame" x="16" y="16" width="44" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OSMO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aA2-gk-AOL">
+                            <rect key="frame" x="337" y="18" width="37" height="14"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <color key="textColor" red="0.5725490196078431" green="0.28235294117647058" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxX-b5-ZaN">
+                            <rect key="frame" x="328" y="16" width="5" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Frs-t9-Kfg">
+                            <rect key="frame" x="16" y="81" width="358" height="0.5"/>
+                            <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="dCt-eh-GbM"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Memo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmh-LT-RrG">
+                            <rect key="frame" x="16" y="162.5" width="39" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUM-hf-VnW">
+                            <rect key="frame" x="16" y="187" width="358" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swap In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1x-e3-U2x">
+                            <rect key="frame" x="16" y="97.5" width="51" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hf2-3W-EgX">
+                            <rect key="frame" x="344" y="99.5" width="30" height="14"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQF-wE-6LW">
+                            <rect key="frame" x="335" y="97.5" width="5" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swap Out (MG)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtq-7r-YsB">
+                            <rect key="frame" x="16" y="130" width="97.5" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZl-NE-S2a">
+                            <rect key="frame" x="344" y="132" width="30" height="14"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZK-GC-iKa">
+                            <rect key="frame" x="335" y="130" width="5" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.39509310790000002" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="kZK-GC-iKa" firstAttribute="firstBaseline" secondItem="jtq-7r-YsB" secondAttribute="firstBaseline" id="4Ce-wR-kn7"/>
+                        <constraint firstItem="rmh-LT-RrG" firstAttribute="leading" secondItem="zw5-Do-zCr" secondAttribute="leading" constant="16" id="5Mt-4F-inm"/>
+                        <constraint firstAttribute="trailing" secondItem="Frs-t9-Kfg" secondAttribute="trailing" constant="16" id="6K5-EN-KAi"/>
+                        <constraint firstItem="E1x-e3-U2x" firstAttribute="leading" secondItem="g4O-QE-j5G" secondAttribute="leading" id="8QH-9R-f9t"/>
+                        <constraint firstItem="hf2-3W-EgX" firstAttribute="firstBaseline" secondItem="E1x-e3-U2x" secondAttribute="firstBaseline" id="9Rs-Ec-ttd"/>
+                        <constraint firstItem="g4O-QE-j5G" firstAttribute="leading" secondItem="zw5-Do-zCr" secondAttribute="leading" constant="16" id="ALt-3S-6ZN"/>
+                        <constraint firstItem="Frs-t9-Kfg" firstAttribute="top" secondItem="FUE-9W-DXu" secondAttribute="bottom" constant="16" id="Ddg-dq-Xd6"/>
+                        <constraint firstItem="RUM-hf-VnW" firstAttribute="leading" secondItem="zw5-Do-zCr" secondAttribute="leading" constant="16" id="EDK-4F-r0U"/>
+                        <constraint firstItem="RUM-hf-VnW" firstAttribute="top" secondItem="rmh-LT-RrG" secondAttribute="bottom" constant="8" id="Fj6-Gd-qXV"/>
+                        <constraint firstAttribute="trailing" secondItem="RUM-hf-VnW" secondAttribute="trailing" constant="16" id="HfM-PW-h5m"/>
+                        <constraint firstItem="ZZl-NE-S2a" firstAttribute="leading" secondItem="kZK-GC-iKa" secondAttribute="trailing" constant="4" id="KWm-ke-sDV"/>
+                        <constraint firstItem="ZZl-NE-S2a" firstAttribute="firstBaseline" secondItem="jtq-7r-YsB" secondAttribute="firstBaseline" id="N9x-TK-7lB"/>
+                        <constraint firstItem="cQF-wE-6LW" firstAttribute="firstBaseline" secondItem="E1x-e3-U2x" secondAttribute="firstBaseline" id="Ob6-xm-JmX"/>
+                        <constraint firstItem="FUE-9W-DXu" firstAttribute="leading" secondItem="zw5-Do-zCr" secondAttribute="leading" constant="16" id="PgI-aL-9gl"/>
+                        <constraint firstItem="jtq-7r-YsB" firstAttribute="leading" secondItem="g4O-QE-j5G" secondAttribute="leading" id="VdG-Mm-NHv"/>
+                        <constraint firstItem="jtq-7r-YsB" firstAttribute="top" secondItem="E1x-e3-U2x" secondAttribute="bottom" constant="16" id="WSd-zN-CwI"/>
+                        <constraint firstItem="pgV-TI-pSM" firstAttribute="trailing" secondItem="aA2-gk-AOL" secondAttribute="trailing" id="Zu3-Id-CtQ"/>
+                        <constraint firstAttribute="height" constant="250" id="bzN-Au-CHc"/>
+                        <constraint firstItem="Frs-t9-Kfg" firstAttribute="leading" secondItem="zw5-Do-zCr" secondAttribute="leading" constant="16" id="cMk-rC-KtF"/>
+                        <constraint firstItem="aA2-gk-AOL" firstAttribute="firstBaseline" secondItem="g4O-QE-j5G" secondAttribute="firstBaseline" id="dTs-P4-jcJ"/>
+                        <constraint firstItem="E1x-e3-U2x" firstAttribute="top" secondItem="Frs-t9-Kfg" secondAttribute="bottom" constant="16" id="iPq-NC-TEw"/>
+                        <constraint firstItem="rmh-LT-RrG" firstAttribute="top" secondItem="jtq-7r-YsB" secondAttribute="bottom" constant="16" id="mvR-lD-ptN"/>
+                        <constraint firstItem="aA2-gk-AOL" firstAttribute="leading" secondItem="zxX-b5-ZaN" secondAttribute="trailing" constant="4" id="mw8-d1-bfQ"/>
+                        <constraint firstItem="FUE-9W-DXu" firstAttribute="top" secondItem="g4O-QE-j5G" secondAttribute="bottom" constant="16" id="pZx-Se-kgV"/>
+                        <constraint firstItem="g4O-QE-j5G" firstAttribute="top" secondItem="zw5-Do-zCr" secondAttribute="top" constant="16" id="qKA-SN-Z4F"/>
+                        <constraint firstItem="hf2-3W-EgX" firstAttribute="leading" secondItem="cQF-wE-6LW" secondAttribute="trailing" constant="4" id="qQU-yY-maa"/>
+                        <constraint firstItem="ZZl-NE-S2a" firstAttribute="trailing" secondItem="hf2-3W-EgX" secondAttribute="trailing" id="qcY-54-vsi"/>
+                        <constraint firstAttribute="trailing" secondItem="aA2-gk-AOL" secondAttribute="trailing" constant="16" id="wyB-c0-bve"/>
+                        <constraint firstItem="pgV-TI-pSM" firstAttribute="bottom" secondItem="FUE-9W-DXu" secondAttribute="bottom" id="xJV-cH-Fs5"/>
+                        <constraint firstItem="hf2-3W-EgX" firstAttribute="trailing" secondItem="aA2-gk-AOL" secondAttribute="trailing" id="yYe-bP-Oip"/>
+                        <constraint firstItem="zxX-b5-ZaN" firstAttribute="firstBaseline" secondItem="g4O-QE-j5G" secondAttribute="firstBaseline" id="yoS-QY-jUf"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JBB-e1-rjb" secondAttribute="trailing" constant="16" id="Kcg-0G-HnZ"/>
+                <constraint firstItem="JBB-e1-rjb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="OpZ-R3-0N3"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zw5-Do-zCr" secondAttribute="trailing" constant="12" id="PnF-Hv-D45"/>
+                <constraint firstItem="zw5-Do-zCr" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="12" id="Vm3-SK-vvJ"/>
+                <constraint firstItem="zw5-Do-zCr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="12" id="W4A-9z-Jq2"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="JBB-e1-rjb" secondAttribute="bottom" constant="16" id="mLK-6r-LL9"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="92"/>
+        </view>
+    </objects>
+</document>
