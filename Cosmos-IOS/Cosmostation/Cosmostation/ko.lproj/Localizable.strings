@@ -249,6 +249,14 @@
 "select_keytype_okex_msg" = "OKex체인은 두가지 타입의 키 타입을 지원합니다.\n\n테스트 넷부터 사용하시던 타입을 사용하시려면 [Tendermint Type]를, 이후에 생성하신 경우 [Ethermint Type] 선택해주세요.\n\n잘못 선택한 경우에도 기존 OKex 지갑에는 문제가 없으며, [Mnemonic 복원하기]를 통해 타입을 다시 지정하면 됩니다.";
 "keytype_okex_old" = "Tendermint 타입 키 생성";
 "keytype_okex_new" = "Ethermint(기본) 타입 키 생성";
+"select_keytype_fetch_title" = "키 경로 선택";
+"select_keytype_fetch_msg" = "이더리움과의 원활한 상호 운용성을 위해 Fetch-Ai의 4가지 주요 복원 경로를 지원합니다.";
+"fetch_path_0" = "Common (44'/118'/0'/0/X)";
+"fetch_path_1" = "Non Ledger (44'/60'/0'/0/X)";
+"fetch_path_2" = "Ledger Live (44'/60'/X'/0/0)";
+"fetch_path_3" = "Ledger Legacy (44'/60'/0'/X)";
+
+
 "tx_next" = "다음";
 "str_deposit" = "  %@ 입금";
 "str_withdraw" = "  %@ 출금";

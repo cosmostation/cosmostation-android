@@ -21,7 +21,7 @@ class WKey {
         let chainType = WUtils.getChainType(account.account_base_chain)
         
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.AKASH_MAIN ||
-                chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN || chainType == ChainType.SIF_MAIN || chainType == ChainType.KI_MAIN || chainType == ChainType.OSMOSIS_MAIN ||
+                chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.SIF_MAIN || chainType == ChainType.KI_MAIN || chainType == ChainType.OSMOSIS_MAIN ||
                 chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST || chainType == ChainType.CERTIK_TEST) {
             return masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(account.account_path)!))
             
@@ -66,6 +66,21 @@ class WKey {
         } else if (chainType == ChainType.ALTHEA_TEST) {
             return masterKey.derived(at: .hardened(44)).derived(at: .hardened(60)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(account.account_path)!))
 
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            if (account.account_custom_path == 1) {
+                return masterKey.derived(at: .hardened(44)).derived(at: .hardened(60)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(account.account_path)!))
+                
+            } else if (account.account_custom_path == 2) {
+                return masterKey.derived(at: .hardened(44)).derived(at: .hardened(60)).derived(at: .hardened(UInt32(account.account_path)!)).derived(at: .notHardened(0)).derived(at: .notHardened(0))
+                
+            } else if (account.account_custom_path == 3) {
+                return masterKey.derived(at: .hardened(44)).derived(at: .hardened(60)).derived(at: .hardened(0)).derived(at: .notHardened(UInt32(account.account_path)!))
+                
+            } else {
+                return masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(account.account_path)!))
+                
+            }
+            
         } else {
             return masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(account.account_path)!))
         }
@@ -186,8 +201,29 @@ class WKey {
         } else {
             return WKey.getHDKeyDpAddressWithPath(masterKey, path: path, chain: chain, newbip)
         }
-        
     }
+    
+    static func getDpAddressFetchCustomPath(_ mnemonic: [String], _ path: UInt32, _ chain: ChainType, _ pathType: Int) -> String {
+        let masterKey = getMasterKeyFromWords(mnemonic)
+        if (pathType == 0) {
+            let childKey = masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(path))
+            return getPubToDpAddress(childKey.publicKey.data.dataToHexString(), chain)
+            
+        } else if (pathType == 1) {
+            let childKey = masterKey.derived(at: .hardened(44)).derived(at: .hardened(60)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(path))
+            return getPubToDpAddress(childKey.publicKey.data.dataToHexString(), chain)
+            
+        } else if (pathType == 2) {
+            let childKey = masterKey.derived(at: .hardened(44)).derived(at: .hardened(60)).derived(at: .hardened(path)).derived(at: .notHardened(0)).derived(at: .notHardened(0))
+            return getPubToDpAddress(childKey.publicKey.data.dataToHexString(), chain)
+            
+        } else if (pathType == 3) {
+            let childKey = masterKey.derived(at: .hardened(44)).derived(at: .hardened(60)).derived(at: .hardened(0)).derived(at: .notHardened(path))
+            return getPubToDpAddress(childKey.publicKey.data.dataToHexString(), chain)
+        }
+        return ""
+    }
+    
     
     static func isValidateAddress(_ address:String) -> Bool {
         if(address.count != 45 && !address.starts(with: "cosmos")) {

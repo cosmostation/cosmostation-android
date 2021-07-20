@@ -77,6 +77,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
     var userInputWords = [String]()
     var mCurrentPosition = 0;
     var usingBip44:Bool = false
+    var customPath = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -533,6 +534,8 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
                 self.onSelectBip44Secret()
             } else if (self.chainType == ChainType.OKEX_MAIN || self.chainType == ChainType.OKEX_TEST)  {
                 self.onSelectKeyTypeForOKex()
+            } else if (self.chainType == ChainType.FETCH_MAIN) {
+                self.onSelectKeyTypeForFetch()
             } else {
                 self.onCheckPassword()
             }
@@ -618,6 +621,30 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         }
     }
     
+    func onSelectKeyTypeForFetch() {
+        let selectAlert = UIAlertController(title: NSLocalizedString("select_keytype_fetch_title", comment: ""), message: NSLocalizedString("select_keytype_fetch_msg", comment: ""), preferredStyle: .alert)
+        selectAlert.addAction(UIAlertAction(title: NSLocalizedString("fetch_path_0", comment: ""), style: .default, handler: { _ in
+            self.customPath = 0
+            self.onCheckPassword()
+        }))
+        selectAlert.addAction(UIAlertAction(title: NSLocalizedString("fetch_path_1", comment: ""), style: .default, handler: { _ in
+            self.customPath = 1
+            self.onCheckPassword()
+        }))
+        selectAlert.addAction(UIAlertAction(title: NSLocalizedString("fetch_path_2", comment: ""), style: .default, handler: { _ in
+            self.customPath = 2
+            self.onCheckPassword()
+        }))
+        selectAlert.addAction(UIAlertAction(title: NSLocalizedString("fetch_path_3", comment: ""), style: .default, handler: { _ in
+            self.customPath = 3
+            self.onCheckPassword()
+        }))
+        self.present(selectAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            selectAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
     func onCheckPassword() {
         let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
         self.navigationItem.title = ""
@@ -639,6 +666,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
                 restorePathVC.userInputWords = self.userInputWords
                 restorePathVC.userChain = self.chainType
                 restorePathVC.usingBip44 = self.usingBip44
+                restorePathVC.customPath = self.customPath
                 self.navigationController?.pushViewController(restorePathVC, animated: true)
             })
         }

@@ -256,6 +256,12 @@
 "str_cannot_repay_partially" = "Cannot repay partially";
 "str_cannot_repay_all" = "Insufficient %@ to repay all";
 "str_no_more_3day" = "Hide 3 days";
+"select_keytype_fetch_title" = "Select Key Path";
+"select_keytype_fetch_msg" = "For convenience of interoperability with Ethereum, 4 types key path support for Fetch-Ai.";
+"fetch_path_0" = "Common (44'/118'/0'/0/X)";
+"fetch_path_1" = "Non Ledger (44'/60'/0'/0/X)";
+"fetch_path_2" = "Ledger Live (44'/60'/X'/0/0)";
+"fetch_path_3" = "Ledger Legacy (44'/60'/0'/X)";
 
 "current_price_format" = "Current %@ Price";
 "liquidation_price_format" = "Liquidation %@ Price";

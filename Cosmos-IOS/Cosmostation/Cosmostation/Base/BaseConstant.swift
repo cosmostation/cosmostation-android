@@ -178,7 +178,8 @@ let DB_ACCOUNT_IMPORT_TIME          = Expression<Int64>("importTime")
 let DB_ACCOUNT_LAST_TOTAL           = Expression<String>("lastTotal")
 let DB_ACCOUNT_SORT_ORDER           = Expression<Int64>("sortOrder")
 let DB_ACCOUNT_PUSHALARM            = Expression<Bool>("pushAlarm")
-let DB_ACCOUNT_NEW_BIP              = Expression<Bool>("newBip")                //using alternative ket gen path or type(OKex)
+let DB_ACCOUNT_NEW_BIP              = Expression<Bool>("newBip")            //using alternative ket gen path or type(OKex)
+let DB_ACCOUNT_CUSTOM_PATH          = Expression<Int64>("customPath")
 
 
 ////DB for Password
@@ -362,6 +363,11 @@ let CRYPTO_BASE_PATH                        = "m/44'/394'/0'/0/"
 let RIZON_BASE_PATH                         = "m/44'/1217'/0'/0/"
 let MEDI_BASE_PATH                          = "m/44'/371'/0'/0/"
 let ALTHEA_BASE_PATH                        = "m/44'/60'/0'/0/"
+let FETCH_BASE_PATH                         = "m/44'/118'/0'/0/"
+let ETH_NON_LEDGER_PATH                     = "m/44'/60'/0'/0/"
+let ETH_LEDGER_LIVE_PATH_1                  = "m/44'/60'/"
+let ETH_LEDGER_LIVE_PATH_2                  = "'/0/0"
+let ETH_LEDGER_LEGACY_PATH                  = "m/44'/60'/0'/"
 
 
 
