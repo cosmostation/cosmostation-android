@@ -68,9 +68,21 @@ public class TxJoinPoolHolder extends TxHolder {
                     }
                 }
             }
-            WDp.showCoinDp(c, coin0, itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, baseChain);
-            WDp.showCoinDp(c, coin1, itemJoinPoolTokenInSymbol2, itemJoinPoolTokenInAmount2, baseChain);
-            WDp.showCoinDp(c, coin2, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount, baseChain);
+            if (coin0 != null && coin1 != null) {
+                WDp.showCoinDp(c, coin0, itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, baseChain);
+                WDp.showCoinDp(c, coin1, itemJoinPoolTokenInSymbol2, itemJoinPoolTokenInAmount2, baseChain);
+            } else {
+                itemJoinPoolTokenInAmount1.setText("");
+                itemJoinPoolTokenInSymbol1.setText("");
+                itemJoinPoolTokenInAmount2.setText("");
+                itemJoinPoolTokenInSymbol2.setText("");
+            }
+            if (coin2 != null) {
+                WDp.showCoinDp(c, coin2, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount, baseChain);
+            } else {
+                itemJoinPoolTokenOutAmount.setText("");
+                itemJoinPoolTokenOutSymbol.setText("");
+            }
         } catch (Exception e) { }
     }
 }

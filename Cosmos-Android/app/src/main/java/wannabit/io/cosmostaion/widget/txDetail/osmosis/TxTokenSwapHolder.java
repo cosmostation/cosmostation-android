@@ -52,7 +52,11 @@ public class TxTokenSwapHolder extends TxHolder {
                         if (event.getType().equals("transfer")) {
                             if (event.getAttributesCount() >= 6) {
                                 String value = event.getAttributes(2).getValue();
-                                inCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                if (value.contains("ibc")) {
+                                    inCoin = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
+                                } else {
+                                    inCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                }
                             }
                         }
                     }
@@ -70,8 +74,11 @@ public class TxTokenSwapHolder extends TxHolder {
                         if (event.getType().equals("transfer")) {
                             if (event.getAttributesCount() >= 6) {
                                 String value = event.getAttributes(event.getAttributesCount() - 1).getValue();
-                                WLog.w("SSS : " + value);
-                                outCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                if (value.contains("ibc")) {
+                                    outCoin = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
+                                } else {
+                                    outCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                }
                             }
                         }
                     }
@@ -100,7 +107,11 @@ public class TxTokenSwapHolder extends TxHolder {
                         if (event.getType().equals("transfer")) {
                             if (event.getAttributesCount() >= 6) {
                                 String value = event.getAttributes(2).getValue();
-                                inCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                if (value.contains("ibc")) {
+                                    inCoin = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
+                                } else {
+                                    inCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                }
                             }
                         }
                     }
@@ -118,8 +129,11 @@ public class TxTokenSwapHolder extends TxHolder {
                         if (event.getType().equals("transfer")) {
                             if (event.getAttributesCount() >= 6) {
                                 String value = event.getAttributes(event.getAttributesCount() - 1).getValue();
-                                WLog.w("SSS : " + value);
-                                outCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                if (value.contains("ibc")) {
+                                    outCoin = new Coin(value.replaceAll(value.split("ibc")[0], ""), value.split("ibc")[0]);
+                                } else {
+                                    outCoin = new Coin(value.replaceAll(value.replaceAll("[^0-9]", ""), ""), value.replaceAll("[^0-9]", ""));
+                                }
                             }
                         }
                     }
