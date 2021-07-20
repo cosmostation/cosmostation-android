@@ -72,6 +72,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
     private NewWalletAdapter        mNewWalletAdapter;
 
     private boolean                 mIsNewBip44;
+    private int                     mIsFetchNewBip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +96,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
         mWordSize = getIntent().getIntExtra("size", 24);
         mIsNewBip44 = getIntent().getBooleanExtra("bip44", false);
+        mIsFetchNewBip = getIntent().getIntExtra("fetchbip", 0);
     }
 
 
@@ -111,7 +113,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
     private void onGenAccount(int path) {
         onShowWaitDialog();
-        new GenerateAccountTask(getBaseApplication(), mChain, this, mIsNewBip44).execute(""+path, mEntropy, ""+mWordSize);
+        new GenerateAccountTask(getBaseApplication(), mChain, this, mIsNewBip44, mIsFetchNewBip).execute(""+path, mEntropy, ""+mWordSize);
     }
 
     private void onOverrideAccount(Account account, int path) {
@@ -145,8 +147,13 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull final NewWalletHolder holder, @SuppressLint("RecyclerView") final int position) {
-            String address = WKey.getDpAddressWithPath(mHdSeed, mChain, position, mIsNewBip44);
-            holder.newPath.setText(WDp.getPath(mChain, position, mIsNewBip44));
+            String address = null;
+            if (mChain.equals(FETCHAI_MAIN)) {
+                address = WKey.getDpAddressWithPath(mHdSeed, mChain, position, mIsFetchNewBip);
+            } else {
+                address = WKey.getDpAddressWithPath(mHdSeed, mChain, position, mIsNewBip44);
+            }
+            holder.newPath.setText(WDp.getPath(mChain, position, mIsNewBip44, mIsFetchNewBip));
             if (mChain.equals(OKEX_MAIN)) {
                 try {
                     holder.newAddress.setText(WKey.convertAddressOkexToEth(address));

@@ -38,13 +38,16 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
+import wannabit.io.cosmostaion.dialog.Dialog_FetchRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_OkexRestoreType;
 import wannabit.io.cosmostaion.dialog.Dialog_SecretRestorePath;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -72,6 +75,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     private ArrayList<String>   mWords = new ArrayList<>();
 
     private boolean             mIsNewBip44;
+    private int                 mIsFetchNewBip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -307,6 +311,12 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                     getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
                     return;
 
+                } else if (mChain.equals(FETCHAI_MAIN)) {
+                    Dialog_FetchRestorePath dialog = Dialog_FetchRestorePath.newInstance(null);
+                    dialog.setCancelable(false);
+                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    return;
+
                 } else {
                     onConfirmedWords();
                 }
@@ -361,6 +371,11 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         onConfirmedWords();
     }
 
+    public void onUsingFetchNewBip(int using) {
+        mIsFetchNewBip = using;
+        onConfirmedWords();
+    }
+
     @SuppressLint("MissingSuperCall")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -372,6 +387,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             intent.putExtra("size", mWords.size());
             intent.putExtra("chain", mChain.getChain());
             intent.putExtra("bip44", mIsNewBip44);
+            intent.putExtra("fetchbip", mIsFetchNewBip);
             startActivity(intent);
         }
     }

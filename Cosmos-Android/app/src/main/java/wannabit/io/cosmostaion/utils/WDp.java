@@ -103,6 +103,10 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ALTHEA_PATH;
+import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LEGACY_PATH;
+import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LIVE_PATH_1;
+import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LIVE_PATH_2;
+import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_NON_LEDGER_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_MEDI_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_RIZON_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.KI_VAL_URL;
@@ -1368,7 +1372,7 @@ public class WDp {
         return result;
     }
 
-    public static String getPath(BaseChain chain, int position, boolean newBip) {
+    public static String getPath(BaseChain chain, int position, boolean newBip, int customPath) {
         if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return BaseConstant.KEY_BNB_PATH + String.valueOf(position);
 
@@ -1413,6 +1417,16 @@ public class WDp {
 
         } else if (chain.equals(ALTHEA_TEST)) {
             return KEY_ALTHEA_PATH + String.valueOf(position);
+
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            if (customPath == 1) {
+                return KEY_ETH_NON_LEDGER_PATH + String.valueOf(position);
+            } else if (customPath == 2) {
+                return KEY_ETH_LEDGER_LIVE_PATH_1 + String.valueOf(position) + KEY_ETH_LEDGER_LIVE_PATH_2;
+            } else if (customPath == 3) {
+                return KEY_ETH_LEDGER_LEGACY_PATH + String.valueOf(position);
+            }
+            return BaseConstant.KEY_FETCH_BASE_PATH + String.valueOf(position);
 
         } else {
             return BaseConstant.KEY_PATH + String.valueOf(position);
