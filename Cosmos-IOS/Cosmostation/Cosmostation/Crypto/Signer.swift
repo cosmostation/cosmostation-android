@@ -886,6 +886,63 @@ class Signer {
         }
     }
     
+    static func genSignedWithdrawPoolMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                               _ poolId: String, _ withdraw0Coin: Coin, _ withdraw1Coin: Coin, _ shareAmount: String,
+                                               _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let input0Coin = Cosmos_Base_V1beta1_Coin.with { $0.denom = withdraw0Coin.denom; $0.amount = withdraw0Coin.amount }
+        let input1Coin = Cosmos_Base_V1beta1_Coin.with { $0.denom = withdraw1Coin.denom; $0.amount = withdraw1Coin.amount }
+        var tokenMin = Array<Cosmos_Base_V1beta1_Coin>()
+        tokenMin.append(input0Coin)
+        tokenMin.append(input1Coin)
+        
+        let exitPoolMsg = Osmosis_Gamm_V1beta1_MsgExitPool.with {
+            $0.sender = WUtils.onParseAuthGrpc(auth).0!
+            $0.poolID = UInt64(poolId)!
+            $0.tokenOutMins = tokenMin
+            $0.shareInAmount = shareAmount
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/osmosis.gamm.v1beta1.MsgExitPool"
+            $0.value = try! exitPoolMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSimulateWithdrawPoolMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                 _ poolId: String, _ withdraw0Coin: Coin, _ withdraw1Coin: Coin, _ shareAmount: String,
+                                                 _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        let input0Coin = Cosmos_Base_V1beta1_Coin.with { $0.denom = withdraw0Coin.denom; $0.amount = withdraw0Coin.amount }
+        let input1Coin = Cosmos_Base_V1beta1_Coin.with { $0.denom = withdraw1Coin.denom; $0.amount = withdraw1Coin.amount }
+        var tokenMin = Array<Cosmos_Base_V1beta1_Coin>()
+        tokenMin.append(input0Coin)
+        tokenMin.append(input1Coin)
+        
+        let exitPoolMsg = Osmosis_Gamm_V1beta1_MsgExitPool.with {
+            $0.sender = WUtils.onParseAuthGrpc(auth).0!
+            $0.poolID = UInt64(poolId)!
+            $0.tokenOutMins = tokenMin
+            $0.shareInAmount = shareAmount
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/osmosis.gamm.v1beta1.MsgExitPool"
+            $0.value = try! exitPoolMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
+    
     
     
     
