@@ -178,7 +178,8 @@ let DB_ACCOUNT_IMPORT_TIME          = Expression<Int64>("importTime")
 let DB_ACCOUNT_LAST_TOTAL           = Expression<String>("lastTotal")
 let DB_ACCOUNT_SORT_ORDER           = Expression<Int64>("sortOrder")
 let DB_ACCOUNT_PUSHALARM            = Expression<Bool>("pushAlarm")
-let DB_ACCOUNT_NEW_BIP              = Expression<Bool>("newBip")                //using alternative ket gen path or type(OKex)
+let DB_ACCOUNT_NEW_BIP              = Expression<Bool>("newBip")            //using alternative ket gen path or type(OKex)
+let DB_ACCOUNT_CUSTOM_PATH          = Expression<Int64>("customPath")
 
 
 ////DB for Password
