@@ -498,6 +498,15 @@
         </activity>
 
 
+
+        <activity
+            android:name=".activities.chains.osmosis.LabsListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Translucent"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="portrait"
