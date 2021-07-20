@@ -363,6 +363,11 @@ let CRYPTO_BASE_PATH                        = "m/44'/394'/0'/0/"
 let RIZON_BASE_PATH                         = "m/44'/1217'/0'/0/"
 let MEDI_BASE_PATH                          = "m/44'/371'/0'/0/"
 let ALTHEA_BASE_PATH                        = "m/44'/60'/0'/0/"
+let FETCH_BASE_PATH                         = "m/44'/118'/0'/0/"
+let ETH_NON_LEDGER_PATH                     = "m/44'/60'/0'/0/"
+let ETH_LEDGER_LIVE_PATH_1                  = "m/44'/60'/"
+let ETH_LEDGER_LIVE_PATH_2                  = "'/0/0"
+let ETH_LEDGER_LEGACY_PATH                  = "m/44'/60'/0'/"
 
 
 
