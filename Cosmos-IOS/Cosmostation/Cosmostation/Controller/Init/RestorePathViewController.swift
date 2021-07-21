@@ -239,7 +239,11 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             let keyResult = KeychainWrapper.standard.set(resource, forKey: newAccount.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
             var insertResult :Int64 = -1
             if(keyResult) {
-                newAccount.account_address = KeyFac.getDpAddressPath(mnemonic, path, chain, newBip)
+                if (self.userChain == ChainType.FETCH_MAIN) {
+                    newAccount.account_address = WKey.getDpAddressFetchCustomPath(mnemonic, UInt32(path), chain, customPath)
+                } else {
+                    newAccount.account_address = KeyFac.getDpAddressPath(mnemonic, path, chain, newBip)
+                }
                 newAccount.account_base_chain = WUtils.getChainDBName(chain)
                 newAccount.account_has_private = true
                 newAccount.account_from_mnemonic = true
@@ -276,8 +280,13 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             for word in self.userInputWords! {
                 resource = resource + " " + word
             }
-            
-            let existedAccount = BaseData.instance.selectExistAccount(address: KeyFac.getDpAddressPath(mnemonic, path, chain, newBip), chain: WUtils.getChainDBName(chain))
+            var dpAddress: String
+            if (self.userChain == ChainType.FETCH_MAIN) {
+                dpAddress = WKey.getDpAddressFetchCustomPath(mnemonic, UInt32(path), chain, customPath)
+            } else {
+                dpAddress = KeyFac.getDpAddressPath(mnemonic, path, chain, newBip)
+            }
+            let existedAccount = BaseData.instance.selectExistAccount(address: dpAddress, chain: WUtils.getChainDBName(chain))
             let keyResult = KeychainWrapper.standard.set(resource, forKey: existedAccount!.account_uuid.sha1(), withAccessibility: .afterFirstUnlockThisDeviceOnly)
             var updateResult :Int64 = -1
             if(keyResult) {
