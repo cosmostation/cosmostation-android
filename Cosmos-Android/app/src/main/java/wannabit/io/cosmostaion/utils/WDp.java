@@ -451,6 +451,7 @@ public class WDp {
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
             } else {
                 denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 int decimal = WUtil.getSifCoinDecimal(symbol);
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), decimal, decimal));
             }

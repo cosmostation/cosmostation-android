@@ -221,7 +221,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     mRecyclerView.setVisibility(View.GONE);
                 }
 
-            } else if (isGRPC(getMainActivity().mBaseChain)) {
+            } else if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>) result.resultData;
                 if (hits != null && hits.size() > 0) {
 //                  WLog.w("Custom hit size " + hits.size());
@@ -279,6 +279,11 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
                 holder.onBindNewHistory(getMainActivity(), history);
 
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN)) {
+                HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
+                final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
+                holder.onBindHistory(getMainActivity(), history);
+
             } else {
                 HistoryOldHolder holder = (HistoryOldHolder) viewHolder;
                 if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
@@ -298,7 +303,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         public int getItemViewType(int position) {
             if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) {
                 return TYPE_OLD_HISTORY;
-            } else if (isGRPC(getMainActivity().mBaseChain)) {
+            } else if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 return TYPE_NEW_HISTORY;
             } else {
                 return TYPE_OLD_HISTORY;
@@ -313,7 +318,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 return mOkHistory.size();
             } else if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) {
                 return mApiTxCustomHistory.size();
-            } else if (isGRPC(getMainActivity().mBaseChain)) {
+            } else if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 return mApiNewTxCustomHistory.size();
             } else {
                 return mApiTxHistory.size();

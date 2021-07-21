@@ -93,7 +93,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.SIF_MAIN)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getSifApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getSifApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

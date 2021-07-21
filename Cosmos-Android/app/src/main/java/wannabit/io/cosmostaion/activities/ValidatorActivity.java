@@ -605,7 +605,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 //                WLog.w("mApiTxCustomHistory " + mApiTxCustomHistory.size());
 
-            } else if (isGRPC(mBaseChain)) {
+            } else if (isGRPC(mBaseChain) || mBaseChain.equals(SIF_MAIN)) {
                 ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>)result.resultData;
                 if (hits != null && hits.size() > 0) {
                     mApiNewTxCustomHistory = hits;
@@ -928,39 +928,74 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         private void onBindApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
             final HistoryHolder holder = (HistoryHolder)viewHolder;
-            final ResApiTxList.Data tx;
-            if (mBondingInfo == null && mUnbondingInfo == null) {
-                tx = mApiTxHistory.get(position - 2);
-            } else {
-                tx = mApiTxHistory.get(position - 3);
-            }
-            if (tx.logs != null) {
-                holder.historySuccess.setVisibility(View.GONE);
-            } else {
-                holder.historySuccess.setVisibility(View.VISIBLE);
-            }
-            holder.historyType.setText(WDp.DpTxType(getBaseContext(), tx.messages, mAccount.address));
-            holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), tx.time));
-            holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), tx.time));
-            holder.history_block.setText("" + tx.height + " block");
-            holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!TextUtils.isEmpty(tx.chain_id) && !getBaseDao().getChainId().equals(tx.chain_id)) {
-                        String url  = WUtil.getTxExplorer(mBaseChain, tx.tx_hash);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
-
-                    } else {
-                        Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
-                        txDetail.putExtra("txHash", tx.tx_hash);
-                        txDetail.putExtra("isGen", false);
-                        txDetail.putExtra("isSuccess", true);
-                        startActivity(txDetail);
-                    }
+            if (mBaseChain.equals(SIF_MAIN)) {
+                final ResApiNewTxListCustom history;
+                if (mBondingInfo == null && mUnbondingInfo == null) {
+                    history = mApiNewTxCustomHistory.get(position - 2);
+                } else {
+                    history = mApiNewTxCustomHistory.get(position - 3);
                 }
-            });
+                holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
+                holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
+                holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.data.timestamp));
+                holder.history_block.setText(history.data.height + " block");
+                if (history.isSuccess()) {
+                    holder.historySuccess.setVisibility(View.GONE);
+                } else {
+                    holder.historySuccess.setVisibility(View.VISIBLE);
+                }
+                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
+                            String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
 
+                        } else {
+                            Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                            txDetail.putExtra("txHash", history.data.txhash);
+                            txDetail.putExtra("isGen", false);
+                            txDetail.putExtra("isSuccess", true);
+                            startActivity(txDetail);
+                        }
+                    }
+                });
+
+            } else {
+                final ResApiTxList.Data tx;
+                if (mBondingInfo == null && mUnbondingInfo == null) {
+                    tx = mApiTxHistory.get(position - 2);
+                } else {
+                    tx = mApiTxHistory.get(position - 3);
+                }
+                if (tx.logs != null) {
+                    holder.historySuccess.setVisibility(View.GONE);
+                } else {
+                    holder.historySuccess.setVisibility(View.VISIBLE);
+                }
+                holder.historyType.setText(WDp.DpTxType(getBaseContext(), tx.messages, mAccount.address));
+                holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), tx.time));
+                holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), tx.time));
+                holder.history_block.setText("" + tx.height + " block");
+                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!TextUtils.isEmpty(tx.chain_id) && !getBaseDao().getChainId().equals(tx.chain_id)) {
+                            String url  = WUtil.getTxExplorer(mBaseChain, tx.tx_hash);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
+
+                        } else {
+                            Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                            txDetail.putExtra("txHash", tx.tx_hash);
+                            txDetail.putExtra("isGen", false);
+                            txDetail.putExtra("isSuccess", true);
+                            startActivity(txDetail);
+                        }
+                    }
+                });
+            }
         }
 
 
