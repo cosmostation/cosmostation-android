@@ -771,6 +771,12 @@
     <string name="str_apr_help_onchain_msg">With on chain params</string>
     <string name="str_apr_help_real_msg">With real block time</string>
     <string name="str_apr_help_msg">This figure is an estimated percentage calculated by taking into account the current average network block time.</string>
+    <string name="str_fetch_eth_path_msg">For Convenience of interoperability\nwith Ethereum, 4 types key path\nsupport for Fetch-Ai.</string>
+    <string name="str_fetch_cosmos_path"><![CDATA[Cosmos PATH (44\'/118\'/0\'/0/X)]]></string>
+    <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/X)]]></string>
+    <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
+    <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
+
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
     <string name="str_stability_fee">Stability Fee (APR)</string>
@@ -1359,6 +1365,11 @@
     <string name="str_gravity_swap_order_price">Order Price</string>
     <string name="str_gravity_withdraw_address">Withdraw Address</string>
     <string name="str_gravity_withdraw_pool_id">Pool ID</string>
+    <string name="str_osmosis_defi_lab"><![CDATA[DeFi Lab]]> </string>
+    <string name="str_osmosis_lab"><![CDATA[Osmosis Lab]]> </string>
+    <string name="str_osmosis_swap">Swap</string>
+    <string name="str_osmosis_pool_list">Pool</string>
+    <string name="str_osmosis_farming">Farming</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

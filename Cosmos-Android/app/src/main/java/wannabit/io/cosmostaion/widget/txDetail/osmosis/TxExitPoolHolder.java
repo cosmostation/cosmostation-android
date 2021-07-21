@@ -66,9 +66,21 @@ public class TxExitPoolHolder extends TxHolder {
                     }
                 }
             }
-            WDp.showCoinDp(c, coin0, itemExitPoolTokenOutSymbol1, itemExitPoolTokenOutAmount1, baseChain);
-            WDp.showCoinDp(c, coin1, itemExitPoolTokenOutSymbol2, itemExitPoolTokenOutAmount2, baseChain);
-            WDp.showCoinDp(c, coin2, itemExitPoolTokenInSymbol, itemExitPoolTokenInAmount, baseChain);
+            if (coin0 != null && coin1 != null) {
+                WDp.showCoinDp(c, coin0, itemExitPoolTokenOutSymbol1, itemExitPoolTokenOutAmount1, baseChain);
+                WDp.showCoinDp(c, coin1, itemExitPoolTokenOutSymbol2, itemExitPoolTokenOutAmount2, baseChain);
+            } else {
+                itemExitPoolTokenOutAmount1.setText("");
+                itemExitPoolTokenOutSymbol1.setText("");
+                itemExitPoolTokenOutAmount2.setText("");
+                itemExitPoolTokenOutSymbol2.setText("");
+            }
+            if (coin2 != null) {
+                WDp.showCoinDp(c, coin2, itemExitPoolTokenInSymbol, itemExitPoolTokenInAmount, baseChain);
+            } else {
+                itemExitPoolTokenInAmount.setText("");
+                itemExitPoolTokenInSymbol.setText("");
+            }
         } catch (Exception e) { }
     }
 }

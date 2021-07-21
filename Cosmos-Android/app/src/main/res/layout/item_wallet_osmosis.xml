@@ -189,6 +189,24 @@
                 </RelativeLayout>
             </LinearLayout>
 
+            <RelativeLayout
+                android:id="@+id/btn_osmosis_lab"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_40"
+                android:minHeight="@dimen/space_40"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/btn_trans_with_border"
+                android:clickable="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@drawable/icon_osmosislab"
+                    android:drawablePadding="@dimen/space_2"
+                    android:gravity="center"
+                    style="@style/font_ss_12_white"
+                    android:text="@string/str_osmosis_defi_lab" />
+            </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

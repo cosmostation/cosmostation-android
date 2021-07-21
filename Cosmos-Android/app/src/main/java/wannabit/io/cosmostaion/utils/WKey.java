@@ -171,6 +171,22 @@ public class WKey {
         return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, newBip44), true, true,  new ChildNumber(path));
     }
 
+    public static List<ChildNumber> getFetchPath(BaseChain chain, int customPath) {
+        if (customPath == 1) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+        } else if (customPath == 2) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+        } else if (customPath == 3) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED);
+        }
+        return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+    }
+
+    public static DeterministicKey getKeyWithFetchPathfromEntropy(BaseChain chain, String entropy, int path, int customPath) {
+        DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
+        return new DeterministicHierarchy(masterKey).deriveChild(WKey.getFetchPath(chain, customPath), true, true,  new ChildNumber(path));
+    }
+
     public static boolean isMnemonicWord(String word) {
         List<String> words = MnemonicCode.INSTANCE.getWordList();
         if(words.contains(word)) return true;
@@ -452,6 +468,12 @@ public class WKey {
         if ((chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) && newBip) {
             return generateAddressFromPriv("ex", childKey.getPrivateKeyAsHex());
         }
+        return getDpAddress(chain, childKey.getPublicKeyAsHex());
+    }
+
+    // Fetch Address
+    public static String getDpAddressWithPath(String seed, BaseChain chain, int path, int customPath) {
+        DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getFetchPath(chain, customPath), true, true,  new ChildNumber(path));
         return getDpAddress(chain, childKey.getPublicKeyAsHex());
     }
 
