@@ -40,7 +40,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getKavaApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

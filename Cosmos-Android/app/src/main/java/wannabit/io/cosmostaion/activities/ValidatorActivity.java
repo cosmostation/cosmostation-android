@@ -78,6 +78,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -605,7 +606,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 //                WLog.w("mApiTxCustomHistory " + mApiTxCustomHistory.size());
 
-            } else if (isGRPC(mBaseChain) || mBaseChain.equals(SIF_MAIN)) {
+            } else if (isGRPC(mBaseChain) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(SIF_MAIN)) {
                 ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>)result.resultData;
                 if (hits != null && hits.size() > 0) {
                     mApiNewTxCustomHistory = hits;
@@ -928,7 +929,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         private void onBindApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
             final HistoryHolder holder = (HistoryHolder)viewHolder;
-            if (mBaseChain.equals(SIF_MAIN)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(SIF_MAIN)) {
                 final ResApiNewTxListCustom history;
                 if (mBondingInfo == null && mUnbondingInfo == null) {
                     history = mApiNewTxCustomHistory.get(position - 2);
@@ -947,7 +948,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
+                        if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainId().equals(history.header.chain_id)) {
                             String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                             startActivity(intent);
