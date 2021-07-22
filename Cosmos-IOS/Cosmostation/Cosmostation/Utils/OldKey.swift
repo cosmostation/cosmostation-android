@@ -95,12 +95,34 @@ class OldKey {
             return getHDKeyDpAddressWithPath(masterKey, path: path, chain: chain, newbip)
         }
     }
+    
+    static func getDpAddressFetchCustomPath(_ mnemonic: [String], _ path: UInt32, _ chain: ChainType, _ pathType: Int) -> String {
+        let masterKey = getMasterKeyFromWords(mnemonic)
+        if (pathType == 0) {
+            let childKey = try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: path)
+            return WKey.getPubToDpAddress(childKey.privateKey().publicKey().raw.dataToHexString(), chain)
+            
+        } else if (pathType == 1) {
+            let childKey = try! masterKey.derived(at: 44, hardened: true).derived(at: 60, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: path)
+            return WKey.getPubToDpAddress(childKey.privateKey().publicKey().raw.dataToHexString(), chain)
+            
+        } else if (pathType == 2) {
+            let childKey = try! masterKey.derived(at: 44, hardened: true).derived(at: 60, hardened: true).derived(at: path, hardened: true).derived(at: 0).derived(at: 0)
+            return WKey.getPubToDpAddress(childKey.privateKey().publicKey().raw.dataToHexString(), chain)
+            
+        } else if (pathType == 3) {
+            let childKey = try! masterKey.derived(at: 44, hardened: true).derived(at: 60, hardened: true).derived(at: 0, hardened: true).derived(at: path)
+            return WKey.getPubToDpAddress(childKey.privateKey().publicKey().raw.dataToHexString(), chain)
+            
+        }
+        return ""
+    }
 
     static func getHDKeyDpAddressWithPath(_ masterKey:HDPrivateKey, path:Int, chain:ChainType, _ newbip:Bool) -> String {
         do {
             var childKey:HDPrivateKey?
             if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.AKASH_MAIN ||
-                    chain == ChainType.SENTINEL_MAIN || chain == ChainType.FETCH_MAIN || chain == ChainType.SIF_MAIN || chain == ChainType.KI_MAIN || chain == ChainType.OSMOSIS_MAIN ||
+                    chain == ChainType.SENTINEL_MAIN || chain == ChainType.SIF_MAIN || chain == ChainType.KI_MAIN || chain == ChainType.OSMOSIS_MAIN ||
                     chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.CERTIK_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
 
