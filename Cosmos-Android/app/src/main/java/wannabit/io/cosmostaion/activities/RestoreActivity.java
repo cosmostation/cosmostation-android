@@ -75,7 +75,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
     private ArrayList<String>   mWords = new ArrayList<>();
 
     private boolean             mIsNewBip44;
-    private int                 mIsFetchNewBip;
+    private int                 mIsCustomPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -371,8 +371,8 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         onConfirmedWords();
     }
 
-    public void onUsingFetchNewBip(int using) {
-        mIsFetchNewBip = using;
+    public void onUsingCustomPath(int using) {
+        mIsCustomPath = using;
         onConfirmedWords();
     }
 
@@ -387,7 +387,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             intent.putExtra("size", mWords.size());
             intent.putExtra("chain", mChain.getChain());
             intent.putExtra("bip44", mIsNewBip44);
-            intent.putExtra("fetchbip", mIsFetchNewBip);
+            intent.putExtra("customPath", mIsCustomPath);
             startActivity(intent);
         }
     }

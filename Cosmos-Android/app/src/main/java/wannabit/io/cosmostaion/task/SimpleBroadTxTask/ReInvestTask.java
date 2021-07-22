@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -172,7 +173,7 @@ public class ReInvestTask extends CommonTask {
             }
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
-            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
+            DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44, mAccount.customPath);
 
 
             Msg withdrawMsg = MsgGenerator.genWithdrawDeleMsg(mAccount.address, mValidatorAddress, getChain(mAccount.baseChain));

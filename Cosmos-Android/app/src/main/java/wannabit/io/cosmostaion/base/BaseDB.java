@@ -36,7 +36,7 @@ public class BaseDB extends SQLiteOpenHelper {
                 "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [uuid] TEXT, [nickName] TEXT, [isFavo] INTEGER DEFAULT 0, [address] TEXT, [baseChain] INTEGER, " +
                 "[hasPrivateKey] INTEGER DEFAULT 0, [resource] TEXT, [spec] TEXT, [fromMnemonic] INTEGER DEFAULT 0, [path] TEXT, " +
                 "[isValidator] INTEGER DEFAULT 0, [sequenceNumber] INTEGER, [accountNumber] INTEGER, [fetchTime] INTEGER, [msize] INTEGER, [importTime] INTEGER, [lastTotal] TEXT, [sortOrder] INTEGER, " +
-                "[pushAlarm] INTEGER DEFAULT 0, [newBip] INTEGER DEFAULT 0, [fetchNewBip] INTEGER DEFAULT 0)");
+                "[pushAlarm] INTEGER DEFAULT 0, [newBip] INTEGER DEFAULT 0, [customPath] INTEGER DEFAULT 0)");
 
         sqLiteDatabase.execSQL("CREATE TABLE [" + BaseConstant.DB_TABLE_BALANCE +
                 "] ([id] INTEGER PRIMARY KEY AUTOINCREMENT, [accountId] INTEGER, [symbol] TEXT, [balance] TEXT, [fetchTime] INTEGER, [frozen] TEXT, [locked] TEXT)");
@@ -61,6 +61,7 @@ public class BaseDB extends SQLiteOpenHelper {
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "sortOrder" + " INTEGER");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "pushAlarm" + "  INTEGER DEFAULT 0");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "newBip" + "  INTEGER DEFAULT 0");
+                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
                     db.setTransactionSuccessful();
                 } catch (IllegalStateException e) {
                     WLog.e("upgrade error" + e.getMessage());
@@ -76,7 +77,7 @@ public class BaseDB extends SQLiteOpenHelper {
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "sortOrder" + " INTEGER");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "pushAlarm" + "  INTEGER DEFAULT 0");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "newBip" + "  INTEGER DEFAULT 0");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "fetchNewBip" + "  INTEGER DEFAULT 0");
+                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
                     db.setTransactionSuccessful();
                 } catch (IllegalStateException e) {
                     WLog.e("upgrade error" + e.getMessage());
@@ -90,7 +91,7 @@ public class BaseDB extends SQLiteOpenHelper {
                     db.beginTransaction();
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "pushAlarm" + "  INTEGER DEFAULT 0");
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "newBip" + "  INTEGER DEFAULT 0");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "fetchNewBip" + "  INTEGER DEFAULT 0");
+                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
                     db.setTransactionSuccessful();
                 } catch (IllegalStateException e) {
                     WLog.e("upgrade error" + e.getMessage());
@@ -102,7 +103,7 @@ public class BaseDB extends SQLiteOpenHelper {
                 try {
                     db.beginTransaction();
                     db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "newBip" + "  INTEGER DEFAULT 0");
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "fetchNewBip" + "  INTEGER DEFAULT 0");
+                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
                     db.setTransactionSuccessful();
                 } catch (IllegalStateException e) {
                     WLog.e("upgrade error" + e.getMessage());
@@ -113,7 +114,7 @@ public class BaseDB extends SQLiteOpenHelper {
             case 5 :
                 try {
                     db.beginTransaction();
-                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "fetchNewBip" + "  INTEGER DEFAULT 0");
+                    db.execSQL("ALTER TABLE " + BaseConstant.DB_TABLE_ACCOUNT + " ADD COLUMN " + "customPath" + "  INTEGER DEFAULT 0");
                     db.setTransactionSuccessful();
                 } catch (IllegalStateException e) {
                     WLog.e("upgrade error" + e.getMessage());

@@ -141,12 +141,12 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         mWords = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
         if (mChain.equals(OKEX_MAIN)) {
             try {
-                mAddress.setText(WKey.convertAddressOkexToEth(WKey.getDpAddressFromEntropy(mChain, mEntropy, true)));
+                mAddress.setText(WKey.convertAddressOkexToEth(WKey.getDpAddressFromEntropy(mChain, WUtil.ByteArrayToHexString(mEntropy), 0, true, 0)));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            mAddress.setText(WKey.getDpAddressFromEntropy(mChain, mEntropy, true));
+            mAddress.setText(WKey.getDpAddressFromEntropy(mChain, WUtil.ByteArrayToHexString(mEntropy), 0, true, 0));
         }
 
     }

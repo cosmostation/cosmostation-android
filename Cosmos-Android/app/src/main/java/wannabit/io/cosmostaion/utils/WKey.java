@@ -30,6 +30,7 @@ import java.util.List;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
+import wannabit.io.cosmostaion.dao.Account;
 
 import static org.bitcoinj.core.ECKey.CURVE;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -117,8 +118,8 @@ public class WKey {
     }
 
     public static List<ChildNumber> getParentPath(BaseChain chain, boolean newBip) {
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SENTINEL_MAIN) || chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) ||
-                chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST) || chain.equals(KI_MAIN) || chain.equals(OSMOSIS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SENTINEL_MAIN) ||
+                chain.equals(SIF_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST) || chain.equals(KI_MAIN) || chain.equals(OSMOSIS_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
@@ -166,25 +167,40 @@ public class WKey {
         return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }
 
+    public static List<ChildNumber> getFetchParentPath(int customPath) {
+        if (customPath == 1) {
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);         // m/44'/60'/0'/0/X
+        } else if (customPath == 2) {
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true));                                                      // m/44'/60'/X'/0/0
+        } else if (customPath == 3) {
+            return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED);                           // m/44'/60'/0'/X
+        }
+        return ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);            // m/44'/118'/0'/0/X
+    }
+
+    public static List<ChildNumber> getFetchParentPath2() {
+        return ImmutableList.of(ChildNumber.ZERO);
+    }
+
+    public static DeterministicKey getKeyWithPathfromEntropy(BaseChain chain, String entropy, int path, boolean newBip44, int customPath) {
+        if (!chain.equals(FETCHAI_MAIN)) {
+            return getKeyWithPathfromEntropy(chain, entropy, path, newBip44);
+        } else {
+            DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
+            if (customPath != 2) {
+                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getFetchParentPath(customPath), true, true,  new ChildNumber(path));
+                return targetKey;
+            } else {
+                DeterministicKey targetKey = new DeterministicHierarchy(masterKey).deriveChild(WKey.getFetchParentPath(customPath), true, true,  new ChildNumber(path, true));
+                DeterministicKey targetKey2 = new DeterministicHierarchy(targetKey).deriveChild(WKey.getFetchParentPath2(), true, true,  ChildNumber.ZERO);
+                return targetKey2;
+            }
+        }
+    }
+
     public static DeterministicKey getKeyWithPathfromEntropy(BaseChain chain, String entropy, int path, boolean newBip44) {
         DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
         return new DeterministicHierarchy(masterKey).deriveChild(WKey.getParentPath(chain, newBip44), true, true,  new ChildNumber(path));
-    }
-
-    public static List<ChildNumber> getFetchPath(BaseChain chain, int customPath) {
-        if (customPath == 1) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-        } else if (customPath == 2) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-        } else if (customPath == 3) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED);
-        }
-        return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-    }
-
-    public static DeterministicKey getKeyWithFetchPathfromEntropy(BaseChain chain, String entropy, int path, int customPath) {
-        DeterministicKey masterKey = HDKeyDerivation.createMasterPrivateKey(getHDSeed(WUtil.HexStringToByteArray(entropy)));
-        return new DeterministicHierarchy(masterKey).deriveChild(WKey.getFetchPath(chain, customPath), true, true,  new ChildNumber(path));
     }
 
     public static boolean isMnemonicWord(String word) {
@@ -458,22 +474,11 @@ public class WKey {
         }
     }
 
-
-    public static String getDpAddressFromEntropy(BaseChain chain, byte[] entropy, boolean newBip){
-        return getDpAddressWithPath(WUtil.ByteArrayToHexString(getHDSeed(entropy)), chain, 0, newBip);
-    }
-
-    public static String getDpAddressWithPath(String seed, BaseChain chain, int path, Boolean newBip) {
-        DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getParentPath(chain, newBip), true, true,  new ChildNumber(path));
+    public static String getDpAddressFromEntropy(BaseChain chain, String entropy, int path, boolean newBip, int customPath) {
+        DeterministicKey childKey = getKeyWithPathfromEntropy(chain, entropy, path, newBip, customPath);
         if ((chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) && newBip) {
             return generateAddressFromPriv("ex", childKey.getPrivateKeyAsHex());
         }
-        return getDpAddress(chain, childKey.getPublicKeyAsHex());
-    }
-
-    // Fetch Address
-    public static String getDpAddressWithPath(String seed, BaseChain chain, int path, int customPath) {
-        DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getFetchPath(chain, customPath), true, true,  new ChildNumber(path));
         return getDpAddress(chain, childKey.getPublicKeyAsHex());
     }
 
