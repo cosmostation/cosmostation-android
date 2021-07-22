@@ -40,24 +40,26 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageHolderVC = self.parent as? StepGenTxViewController
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.pageHolderVC = self.parent as? StepGenTxViewController
         
-        feeTotalCard.backgroundColor = WUtils.getChainBg(pageHolderVC.chainType!)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, feeTotalDenom)
-        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
+        feeTotalCard.backgroundColor = WUtils.getChainBg(chainType)
+        WUtils.setDenomTitle(chainType, feeTotalDenom)
+        mDpDecimal = WUtils.mainDivideDecimal(chainType)
         if #available(iOS 13.0, *) {
             gasSelectSegments.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
             gasSelectSegments.setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal)
-            gasSelectSegments.selectedSegmentTintColor = WUtils.getChainColor(pageHolderVC.chainType!)
+            gasSelectSegments.selectedSegmentTintColor = WUtils.getChainColor(chainType)
         } else {
-            gasSelectSegments.tintColor = WUtils.getChainColor(pageHolderVC.chainType!)
+            gasSelectSegments.tintColor = WUtils.getChainColor(chainType!)
         }
-        mEstimateGasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_gRPC.count)
+        mEstimateGasAmount = WUtils.getEstimateGasAmount(chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_gRPC.count)
         onUpdateView()
     }
     
     func onCalculateFees() {
-        mSelectedGasRate = WUtils.getGasRate(pageHolderVC.chainType!, mSelectedGasPosition)
+        mSelectedGasRate = WUtils.getGasRate(chainType!, mSelectedGasPosition)
         mFee = mSelectedGasRate.multiplying(by: mEstimateGasAmount, withBehavior: WUtils.handler0Up)
     }
     
@@ -65,7 +67,7 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
         onCalculateFees()
         
         feeTotalAmount.attributedText = WUtils.displayAmount2(mFee.stringValue, feeTotalAmount.font!, mDpDecimal, mDpDecimal)
-        feeTotalValue.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), mFee, 6, feeTotalValue.font)
+        feeTotalValue.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(chainType), mFee, 6, feeTotalValue.font)
         
         gasRateLabel.attributedText = WUtils.displayGasRate(mSelectedGasRate.rounding(accordingToBehavior: WUtils.handler6), font: gasRateLabel.font, 5)
         gasAmountLabel.text = mEstimateGasAmount.stringValue
@@ -120,7 +122,7 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onSetFee() {
-        let gasCoin = Coin.init(WUtils.getMainDenom(pageHolderVC.chainType), mFee.stringValue)
+        let gasCoin = Coin.init(WUtils.getMainDenom(chainType), mFee.stringValue)
         var amount: Array<Coin> = Array<Coin>()
         amount.append(gasCoin)
         
@@ -150,7 +152,7 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
@@ -178,7 +180,7 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             do {
@@ -209,71 +211,71 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
         if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2) {
             return Signer.genSimulateSendTxgRPC(auth, self.pageHolderVC.mToSendRecipientAddress!, self.pageHolderVC.mToSendAmount,
                                                 self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
-                                                BaseData.instance.getChainId_gRPC())
+                                                BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_DELEGATE) {
             return Signer.genSimulateDelegateTxgRPC(auth, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mToDelegateAmount!,
                                                     self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
-                                                    BaseData.instance.getChainId_gRPC())
+                                                    BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
             return Signer.genSimulateUnDelegateTxgRPC(auth, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mToUndelegateAmount!,
                                                       self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
-                                                      BaseData.instance.getChainId_gRPC())
+                                                      BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
             return Signer.genSimulateReDelegateTxgRPC(auth, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mToReDelegateValidator_gRPC!.operatorAddress,
                                                       self.pageHolderVC.mToReDelegateAmount!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
-                                                      BaseData.instance.getChainId_gRPC())
+                                                      BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
             return Signer.genSimulateClaimRewardsTxgRPC(auth, self.pageHolderVC.mRewardTargetValidators_gRPC, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
-                                                        BaseData.instance.getChainId_gRPC())
+                                                        BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
             return Signer.genSimulateReInvestTxgRPC(auth, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mReinvestReward!,
                                                     self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
-                                                    BaseData.instance.getChainId_gRPC())
+                                                    BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
             return Signer.genSimulateetRewardAddressTxgRPC(auth, self.pageHolderVC.mToChangeRewardAddress!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!,
-                                                           privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                           privateKey,publicKey,BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == TASK_TYPE_VOTE) {
             return Signer.genSimulateVoteTxgRPC(auth, self.pageHolderVC.mProposeId!, self.pageHolderVC.mVoteOpinion!, self.pageHolderVC.mFee!,
-                                                self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId(self.chainType))
             
         }
         
         //for starname custom msg
         else if (pageHolderVC.mType == IOV_MSG_TYPE_REGISTER_DOMAIN) {
             return Signer.genSimulateRegisterDomainMsgTxgRPC(auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mAccount!.account_address,
-                                                             self.pageHolderVC.mStarnameDomainType!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                             self.pageHolderVC.mStarnameDomainType!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
             return Signer.genSimulateRegisterAccountMsgTxgRPC(auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mStarnameAccount!, self.pageHolderVC.mAccount!.account_address,
                                                               self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mStarnameResources_gRPC, self.pageHolderVC.mFee!,
-                                                              self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                              self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_DELETE_DOMAIN) {
             return Signer.genSimulateDeleteDomainMsgTxgRPC (auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mFee!,
-                                                            self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                            self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
             return Signer.genSimulateDeleteAccountMsgTxgRPC (auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mStarnameAccount!, self.pageHolderVC.mAccount!.account_address,
-                                                             self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                             self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_RENEW_DOMAIN) {
             return Signer.genSimulateRenewDomainMsgTxgRPC (auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mFee!,
-                                                           self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                           self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
             return Signer.genSimulateRenewAccountMsgTxgRPC (auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mStarnameAccount!, self.pageHolderVC.mAccount!.account_address,
-                                                            self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                            self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
             return Signer.genSimulateReplaceResourceMsgTxgRPC(auth, self.pageHolderVC.mStarnameDomain!, self.pageHolderVC.mStarnameAccount, self.pageHolderVC.mAccount!.account_address,
-                                                              self.pageHolderVC.mStarnameResources_gRPC, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                              self.pageHolderVC.mStarnameResources_gRPC, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId(self.chainType))
         }
         
         //for osmosis custom msg
@@ -289,7 +291,7 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
                                                      self.pageHolderVC.mSwapInAmount!.stringValue,
                                                      self.pageHolderVC.mSwapOutAmount!.stringValue,
                                                      self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
-                                                     BaseData.instance.getChainId_gRPC())
+                                                     BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
             return Signer.genSimulateDepositPoolMsgTxgRPC(auth,
@@ -297,7 +299,7 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
                                                           self.pageHolderVC.mLPCoin!.amount, self.pageHolderVC.mFee!,
                                                           self.pageHolderVC.mMemo!,
                                                           privateKey, publicKey,
-                                                          BaseData.instance.getChainId_gRPC())
+                                                          BaseData.instance.getChainId(self.chainType))
             
         } else if (pageHolderVC.mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
             return Signer.genSimulateWithdrawPoolMsgTxgRPC(auth,
@@ -305,7 +307,7 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
                                                            self.pageHolderVC.mLPCoin!.amount, self.pageHolderVC.mFee!,
                                                            self.pageHolderVC.mMemo!,
                                                            privateKey, publicKey,
-                                                           BaseData.instance.getChainId_gRPC())
+                                                           BaseData.instance.getChainId(self.chainType))
             
         }
         return nil

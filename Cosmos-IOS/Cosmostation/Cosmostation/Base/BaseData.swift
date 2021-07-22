@@ -110,9 +110,12 @@ final class BaseData : NSObject{
         return denom
     }
     
-    
-    func getChainId() -> String {
-        if (mNodeInfo != nil) { return mNodeInfo!.network! }
+    func getChainId(_ chainType: ChainType?) -> String {
+        if (WUtils.isGRPC(chainType)) {
+            if (mNodeInfo_gRPC != nil) { return mNodeInfo_gRPC!.network }
+        } else {
+            if (mNodeInfo != nil) { return mNodeInfo!.network! }
+        }
         return ""
     }
     
@@ -227,13 +230,6 @@ final class BaseData : NSObject{
     }
     
     
-    
-    
-    // for gRPC func
-    func getChainId_gRPC() -> String {
-        if (mNodeInfo_gRPC != nil) { return mNodeInfo_gRPC!.network }
-        return ""
-    }
     
     func getAvailable_gRPC(_ symbol:String) -> String {
         var amount = NSDecimalNumber.zero.stringValue

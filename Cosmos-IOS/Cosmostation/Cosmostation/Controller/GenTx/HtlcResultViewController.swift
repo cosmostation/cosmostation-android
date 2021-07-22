@@ -323,7 +323,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 let msg = MsgGenerator.genCreateSwapMsg(self.chainType!, self.mHtlcToChain!, self.account!, self.mHtlcToAccount!, self.mHtlcToSendAmount, self.mTimeStamp!, self.mRandomNumberHash!)
                 var msgList = Array<Msg>()
                 msgList.append(msg)
-                let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
+                let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
                                                        String(self.account!.account_account_numner),
                                                        String(self.account!.account_sequence_number),
                                                        msgList,

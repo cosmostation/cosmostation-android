@@ -36,7 +36,9 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageHolderVC = self.parent as? StepGenTxViewController
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.pageHolderVC = self.parent as? StepGenTxViewController
     }
     
     override func enableUserInteraction() {
@@ -55,9 +57,9 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
         
         //set Send layer's data
         sendImg.image = sendImg.image?.withRenderingMode(.alwaysTemplate)
-        sendImg.tintColor = WUtils.getChainColor(pageHolderVC.chainType!)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, sendFeeDenom)
-        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
+        sendImg.tintColor = WUtils.getChainColor(chainType)
+        WUtils.setDenomTitle(chainType, sendFeeDenom)
+        if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             mDpDecimal = 8;
             if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BNB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BNB) {
                 sendAmountDenom.text = "BNB"
@@ -77,7 +79,7 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
             recipientChainLabel.text = WUtils.dpChainName(pageHolderVC.mHtlcToChain!)
             recipientAddressLabel.text = pageHolderVC.mHtlcToAccount?.account_address
             
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             mDpDecimal = WUtils.getKavaCoinDecimal(self.pageHolderVC.mHtlcDenom!)
             if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_BNB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_KAVA_TEST_BNB) {
                 sendAmountDenom.text = "BNB"
@@ -180,13 +182,13 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
     }
     
     func onInitSendFee() {
-        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
+        if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             let feeCoin = Coin.init(BNB_MAIN_DENOM, FEE_BNB_TRANSFER)
             var tempList = Array<Coin>()
             tempList.append(feeCoin)
             pageHolderVC.mHtlcSendFee = Fee.init("", tempList)
 
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             let feeCoin = Coin.init(KAVA_MAIN_DENOM, "0")
             var tempList = Array<Coin>()
             tempList.append(feeCoin)

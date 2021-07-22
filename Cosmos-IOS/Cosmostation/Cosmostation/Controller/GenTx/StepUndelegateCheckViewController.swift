@@ -30,9 +30,11 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageHolderVC = self.parent as? StepGenTxViewController
-        WUtils.setDenomTitle(pageHolderVC.chainType!, toUndelegateDenomLabel)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, feeDenomLabel)
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(chainType!, toUndelegateDenomLabel)
+        WUtils.setDenomTitle(chainType!, feeDenomLabel)
     }
     
     
@@ -59,9 +61,9 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     }
     
     func onUpdateView() {
-        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
+        mDpDecimal = WUtils.mainDivideDecimal(chainType)
         
-        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+        if (WUtils.isGRPC(chainType)) {
             toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount2(pageHolderVC.mToUndelegateAmount?.amount, toUnDelegateAmoutLaebl.font, mDpDecimal, mDpDecimal)
             feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, mDpDecimal, mDpDecimal)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
@@ -73,7 +75,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             
         }
         memoLabel.text = pageHolderVC.mMemo
-        if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN || pageHolderVC.chainType! == ChainType.CRYPTO_MAIN) {
+        if (chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.CRYPTO_MAIN) {
             expectedDateLabel.text = WUtils.unbondingDateFromNow(28) + " (28days after)"
         } else {
             expectedDateLabel.text = WUtils.unbondingDateFromNow(21) + " (21days after)"
@@ -82,7 +84,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
 
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            if (WUtils.isGRPC(chainType)) {
                 self.onFetchgRPCAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
@@ -92,11 +94,11 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -139,12 +141,12 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             let msg = MsgGenerator.genUndelegateMsg(self.pageHolderVC.mAccount!.account_address,
                                                     self.pageHolderVC.mTargetValidator!.operator_address,
                                                     self.pageHolderVC.mToUndelegateAmount!,
-                                                    self.pageHolderVC.chainType!)
+                                                    self.chainType!)
             
             var msgList = Array<Msg>()
             msgList.append(msg)
             
-            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
+            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
                                                    String(self.pageHolderVC.mAccount!.account_account_numner),
                                                    String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                    msgList,
@@ -161,7 +163,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                 let data = try? encoder.encode(postTx)
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
@@ -198,7 +200,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
@@ -221,12 +223,12 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             let privateKey = KeyFac.getPrivateRaw(words, self.pageHolderVC.mAccount!)
             let publicKey = KeyFac.getPublicRaw(words, self.pageHolderVC.mAccount!)
             let reqTx = Signer.genSignedUnDelegateTxgRPC(auth!, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mToUndelegateAmount!,
-                                                       self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                       self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId(self.chainType))
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             do {

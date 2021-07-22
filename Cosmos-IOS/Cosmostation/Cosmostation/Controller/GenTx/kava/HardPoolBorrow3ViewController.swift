@@ -74,22 +74,20 @@ class HardPoolBorrow3ViewController: BaseViewController, PasswordViewDelegate {
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                    guard let info = res as? [String : Any] else {
-                        _ = BaseData.instance.deleteBalance(account: account)
-                        self.hideWaittingAlert()
-                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                        return
-                    }
-                    let accountInfo = KavaAccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
-                    self.onGenBorrowHardPoolTx()
+                guard let info = res as? [String : Any] else {
+                    _ = BaseData.instance.deleteBalance(account: account)
+                    self.hideWaittingAlert()
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
                 }
+                let accountInfo = KavaAccountInfo.init(info)
+                _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
+                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
+                self.onGenBorrowHardPoolTx()
                 
             case .failure( _):
                 self.hideWaittingAlert()
@@ -103,14 +101,14 @@ class HardPoolBorrow3ViewController: BaseViewController, PasswordViewDelegate {
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
-            let msg = MsgGenerator.genBorrowHardMsg(self.pageHolderVC.chainType!,
-                                                      self.pageHolderVC.mAccount!.account_address,
-                                                      self.pageHolderVC.mHardPoolCoins!)
+            let msg = MsgGenerator.genBorrowHardMsg(self.chainType!,
+                                                    self.pageHolderVC.mAccount!.account_address,
+                                                    self.pageHolderVC.mHardPoolCoins!)
             
             var msgList = Array<Msg>()
             msgList.append(msg)
             
-            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
+            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
                                                    String(self.pageHolderVC.mAccount!.account_account_numner),
                                                    String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                    msgList,
@@ -127,7 +125,7 @@ class HardPoolBorrow3ViewController: BaseViewController, PasswordViewDelegate {
                 let data = try? encoder.encode(postTx)
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
@@ -145,7 +143,7 @@ class HardPoolBorrow3ViewController: BaseViewController, PasswordViewDelegate {
 
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                                     txResult["type"] = COSMOS_MSG_TYPE_DELEGATE
                                     self.onStartTxDetail(txResult)
                                 }

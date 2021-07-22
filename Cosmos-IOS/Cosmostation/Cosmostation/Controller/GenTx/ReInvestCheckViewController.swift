@@ -33,17 +33,19 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageHolderVC = self.parent as? StepGenTxViewController
-        WUtils.setDenomTitle(pageHolderVC.chainType!, rewardDenomLabel)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, feeDenomLabel)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, currentDenom)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, expectedDenom)
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(chainType, rewardDenomLabel)
+        WUtils.setDenomTitle(chainType, feeDenomLabel)
+        WUtils.setDenomTitle(chainType, currentDenom)
+        WUtils.setDenomTitle(chainType, expectedDenom)
     }
     
     func onUpdateView() {
-        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
+        mDpDecimal = WUtils.mainDivideDecimal(chainType)
         
-        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+        if (WUtils.isGRPC(chainType)) {
             rewardLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, mDpDecimal, mDpDecimal)
             feeLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, mDpDecimal, mDpDecimal)
             
@@ -113,7 +115,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            if (WUtils.isGRPC(chainType)) {
                 self.onFetchgRPCAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
@@ -123,11 +125,11 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -169,16 +171,16 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             var msgList = Array<Msg>()
             let rewardMsg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
                                                          self.pageHolderVC.mTargetValidator!.operator_address,
-                                                         self.pageHolderVC.chainType!)
+                                                         self.chainType!)
             
             let delegatemsg = MsgGenerator.genDelegateMsg(self.pageHolderVC.mAccount!.account_address,
                                                           self.pageHolderVC.mTargetValidator!.operator_address,
                                                           self.pageHolderVC.mReinvestReward!,
-                                                          self.pageHolderVC.chainType!)
+                                                          self.chainType!)
             msgList.append(rewardMsg)
             msgList.append(delegatemsg)
             
-            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
+            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
                                                    String(self.pageHolderVC.mAccount!.account_account_numner),
                                                    String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                    msgList,
@@ -197,7 +199,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
 //                    print("params ", params)
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.validate()
                     request.responseJSON { response in
                         var txResult = [String:Any]()
@@ -238,7 +240,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
@@ -261,12 +263,12 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             let privateKey = KeyFac.getPrivateRaw(words, self.pageHolderVC.mAccount!)
             let publicKey = KeyFac.getPublicRaw(words, self.pageHolderVC.mAccount!)
             let reqTx = Signer.genSignedReInvestTxgRPC(auth!, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mReinvestReward!,
-                                                       self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                       self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId(self.chainType))
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             do {

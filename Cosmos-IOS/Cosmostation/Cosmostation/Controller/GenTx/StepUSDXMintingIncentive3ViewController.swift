@@ -73,22 +73,20 @@ class StepUSDXMintingIncentive3ViewController: BaseViewController, PasswordViewD
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                    guard let info = res as? [String : Any] else {
-                        _ = BaseData.instance.deleteBalance(account: account)
-                        self.hideWaittingAlert()
-                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                        return
-                    }
-                    let accountInfo = KavaAccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
-                    self.onGenIncentiveRewardTx()
+                guard let info = res as? [String : Any] else {
+                    _ = BaseData.instance.deleteBalance(account: account)
+                    self.hideWaittingAlert()
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
                 }
+                let accountInfo = KavaAccountInfo.init(info)
+                _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
+                BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
+                self.onGenIncentiveRewardTx()
                 
             case .failure( _):
                 self.hideWaittingAlert()
@@ -106,7 +104,7 @@ class StepUSDXMintingIncentive3ViewController: BaseViewController, PasswordViewD
             var msgList = Array<Msg>()
             msgList.append(msg)
             
-            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
+            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
                                                    String(self.pageHolderVC.mAccount!.account_account_numner),
                                                    String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                    msgList,
@@ -121,7 +119,7 @@ class StepUSDXMintingIncentive3ViewController: BaseViewController, PasswordViewD
                 let data = try? encoder.encode(postTx)
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.validate().responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
@@ -139,11 +137,8 @@ class StepUSDXMintingIncentive3ViewController: BaseViewController, PasswordViewD
 
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                                    self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                                    txResult["type"] = COSMOS_MSG_TYPE_DELEGATE
-                                    self.onStartTxDetail(txResult)
-                                }
+                                txResult["type"] = COSMOS_MSG_TYPE_DELEGATE
+                                self.onStartTxDetail(txResult)
                             })
                         }
                     }

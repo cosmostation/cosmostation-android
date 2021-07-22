@@ -34,7 +34,7 @@ class RenewStarname3ViewController: BaseViewController, PasswordViewDelegate {
         self.balances = account!.account_balances
         self.pageHolderVC = self.parent as? StepGenTxViewController
         
-        WUtils.setDenomTitle(pageHolderVC.chainType!, feeAmountDenom)
+        WUtils.setDenomTitle(chainType, feeAmountDenom)
     }
     
     override func enableUserInteraction() {
@@ -92,7 +92,7 @@ class RenewStarname3ViewController: BaseViewController, PasswordViewDelegate {
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
@@ -123,7 +123,7 @@ class RenewStarname3ViewController: BaseViewController, PasswordViewDelegate {
                                                                self.pageHolderVC.mFee!,
                                                                self.pageHolderVC.mMemo!,
                                                                privateKey, publicKey,
-                                                               BaseData.instance.getChainId_gRPC())
+                                                               BaseData.instance.getChainId(self.chainType))
                 
             } else if (self.pageHolderVC.mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
                 reqTx = Signer.genSignedRenewAccountMsgTxgRPC (auth!,
@@ -133,13 +133,13 @@ class RenewStarname3ViewController: BaseViewController, PasswordViewDelegate {
                                                                self.pageHolderVC.mFee!,
                                                                self.pageHolderVC.mMemo!,
                                                                privateKey, publicKey,
-                                                               BaseData.instance.getChainId_gRPC())
+                                                               BaseData.instance.getChainId(self.chainType))
             }
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             do {

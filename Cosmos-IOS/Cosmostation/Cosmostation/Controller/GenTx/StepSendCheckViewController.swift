@@ -39,10 +39,12 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageHolderVC = self.parent as? StepGenTxViewController
-        WUtils.setDenomTitle(pageHolderVC.chainType!, sendDenomLabel)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, availableDenomLabel)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, remainDenomLabel)
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(chainType, sendDenomLabel)
+        WUtils.setDenomTitle(chainType, availableDenomLabel)
+        WUtils.setDenomTitle(chainType, remainDenomLabel)
     }
     
     @IBAction func onClickConfirm(_ sender: Any) {
@@ -67,38 +69,38 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
-        let mainDenom = WUtils.getMainDenom(pageHolderVC.chainType!)
+        let mainDenom = WUtils.getMainDenom(chainType)
         let toSendDenom = pageHolderVC.mToSendAmount[0].denom
         let toSendAmount = WUtils.plainStringToDecimal(pageHolderVC.mToSendAmount[0].amount)
         let feeAmount = WUtils.plainStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
         var currentAvailable = NSDecimalNumber.zero
         var remainAvailable = NSDecimalNumber.zero
         
-        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            mDivideDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
-            mDisplayDecimal = WUtils.mainDisplayDecimal(pageHolderVC.chainType)
+        if (WUtils.isGRPC(chainType)) {
+            mDivideDecimal = WUtils.mainDivideDecimal(chainType)
+            mDisplayDecimal = WUtils.mainDisplayDecimal(chainType)
             currentAvailable = BaseData.instance.getAvailableAmount_gRPC(toSendDenom)
             
         }  else {
-            if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
-                mDivideDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
-                mDisplayDecimal = WUtils.mainDisplayDecimal(pageHolderVC.chainType)
+            if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+                mDivideDecimal = WUtils.mainDivideDecimal(chainType)
+                mDisplayDecimal = WUtils.mainDisplayDecimal(chainType)
                 
-            } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 mDivideDecimal = WUtils.getKavaCoinDecimal(pageHolderVC.mToSendDenom)
                 mDisplayDecimal = WUtils.getKavaCoinDecimal(pageHolderVC.mToSendDenom)
                 
-            } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-                mDivideDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
-                mDisplayDecimal = WUtils.mainDisplayDecimal(pageHolderVC.chainType)
+            } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+                mDivideDecimal = WUtils.mainDivideDecimal(chainType)
+                mDisplayDecimal = WUtils.mainDisplayDecimal(chainType)
                 
-            } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+            } else if (chainType == ChainType.SIF_MAIN) {
                 mDivideDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom)
                 mDisplayDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom)
                 
             } else {
-                mDivideDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
-                mDisplayDecimal = WUtils.mainDisplayDecimal(pageHolderVC.chainType)
+                mDivideDecimal = WUtils.mainDivideDecimal(chainType)
+                mDisplayDecimal = WUtils.mainDisplayDecimal(chainType)
             }
             currentAvailable = BaseData.instance.availableAmount(toSendDenom)
             
@@ -119,13 +121,13 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
         }
         
-        WUtils.showCoinDp(toSendDenom, toSendAmount.stringValue, sendDenomLabel, sendAmountLabel, pageHolderVC.chainType!)
-        WUtils.showCoinDp(mainDenom, feeAmount.stringValue, feeDenomLabel, feeAmountLabel, pageHolderVC.chainType!)
-        WUtils.showCoinDp(toSendDenom, currentAvailable.stringValue, availableDenomLabel, availableAmountLabel, pageHolderVC.chainType!)
-        WUtils.showCoinDp(toSendDenom, remainAvailable.stringValue, remainDenomLabel, remainAmountLabel, pageHolderVC.chainType!)
+        WUtils.showCoinDp(toSendDenom, toSendAmount.stringValue, sendDenomLabel, sendAmountLabel, chainType!)
+        WUtils.showCoinDp(mainDenom, feeAmount.stringValue, feeDenomLabel, feeAmountLabel, chainType!)
+        WUtils.showCoinDp(toSendDenom, currentAvailable.stringValue, availableDenomLabel, availableAmountLabel, chainType!)
+        WUtils.showCoinDp(toSendDenom, remainAvailable.stringValue, remainDenomLabel, remainAmountLabel, chainType!)
         
         mToAddressLabel.text = pageHolderVC.mToSendRecipientAddress
-        if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+        if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             mToAddressLabel.text = WKey.convertAddressOkexToEth(pageHolderVC.mToSendRecipientAddress!)
         }
         mToAddressLabel.adjustsFontSizeToFitWidth = true
@@ -135,7 +137,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            if (WUtils.isGRPC(chainType)) {
                 self.onFetchgRPCAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
@@ -146,11 +148,11 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN || self.pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
+                if (self.chainType == ChainType.BINANCE_MAIN || self.chainType == ChainType.BINANCE_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -162,7 +164,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithBnbAccountInfo(account, bnbAccountInfo))
                     self.onGenBnbSendTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                } else if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                     guard  let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -174,7 +176,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
                     self.onGenSendTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.OKEX_MAIN || self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+                } else if (self.chainType == ChainType.OKEX_MAIN || self.chainType == ChainType.OKEX_TEST) {
                     guard let info = res as? NSDictionary else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -219,14 +221,17 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 let msg = MsgGenerator.genGetSendMsg(self.pageHolderVC.mAccount!.account_address,
                                                      self.pageHolderVC.mToSendRecipientAddress!,
                                                      self.pageHolderVC.mToSendAmount,
-                                                     self.pageHolderVC.chainType!)
+                                                     self.chainType!)
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
                 let privateKey = KeyFac.getPrivateRaw(words, self.pageHolderVC.mAccount!)
                 let publicKey = KeyFac.getPublicRaw(words, self.pageHolderVC.mAccount!)
-                if (self.pageHolderVC.chainType! == ChainType.OKEX_MAIN || self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-                    let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
+                if (self.chainType == ChainType.OKEX_MAIN || self.chainType == ChainType.OKEX_TEST) {
+                    let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
+                                                           String(self.pageHolderVC.mAccount!.account_account_numner),
+                                                           String(self.pageHolderVC.mAccount!.account_sequence_number),
+                                                           msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                     
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .sortedKeys
@@ -272,7 +277,10 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     }
                     
                 } else {
-                    let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(), String(self.pageHolderVC.mAccount!.account_account_numner), String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
+                    let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
+                                                           String(self.pageHolderVC.mAccount!.account_account_numner),
+                                                           String(self.pageHolderVC.mAccount!.account_sequence_number),
+                                                           msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                 
                     stdTx = KeyFac.getStdTx(words, msgList, stdMsg, self.pageHolderVC.mAccount!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                 }
@@ -290,7 +298,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
 //                    print("params ", params)
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
@@ -334,14 +342,14 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                                     signerAddress: self.pageHolderVC.mAccount!.account_address,
                                     sequence: Int(self.pageHolderVC.mAccount!.account_sequence_number),
                                     accountNumber: Int(self.pageHolderVC.mAccount!.account_account_numner),
-                                    chainId: BaseData.instance.getChainId())
+                                    chainId: BaseData.instance.getChainId(self.chainType))
             
             DispatchQueue.main.async(execute: {
                 do {
                     var encoding: ParameterEncoding = URLEncoding.default
                     encoding = HexEncoding(data: try bnbMsg.encode())
                     let param: Parameters = [ "address": self.pageHolderVC.mAccount!.account_address ]
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: param, encoding: encoding, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: param, encoding: encoding, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
@@ -376,7 +384,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
@@ -400,12 +408,12 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             let publicKey = KeyFac.getPublicRaw(words, self.pageHolderVC.mAccount!)
             let reqTx = Signer.genSignedSendTxgRPC(auth!, self.pageHolderVC.mToSendRecipientAddress!, self.pageHolderVC.mToSendAmount,
                                                    self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
-                                                   BaseData.instance.getChainId_gRPC())
+                                                   BaseData.instance.getChainId(self.chainType))
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
 
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
 
             do {

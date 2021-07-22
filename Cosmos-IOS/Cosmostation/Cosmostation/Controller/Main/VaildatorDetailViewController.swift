@@ -73,7 +73,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     @objc func onFech() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.RIZON_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             self.mFetchCnt = 6
             BaseData.instance.mMyDelegations_gRPC.removeAll()
             BaseData.instance.mMyUnbondings_gRPC.removeAll()
@@ -84,34 +84,66 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchDelegations_gRPC(account!.account_address, 0)
             onFetchUndelegations_gRPC(account!.account_address, 0)
             onFetchRewards_gRPC(account!.account_address)
-            onFetchNewApiHistoryCustom(account!.account_address, mValidator_gRPC!.operatorAddress)
-            return
             
-        } else  if (WUtils.isGRPC(chainType!)) {
-            self.mFetchCnt = 6
-            BaseData.instance.mMyDelegations_gRPC.removeAll()
-            BaseData.instance.mMyUnbondings_gRPC.removeAll()
-            BaseData.instance.mMyReward_gRPC.removeAll()
-            
-            onFetchSingleValidator_gRPC(mValidator_gRPC!.operatorAddress)
-            onFetchValidatorSelfBond_gRPC(WKey.getAddressFromOpAddress(mValidator_gRPC!.operatorAddress, chainType!), mValidator_gRPC!.operatorAddress)
-            onFetchDelegations_gRPC(account!.account_address, 0)
-            onFetchUndelegations_gRPC(account!.account_address, 0)
-            onFetchRewards_gRPC(account!.account_address)
-            onFetchApiHistoryCustom(account!.account_address, mValidator_gRPC!.operatorAddress)
-            
-        }
-        
-        else {
+        } else {
             mRewardCoins.removeAll()
             mFetchCnt = 5
             onFetchValidatorInfo(mValidator!)
             onFetchSignleBondingInfo(account!, mValidator!)
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
-            onFetchApiHistory(account!, mValidator!)
             
         }
+        
+        if (chainType == ChainType.CRYPTO_MAIN) {
+            
+        } else if (chainType == ChainType.BAND_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.KI_MAIN) {
+            
+        } else {
+            
+        }
+        
+        
+        
+//        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.RIZON_TEST) {
+//            self.mFetchCnt = 6
+//            BaseData.instance.mMyDelegations_gRPC.removeAll()
+//            BaseData.instance.mMyUnbondings_gRPC.removeAll()
+//            BaseData.instance.mMyReward_gRPC.removeAll()
+//
+//            onFetchSingleValidator_gRPC(mValidator_gRPC!.operatorAddress)
+//            onFetchValidatorSelfBond_gRPC(WKey.getAddressFromOpAddress(mValidator_gRPC!.operatorAddress, chainType!), mValidator_gRPC!.operatorAddress)
+//            onFetchDelegations_gRPC(account!.account_address, 0)
+//            onFetchUndelegations_gRPC(account!.account_address, 0)
+//            onFetchRewards_gRPC(account!.account_address)
+//            onFetchNewApiHistoryCustom(account!.account_address, mValidator_gRPC!.operatorAddress)
+//            return
+//
+//        } else  if (WUtils.isGRPC(chainType!)) {
+//            self.mFetchCnt = 6
+//            BaseData.instance.mMyDelegations_gRPC.removeAll()
+//            BaseData.instance.mMyUnbondings_gRPC.removeAll()
+//            BaseData.instance.mMyReward_gRPC.removeAll()
+//
+//            onFetchSingleValidator_gRPC(mValidator_gRPC!.operatorAddress)
+//            onFetchValidatorSelfBond_gRPC(WKey.getAddressFromOpAddress(mValidator_gRPC!.operatorAddress, chainType!), mValidator_gRPC!.operatorAddress)
+//            onFetchDelegations_gRPC(account!.account_address, 0)
+//            onFetchUndelegations_gRPC(account!.account_address, 0)
+//            onFetchRewards_gRPC(account!.account_address)
+//            onFetchApiHistoryCustom(account!.account_address, mValidator_gRPC!.operatorAddress)
+//
+//        }
+//
+//        else {
+//            mRewardCoins.removeAll()
+//            mFetchCnt = 5
+//            onFetchValidatorInfo(mValidator!)
+//            onFetchSignleBondingInfo(account!, mValidator!)
+//            onFetchSignleUnBondingInfo(account!, mValidator!)
+//            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
+//            onFetchApiHistory(account!, mValidator!)
+//
+//        }
     }
     
     func onFetchFinished() {
@@ -518,7 +550,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (indexPath.section == 1 && mApiCustomHistories.count > 0) {
             let history = mApiCustomHistories[indexPath.row]
-            if (history.chain_id?.isEmpty == false && (BaseData.instance.getChainId_gRPC() != history.chain_id)) {
+            if (history.chain_id?.isEmpty == false && (BaseData.instance.getChainId(self.chainType) != history.chain_id)) {
                 let link = WUtils.getTxExplorer(self.chainType!, history.tx_hash!)
                 guard let url = URL(string: link) else { return }
                 self.onShowSafariWeb(url)
@@ -534,7 +566,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (indexPath.section == 1 && mApiCustomNewHistories.count > 0) {
             let history = mApiCustomNewHistories[indexPath.row]
-            if (history.header?.chain_id != BaseData.instance.getChainId_gRPC()) {
+            if (history.header?.chain_id != BaseData.instance.getChainId(self.chainType)) {
                 let link = WUtils.getTxExplorer(self.chainType!, history.data!.txhash!)
                 guard let url = URL(string: link) else { return }
                 self.onShowSafariWeb(url)

@@ -33,7 +33,9 @@ class StepDepositCdpCheckViewController: BaseViewController, PasswordViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageHolderVC = self.parent as? StepGenTxViewController
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.pageHolderVC = self.parent as? StepGenTxViewController
     }
     
     @IBAction func onClickBack(_ sender: UIButton) {
@@ -92,12 +94,11 @@ class StepDepositCdpCheckViewController: BaseViewController, PasswordViewDelegat
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                    self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -122,7 +123,7 @@ class StepDepositCdpCheckViewController: BaseViewController, PasswordViewDelegat
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
-            let msg = MsgGenerator.genGetDepositCdpMsg(self.pageHolderVC.chainType!,
+            let msg = MsgGenerator.genGetDepositCdpMsg(self.chainType!,
                                                        self.pageHolderVC.mAccount!.account_address,
                                                        self.pageHolderVC.mAccount!.account_address,
                                                        self.pageHolderVC.mCollateral,
@@ -131,7 +132,7 @@ class StepDepositCdpCheckViewController: BaseViewController, PasswordViewDelegat
             var msgList = Array<Msg>()
             msgList.append(msg)
             
-            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
+            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
                                                    String(self.pageHolderVC.mAccount!.account_account_numner),
                                                    String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                    msgList,
@@ -148,7 +149,7 @@ class StepDepositCdpCheckViewController: BaseViewController, PasswordViewDelegat
                 let data = try? encoder.encode(postTx)
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.validate().responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
@@ -166,8 +167,7 @@ class StepDepositCdpCheckViewController: BaseViewController, PasswordViewDelegat
 
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                                    self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                                if (self.chainType == ChainType.KAVA_MAIN || self.chainType! == ChainType.KAVA_TEST) {
                                     txResult["type"] = COSMOS_MSG_TYPE_DELEGATE
                                     self.onStartTxDetail(txResult)
                                 }

@@ -526,7 +526,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 BaseData.instance.mNodeInfo = NodeInfo.init(nodeInfo)
                 self.mFetchCnt = self.mFetchCnt + 1
-                self.onFetchParams(BaseData.instance.getChainId())
+                self.onFetchParams(BaseData.instance.getChainId(self.mChainType))
                 if let height = responseData.object(forKey: "height") as? Int {
                     BaseData.instance.mHeight = height
                 }
@@ -1070,9 +1070,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
             DispatchQueue.main.async(execute: {
                 self.mFetchCnt = self.mFetchCnt + 3
-                self.onFetchParams(BaseData.instance.getChainId_gRPC())
-                self.onFetchIbcPaths(BaseData.instance.getChainId_gRPC())
-                self.onFetchIbcTokens(BaseData.instance.getChainId_gRPC())
+                self.onFetchParams(BaseData.instance.getChainId(self.mChainType))
+                self.onFetchIbcPaths(BaseData.instance.getChainId(self.mChainType))
+                self.onFetchIbcTokens(BaseData.instance.getChainId(self.mChainType))
                 self.onFetchFinished()
             });
         }

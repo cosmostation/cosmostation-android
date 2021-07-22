@@ -884,11 +884,11 @@ class BaseNetWork {
         if (chain == ChainType.COSMOS_MAIN) {
             result = COSMOS_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.IRIS_MAIN) {
-            result = IRIS_API + "v1/account/txs/" + address
+            result = IRIS_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.AKASH_MAIN) {
-            result = AKASH_API + "v1/account/txs/" + address
+            result = AKASH_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.PERSIS_MAIN) {
-            result = PERSIS_API + "v1/account/txs/" + address
+            result = PERSIS_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.CRYPTO_MAIN) {
             result = CRYTO_API + "v1/account/txs/" + address
         } else if (chain == ChainType.OSMOSIS_MAIN) {
@@ -900,35 +900,35 @@ class BaseNetWork {
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
-            result = KAVA_API + "v1/account/txs/" + address
+            result = KAVA_API + "v1/account/new_txs/" + address
         }  else if (chain == ChainType.CERTIK_MAIN) {
             result = CERTIK_API + "v1/account/txs/" + address
         }  else if (chain == ChainType.SENTINEL_MAIN) {
-            result = SENTINEL_API + "v1/account/txs/" + address
+            result = SENTINEL_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.FETCH_MAIN) {
-            result = FETCH_API + "v1/account/txs/" + address
+            result = FETCH_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.SIF_MAIN) {
-            result = SIF_API + "v1/account/txs/" + address
+            result = SIF_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.KI_MAIN) {
             result = KI_API + "v1/account/txs/" + address
         }
         
         
         else if (chain == ChainType.COSMOS_TEST) {
-            result = COSMOS_TEST_API + "v1/account/txs/" + address
+            result = COSMOS_TEST_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.IRIS_TEST) {
-            result = IRIS_TEST_API + "v1/account/txs/" + address
+            result = IRIS_TEST_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.RIZON_TEST) {
             result = RIZON_TEST_API + "v1/account/new_txs/" + address
         }
         else if (chain == ChainType.KAVA_TEST) {
-            result = KAVA_TEST_API + "v1/account/txs/" + address
+            result = KAVA_TEST_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.CERTIK_TEST) {
             result = CERTIK_TEST_API + "v1/account/txs/" + address
         } else if (chain == ChainType.MEDI_TEST) {
-            result = MEDI_TEST_API + "v1/account/txs/" + address
+            result = MEDI_TEST_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.ALTHEA_TEST) {
-            result = ALTHEA_TEST_API + "v1/account/txs/" + address
+            result = ALTHEA_TEST_API + "v1/account/new_txs/" + address
         }
         return result
     }
@@ -938,11 +938,11 @@ class BaseNetWork {
         if (chain == ChainType.COSMOS_MAIN) {
             result = COSMOS_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.IRIS_MAIN) {
-            result = IRIS_API + "v1/account/txs/" + address + "/" + valAddress
+            result = IRIS_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.AKASH_MAIN) {
-            result = AKASH_API + "v1/account/txs/" + address + "/" + valAddress
+            result = AKASH_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.PERSIS_MAIN) {
-            result = PERSIS_API + "v1/account/txs/" + address + "/" + valAddress
+            result = PERSIS_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.CRYPTO_MAIN) {
             result = CRYTO_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.OSMOSIS_MAIN) {
@@ -954,34 +954,34 @@ class BaseNetWork {
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
-            result = KAVA_API + "v1/account/txs/" + address + "/" + valAddress
+            result = KAVA_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.CERTIK_MAIN) {
             result = CERTIK_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.SENTINEL_MAIN) {
-            result = SENTINEL_API + "v1/account/txs/" + address + "/" + valAddress
+            result = SENTINEL_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.FETCH_MAIN) {
-            result = FETCH_API + "v1/account/txs/" + address + "/" + valAddress
+            result = FETCH_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.SIF_MAIN) {
-            result = SIF_API + "v1/account/txs/" + address + "/" + valAddress
+            result = SIF_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.KI_MAIN) {
             result = KI_API + "v1/account/txs/" + address + "/" + valAddress
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
-            result = COSMOS_TEST_API + "v1/account/txs/" + address + "/" + valAddress
+            result = COSMOS_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.IRIS_TEST) {
-            result = IRIS_TEST_API + "v1/account/txs/" + address + "/" + valAddress
+            result = IRIS_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.RIZON_TEST) {
             result = RIZON_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
         else if (chain == ChainType.KAVA_TEST) {
-            result = KAVA_TEST_API + "v1/account/txs/" + address + "/" + valAddress
+            result = KAVA_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.CERTIK_TEST) {
             result = CERTIK_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.MEDI_TEST) {
-            result = MEDI_TEST_API + "v1/account/txs/" + address + "/" + valAddress
+            result = MEDI_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.ALTHEA_TEST) {
-            result = ALTHEA_TEST_API + "v1/account/txs/" + address + "/" + valAddress
+            result = ALTHEA_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
         return result
     }
