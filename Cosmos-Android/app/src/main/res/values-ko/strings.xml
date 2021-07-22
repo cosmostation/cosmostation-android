@@ -1144,6 +1144,10 @@
     <string name="str_osmosis_swap">Swap</string>
     <string name="str_osmosis_pool_list">Pool</string>
     <string name="str_osmosis_farming">Farming</string>
+    <string name="str_event_horizon_c">Event Horizon</string>
+    <string name="str_event_horizon_step_0">HDAC 니모닉을 입력해주세요.</string>
+    <string name="str_event_horizon_step_1">RIZON 주소를 입력해주세요.</string>
+    <string name="str_event_horizon_step_2">RIZON Token Swap Status</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
