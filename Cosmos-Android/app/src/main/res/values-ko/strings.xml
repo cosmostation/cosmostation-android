@@ -381,6 +381,7 @@
     <string name="str_gseq">gseq</string>
     <string name="str_oseq">oseq</string>
     <string name="str_deployment_id">배포 ID</string>
+    <string name="str_certificate_owner">소유인</string>
     <string name="str_version_hash">Version 해쉬</string>
     <string name="str_deployment_deposit">보상금</string>
     <string name="str_akash_deposit">보증금</string>
