@@ -20,6 +20,16 @@ class KeyFac {
         return resultAddress
     }
     
+    static func getDpAddressFetchCustomPath(_ mnemonic: [String], _ path: UInt32, _ chain: ChainType, _ pathType: Int) -> String {
+        var resultAddress = ""
+        if (BaseData.instance.getUsingEnginerMode()) {
+            resultAddress = OldKey.getDpAddressFetchCustomPath(mnemonic, path, chain, pathType)
+        } else {
+            resultAddress = WKey.getDpAddressFetchCustomPath(mnemonic, path, chain, pathType)
+        }
+        return resultAddress
+    }
+    
     static func getPrivateRaw(_ mnemonic: [String], _ account: Account) -> Data {
         if (BaseData.instance.getUsingEnginerMode()) {
             return OldKey.getPrivateRaw(mnemonic, account)

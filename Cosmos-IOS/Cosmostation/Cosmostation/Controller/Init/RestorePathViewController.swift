@@ -96,7 +96,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         DispatchQueue.global().async {
             var address = ""
             if (self.userChain == ChainType.FETCH_MAIN) {
-                address = WKey.getDpAddressFetchCustomPath(self.userInputWords!, UInt32(indexPath.row), self.userChain!, self.customPath)
+                address = KeyFac.getDpAddressFetchCustomPath(self.userInputWords!, UInt32(indexPath.row), self.userChain!, self.customPath)
             } else {
                 address = KeyFac.getDpAddressPath(self.userInputWords!, indexPath.row, self.userChain!, self.usingBip44)
             }
@@ -240,7 +240,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             var insertResult :Int64 = -1
             if(keyResult) {
                 if (self.userChain == ChainType.FETCH_MAIN) {
-                    newAccount.account_address = WKey.getDpAddressFetchCustomPath(mnemonic, UInt32(path), chain, customPath)
+                    newAccount.account_address = KeyFac.getDpAddressFetchCustomPath(mnemonic, UInt32(path), chain, customPath)
                 } else {
                     newAccount.account_address = KeyFac.getDpAddressPath(mnemonic, path, chain, newBip)
                 }
@@ -282,7 +282,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             var dpAddress: String
             if (self.userChain == ChainType.FETCH_MAIN) {
-                dpAddress = WKey.getDpAddressFetchCustomPath(mnemonic, UInt32(path), chain, customPath)
+                dpAddress = KeyFac.getDpAddressFetchCustomPath(mnemonic, UInt32(path), chain, customPath)
             } else {
                 dpAddress = KeyFac.getDpAddressPath(mnemonic, path, chain, newBip)
             }
