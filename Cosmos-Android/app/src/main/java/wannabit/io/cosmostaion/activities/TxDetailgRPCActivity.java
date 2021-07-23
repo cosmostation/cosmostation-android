@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.widget.txDetail.TxCloseDeploymentHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommissionHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommonHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateBidHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxCreateCertificateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateDeploymentHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateLeaseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxDelegateHolder;
@@ -218,10 +219,12 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_WITHDRAW_LEASE = 13;
         private static final int TYPE_TX_CREATE_DEPLOYMENT = 14;
         private static final int TYPE_TX_CLOSE_DEPLOYMENT = 15;
-        private static final int TYPE_TX_IBC_SEND = 16;
-        private static final int TYPE_TX_IBC_RECEIVE = 17;
-        private static final int TYPE_TX_IBC_UPDATE_CLIENT = 18;
-        private static final int TYPE_TX_IBC_ACKNOWLEDGE = 19;
+        private static final int TYPE_TX_CREATE_CERTIFICATE = 16;
+
+        private static final int TYPE_TX_IBC_SEND = 20;
+        private static final int TYPE_TX_IBC_RECEIVE = 21;
+        private static final int TYPE_TX_IBC_UPDATE_CLIENT = 22;
+        private static final int TYPE_TX_IBC_ACKNOWLEDGE = 23;
 
         private static final int TYPE_STARNAME_REGISTER_DOMAIN = 30;
         private static final int TYPE_STARNAME_REGISTER_ACCOUNT = 31;
@@ -298,7 +301,12 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_CLOSE_DEPLOYMENT) {
                 return new TxCloseDeploymentHolder(getLayoutInflater().inflate(R.layout.item_tx_close_deployment, viewGroup, false));
 
-            } else if (viewType == TYPE_TX_IBC_SEND) {
+            } else if (viewType == TYPE_TX_CREATE_CERTIFICATE) {
+                return new TxCreateCertificateHolder(getLayoutInflater().inflate(R.layout.item_tx_create_certificate, viewGroup, false));
+
+            }
+
+            else if (viewType == TYPE_TX_IBC_SEND) {
                 return new TxIBCSendHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_send, viewGroup, false));
 
             } else if (viewType == TYPE_TX_IBC_RECEIVE) {
@@ -430,6 +438,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_CREATE_DEPLOYMENT;
                 } else if (msg.getTypeUrl().contains(DeploymentOuterClass.MsgCloseDeployment.getDescriptor().getFullName())) {
                     return TYPE_TX_CLOSE_DEPLOYMENT;
+                } else if (msg.getTypeUrl().contains(akash.cert.v1beta1.Cert.MsgCreateCertificate.getDescriptor().getFullName())) {
+                    return TYPE_TX_CREATE_CERTIFICATE;
                 }
 
                 else if (msg.getTypeUrl().contains(Tx.MsgTransfer.getDescriptor().getFullName())) {
