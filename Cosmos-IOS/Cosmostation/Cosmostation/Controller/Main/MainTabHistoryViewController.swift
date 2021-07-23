@@ -240,7 +240,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (chainType == ChainType.CRYPTO_MAIN) {
             return self.mApiCustomHistories.count
-        } else  if (chainType == ChainType.BAND_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.KI_MAIN) {
+        } else if (chainType == ChainType.BAND_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.KI_MAIN) {
             return self.mApiHistories.count
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return self.mBnbHistories.count
@@ -253,76 +253,32 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (chainType == ChainType.CRYPTO_MAIN) {
-            return onSetCustomHistoryItems(tableView, indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+            cell?.bindHistoryCustomView(mApiCustomHistories[indexPath.row], mainTabVC.mAccount.account_address)
+            return cell!
+            
         } else if (chainType == ChainType.BAND_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.KI_MAIN) {
-            return onSetLegacyOldItem(tableView, indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+            cell?.bindHistoryCustomView(mApiCustomHistories[indexPath.row], mainTabVC.mAccount.account_address)
+            return cell!
+            
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
-            return onSetBnbItem(tableView, indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+            cell?.bindHistoryBnbView(mBnbHistories[indexPath.row], mainTabVC.mAccount.account_address)
+            return cell!
+            
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
-            return onSetOkItem(tableView, indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+            cell?.bindHistoryOkView(mOkHistories[indexPath.row], mainTabVC.mAccount.account_address)
+            return cell!
+            
         } else {
-            return onSetCustomNewHistoryItems(tableView, indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier:"NewHistoryCell") as? NewHistoryCell
+            cell?.bindHistoryView(chainType!, mApiCustomNewHistories[indexPath.row], mainTabVC.mAccount.account_address)
+            return cell!
         }
     }
     
-    func onSetCustomNewHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:"NewHistoryCell") as? NewHistoryCell
-        cell?.bindView(chainType!, mApiCustomNewHistories[indexPath.row], mainTabVC.mAccount.account_address)
-        return cell!
-    }
-    
-    func onSetCustomHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mApiCustomHistories[indexPath.row]
-        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.timestamp)
-        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.timestamp)
-        cell?.txBlockLabel.text = String(history.height!) + " block"
-        cell?.txTypeLabel.text = history.getMsgType(mainTabVC.mAccount.account_address)
-        if (history.isSuccess()) { cell?.txResultLabel.isHidden = true }
-        else { cell?.txResultLabel.isHidden = false }
-        return cell!
-    }
-    
-    func onSetBnbItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mBnbHistories[indexPath.row]
-        cell?.txTimeLabel.text = WUtils.nodeTimetoString(input: history.timeStamp)
-        cell?.txTimeGapLabel.text = WUtils.timeGap(input: history.timeStamp)
-        cell?.txBlockLabel.text = String(history.blockHeight) + " block"
-        cell?.txTypeLabel.text = WUtils.bnbHistoryTitle(history, mainTabVC.mAccount.account_address)
-        cell?.txResultLabel.isHidden = true
-        return cell!
-    }
-    
-    func onSetOkItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let okHistory = mOkHistories[indexPath.row]
-        cell?.txTypeLabel.text = WUtils.okHistoryTitle(okHistory)
-        cell?.txTimeLabel.text = WUtils.longTimetoString(input: okHistory.timestamp! * 1000)
-        cell?.txTimeGapLabel.text = WUtils.timeGap2(input: okHistory.timestamp! * 1000)
-        cell?.txBlockLabel.text = okHistory.txhash
-        return cell!
-    }
-    
-    func onSetLegacyOldItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mApiHistories[indexPath.row]
-        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-        cell?.txBlockLabel.text = String(history.height) + " block"
-        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, mainTabVC.mAccount.account_address)
-        if (history.isSuccess) {
-            cell?.txResultLabel.isHidden = true
-        } else {
-            cell?.txResultLabel.isHidden = false
-        }
-        return cell!
-    }
-    
-    func onSetEmptyItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        return cell!
-    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension;

@@ -28,7 +28,7 @@ class NewHistoryCell: UITableViewCell {
         txAmountLabel.isHidden = false
     }
     
-    func bindView(_ chainType: ChainType, _ history: ApiHistoryNewCustom, _ address: String) {
+    func bindHistoryView(_ chainType: ChainType, _ history: ApiHistoryNewCustom, _ address: String) {
         txTypeLabel.text = history.getMsgType(address)
         txResultLabel.isHidden = history.isSuccess()
         txTimeLabel.text = WUtils.newApiTimeToString(history.header?.timestamp)
