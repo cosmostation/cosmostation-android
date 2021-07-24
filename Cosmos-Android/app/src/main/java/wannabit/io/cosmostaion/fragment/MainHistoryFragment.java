@@ -42,6 +42,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
@@ -221,7 +222,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     mRecyclerView.setVisibility(View.GONE);
                 }
 
-            } else if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN)) {
+            } else if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN) ||
+                    getMainActivity().mBaseChain.equals(FETCHAI_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>) result.resultData;
                 if (hits != null && hits.size() > 0) {
 //                  WLog.w("Custom hit size " + hits.size());
@@ -279,7 +281,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
                 holder.onBindNewHistory(getMainActivity(), history);
 
-            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(FETCHAI_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
                 holder.onBindHistory(getMainActivity(), history);
@@ -303,7 +305,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         public int getItemViewType(int position) {
             if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) {
                 return TYPE_OLD_HISTORY;
-            } else if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN)) {
+            } else if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(FETCHAI_MAIN) ||
+                    getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 return TYPE_NEW_HISTORY;
             } else {
                 return TYPE_OLD_HISTORY;
@@ -318,7 +321,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 return mOkHistory.size();
             } else if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) {
                 return mApiTxCustomHistory.size();
-            } else if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN)) {
+            } else if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(FETCHAI_MAIN) ||
+                    getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 return mApiNewTxCustomHistory.size();
             } else {
                 return mApiTxHistory.size();

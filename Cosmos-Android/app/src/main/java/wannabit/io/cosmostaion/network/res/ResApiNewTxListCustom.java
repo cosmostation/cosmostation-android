@@ -138,7 +138,7 @@ public class ResApiNewTxListCustom {
                         msgType1 = getMsgs().getJSONObject(1).getString("type");
                     } catch (Exception e) {
                     }
-                    if (msgType0.contains("MsgWithdrawDelegationReward") && msgType1.contains("MsgDelegate")) {
+                    if (msgType0.contains("MsgWithdrawDelegatorReward") || msgType0.contains("MsgWithdrawDelegationReward") && msgType1.contains("MsgDelegate")) {
                         return c.getString(R.string.tx_reinvest);
                     }
 
@@ -166,27 +166,21 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("MsgSend")) {
                     try {
                         if (getMsgs().getJSONObject(0).getString("to_address").equals(address)) {
-                            result = c.getString(R.string.tx_receive);
+                            return c.getString(R.string.tx_receive);
                         } else if (getMsgs().getJSONObject(0).getString("from_address").equals(address)) {
                             result = c.getString(R.string.tx_send);
                         } else {
-                            result = c.getString(R.string.tx_transfer);
+                            return c.getString(R.string.tx_transfer);
                         }
                     } catch (Exception e) {
-                        result = c.getString(R.string.tx_transfer);
-                    }
-                    try {
                         if (getMsgs().getJSONObject(0).getJSONObject("value").getString("to_address").equals(address)) {
-                            result = c.getString(R.string.tx_receive);
+                            return c.getString(R.string.tx_receive);
                         } else if (getMsgs().getJSONObject(0).getJSONObject("value").getString("from_address").equals(address)) {
                             result = c.getString(R.string.tx_send);
                         } else {
                             result = c.getString(R.string.tx_transfer);
                         }
-                    } catch (Exception e) {
-                        result = c.getString(R.string.tx_transfer);
                     }
-
                 } else if (msgType.contains("MsgMultiSend")) {
                     result = c.getString(R.string.tx_transfer);
                 } else if (msgType.contains("MsgBeginRedelegate")) {

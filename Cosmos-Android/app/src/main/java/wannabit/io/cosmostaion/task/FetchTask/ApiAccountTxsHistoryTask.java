@@ -67,7 +67,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
 
             } else if (mChain.equals(BaseChain.FETCHAI_MAIN)) {
 //                WLog.w("FETCHAI_MAIN " + ApiClient.getFetchApi(mApp).getAccountTxs(mAddress, "50").request().url());
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getFetchApi(mApp).getAccountTxs(mAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getFetchApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -96,7 +96,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
             }
 
             else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaTestApi(mApp).getAccountTxs(mAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getKavaTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -114,7 +114,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(MEDI_TEST)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getMediTestApi(mApp).getAccountTxs(mAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getMediTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -206,7 +206,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
 
 
             else if (mChain.equals(COSMOS_TEST)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -215,7 +215,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(IRIS_TEST)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getIrisTestApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getIrisTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -233,7 +233,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(ALTHEA_TEST)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getAltheaTestApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAltheaTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
