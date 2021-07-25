@@ -41,6 +41,9 @@ public class Dialog_Hdac_info extends DialogFragment {
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("hdac", 0);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                 getDialog().dismiss();
             }
         });
@@ -49,6 +52,7 @@ public class Dialog_Hdac_info extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Intent resultIntent = new Intent();
+                resultIntent.putExtra("hdac", 1);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                 getDialog().dismiss();
 

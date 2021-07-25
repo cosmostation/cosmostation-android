@@ -52,14 +52,14 @@
             android:id="@+id/send_step"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/step_1_img"/>
+            android:src="@drawable/step_1"/>
         <TextView
             android:id="@+id/send_step_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_10"
             style="@style/font_ss_14_white"
-            android:text="@string/str_send_step_0"/>
+            android:text="@string/str_event_horizon_step_0"/>
     </LinearLayout>
 
 

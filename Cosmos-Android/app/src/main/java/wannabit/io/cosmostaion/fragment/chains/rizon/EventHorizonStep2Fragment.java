@@ -8,18 +8,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 
-public class EventHorizonStep2Fragment extends BaseFragment{
+public class EventHorizonStep2Fragment extends BaseFragment implements View.OnClickListener{
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
-    private RelativeLayout mProgress;
-    private TextView mNotYet;
+    private boolean                         mIsGen;
+    private TextView                        mRizonToAddress;
+
+    private RelativeLayout                  mBtnDone;
 
     public static EventHorizonStep2Fragment newInstance(Bundle bundle) {
         EventHorizonStep2Fragment fragment = new EventHorizonStep2Fragment();
@@ -34,19 +33,34 @@ public class EventHorizonStep2Fragment extends BaseFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_farming_list, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mProgress               = rootView.findViewById(R.id.reward_progress);
-        mNotYet                 = rootView.findViewById(R.id.text_not_yet);
+        View rootView = inflater.inflate(R.layout.fragment_event_horizon_step2, container, false);
+        mIsGen                      = true;
+        mRizonToAddress             = rootView.findViewById(R.id.rizon_to_address);
+        mBtnDone                    = rootView.findViewById(R.id.btn_done);
+
+        mRizonToAddress.setText(getSActivity().mAccount.address);
+
+        mBtnDone.setOnClickListener(this);
         return rootView;
     }
 
+
+    private EventHorizonActivity getSActivity() { return (EventHorizonActivity)getBaseActivity(); }
+
     @Override
     public void onRefreshTab() {
-        mSwipeRefreshLayout.setVisibility(View.GONE);
-        mRecyclerView.setVisibility(View.GONE);
-        mProgress.setVisibility(View.GONE);
-        mNotYet.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mBtnDone)) {
+            if (!mIsGen) {
+                getSActivity().onBackPressed();
+            } else {
+                getSActivity().onStartMainActivity(0);
+            }
+            return;
+        }
     }
 }

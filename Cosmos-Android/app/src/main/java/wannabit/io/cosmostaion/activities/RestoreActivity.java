@@ -172,6 +172,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
             mEtMnemonics[i].setText("");
             mEtMnemonics[0].requestFocus();
         }
+        onBeforeWord();
         onCheckMnemonicCnt();
     }
 

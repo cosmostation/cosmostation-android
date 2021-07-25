@@ -16,10 +16,12 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.chains.rizon.EventHorizonStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.rizon.EventHorizonStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.rizon.EventHorizonStep2Fragment;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class EventHorizonActivity extends BaseBroadCastActivity implements View.OnClickListener{
 
@@ -42,18 +44,44 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
         mViewPager          = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_event_horizon_c));
 
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+
         mClearAll.setOnClickListener(this);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIvStep.setImageDrawable(getDrawable(R.drawable.step_1));
-        mTvStep.setText(getString(R.string.str_event_horizon_step_0));
-
         mPageAdapter = new HorizonPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(2);
         mViewPager.setAdapter(mPageAdapter);;
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) { }
+
+            @Override
+            public void onPageSelected(int i) {
+                if(i == 0) {
+                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_1));
+                    mTvStep.setText(getString(R.string.str_event_horizon_step_0));
+                    mClearAll.setVisibility(View.VISIBLE);
+                } else if (i == 1 ) {
+                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_2));
+                    mTvStep.setText(getString(R.string.str_event_horizon_step_1));
+                    mClearAll.setVisibility(View.GONE);
+                } else if (i == 2 ) {
+                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_3));
+                    mTvStep.setText(getString(R.string.str_event_horizon_step_2));
+                    mClearAll.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) { }
+        });
+        mViewPager.setCurrentItem(0);
     }
 
     @Override
@@ -64,6 +92,16 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        onHideKeyboard();
+        if(mViewPager.getCurrentItem() > 0) {
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+        } else {
+            super.onBackPressed();
         }
     }
 
@@ -86,6 +124,7 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
     @Override
     public void onClick(View v) {
         if (v.equals(mClearAll)) {
+            EventHorizonStep0Fragment.onClearAll();
             return;
         }
     }
