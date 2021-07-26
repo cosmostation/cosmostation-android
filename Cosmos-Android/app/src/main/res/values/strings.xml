@@ -603,6 +603,7 @@
     <string name="str_gseq">gseq</string>
     <string name="str_oseq">oseq</string>
     <string name="str_deployment_id">Deployment ID</string>
+    <string name="str_certificate_owner">Owner</string>
     <string name="str_version_hash">Version Hash</string>
     <string name="str_deployment_deposit">Deposit</string>
     <string name="str_akash_deposit">Deposit</string>
@@ -1370,6 +1371,12 @@
     <string name="str_osmosis_swap">Swap</string>
     <string name="str_osmosis_pool_list">Pool</string>
     <string name="str_osmosis_farming">Farming</string>
+    <string name="str_event_horizon_c">Event Horizon</string>
+    <string name="str_event_horizon_step_0">Enter HDAC menemonic.</string>
+    <string name="str_event_horizon_step_1">Enter RIZON address.</string>
+    <string name="str_event_horizon_step_2">RIZON Token Swap Status</string>
+    <string name="str_token_swap">Token Swap</string>
+    <string name="str_token_id">ID</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
