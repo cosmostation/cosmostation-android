@@ -68,10 +68,10 @@ public class WalletOsmosisHolder extends BaseHolder {
         mBtnOsmosisLab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mainActivity, "준비중입니다." , Toast.LENGTH_SHORT).show();
-                return;
-//                Intent osmolab = new Intent(mainActivity, LabsListActivity.class);
-//                mainActivity.startActivity(osmolab);
+//                Toast.makeText(mainActivity, "준비중입니다." , Toast.LENGTH_SHORT).show();
+//                return;
+                Intent osmolab = new Intent(mainActivity, LabsListActivity.class);
+                mainActivity.startActivity(osmolab);
             }
         });
     }

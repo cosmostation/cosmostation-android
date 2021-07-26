@@ -48,7 +48,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaTestApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getKavaTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -84,7 +84,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.FETCHAI_MAIN)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getFetchApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getFetchApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -111,7 +111,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.MEDI_TEST)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getMediTestApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getMediTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -201,7 +201,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
             }
 
             else if (mChain.equals(BaseChain.COSMOS_TEST)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -209,7 +209,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
             } else if (mChain.equals(BaseChain.IRIS_TEST)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getIrisTestApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getIrisTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -226,7 +226,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
             } else if (mChain.equals(ALTHEA_TEST)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getAltheaTestApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAltheaTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
