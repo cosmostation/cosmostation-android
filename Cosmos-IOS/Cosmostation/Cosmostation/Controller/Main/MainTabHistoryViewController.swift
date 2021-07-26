@@ -259,7 +259,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             
         } else if (chainType == ChainType.BAND_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.KI_MAIN) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-            cell?.bindHistoryCustomView(mApiCustomHistories[indexPath.row], mainTabVC.mAccount.account_address)
+            cell?.bindHistoryLegacyView(mApiHistories[indexPath.row], mainTabVC.mAccount.account_address)
             return cell!
             
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
