@@ -245,7 +245,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
 
         
         //temp hide apr for no mint param chain
-        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
+        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell!.avergaeYield.text = "--"
         }
         
@@ -305,7 +305,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
 
         
         //temp hide apr for no mint param chain
-        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
+        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell!.avergaeYield.text = "--"
         }
         
@@ -375,7 +375,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         //temp hide apr for no mint param chain
-        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
+        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell!.myDailyReturns.text = "--"
             cell!.myMonthlyReturns.text = "--"
         }
