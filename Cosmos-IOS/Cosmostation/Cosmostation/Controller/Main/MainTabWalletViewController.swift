@@ -343,6 +343,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
+            cell?.actionGravity = { self.onClickGravityDex() }
+            cell?.actionWalletConnect = { self.onClickWalletConect() }
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -1342,6 +1344,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController?.pushViewController(osmosisDappVC, animated: true)
     }
     
+    func onClickGravityDex() {
+        print("onClickGravityDex")
+        self.onShowToast(NSLocalizedString("prepare", comment: ""))
+    }
+    
     func onClickAprHelp() {
         guard let param = BaseData.instance.mParam else { return }
         let msg1 = NSLocalizedString("str_apr_help_onchain_msg", comment: "") + "\n"
@@ -1707,23 +1714,29 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func scannedAddress(result: String) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(610), execute: {
-            if (result.contains("wallet-bridge.binance.org")) {
-                self.wcURL = result
-                let wcAlert = UIAlertController(title: NSLocalizedString("wc_alert_title", comment: ""), message: NSLocalizedString("wc_alert_msg", comment: ""), preferredStyle: .alert)
-                wcAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .destructive, handler: nil))
-                wcAlert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { _ in
-                    let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
-                    self.navigationItem.title = ""
-                    self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
-                    passwordVC.mTarget = PASSWORD_ACTION_SIMPLE_CHECK
-                    passwordVC.resultDelegate = self
-                    passwordVC.hidesBottomBarWhenPushed = true
-                    self.navigationController?.pushViewController(passwordVC, animated: false)
-                }))
-                self.present(wcAlert, animated: true) {
-                    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
-                    wcAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+            if (self.chainType == ChainType.BINANCE_MAIN || self.chainType == ChainType.BINANCE_TEST) {
+                if (result.contains("wallet-bridge.binance.org")) {
+                    self.wcURL = result
+                    let wcAlert = UIAlertController(title: NSLocalizedString("wc_alert_title", comment: ""), message: NSLocalizedString("wc_alert_msg", comment: ""), preferredStyle: .alert)
+                    wcAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .destructive, handler: nil))
+                    wcAlert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { _ in
+                        let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
+                        self.navigationItem.title = ""
+                        self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
+                        passwordVC.mTarget = PASSWORD_ACTION_SIMPLE_CHECK
+                        passwordVC.resultDelegate = self
+                        passwordVC.hidesBottomBarWhenPushed = true
+                        self.navigationController?.pushViewController(passwordVC, animated: false)
+                    }))
+                    self.present(wcAlert, animated: true) {
+                        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+                        wcAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+                    }
                 }
+                
+            } else {
+                print("chainType ", self.chainType, "  url ",  result)
+                
             }
         })
     }
