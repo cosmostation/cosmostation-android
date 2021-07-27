@@ -72,6 +72,11 @@ public class ChainParam {
             if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {
                 return new BigDecimal(mMintParams.inflation);
 
+            } else if (baseChain.equals(BaseChain.OSMOSIS_MAIN)) {
+                BigDecimal epochProvisions = new BigDecimal(mintingEpochProvision.epoch_provisions);
+                BigDecimal epochPeriods = new BigDecimal(osmosisMingtingParams.params.reduction_period_in_epochs);
+                BigDecimal osmoSupply =getMainSupply(baseChain);
+                return epochProvisions.multiply(epochPeriods).divide(osmoSupply, 18, RoundingMode.DOWN);
             } else {
                 try {
                     MintInflation temp = new Gson().fromJson(new Gson().toJson(mMintInflations), MintInflation.class);
@@ -122,7 +127,12 @@ public class ChainParam {
             if (getMainSupply(baseChain).equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
             BigDecimal bondingRate = getBondedAmount(baseChain).divide(getMainSupply(baseChain), 6, RoundingMode.DOWN);
             if (bondingRate.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
-            return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
+            if (baseChain.equals(BaseChain.OSMOSIS_MAIN)) {
+                BigDecimal stakingDistribution = new BigDecimal(osmosisMingtingParams.params.distributionProportions.staking);
+                return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
+            } else {
+                return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
+            }
         }
 
         public BigDecimal getDpApr(BaseChain baseChain) {
