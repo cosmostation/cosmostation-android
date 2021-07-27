@@ -163,6 +163,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "chainOsmosis")
             titleChainName.text = "(OSMOSIS Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.MEDI_MAIN) {
+            titleChainImg.image = UIImage(named: "chainMedibloc")
+            titleChainName.text = "(Medibloc Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
@@ -238,6 +242,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.ALTHEA_TEST) {
             floaty.buttonImage = UIImage.init(named: "btnSendAlthea")
             floaty.buttonColor = COLOR_ALTHEA
+        } else if (chainType == ChainType.MEDI_MAIN || chainType == ChainType.MEDI_TEST) {
+            floaty.buttonImage = UIImage.init(named: "btnSendMedi")
+            floaty.buttonColor = .white
         } else {
             floaty.buttonImage = UIImage.init(named: "sendImg")
             floaty.buttonColor = WUtils.getChainColor(chainType)

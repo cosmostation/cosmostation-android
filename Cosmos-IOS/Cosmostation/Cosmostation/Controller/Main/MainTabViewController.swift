@@ -267,7 +267,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchOkUnbondingInfo(mAccount)
             
             
-        } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.FETCH_MAIN || mChainType == ChainType.KI_MAIN ||
+        } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.FETCH_MAIN || mChainType == ChainType.KI_MAIN || mChainType == ChainType.MEDI_MAIN ||
                     mChainType == ChainType.CERTIK_TEST || mChainType == ChainType.MEDI_TEST) {
             self.mFetchCnt = 8
             onFetchNodeInfo()

@@ -289,7 +289,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
             
         } else if (userInput.starts(with: "panacea1")) {
             if (WKey.isValidateBech32(userInput)) {
-                self.onGenWatchAccount(ChainType.MEDI_TEST, userInput)
+                self.onGenWatchAccount(ChainType.MEDI_MAIN, userInput)
                 return;
             } else {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))

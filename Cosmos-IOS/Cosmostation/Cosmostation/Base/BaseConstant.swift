@@ -97,13 +97,22 @@ let SIF_API                             = "https://api-sifchain.cosmostation.io/
 let SIF_FINANCE_API                     = "https://api-cryptoeconomics.sifchain.finance/";
 
 
-
 let KI_URL                              = "https://lcd-kichain-app.cosmostation.io/";
 let KI_API                              = "https://api-kichain.cosmostation.io/";
 
 
+let HDAC_STATUS                         = "https://wallet.new.hdactech.com/insight-api/status";
+let HDAC_GET_UTXO                       = "https://wallet.new.hdactech.com/insight-api/addr/";
+let HDAC_BROADCAST                      = "https://wallet.new.hdactech.com/insight-api/tx/send";
+
+let HDAC_TEST_STATUS                    = "http://groot.insight-api.rizon.world/insight-api/status";
+let HDAC_TEST_GET_UTXO                  = "http://groot.insight-api.rizon.world/insight-api/addr/";
+let HDAC_TEST_BROADCAST                 = "http://groot.insight-api.rizon.world/insight-api/tx/send";
+
 let RIZON_TEST_API                      = "https://api-rizon-testnet.cosmostation.io/";
 
+
+let MEDI_URL                            = "https://api.gopanacea.org/";
 
 let MEDI_TEST_URL                       = "https://lcd-medibloc-opentestnet.cosmostation.io/";
 let MEDI_TEST_API                       = "https://api-medibloc-opentestnet.cosmostation.io/";
@@ -112,10 +121,9 @@ let MEDI_TEST_API                       = "https://api-medibloc-opentestnet.cosm
 let OSMOSIS_API                         = "https://api-osmosis.cosmostation.io/";
 
 
-let HDAC_STATUS                         = "https://wallet.new.hdactech.com/insight-api/status";
-let HDAC_GET_UTXO                       = "https://wallet.new.hdactech.com/insight-api/addr/";
-let HDAC_BROADCAST                      = "https://wallet.new.hdactech.com/insight-api/tx/send";
 let ALTHEA_TEST_API                     = "https://api-office.cosmostation.io/althea-testnet2v1/";
+
+
 
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
 let MOON_PAY_PUBLICK                    = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn";
@@ -728,6 +736,7 @@ public enum ChainType: String {
     case SIF_MAIN
     case KI_MAIN
     case OSMOSIS_MAIN
+    case MEDI_MAIN
     
     case COSMOS_TEST
     case IRIS_TEST
@@ -758,6 +767,7 @@ public enum ChainType: String {
         result.append(SIF_MAIN)
         result.append(KI_MAIN)
         result.append(OSMOSIS_MAIN)
+        result.append(MEDI_MAIN)
         result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)
@@ -768,7 +778,7 @@ public enum ChainType: String {
 //        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
         result.append(RIZON_TEST)
-        result.append(MEDI_TEST)
+//        result.append(MEDI_TEST)
         result.append(ALTHEA_TEST)
         return result
     }
@@ -863,6 +873,7 @@ let CHAIN_CRYPTO_S = "SUPPORT_CHAIN_CRYTO_MAIN"
 let CHAIN_SIF_S = "SUPPORT_CHAIN_SIF_MAIN"
 let CHAIN_KI_S = "SUPPORT_CHAIN_KI_MAIN"
 let CHAIN_OSMOSIS_S = "SUPPORT_CHAIN_OSMOSIS_MAIN"
+let CHAIN_MEDI_S = "SUPPORT_CHAIN_MEDI"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_IRIS_TEST_S = "SUPPORT_CHAIN_IRIS_TEST"
@@ -951,6 +962,7 @@ let EXPLORER_CRYPTO_MAIN    = "https://www.mintscan.io/crypto-org/";
 let EXPLORER_SIF_MAIN       = "https://www.mintscan.io/sifchain/";
 let EXPLORER_KI_MAIN        = "https://www.mintscan.io/ki-chain/";
 let EXPLORER_OSMOSIS_MAIN   = "https://www.mintscan.io/osmosis/";
+let EXPLORER_MEDI_MAIN      = "https://www.mintscan.io/medibloc/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";

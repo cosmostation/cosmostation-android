@@ -158,6 +158,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainImg.image = UIImage(named: "chainOsmosis")
             titleChainName.text = "(OSMOSIS Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.MEDI_MAIN) {
+            titleChainImg.image = UIImage(named: "chainMedibloc")
+            titleChainName.text = "(Medibloc Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
