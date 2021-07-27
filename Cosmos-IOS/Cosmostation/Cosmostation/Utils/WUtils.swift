@@ -1100,8 +1100,9 @@ public class WUtils {
             baseData.mMyBalances_gRPC.forEach { coin in
                 if (coin.denom == getMainDenom(chainType)) {
                     let amount = getAllMainAsset(coin.denom)
-                    let assetValue = userCurrencyValue(coin.denom, amount, 6)
+                    let assetValue = userCurrencyValue(coin.denom, amount, mainDivideDecimal(chainType))
                     totalValue = totalValue.adding(assetValue)
+                    
                     
                 } else if (chainType == ChainType.OSMOSIS_MAIN && coin.denom == OSMOSIS_ION_DENOM) {
                     let amount = baseData.getAvailableAmount_gRPC(coin.denom)
@@ -1187,8 +1188,9 @@ public class WUtils {
             baseData.mMyBalances_gRPC.forEach { coin in
                 if (coin.denom == getMainDenom(chainType)) {
                     let amount = getAllMainAsset(coin.denom)
-                    let btcValue = btcValue(coin.denom, amount, 6)
+                    let btcValue = btcValue(coin.denom, amount, mainDivideDecimal(chainType))
                     totalValue = totalValue.adding(btcValue)
+                    
                     
                 } else if (chainType == ChainType.OSMOSIS_MAIN && coin.denom == OSMOSIS_ION_DENOM) {
                     let amount = baseData.getAvailableAmount_gRPC(coin.denom)
