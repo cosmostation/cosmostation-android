@@ -1377,6 +1377,7 @@
     <string name="str_event_horizon_step_2">RIZON Token Swap Status</string>
     <string name="str_token_swap">Token Swap</string>
     <string name="str_token_id">ID</string>
+    <string name="str_token_swap_time">Time</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

@@ -72,8 +72,7 @@ public class WalletRizonHolder extends BaseHolder {
         mBtnSwap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent eventhorizon = new Intent(mainActivity, EventHorizonActivity.class);
-                mainActivity.startActivity(eventhorizon);
+                mainActivity.onCheckRizonEventHorizon();
             }
         });
     }

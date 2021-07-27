@@ -132,7 +132,6 @@ public class ResTxInfo {
                                         amount = temp.replaceAll("[^0-9]", "");
                                     }
                                     result = result.add(new BigDecimal(amount));
-                                    
                                     break;
                                 }
                             }

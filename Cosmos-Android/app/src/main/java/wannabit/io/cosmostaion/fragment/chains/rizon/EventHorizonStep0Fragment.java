@@ -32,10 +32,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.PasswordSetActivity;
+import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
+import wannabit.io.cosmostaion.dialog.Dialog_FetchRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_Hdac_info;
+import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
+import wannabit.io.cosmostaion.dialog.Dialog_OkexRestoreType;
+import wannabit.io.cosmostaion.dialog.Dialog_SecretRestorePath;
+import wannabit.io.cosmostaion.utils.WKey;
+
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class EventHorizonStep0Fragment extends BaseFragment implements View.OnClickListener{
 
@@ -51,7 +67,7 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     private static int                  mMnemonicPosition = 0;
 
     private ArrayList<String>           mAllMnemonic;
-    private static MnemonicAdapter             mMnemonicAdapter;
+    private static MnemonicAdapter      mMnemonicAdapter;
     private ArrayList<String>           mWords = new ArrayList<>();
 
     public static EventHorizonStep0Fragment newInstance(Bundle bundle) {
@@ -165,10 +181,24 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
             }
 
         } else if (v.equals(mBtnConfirm)) {
-            Dialog_Hdac_info hdacInfo = Dialog_Hdac_info.newInstance();
-            hdacInfo.setCancelable(true);
-            hdacInfo.setTargetFragment(this, HDAC_INFO);
-            getFragmentManager().beginTransaction().add(hdacInfo, "dialog").commitNowAllowingStateLoss();
+            mWords.clear();
+            for(int i = 0; i < mEtMnemonics.length; i++) {
+                if(!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
+                    mWords.add(mEtMnemonics[i].getText().toString().trim());
+                } else {
+                    break;
+                }
+            }
+
+            if (isValidWords()) {
+                Dialog_Hdac_info hdacInfo = Dialog_Hdac_info.newInstance();
+                hdacInfo.setCancelable(true);
+                hdacInfo.setTargetFragment(this, HDAC_INFO);
+                getFragmentManager().beginTransaction().add(hdacInfo, "dialog").commitNowAllowingStateLoss();
+            } else {
+                Toast.makeText(getSActivity(), R.string.error_invalid_mnemonic_count, Toast.LENGTH_SHORT).show();
+            }
+            return;
 
         } else if (v.equals(mBtnDelete)) {
             String existed = mEtMnemonics[mMnemonicPosition].getText().toString().trim();
@@ -216,6 +246,15 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
             mEtMnemonics[mMnemonicPosition + 1].requestFocus();
         }
         mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
+    }
+
+    private boolean isValidWords() {
+        if( (mWords.size() == 3 || mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
+                WKey.isMnemonicWords(mWords) && WKey.isValidStringHdSeedFromWords(mWords)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private EventHorizonActivity getSActivity() { return (EventHorizonActivity)getBaseActivity(); }

@@ -1150,6 +1150,7 @@
     <string name="str_event_horizon_step_2">RIZON Token Swap Status</string>
     <string name="str_token_swap">토큰 스왑</string>
     <string name="str_token_id">ID</string>
+    <string name="str_token_swap_time">시간</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
