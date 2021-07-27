@@ -419,8 +419,11 @@ public class WUtils {
         let localFormatter = DateFormatter()
         localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
         
-        let fullDate = nodeFormatter.date(from: input!)
-        return localFormatter.string(from: fullDate!)
+        guard let fullDate = nodeFormatter.date(from: input!) else {
+            return ""
+        }
+        return localFormatter.string(from: fullDate)
+        
     }
     
     static func newApiTimeGap(_ input: String?) -> String {
