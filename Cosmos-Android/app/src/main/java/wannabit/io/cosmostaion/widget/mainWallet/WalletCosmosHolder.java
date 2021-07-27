@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -25,7 +26,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 public class WalletCosmosHolder extends BaseHolder {
     public TextView         mTvDenomTitle;
     public TextView         mTvAtomTotal, mTvAtomValue, mTvAtomAvailable, mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
-    public RelativeLayout   mBtnStake, mBtnVote;
+    public RelativeLayout   mBtnStake, mBtnVote, mBtnGravityDex, mBtnWalletConnect;
 
     public WalletCosmosHolder(@NonNull View itemView) {
         super(itemView);
@@ -38,6 +39,8 @@ public class WalletCosmosHolder extends BaseHolder {
         mTvAtomRewards      = itemView.findViewById(R.id.atom_reward);
         mBtnStake           = itemView.findViewById(R.id.btn_cosmos_reward);
         mBtnVote            = itemView.findViewById(R.id.btn_cosmos_vote);
+        mBtnGravityDex      = itemView.findViewById(R.id.btn_cosmos_gravity_dex);
+        mBtnWalletConnect   = itemView.findViewById(R.id.btn_cosmos_wallet_connect);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
@@ -75,6 +78,22 @@ public class WalletCosmosHolder extends BaseHolder {
             public void onClick(View v) {
                 Intent proposals = new Intent(mainActivity, VoteListActivity.class);
                 mainActivity.startActivity(proposals);
+            }
+        });
+        mBtnGravityDex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent proposals = new Intent(mainActivity, VoteListActivity.class);
+//                mainActivity.startActivity(proposals);
+                Toast.makeText(mainActivity, "준비중!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mBtnWalletConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent proposals = new Intent(mainActivity, VoteListActivity.class);
+//                mainActivity.startActivity(proposals);
+                Toast.makeText(mainActivity, "준비중!", Toast.LENGTH_SHORT).show();
             }
         });
     }
