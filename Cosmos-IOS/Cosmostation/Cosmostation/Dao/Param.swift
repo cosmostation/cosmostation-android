@@ -22,6 +22,12 @@ public struct Param {
     func getInflation(_ chainType: ChainType?) -> NSDecimalNumber {
         if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             return NSDecimalNumber.init(string: params?.minting_params?.inflation)
+            
+        } else if (chainType == ChainType.OSMOSIS_MAIN) {
+            let epochProvisions = NSDecimalNumber.init(string: params?.osmosis_minting_epoch_provisions)
+            let epochPeriod = NSDecimalNumber.init(string: params?.osmosis_minting_params?.params?.reduction_period_in_epochs)
+            let osmoSupply = getMainSupply()
+            return epochProvisions.multiplying(by: epochPeriod).dividing(by: osmoSupply, withBehavior: WUtils.handler18)
         }
         return NSDecimalNumber.init(string: params?.minting_inflation)
     }
@@ -64,7 +70,12 @@ public struct Param {
         if (getMainSupply() == NSDecimalNumber.zero) { return NSDecimalNumber.zero}
         let bondingRate = getBondedAmount().dividing(by: getMainSupply(), withBehavior: WUtils.handler6)
         if (bondingRate == NSDecimalNumber.zero) { return NSDecimalNumber.zero}
-        return inflation.multiplying(by: calTax).dividing(by: bondingRate, withBehavior: WUtils.handler6)
+        if (chain == ChainType.OSMOSIS_MAIN) {
+            let stakingDistribution = NSDecimalNumber.init(string: params?.osmosis_minting_params?.params?.distribution_proportions?.staking)
+            return inflation.multiplying(by: calTax).multiplying(by: stakingDistribution).dividing(by: bondingRate, withBehavior: WUtils.handler6)
+        } else {
+            return inflation.multiplying(by: calTax).dividing(by: bondingRate, withBehavior: WUtils.handler6)
+        }
     }
     
     func getDpApr(_ chain: ChainType?) -> NSDecimalNumber {
