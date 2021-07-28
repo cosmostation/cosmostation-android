@@ -79,8 +79,6 @@ public class ChainParam {
                 BigDecimal epochPeriods = new BigDecimal(osmosisMingtingParams.params.reduction_period_in_epochs);
                 BigDecimal osmoSupply =getMainSupply(baseChain);
                 return epochProvisions.multiply(epochPeriods).divide(osmoSupply, 18, RoundingMode.DOWN);
-            } else if (baseChain.equals(MEDI_MAIN) ) {
-                return BigDecimal.ZERO;
             } else {
                 try {
                     MintInflation temp = new Gson().fromJson(new Gson().toJson(mMintInflations), MintInflation.class);
@@ -134,8 +132,6 @@ public class ChainParam {
             if (baseChain.equals(BaseChain.OSMOSIS_MAIN)) {
                 BigDecimal stakingDistribution = new BigDecimal(osmosisMingtingParams.params.distributionProportions.staking);
                 return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
-            } else if (baseChain.equals(MEDI_MAIN)) {
-                return BigDecimal.ZERO;
             } else {
                 return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
             }
