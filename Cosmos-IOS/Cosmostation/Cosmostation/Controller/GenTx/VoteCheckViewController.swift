@@ -30,12 +30,14 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageHolderVC = self.parent as? StepGenTxViewController
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.pageHolderVC = self.parent as? StepGenTxViewController
         
         proposalTitle.text = pageHolderVC.mProposalTitle
         proposalTitle.adjustsFontSizeToFitWidth = true
         proposer.text = pageHolderVC.mProposer
-        WUtils.setDenomTitle(pageHolderVC.chainType!, mFeeDenomTitle)
+        WUtils.setDenomTitle(chainType, mFeeDenomTitle)
     }
     
     
@@ -64,7 +66,7 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
     
     
     func onUpdateView() {
-        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
+        mDpDecimal = WUtils.mainDivideDecimal(chainType)
         let feeAmount = WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
         mOpinion.text = pageHolderVC.mVoteOpinion
         mFeeAmount.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmount.font, mDpDecimal, mDpDecimal)
@@ -74,7 +76,7 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            if (WUtils.isGRPC(chainType)) {
                 self.onFetchgRPCAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
@@ -84,11 +86,11 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+                if (self.chainType == ChainType.KAVA_MAIN) {
                     guard  let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -128,13 +130,15 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
             let msg = MsgGenerator.genGetVoteMsg(self.pageHolderVC.mAccount!.account_address,
                                                 self.pageHolderVC.mProposeId!,
                                                 self.pageHolderVC.mVoteOpinion!,
-                                                self.pageHolderVC.chainType!)
+                                                self.chainType!)
             
             var msgList = Array<Msg>()
             msgList.append(msg)
             
-            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(), String(self.pageHolderVC.mAccount!.account_account_numner),
-                                                   String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
+            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
+                                                   String(self.pageHolderVC.mAccount!.account_account_numner),
+                                                   String(self.pageHolderVC.mAccount!.account_sequence_number),
+                                                   msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
             let stdTx = KeyFac.getStdTx(words, msgList, stdMsg,
                                         self.pageHolderVC.mAccount!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
             
@@ -146,7 +150,7 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
                 
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
@@ -181,7 +185,7 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
@@ -205,12 +209,12 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
             let privateKey = KeyFac.getPrivateRaw(words, self.pageHolderVC.mAccount!)
             let publicKey = KeyFac.getPublicRaw(words, self.pageHolderVC.mAccount!)
             let reqTx = Signer.genSignedVoteTxgRPC(auth!, self.pageHolderVC.mProposeId!, self.pageHolderVC.mVoteOpinion!, self.pageHolderVC.mFee!,
-                                                   self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                   self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId(self.chainType))
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             do {

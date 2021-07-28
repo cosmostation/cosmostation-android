@@ -75,11 +75,11 @@ class StepHardPoolIncentive3ViewController: BaseViewController, PasswordViewDele
 
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -113,7 +113,7 @@ class StepHardPoolIncentive3ViewController: BaseViewController, PasswordViewDele
             var msgList = Array<Msg>()
             msgList.append(msg!)
             
-            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
+            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
                                                    String(self.pageHolderVC.mAccount!.account_account_numner),
                                                    String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                    msgList,
@@ -130,7 +130,7 @@ class StepHardPoolIncentive3ViewController: BaseViewController, PasswordViewDele
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
 //                    print("params ", params)
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.validate().responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
@@ -150,8 +150,7 @@ class StepHardPoolIncentive3ViewController: BaseViewController, PasswordViewDele
 
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                                    self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                                     txResult["type"] = COSMOS_MSG_TYPE_DELEGATE
                                     self.onStartTxDetail(txResult)
                                 }

@@ -38,10 +38,12 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageHolderVC = self.parent as? StepGenTxViewController
-        WUtils.setDenomTitle(pageHolderVC.chainType!, rewardDenomLabel)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, feeDenomLabel)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, expectedDenomLabel)
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(chainType!, rewardDenomLabel)
+        WUtils.setDenomTitle(chainType!, feeDenomLabel)
+        WUtils.setDenomTitle(chainType!, expectedDenomLabel)
         
     }
     
@@ -79,10 +81,10 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     }
 
     func checkIsWasteFee() -> Bool {
-        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+        if (WUtils.isGRPC(chainType)) {
             var selectedRewardSum = NSDecimalNumber.zero
             for validator in pageHolderVC.mRewardTargetValidators_gRPC {
-                let amount = BaseData.instance.getReward_gRPC(WUtils.getMainDenom(pageHolderVC.chainType), validator.operatorAddress)
+                let amount = BaseData.instance.getReward_gRPC(WUtils.getMainDenom(chainType), validator.operatorAddress)
                 selectedRewardSum = selectedRewardSum.adding(amount)
             }
             if (NSDecimalNumber.init(string: pageHolderVC.mFee?.amount[0].amount).compare(selectedRewardSum).rawValue > 0 ) {
@@ -92,7 +94,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
         } else {
             var selectedRewardSum = NSDecimalNumber.zero
             pageHolderVC.mRewards.forEach { coin in
-                if (coin.denom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
+                if (coin.denom == WUtils.getMainDenom(chainType)) {
                     selectedRewardSum = selectedRewardSum.adding(WUtils.plainStringToDecimal(coin.amount))
                 }
             }
@@ -104,9 +106,9 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
-        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
+        mDpDecimal = WUtils.mainDivideDecimal(chainType)
         
-        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+        if (WUtils.isGRPC(chainType)) {
             var monikers = ""
             for validator in pageHolderVC.mRewardTargetValidators_gRPC {
                 if(monikers.count > 0) {
@@ -122,14 +124,14 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             
             var selectedRewardSum = NSDecimalNumber.zero
             for validator in pageHolderVC.mRewardTargetValidators_gRPC {
-                let amount = BaseData.instance.getReward_gRPC(WUtils.getMainDenom(pageHolderVC.chainType), validator.operatorAddress)
+                let amount = BaseData.instance.getReward_gRPC(WUtils.getMainDenom(chainType), validator.operatorAddress)
                 selectedRewardSum = selectedRewardSum.adding(amount)
             }
             
             rewardAmoutLaebl.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmoutLaebl.font, mDpDecimal, mDpDecimal)
             feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, mDpDecimal, mDpDecimal)
             
-            let userBalance: NSDecimalNumber = BaseData.instance.getAvailableAmount_gRPC(WUtils.getMainDenom(pageHolderVC.chainType))
+            let userBalance: NSDecimalNumber = BaseData.instance.getAvailableAmount_gRPC(WUtils.getMainDenom(chainType))
             let expectedAmount = userBalance.adding(selectedRewardSum).subtracting(WUtils.plainStringToDecimal(pageHolderVC.mFee?.amount[0].amount))
             expectedAmountLabel.attributedText = WUtils.displayAmount2(expectedAmount.stringValue, rewardAmoutLaebl.font, mDpDecimal, mDpDecimal)
             
@@ -155,7 +157,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
         } else {
             var selectedRewardSum = NSDecimalNumber.zero
             pageHolderVC.mRewards.forEach { coin in
-                if (coin.denom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
+                if (coin.denom == WUtils.getMainDenom(chainType)) {
                     selectedRewardSum = selectedRewardSum.adding(WUtils.plainStringToDecimal(coin.amount))
                 }
             }
@@ -164,7 +166,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             
             var userBalance = NSDecimalNumber.zero
             for balance in pageHolderVC.mBalances {
-                if (balance.balance_denom == WUtils.getMainDenom(pageHolderVC.chainType)) {
+                if (balance.balance_denom == WUtils.getMainDenom(chainType)) {
                     userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
                 }
             }
@@ -211,7 +213,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            if (WUtils.isGRPC(chainType)) {
                 self.onFetchgRPCAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
@@ -221,11 +223,11 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -266,10 +268,10 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             
             var msgList = Array<Msg>()
             for val in self.pageHolderVC.mRewardTargetValidators {
-                let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, val.operator_address, self.pageHolderVC.chainType!)
+                let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, val.operator_address, self.chainType!)
                 msgList.append(msg)
             }
-            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
+            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
                                                    String(self.pageHolderVC.mAccount!.account_account_numner),
                                                    String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                    msgList,
@@ -285,7 +287,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 let data = try? encoder.encode(postTx)
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
@@ -321,7 +323,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
@@ -344,12 +346,12 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             let privateKey = KeyFac.getPrivateRaw(words, self.pageHolderVC.mAccount!)
             let publicKey = KeyFac.getPublicRaw(words, self.pageHolderVC.mAccount!)
             let reqTx = Signer.genSignedClaimRewardsTxgRPC(auth!, self.pageHolderVC.mRewardTargetValidators_gRPC, self.pageHolderVC.mFee!,
-                                                           self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                           self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId(self.chainType))
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             do {

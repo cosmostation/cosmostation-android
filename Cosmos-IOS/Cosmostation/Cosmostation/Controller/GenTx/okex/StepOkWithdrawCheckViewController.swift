@@ -25,9 +25,11 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        pageHolderVC = self.parent as? StepGenTxViewController
-        WUtils.setDenomTitle(pageHolderVC.chainType!, toWithdrawAmountDenom)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, feeAmountDenom)
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.pageHolderVC = self.parent as? StepGenTxViewController
+        WUtils.setDenomTitle(chainType, toWithdrawAmountDenom)
+        WUtils.setDenomTitle(chainType, feeAmountDenom)
     }
     
     @IBAction func onClickConfirm(_ sender: Any) {
@@ -53,10 +55,8 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-            toWithdrawAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mOkToWithdraw.amount, toWithdrawAmountLabel.font, 0, 18)
-            feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 0, 18)
-        }
+        toWithdrawAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mOkToWithdraw.amount, toWithdrawAmountLabel.font, 0, 18)
+        feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 0, 18)
         memoLabel.text = pageHolderVC.mMemo
     }
     
@@ -68,7 +68,7 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
 
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -105,8 +105,10 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
-                let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(), String(self.pageHolderVC.mAccount!.account_account_numner),
-                                                       String(self.pageHolderVC.mAccount!.account_sequence_number), msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
+                let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
+                                                       String(self.pageHolderVC.mAccount!.account_account_numner),
+                                                       String(self.pageHolderVC.mAccount!.account_sequence_number),
+                                                       msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
                 
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .sortedKeys
@@ -162,7 +164,7 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
                 let data = try? encoder.encode(postTx)
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {

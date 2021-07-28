@@ -767,6 +767,7 @@ support@cosmostation.io";
 "chain_title_sif" = "SifChain Mainnet";
 "chain_title_ki" = "KiChain Mainnet";
 "chain_title_osmosis" = "Osmosis Mainnet";
+"chain_title_medi" = "Medibloc Mainnet";
 "chain_title_test_cosmos" = "StarGate Testnet";
 "chain_title_test_iris" = "Bifrost Testnet";
 "chain_title_test_bnb" = "Binance Testnet";

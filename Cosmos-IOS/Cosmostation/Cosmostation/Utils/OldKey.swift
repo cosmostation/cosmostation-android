@@ -60,7 +60,7 @@ class OldKey {
         } else if (chainType == ChainType.RIZON_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 1217, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
 
-        } else if (chainType == ChainType.MEDI_TEST) {
+        } else if (chainType == ChainType.MEDI_MAIN || chainType == ChainType.MEDI_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 371, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
 
         } else if (chainType == ChainType.ALTHEA_TEST) {
@@ -161,7 +161,7 @@ class OldKey {
             } else if (chain == ChainType.RIZON_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 1217, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
 
-            } else if (chain == ChainType.MEDI_TEST) {
+            } else if (chain == ChainType.MEDI_MAIN || chain == ChainType.MEDI_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 371, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
 
             } else if (chain == ChainType.ALTHEA_TEST) {

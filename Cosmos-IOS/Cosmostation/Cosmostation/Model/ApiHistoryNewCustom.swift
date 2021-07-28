@@ -69,7 +69,7 @@ public struct ApiHistoryNewCustom {
                 if let rawMsgType = getMsgs()?[1].object(forKey: "type") as? String {
                     msgType1 = rawMsgType
                 }
-                if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
+                if ((msgType0.contains("MsgWithdrawDelegatorReward") || msgType0.contains("MsgWithdrawDelegationReward")) && msgType1.contains("MsgDelegate")) {
                     return NSLocalizedString("tx_reinvest", comment: "")
                 }
                 
@@ -99,7 +99,11 @@ public struct ApiHistoryNewCustom {
             } else if (msgType.contains("MsgSend")) {
                 if let senderAddr = getMsgs()![0].object(forKey: "from_address") as? String, senderAddr == address {
                     result = NSLocalizedString("tx_send", comment: "")
+                } else if let senderAddr = getMsgs()![0].value(forKeyPath: "value.from_address") as? String, senderAddr == address {
+                    result = NSLocalizedString("tx_send", comment: "")
                 } else if let receiverAddr = getMsgs()![0].object(forKey: "to_address") as? String, receiverAddr == address {
+                    result = NSLocalizedString("tx_receive", comment: "")
+                } else if let receiverAddr = getMsgs()![0].value(forKeyPath: "value.to_address") as? String, receiverAddr == address {
                     result = NSLocalizedString("tx_receive", comment: "")
                 } else {
                     result = NSLocalizedString("tx_transfer", comment: "")
@@ -191,6 +195,60 @@ public struct ApiHistoryNewCustom {
             } else if (msgType.contains("ReplaceAccountResources")) {
                 result = NSLocalizedString("tx_starname_update_resource", comment: "")
                 
+            }
+            
+            else if (msgType.contains(KAVA_MSG_TYPE_POST_PRICE)) {
+                result = NSLocalizedString("tx_kava_post_price", comment: "")
+                
+            }
+            else if (msgType.contains(KAVA_MSG_TYPE_CREATE_CDP)) {
+                result = NSLocalizedString("tx_kava_create_cdp", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_DEPOSIT_CDP)) {
+                result = NSLocalizedString("tx_kava_deposit_cdp", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_WITHDRAW_CDP)) {
+                result = NSLocalizedString("tx_kava_withdraw_cdp", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_DRAWDEBT_CDP)) {
+                result = NSLocalizedString("tx_kava_drawdebt_cdp", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_REPAYDEBT_CDP)) {
+                result = NSLocalizedString("tx_kava_repaydebt_cdp", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_LIQUIDATE_CDP)) {
+                result = NSLocalizedString("tx_kava_liquidate_cdp", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_CREATE_SWAP)) {
+                result = NSLocalizedString("tx_kava_bep3_create", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_CLAIM_SWAP)) {
+                result = NSLocalizedString("tx_kava_bep3_claim", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_REFUND_SWAP)) {
+                result = NSLocalizedString("tx_kava_bep3_refund", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_DEPOSIT_HAVEST) || msgType.contains(KAVA_MSG_TYPE_DEPOSIT_HARD)) {
+                result = NSLocalizedString("tx_kava_hard_deposit", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_WITHDRAW_HAVEST) || msgType.contains(KAVA_MSG_TYPE_WITHDRAW_HARD)) {
+                result = NSLocalizedString("tx_kava_hard_withdraw", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_BORROW_HARD)) {
+                result = NSLocalizedString("tx_kava_hard_borrow", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_REPAY_HARD)) {
+                result = NSLocalizedString("tx_kava_hard_repay", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_LIQUIDATE_HARD)) {
+                result = NSLocalizedString("tx_kava_hard_liquidate", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_CLAIM_HAVEST) || msgType.contains(KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) || msgType.contains(KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV)) {
+                result = NSLocalizedString("tx_kava_hard_hard_incentive", comment: "")
+
+            } else if (msgType.contains(KAVA_MSG_TYPE_INCENTIVE_REWARD) || msgType.contains(KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
+                result = NSLocalizedString("tx_kava_hard_mint_incentive", comment: "")
+
             }
             
             else if (msgType.contains("MsgCreatePool")) {

@@ -92,7 +92,6 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         }
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (WUtils.isGRPC(chainType!)) {
             return BaseData.instance.mBondedValidators_gRPC.count
@@ -170,7 +169,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
 
         
         //temp hide apr for no mint param chain
-        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
+        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell.commissionLabel.text = "--"
         }
     }

@@ -43,7 +43,7 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
     
     func onUpdateView() {
         let feeAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, feeAmountDenom)
+        WUtils.setDenomTitle(chainType!, feeAmountDenom)
         memoLabel.text = pageHolderVC.mMemo
         
         if (self.chainType! == ChainType.BINANCE_MAIN || self.chainType! == ChainType.BINANCE_TEST) {
@@ -80,9 +80,9 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+            if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
-            } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
+            } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
                 self.onGenBnbRefund()
             }
         }
@@ -90,7 +90,7 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -124,7 +124,7 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
             var msgList = Array<Msg>()
             msgList.append(msg)
             
-            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
+            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
                                                    String(self.pageHolderVC.mAccount!.account_account_numner),
                                                    String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                    msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
@@ -139,7 +139,7 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
 
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
@@ -156,8 +156,7 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
                         }
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                                    self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                                     txResult["type"] = TASK_TYPE_HTLC_REFUND
                                     self.onStartTxDetail(txResult)
                                 }
@@ -184,7 +183,7 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
 //            var wallet = Wallet()
 //            var txResult = [String:Any]()
 //            
-//            if (self.pageHolderVC.chainType! == ChainType.BINANCE_MAIN) {
+//            if (self.chainType! == ChainType.BINANCE_MAIN) {
 //                //For Binance main-net refund
 //                binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
 //                pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)

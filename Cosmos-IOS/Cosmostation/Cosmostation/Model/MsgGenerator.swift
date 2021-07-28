@@ -264,7 +264,7 @@ class MsgGenerator {
                                               signerAddress: fromAccount.account_address,
                                               sequence: Int(fromAccount.account_sequence_number),
                                               accountNumber: Int(fromAccount.account_account_numner),
-                                              chainId: BaseData.instance.getChainId())
+                                              chainId: BaseData.instance.getChainId(fromChain))
             
         } else {
             var bnb_duputy = ""
@@ -291,7 +291,7 @@ class MsgGenerator {
                                              signerAddress: fromAccount.account_address,
                                              sequence: Int(fromAccount.account_sequence_number),
                                              accountNumber: Int(fromAccount.account_account_numner),
-                                             chainId: BaseData.instance.getChainId())
+                                             chainId: BaseData.instance.getChainId(fromChain))
         }
     }
     

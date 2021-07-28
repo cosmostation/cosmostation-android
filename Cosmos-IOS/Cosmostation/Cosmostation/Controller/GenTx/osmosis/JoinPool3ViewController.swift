@@ -79,7 +79,7 @@ class JoinPool3ViewController: BaseViewController, PasswordViewDelegate {
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
@@ -106,12 +106,12 @@ class JoinPool3ViewController: BaseViewController, PasswordViewDelegate {
                                                              self.pageHolderVC.mLPCoin!.amount, self.pageHolderVC.mFee!,
                                                              self.pageHolderVC.mMemo!,
                                                              privateKey, publicKey,
-                                                             BaseData.instance.getChainId_gRPC())
+                                                             BaseData.instance.getChainId(self.chainType))
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             do {

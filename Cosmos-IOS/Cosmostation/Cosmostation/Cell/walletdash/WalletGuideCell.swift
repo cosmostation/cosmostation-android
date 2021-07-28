@@ -159,7 +159,7 @@ class WalletGuideCell: UITableViewCell {
            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_rizon", comment: ""), for: .normal)
            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_rizon", comment: ""), for: .normal)
             
-        } else if (chainType == ChainType.MEDI_TEST) {
+        } else if (chainType == ChainType.MEDI_MAIN || chainType == ChainType.MEDI_TEST) {
             guideImg.image = UIImage(named: "mediblocImg")
             guideTitle.text = NSLocalizedString("send_guide_title_medi", comment: "")
             guideMsg.text = NSLocalizedString("send_guide_msg_medi", comment: "")

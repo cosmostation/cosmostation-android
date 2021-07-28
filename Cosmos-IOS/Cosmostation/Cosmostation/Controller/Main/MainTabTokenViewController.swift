@@ -158,6 +158,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainImg.image = UIImage(named: "chainOsmosis")
             titleChainName.text = "(OSMOSIS Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.MEDI_MAIN) {
+            titleChainImg.image = UIImage(named: "chainMedibloc")
+            titleChainName.text = "(Medibloc Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
@@ -322,7 +326,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetIrisTestItems(tableView, indexPath)
         } else if (chainType! == ChainType.RIZON_TEST) {
             return onSetRizonItems(tableView, indexPath)
-        } else if (chainType! == ChainType.MEDI_TEST) {
+        } else if (chainType == ChainType.MEDI_MAIN || chainType == ChainType.MEDI_TEST) {
             return onSetMediItems(tableView, indexPath)
         } else if (chainType! == ChainType.ALTHEA_TEST) {
             return onSetAltheaItems(tableView, indexPath)

@@ -29,14 +29,17 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
         pageHolderVC = self.parent as? StepGenTxViewController
-        WUtils.setDenomTitle(pageHolderVC.chainType!, toDelegateAmountDenom)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, feeAmountDenom)
+        
+        WUtils.setDenomTitle(chainType!, toDelegateAmountDenom)
+        WUtils.setDenomTitle(chainType!, feeAmountDenom)
     }
 
     @IBAction func onClickConfirm(_ sender: Any) {
         let popupVC = DelegateWarnPopup(nibName: "DelegateWarnPopup", bundle: nil)
-        if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN || pageHolderVC.chainType! == ChainType.CRYPTO_MAIN) {
+        if (chainType! == ChainType.SENTINEL_MAIN || chainType! == ChainType.CRYPTO_MAIN) {
             popupVC.warnImgType = 28
         } else {
             popupVC.warnImgType = 21
@@ -61,8 +64,8 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
     }
     
     func onUpdateView() {
-        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
-        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+        mDpDecimal = WUtils.mainDivideDecimal(chainType)
+        if (WUtils.isGRPC(chainType)) {
             toDelegateAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mToDelegateAmount?.amount, toDelegateAmountLabel.font, mDpDecimal, mDpDecimal)
             feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, mDpDecimal, mDpDecimal)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
@@ -89,7 +92,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            if (WUtils.isGRPC(chainType)) {
                 self.onFetchgRPCAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
@@ -99,11 +102,11 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                if (self.chainType! == ChainType.KAVA_MAIN || self.chainType! == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -145,12 +148,12 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
             let msg = MsgGenerator.genDelegateMsg(self.pageHolderVC.mAccount!.account_address,
                                                   self.pageHolderVC.mTargetValidator!.operator_address,
                                                   self.pageHolderVC.mToDelegateAmount!,
-                                                  self.pageHolderVC.chainType!)
+                                                  self.chainType!)
             
             var msgList = Array<Msg>()
             msgList.append(msg)
             
-            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
+            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
                                                    String(self.pageHolderVC.mAccount!.account_account_numner),
                                                    String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                    msgList,
@@ -167,7 +170,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
                 let data = try? encoder.encode(postTx)
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.validate().responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
@@ -208,7 +211,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
@@ -231,12 +234,12 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
             let privateKey = KeyFac.getPrivateRaw(words, self.pageHolderVC.mAccount!)
             let publicKey = KeyFac.getPublicRaw(words, self.pageHolderVC.mAccount!)
             let reqTx = Signer.genSignedDelegateTxgRPC(auth!, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mToDelegateAmount!,
-                                                       self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId_gRPC())
+                                                       self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey, BaseData.instance.getChainId(self.chainType))
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
             defer { try! channel.close().wait() }
             
             do {

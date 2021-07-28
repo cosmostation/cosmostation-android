@@ -29,12 +29,20 @@ class WalletCosmosCell: UITableViewCell {
     
     var actionDelegate: (() -> Void)? = nil
     var actionVote: (() -> Void)? = nil
+    var actionGravity: (() -> Void)? = nil
+    var actionWalletConnect: (() -> Void)? = nil
     
     @IBAction func onClickDelegate(_ sender: Any) {
         actionDelegate?()
     }
     @IBAction func onClickVote(_ sender: Any) {
         actionVote?()
+    }
+    @IBAction func onClickGravityDex(_ sender: Any) {
+        actionGravity?()
+    }
+    @IBAction func onClickWalletConnect(_ sender: Any) {
+        actionWalletConnect?()
     }
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
