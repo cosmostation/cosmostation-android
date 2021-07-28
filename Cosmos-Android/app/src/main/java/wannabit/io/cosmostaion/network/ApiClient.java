@@ -520,7 +520,20 @@ public class ApiClient {
         return api_osmosis;
     }
 
-
+    //Services for osmosis mainnet api
+    private static MediChain service_medi = null;
+    public static MediChain getMediChain(Context c) {
+        if (service_medi == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_medi))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_medi = retrofit.create(MediChain.class);
+            }
+        }
+        return service_medi;
+    }
 
     //Services for Rizon test api
     private static HistoryApi api_rizon_test = null;

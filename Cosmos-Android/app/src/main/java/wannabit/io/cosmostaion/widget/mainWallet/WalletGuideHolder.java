@@ -33,6 +33,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -188,7 +189,7 @@ public class WalletGuideHolder extends BaseHolder {
             itemBtnGuide1.setText(R.string.str_guide_rizon);
             itemBtnGuide2.setText(R.string.str_faq_rizon);
 
-        } else if (mainActivity.mBaseChain.equals(MEDI_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(MEDI_MAIN) || mainActivity.mBaseChain.equals(MEDI_TEST)) {
             itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.medibloc_img));
             itemGuideTitle.setText(R.string.str_front_guide_title_medi);
             itemGuideMsg.setText(R.string.str_front_guide_msg_medi);

@@ -57,6 +57,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -323,7 +324,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindOsmosisItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(RIZON_TEST)) {
                 onBindRizonItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(MEDI_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(MEDI_MAIN) || getMainActivity().mBaseChain.equals(MEDI_TEST)) {
                 onBindMediItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) {
                 onBindAltheaItem(viewHolder, position);
@@ -623,7 +624,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         final Balance balance = getBaseDao().mBalances.get(position);
         if (balance.symbol.equals(TOKEN_MEDI)) {
             holder.itemSymbol.setText(getString(R.string.str_medi_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), MEDI_TEST));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), MEDI_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText("Medibloc Staking Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenmedibloc));

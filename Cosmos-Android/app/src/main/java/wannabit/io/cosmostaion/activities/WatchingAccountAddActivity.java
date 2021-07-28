@@ -51,6 +51,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -322,16 +323,16 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 }
 
-            } else if (mUserInput.startsWith("rizon1")) {
+            } else if (mUserInput.startsWith("panacea1")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(RIZON_TEST, mUserInput);
+                    onGenNewAccount(MEDI_MAIN, mUserInput);
                 } else {
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 }
 
-            } else if (mUserInput.startsWith("panacea1")) {
+            } else if (mUserInput.startsWith("rizon1")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(MEDI_TEST, mUserInput);
+                    onGenNewAccount(RIZON_TEST, mUserInput);
                 } else {
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 }

@@ -60,6 +60,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -398,7 +399,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
                     else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) { return TYPE_FETCH; }
                     else if (getMainActivity().mBaseChain.equals(KI_MAIN)) { return TYPE_KI; }
-                    else if (getMainActivity().mBaseChain.equals(MEDI_TEST)) { return TYPE_MEDI; }
+                    else if (getMainActivity().mBaseChain.equals(MEDI_MAIN) || getMainActivity().mBaseChain.equals(MEDI_TEST)) { return TYPE_MEDI; }
                 } else if (position == 2) {
                     if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
                     else { return TYPE_PRICE; }

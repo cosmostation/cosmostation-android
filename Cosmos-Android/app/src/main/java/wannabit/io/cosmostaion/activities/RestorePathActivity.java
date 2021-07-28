@@ -52,6 +52,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -452,7 +453,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(MEDI_TEST)) {
+            } else if (mChain.equals(MEDI_MAIN) || mChain.equals(MEDI_TEST)) {
                 holder.coinLayer.setVisibility(View.VISIBLE);
                 WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getMediTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {

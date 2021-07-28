@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -15,6 +16,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -55,17 +57,26 @@ public class WalletMediHolder extends BaseHolder {
         mBtnMediStake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
-                mainActivity.startActivity(validators);
+                if (mainActivity.mBaseChain.equals(BaseChain.MEDI_MAIN)) {
+                    Toast.makeText(mainActivity, "다음 버전에 업데이트 될 예정입니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
+                    mainActivity.startActivity(validators);
+                }
             }
         });
         mBtnMediVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent proposals = new Intent(mainActivity, VoteListActivity.class);
-                mainActivity.startActivity(proposals);
+                if (mainActivity.mBaseChain.equals(BaseChain.MEDI_MAIN)) {
+                    Toast.makeText(mainActivity, "다음 버전에 업데이트 될 예정입니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    Intent proposals = new Intent(mainActivity, VoteListActivity.class);
+                    mainActivity.startActivity(proposals);
+                }
             }
         });
-
     }
 }
