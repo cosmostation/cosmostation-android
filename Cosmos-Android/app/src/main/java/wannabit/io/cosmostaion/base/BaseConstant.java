@@ -768,6 +768,7 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_CERTIK = new BigDecimal("5.75");
     public final static BigDecimal BLOCK_TIME_SECRET = new BigDecimal("5.96");
     public final static BigDecimal BLOCK_TIME_AKASH = new BigDecimal("6.1908");
+    public final static BigDecimal BLOCK_TIME_SENTINEL = new BigDecimal("6.0418");
     public final static BigDecimal BLOCK_TIME_PERSISTENCE = new BigDecimal("5.6381");
     public final static BigDecimal BLOCK_TIME_FETCH = new BigDecimal("5.8956");
     public final static BigDecimal BLOCK_TIME_CRYPTO = new BigDecimal("6.4383");

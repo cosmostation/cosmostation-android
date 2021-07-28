@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
@@ -141,6 +142,10 @@ public class ValidatorOtherFragment extends BaseFragment {
                         getMainActivity().onStartValidatorDetailV1(validator.getOperatorAddress());
                     }
                 });
+
+                if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
+                    holder.itemTvCommission.setText("--");
+                }
 
 //                if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
 //                    if (getBaseDao().mGrpcBandOracles != null && !getBaseDao().isOracleEnable(validator.getOperatorAddress())) {

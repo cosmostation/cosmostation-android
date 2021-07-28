@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
@@ -161,6 +162,10 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 //                        holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
 //                    }
 //                }
+
+                if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
+                    holder.itemTvCommission.setText("--");
+                }
 
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override

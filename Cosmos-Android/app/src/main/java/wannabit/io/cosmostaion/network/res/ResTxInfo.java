@@ -124,8 +124,14 @@ public class ResTxInfo {
                         if (event.attributes.get(i).key.equals("recipient") && event.attributes.get(i).value.equals(Addr)) {
                             for (int j = i; j < event.attributes.size(); j ++) {
                                 if (event.attributes.get(j).key.equals("amount") && event.attributes.get(j).value != null) {
-                                    String temp = event.attributes.get(j).value.replaceAll("[^0-9]", "");
-                                    result = result.add(new BigDecimal(temp));
+                                    String temp = event.attributes.get(j).value;
+                                    String amount = "";
+                                    if (temp.contains(",")) {
+                                        amount = temp.split(",")[0].replaceAll("[^0-9]", "");
+                                    } else {
+                                        amount = temp.replaceAll("[^0-9]", "");
+                                    }
+                                    result = result.add(new BigDecimal(amount));
                                     break;
                                 }
                             }

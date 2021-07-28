@@ -2120,6 +2120,9 @@ public class WUtil {
         } else if (chain.equals(AKASH_MAIN)) {
             return BLOCK_TIME_AKASH;
 
+        } else if (chain.equals(SENTINEL_MAIN)) {
+            return BLOCK_TIME_SENTINEL;
+
         } else if (chain.equals(PERSIS_MAIN)) {
             return BLOCK_TIME_PERSISTENCE;
 
