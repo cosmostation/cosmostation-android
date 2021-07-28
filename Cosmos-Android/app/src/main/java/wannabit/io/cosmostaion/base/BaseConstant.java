@@ -623,7 +623,7 @@ public class BaseConstant {
     public final static String KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE      = "100000";
     public final static String KI_GAS_AMOUNT_VOTE                       = "100000";
 
-    public final static String MEDI_GAS_FEE_RATE_AVERAGE                = "0.025";
+    public final static String MEDI_GAS_FEE_RATE_AVERAGE                = "5.00";
     public final static String MEDI_GAS_AMOUNT_SEND                     = "100000";
     public final static String MEDI_GAS_AMOUNT_STAKE                    = "200000";
     public final static String MEDI_GAS_AMOUNT_REDELEGATE               = "300000";
@@ -732,6 +732,7 @@ public class BaseConstant {
     public final static String EXPLORER_SIF_MAIN        = "https://www.mintscan.io/sifchain/";
     public final static String EXPLORER_KI_MAIN         = "https://www.mintscan.io/ki-chain/";
     public final static String EXPLORER_OSMOSIS_MAIN    = "https://www.mintscan.io/osmosis/";
+    public final static String EXPLORER_MEDI_MAIN       = "https://www.mintscan.io/medibloc/";
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";

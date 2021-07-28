@@ -46,6 +46,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
@@ -170,6 +171,11 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             mRecyclerView.setVisibility(View.GONE);
             mNotYet.setVisibility(View.VISIBLE);
             mNotYet.setText("Check with Explorer");
+
+        } else if (getMainActivity().mBaseChain.equals(MEDI_MAIN)) {
+            mEmptyHistory.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.GONE);
+            mNotYet.setVisibility(View.VISIBLE);
 
         }
         else  {

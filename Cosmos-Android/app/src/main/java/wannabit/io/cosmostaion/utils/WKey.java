@@ -51,6 +51,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -157,7 +158,7 @@ public class WKey {
         } else if (chain.equals(RIZON_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(1217, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
-        } else if (chain.equals(MEDI_TEST)) {
+        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(371, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(ALTHEA_TEST)) {
@@ -370,7 +371,7 @@ public class WKey {
                 result = bech32Encode("osmo".getBytes(), converted);
             } else if (chain.equals(RIZON_TEST)){
                 result = bech32Encode("rizon".getBytes(), converted);
-            } else if (chain.equals(MEDI_TEST)){
+            } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)){
                 result = bech32Encode("panacea".getBytes(), converted);
             } else if (chain.equals(ALTHEA_TEST)){
                 result = bech32Encode("althea".getBytes(), converted);
@@ -421,7 +422,7 @@ public class WKey {
             return bech32Encode("osmo".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(RIZON_TEST)) {
             return bech32Encode("rizon".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(MEDI_TEST)) {
+        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
             return bech32Encode("panacea".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(ALTHEA_TEST)) {
             return bech32Encode("althea".getBytes(), bech32Decode(dpOpAddress).data);
@@ -465,7 +466,7 @@ public class WKey {
             return bech32Encode("osmovaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(RIZON_TEST)) {
             return bech32Encode("rizonvaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(MEDI_TEST)) {
+        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
             return bech32Encode("panaceavaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(ALTHEA_TEST)) {
             return bech32Encode("altheavaloper".getBytes(), bech32Decode(dpOpAddress).data);

@@ -55,6 +55,7 @@ public enum BaseChain {
     SIF_MAIN("sif-mainnet"),
     KI_MAIN("ki-mainnet"),
     OSMOSIS_MAIN("osmosis-mainnet"),
+    MEDI_MAIN("medibloc-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -168,6 +169,9 @@ public enum BaseChain {
         if (chainName.equals(OSMOSIS_MAIN.chainName)) {
             return OSMOSIS_MAIN;
         }
+        if (chainName.equals(MEDI_MAIN.chainName)) {
+            return MEDI_MAIN;
+        }
 
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
@@ -239,6 +243,7 @@ public enum BaseChain {
         result.add(SIF_MAIN);
         result.add(KI_MAIN);
         result.add(OSMOSIS_MAIN);
+        result.add(MEDI_MAIN);
         result.add(SECRET_MAIN);
 
 

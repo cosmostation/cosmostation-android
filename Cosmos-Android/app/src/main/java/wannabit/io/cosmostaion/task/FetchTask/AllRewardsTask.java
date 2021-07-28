@@ -21,6 +21,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
@@ -84,6 +85,13 @@ public class AllRewardsTask extends CommonTask {
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(KI_MAIN)) {
                 Response<ResLcdAllRewards> response = ApiClient.getKiChain(mApp).getAllRewards(mAccount.address).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().result.rewards;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(MEDI_MAIN)) {
+                Response<ResLcdAllRewards> response = ApiClient.getMediChain(mApp).getAllRewards(mAccount.address).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body().result.rewards;
                     mResult.isSuccess = true;

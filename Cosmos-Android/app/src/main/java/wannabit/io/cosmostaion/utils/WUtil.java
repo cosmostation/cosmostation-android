@@ -91,6 +91,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -1549,7 +1550,7 @@ public class WUtil {
         } else if (basechain.equals(KI_MAIN)) {
             result = result + ",uxki";
 
-        } else if (basechain.equals(MEDI_TEST)) {
+        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
             result = result + ",umed";
 
         }
@@ -2205,6 +2206,9 @@ public class WUtil {
         } else if (chain.equals(OSMOSIS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://osmosis.zone/"));
 
+        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medibloc.org//"));
+
         }
         return null;
     }
@@ -2264,6 +2268,9 @@ public class WUtil {
 
         } else if (chain.equals(OSMOSIS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/osmosis"));
+
+        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/medibloc"));
 
         }
         return null;
@@ -2498,7 +2505,7 @@ public class WUtil {
                 return new BigDecimal(KI_GAS_AMOUNT_VOTE);
             }
 
-        } else if (basechain.equals(MEDI_TEST)) {
+        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(MEDI_GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -2620,7 +2627,7 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(MEDI_TEST)) {
+        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
             BigDecimal gasRate = new BigDecimal(MEDI_GAS_FEE_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -2742,7 +2749,7 @@ public class WUtil {
         } else if (basechain.equals(KI_MAIN)) {
             return new BigDecimal(KI_GAS_FEE_RATE_AVERAGE);
 
-        } else if (basechain.equals(MEDI_TEST)) {
+        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
             return new BigDecimal(MEDI_GAS_FEE_RATE_AVERAGE);
 
         }
@@ -3054,6 +3061,9 @@ public class WUtil {
         } else if (basechain.equals(KI_MAIN)) {
             return EXPLORER_KI_MAIN;
 
+        } else if (basechain.equals(MEDI_MAIN)) {
+            return EXPLORER_MEDI_MAIN;
+
         } else if (basechain.equals(MEDI_TEST)) {
             return EXPLORER_MEDI_TEST;
 
@@ -3137,6 +3147,9 @@ public class WUtil {
 
         } else if (basechain.equals(KI_MAIN)) {
             return EXPLORER_KI_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(MEDI_MAIN)) {
+            return EXPLORER_MEDI_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(MEDI_TEST)) {
             return EXPLORER_MEDI_TEST + "txs/" + hash;

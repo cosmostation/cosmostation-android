@@ -87,6 +87,8 @@
     <string name="url_lcd_ki" translatable="false">https://lcd-kichain.cosmostation.io/</string>
     <string name="url_api_ki" translatable="false">https://api-kichain.cosmostation.io/</string>
 
+    <string name="url_lcd_medi" translatable="false">https://api.gopanacea.org/</string>
+
     <string name="url_api_osmosis" translatable="false">https://api-osmosis.cosmostation.io/</string>
 
 
@@ -158,6 +160,7 @@
     <string name="str_sif_main_net">SifChain Mainnet</string>
     <string name="str_ki_main_net">Ki Foundation Mainnet</string>
     <string name="str_osmosis_main_net">Osmosis Mainnet</string>
+    <string name="str_medi_main_net">Medibloc Mainnet</string>
     <string name="str_cosmos_test_net">StarGate Testnet</string>
     <string name="str_iris_test_net">Bifrost Testnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
@@ -417,6 +420,8 @@
     <string name="str_ki_net2" translatable="false">Ki Foundation Mainnet</string>
     <string name="str_osmosis_net" translatable="false">(Osmosis Mainnet)</string>
     <string name="str_osmosis_net2" translatable="false">Osmosis Mainnet</string>
+    <string name="str_medi_net" translatable="false">(Medibloc Mainnet)</string>
+    <string name="str_medi_net2" translatable="false">Medibloc Mainnet</string>
     <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
@@ -447,6 +452,7 @@
     <string name="str_sif_main" translatable="false">SIF</string>
     <string name="str_ki_main" translatable="false">KI</string>
     <string name="str_osmosis_main" translatable="false">OSMOSIS</string>
+    <string name="str_medi_main" translatable="false">MEDIBLOC</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>

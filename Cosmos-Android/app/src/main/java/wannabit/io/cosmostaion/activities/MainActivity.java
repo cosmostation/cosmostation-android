@@ -74,6 +74,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -350,6 +351,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setText(getString(R.string.str_osmosis_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorOsmosis));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorOsmosis));
+
+        } else if (mBaseChain.equals(MEDI_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainmedibloc));
+            mToolbarChainName.setText(getString(R.string.str_medi_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorMedi));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorWhite));
+            mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorMedi));
 
         }
 
@@ -760,6 +768,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_osmosis));
                     holder.chainName.setText(getString(R.string.str_osmosis_main));
+
+                } else if (chain.equals(MEDI_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainmedibloc));
+                    holder.chainName.setText(getString(R.string.str_medi_main));
 
                 }
 

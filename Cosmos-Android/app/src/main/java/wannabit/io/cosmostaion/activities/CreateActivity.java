@@ -46,6 +46,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -171,7 +172,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_band));
             } else if (mChain.equals(CERTIK_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_certik));
-            } else if (mChain.equals(BNB_TEST) || mChain.equals(KAVA_TEST) || mChain.equals(IOV_TEST) || mChain.equals(OK_TEST) || mChain.equals(CERTIK_TEST) || mChain.equals(COSMOS_TEST) || mChain.equals(IRIS_TEST)) {
+            } else if (mChain.equals(BNB_TEST) || mChain.equals(KAVA_TEST) || mChain.equals(IOV_TEST) || mChain.equals(OK_TEST) ||
+                    mChain.equals(CERTIK_TEST) || mChain.equals(COSMOS_TEST) || mChain.equals(IRIS_TEST) || mChain.equals(MEDI_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_darkgray));
             } else if (mChain.equals(AKASH_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_akash));
@@ -195,7 +197,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_osmosis));
             } else if (mChain.equals(RIZON_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_rizon));
-            } else if (mChain.equals(MEDI_TEST)) {
+            } else if (mChain.equals(MEDI_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_medi));
             } else if (mChain.equals(ALTHEA_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_althea));
