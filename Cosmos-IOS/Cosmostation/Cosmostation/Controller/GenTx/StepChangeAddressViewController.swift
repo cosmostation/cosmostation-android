@@ -158,7 +158,7 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.MEDI_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.MEDI_MAIN || pageHolderVC.chainType! == ChainType.MEDI_TEST) {
             if (!userInput!.starts(with: "panacea1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
