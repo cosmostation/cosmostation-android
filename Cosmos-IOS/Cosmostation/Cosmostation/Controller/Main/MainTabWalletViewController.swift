@@ -316,6 +316,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetkiItems(tableView, indexPath);
         } else if (chainType == ChainType.OSMOSIS_MAIN) {
             return onSetOsmoItems(tableView, indexPath);
+        } else if (chainType == ChainType.MEDI_MAIN || chainType == ChainType.MEDI_TEST) {
+            return onSetMediItems(tableView, indexPath);
         }
         
         else if (chainType == ChainType.COSMOS_TEST) {
@@ -324,8 +326,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetIrisTestItems(tableView, indexPath);
         } else if (chainType == ChainType.RIZON_TEST) {
             return onSetRizonItems(tableView, indexPath);
-        } else if (chainType == ChainType.MEDI_TEST) {
-            return onSetMediItems(tableView, indexPath);
         } else if (chainType == ChainType.ALTHEA_TEST) {
             return onSetAltheaItems(tableView, indexPath);
         } else {
@@ -960,8 +960,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletMediCell") as? WalletMediCell
             cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionDelegate = { self.onClickValidatorList() }
-            cell?.actionVote = { self.onClickVoteList() }
+            cell?.actionDelegate = {
+                self.onShowToast(NSLocalizedString("prepare", comment: ""))
+//                self.onClickValidatorList()
+            }
+            cell?.actionVote = {
+                self.onShowToast(NSLocalizedString("prepare", comment: ""))
+//                self.onClickVoteList()
+            }
             return cell!
 
         } else if (indexPath.row == 2) {
@@ -1451,6 +1457,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.OSMOSIS_MAIN) {
             guard let url = URL(string: "https://osmosis.zone/") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.MEDI_MAIN || chainType! == ChainType.MEDI_TEST) {
+            guard let url = URL(string: "https://medibloc.org/") else { return }
+            self.onShowSafariWeb(url)
         }
         
     }
@@ -1528,6 +1538,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.OSMOSIS_MAIN) {
             guard let url = URL(string: "https://medium.com/osmosis") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.MEDI_MAIN || chainType! == ChainType.MEDI_TEST) {
+            guard let url = URL(string: "https://blog.medibloc.org/") else { return }
+            self.onShowSafariWeb(url)
         }
         
     }
@@ -1596,7 +1610,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.OSMOSIS_MAIN) {
             guard let url = URL(string: "https://www.coingecko.com/en/coins/osmosis") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType == ChainType.MEDI_MAIN || chainType == ChainType.MEDI_TEST) {
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/medibloc") else { return }
+            self.onShowSafariWeb(url)
         }
+        
         
         
     }

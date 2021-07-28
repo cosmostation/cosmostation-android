@@ -3952,7 +3952,7 @@ public class WUtils {
             return EXPLORER_OSMOSIS_MAIN + "txs/" + hash
             
         } else if (chain == ChainType.MEDI_MAIN) {
-            return EXPLORER_MEDI_MAIN + "txs/" + hash
+            return EXPLORER_MEDI_MAIN + "tx/" + hash
             
         }
         

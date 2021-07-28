@@ -191,6 +191,14 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
                     guard let url = URL(string: EXPLORER_KI_MAIN) else { return }
                     self.onShowSafariWeb(url)
                     
+                } else if (chainType == ChainType.OSMOSIS_MAIN) {
+                    guard let url = URL(string: EXPLORER_OSMOSIS_MAIN) else { return }
+                    self.onShowSafariWeb(url)
+                    
+                } else if (chainType == ChainType.MEDI_MAIN) {
+                    guard let url = URL(string: EXPLORER_MEDI_MAIN) else { return }
+                    self.onShowSafariWeb(url)
+                    
                 } else if (chainType == ChainType.COSMOS_TEST) {
                     guard let url = URL(string: EXPLORER_COSMOS_TEST) else { return }
                     self.onShowSafariWeb(url)
@@ -200,7 +208,7 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
                     self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.MEDI_TEST) {
-                    guard let url = URL(string: EXPLORER_IRIS_TEST) else { return }
+                    guard let url = URL(string: EXPLORER_MEDI_TEST) else { return }
                     self.onShowSafariWeb(url)
                     
                 } else if (chainType == ChainType.RIZON_TEST) {

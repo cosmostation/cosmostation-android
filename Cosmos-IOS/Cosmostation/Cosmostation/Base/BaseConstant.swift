@@ -545,7 +545,7 @@ let KI_GAS_AMOUNT_REINVEST                      = "350000";
 let KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE         = "100000";
 let KI_GAS_AMOUNT_VOTE                          = "100000";
 
-let MEDI_GAS_FEE_RATE_AVERAGE                   = "0.025";
+let MEDI_GAS_FEE_RATE_AVERAGE                   = "5";
 let MEDI_GAS_AMOUNT_SEND                        = "100000";
 let MEDI_GAS_AMOUNT_STAKE                       = "200000";
 let MEDI_GAS_AMOUNT_REDELEGATE                  = "300000";
@@ -962,7 +962,7 @@ let EXPLORER_CRYPTO_MAIN    = "https://www.mintscan.io/crypto-org/";
 let EXPLORER_SIF_MAIN       = "https://www.mintscan.io/sifchain/";
 let EXPLORER_KI_MAIN        = "https://www.mintscan.io/ki-chain/";
 let EXPLORER_OSMOSIS_MAIN   = "https://www.mintscan.io/osmosis/";
-let EXPLORER_MEDI_MAIN      = "https://www.mintscan.io/medibloc/";
+let EXPLORER_MEDI_MAIN      = "https://explorer.medibloc.org/en/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";

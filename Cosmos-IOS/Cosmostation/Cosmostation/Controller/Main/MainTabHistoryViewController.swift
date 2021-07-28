@@ -236,6 +236,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.SECRET_MAIN) {
             self.comingLabel.text = "Check with Explorer"
             self.comingLabel.isHidden = false
+        } else if (chainType == ChainType.MEDI_MAIN || chainType == ChainType.MEDI_TEST) {
+            self.comingLabel.text = "Support Soon"
+            self.comingLabel.isHidden = false
         } else {
             onFetchNewApiHistoryCustom(mainTabVC.mAccount.account_address)
         }

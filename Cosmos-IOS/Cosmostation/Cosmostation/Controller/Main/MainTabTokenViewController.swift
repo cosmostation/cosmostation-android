@@ -326,7 +326,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetIrisTestItems(tableView, indexPath)
         } else if (chainType! == ChainType.RIZON_TEST) {
             return onSetRizonItems(tableView, indexPath)
-        } else if (chainType! == ChainType.MEDI_TEST) {
+        } else if (chainType == ChainType.MEDI_MAIN || chainType == ChainType.MEDI_TEST) {
             return onSetMediItems(tableView, indexPath)
         } else if (chainType! == ChainType.ALTHEA_TEST) {
             return onSetAltheaItems(tableView, indexPath)
