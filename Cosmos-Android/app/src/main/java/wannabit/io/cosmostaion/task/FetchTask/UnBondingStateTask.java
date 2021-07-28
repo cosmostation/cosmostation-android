@@ -72,13 +72,6 @@ public class UnBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(SIF_MAIN)) {
-                Response<ResLcdUnBondings> response = ApiClient.getSifChain(mApp).getUnBondingList(mAccount.address).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (getChain(mAccount.baseChain).equals(KI_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getKiChain(mApp).getUnBondingList(mAccount.address).execute();
                 if (response.isSuccessful() && response.body() != null) {

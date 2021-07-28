@@ -76,13 +76,6 @@ public class AllRewardsTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(SIF_MAIN)) {
-                Response<ResLcdAllRewards> response = ApiClient.getSifChain(mApp).getAllRewards(mAccount.address).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().result.rewards;
-                    mResult.isSuccess = true;
-                }
-
             } else if (BaseChain.getChain(mAccount.baseChain).equals(KI_MAIN)) {
                 Response<ResLcdAllRewards> response = ApiClient.getKiChain(mApp).getAllRewards(mAccount.address).execute();
                 if (response.isSuccessful() && response.body() != null) {

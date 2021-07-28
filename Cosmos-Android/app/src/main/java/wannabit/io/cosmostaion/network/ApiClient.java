@@ -430,21 +430,6 @@ public class ApiClient {
         return api_crypto;
     }
 
-    //Services for sifChain mainnet
-    private static SifChain service_sif = null;
-    public static SifChain getSifChain(Context c) {
-        if (service_sif == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_sif))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_sif = retrofit.create(SifChain.class);
-            }
-        }
-        return service_sif;
-    }
-
     //Services for sifChain mainnet api
     private static HistoryApi api_sif = null;
     public static HistoryApi getSifApi(Context c) {

@@ -53,12 +53,12 @@ public class TokenSifHolder extends BaseHolder {
 
     @Override
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
-        final BigDecimal availableAmount = baseData.availableAmount(TOKEN_SIF);
-        final BigDecimal vestingAmount = baseData.lockedAmount(TOKEN_SIF);
-        final BigDecimal delegateAmount = baseData.delegatedSumAmount();
-        final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
-        final BigDecimal rewardAmount = baseData.rewardAmount(TOKEN_SIF);
-        final BigDecimal totalAmount = baseData.getAllMainAssetOld(TOKEN_SIF);
+        final BigDecimal availableAmount = baseData.getAvailable(TOKEN_SIF);
+        final BigDecimal vestingAmount = baseData.getVesting(TOKEN_SIF);
+        final BigDecimal delegateAmount = baseData.getDelegationSum();
+        final BigDecimal unbondingAmount = baseData.getUndelegationSum();
+        final BigDecimal rewardAmount = baseData.getRewardSum(TOKEN_SIF);
+        final BigDecimal totalAmount = baseData.getAllMainAsset(TOKEN_SIF);
 
         mTvSifTotal.setText(WDp.getDpAmount2(c, totalAmount, 18, 18));
         mTvSifAvailable.setText(WDp.getDpAmount2(c, availableAmount, 18, 18));

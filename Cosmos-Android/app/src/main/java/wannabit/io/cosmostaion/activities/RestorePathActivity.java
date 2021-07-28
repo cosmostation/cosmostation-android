@@ -416,24 +416,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(SIF_MAIN)) {
-                holder.coinLayer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
-                ApiClient.getSifChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
-                    @Override
-                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                        if (response.isSuccessful() && response.body() != null && response.body().result != null && response.body().result.value != null && response.body().result.value.coins != null) {
-                            ArrayList<Coin> coins = response.body().result.value.coins ;
-                            for (Coin coin: coins) {
-                                if (coin.denom.equals(WDp.mainDenom(mChain))) {
-                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
-                                }
-                            }
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
-                });
             } else if (mChain.equals(KI_MAIN)) {
                 holder.coinLayer.setVisibility(View.VISIBLE);
                 WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);

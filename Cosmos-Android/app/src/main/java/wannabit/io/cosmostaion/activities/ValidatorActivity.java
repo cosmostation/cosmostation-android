@@ -604,7 +604,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 //                WLog.w("mApiTxCustomHistory " + mApiTxCustomHistory.size());
 
-            } else if (isGRPC(mBaseChain) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(FETCHAI_MAIN) || mBaseChain.equals(SIF_MAIN)) {
+            } else if (isGRPC(mBaseChain) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(FETCHAI_MAIN)) {
                 ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>)result.resultData;
                 if (hits != null && hits.size() > 0) {
                     mApiNewTxCustomHistory = hits;
@@ -927,7 +927,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         private void onBindApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
             final HistoryHolder holder = (HistoryHolder)viewHolder;
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(FETCHAI_MAIN) || mBaseChain.equals(SIF_MAIN)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(FETCHAI_MAIN)) {
                 final ResApiNewTxListCustom history;
                 if (mBondingInfo == null && mUnbondingInfo == null) {
                     history = mApiNewTxCustomHistory.get(position - 2);
