@@ -27,6 +27,7 @@ import cosmos.base.abci.v1beta1.Abci;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -49,6 +50,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulSendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulUndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOUNT;
@@ -66,6 +68,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWAR
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
 public class StepFeeSetFragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -212,7 +215,12 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
     private boolean onCheckValidate() {
         if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
-            BigDecimal available = getBaseDao().getAvailable(getSActivity().mDenom);
+            BigDecimal available = BigDecimal.ZERO;
+            if (getSActivity().mBaseChain.equals(BaseChain.SIF_MAIN)) {
+                available = getBaseDao().getAvailable(TOKEN_SIF);
+            } else {
+                available = getBaseDao().getAvailable(getSActivity().mDenom);
+            }
             if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                 BigDecimal toSend = new BigDecimal(getSActivity().mAmounts.get(0).amount);
                 if ((toSend.add(mFee)).compareTo(available) > 0) {
