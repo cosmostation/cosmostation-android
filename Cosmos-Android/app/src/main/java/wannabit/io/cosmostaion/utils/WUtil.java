@@ -3156,7 +3156,7 @@ public class WUtil {
             return EXPLORER_KI_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(MEDI_MAIN)) {
-            return EXPLORER_MEDI_MAIN + "txs/" + hash;
+            return EXPLORER_MEDI_MAIN + "tx/" + hash;
 
         } else if (basechain.equals(MEDI_TEST)) {
             return EXPLORER_MEDI_TEST + "txs/" + hash;
