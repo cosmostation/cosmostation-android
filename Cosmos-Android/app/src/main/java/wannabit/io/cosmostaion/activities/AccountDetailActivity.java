@@ -371,11 +371,11 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_osmosis));
 
         } else if (mBaseChain.equals(MEDI_MAIN)) {
-            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgMedi));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgMedi));
             mCardAlarm.setVisibility(View.GONE);
-            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgMedi));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgMedi));
             mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainmedibloc));
 
