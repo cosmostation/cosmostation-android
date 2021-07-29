@@ -142,8 +142,10 @@ public struct TxInfo {
                         if (attributes[i].key == "recipient" && attributes[i].value == Addr) {
                             for j in i...attributes.count - 1 {
                                 if (attributes[j].key == "amount" && attributes[j].value != nil) {
-                                    aReward = aReward.adding(NSDecimalNumber.init(string: attributes[j].value!.filter{ $0.isNumber }))  
-                                    break;
+                                    if let rawValue = attributes[j].value, let rawRewad = rawValue.split(separator: ",").first {
+                                        aReward = aReward.adding(NSDecimalNumber.init(string: String(rawRewad).filter{ $0.isNumber }))
+                                        break;
+                                    }
                                 }
                             }
                         }
