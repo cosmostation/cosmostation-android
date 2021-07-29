@@ -71,6 +71,8 @@ public class TokenBaseHolder extends BaseHolder {
                 onBindAltheaToken(c, chain, baseData, denom);
             } else if (chain.equals(OSMOSIS_MAIN)) {
                 onBindOsmosisToken(c, chain, baseData, denom);
+            } else if (chain.equals(SIF_MAIN)) {
+                onBindSifToken(c, chain, baseData, denom);
             }
 
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
@@ -81,9 +83,6 @@ public class TokenBaseHolder extends BaseHolder {
 
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             onBindOkToken(c, chain, baseData, denom);
-
-        } else if (chain.equals(SIF_MAIN)) {
-            onBindSifToken(c, chain, baseData, denom);
 
         }
     }
@@ -150,7 +149,7 @@ public class TokenBaseHolder extends BaseHolder {
         mTvTokenDenom.setText("(" + denom + ")");
 
         final int dpDecimal = WUtil.getSifCoinDecimal(denom);
-        final BigDecimal totalAmount = baseData.availableAmount(denom);
+        final BigDecimal totalAmount = baseData.getAvailable(denom);
 
         mTvTokenAvailable.setText(WDp.getDpAmount2(context, totalAmount, dpDecimal, dpDecimal));
         mTvTokenTotal.setText(WDp.getDpAmount2(context, totalAmount, dpDecimal, dpDecimal));

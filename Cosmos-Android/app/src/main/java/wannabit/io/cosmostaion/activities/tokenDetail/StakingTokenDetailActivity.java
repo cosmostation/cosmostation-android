@@ -203,9 +203,9 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private static final int TYPE_ALTHEA                = 7;
     private static final int TYPE_OSMOSIS               = 8;
     private static final int TYPE_STARNAME              = 9;
+    private static final int TYPE_SIF                   = 10;
 //    private static final int TYPE_BAND                  = 10;
 
-    private static final int TYPE_SIF                   = 31;
     private static final int TYPE_OKEX                  = 32;
     private static final int TYPE_BNB                   = 33;
     private static final int TYPE_KAVA                  = 34;
@@ -238,13 +238,14 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 return new TokenOsmosisHolder(getLayoutInflater().inflate(R.layout.layout_card_osmosis, viewGroup, false));
             } else if (viewType == TYPE_STARNAME) {
                 return new TokenStarnameHolder(getLayoutInflater().inflate(R.layout.layout_card_starname, viewGroup, false));
+            } else if (viewType == TYPE_SIF) {
+                return new TokenSifHolder(getLayoutInflater().inflate(R.layout.layout_card_sif, viewGroup, false));
 //            } else if (viewType == TYPE_BAND) {
 //                return new TokenBandHolder(getLayoutInflater().inflate(R.layout.layout_card_band_token, viewGroup, false));
+
             }
 
-            else if (viewType == TYPE_SIF) {
-                return new TokenSifHolder(getLayoutInflater().inflate(R.layout.layout_card_sif, viewGroup, false));
-            } else if (viewType == TYPE_OKEX) {
+            else if (viewType == TYPE_OKEX) {
                 return new TokenOKExHolder(getLayoutInflater().inflate(R.layout.layout_card_ok, viewGroup, false));
             } else if (viewType == TYPE_BNB) {
                 return new TokenBnbHolder(getLayoutInflater().inflate(R.layout.layout_card_bnb, viewGroup, false));
@@ -292,15 +293,15 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             } else if (getItemViewType(position) == TYPE_STARNAME) {
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
+            } else if (getItemViewType(position) == TYPE_SIF) {
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+
 //            } else if (getItemViewType(position) == TYPE_BAND) {
 //                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
             }
 
-            else if (getItemViewType(position) == TYPE_SIF) {
-                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
-
-            } else if (getItemViewType(position) == TYPE_OKEX) {
+            else if (getItemViewType(position) == TYPE_OKEX) {
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
             } else if (getItemViewType(position) == TYPE_BNB) {
@@ -374,6 +375,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                     return TYPE_RIZON;
                 } else if (mBaseChain.equals(ALTHEA_TEST)) {
                     return TYPE_ALTHEA;
+                } else if (mBaseChain.equals(SIF_MAIN)) {
+                    return TYPE_SIF;
 //                } else if (mBaseChain.equals(BAND_MAIN)) {
 //                    return TYPE_BAND;
                 }

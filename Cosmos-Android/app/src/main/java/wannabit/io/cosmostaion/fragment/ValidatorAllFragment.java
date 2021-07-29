@@ -163,7 +163,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 //                    }
 //                }
 
-                if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
+                if (getMainActivity().mBaseChain.equals(SIF_MAIN) || getMainActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
                     holder.itemTvCommission.setText("--");
                 }
 
@@ -212,10 +212,6 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     } else {
                         holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
                     }
-                }
-
-                if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
-                    holder.itemTvCommission.setText("--");
                 }
             }
         }

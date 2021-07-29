@@ -324,6 +324,8 @@ public enum BaseChain {
             return true;
         } else if (baseChain.equals(IOV_MAIN)) {
             return true;
+        } else if (baseChain.equals(SIF_MAIN)) {
+            return true;
 //        } else if (baseChain.equals(BAND_MAIN)) {
 //            return true;
         } else if (baseChain.equals(RIZON_TEST)) {

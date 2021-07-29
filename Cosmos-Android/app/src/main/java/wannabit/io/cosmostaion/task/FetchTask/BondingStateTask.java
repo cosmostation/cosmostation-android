@@ -77,13 +77,6 @@ public class BondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(SIF_MAIN)) {
-                Response<ResLcdBondings> response = ApiClient.getSifChain(mApp).getBondingList(mAccount.address).execute();
-                if (response.isSuccessful() && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (getChain(mAccount.baseChain).equals(KI_MAIN)) {
                 Response<ResLcdBondings> response = ApiClient.getKiChain(mApp).getBondingList(mAccount.address).execute();
                 if (response.isSuccessful() && response.body().result != null) {

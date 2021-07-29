@@ -17,6 +17,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 
 public class ChannelBuilder {
     private final static String GRPC_COSMOS_MAIN = "lcd-cosmos-app.cosmostation.io";
@@ -42,6 +43,9 @@ public class ChannelBuilder {
 
     private final static String GRPC_STARNAME_MAIN = "lcd-iov-app.cosmostation.io";
     private final static int PORT_STARNAME_MAIN = 9090;
+
+    private final static String GRPC_SIF_MAIN = "lcd-sifchain-app.cosmostation.io";
+    private final static int PORT_SIF_MAIN = 9090;
 
 //    private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
 //    private final static int PORT_BAND_MAIN = 21700;
@@ -82,6 +86,8 @@ public class ChannelBuilder {
             return getOsmosisMain();
         } else if (chain.equals(IOV_MAIN)) {
             return getStarnameMain();
+        } else if (chain.equals(SIF_MAIN)) {
+            return getSifMain();
 //        } else if (chain.equals(BAND_MAIN)) {
 //            return getBandMain();
         }
@@ -202,6 +208,19 @@ public class ChannelBuilder {
             }
         }
         return channel_starname_main;
+    }
+
+    //Channel for sif main
+    private static ManagedChannel channel_sif_main = null;
+    public static ManagedChannel getSifMain() {
+        if (channel_sif_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_sif_main = ManagedChannelBuilder.forAddress(GRPC_SIF_MAIN, PORT_SIF_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_sif_main;
     }
 
 //    //Channel for band main

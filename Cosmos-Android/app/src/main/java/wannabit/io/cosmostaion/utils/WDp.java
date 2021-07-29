@@ -2271,6 +2271,8 @@ public class WDp {
             return OSMOSIS_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
             return IOV_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(SIF_MAIN)) {
+            return SIF_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(BAND_MAIN)) {
             return BAND_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(RIZON_TEST)) {
@@ -2289,8 +2291,6 @@ public class WDp {
             return OKEX_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(FETCHAI_MAIN)) {
             return FETCH_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(SIF_MAIN)) {
-            return SIF_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(KI_MAIN)) {
             return KI_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {

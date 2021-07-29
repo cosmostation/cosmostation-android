@@ -101,19 +101,6 @@ public class SingleStakingPoolTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(SIF_MAIN)) {
-                Response<ResStakingPool> response = ApiClient.getSifChain(mApp).getStakingPool().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(KI_MAIN)) {
                 Response<ResStakingPool> response = ApiClient.getKiChain(mApp).getStakingPool().execute();
                 if(!response.isSuccessful()) {

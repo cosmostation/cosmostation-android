@@ -335,7 +335,20 @@ public class MainSendFragment extends BaseFragment {
 
         @Override
         public int getItemViewType(int position) {
-            if (isGRPC(getMainActivity().mBaseChain)) {
+            if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
+                if (position == 0) {
+                    return TYPE_ADDRESS;
+                } else if (position == 1) {
+                    return TYPE_SIF;
+                } else if (position == 2) {
+                    return TYPE_SIF_INCENTIVE;
+                } else if (position == 3) {
+                    return TYPE_PRICE;
+                } else if (position == 4) {
+                    return TYPE_GIUDE;
+                }
+
+            } else if (isGRPC(getMainActivity().mBaseChain)) {
                 if (position == 0) {
                     return TYPE_ADDRESS;
                 } else if (position == 1) {
@@ -369,23 +382,6 @@ public class MainSendFragment extends BaseFragment {
                 } else if (position == 2) {
                     return TYPE_PRICE;
                 } else if (position == 3) {
-                    return TYPE_GIUDE;
-                }
-
-            } else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
-                if (position == 0) {
-                    return TYPE_ADDRESS;
-                } else if (position == 1) {
-                    return TYPE_SIF;
-                } else if (position == 2) {
-                    return TYPE_SIF_INCENTIVE;
-                } else if (position == 3) {
-                    if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
-                    else { return TYPE_PRICE; }
-                } else if (position == 4) {
-                    if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_PRICE; }
-                    else { return TYPE_GIUDE; }
-                } else if (position == 5) {
                     return TYPE_GIUDE;
                 }
 

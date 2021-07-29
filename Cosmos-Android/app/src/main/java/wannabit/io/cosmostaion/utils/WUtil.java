@@ -1118,10 +1118,6 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
                     if(o2.symbol.equals(TOKEN_CERTIK)) return 1;
 
-                } else if (chain.equals(SIF_MAIN)) {
-                    if(o1.symbol.equals(TOKEN_SIF)) return -1;
-                    if(o2.symbol.equals(TOKEN_SIF)) return 1;
-
                 } else if (chain.equals(KI_MAIN)) {
                     if(o1.symbol.equals(TOKEN_KI)) return -1;
                     if(o2.symbol.equals(TOKEN_KI)) return 1;
@@ -1170,6 +1166,10 @@ public class WUtil {
                     if(o1.denom.equals(TOKEN_IOV_TEST)) return -1;
                     if(o2.denom.equals(TOKEN_IOV_TEST)) return 1;
 
+                } else if (chain.equals(SIF_MAIN)) {
+                    if(o1.denom.equals(TOKEN_SIF)) return -1;
+                    if(o2.denom.equals(TOKEN_SIF)) return 1;
+
                 } else if (chain.equals(BAND_MAIN)) {
                     if(o1.denom.equals(TOKEN_BAND)) return -1;
                     if(o2.denom.equals(TOKEN_BAND)) return 1;
@@ -1215,10 +1215,6 @@ public class WUtil {
                 } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                     if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
                     if(o2.symbol.equals(TOKEN_CERTIK)) return 1;
-
-                } else if (chain.equals(SIF_MAIN)) {
-                    if(o1.symbol.equals(TOKEN_SIF)) return -1;
-                    if(o2.symbol.equals(TOKEN_SIF)) return 1;
 
                 } else if (chain.equals(KI_MAIN)) {
                     if(o1.symbol.equals(TOKEN_KI)) return -1;
@@ -1268,6 +1264,10 @@ public class WUtil {
                     if(o1.denom.equals(TOKEN_IOV_TEST)) return -1;
                     if(o2.denom.equals(TOKEN_IOV_TEST)) return 1;
 
+                } else if (chain.equals(SIF_MAIN)) {
+                    if(o1.denom.equals(TOKEN_SIF)) return -1;
+                    if(o2.denom.equals(TOKEN_SIF)) return 1;
+
                 } else if (chain.equals(BAND_MAIN)) {
                     if(o1.denom.equals(TOKEN_BAND)) return -1;
                     if(o2.denom.equals(TOKEN_BAND)) return 1;
@@ -1313,10 +1313,6 @@ public class WUtil {
                 } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                     if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
                     if(o2.symbol.equals(TOKEN_CERTIK)) return 1;
-
-                } else if (chain.equals(SIF_MAIN)) {
-                    if(o1.symbol.equals(TOKEN_SIF)) return -1;
-                    if(o2.symbol.equals(TOKEN_SIF)) return 1;
 
                 } else if (chain.equals(KI_MAIN)) {
                     if(o1.symbol.equals(TOKEN_KI)) return -1;
@@ -1369,6 +1365,10 @@ public class WUtil {
                 } else if (chain.equals(IOV_TEST)) {
                     if(o1.denom.equals(TOKEN_IOV_TEST)) return -1;
                     if(o2.denom.equals(TOKEN_IOV_TEST)) return 1;
+
+                } else if (chain.equals(SIF_MAIN)) {
+                    if(o1.denom.equals(TOKEN_SIF)) return -1;
+                    if(o2.denom.equals(TOKEN_SIF)) return 1;
 
                 } else if (chain.equals(BAND_MAIN)) {
                     if(o1.denom.equals(TOKEN_BAND)) return -1;
@@ -1512,6 +1512,19 @@ public class WUtil {
                     result = result + "," + ibcToken.base_denom;
                 }
             }
+        } else if (basechain.equals(SIF_MAIN)) {
+            result = result + ",rowan";
+            for (Coin coin: basedata.mGrpcBalance) {
+                if (coin.denom != WDp.mainDenom(basechain) && coin.denom.startsWith("c")) {
+                    result = result + "," + coin.denom.substring(1);
+                }
+            }
+            for (IbcToken ibcToken: basedata.mIbcTokens) {
+                if (ibcToken.auth) {
+                    result = result + "," + ibcToken.base_denom;
+                }
+            }
+
         } else if (basechain.equals(RIZON_TEST)) {
 
         } else if (basechain.equals(ALTHEA_TEST)) {
@@ -1538,14 +1551,6 @@ public class WUtil {
 
         } else if (basechain.equals(FETCHAI_MAIN)) {
             result = result + ",afet";
-
-        } else if (basechain.equals(SIF_MAIN)) {
-            result = result + ",rowan";
-            for (Balance balance: basedata.mBalances) {
-                if (balance.symbol != WDp.mainDenom(basechain) && balance.symbol.startsWith("c")) {
-                    result = result + "," + balance.symbol.substring(1);
-                }
-            }
 
         } else if (basechain.equals(KI_MAIN)) {
             result = result + ",uxki";
@@ -2570,6 +2575,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(SIF_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(SIF_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
 //        } else if (basechain.equals(BAND_MAIN)) {
 //            BigDecimal gasRate = new BigDecimal(BAND_GAS_RATE_TINY);
 //            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
@@ -2614,11 +2624,6 @@ public class WUtil {
 
         } else if (basechain.equals(FETCHAI_MAIN)) {
             BigDecimal gasRate = new BigDecimal(FETCH_GAS_FEE_RATE_AVERAGE);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
-
-        } else if (basechain.equals(SIF_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(SIF_GAS_FEE_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -2693,6 +2698,14 @@ public class WUtil {
             }
             return new BigDecimal(STARNAME_GAS_RATE_AVERAGE);
 
+        } else if (basechain.equals(SIF_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(SIF_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(SIF_GAS_RATE_LOW);
+            }
+            return new BigDecimal(SIF_GAS_RATE_AVERAGE);
+
 //        } else if (basechain.equals(BAND_MAIN)) {
 //            if (position == 0) {
 //                return new BigDecimal(BAND_GAS_RATE_TINY);
@@ -2742,9 +2755,6 @@ public class WUtil {
 
         } else if (basechain.equals(FETCHAI_MAIN)) {
             return new BigDecimal(FETCH_GAS_FEE_RATE_AVERAGE);
-
-        } else if (basechain.equals(SIF_MAIN)) {
-            return new BigDecimal(SIF_GAS_FEE_RATE_AVERAGE);
 
         } else if (basechain.equals(KI_MAIN)) {
             return new BigDecimal(KI_GAS_FEE_RATE_AVERAGE);
@@ -3055,9 +3065,6 @@ public class WUtil {
         } else if (basechain.equals(FETCHAI_MAIN)) {
             return EXPLORER_FETCHAI_MAIN;
 
-        } else if (basechain.equals(SIF_MAIN)) {
-            return EXPLORER_SIF_MAIN;
-
         } else if (basechain.equals(KI_MAIN)) {
             return EXPLORER_KI_MAIN;
 
@@ -3092,6 +3099,9 @@ public class WUtil {
 
         } else if (basechain.equals(IOV_MAIN)) {
             return EXPLORER_IOV_MAIN;
+
+        } else if (basechain.equals(SIF_MAIN)) {
+            return EXPLORER_SIF_MAIN;
 
         } else if (basechain.equals(BAND_MAIN)) {
             return EXPLORER_BAND_MAIN;
@@ -3142,14 +3152,11 @@ public class WUtil {
         } else if (basechain.equals(FETCHAI_MAIN)) {
             return EXPLORER_FETCHAI_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(SIF_MAIN)) {
-            return EXPLORER_SIF_MAIN + "txs/" + hash;
-
         } else if (basechain.equals(KI_MAIN)) {
             return EXPLORER_KI_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(MEDI_MAIN)) {
-            return EXPLORER_MEDI_MAIN + "txs/" + hash;
+            return EXPLORER_MEDI_MAIN + "tx/" + hash;
 
         } else if (basechain.equals(MEDI_TEST)) {
             return EXPLORER_MEDI_TEST + "txs/" + hash;
@@ -3179,6 +3186,9 @@ public class WUtil {
 
         } else if (basechain.equals(IOV_MAIN)) {
             return EXPLORER_IOV_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(SIF_MAIN)) {
+            return EXPLORER_SIF_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(BAND_MAIN)) {
             return EXPLORER_BAND_MAIN + "tx/" + hash;

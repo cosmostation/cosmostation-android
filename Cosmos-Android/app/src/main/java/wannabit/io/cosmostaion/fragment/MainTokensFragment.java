@@ -559,49 +559,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-    private void onBindSifItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = getBaseDao().mBalances.get(position);
-        final int dpDecimal = WUtil.getSifCoinDecimal(balance.symbol);
-        if (balance.symbol.equals(TOKEN_SIF)) {
-            holder.itemSymbol.setText(getString(R.string.str_sif_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SIF_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Sif Chain Staking Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SIF);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, dpDecimal, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, dpDecimal));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
-
-        } else {
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemSymbol.setText(balance.symbol.substring(1).toUpperCase());
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText(balance.symbol.substring(1).toUpperCase() + " on Sif Chain");
-            Picasso.get().load(SIF_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-
-            BigDecimal totalAmount = getBaseDao().availableAmount(balance.symbol);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, dpDecimal, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol.substring(1), totalAmount, dpDecimal));
-
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                    intent.putExtra("denom", balance.symbol);
-                    startActivity(intent);
-                }
-            });
-
-        }
-    }
-
     private void onBindKiItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = getBaseDao().mBalances.get(position);
         if (balance.symbol.equals(TOKEN_KI)) {
@@ -948,6 +905,53 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
         } else {
 
+        }
+    }
+
+    private void onBindSifItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Coin coin = getBaseDao().mGrpcBalance.get(position);
+        final int dpDecimal = WUtil.getSifCoinDecimal(coin.denom);
+        if (coin.denom.equals(TOKEN_SIF)) {
+            holder.itemSymbol.setText(getString(R.string.str_sif_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SIF_MAIN));
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText("Sif Staking Token");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_SIF);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, dpDecimal, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, dpDecimal));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
+        } else if (coin.denom.startsWith("ibc/")) {
+            onBincIbctoken(holder, coin);
+
+        } else {
+            holder.itemSymbol.setText(coin.denom.substring(1).toUpperCase());
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on Sif Chain");
+            Picasso.get().load(SIF_COIN_IMG_URL+coin.denom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+
+            BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, dpDecimal, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom.substring(1), totalAmount, dpDecimal));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", coin.denom);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
