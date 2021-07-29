@@ -1548,7 +1548,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.MEDI_MAIN || chainType! == ChainType.MEDI_TEST) {
-            guard let url = URL(string: "https://blog.medibloc.org/") else { return }
+            guard let url = URL(string: "https://medium.com/medibloc/") else { return }
             self.onShowSafariWeb(url)
         }
         
