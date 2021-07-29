@@ -103,7 +103,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         final String toSendDenom = getSActivity().mDenom;
         final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
         if (isGRPC(getSActivity().mBaseChain)) {
-            mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
+            if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
+                mDpDecimal = WUtil.getSifCoinDecimal(getSActivity().mDenom);
+            } else {
+                mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
+            }
             setDisplayDecimals(mDpDecimal);
             if (toSendDenom.equals(mainDenom)) {
                 mMaxAvailable = getBaseDao().getAvailable(toSendDenom).subtract(feeAmount);
