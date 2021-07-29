@@ -67,7 +67,7 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
         onCalculateFees()
         
         feeTotalAmount.attributedText = WUtils.displayAmount2(mFee.stringValue, feeTotalAmount.font!, mDpDecimal, mDpDecimal)
-        feeTotalValue.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(chainType), mFee, 6, feeTotalValue.font)
+        feeTotalValue.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(chainType), mFee, WUtils.mainDivideDecimal(chainType), feeTotalValue.font)
         
         gasRateLabel.attributedText = WUtils.displayGasRate(mSelectedGasRate.rounding(accordingToBehavior: WUtils.handler6), font: gasRateLabel.font, 5)
         gasAmountLabel.text = mEstimateGasAmount.stringValue
