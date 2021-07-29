@@ -446,6 +446,10 @@ let GAS_FEE_RATE_TINY_IOV                   = "0.10"
 let GAS_FEE_RATE_LOW_IOV                    = "1.00"
 let GAS_FEE_RATE_AVERAGE_IOV                = "1.00"
 
+let GAS_FEE_RATE_TINY_SIF                   = "0.50";
+let GAS_FEE_RATE_LOW_SIF                    = "0.50";
+let GAS_FEE_RATE_AVERAGE_SIF                = "0.50";
+
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
 let GAS_FEE_AMOUNT_HIGH                     = "300000"
@@ -529,7 +533,7 @@ let FETCH_GAS_AMOUNT_REINVEST                   = "350000";
 let FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE      = "100000";
 let FETCH_GAS_AMOUNT_VOTE                       = "100000";
 
-let SIF_GAS_FEE_RATE_AVERAGE                    = "0.50";
+
 let SIF_GAS_AMOUNT_SEND                         = "100000";
 let SIF_GAS_AMOUNT_STAKE                        = "200000";
 let SIF_GAS_AMOUNT_REDELEGATE                   = "300000";

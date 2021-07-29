@@ -279,21 +279,23 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchUnbondingInfo(mAccount)
             onFetchAllReward(mAccount)
             
-        } else if (mChainType == ChainType.SIF_MAIN) {
-            self.mFetchCnt = 10
-            onFetchNodeInfo()
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-            onFetchAllReward(mAccount)
-            
-            onFetchSifVsIncentive(mAccount.account_address)
-            onFetchSifLmIncentive(mAccount.account_address)
-            
-        }  else if (mChainType == ChainType.BAND_MAIN) {
+        }
+//        else if (mChainType == ChainType.SIF_MAIN) {
+//            self.mFetchCnt = 10
+//            onFetchNodeInfo()
+//            onFetchTopValidatorsInfo()
+//            onFetchUnbondedValidatorsInfo()
+//            onFetchUnbondingValidatorsInfo()
+//            onFetchAccountInfo(mAccount)
+//            onFetchBondingInfo(mAccount)
+//            onFetchUnbondingInfo(mAccount)
+//            onFetchAllReward(mAccount)
+//
+//            onFetchSifVsIncentive(mAccount.account_address)
+//            onFetchSifLmIncentive(mAccount.account_address)
+//
+//        }
+        else if (mChainType == ChainType.BAND_MAIN) {
             self.mFetchCnt = 9
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
@@ -369,6 +371,22 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             onFetchgRPCStarNameFees()
             onFetchgRPCStarNameConfig()
+            
+        } else if (mChainType == ChainType.SIF_MAIN) {
+            self.mFetchCnt = 11
+            onFetchgRPCNodeInfo()
+            onFetchgRPCAuth(mAccount.account_address)
+            onFetchgRPCBondedValidators(0)
+            onFetchgRPCUnbondedValidators(0)
+            onFetchgRPCUnbondingValidators(0)
+
+            onFetchgRPCBalance(mAccount.account_address, 0)
+            onFetchgRPCDelegations(mAccount.account_address, 0)
+            onFetchgRPCUndelegations(mAccount.account_address, 0)
+            onFetchgRPCRewards(mAccount.account_address, 0)
+
+            onFetchSifVsIncentive(mAccount.account_address)
+            onFetchSifLmIncentive(mAccount.account_address)
             
         } else if (mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.RIZON_TEST || mChainType == ChainType.ALTHEA_TEST || mChainType == ChainType.IRIS_TEST) {
             self.mFetchCnt = 9

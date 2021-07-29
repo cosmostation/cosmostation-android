@@ -79,6 +79,10 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         if (WUtils.isGRPC(chainType)) {
             mDivideDecimal = WUtils.mainDivideDecimal(chainType)
             mDisplayDecimal = WUtils.mainDisplayDecimal(chainType)
+            if (chainType == ChainType.SIF_MAIN) {
+                mDivideDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom)
+                mDisplayDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom)
+            }
             currentAvailable = BaseData.instance.getAvailableAmount_gRPC(toSendDenom)
             
         }  else {
@@ -93,10 +97,6 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
                 mDivideDecimal = WUtils.mainDivideDecimal(chainType)
                 mDisplayDecimal = WUtils.mainDisplayDecimal(chainType)
-                
-            } else if (chainType == ChainType.SIF_MAIN) {
-                mDivideDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom)
-                mDisplayDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom)
                 
             } else {
                 mDivideDecimal = WUtils.mainDivideDecimal(chainType)

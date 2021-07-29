@@ -1593,9 +1593,9 @@ public class WUtils {
             
         } else if (chain == ChainType.SIF_MAIN) {
             result = result + ",rowan"
-            for balance in BaseData.instance.mBalances {
-                if (balance.balance_denom != getMainDenom(chain) && balance.balance_denom.starts(with: "c")) {
-                    result = result + "," + balance.balance_denom.substring(from: 1)
+            for balance in BaseData.instance.mMyBalances_gRPC {
+                if (balance.denom != getMainDenom(chain) && balance.denom.starts(with: "c")) {
+                    result = result + "," + balance.denom.substring(from: 1)
                 }
             }
             
@@ -3153,6 +3153,11 @@ public class WUtils {
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
+        } else if (chain == ChainType.SIF_MAIN) {
+            let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_SIF)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
         }
         
         else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -3180,11 +3185,6 @@ public class WUtils {
             
         } else if (chain == ChainType.FETCH_MAIN) {
             let gasRate = NSDecimalNumber.init(string: FETCH_GAS_FEE_RATE_AVERAGE)
-            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
-            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
-            
-        } else if (chain == ChainType.SIF_MAIN) {
-            let gasRate = NSDecimalNumber.init(string: SIF_GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
@@ -3276,6 +3276,15 @@ public class WUtils {
                 return NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_IOV)
             }
             
+        } else if (chain == ChainType.SIF_MAIN) {
+            if (position == 0) {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_TINY_SIF)
+            } else if (position == 1) {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_LOW_SIF)
+            } else {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_SIF)
+            }
+            
         }
         
         else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
@@ -3303,9 +3312,6 @@ public class WUtils {
             
         } else if (chain == ChainType.FETCH_MAIN) {
             return NSDecimalNumber.init(string: FETCH_GAS_FEE_RATE_AVERAGE)
-            
-        } else if (chain == ChainType.SIF_MAIN) {
-            return NSDecimalNumber.init(string: SIF_GAS_FEE_RATE_AVERAGE)
             
         } else if (chain == ChainType.KI_MAIN) {
             return NSDecimalNumber.init(string: KI_GAS_FEE_RATE_AVERAGE)
@@ -4956,7 +4962,7 @@ public class WUtils {
     public static func isGRPC(_ chain: ChainType?) -> Bool {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
                 chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN ||
-                chain == ChainType.OSMOSIS_MAIN || chain == ChainType.IOV_MAIN ||
+                chain == ChainType.OSMOSIS_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.SIF_MAIN ||
                 chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             return true
         }

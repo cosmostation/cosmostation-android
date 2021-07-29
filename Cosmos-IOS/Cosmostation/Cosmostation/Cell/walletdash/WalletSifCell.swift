@@ -44,24 +44,13 @@ class WalletSifCell: UITableViewCell {
     }
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
-        let available = BaseData.instance.availableAmount(SIF_MAIN_DENOM)
-        let vesting = BaseData.instance.lockedAmount(SIF_MAIN_DENOM)
-        let delegated = BaseData.instance.delegatedSumAmount()
-        let unbonding = BaseData.instance.unbondingSumAmount()
-        let reward = BaseData.instance.rewardAmount(SIF_MAIN_DENOM)
-        let total = available.adding(vesting).adding(delegated).adding(unbonding).adding(reward)
-        
-        totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 18, 6)
-        availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 18, 6)
-        delegatedAmount.attributedText = WUtils.displayAmount2(delegated.stringValue, delegatedAmount.font, 18, 6)
-        unbondingAmount.attributedText = WUtils.displayAmount2(unbonding.stringValue, unbondingAmount.font, 18, 6)
-        rewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, rewardAmount.font, 18, 6)
-        totalValue.attributedText = WUtils.dpUserCurrencyValue(SIF_MAIN_DENOM, total, 18, totalValue.font)
-        
-        if (vesting.compare(NSDecimalNumber.zero).rawValue > 0) {
-            vestingLayer.isHidden = false
-            vestingAmount.attributedText = WUtils.displayAmount2(vesting.stringValue, vestingAmount.font!, 18, 6)
-        }
-        BaseData.instance.updateLastTotal(account, total.multiplying(byPowerOf10: -18).stringValue)
+        let totalToken = WUtils.getAllMainAsset(SIF_MAIN_DENOM)
+        totalAmount.attributedText = WUtils.displayAmount2(totalToken.stringValue, totalAmount.font!, 18, 6)
+        totalValue.attributedText = WUtils.dpUserCurrencyValue(SIF_MAIN_DENOM, totalToken, 18, totalValue.font)
+        availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable_gRPC(SIF_MAIN_DENOM), availableAmount.font!, 18, 6)
+        delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum_gRPC(), delegatedAmount.font!, 18, 6)
+        unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum_gRPC(), unbondingAmount.font, 18, 6)
+        rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum_gRPC(SIF_MAIN_DENOM), rewardAmount.font, 18, 6)
+        BaseData.instance.updateLastTotal(account, totalToken.multiplying(byPowerOf10: -18).stringValue)
     }
 }

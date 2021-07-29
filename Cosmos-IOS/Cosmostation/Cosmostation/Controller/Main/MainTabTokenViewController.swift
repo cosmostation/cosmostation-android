@@ -350,7 +350,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
                 return
             } else {
-                //TODO not this yet
+                if (chainType == ChainType.SIF_MAIN) {
+                    let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
+                    nTokenDetailVC.hidesBottomBarWhenPushed = true
+                    nTokenDetailVC.denom = balance.denom
+                    self.navigationItem.title = ""
+                    self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
+                }
             }
             
         } else {
@@ -402,20 +408,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 
                 
-            } else if (chainType! == ChainType.SIF_MAIN) {
-                if (balance.balance_denom == WUtils.getMainDenom(chainType)) {
-                    let sTokenDetailVC = StakingTokenDetailViewController(nibName: "StakingTokenDetailViewController", bundle: nil)
-                    sTokenDetailVC.hidesBottomBarWhenPushed = true
-                    self.navigationItem.title = ""
-                    self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
-                    
-                } else {
-                    let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
-                    nTokenDetailVC.hidesBottomBarWhenPushed = true
-                    nTokenDetailVC.denom = mBalances[indexPath.row].balance_denom
-                    self.navigationItem.title = ""
-                    self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
-                }
             }
         }
     }
@@ -579,36 +571,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             // TODO no this case yet!
             cell?.tokenImg.image = UIImage(named: "tokenIc")
             cell?.tokenSymbol.textColor = UIColor.white
-        }
-        return cell!
-    }
-    
-    func onSetSifItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mBalances[indexPath.row]
-        if (balance.balance_denom == SIF_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "tokensifchain")
-            cell?.tokenSymbol.text = "ROWAN"
-            cell?.tokenSymbol.textColor = COLOR_SIF
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = "Sifchain Staking Token"
-            
-            let allSif = WUtils.getAllMainAssetOld(SIF_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allSif.stringValue, cell!.tokenAmount.font, 18, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(SIF_MAIN_DENOM, allSif, 18, cell!.tokenValue.font)
-            
-        } else {
-            cell?.tokenImg.af_setImage(withURL: URL(string: SIF_COIN_IMG_URL + balance.balance_denom + ".png")!)
-            cell?.tokenSymbol.text = balance.balance_denom.substring(from: 1).uppercased()
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = balance.balance_denom.substring(from: 1).uppercased() + " on Sifchain"
-            
-            let available = BaseData.instance.availableAmount(balance.balance_denom)
-            let decimal = WUtils.getSifCoinDecimal(balance.balance_denom)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.tokenAmount.font!, decimal, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(balance.balance_denom.substring(from: 1), available, decimal, cell!.tokenValue.font)
-            
         }
         return cell!
     }
@@ -966,6 +928,39 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return cell!
     }
     
+    func onSetSifItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mBalances_gRPC[indexPath.row]
+        if (balance.denom == SIF_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokensifchain")
+            cell?.tokenSymbol.text = "ROWAN"
+            cell?.tokenSymbol.textColor = COLOR_SIF
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Sifchain Staking Token"
+            
+            let allSif = WUtils.getAllMainAsset(SIF_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allSif.stringValue, cell!.tokenAmount.font, 18, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(SIF_MAIN_DENOM, allSif, 18, cell!.tokenValue.font)
+            
+        } else if (balance.isIbc()) {
+            onBindIbcToken(cell, balance)
+            
+        } else {
+            cell?.tokenImg.af_setImage(withURL: URL(string: SIF_COIN_IMG_URL + balance.denom + ".png")!)
+            cell?.tokenSymbol.text = balance.denom.substring(from: 1).uppercased()
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = balance.denom.substring(from: 1).uppercased() + " on Sifchain"
+
+            let available = BaseData.instance.getAvailableAmount_gRPC(balance.denom)
+            let decimal = WUtils.getSifCoinDecimal(balance.denom)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.tokenAmount.font!, decimal, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(balance.denom.substring(from: 1), available, decimal, cell!.tokenValue.font)
+        
+        }
+        return cell!
+    }
+    
     func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mBalances_gRPC[indexPath.row]
@@ -1113,12 +1108,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.balance_denom < $1.balance_denom
             }
             
-        } else if (chainType! == ChainType.SIF_MAIN) {
-            mBalances.sort{
-                if ($0.balance_denom == SIF_MAIN_DENOM) { return true }
-                if ($1.balance_denom == SIF_MAIN_DENOM) { return false }
-                return $0.balance_denom < $1.balance_denom
-            }
         }
         else if (WUtils.isGRPC(chainType!)) {
             mBalances_gRPC.sort {
@@ -1161,13 +1150,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return WUtils.localeStringToDecimal($0.balance_amount).adding(WUtils.localeStringToDecimal($0.balance_locked)).stringValue > WUtils.localeStringToDecimal($1.balance_amount).adding(WUtils.localeStringToDecimal($1.balance_locked)).stringValue
             }
             
-        } else if (chainType! == ChainType.SIF_MAIN) {
-            mBalances.sort{
-                if ($0.balance_denom == SIF_MAIN_DENOM) { return true }
-                if ($1.balance_denom == SIF_MAIN_DENOM) { return false }
-                return false
-            }
         }
+        
         else if (WUtils.isGRPC(chainType!)) {
             mBalances_gRPC.sort {
                 if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
@@ -1214,12 +1198,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.balance_denom < $1.balance_denom
             }
             
-        } else if (chainType! == ChainType.SIF_MAIN) {
-            mBalances.sort{
-                if ($0.balance_denom == SIF_MAIN_DENOM) { return true }
-                if ($1.balance_denom == SIF_MAIN_DENOM) { return false }
-                return false
-            }
         }
         
         else if (WUtils.isGRPC(chainType!)) {

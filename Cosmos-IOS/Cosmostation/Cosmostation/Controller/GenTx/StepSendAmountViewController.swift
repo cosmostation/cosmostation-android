@@ -35,9 +35,13 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             mDivideDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
             mDisplayDecimal = WUtils.mainDisplayDecimal(pageHolderVC.chainType)
+            if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+                mDivideDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom)
+                mDisplayDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom)
+            }
+            
             if (pageHolderVC.mToSendDenom == mainDenom) {
                 maxAvailable = BaseData.instance.getAvailableAmount_gRPC(pageHolderVC.mToSendDenom!).subtracting(feeAmount)
-                
             } else {
                 maxAvailable = BaseData.instance.getAvailableAmount_gRPC(pageHolderVC.mToSendDenom!)
             }

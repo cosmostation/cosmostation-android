@@ -41,11 +41,11 @@ class TokenDetailNativeCell: TokenDetailCell {
     }
     
     func onBindNativeToken(_ chainType: ChainType?, _ denom: String?) {
-        if (WUtils.isGRPC(chainType)) {
-            return
+        if (chainType! == ChainType.SIF_MAIN) {
+            onBindSifTokens(denom)
         }
         
-        if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
+        else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             onBindBNBTokens(denom)
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
@@ -53,9 +53,6 @@ class TokenDetailNativeCell: TokenDetailCell {
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             onBindOKTokens(denom)
-            
-        } else if (chainType! == ChainType.SIF_MAIN) {
-            onBindSifTokens(denom)
             
         }
     }
@@ -126,7 +123,7 @@ class TokenDetailNativeCell: TokenDetailCell {
         tokenDenom.text = "(" + denom! + ")"
         
         let dpDecimal = WUtils.getSifCoinDecimal(denom!)
-        let available = BaseData.instance.availableAmount(denom!)
+        let available = BaseData.instance.getAvailableAmount_gRPC(denom!)
         totalAmount.attributedText = WUtils.displayAmount2(available.stringValue, totalAmount.font, dpDecimal, dpDecimal)
         availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, dpDecimal, dpDecimal)
         totalValue.attributedText = WUtils.dpUserCurrencyValue(denom!.substring(from: 1), available, dpDecimal, totalValue.font)
