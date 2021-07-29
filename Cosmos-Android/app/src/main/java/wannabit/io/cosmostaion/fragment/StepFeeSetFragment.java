@@ -215,20 +215,17 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
     private boolean onCheckValidate() {
         if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
-            BigDecimal available = BigDecimal.ZERO;
-            if (getSActivity().mBaseChain.equals(BaseChain.SIF_MAIN)) {
-                available = getBaseDao().getAvailable(TOKEN_SIF);
-            } else {
-                available = getBaseDao().getAvailable(getSActivity().mDenom);
-            }
-            if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
+            final String mainDenom = WDp.mainDenom(getSActivity().mBaseChain);
+            final BigDecimal mainDenomAvailable = getBaseDao().getAvailable(mainDenom);
+            if (getSActivity().mDenom.equals(mainDenom)) {
                 BigDecimal toSend = new BigDecimal(getSActivity().mAmounts.get(0).amount);
-                if ((toSend.add(mFee)).compareTo(available) > 0) {
+                if ((toSend.add(mFee)).compareTo(mainDenomAvailable) > 0) {
                     Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
                     return false;
                 }
+
             } else {
-                if (mFee.compareTo(available) > 0) {
+                if (mFee.compareTo(mainDenomAvailable) > 0) {
                     Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
                     return false;
                 }

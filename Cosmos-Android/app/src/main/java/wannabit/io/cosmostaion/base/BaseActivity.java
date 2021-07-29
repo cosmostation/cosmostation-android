@@ -928,13 +928,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             ArrayList<CoinOuterClass.Coin> balance = (ArrayList<CoinOuterClass.Coin>) result.resultData;
             if (balance != null && balance.size() > 0) {
                 for (CoinOuterClass.Coin coin: balance) {
-                    if (coin.getAmount().equals("0")) {
-                        getBaseDao().mGrpcBalance.remove(new Coin(coin.getDenom(), coin.getAmount()));
-                    } else {
+                    if (!coin.getAmount().equals("0")) {
                         getBaseDao().mGrpcBalance.add(new Coin(coin.getDenom(), coin.getAmount()));
                     }
                 }
-            } else {
+            }
+            if (getBaseDao().mGrpcBalance.size() <= 0) {
                 getBaseDao().mGrpcBalance.add(new Coin(WDp.mainDenom(mBaseChain), "0"));
             }
 
