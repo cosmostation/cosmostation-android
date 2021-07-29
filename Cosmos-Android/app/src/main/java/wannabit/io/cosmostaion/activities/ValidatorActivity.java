@@ -764,10 +764,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemBandOracleOff.setVisibility(View.VISIBLE);
             }
 
-            if (mBaseChain.equals(SIF_MAIN)) {
-                holder.itemTvYieldRate.setText("--");
-            }
-
             if (!TextUtils.isEmpty(mSelfBondingRate)) {
                 holder.itemTvSelfBondRate.setText(mSelfBondingRate);
             } else {
@@ -830,10 +826,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
                 }
                 holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-            }
-
-            if (mBaseChain.equals(SIF_MAIN)) {
-                holder.itemTvYieldRate.setText("--");
             }
 
             if (!TextUtils.isEmpty(mSelfBondingRate)){
@@ -1050,7 +1042,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e){}
 
-            if (mBaseChain.equals(OSMOSIS_MAIN)) {
+            if (mBaseChain.equals(SIF_MAIN) || mBaseChain.equals(OSMOSIS_MAIN)) {
                 holder.itemTvYieldRate.setText("--");
             }
 
@@ -1115,7 +1107,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e){}
 
-            if (mBaseChain.equals(OSMOSIS_MAIN)) {
+            if (mBaseChain.equals(SIF_MAIN) || mBaseChain.equals(OSMOSIS_MAIN)) {
                 holder.itemTvYieldRate.setText("--");
             }
         }
@@ -1139,6 +1131,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), WDp.getCommissionGrpcRate(mGrpcValidator), getBaseDao().getDelegation(mValOpAddress), mBaseChain));
                 holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseContext(), getBaseDao(), WDp.getCommissionGrpcRate(mGrpcValidator), getBaseDao().getDelegation(mValOpAddress), mBaseChain));
 
+            }
+
+            if (mBaseChain.equals(SIF_MAIN) || mBaseChain.equals(OSMOSIS_MAIN)) {
+                holder.itemDailyReturn.setText("--");
+                holder.itemMonthlyReturn.setText("--");
             }
 
             holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
