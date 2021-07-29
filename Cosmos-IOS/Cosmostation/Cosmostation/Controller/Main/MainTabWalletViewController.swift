@@ -350,8 +350,16 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
-            cell?.actionGravity = { self.onClickGravityDex() }
-            cell?.actionWalletConnect = { self.onClickWalletConect() }
+            cell?.actionGravity = {
+                self.onShowToast(NSLocalizedString("prepare", comment: ""))
+//                self.onClickGravityDex()
+                
+            }
+            cell?.actionWalletConnect = {
+                self.onShowToast(NSLocalizedString("prepare", comment: ""))
+//                self.onClickWalletConect()
+                
+            }
             return cell!
             
         } else if (indexPath.row == 2) {
