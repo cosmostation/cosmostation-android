@@ -1109,7 +1109,12 @@ public class WUtils {
                     let assetValue = userCurrencyValue(coin.denom, amount, 6)
                     totalValue = totalValue.adding(assetValue)
                     
-                } else if (coin.isIbc()) {
+                } else if (chainType! == ChainType.SIF_MAIN && coin.denom.starts(with: "c")) {
+                    let available = baseData.getAvailableAmount_gRPC(coin.denom)
+                    let decimal = getSifCoinDecimal(coin.denom)
+                    totalValue = totalValue.adding(userCurrencyValue(coin.denom.substring(from: 1), available, decimal))
+                    
+                }  else if (coin.isIbc()) {
                     if let ibcToken = BaseData.instance.getIbcToken(coin.getIbcHash()) {
                         if (ibcToken.auth == true) {
                             let amount = baseData.getAvailableAmount_gRPC(coin.denom)
@@ -1157,17 +1162,6 @@ public class WUtils {
                 totalValue = totalValue.adding(assetValue)
             }
             
-        } else if (chainType! == ChainType.SIF_MAIN) {
-            baseData.mBalances.forEach { coin in
-                if (coin.balance_denom == getMainDenom(chainType)) {
-                    let amount = getAllMainAssetOld(getMainDenom(chainType))
-                    totalValue = totalValue.adding(userCurrencyValue(coin.balance_denom, amount, 18))
-                } else {
-                    let available = baseData.availableAmount(coin.balance_denom)
-                    let decimal = getSifCoinDecimal(coin.balance_denom)
-                    totalValue = totalValue.adding(userCurrencyValue(coin.balance_denom.substring(from: 1), available, decimal))
-                }
-            }
         }
         
         else {
@@ -1196,6 +1190,11 @@ public class WUtils {
                     let amount = baseData.getAvailableAmount_gRPC(coin.denom)
                     let btcValue = btcValue(coin.denom, amount, 6)
                     totalValue = totalValue.adding(btcValue)
+                    
+                } else if (chainType! == ChainType.SIF_MAIN && coin.denom.starts(with: "c")) {
+                    let available = baseData.getAvailableAmount_gRPC(coin.denom)
+                    let decimal = getSifCoinDecimal(coin.denom)
+                    totalValue = totalValue.adding(btcValue(coin.denom.substring(from: 1), available, decimal))
                     
                 } else if (coin.isIbc()) {
                     if let ibcToken = BaseData.instance.getIbcToken(coin.getIbcHash()) {
@@ -1247,17 +1246,6 @@ public class WUtils {
                 }
             }
             
-        } else if (chainType! == ChainType.SIF_MAIN) {
-            baseData.mBalances.forEach { coin in
-                if (coin.balance_denom == getMainDenom(chainType)) {
-                    let amount = getAllMainAssetOld(getMainDenom(chainType))
-                    totalValue = totalValue.adding(btcValue(coin.balance_denom, amount, 18))
-                } else {
-                    let available = baseData.availableAmount(coin.balance_denom)
-                    let decimal = getSifCoinDecimal(coin.balance_denom)
-                    totalValue = totalValue.adding(btcValue(coin.balance_denom.substring(from: 1), available, decimal))
-                }
-            }
         }
         
         else {
