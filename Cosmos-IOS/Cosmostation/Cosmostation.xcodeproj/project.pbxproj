@@ -678,6 +678,48 @@
 		28B4304824F8B37600BD7BB2 /* OkTopValidatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4304724F8B37500BD7BB2 /* OkTopValidatorViewController.swift */; };
 		28B4304A24F8B38500BD7BB2 /* OkOtherValidatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4304924F8B38500BD7BB2 /* OkOtherValidatorViewController.swift */; };
 		28B6AFE123D9863800063D9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28B6AFE023D9863800063D9C /* GoogleService-Info.plist */; };
+		28B7857026B3A7E4009F755F /* panacea_did_v2_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7855826B3A7DE009F755F /* panacea_did_v2_tx.grpc.swift */; };
+		28B7857126B3A7E4009F755F /* panacea_aol_v2_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7855926B3A7DE009F755F /* panacea_aol_v2_tx.grpc.swift */; };
+		28B7857226B3A7E4009F755F /* panacea_aol_v2_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7855A26B3A7DE009F755F /* panacea_aol_v2_query.pb.swift */; };
+		28B7857326B3A7E4009F755F /* panacea_did_v2_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7855B26B3A7DF009F755F /* panacea_did_v2_genesis.pb.swift */; };
+		28B7857426B3A7E4009F755F /* panacea_aol_v2_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7855C26B3A7DF009F755F /* panacea_aol_v2_query.grpc.swift */; };
+		28B7857526B3A7E4009F755F /* panacea_did_v2_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7855D26B3A7DF009F755F /* panacea_did_v2_query.grpc.swift */; };
+		28B7857626B3A7E4009F755F /* panacea_burn_v2_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7855E26B3A7E0009F755F /* panacea_burn_v2_query.pb.swift */; };
+		28B7857726B3A7E4009F755F /* panacea_did_v2_did.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7855F26B3A7E0009F755F /* panacea_did_v2_did.pb.swift */; };
+		28B7857826B3A7E4009F755F /* panacea_token_v2_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856026B3A7E0009F755F /* panacea_token_v2_genesis.pb.swift */; };
+		28B7857926B3A7E4009F755F /* panacea_did_v2_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856126B3A7E0009F755F /* panacea_did_v2_tx.pb.swift */; };
+		28B7857A26B3A7E4009F755F /* panacea_token_v2_token.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856226B3A7E1009F755F /* panacea_token_v2_token.pb.swift */; };
+		28B7857B26B3A7E4009F755F /* panacea_aol_v2_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856326B3A7E1009F755F /* panacea_aol_v2_genesis.pb.swift */; };
+		28B7857C26B3A7E4009F755F /* panacea_aol_v2_record.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856426B3A7E1009F755F /* panacea_aol_v2_record.pb.swift */; };
+		28B7857D26B3A7E4009F755F /* panacea_did_v2_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856526B3A7E2009F755F /* panacea_did_v2_query.pb.swift */; };
+		28B7857E26B3A7E4009F755F /* panacea_token_v2_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856626B3A7E2009F755F /* panacea_token_v2_tx.pb.swift */; };
+		28B7857F26B3A7E4009F755F /* panacea_burn_v2_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856726B3A7E2009F755F /* panacea_burn_v2_genesis.pb.swift */; };
+		28B7858026B3A7E4009F755F /* panacea_token_v2_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856826B3A7E2009F755F /* panacea_token_v2_query.pb.swift */; };
+		28B7858126B3A7E4009F755F /* panacea_token_v2_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856926B3A7E3009F755F /* panacea_token_v2_tx.grpc.swift */; };
+		28B7858226B3A7E4009F755F /* panacea_aol_v2_writer.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856A26B3A7E3009F755F /* panacea_aol_v2_writer.pb.swift */; };
+		28B7858326B3A7E4009F755F /* panacea_aol_v2_owner.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856B26B3A7E3009F755F /* panacea_aol_v2_owner.pb.swift */; };
+		28B7858426B3A7E4009F755F /* panacea_burn_v2_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856C26B3A7E3009F755F /* panacea_burn_v2_query.grpc.swift */; };
+		28B7858526B3A7E4009F755F /* panacea_aol_v2_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856D26B3A7E4009F755F /* panacea_aol_v2_tx.pb.swift */; };
+		28B7858626B3A7E4009F755F /* panacea_token_v2_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856E26B3A7E4009F755F /* panacea_token_v2_query.grpc.swift */; };
+		28B7858726B3A7E4009F755F /* panacea_aol_v2_topic.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7856F26B3A7E4009F755F /* panacea_aol_v2_topic.pb.swift */; };
+		28B7859A26B3A7F1009F755F /* sifnode_oracle_v1_types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7858826B3A7EB009F755F /* sifnode_oracle_v1_types.pb.swift */; };
+		28B7859B26B3A7F1009F755F /* sifnode_clp_v1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7858926B3A7EC009F755F /* sifnode_clp_v1_tx.pb.swift */; };
+		28B7859C26B3A7F1009F755F /* sifnode_clp_v1_types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7858A26B3A7EC009F755F /* sifnode_clp_v1_types.pb.swift */; };
+		28B7859D26B3A7F1009F755F /* sifnode_dispensation_v1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7858B26B3A7EC009F755F /* sifnode_dispensation_v1_query.pb.swift */; };
+		28B7859E26B3A7F1009F755F /* sifnode_ethbridge_v1_types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7858C26B3A7EC009F755F /* sifnode_ethbridge_v1_types.pb.swift */; };
+		28B7859F26B3A7F1009F755F /* sifnode_clp_v1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7858D26B3A7ED009F755F /* sifnode_clp_v1_tx.grpc.swift */; };
+		28B785A026B3A7F1009F755F /* sifnode_clp_v1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7858E26B3A7ED009F755F /* sifnode_clp_v1_genesis.pb.swift */; };
+		28B785A126B3A7F1009F755F /* sifnode_dispensation_v1_types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7858F26B3A7ED009F755F /* sifnode_dispensation_v1_types.pb.swift */; };
+		28B785A226B3A7F1009F755F /* sifnode_dispensation_v1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7859026B3A7ED009F755F /* sifnode_dispensation_v1_query.grpc.swift */; };
+		28B785A326B3A7F1009F755F /* sifnode_ethbridge_v1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7859126B3A7EE009F755F /* sifnode_ethbridge_v1_query.grpc.swift */; };
+		28B785A426B3A7F1009F755F /* sifnode_ethbridge_v1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7859226B3A7EE009F755F /* sifnode_ethbridge_v1_query.pb.swift */; };
+		28B785A526B3A7F1009F755F /* sifnode_ethbridge_v1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7859326B3A7EE009F755F /* sifnode_ethbridge_v1_tx.pb.swift */; };
+		28B785A626B3A7F1009F755F /* sifnode_dispensation_v1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7859426B3A7EF009F755F /* sifnode_dispensation_v1_tx.grpc.swift */; };
+		28B785A726B3A7F1009F755F /* sifnode_clp_v1_params.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7859526B3A7EF009F755F /* sifnode_clp_v1_params.pb.swift */; };
+		28B785A826B3A7F1009F755F /* sifnode_dispensation_v1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7859626B3A7EF009F755F /* sifnode_dispensation_v1_tx.pb.swift */; };
+		28B785A926B3A7F1009F755F /* sifnode_clp_v1_querier.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7859726B3A7F0009F755F /* sifnode_clp_v1_querier.grpc.swift */; };
+		28B785AA26B3A7F1009F755F /* sifnode_ethbridge_v1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7859826B3A7F1009F755F /* sifnode_ethbridge_v1_tx.grpc.swift */; };
+		28B785AB26B3A7F1009F755F /* sifnode_clp_v1_querier.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7859926B3A7F1009F755F /* sifnode_clp_v1_querier.pb.swift */; };
 		28BB2A812533D9FB00CFF097 /* DomainPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2A7F2533D9FB00CFF097 /* DomainPromotionCell.swift */; };
 		28BB2A822533D9FB00CFF097 /* DomainPromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28BB2A802533D9FB00CFF097 /* DomainPromotionCell.xib */; };
 		28BB2A872533DA0B00CFF097 /* AccountPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2A852533DA0B00CFF097 /* AccountPromotionCell.swift */; };
@@ -1662,6 +1704,48 @@
 		28B4304724F8B37500BD7BB2 /* OkTopValidatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkTopValidatorViewController.swift; sourceTree = "<group>"; };
 		28B4304924F8B38500BD7BB2 /* OkOtherValidatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkOtherValidatorViewController.swift; sourceTree = "<group>"; };
 		28B6AFE023D9863800063D9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		28B7855826B3A7DE009F755F /* panacea_did_v2_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_did_v2_tx.grpc.swift; sourceTree = "<group>"; };
+		28B7855926B3A7DE009F755F /* panacea_aol_v2_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_aol_v2_tx.grpc.swift; sourceTree = "<group>"; };
+		28B7855A26B3A7DE009F755F /* panacea_aol_v2_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_aol_v2_query.pb.swift; sourceTree = "<group>"; };
+		28B7855B26B3A7DF009F755F /* panacea_did_v2_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_did_v2_genesis.pb.swift; sourceTree = "<group>"; };
+		28B7855C26B3A7DF009F755F /* panacea_aol_v2_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_aol_v2_query.grpc.swift; sourceTree = "<group>"; };
+		28B7855D26B3A7DF009F755F /* panacea_did_v2_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_did_v2_query.grpc.swift; sourceTree = "<group>"; };
+		28B7855E26B3A7E0009F755F /* panacea_burn_v2_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_burn_v2_query.pb.swift; sourceTree = "<group>"; };
+		28B7855F26B3A7E0009F755F /* panacea_did_v2_did.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_did_v2_did.pb.swift; sourceTree = "<group>"; };
+		28B7856026B3A7E0009F755F /* panacea_token_v2_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_token_v2_genesis.pb.swift; sourceTree = "<group>"; };
+		28B7856126B3A7E0009F755F /* panacea_did_v2_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_did_v2_tx.pb.swift; sourceTree = "<group>"; };
+		28B7856226B3A7E1009F755F /* panacea_token_v2_token.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_token_v2_token.pb.swift; sourceTree = "<group>"; };
+		28B7856326B3A7E1009F755F /* panacea_aol_v2_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_aol_v2_genesis.pb.swift; sourceTree = "<group>"; };
+		28B7856426B3A7E1009F755F /* panacea_aol_v2_record.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_aol_v2_record.pb.swift; sourceTree = "<group>"; };
+		28B7856526B3A7E2009F755F /* panacea_did_v2_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_did_v2_query.pb.swift; sourceTree = "<group>"; };
+		28B7856626B3A7E2009F755F /* panacea_token_v2_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_token_v2_tx.pb.swift; sourceTree = "<group>"; };
+		28B7856726B3A7E2009F755F /* panacea_burn_v2_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_burn_v2_genesis.pb.swift; sourceTree = "<group>"; };
+		28B7856826B3A7E2009F755F /* panacea_token_v2_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_token_v2_query.pb.swift; sourceTree = "<group>"; };
+		28B7856926B3A7E3009F755F /* panacea_token_v2_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_token_v2_tx.grpc.swift; sourceTree = "<group>"; };
+		28B7856A26B3A7E3009F755F /* panacea_aol_v2_writer.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_aol_v2_writer.pb.swift; sourceTree = "<group>"; };
+		28B7856B26B3A7E3009F755F /* panacea_aol_v2_owner.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_aol_v2_owner.pb.swift; sourceTree = "<group>"; };
+		28B7856C26B3A7E3009F755F /* panacea_burn_v2_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_burn_v2_query.grpc.swift; sourceTree = "<group>"; };
+		28B7856D26B3A7E4009F755F /* panacea_aol_v2_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_aol_v2_tx.pb.swift; sourceTree = "<group>"; };
+		28B7856E26B3A7E4009F755F /* panacea_token_v2_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_token_v2_query.grpc.swift; sourceTree = "<group>"; };
+		28B7856F26B3A7E4009F755F /* panacea_aol_v2_topic.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = panacea_aol_v2_topic.pb.swift; sourceTree = "<group>"; };
+		28B7858826B3A7EB009F755F /* sifnode_oracle_v1_types.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_oracle_v1_types.pb.swift; sourceTree = "<group>"; };
+		28B7858926B3A7EC009F755F /* sifnode_clp_v1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_clp_v1_tx.pb.swift; sourceTree = "<group>"; };
+		28B7858A26B3A7EC009F755F /* sifnode_clp_v1_types.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_clp_v1_types.pb.swift; sourceTree = "<group>"; };
+		28B7858B26B3A7EC009F755F /* sifnode_dispensation_v1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_dispensation_v1_query.pb.swift; sourceTree = "<group>"; };
+		28B7858C26B3A7EC009F755F /* sifnode_ethbridge_v1_types.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_ethbridge_v1_types.pb.swift; sourceTree = "<group>"; };
+		28B7858D26B3A7ED009F755F /* sifnode_clp_v1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_clp_v1_tx.grpc.swift; sourceTree = "<group>"; };
+		28B7858E26B3A7ED009F755F /* sifnode_clp_v1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_clp_v1_genesis.pb.swift; sourceTree = "<group>"; };
+		28B7858F26B3A7ED009F755F /* sifnode_dispensation_v1_types.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_dispensation_v1_types.pb.swift; sourceTree = "<group>"; };
+		28B7859026B3A7ED009F755F /* sifnode_dispensation_v1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_dispensation_v1_query.grpc.swift; sourceTree = "<group>"; };
+		28B7859126B3A7EE009F755F /* sifnode_ethbridge_v1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_ethbridge_v1_query.grpc.swift; sourceTree = "<group>"; };
+		28B7859226B3A7EE009F755F /* sifnode_ethbridge_v1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_ethbridge_v1_query.pb.swift; sourceTree = "<group>"; };
+		28B7859326B3A7EE009F755F /* sifnode_ethbridge_v1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_ethbridge_v1_tx.pb.swift; sourceTree = "<group>"; };
+		28B7859426B3A7EF009F755F /* sifnode_dispensation_v1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_dispensation_v1_tx.grpc.swift; sourceTree = "<group>"; };
+		28B7859526B3A7EF009F755F /* sifnode_clp_v1_params.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_clp_v1_params.pb.swift; sourceTree = "<group>"; };
+		28B7859626B3A7EF009F755F /* sifnode_dispensation_v1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_dispensation_v1_tx.pb.swift; sourceTree = "<group>"; };
+		28B7859726B3A7F0009F755F /* sifnode_clp_v1_querier.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_clp_v1_querier.grpc.swift; sourceTree = "<group>"; };
+		28B7859826B3A7F1009F755F /* sifnode_ethbridge_v1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_ethbridge_v1_tx.grpc.swift; sourceTree = "<group>"; };
+		28B7859926B3A7F1009F755F /* sifnode_clp_v1_querier.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_clp_v1_querier.pb.swift; sourceTree = "<group>"; };
 		28BB2A7F2533D9FB00CFF097 /* DomainPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainPromotionCell.swift; sourceTree = "<group>"; };
 		28BB2A802533D9FB00CFF097 /* DomainPromotionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainPromotionCell.xib; sourceTree = "<group>"; };
 		28BB2A852533DA0B00CFF097 /* AccountPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPromotionCell.swift; sourceTree = "<group>"; };
@@ -2073,6 +2157,48 @@
 		282121BA25FDE71C0016ABFE /* ProtoBuff */ = {
 			isa = PBXGroup;
 			children = (
+				28B7858E26B3A7ED009F755F /* sifnode_clp_v1_genesis.pb.swift */,
+				28B7859526B3A7EF009F755F /* sifnode_clp_v1_params.pb.swift */,
+				28B7859726B3A7F0009F755F /* sifnode_clp_v1_querier.grpc.swift */,
+				28B7859926B3A7F1009F755F /* sifnode_clp_v1_querier.pb.swift */,
+				28B7858D26B3A7ED009F755F /* sifnode_clp_v1_tx.grpc.swift */,
+				28B7858926B3A7EC009F755F /* sifnode_clp_v1_tx.pb.swift */,
+				28B7858A26B3A7EC009F755F /* sifnode_clp_v1_types.pb.swift */,
+				28B7859026B3A7ED009F755F /* sifnode_dispensation_v1_query.grpc.swift */,
+				28B7858B26B3A7EC009F755F /* sifnode_dispensation_v1_query.pb.swift */,
+				28B7859426B3A7EF009F755F /* sifnode_dispensation_v1_tx.grpc.swift */,
+				28B7859626B3A7EF009F755F /* sifnode_dispensation_v1_tx.pb.swift */,
+				28B7858F26B3A7ED009F755F /* sifnode_dispensation_v1_types.pb.swift */,
+				28B7859126B3A7EE009F755F /* sifnode_ethbridge_v1_query.grpc.swift */,
+				28B7859226B3A7EE009F755F /* sifnode_ethbridge_v1_query.pb.swift */,
+				28B7859826B3A7F1009F755F /* sifnode_ethbridge_v1_tx.grpc.swift */,
+				28B7859326B3A7EE009F755F /* sifnode_ethbridge_v1_tx.pb.swift */,
+				28B7858C26B3A7EC009F755F /* sifnode_ethbridge_v1_types.pb.swift */,
+				28B7858826B3A7EB009F755F /* sifnode_oracle_v1_types.pb.swift */,
+				28B7856326B3A7E1009F755F /* panacea_aol_v2_genesis.pb.swift */,
+				28B7856B26B3A7E3009F755F /* panacea_aol_v2_owner.pb.swift */,
+				28B7855C26B3A7DF009F755F /* panacea_aol_v2_query.grpc.swift */,
+				28B7855A26B3A7DE009F755F /* panacea_aol_v2_query.pb.swift */,
+				28B7856426B3A7E1009F755F /* panacea_aol_v2_record.pb.swift */,
+				28B7856F26B3A7E4009F755F /* panacea_aol_v2_topic.pb.swift */,
+				28B7855926B3A7DE009F755F /* panacea_aol_v2_tx.grpc.swift */,
+				28B7856D26B3A7E4009F755F /* panacea_aol_v2_tx.pb.swift */,
+				28B7856A26B3A7E3009F755F /* panacea_aol_v2_writer.pb.swift */,
+				28B7856726B3A7E2009F755F /* panacea_burn_v2_genesis.pb.swift */,
+				28B7856C26B3A7E3009F755F /* panacea_burn_v2_query.grpc.swift */,
+				28B7855E26B3A7E0009F755F /* panacea_burn_v2_query.pb.swift */,
+				28B7855F26B3A7E0009F755F /* panacea_did_v2_did.pb.swift */,
+				28B7855B26B3A7DF009F755F /* panacea_did_v2_genesis.pb.swift */,
+				28B7855D26B3A7DF009F755F /* panacea_did_v2_query.grpc.swift */,
+				28B7856526B3A7E2009F755F /* panacea_did_v2_query.pb.swift */,
+				28B7855826B3A7DE009F755F /* panacea_did_v2_tx.grpc.swift */,
+				28B7856126B3A7E0009F755F /* panacea_did_v2_tx.pb.swift */,
+				28B7856026B3A7E0009F755F /* panacea_token_v2_genesis.pb.swift */,
+				28B7856E26B3A7E4009F755F /* panacea_token_v2_query.grpc.swift */,
+				28B7856826B3A7E2009F755F /* panacea_token_v2_query.pb.swift */,
+				28B7856226B3A7E1009F755F /* panacea_token_v2_token.pb.swift */,
+				28B7856926B3A7E3009F755F /* panacea_token_v2_tx.grpc.swift */,
+				28B7856626B3A7E2009F755F /* panacea_token_v2_tx.pb.swift */,
 				28A37016269DA20500990696 /* gravity_v1_attestation.pb.swift */,
 				28A37012269DA20400990696 /* gravity_v1_batch.pb.swift */,
 				28A3700E269DA20300990696 /* gravity_v1_ethereum_signer.pb.swift */,
@@ -3717,6 +3843,7 @@
 				287AC62E25FDF7260070837E /* htlc_htlc.pb.swift in Sources */,
 				289EF83426824E4700F90AC1 /* osmosis_claim_v1beta1_genesis.pb.swift in Sources */,
 				287AC60225FDF7260070837E /* service_query.pb.swift in Sources */,
+				28B785A126B3A7F1009F755F /* sifnode_dispensation_v1_types.pb.swift in Sources */,
 				289DF17C242DDF4F00433CF4 /* CdpDetailMyTopCell.swift in Sources */,
 				E1945E48222E81A300A1436F /* ValidatorListViewController.swift in Sources */,
 				E16D9B26224A08510019B7BB /* DecimalViewController.swift in Sources */,
@@ -3728,6 +3855,7 @@
 				0497586C2685AA0E0039872C /* cosmwasm_wasm_v1beta1_proposal.pb.swift in Sources */,
 				283F3AE6265E283800DF1D93 /* tokenswap_genesis.pb.swift in Sources */,
 				28D7BE5325F0FAD0006EECD7 /* KavaHardInterestRate.swift in Sources */,
+				28B785A726B3A7F1009F755F /* sifnode_clp_v1_params.pb.swift in Sources */,
 				289EF82826824E4700F90AC1 /* osmosis_gamm_v1beta1_tx.grpc.swift in Sources */,
 				E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */,
 				287AC5D225FDF7250070837E /* akash_provider_v1beta1_provider.pb.swift in Sources */,
@@ -3742,12 +3870,15 @@
 				287AC5A425FDF7250070837E /* cosmos_auth_v1beta1_query.grpc.swift in Sources */,
 				2852D7732477E83400D11DC4 /* CdpIncentiveCell.swift in Sources */,
 				2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */,
+				28B7859A26B3A7F1009F755F /* sifnode_oracle_v1_types.pb.swift in Sources */,
 				28D3551725386A9300B804CF /* StepHardPoolIncentive0ViewController.swift in Sources */,
 				28D3551725386A9300B804CF /* StepHardPoolIncentive0ViewController.swift in Sources */,
+				28B7857626B3A7E4009F755F /* panacea_burn_v2_query.pb.swift in Sources */,
 				287AC63325FDF7260070837E /* ibc_core_channel_v1_channel.pb.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
 				287AC62725FDF7260070837E /* cosmos_tx_v1beta1_service.grpc.swift in Sources */,
 				28156E7F25360B70006FF06C /* HarvestListAllCell.swift in Sources */,
+				28B7858326B3A7E4009F755F /* panacea_aol_v2_owner.pb.swift in Sources */,
 				28AABEC825F8CBBA0019091F /* HardModuleAccount.swift in Sources */,
 				283D2EAC24F56AFF00247424 /* OkUnbonding.swift in Sources */,
 				0428ACFE268AD31700EB438F /* BandOracleStatus.swift in Sources */,
@@ -3759,6 +3890,7 @@
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
 				04CFBD4D2692274B0013150B /* TxIbcReceiveCell.swift in Sources */,
 				286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */,
+				28B785A526B3A7F1009F755F /* sifnode_ethbridge_v1_tx.pb.swift in Sources */,
 				289EF83526824E4700F90AC1 /* osmosis_mint_v1beta1_genesis.pb.swift in Sources */,
 				287AC61225FDF7260070837E /* cosmos_base_reflection_v1beta1_reflection.pb.swift in Sources */,
 				287AC62F25FDF7260070837E /* cosmos_auth_v1beta1_auth.pb.swift in Sources */,
@@ -3793,14 +3925,17 @@
 				E1D279632297B40D00C49B2D /* RedelegateCell.swift in Sources */,
 				28D7BE0725F0BBF7006EECD7 /* CollateralParam.swift in Sources */,
 				283F3AE1265E283800DF1D93 /* treasury_tx.grpc.swift in Sources */,
+				28B7858626B3A7E4009F755F /* panacea_token_v2_query.grpc.swift in Sources */,
 				280E1F25254AC6460007BA7D /* ReplaceEditAddressViewController.swift in Sources */,
 				287AC63625FDF7260070837E /* cosmos_base_abci_v1beta1_abci.pb.swift in Sources */,
 				287AC65325FDF7260070837E /* akash_provider_v1beta1_provider.grpc.swift in Sources */,
 				E1945E52223124F000A1436F /* BaseData.swift in Sources */,
+				28B7857F26B3A7E4009F755F /* panacea_burn_v2_genesis.pb.swift in Sources */,
 				28617A8524333BA1006D66EA /* StepWithdrawCdpCheckViewController.swift in Sources */,
 				E1A82DD3224222E00097CAEE /* Password.swift in Sources */,
 				285A33DA244763290052BD3D /* SelectChainCell.swift in Sources */,
 				28D7BD9D25F0B18F006EECD7 /* AuctionListViewController.swift in Sources */,
+				28B7858726B3A7E4009F755F /* panacea_aol_v2_topic.pb.swift in Sources */,
 				287AC5D625FDF7250070837E /* cosmos_distribution_v1beta1_query.grpc.swift in Sources */,
 				E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */,
 				28DB56EB25F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift in Sources */,
@@ -3820,6 +3955,7 @@
 				28617A7D243198E2006D66EA /* StepCreateCpdCheckViewController.swift in Sources */,
 				28A37019269DA20600990696 /* gravity_v1_pool.pb.swift in Sources */,
 				289EF82326824E4700F90AC1 /* osmosis_incentives_tx.grpc.swift in Sources */,
+				28B7858226B3A7E4009F755F /* panacea_aol_v2_writer.pb.swift in Sources */,
 				28E04592269B52290022A366 /* Swap0ViewController.swift in Sources */,
 				287AC64725FDF7260070837E /* cosmos_slashing_v1beta1_genesis.pb.swift in Sources */,
 				287AC5AA25FDF7250070837E /* cosmos_gov_v1beta1_tx.pb.swift in Sources */,
@@ -3830,6 +3966,7 @@
 				28474ED5241E06AF00AF5A81 /* TxCdpRepayCell.swift in Sources */,
 				E171A075225B091300C5756C /* StepGenTxViewController.swift in Sources */,
 				283439A12531D1CF00CCFADE /* MyDomainViewController.swift in Sources */,
+				28B7857026B3A7E4009F755F /* panacea_did_v2_tx.grpc.swift in Sources */,
 				049758882685BF530039872C /* TokenDetailIovCell.swift in Sources */,
 				0497587E2685AA270039872C /* iov_starname_v1beta1_types.pb.swift in Sources */,
 				287AC5A925FDF7250070837E /* htlc_query.grpc.swift in Sources */,
@@ -3837,6 +3974,7 @@
 				04CFBD5D269301780013150B /* TxUnlockTokenCell.swift in Sources */,
 				28E667072699483E00BA2C68 /* OsmosisDAppViewController.swift in Sources */,
 				287AC5BB25FDF7250070837E /* cosmos_bank_v1beta1_tx.pb.swift in Sources */,
+				28B7859D26B3A7F1009F755F /* sifnode_dispensation_v1_query.pb.swift in Sources */,
 				28E3E37D2670BA8D00BA89C2 /* TokenDetailAltheaCell.swift in Sources */,
 				287AC64B25FDF7260070837E /* cosmos_gov_v1beta1_query.pb.swift in Sources */,
 				287AC5A025FDF7250070837E /* cosmos_evidence_v1beta1_genesis.pb.swift in Sources */,
@@ -3846,6 +3984,7 @@
 				287AC59125FDF7250070837E /* tendermint_types_block.pb.swift in Sources */,
 				283F3AE3265E283800DF1D93 /* treasury_params.pb.swift in Sources */,
 				2810084A2696D979002986A6 /* KeyFac.swift in Sources */,
+				28B785A426B3A7F1009F755F /* sifnode_ethbridge_v1_query.pb.swift in Sources */,
 				287AC5EF25FDF7260070837E /* cosmos_bank_v1beta1_query.pb.swift in Sources */,
 				E151B64F22485B3B0026B8C0 /* Result.swift in Sources */,
 				28B4303C24F7EE0C00BD7BB2 /* StepOkDepositAmountViewController.swift in Sources */,
@@ -3860,6 +3999,7 @@
 				287AC62025FDF7260070837E /* akash_deployment_v1beta1_group.pb.swift in Sources */,
 				287AC5DA25FDF7260070837E /* mint_genesis.pb.swift in Sources */,
 				287AC62925FDF7260070837E /* random_tx.pb.swift in Sources */,
+				28B785A226B3A7F1009F755F /* sifnode_dispensation_v1_query.grpc.swift in Sources */,
 				287AC63825FDF7260070837E /* cosmos_gov_v1beta1_genesis.pb.swift in Sources */,
 				0437E087268C0A6700088391 /* RIPEMD160.swift in Sources */,
 				283E9458254901D9007A9291 /* RegisterDomain0ViewController.swift in Sources */,
@@ -3874,6 +4014,7 @@
 				287AC5C325FDF7250070837E /* cosmos_distribution_v1beta1_query.pb.swift in Sources */,
 				E151B63F22484A710026B8C0 /* InOutPut.swift in Sources */,
 				287AC5E925FDF7260070837E /* akash_market_v1beta1_lease.pb.swift in Sources */,
+				28B785A926B3A7F1009F755F /* sifnode_clp_v1_querier.grpc.swift in Sources */,
 				E1FD2320233E1B8E009327FE /* WalletAddressCell.swift in Sources */,
 				289EF83926824E4700F90AC1 /* osmosis_pool-incentives_v1beta1_genesis.pb.swift in Sources */,
 				28D372A0254BFCCA0071B136 /* RegisterAccount0ViewController.swift in Sources */,
@@ -3886,6 +4027,8 @@
 				289EF83126824E4700F90AC1 /* osmosis_pool-incentives_v1beta1_query.pb.swift in Sources */,
 				289EF83726824E4700F90AC1 /* osmosis_lockup_tx.grpc.swift in Sources */,
 				287AC5F625FDF7260070837E /* ibc_core_connection_v1_query.pb.swift in Sources */,
+				28B7858026B3A7E4009F755F /* panacea_token_v2_query.pb.swift in Sources */,
+				28B7857C26B3A7E4009F755F /* panacea_aol_v2_record.pb.swift in Sources */,
 				E1F1CF0C239F7D8D004EF8A2 /* VoteCheckViewController.swift in Sources */,
 				287AC5B625FDF7250070837E /* token_token.pb.swift in Sources */,
 				28641F2C2601959E000AAEB8 /* TxDetailgRPCViewController.swift in Sources */,
@@ -3926,6 +4069,7 @@
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
 				283F3ADF265E283800DF1D93 /* treasury_query.pb.swift in Sources */,
 				289EF82926824E4700F90AC1 /* osmosis_gamm_v1beta1_tx.pb.swift in Sources */,
+				28B785AA26B3A7F1009F755F /* sifnode_ethbridge_v1_tx.grpc.swift in Sources */,
 				287AC60B25FDF7260070837E /* cosmos_base_store_v1beta1_snapshot.pb.swift in Sources */,
 				28156E922536982A006FF06C /* HarvestListHeader.swift in Sources */,
 				283F3AE0265E283800DF1D93 /* treasury_treasury.pb.swift in Sources */,
@@ -3957,6 +4101,7 @@
 				28B4304224F7EE4B00BD7BB2 /* StepOkWithdrawCheckViewController.swift in Sources */,
 				E1A82DDC224378D40097CAEE /* CardView.swift in Sources */,
 				284D17DF2535573D00C364F9 /* HardListViewController.swift in Sources */,
+				28B7857926B3A7E4009F755F /* panacea_did_v2_tx.pb.swift in Sources */,
 				289EF83B26824E4700F90AC1 /* osmosis_incentives_query.pb.swift in Sources */,
 				049758822685AA270039872C /* iov_configuration_v1beta1_query.pb.swift in Sources */,
 				287AC5C825FDF7250070837E /* cosmos_bank_v1beta1_tx.grpc.swift in Sources */,
@@ -3999,10 +4144,12 @@
 				285A33D32446CDB80052BD3D /* StepHtlcSend3ViewController.swift in Sources */,
 				289EF82F26824E4700F90AC1 /* osmosis_incentives_query.grpc.swift in Sources */,
 				28A3701C269DA20600990696 /* gravity_v1_batch.pb.swift in Sources */,
+				28B7857D26B3A7E4009F755F /* panacea_did_v2_query.pb.swift in Sources */,
 				287AC61625FDF7260070837E /* service_service.pb.swift in Sources */,
 				E1F7F63623436B71000E597F /* BnbHistory.swift in Sources */,
 				04D138572691E25500D6AF9F /* TxJoinPoolCell.swift in Sources */,
 				288D24FD268321A40093121A /* ApiHistoryNewCustom.swift in Sources */,
+				28B7858526B3A7E4009F755F /* panacea_aol_v2_tx.pb.swift in Sources */,
 				287AC5DC25FDF7260070837E /* cosmos_slashing_v1beta1_query.grpc.swift in Sources */,
 				28248A9425DD3DD4004F3FB0 /* ApiHistoryCustom.swift in Sources */,
 				287AC58A25FDF7250070837E /* mint_query.pb.swift in Sources */,
@@ -4038,6 +4185,7 @@
 				287AC58325FDF7250070837E /* nft_query.grpc.swift in Sources */,
 				287AC5B725FDF7250070837E /* oracle_query.grpc.swift in Sources */,
 				28B4303924F7996C00BD7BB2 /* TxOkStakeCell.swift in Sources */,
+				28B785A326B3A7F1009F755F /* sifnode_ethbridge_v1_query.grpc.swift in Sources */,
 				282BDFE224A5992500D3A5D4 /* WcTradePopup.swift in Sources */,
 				28D7BE0A25F0BCF0006EECD7 /* DebtParam.swift in Sources */,
 				28D7BE1025F0CE61006EECD7 /* MyCdp.swift in Sources */,
@@ -4063,10 +4211,12 @@
 				28E0458C269B35580022A366 /* PoolViewController.swift in Sources */,
 				E1069B1022968E05007517DC /* StepRedelegateCheckViewController.swift in Sources */,
 				287AC61325FDF7260070837E /* akash_base_v1beta1_endpoint.pb.swift in Sources */,
+				28B785A026B3A7F1009F755F /* sifnode_clp_v1_genesis.pb.swift in Sources */,
 				28D7BE6F25F0FDB3006EECD7 /* HardMyBorrow.swift in Sources */,
 				287AC58825FDF7250070837E /* cosmos_vesting_v1beta1_tx.grpc.swift in Sources */,
 				E1FD2328233E1BC4009327FE /* WalletIrisCell.swift in Sources */,
 				04CFBD482691F8460013150B /* TxTokenSwapCell.swift in Sources */,
+				28B7857826B3A7E4009F755F /* panacea_token_v2_genesis.pb.swift in Sources */,
 				287AC5E425FDF7260070837E /* confio_proofs.pb.swift in Sources */,
 				289DF184242DDF8300433CF4 /* CdpDetailAssetsCell.swift in Sources */,
 				287AC64C25FDF7260070837E /* cosmos_staking_v1beta1_genesis.pb.swift in Sources */,
@@ -4084,6 +4234,7 @@
 				28DB56F725FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.swift in Sources */,
 				289EF82C26824E4700F90AC1 /* osmosis_incentives_genesis.pb.swift in Sources */,
 				28AABECE25F8CDAA0019091F /* KavaHardReserves.swift in Sources */,
+				28B785AB26B3A7F1009F755F /* sifnode_clp_v1_querier.pb.swift in Sources */,
 				289DF180242DDF6A00433CF4 /* CdpDetailMyActionCell.swift in Sources */,
 				049758712685AA0E0039872C /* cosmwasm_wasm_v1beta1_types.pb.swift in Sources */,
 				E1406FCA2260A0FD00D9440C /* StepRewardViewController.swift in Sources */,
@@ -4137,6 +4288,7 @@
 				287AC5F425FDF7260070837E /* google_api_httpbody.pb.swift in Sources */,
 				287AC5A725FDF7250070837E /* akash_market_v1beta1_params.pb.swift in Sources */,
 				280E1EFD254A7AD60007BA7D /* DeleteStarname3ViewController.swift in Sources */,
+				28B7857126B3A7E4009F755F /* panacea_aol_v2_tx.grpc.swift in Sources */,
 				283E94772549030C007A9291 /* TxReplaceResourceCell.swift in Sources */,
 				E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */,
 				0497585926856DE30039872C /* oracle_v1_query.pb.swift in Sources */,
@@ -4151,7 +4303,9 @@
 				28DB571025FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.swift in Sources */,
 				E1FD233C233E1C44009327FE /* WalletGuideCell.swift in Sources */,
 				28E3E3802671BE8D00BA89C2 /* Param.swift in Sources */,
+				28B7859F26B3A7F1009F755F /* sifnode_clp_v1_tx.grpc.swift in Sources */,
 				287AC62825FDF7260070837E /* random_genesis.pb.swift in Sources */,
+				28B7857326B3A7E4009F755F /* panacea_did_v2_genesis.pb.swift in Sources */,
 				287AC5D025FDF7250070837E /* random_tx.grpc.swift in Sources */,
 				28C3F509269DC53700F4A58C /* TxGravityWithdrawBatchCell.swift in Sources */,
 				283F3AE5265E283800DF1D93 /* treasury_query.grpc.swift in Sources */,
@@ -4207,7 +4361,10 @@
 				287AC62625FDF7260070837E /* oracle_genesis.pb.swift in Sources */,
 				28156E9F2536DE29006FF06C /* HarvestDetailMyActionCell.swift in Sources */,
 				287AC5E625FDF7260070837E /* service_query.grpc.swift in Sources */,
+				28B7857426B3A7E4009F755F /* panacea_aol_v2_query.grpc.swift in Sources */,
+				28B7857A26B3A7E4009F755F /* panacea_token_v2_token.pb.swift in Sources */,
 				287AC5C225FDF7250070837E /* akash_deployment_v1beta1_params.pb.swift in Sources */,
+				28B7859E26B3A7F1009F755F /* sifnode_ethbridge_v1_types.pb.swift in Sources */,
 				282FF36523F533AF0028CC66 /* TxUnknownCell.swift in Sources */,
 				E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */,
 				28CFB6B72613594D00A18634 /* TokenDetailPersistenceCell.swift in Sources */,
@@ -4236,10 +4393,12 @@
 				287AC59D25FDF7250070837E /* akash_base_v1beta1_attribute.pb.swift in Sources */,
 				E1827E212256292900BC0350 /* ValidatorDetailMyActionCell.swift in Sources */,
 				28E0458A269B35480022A366 /* SwapViewController.swift in Sources */,
+				28B7859C26B3A7F1009F755F /* sifnode_clp_v1_types.pb.swift in Sources */,
 				E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */,
 				28474ED0241E06AF00AF5A81 /* TxCdpWithdrawCell.swift in Sources */,
 				289EF83A26824E4700F90AC1 /* osmosis_claim_v1beta1_claim.pb.swift in Sources */,
 				289EF82226824E4700F90AC1 /* osmosis_mint_v1beta1_query.pb.swift in Sources */,
+				28B7857526B3A7E4009F755F /* panacea_did_v2_query.grpc.swift in Sources */,
 				28D7BE4C25F0F782006EECD7 /* KavaHardParam.swift in Sources */,
 				28D7BE0D25F0CE33006EECD7 /* KavaMyCdps.swift in Sources */,
 				280524B8255CEEC7004D6172 /* ExportStarname.swift in Sources */,
@@ -4265,6 +4424,7 @@
 				287AC60625FDF7260070837E /* ibc_core_channel_v1_tx.pb.swift in Sources */,
 				2838501C2448A69D00E5DEF2 /* TxHtlcCreateCell.swift in Sources */,
 				287AC5FD25FDF7260070837E /* ibc_lightclients_tendermint_v1_tendermint.pb.swift in Sources */,
+				28B7859B26B3A7F1009F755F /* sifnode_clp_v1_tx.pb.swift in Sources */,
 				0497587D2685AA270039872C /* iov_starname_v1beta1_tx.pb.swift in Sources */,
 				046E9041268C4863002CFFE1 /* BinanceInt+VarInt.swift in Sources */,
 				28D809BD26A177A30030B1BE /* PoolCell.swift in Sources */,
@@ -4282,8 +4442,10 @@
 				04CFBD61269301880013150B /* TxUnlockAllTokensCell.swift in Sources */,
 				280E1EF8254A7AC80007BA7D /* DeleteStarname0ViewController.swift in Sources */,
 				289EF83826824E4700F90AC1 /* osmosis_incentives_gauge.pb.swift in Sources */,
+				28B7857B26B3A7E4009F755F /* panacea_aol_v2_genesis.pb.swift in Sources */,
 				E1406FC22260654F00D9440C /* TxInfo.swift in Sources */,
 				287AC58725FDF7250070837E /* nft_nft.pb.swift in Sources */,
+				28B7857E26B3A7E4009F755F /* panacea_token_v2_tx.pb.swift in Sources */,
 				28CE973625872B7C006DEBEE /* Signer.swift in Sources */,
 				E1133900235D95FD0011B61D /* AccountSelectViewController.swift in Sources */,
 				287AC64825FDF7260070837E /* akash_cert_v1beta1_genesis.pb.swift in Sources */,
@@ -4345,10 +4507,12 @@
 				280E1F1B254ABB1D0007BA7D /* ResourceEditCell.swift in Sources */,
 				287AC5B425FDF7250070837E /* cosmos_evidence_v1beta1_evidence.pb.swift in Sources */,
 				E19A322022547EA100A05E41 /* AddViewController.swift in Sources */,
+				28B785A626B3A7F1009F755F /* sifnode_dispensation_v1_tx.grpc.swift in Sources */,
 				E151B63C22467E520026B8C0 /* HistoryCell.swift in Sources */,
 				283D2EAF24F5742000247424 /* WalletOkCell.swift in Sources */,
 				E10492152347C5D900A2980F /* WalletConnectImageView.swift in Sources */,
 				283F3AE7265E283800DF1D93 /* tokenswap_tx.pb.swift in Sources */,
+				28B7858426B3A7E4009F755F /* panacea_burn_v2_query.grpc.swift in Sources */,
 				049758802685AA270039872C /* iov_starname_v1beta1_tx.grpc.swift in Sources */,
 				287AC63D25FDF7260070837E /* record_record.pb.swift in Sources */,
 				2845D887246FB96E007CD497 /* CosmosVote.swift in Sources */,
@@ -4356,6 +4520,7 @@
 				287AC61925FDF7260070837E /* akash_provider_v1beta1_query.pb.swift in Sources */,
 				287AC5B825FDF7250070837E /* google_protobuf2_any.pb.swift in Sources */,
 				287AC65C25FDF7260070837E /* tendermint_abci_types.grpc.swift in Sources */,
+				28B7857226B3A7E4009F755F /* panacea_aol_v2_query.pb.swift in Sources */,
 				287AC60325FDF7260070837E /* mint_query.grpc.swift in Sources */,
 				283439A42531D1DF00CCFADE /* MyAccountViewController.swift in Sources */,
 				287AC62C25FDF7260070837E /* service_tx.grpc.swift in Sources */,
@@ -4370,6 +4535,7 @@
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,
 				28D7BE5D25F0FC11006EECD7 /* KavaHardTotalBorrow.swift in Sources */,
 				287AC62125FDF7260070837E /* cosmos_vesting_v1beta1_tx.pb.swift in Sources */,
+				28B7858126B3A7E4009F755F /* panacea_token_v2_tx.grpc.swift in Sources */,
 				E14FDC842373C52C00095C06 /* KavaAccountInfo.swift in Sources */,
 				285A33EA24486DB60052BD3D /* HtlcResultClaimCell.swift in Sources */,
 				287AC5CD25FDF7250070837E /* cosmos_upgrade_v1beta1_query.pb.swift in Sources */,
@@ -4384,6 +4550,7 @@
 				E1945E4C222E81C200A1436F /* VoteListViewController.swift in Sources */,
 				287AC62B25FDF7260070837E /* cosmos_distribution_v1beta1_genesis.pb.swift in Sources */,
 				E1FD2330233E1BF4009327FE /* WalletBnbCell.swift in Sources */,
+				28B7857726B3A7E4009F755F /* panacea_did_v2_did.pb.swift in Sources */,
 				0497587F2685AA270039872C /* iov_configuration_v1beta1_query.grpc.swift in Sources */,
 				2836E19B2680B3F300119FD2 /* HdacAddress.swift in Sources */,
 				049758812685AA270039872C /* iov_configuration_v1beta1_types.pb.swift in Sources */,
@@ -4421,6 +4588,7 @@
 				287AC64D25FDF7260070837E /* record_tx.pb.swift in Sources */,
 				0497585826856DE30039872C /* oracle_v1_genesis.pb.swift in Sources */,
 				28474ECD241E06AF00AF5A81 /* TxCdpDepositCell.swift in Sources */,
+				28B785A826B3A7F1009F755F /* sifnode_dispensation_v1_tx.pb.swift in Sources */,
 				287AC5BA25FDF7250070837E /* akash_cert_v1beta1_query.pb.swift in Sources */,
 				287AC60025FDF7260070837E /* guardian_query.grpc.swift in Sources */,
 				287AC65925FDF7260070837E /* akash_escrow_v1beta1_genesis.pb.swift in Sources */,
@@ -4991,7 +5159,7 @@
 				CODE_SIGN_ENTITLEMENTS = Cosmostation/Cosmostation.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 112;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5003,7 +5171,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.12;
+				MARKETING_VERSION = 1.5.13;
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5023,7 +5191,7 @@
 				CODE_SIGN_ENTITLEMENTS = Cosmostation/Cosmostation.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 112;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5035,7 +5203,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5.12;
+				MARKETING_VERSION = 1.5.13;
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
