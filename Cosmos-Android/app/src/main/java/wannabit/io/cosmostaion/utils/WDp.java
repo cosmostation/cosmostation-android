@@ -714,6 +714,11 @@ public class WDp {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
                     BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, 6);
                     totalValue = totalValue.add(assetValue);
+                } else if (baseChain.equals(SIF_MAIN) && coin.denom.startsWith("c")) {
+                    BigDecimal amount = baseData.getAvailable(coin.denom);
+                    int decimal = WUtil.getSifCoinDecimal(coin.denom);
+                    BigDecimal assetValue = userCurrencyValue(baseData, coin.denom.substring(1), amount, decimal);
+                    totalValue = totalValue.add(assetValue);
                 } else if (coin.denom.startsWith("ibc/")) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
                     IbcToken ibcToken = baseData.getIbcToken(coin.denom);
@@ -764,21 +769,6 @@ public class WDp {
                     totalValue = totalValue.add(assetValue);
                 }
             }
-
-        } else if (baseChain.equals(SIF_MAIN)) {
-            for (Balance balance: baseData.mBalances) {
-                if (balance.symbol.equals(mainDenom(baseChain))) {
-                    BigDecimal amount = baseData.getAllMainAssetOld(balance.symbol);
-                    BigDecimal assetValue = userCurrencyValue(baseData, balance.symbol, amount, mainDivideDecimal(baseChain));
-                    totalValue = totalValue.add(assetValue);
-                } else {
-                    BigDecimal available = baseData.availableAmount(balance.symbol);
-                    int decimal = WUtil.getSifCoinDecimal(balance.symbol);
-                    BigDecimal assetValue = userCurrencyValue(baseData, balance.symbol.substring(1), available, decimal);
-                    totalValue = totalValue.add(assetValue);
-                }
-            }
-
         }
 
         else {
@@ -807,6 +797,11 @@ public class WDp {
                 } else if (baseChain.equals(OSMOSIS_MAIN) && coin.denom.equals(TOKEN_ION)) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
                     BigDecimal btcValue = btcValue(baseData, coin.denom, amount, 6);
+                    totalValue = totalValue.add(btcValue);
+                } else if (baseChain.equals(SIF_MAIN) && coin.denom.startsWith("c")) {
+                    BigDecimal amount = baseData.getAvailable(coin.denom);
+                    int decimal = WUtil.getSifCoinDecimal(coin.denom);
+                    BigDecimal btcValue = btcValue(baseData, coin.denom.substring(1), amount, decimal);
                     totalValue = totalValue.add(btcValue);
                 } else if (coin.denom.startsWith("ibc/")) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
@@ -855,20 +850,6 @@ public class WDp {
                 } else {
                     BigDecimal convertAmount = convertTokenToOkt(baseData, balance.symbol);
                     BigDecimal btcValue = btcValue(baseData, TOKEN_OK, convertAmount, mainDivideDecimal(baseChain));
-                    totalValue = totalValue.add(btcValue);
-                }
-            }
-
-        } else if (baseChain.equals(SIF_MAIN)) {
-            for (Balance balance: baseData.mBalances) {
-                if (balance.symbol.equals(mainDenom(baseChain))) {
-                    BigDecimal amount = baseData.getAllMainAssetOld(balance.symbol);
-                    BigDecimal btcValue = btcValue(baseData, balance.symbol, amount, mainDivideDecimal(baseChain));
-                    totalValue = totalValue.add(btcValue);
-                } else {
-                    BigDecimal available = baseData.availableAmount(balance.symbol);
-                    int decimal = WUtil.getSifCoinDecimal(balance.symbol);
-                    BigDecimal btcValue = btcValue(baseData, balance.symbol.substring(1), available, decimal);
                     totalValue = totalValue.add(btcValue);
                 }
             }
