@@ -29,7 +29,7 @@
     <string name="str_ok_test_net">오케이엑스 테스트넷</string>
     <string name="str_certik_test_net">써틱 테스트넷</string>
     <string name="str_rizon_test_net">라이젠 테스트넷</string>
-    <string name="str_medi_test_net">메디블럭 테스트넷</string>
+    <string name="str_medi_test_net">메디블록 테스트넷</string>
     <string name="str_althea_test_net">알테아 테스트넷</string>
 
 
@@ -310,7 +310,7 @@
     <string name="str_front_guide_title_sif"><![CDATA[시프 체인]]></string>
     <string name="str_front_guide_title_ki"><![CDATA[키 파운데이션]]></string>
     <string name="str_front_guide_title_rizon"><![CDATA[라이젠 네트워크]]></string>
-    <string name="str_front_guide_title_medi"><![CDATA[메디블럭]]></string>
+    <string name="str_front_guide_title_medi"><![CDATA[메디블록]]></string>
     <string name="str_front_guide_title_althea"><![CDATA[알테아 네트워크]]></string>
     <string name="str_front_guide_title_osmosis"><![CDATA[오스모시스 존]]></string>
     <string name="str_front_guide_msg">Tendermint BFT와 ABCI 기반의 분산형 블록체인 네트워크.</string>
