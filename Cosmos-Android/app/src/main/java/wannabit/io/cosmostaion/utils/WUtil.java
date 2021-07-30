@@ -19,7 +19,6 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.nio.ByteBuffer;
 import java.security.cert.CertificateException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -27,7 +26,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,7 +41,6 @@ import cosmos.distribution.v1beta1.Distribution;
 import cosmos.gov.v1beta1.Gov;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
-import jnr.ffi.Platform;
 import okhttp3.OkHttpClient;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
@@ -2212,7 +2209,7 @@ public class WUtil {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://osmosis.zone/"));
 
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
-            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medibloc.org//"));
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medibloc.org/"));
 
         }
         return null;
@@ -2275,8 +2272,11 @@ public class WUtil {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/osmosis"));
 
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
-            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/medibloc"));
-
+            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+                return new Intent(Intent.ACTION_VIEW , Uri.parse("https://blog.medibloc.org/"));
+            } else {
+                return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/medibloc"));
+            }
         }
         return null;
     }
