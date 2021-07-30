@@ -1475,7 +1475,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onClickGuide2() {
         if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST) {
-            if(Locale.current.languageCode == "ko") {
+            if (Locale.current.languageCode == "ko") {
                 guard let url = URL(string: "https://guide.cosmostation.io/app_wallet_ko.html") else { return }
                 self.onShowSafariWeb(url)
             } else {
@@ -1548,8 +1548,13 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.MEDI_MAIN || chainType! == ChainType.MEDI_TEST) {
-            guard let url = URL(string: "https://medium.com/medibloc/") else { return }
-            self.onShowSafariWeb(url)
+            if (Locale.current.languageCode == "ko") {
+                guard let url = URL(string: "https://blog.medibloc.org/") else { return }
+                self.onShowSafariWeb(url)
+            } else {
+                guard let url = URL(string: "https://medium.com/medibloc/") else { return }
+                self.onShowSafariWeb(url)
+            }
         }
         
     }
