@@ -680,7 +680,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             } else if(viewType == TYPE_HISTORY_HEADER) {
                 return new HistoryHeaderHolder(getLayoutInflater().inflate(R.layout.item_validator_history_header, viewGroup, false));
             } else if(viewType == TYPE_HISTORY) {
-                return new HistoryHolder(getLayoutInflater().inflate(R.layout.item_validator_history, viewGroup, false));
+                if (mBaseChain.equals(CRYPTO_MAIN)) {
+                    return new HistoryOldHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
+                } else if (isGRPC(mBaseChain) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(FETCHAI_MAIN)) {
+                    return new HistoryNewHolder(getLayoutInflater().inflate(R.layout.item_new_history, viewGroup, false));
+                } else {
+                    return new HistoryOldHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
+                }
             } else if(viewType == TYPE_HISTORY_EMPTY) {
                 return new HistoryEmptyHolder(getLayoutInflater().inflate(R.layout.item_validator_history_empty, viewGroup, false));
             }
@@ -918,8 +924,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         private void onBindApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
-            final HistoryHolder holder = (HistoryHolder)viewHolder;
             if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(FETCHAI_MAIN)) {
+                final HistoryNewHolder holder = (HistoryNewHolder)viewHolder;
                 final ResApiNewTxListCustom history;
                 if (mBondingInfo == null && mUnbondingInfo == null) {
                     history = mApiNewTxCustomHistory.get(position - 2);
@@ -929,7 +935,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
                 holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
                 holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.data.timestamp));
-                holder.history_block.setText(history.data.height + " block");
+                final Coin coin = history.getDpCoin();
+                if (coin != null) {
+                    holder.history_amount_symbol.setVisibility(View.VISIBLE);
+                    holder.history_amount.setVisibility(View.VISIBLE);
+                    WDp.showCoinDp(getBaseContext(), history.getDpCoin().denom, history.getDpCoin().amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
+                } else {
+                    holder.history_amount_symbol.setVisibility(View.GONE);
+                    holder.history_amount.setVisibility(View.GONE);
+                }
                 if (history.isSuccess()) {
                     holder.historySuccess.setVisibility(View.GONE);
                 } else {
@@ -954,6 +968,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 });
 
             } else {
+                final HistoryOldHolder holder = (HistoryOldHolder)viewHolder;
                 final ResApiTxList.Data tx;
                 if (mBondingInfo == null && mUnbondingInfo == null) {
                     tx = mApiTxHistory.get(position - 2);
@@ -1172,8 +1187,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         private void onBindApiHistoryGrpc(RecyclerView.ViewHolder viewHolder, int position) {
-            final HistoryHolder holder = (HistoryHolder) viewHolder;
             if (mBaseChain.equals(CRYPTO_MAIN)) {
+                final HistoryOldHolder holder = (HistoryOldHolder) viewHolder;
                 final ResApiTxListCustom history;
                 if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
                     history = mApiTxCustomHistory.get(position - 2);
@@ -1208,6 +1223,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 });
 
             } else {
+                final HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
                 final ResApiNewTxListCustom history;
                 if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
                     history = mApiNewTxCustomHistory.get(position - 2);
@@ -1217,7 +1233,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
                 holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
                 holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.data.timestamp));
-                holder.history_block.setText(history.data.height + " block");
+                final Coin coin = history.getDpCoin();
+                if (coin != null) {
+                    holder.history_amount_symbol.setVisibility(View.VISIBLE);
+                    holder.history_amount.setVisibility(View.VISIBLE);
+                    WDp.showCoinDp(getBaseContext(), history.getDpCoin().denom, history.getDpCoin().amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
+                } else {
+                    holder.history_amount_symbol.setVisibility(View.GONE);
+                    holder.history_amount.setVisibility(View.GONE);
+                }
                 if (history.isSuccess()) {
                     holder.historySuccess.setVisibility(View.GONE);
                 } else {
@@ -1431,18 +1455,34 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
         }
 
-        public class HistoryHolder extends RecyclerView.ViewHolder {
+        public class HistoryOldHolder extends RecyclerView.ViewHolder {
             private CardView historyRoot;
             private TextView historyType, historySuccess, history_time, history_block, history_time_gap;
 
-            public HistoryHolder(View v) {
+            public HistoryOldHolder(View v) {
                 super(v);
-                historyRoot         = itemView.findViewById(R.id.card_history);
-                historyType         = itemView.findViewById(R.id.history_type);
-                historySuccess      = itemView.findViewById(R.id.history_success);
-                history_time        = itemView.findViewById(R.id.history_time);
-                history_block       = itemView.findViewById(R.id.history_block_height);
-                history_time_gap    = itemView.findViewById(R.id.history_time_gap);
+                historyRoot             = itemView.findViewById(R.id.card_history);
+                historyType             = itemView.findViewById(R.id.history_type);
+                historySuccess          = itemView.findViewById(R.id.history_success);
+                history_time            = itemView.findViewById(R.id.history_time);
+                history_block           = itemView.findViewById(R.id.history_block_height);
+                history_time_gap        = itemView.findViewById(R.id.history_time_gap);
+            }
+        }
+
+        public class HistoryNewHolder extends RecyclerView.ViewHolder {
+            private CardView historyRoot;
+            private TextView historyType, historySuccess, history_time, history_amount, history_amount_symbol, history_time_gap;
+
+            public HistoryNewHolder(View v) {
+                super(v);
+                historyRoot                     = itemView.findViewById(R.id.card_history);
+                historyType                     = itemView.findViewById(R.id.history_type);
+                historySuccess                  = itemView.findViewById(R.id.history_success);
+                history_time                    = itemView.findViewById(R.id.history_time);
+                history_time_gap                = itemView.findViewById(R.id.history_time_gap);
+                history_amount                  = itemView.findViewById(R.id.history_amount);
+                history_amount_symbol           = itemView.findViewById(R.id.history_amount_symobl);
             }
         }
 
