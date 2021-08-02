@@ -720,6 +720,11 @@
 		28B785A926B3A7F1009F755F /* sifnode_clp_v1_querier.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7859726B3A7F0009F755F /* sifnode_clp_v1_querier.grpc.swift */; };
 		28B785AA26B3A7F1009F755F /* sifnode_ethbridge_v1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7859826B3A7F1009F755F /* sifnode_ethbridge_v1_tx.grpc.swift */; };
 		28B785AB26B3A7F1009F755F /* sifnode_clp_v1_querier.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B7859926B3A7F1009F755F /* sifnode_clp_v1_querier.pb.swift */; };
+		28B785AD26B3E7CA009F755F /* RizonSwapStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B785AC26B3E7CA009F755F /* RizonSwapStatus.swift */; };
+		28B785B126B79C70009F755F /* RizonSwapStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B785AF26B79C70009F755F /* RizonSwapStatusViewController.swift */; };
+		28B785B226B79C70009F755F /* RizonSwapStatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B785B026B79C70009F755F /* RizonSwapStatusViewController.xib */; };
+		28B785B626B7B084009F755F /* SwapStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B785B426B7B084009F755F /* SwapStatusCell.swift */; };
+		28B785B726B7B084009F755F /* SwapStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B785B526B7B084009F755F /* SwapStatusCell.xib */; };
 		28BB2A812533D9FB00CFF097 /* DomainPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2A7F2533D9FB00CFF097 /* DomainPromotionCell.swift */; };
 		28BB2A822533D9FB00CFF097 /* DomainPromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28BB2A802533D9FB00CFF097 /* DomainPromotionCell.xib */; };
 		28BB2A872533DA0B00CFF097 /* AccountPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2A852533DA0B00CFF097 /* AccountPromotionCell.swift */; };
@@ -1746,6 +1751,11 @@
 		28B7859726B3A7F0009F755F /* sifnode_clp_v1_querier.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_clp_v1_querier.grpc.swift; sourceTree = "<group>"; };
 		28B7859826B3A7F1009F755F /* sifnode_ethbridge_v1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_ethbridge_v1_tx.grpc.swift; sourceTree = "<group>"; };
 		28B7859926B3A7F1009F755F /* sifnode_clp_v1_querier.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sifnode_clp_v1_querier.pb.swift; sourceTree = "<group>"; };
+		28B785AC26B3E7CA009F755F /* RizonSwapStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RizonSwapStatus.swift; sourceTree = "<group>"; };
+		28B785AF26B79C70009F755F /* RizonSwapStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RizonSwapStatusViewController.swift; sourceTree = "<group>"; };
+		28B785B026B79C70009F755F /* RizonSwapStatusViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RizonSwapStatusViewController.xib; sourceTree = "<group>"; };
+		28B785B426B7B084009F755F /* SwapStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapStatusCell.swift; sourceTree = "<group>"; };
+		28B785B526B7B084009F755F /* SwapStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwapStatusCell.xib; sourceTree = "<group>"; };
 		28BB2A7F2533D9FB00CFF097 /* DomainPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainPromotionCell.swift; sourceTree = "<group>"; };
 		28BB2A802533D9FB00CFF097 /* DomainPromotionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainPromotionCell.xib; sourceTree = "<group>"; };
 		28BB2A852533DA0B00CFF097 /* AccountPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPromotionCell.swift; sourceTree = "<group>"; };
@@ -2859,6 +2869,24 @@
 			path = okex;
 			sourceTree = "<group>";
 		};
+		28B785AE26B79B16009F755F /* rizon */ = {
+			isa = PBXGroup;
+			children = (
+				28B785AF26B79C70009F755F /* RizonSwapStatusViewController.swift */,
+				28B785B026B79C70009F755F /* RizonSwapStatusViewController.xib */,
+			);
+			path = rizon;
+			sourceTree = "<group>";
+		};
+		28B785B326B7B05F009F755F /* rizon */ = {
+			isa = PBXGroup;
+			children = (
+				28B785B426B7B084009F755F /* SwapStatusCell.swift */,
+				28B785B526B7B084009F755F /* SwapStatusCell.xib */,
+			);
+			path = rizon;
+			sourceTree = "<group>";
+		};
 		28BB2A7E2533D92500CFF097 /* starname */ = {
 			isa = PBXGroup;
 			children = (
@@ -3223,8 +3251,9 @@
 		E1945E40222E7FB000A1436F /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				28E66703269940DA00BA2C68 /* osmosis */,
 				284291A6264BC2FF00130651 /* token */,
+				28B785AE26B79B16009F755F /* rizon */,
+				28E66703269940DA00BA2C68 /* osmosis */,
 				284FF3EF25A6EDF900505E7A /* okex */,
 				284D179D2535556800C364F9 /* kava */,
 				283439992531D0E100CCFADE /* starname */,
@@ -3349,6 +3378,7 @@
 				28A8401E2605A3D8008C2D61 /* NodeInfo.swift */,
 				2852EAF826821084003A5E74 /* SifIncentive.swift */,
 				0428ACFD268AD31700EB438F /* BandOracleStatus.swift */,
+				28B785AC26B3E7CA009F755F /* RizonSwapStatus.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3376,6 +3406,7 @@
 		E1A82DF12244EC1C0097CAEE /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				28B785B326B7B05F009F755F /* rizon */,
 				28D809BA26A177830030B1BE /* osmosis */,
 				282371C826147A0F008780FF /* walletdash */,
 				282371C7261479DA008780FF /* tokendetail */,
@@ -3567,6 +3598,7 @@
 				E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */,
 				282FF35E23F530ED0028CC66 /* TxEditRewardAddressCell.xib in Resources */,
 				28DB56F825FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.xib in Resources */,
+				28B785B226B79C70009F755F /* RizonSwapStatusViewController.xib in Resources */,
 				28474ED3241E06AF00AF5A81 /* TxCdpCreateCell.xib in Resources */,
 				28156EA02536DE29006FF06C /* HarvestDetailMyActionCell.xib in Resources */,
 				28C3F502269DC4FB00F4A58C /* TxGravityCreatePoolCell.xib in Resources */,
@@ -3701,6 +3733,7 @@
 				28D372AB254BFCE70071B136 /* RegisterAccount4ViewController.xib in Resources */,
 				E1C3C89923B1E27800A693C0 /* NotificationView.xib in Resources */,
 				282BDFEB24A5BCE000D3A5D4 /* WcTransferPopup.xib in Resources */,
+				28B785B726B7B084009F755F /* SwapStatusCell.xib in Resources */,
 				280E1F03254A9B6B0007BA7D /* RenewStarname0ViewController.xib in Resources */,
 				E1FD233D233E1C44009327FE /* WalletGuideCell.xib in Resources */,
 				2845D885246FAEED007CD497 /* VoteTallyTableViewCell.xib in Resources */,
@@ -4059,6 +4092,7 @@
 				289EF81926824E4700F90AC1 /* osmosis_lockup_query.grpc.swift in Sources */,
 				285F8C8E25CFB27D00317B30 /* OkTickerList.swift in Sources */,
 				287AC65B25FDF7260070837E /* akash_market_v1beta1_genesis.pb.swift in Sources */,
+				28B785AD26B3E7CA009F755F /* RizonSwapStatus.swift in Sources */,
 				2842AB72242C7C8A00248EEB /* CdpListAllCell.swift in Sources */,
 				283D2EA824F5388C00247424 /* OkAccountToken.swift in Sources */,
 				287AC59725FDF7250070837E /* cosmos_bank_v1beta1_bank.pb.swift in Sources */,
@@ -4188,6 +4222,7 @@
 				28B785A326B3A7F1009F755F /* sifnode_ethbridge_v1_query.grpc.swift in Sources */,
 				282BDFE224A5992500D3A5D4 /* WcTradePopup.swift in Sources */,
 				28D7BE0A25F0BCF0006EECD7 /* DebtParam.swift in Sources */,
+				28B785B126B79C70009F755F /* RizonSwapStatusViewController.swift in Sources */,
 				28D7BE1025F0CE61006EECD7 /* MyCdp.swift in Sources */,
 				287D746526A52B9C00532E01 /* JoinPool3ViewController.swift in Sources */,
 				287AC61C25FDF7260070837E /* cosmos_tx_v1beta1_service.pb.swift in Sources */,
@@ -4280,6 +4315,7 @@
 				28E746B725AD76ED004B2C64 /* OkPromotionCell.swift in Sources */,
 				287AC59C25FDF7250070837E /* cosmos_crypto_ed25519_keys.pb.swift in Sources */,
 				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,
+				28B785B626B7B084009F755F /* SwapStatusCell.swift in Sources */,
 				E14BDFFE224CF0250007DD7D /* RestorePathViewController.swift in Sources */,
 				287AC5C625FDF7250070837E /* guardian_genesis.pb.swift in Sources */,
 				E1FD2338233E1C30009327FE /* WalletInflationCell.swift in Sources */,

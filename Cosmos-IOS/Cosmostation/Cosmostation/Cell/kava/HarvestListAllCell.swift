@@ -21,8 +21,6 @@ class HarvestListAllCell: UITableViewCell {
     @IBOutlet weak var myBorrowedDenom: UILabel!
     @IBOutlet weak var myBorrowedValue: UILabel!
     
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -30,5 +28,4 @@ class HarvestListAllCell: UITableViewCell {
         mySuppliedAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         myBorrowedAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
-    
 }
