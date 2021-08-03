@@ -696,6 +696,12 @@
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
+    <style name="font_ssm_17_osmosis" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorOsmosis</item>
+        <item name="android:textSize">@dimen/text_size_17</item>
+    </style>
+
 
 
     <style name="font_ss_21_white" parent="@android:style/TextAppearance">

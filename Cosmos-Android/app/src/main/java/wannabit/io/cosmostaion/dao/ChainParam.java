@@ -199,11 +199,10 @@ public class ChainParam {
                 return new BigDecimal(govTallyings.quorum).movePointRight(2);
             }
         }
+
+        public boolean isPoolEnabled(long id) { return mEnabledPools.contains(Integer.parseInt(""+id)); }
     }
 
-    public boolean isPoolEnabled(int id) {
-        return params.mEnabledPools.contains(id);
-    }
 
 
 

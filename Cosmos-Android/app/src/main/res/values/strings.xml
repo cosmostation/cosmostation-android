@@ -1383,6 +1383,27 @@
     <string name="str_token_swap">Token Swap</string>
     <string name="str_token_id">ID</string>
     <string name="str_token_swap_time">Time</string>
+    <string name="str_token_swap_input_coin">Input Coin</string>
+    <string name="str_token_swap_output_coin">Output Coin</string>
+    <string name="str_token_swap_rate_coin">Rate</string>
+    <string name="str_token_swap_fee">Swap Fee</string>
+    <string name="str_token_swap_start">START SWAP</string>
+    <string name="str_select_coin_swap_in">Select Coin to Swap In</string>
+    <string name="str_select_coin_swap_out">Select Coin to Swap Out</string>
+    <string name="str_pool_total_liquidity_value">Total Liquidity Value</string>
+    <string name="str_pool_total_liquidity_amount">Total Liquidity Amount</string>
+    <string name="str_pool_my_liquidity_available_amount">My LP Available Amount</string>
+    <string name="str_pool_my_liquidity_withdrawable_amount">My Withdrawable Amount</string>
+    <string name="str_title_pool_join_osmosis">Deposit to Pool</string>
+    <string name="str_osmosis_join_pool_step_0">Insert amount to deposit</string>
+    <string name="str_osmosis_join_pool_step_1">Insert memo (optional)</string>
+    <string name="str_osmosis_join_pool_step_2">Select transaction fee</string>
+    <string name="str_osmosis_join_pool_step_3">Check transaction detail</string>
+    <string name="str_title_pool_exit_osmosis">Withdraw from Pool</string>
+    <string name="str_osmosis_exit_pool_step_0">Insert amount to withdraw</string>
+    <string name="str_osmosis_exit_pool_step_1">Insert memo (optional)</string>
+    <string name="str_osmosis_exit_pool_step_2">Select transaction fee</string>
+    <string name="str_osmosis_exit_pool_step_3">Check transaction detail</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

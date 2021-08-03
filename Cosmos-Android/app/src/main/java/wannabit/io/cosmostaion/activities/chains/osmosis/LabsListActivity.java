@@ -4,6 +4,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -11,17 +14,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
+
+import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListFarmingFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListSwapFragment;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolListTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
 
 public class LabsListActivity extends BaseActivity implements TaskListener {
 
@@ -29,6 +41,10 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     private ViewPager mLabPager;
     private TabLayout mLabTapLayer;
     private OsmoLabPageAdapter mPageAdapter;
+
+    public ArrayList<PoolOuterClass.Pool>       mSwapablePools = new ArrayList<>();
+    public ArrayList<String>                    mSwapableDenoms = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +97,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
             }
         });
+        onFetch();
     }
 
     @Override
@@ -94,14 +111,64 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         }
     }
 
+    public void onStartSwap() {
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+//        Intent intent = new Intent(LabsListActivity.this, JoinPoolActivity.class);
+//        startActivity(intent);
+    }
+
+    public void onFetch() {
+        mTaskCount = 1;
+        getBaseDao().mPoolList.clear();
+        getBaseDao().mPoolMyList.clear();
+        new OsmosisGrpcPoolListTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+    }
+
     @Override
     public void onTaskResponse(TaskResult result) {
+        mTaskCount--;
+        if (isFinishing()) return;
+        if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
+            if (result.isSuccess && result.resultData != null) {
+                final ArrayList<PoolOuterClass.Pool> tempPoolList = (ArrayList<PoolOuterClass.Pool>)result.resultData;
+                for (PoolOuterClass.Pool pool: tempPoolList) {
+                    if (getBaseDao().mChainParam.isPoolEnabled(pool.getId())) {
+                        getBaseDao().mPoolList.add(pool);
+                        for (PoolOuterClass.Pool swap: getBaseDao().mPoolList) {
+                            for (PoolOuterClass.PoolAsset poolAsset: swap.getPoolAssetsList()) {
+                                if (!getBaseDao().mAllDenoms.contains(poolAsset.getToken().getDenom())) {
+                                    getBaseDao().mAllDenoms.add(poolAsset.getToken().getDenom());
+                                }
+                            }
+                        }
+
+                        if (getBaseDao().getAvailable("gamm/pool/" + pool.getId()) != BigDecimal.ZERO) {
+                            getBaseDao().mPoolMyList.add(pool);
+                        } else {
+                            getBaseDao().mPoolOtherList.add(pool);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (mTaskCount == 0) {
+            mPageAdapter.mCurrentFragment.onRefreshTab();
+        }
         super.onTaskResponse(result);
     }
 
     private class OsmoLabPageAdapter extends FragmentPagerAdapter {
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
+
         public OsmoLabPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();

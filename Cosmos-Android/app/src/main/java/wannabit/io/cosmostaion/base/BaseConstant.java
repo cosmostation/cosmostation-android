@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -209,6 +209,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_STARNAME_DOMAIN             = 4104;
     public final static int TASK_GRPC_FETCH_STARNAME_RESOLVE            = 4105;
     public final static int TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO        = 4106;
+
+    public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_LIST           = 4200;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;

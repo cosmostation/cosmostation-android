@@ -26,6 +26,7 @@ import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
 import oracle.v1.Oracle;
+import osmosis.gamm.v1beta1.PoolOuterClass;
 import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.crypto.EncResult;
@@ -134,6 +135,15 @@ public class BaseData {
         return null;
     }
 
+    public String getBaseDenom(String denom) {
+        if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                return ibcToken.base_denom;
+            }
+        }
+        return denom;
+    }
 
     //COMMON DATA
     public NodeInfo                     mNodeInfo;
@@ -369,6 +379,12 @@ public class BaseData {
     //COMMON DATA FOR STARNAME
     public starnamed.x.configuration.v1beta1.Types.Fees         mGrpcStarNameFee;
     public starnamed.x.configuration.v1beta1.Types.Config       mGrpcStarNameConfig;
+
+    //COMMON DATA FOR OSMOSIS
+    public ArrayList<PoolOuterClass.Pool>                       mPoolList = new ArrayList<>();
+    public ArrayList<String>                                    mAllDenoms = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>                       mPoolMyList = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>                       mPoolOtherList = new ArrayList<>();
 
     //gRPC funcs
     public String getChainIdGrpc() {

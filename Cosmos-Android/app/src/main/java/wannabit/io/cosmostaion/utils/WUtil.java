@@ -1630,6 +1630,39 @@ public class WUtil {
         return 18;
     }
 
+    public static String getOsmosisTokenName(String denom) {
+        if (denom.equals(TOKEN_OSMOSIS)) {
+            return "OSMO";
+
+        } else if (denom.equals(TOKEN_ION)) {
+            return "ION";
+
+        } else if (denom.startsWith("gamm/pool/")) {
+            String[] split = denom.split("/");
+            return "GAMM-" + split[split.length - 1];
+
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                return ibcToken.display_denom.toUpperCase();
+            } else {
+                return "UnKnown";
+            }
+        }
+        return denom;
+    }
+
+    public static int getOsmosisCoinDecimal(String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { return 6; }
+        else if (denom.equalsIgnoreCase(TOKEN_ION)) { return 6; }
+        else if (denom.startsWith("gamm/pool/")) { return 18; }
+        else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) { return ibcToken.decimal; }
+        }
+        return 6;
+    }
+
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
         if (all == null) return null;
         for (BnbToken token:all) {
