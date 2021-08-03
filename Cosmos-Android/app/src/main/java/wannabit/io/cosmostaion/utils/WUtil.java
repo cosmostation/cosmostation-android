@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -13,6 +15,7 @@ import com.google.gson.GsonBuilder;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
 import com.google.zxing.common.BitMatrix;
+import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -1652,6 +1655,32 @@ public class WUtil {
         return denom;
     }
 
+    public static String getOsmosisTokenName(Context c, TextView textView, String denom) {
+        if (denom.equals(TOKEN_OSMOSIS)) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorOsmosis));
+            textView.setText("OSMO");
+
+        } else if (denom.equals(TOKEN_ION)) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorIon));
+            textView.setText("ION");
+
+        } else if (denom.startsWith("gamm/pool/")) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            String[] split = denom.split("/");
+            textView.setText("GAMM-" + split[split.length - 1]);
+
+        } else if (denom.startsWith("ibc/")) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                textView.setText(ibcToken.display_denom.toUpperCase());
+            } else {
+                textView.setText("UnKnown");
+            }
+        }
+        return denom;
+    }
+
     public static int getOsmosisCoinDecimal(String denom) {
         if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { return 6; }
         else if (denom.equalsIgnoreCase(TOKEN_ION)) { return 6; }
@@ -1661,6 +1690,22 @@ public class WUtil {
             if (ibcToken.auth == true) { return ibcToken.decimal; }
         }
         return 6;
+    }
+
+    public static void DpOsmosisTokenImg(ImageView imageView, String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+            Picasso.get().cancelRequest(imageView);
+            imageView.setImageResource(R.drawable.token_osmosis);
+        } else if (denom.equalsIgnoreCase(TOKEN_ION)) {
+            imageView.setImageResource(R.drawable.token_ion);
+        } else if (denom.startsWith("gamm/pool/")) {
+            imageView.setImageResource(R.drawable.token_pool);
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            try {
+                Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+            } catch (Exception e){}
+        }
     }
 
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
@@ -2336,6 +2381,8 @@ public class WUtil {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
+            } else if (txType == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
+                return new BigDecimal(OSMOSIS_GAS_AMOUNT_POOL);
             }
 
         } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {

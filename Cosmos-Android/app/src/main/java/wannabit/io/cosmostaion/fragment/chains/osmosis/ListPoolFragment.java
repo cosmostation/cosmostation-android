@@ -5,35 +5,46 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.JoinPoolActivity;
 import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.PoolMyHolder;
 import wannabit.io.cosmostaion.widget.PoolOtherHolder;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
 
 public class ListPoolFragment extends BaseFragment {
     private RecyclerView        mRecyclerView;
 
     private Account             mAccount;
+    private BaseChain           mBaseChain;
     private PoolListAdapter     mAdapter;
 
     public ArrayList<PoolOuterClass.Pool>       mPoolMyList = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>       mPoolOtherList = new ArrayList<>();
+
+    private String      coin0Denom;
+    private String      coin1Denom;
 
 
     public static ListPoolFragment newInstance(Bundle bundle) {
@@ -58,6 +69,7 @@ public class ListPoolFragment extends BaseFragment {
         mRecyclerView.setAdapter(mAdapter);
 
         mAccount = getSActivity().mAccount;
+        mBaseChain = getSActivity().mBaseChain;
 
         return rootView;
     }
@@ -69,15 +81,37 @@ public class ListPoolFragment extends BaseFragment {
         mAdapter.notifyDataSetChanged();
     }
 
-    public void onCheckStartJoinPool() {
+    public void onCheckStartJoinPool(PoolOuterClass.Pool pool) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
             getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), mBaseChain, CONST_PW_TX_OSMOSIS_JOIN_POOL, 0);
+        coin0Denom = pool.getPoolAssets(0).getToken().getDenom();
+        coin1Denom = pool.getPoolAssets(1).getToken().getDenom();
+        BigDecimal coin0Available = getBaseDao().getAvailable(coin0Denom);
+        BigDecimal coin1Available = getBaseDao().getAvailable(coin1Denom);
+
+        if (coin0Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+            coin0Available = coin0Available.subtract(feeAmount);
+        }
+
+        if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
+            coin1Available = coin1Available.subtract(feeAmount);
+        }
+
+        if (coin0Available.compareTo(BigDecimal.ZERO) <= 0 || coin1Available.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getContext(), R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Intent intent = new Intent(getContext(), JoinPoolActivity.class);
+        intent.putExtra("mType", CONST_PW_TX_OSMOSIS_JOIN_POOL);
+        intent.putExtra("mPoolId", pool.getId());
+        intent.putExtra("coin0Denom", coin0Denom);
+        intent.putExtra("coin1Denom", coin1Denom);
         startActivity(intent);
     }
 

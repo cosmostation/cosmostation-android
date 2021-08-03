@@ -55,7 +55,6 @@ public class JoinPoolActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-//        mTxType = CONST_PW_TX_CLAIM_HARVEST_REWARD;
 
         mPageAdapter = new JoinPoolPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);

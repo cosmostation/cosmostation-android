@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ListSwapFragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_INPUT_CHAIN = 8500;
@@ -29,6 +30,9 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     private TextView mInputCoin;
     private TextView mSwapPoolId, mSwapInputCoinAmount, mSwapInputCoinSymbol, mSwapOutputCoinAmount, mSwapOutputCoinSymbol, mSwapFee;
     private Button mBtnSwapStart;
+
+    private ImageView mOutputImg;
+    private TextView mOutputCoin;
 
     public ArrayList<PoolOuterClass.Pool>       mPoolList = new ArrayList<>();
     public ArrayList<String>                    mAllDenoms = new ArrayList<>();
@@ -52,6 +56,8 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
 
         mInputImg                   = rootView.findViewById(R.id.img_input_coin);
         mInputCoin                  = rootView.findViewById(R.id.txt_input_coin);
+        mOutputImg                  = rootView.findViewById(R.id.img_output_coin);
+        mOutputCoin                  = rootView.findViewById(R.id.txt_output_coin);
 
         mSwapPoolId                 = rootView.findViewById(R.id.str_token_swap_pool_id);
         mSwapInputCoinAmount        = rootView.findViewById(R.id.token_swap_input_coin_amount);
@@ -65,13 +71,20 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         mBtnOutputCoinList.setOnClickListener(this);
         mBtnSwapStart.setOnClickListener(this);
 
+        onUpdateView();
+
         return rootView;
+
     }
 
     @Override
     public void onRefreshTab() {
         mPoolList = getBaseDao().mPoolList;
         mAllDenoms = getBaseDao().mAllDenoms;
+    }
+
+    private void onUpdateView() {
+        mInputCoin.setText("OSMO");
     }
 
     @Override

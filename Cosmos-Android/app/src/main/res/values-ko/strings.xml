@@ -1280,6 +1280,7 @@
     <string name="error_no_address_export">연결할 주소가 없습니다.</string>
     <string name="error_remain_borrow_small">상환 후 남는 대출 금액이 $10 이하입니다.</string>
     <string name="error_waste_fee">Tx 수수료가 아자금액 보다 높습니다.</string>
+    <string name="error_not_enough_to_pool">예금 할 수량이 충분하지 않습니다.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>

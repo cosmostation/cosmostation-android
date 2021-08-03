@@ -399,6 +399,8 @@ public class BaseConstant {
     public final static int CONST_PW_TX_CLAIM_HARVEST_REWARD                = 5033;
     public final static int CONST_PW_TX_BORROW_HARD                         = 5034;
     public final static int CONST_PW_TX_REPAY_HARD                          = 5035;
+    public final static int CONST_PW_TX_OSMOSIS_JOIN_POOL                   = 5036;
+    public final static int CONST_PW_TX_OSMOSIS_EXIT_POOL                   = 5036;
 
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
@@ -653,13 +655,14 @@ public class BaseConstant {
     public final static String CRYPTO_GAS_RATE_LOW                      = "0.05";
     public final static String CRYPTO_GAS_RATE_AVERAGE                  = "0.075";
 
+    public final static String OSMOSIS_GAS_AMOUNT_POOL                  = "400000";
     public final static String OSMOSIS_GAS_RATE_TINY                    = "0.000";
     public final static String OSMOSIS_GAS_RATE_LOW                     = "0.0025";
     public final static String OSMOSIS_GAS_RATE_AVERAGE                 = "0.025";
 
     public final static String SIF_GAS_RATE_TINY                        = "0.50";
     public final static String SIF_GAS_RATE_LOW                         = "0.50";
-    public final static String SIF_GAS_RATE_AVERAGE                 = "0.50";
+    public final static String SIF_GAS_RATE_AVERAGE                     = "0.50";
 
     public final static String BAND_GAS_RATE_TINY                       = "0.000";
     public final static String BAND_GAS_RATE_LOW                        = "0.0025";

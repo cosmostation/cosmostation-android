@@ -2,12 +2,14 @@ package wannabit.io.cosmostaion.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.ListFragment;
 
 import com.google.protobuf.StringValue;
 import com.squareup.picasso.Picasso;
@@ -15,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
@@ -22,6 +25,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.dialog.Dialog_Pool_Osmosis;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListPoolFragment;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
@@ -93,6 +98,16 @@ public class PoolMyHolder extends BaseHolder {
 
         WDp.showCoinDp(context, withdrawableCoin0, itemMyWithdrawableSymbol1, itemMyWithdrawableAmount1, BaseChain.OSMOSIS_MAIN);
         WDp.showCoinDp(context, withdrawableCoin1, itemMyWithdrawableSymbol2, itemMyWithdrawableAmount2, BaseChain.OSMOSIS_MAIN);
+
+        itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                Dialog_Pool_Osmosis add = Dialog_Pool_Osmosis.newInstance(bundle);
+                add.setCancelable(true);
+                fragment.getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            }
+        });
 
     }
 }

@@ -42,10 +42,6 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     private TabLayout mLabTapLayer;
     private OsmoLabPageAdapter mPageAdapter;
 
-    public ArrayList<PoolOuterClass.Pool>       mSwapablePools = new ArrayList<>();
-    public ArrayList<String>                    mSwapableDenoms = new ArrayList<>();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,11 +120,11 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     }
 
     public void onFetch() {
+        onShowWaitDialog();
         mTaskCount = 1;
         getBaseDao().mPoolList.clear();
         getBaseDao().mPoolMyList.clear();
         new OsmosisGrpcPoolListTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
     }
 
     @Override
@@ -160,6 +156,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         }
 
         if (mTaskCount == 0) {
+            onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
         super.onTaskResponse(result);
