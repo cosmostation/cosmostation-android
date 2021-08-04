@@ -433,6 +433,8 @@
 "str_osmosis_exit_pool_step_1" = "Insert memo (optional)";
 "str_osmosis_exit_pool_step_2" = "Select transaction fee";
 "str_osmosis_exit_pool_step_3" = "Check transaction detail";
+"str_rizon_swap_step_0" = "Insert mnemonic for Hdac";
+"str_rizon_swap_step_1" = "Check transaction detail";
 
 "str_description_open_domain" = "Open type in which an account owner is the only entity that can perform actions on the account.";
 "str_description_closed_domain" = "Closed type in which the domain owner has control over accounts too.";
@@ -537,6 +539,7 @@ support@cosmostation.io";
 "title_pool_join_osmosis" = "Deposit to Pool";
 "title_pool_exit_osmosis" = "Withdraw from Pool";
 "title_rizon_swap_status" = "Event Horizon Status";
+"title_rizon_swap" = "Event Horizon";
 
 
 "proposal_type_basic" = "Basic";

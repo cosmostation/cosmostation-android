@@ -174,6 +174,8 @@
 		283850212448A6B000E5DEF2 /* TxHtlcClaimCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2838501F2448A6B000E5DEF2 /* TxHtlcClaimCell.xib */; };
 		283850242448A6C600E5DEF2 /* TxHtlcRefundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283850222448A6C600E5DEF2 /* TxHtlcRefundCell.swift */; };
 		283850252448A6C600E5DEF2 /* TxHtlcRefundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283850232448A6C600E5DEF2 /* TxHtlcRefundCell.xib */; };
+		28393B8326B9023D00DF2F88 /* HdacBalancePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28393B8126B9023D00DF2F88 /* HdacBalancePopup.swift */; };
+		28393B8426B9023D00DF2F88 /* HdacBalancePopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28393B8226B9023D00DF2F88 /* HdacBalancePopup.xib */; };
 		2839C1FD26A2A47C00638EBC /* Swap3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2839C1FB26A2A47C00638EBC /* Swap3ViewController.swift */; };
 		2839C1FE26A2A47C00638EBC /* Swap3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2839C1FC26A2A47C00638EBC /* Swap3ViewController.xib */; };
 		283A80C324513F6F008FF813 /* CdpListAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283A80C524513F6F008FF813 /* CdpListAllCell.xib */; };
@@ -725,6 +727,10 @@
 		28B785B226B79C70009F755F /* RizonSwapStatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B785B026B79C70009F755F /* RizonSwapStatusViewController.xib */; };
 		28B785B626B7B084009F755F /* SwapStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B785B426B7B084009F755F /* SwapStatusCell.swift */; };
 		28B785B726B7B084009F755F /* SwapStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B785B526B7B084009F755F /* SwapStatusCell.xib */; };
+		28B785BB26B808CE009F755F /* StepEventHorizon0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B785B926B808CE009F755F /* StepEventHorizon0ViewController.swift */; };
+		28B785BC26B808CE009F755F /* StepEventHorizon0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B785BA26B808CE009F755F /* StepEventHorizon0ViewController.xib */; };
+		28B785BF26B808DB009F755F /* StepEventHorizon1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B785BD26B808DB009F755F /* StepEventHorizon1ViewController.swift */; };
+		28B785C026B808DC009F755F /* StepEventHorizon1ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B785BE26B808DB009F755F /* StepEventHorizon1ViewController.xib */; };
 		28BB2A812533D9FB00CFF097 /* DomainPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2A7F2533D9FB00CFF097 /* DomainPromotionCell.swift */; };
 		28BB2A822533D9FB00CFF097 /* DomainPromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28BB2A802533D9FB00CFF097 /* DomainPromotionCell.xib */; };
 		28BB2A872533DA0B00CFF097 /* AccountPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2A852533DA0B00CFF097 /* AccountPromotionCell.swift */; };
@@ -1192,6 +1198,8 @@
 		2838501F2448A6B000E5DEF2 /* TxHtlcClaimCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxHtlcClaimCell.xib; sourceTree = "<group>"; };
 		283850222448A6C600E5DEF2 /* TxHtlcRefundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxHtlcRefundCell.swift; sourceTree = "<group>"; };
 		283850232448A6C600E5DEF2 /* TxHtlcRefundCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxHtlcRefundCell.xib; sourceTree = "<group>"; };
+		28393B8126B9023D00DF2F88 /* HdacBalancePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HdacBalancePopup.swift; sourceTree = "<group>"; };
+		28393B8226B9023D00DF2F88 /* HdacBalancePopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HdacBalancePopup.xib; sourceTree = "<group>"; };
 		2839C1FB26A2A47C00638EBC /* Swap3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swap3ViewController.swift; sourceTree = "<group>"; };
 		2839C1FC26A2A47C00638EBC /* Swap3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Swap3ViewController.xib; sourceTree = "<group>"; };
 		283A80C424513F6F008FF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CdpListAllCell.xib; sourceTree = "<group>"; };
@@ -1756,6 +1764,10 @@
 		28B785B026B79C70009F755F /* RizonSwapStatusViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RizonSwapStatusViewController.xib; sourceTree = "<group>"; };
 		28B785B426B7B084009F755F /* SwapStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapStatusCell.swift; sourceTree = "<group>"; };
 		28B785B526B7B084009F755F /* SwapStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwapStatusCell.xib; sourceTree = "<group>"; };
+		28B785B926B808CE009F755F /* StepEventHorizon0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepEventHorizon0ViewController.swift; sourceTree = "<group>"; };
+		28B785BA26B808CE009F755F /* StepEventHorizon0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepEventHorizon0ViewController.xib; sourceTree = "<group>"; };
+		28B785BD26B808DB009F755F /* StepEventHorizon1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepEventHorizon1ViewController.swift; sourceTree = "<group>"; };
+		28B785BE26B808DB009F755F /* StepEventHorizon1ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepEventHorizon1ViewController.xib; sourceTree = "<group>"; };
 		28BB2A7F2533D9FB00CFF097 /* DomainPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainPromotionCell.swift; sourceTree = "<group>"; };
 		28BB2A802533D9FB00CFF097 /* DomainPromotionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainPromotionCell.xib; sourceTree = "<group>"; };
 		28BB2A852533DA0B00CFF097 /* AccountPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPromotionCell.swift; sourceTree = "<group>"; };
@@ -2852,6 +2864,8 @@
 				282BDFE924A5BCE000D3A5D4 /* WcTransferPopup.xib */,
 				28B3251D2637F80500275AED /* MemoMnemonicPopup.swift */,
 				28B325242637FDDD00275AED /* MemoMnemonicPopup.xib */,
+				28393B8126B9023D00DF2F88 /* HdacBalancePopup.swift */,
+				28393B8226B9023D00DF2F88 /* HdacBalancePopup.xib */,
 			);
 			path = PopUp;
 			sourceTree = "<group>";
@@ -2883,6 +2897,17 @@
 			children = (
 				28B785B426B7B084009F755F /* SwapStatusCell.swift */,
 				28B785B526B7B084009F755F /* SwapStatusCell.xib */,
+			);
+			path = rizon;
+			sourceTree = "<group>";
+		};
+		28B785B826B8089A009F755F /* rizon */ = {
+			isa = PBXGroup;
+			children = (
+				28B785B926B808CE009F755F /* StepEventHorizon0ViewController.swift */,
+				28B785BA26B808CE009F755F /* StepEventHorizon0ViewController.xib */,
+				28B785BD26B808DB009F755F /* StepEventHorizon1ViewController.swift */,
+				28B785BE26B808DB009F755F /* StepEventHorizon1ViewController.xib */,
 			);
 			path = rizon;
 			sourceTree = "<group>";
@@ -3109,6 +3134,7 @@
 		E171A067225AF71800C5756C /* GenTx */ = {
 			isa = PBXGroup;
 			children = (
+				28B785B826B8089A009F755F /* rizon */,
 				28E0458F269B520E0022A366 /* osmosis */,
 				28DB56EF25FA3B1B00B2F0E5 /* kava */,
 				2870EBC325ABEC5B00AF4590 /* okex */,
@@ -3682,6 +3708,7 @@
 				28B4303A24F7996C00BD7BB2 /* TxOkStakeCell.xib in Resources */,
 				283A80E124514BD0008FF813 /* CdpDetailViewController.xib in Resources */,
 				2889FD78260337AD00CA9896 /* TxHardRepayCell.xib in Resources */,
+				28B785BC26B808CE009F755F /* StepEventHorizon0ViewController.xib in Resources */,
 				04CFBD4E2692274B0013150B /* TxIbcReceiveCell.xib in Resources */,
 				2838501D2448A69D00E5DEF2 /* TxHtlcCreateCell.xib in Resources */,
 				28DB56EC25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib in Resources */,
@@ -3726,6 +3753,7 @@
 				280E1F17254ABB080007BA7D /* ResourceAddCell.xib in Resources */,
 				28474ECC241E06AF00AF5A81 /* TxCdpBorrowCell.xib in Resources */,
 				E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */,
+				28B785C026B808DC009F755F /* StepEventHorizon1ViewController.xib in Resources */,
 				282FF35623F518E00028CC66 /* TxMultiTransferCell.xib in Resources */,
 				28E667052699448F00BA2C68 /* Osmosis.storyboard in Resources */,
 				E1CF42F123598AFE00907F45 /* ManageChainCell.xib in Resources */,
@@ -3759,6 +3787,7 @@
 				28060E7825427F2C00F13510 /* EventStakeDropCell.xib in Resources */,
 				283E94872549333B007A9291 /* AccountDetailViewController.xib in Resources */,
 				E103DAAF22812773006C2146 /* ValidatorDetailHistoryEmpty.xib in Resources */,
+				28393B8426B9023D00DF2F88 /* HdacBalancePopup.xib in Resources */,
 				E103DAD3228143D0006C2146 /* WalletCheckViewController.xib in Resources */,
 				04CFBD5A269301660013150B /* TxLockTokenCell.xib in Resources */,
 				E1271B04224B17230083AF17 /* Localizable.strings in Resources */,
@@ -3909,6 +3938,7 @@
 				28B7857626B3A7E4009F755F /* panacea_burn_v2_query.pb.swift in Sources */,
 				287AC63325FDF7260070837E /* ibc_core_channel_v1_channel.pb.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
+				28B785BB26B808CE009F755F /* StepEventHorizon0ViewController.swift in Sources */,
 				287AC62725FDF7260070837E /* cosmos_tx_v1beta1_service.grpc.swift in Sources */,
 				28156E7F25360B70006FF06C /* HarvestListAllCell.swift in Sources */,
 				28B7858326B3A7E4009F755F /* panacea_aol_v2_owner.pb.swift in Sources */,
@@ -4075,6 +4105,7 @@
 				287AC5BC25FDF7250070837E /* tendermint_crypto_proof.pb.swift in Sources */,
 				283E9468254902D4007A9291 /* TxRegisterAccountCell.swift in Sources */,
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,
+				28393B8326B9023D00DF2F88 /* HdacBalancePopup.swift in Sources */,
 				285A33D12446CDAB0052BD3D /* StepHtlcSend2ViewController.swift in Sources */,
 				284FF3C225A6C13E00505E7A /* OkAccountInfo.swift in Sources */,
 				2845D884246FAEED007CD497 /* VoteTallyTableViewCell.swift in Sources */,
@@ -4461,6 +4492,7 @@
 				2838501C2448A69D00E5DEF2 /* TxHtlcCreateCell.swift in Sources */,
 				287AC5FD25FDF7260070837E /* ibc_lightclients_tendermint_v1_tendermint.pb.swift in Sources */,
 				28B7859B26B3A7F1009F755F /* sifnode_clp_v1_tx.pb.swift in Sources */,
+				28B785BF26B808DB009F755F /* StepEventHorizon1ViewController.swift in Sources */,
 				0497587D2685AA270039872C /* iov_starname_v1beta1_tx.pb.swift in Sources */,
 				046E9041268C4863002CFFE1 /* BinanceInt+VarInt.swift in Sources */,
 				28D809BD26A177A30030B1BE /* PoolCell.swift in Sources */,

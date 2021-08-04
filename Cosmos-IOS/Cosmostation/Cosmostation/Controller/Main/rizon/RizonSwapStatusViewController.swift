@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import AlamofireImage
 
 class RizonSwapStatusViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     

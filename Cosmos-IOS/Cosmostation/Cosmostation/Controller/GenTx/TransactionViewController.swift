@@ -241,6 +241,13 @@ class TransactionViewController: UIViewController {
             
         }
         
+        else if (mType == TASK_RIZON_EVENT_HORIZON) {
+            stepDescription.text = NSLocalizedString("str_rizon_swap_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "2step1")
+            self.titleLabel.text =  NSLocalizedString("title_rizon_swap", comment: "")
+            
+        }
+        
         self.titleLabel.adjustsFontSizeToFitWidth = true
         self.titleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:))))
         self.stepView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:))))
@@ -442,6 +449,12 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                 }
                 
+                else if (mType == TASK_RIZON_EVENT_HORIZON) {
+                    stepDescription.text = NSLocalizedString("str_rizon_swap_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "2step1")
+                    
+                }
+                
                 
             } else if (step == 1) {
                 if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
@@ -583,6 +596,12 @@ class TransactionViewController: UIViewController {
                 } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
                     stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_1", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg2")
+                }
+                
+                else if (mType == TASK_RIZON_EVENT_HORIZON) {
+                    stepDescription.text = NSLocalizedString("str_rizon_swap_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "2step2")
+                    
                 }
                 
                 

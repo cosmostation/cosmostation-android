@@ -342,6 +342,9 @@ let OSMOSIS_MSG_TYPE_JOIN_POOL              = "osmosis/MsgJoinPool";
 let OSMOSIS_MSG_TYPE_EXIT_POOL              = "osmosis/MsgExitPool";
 
 
+let TASK_RIZON_EVENT_HORIZON                = "rizon_swap";
+
+
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
 let PASSWORD_ACTION_SIMPLE_CHECK            = "ACTION_SIMPLE_CHECK"
 let PASSWORD_ACTION_DELETE_ACCOUNT          = "ACTION_DELETE_ACCOUNT"

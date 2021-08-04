@@ -899,6 +899,20 @@ class BaseNetWork {
         return ""
     }
     
+    static func hdacBalance(_ chain: ChainType?, _ address: String) -> String {
+        if (chain == ChainType.RIZON_TEST) {
+            return HDAC_TESTNET + "addr/" + address + "/utxo"
+        }
+        return ""
+    }
+    
+    static func hdacBroadcast(_ chain: ChainType?) -> String {
+        if (chain == ChainType.RIZON_TEST) {
+            return HDAC_TESTNET + "tx/send"
+        }
+        return ""
+    }
+    
     
     
     static func accountHistory(_ chain: ChainType, _ address: String) -> String {

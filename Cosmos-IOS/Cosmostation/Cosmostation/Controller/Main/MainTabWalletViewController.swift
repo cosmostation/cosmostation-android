@@ -1354,10 +1354,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickRizonSwap() {
-//        if (!mainTabVC.mAccount.account_has_private) {
-//            self.onShowAddMenomicDialog()
-//            return
-//        }
+        if (!mainTabVC.mAccount.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
         let rizonSwapAlert = UIAlertController(title: "Event Horizon", message: NSLocalizedString("str_rizon_swap_alert_msg", comment: ""), preferredStyle: .alert)
         rizonSwapAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default))
         rizonSwapAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
@@ -1371,35 +1371,41 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onCheckSwapStatus(_ address: String) {
 //        print("onCheckSwapStatus ", BaseNetWork.rizonSwapStatus(chainType, address))
-        self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.rizonSwapStatus(chainType, address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                var swapInfos = Array<RizonSwapStatus>()
-                if let rawSwapInfos = res as? Array<NSDictionary> {
-                    rawSwapInfos.forEach { rawSwapInfo in
-                        swapInfos.append(RizonSwapStatus.init(rawSwapInfo))
-                    }
-                }
-                print("swapInfos ", swapInfos.count)
-                if (swapInfos.count > 0) {
-                    self.onShowToast(NSLocalizedString("error_alreay_rizon_swap", comment: ""))
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                        let swapStatusVC = RizonSwapStatusViewController(nibName: "RizonSwapStatusViewController", bundle: nil)
-                        swapStatusVC.hidesBottomBarWhenPushed = true
+//        self.showWaittingAlert()
+//        let request = Alamofire.request(BaseNetWork.rizonSwapStatus(chainType, address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+//        request.responseJSON { (response) in
+//            switch response.result {
+//            case .success(let res):
+//                var swapInfos = Array<RizonSwapStatus>()
+//                if let rawSwapInfos = res as? Array<NSDictionary> {
+//                    rawSwapInfos.forEach { rawSwapInfo in
+//                        swapInfos.append(RizonSwapStatus.init(rawSwapInfo))
+//                    }
+//                }
+//                print("swapInfos ", swapInfos.count)
+//                if (swapInfos.count > 0) {
+//                    self.onShowToast(NSLocalizedString("error_alreay_rizon_swap", comment: ""))
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+//                        let swapStatusVC = RizonSwapStatusViewController(nibName: "RizonSwapStatusViewController", bundle: nil)
+//                        swapStatusVC.hidesBottomBarWhenPushed = true
+//                        self.navigationItem.title = ""
+//                        self.navigationController?.pushViewController(swapStatusVC, animated: true)
+//                    }
+//                } else {
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+                        txVC.mType = TASK_RIZON_EVENT_HORIZON
+                        txVC.hidesBottomBarWhenPushed = true
                         self.navigationItem.title = ""
-                        self.navigationController?.pushViewController(swapStatusVC, animated: true)
-                    }
-                } else {
-                    
-                }
-            
-            case .failure(let error):
-                print("onCheckSwapStatus ", error)
-            }
-            self.hideWaittingAlert()
-        }
+                        self.navigationController?.pushViewController(txVC, animated: true)
+//                    }
+//                }
+//
+//            case .failure(let error):
+//                print("onCheckSwapStatus ", error)
+//            }
+//            self.hideWaittingAlert()
+//        }
     }
     
     func onClickOsmosisLab() {
