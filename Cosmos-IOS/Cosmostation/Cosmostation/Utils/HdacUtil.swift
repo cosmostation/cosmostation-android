@@ -113,7 +113,7 @@ class HdacUtil {
         let utoxTransactionSigner = UtxoTransactionSigner()
         var burnAddress: Address
         if (chain == ChainType.RIZON_TEST) {
-            burnAddress = try! HdacAddress.init(HDAC_BURN_ADDRESS_TEST, coin: .hdac)
+            burnAddress = try! HdacAddress.init(HDAC_BURN_ADDRESS_TEST, coin: .hdacTest)
         } else {
             burnAddress = try! HdacAddress.init(HDAC_BURN_ADDRESS_MAIN, coin: .hdac)
         }

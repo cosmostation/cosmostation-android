@@ -126,6 +126,8 @@
 		2815AA72243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA71243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift */; };
 		2815AA7424349DE2008B23AA /* StepRepayCdpAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA7324349DE2008B23AA /* StepRepayCdpAmountViewController.swift */; };
 		2815AA7624349DF2008B23AA /* StepRepayCdpCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA7524349DF2008B23AA /* StepRepayCdpCheckViewController.swift */; };
+		2816E11526BA886100408F8E /* EventHorizonResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2816E11326BA886100408F8E /* EventHorizonResultViewController.swift */; };
+		2816E11626BA886100408F8E /* EventHorizonResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2816E11426BA886100408F8E /* EventHorizonResultViewController.xib */; };
 		28248A9425DD3DD4004F3FB0 /* ApiHistoryCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28248A9325DD3DD4004F3FB0 /* ApiHistoryCustom.swift */; };
 		2827E11123F3896C007CDB6E /* TxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */; };
 		2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */; };
@@ -1151,6 +1153,8 @@
 		2815AA71243430E8008B23AA /* StepDrawDebtCdpCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDrawDebtCdpCheckViewController.swift; sourceTree = "<group>"; };
 		2815AA7324349DE2008B23AA /* StepRepayCdpAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRepayCdpAmountViewController.swift; sourceTree = "<group>"; };
 		2815AA7524349DF2008B23AA /* StepRepayCdpCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRepayCdpCheckViewController.swift; sourceTree = "<group>"; };
+		2816E11326BA886100408F8E /* EventHorizonResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHorizonResultViewController.swift; sourceTree = "<group>"; };
+		2816E11426BA886100408F8E /* EventHorizonResultViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventHorizonResultViewController.xib; sourceTree = "<group>"; };
 		28248A9325DD3DD4004F3FB0 /* ApiHistoryCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistoryCustom.swift; sourceTree = "<group>"; };
 		2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxDetailViewController.swift; sourceTree = "<group>"; };
 		2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCommonCell.swift; sourceTree = "<group>"; };
@@ -2908,6 +2912,8 @@
 				28B785BA26B808CE009F755F /* StepEventHorizon0ViewController.xib */,
 				28B785BD26B808DB009F755F /* StepEventHorizon1ViewController.swift */,
 				28B785BE26B808DB009F755F /* StepEventHorizon1ViewController.xib */,
+				2816E11326BA886100408F8E /* EventHorizonResultViewController.swift */,
+				2816E11426BA886100408F8E /* EventHorizonResultViewController.xib */,
 			);
 			path = rizon;
 			sourceTree = "<group>";
@@ -3737,6 +3743,7 @@
 				288D250526834E980093121A /* TxIbcSendCell.xib in Resources */,
 				2852EAFF268216B4003A5E74 /* WalletSifIncentiveCell.xib in Resources */,
 				280E1F12254AB5C70007BA7D /* ReplaceResource3ViewController.xib in Resources */,
+				2816E11626BA886100408F8E /* EventHorizonResultViewController.xib in Resources */,
 				285A33DB244763290052BD3D /* SelectChainCell.xib in Resources */,
 				2845D881246FAED7007CD497 /* VoteInfoTableViewCell.xib in Resources */,
 				28CFB6A826133C9700A18634 /* StakingTokenDetailViewController.xib in Resources */,
@@ -4264,6 +4271,7 @@
 				0497585A26856DE30039872C /* oracle_v1_tx.grpc.swift in Sources */,
 				28DB571525FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.swift in Sources */,
 				E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */,
+				2816E11526BA886100408F8E /* EventHorizonResultViewController.swift in Sources */,
 				287D746126A52B8E00532E01 /* JoinPool0ViewController.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
 				287AC58E25FDF7250070837E /* cosmos_base_kv_v1beta1_kv.pb.swift in Sources */,

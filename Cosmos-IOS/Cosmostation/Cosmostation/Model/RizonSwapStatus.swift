@@ -37,12 +37,18 @@ public struct RizonSwapStatus {
 public struct HdacTx {
     var txid: String?
     var confirmations: UInt64?
+    var blockhash: String?
+    var blockheight: UInt64?
     var time: UInt64?
+    var valueOut: Double?
     var data: Array<String>?
     
     init(_ dictionary: NSDictionary?) {
         self.txid = dictionary?["txid"] as? String
         self.confirmations = dictionary?["confirmations"] as? UInt64
+        self.blockhash = dictionary?["blockhash"] as? String
+        self.blockheight = dictionary?["blockheight"] as? UInt64
+        self.valueOut = dictionary?["valueOut"] as? Double
         self.time = dictionary?["time"] as? UInt64
         if let rawData = dictionary?["data"] as? Array<String> {
             self.data = rawData

@@ -280,7 +280,6 @@ class StepEventHorizon0ViewController: BaseViewController, UICollectionViewDeleg
                 request.responseJSON { (response) in
                     switch response.result {
                     case .success(let res):
-                        //                print("res ", res)
                         var hdacUtxos = Array<HdacUtxo>()
                         if let responseDatas = res as? Array<NSDictionary> {
                             responseDatas.forEach { responseData in

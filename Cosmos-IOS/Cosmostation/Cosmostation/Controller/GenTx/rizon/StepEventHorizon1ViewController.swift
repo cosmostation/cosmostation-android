@@ -86,15 +86,29 @@ class StepEventHorizon1ViewController: BaseViewController, PasswordViewDelegate 
             print("signedTxHex ", signedTxHex)
             
             DispatchQueue.main.async(execute: {
-                let request = Alamofire.request(BaseNetWork.hdacBroadcast(self.chainType), method: .get, parameters: ["rawtx":signedTxHex], encoding: URLEncoding.default, headers: [:])
+                let request = Alamofire.request(BaseNetWork.hdacBroadcast(self.chainType), method: .post, parameters: ["rawtx":signedTxHex], encoding: JSONEncoding.default, headers: [:])
                 request.responseJSON { (response) in
+                    var txResult: NSDictionary?
                     switch response.result {
                     case .success(let res):
                         print("res ", res)
+                        if let responseData = res as? NSDictionary {
+                            txResult = responseData
+                        }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: {
+                            
+                            let txDetailVC = EventHorizonResultViewController(nibName: "EventHorizonResultViewController", bundle: nil)
+                            txDetailVC.txResult = txResult
+                            self.navigationItem.title = ""
+                            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+                            self.navigationController?.pushViewController(txDetailVC, animated: true)
+                        })
                         
                     case .failure(let error):
                         print("onBroadCastBurnTx ", error)
                     }
+                    self.hideWaittingAlert()
                 }
             });
         }
