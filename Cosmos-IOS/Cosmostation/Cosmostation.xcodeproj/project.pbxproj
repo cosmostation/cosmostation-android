@@ -128,6 +128,8 @@
 		2815AA7624349DF2008B23AA /* StepRepayCdpCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA7524349DF2008B23AA /* StepRepayCdpCheckViewController.swift */; };
 		2816E11526BA886100408F8E /* EventHorizonResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2816E11326BA886100408F8E /* EventHorizonResultViewController.swift */; };
 		2816E11626BA886100408F8E /* EventHorizonResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2816E11426BA886100408F8E /* EventHorizonResultViewController.xib */; };
+		2816E11A26BAADE000408F8E /* TxRizonEventHorizonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2816E11826BAADE000408F8E /* TxRizonEventHorizonCell.swift */; };
+		2816E11B26BAADE000408F8E /* TxRizonEventHorizonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2816E11926BAADE000408F8E /* TxRizonEventHorizonCell.xib */; };
 		28248A9425DD3DD4004F3FB0 /* ApiHistoryCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28248A9325DD3DD4004F3FB0 /* ApiHistoryCustom.swift */; };
 		2827E11123F3896C007CDB6E /* TxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */; };
 		2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */; };
@@ -1155,6 +1157,8 @@
 		2815AA7524349DF2008B23AA /* StepRepayCdpCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRepayCdpCheckViewController.swift; sourceTree = "<group>"; };
 		2816E11326BA886100408F8E /* EventHorizonResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHorizonResultViewController.swift; sourceTree = "<group>"; };
 		2816E11426BA886100408F8E /* EventHorizonResultViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventHorizonResultViewController.xib; sourceTree = "<group>"; };
+		2816E11826BAADE000408F8E /* TxRizonEventHorizonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxRizonEventHorizonCell.swift; sourceTree = "<group>"; };
+		2816E11926BAADE000408F8E /* TxRizonEventHorizonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxRizonEventHorizonCell.xib; sourceTree = "<group>"; };
 		28248A9325DD3DD4004F3FB0 /* ApiHistoryCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistoryCustom.swift; sourceTree = "<group>"; };
 		2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxDetailViewController.swift; sourceTree = "<group>"; };
 		2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCommonCell.swift; sourceTree = "<group>"; };
@@ -2180,6 +2184,15 @@
 			path = BinanceUtils;
 			sourceTree = "<group>";
 		};
+		2816E11726BAADAD00408F8E /* rizon */ = {
+			isa = PBXGroup;
+			children = (
+				2816E11826BAADE000408F8E /* TxRizonEventHorizonCell.swift */,
+				2816E11926BAADE000408F8E /* TxRizonEventHorizonCell.xib */,
+			);
+			path = rizon;
+			sourceTree = "<group>";
+		};
 		282121BA25FDE71C0016ABFE /* ProtoBuff */ = {
 			isa = PBXGroup;
 			children = (
@@ -2760,6 +2773,7 @@
 		284D17F32535D69000C364F9 /* txs */ = {
 			isa = PBXGroup;
 			children = (
+				2816E11726BAADAD00408F8E /* rizon */,
 				28C3F4FE269DC4C700F4A58C /* gravity */,
 				04CFBD4A269226CE0013150B /* ibc */,
 				04D138502691E20D00D6AF9F /* osmosis */,
@@ -3725,6 +3739,7 @@
 				E17748FA22842689003D8CD1 /* AllValidatorCell.xib in Resources */,
 				E126CFAA2387A75E002A546F /* TokenDetailIrisCell.xib in Resources */,
 				28BB2A8D2533DA1C00CFF097 /* DomainCell.xib in Resources */,
+				2816E11B26BAADE000408F8E /* TxRizonEventHorizonCell.xib in Resources */,
 				E103DAC9228129FD006C2146 /* WalletManageViewController.xib in Resources */,
 				E126CFA52387A713002A546F /* TokenDetailCosmosCell.xib in Resources */,
 				E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */,
@@ -4305,6 +4320,7 @@
 				047AE7242693378A00C1DD51 /* TxUnlockPeriodLockCell.swift in Sources */,
 				287AC61525FDF7260070837E /* cosmos_capability_v1beta1_capability.pb.swift in Sources */,
 				28617A8324333B90006D66EA /* StepWithdrawCdpAmountViewController.swift in Sources */,
+				2816E11A26BAADE000408F8E /* TxRizonEventHorizonCell.swift in Sources */,
 				28DB56F725FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.swift in Sources */,
 				289EF82C26824E4700F90AC1 /* osmosis_incentives_genesis.pb.swift in Sources */,
 				28AABECE25F8CDAA0019091F /* KavaHardReserves.swift in Sources */,
