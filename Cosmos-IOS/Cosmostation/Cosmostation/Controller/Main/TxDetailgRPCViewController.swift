@@ -73,7 +73,8 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
         self.txTableView.register(UINib(nibName: "TxGravityWithdrawBatchCell", bundle: nil), forCellReuseIdentifier: "TxGravityWithdrawBatchCell")
         self.txTableView.register(UINib(nibName: "TxGravitySwapCell", bundle: nil), forCellReuseIdentifier: "TxGravitySwapCell")
         
-        
+        //for rizon
+        self.txTableView.register(UINib(nibName: "TxRizonEventHorizonCell", bundle: nil), forCellReuseIdentifier: "TxRizonEventHorizonCell")
         
         //for unknown msg type
         self.txTableView.register(UINib(nibName: "TxUnknownCell", bundle: nil), forCellReuseIdentifier: "TxUnknownCell")
@@ -164,6 +165,27 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
                 
             }
             
+            else if (msg.typeURL.contains(Ibc_Applications_Transfer_V1_MsgTransfer.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcSendCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Ibc_Core_Channel_V1_MsgRecvPacket.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcReceiveCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Ibc_Core_Client_V1_MsgUpdateClient.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcUpdateClientCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Ibc_Core_Channel_V1_MsgAcknowledgement.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcAcknowledgeCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+            }
+            
             else if (msg.typeURL.contains(Starnamed_X_Starname_V1beta1_MsgRegisterDomain.protoMessageName)) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TxRegisterDomainCell") as? TxCell
                 cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
@@ -246,29 +268,6 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
                 cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
                 return cell!
                 
-                
-            }
-            
-            
-            else if (msg.typeURL.contains(Ibc_Applications_Transfer_V1_MsgTransfer.protoMessageName)) {
-                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcSendCell") as? TxCell
-                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
-                return cell!
-                
-            } else if (msg.typeURL.contains(Ibc_Core_Channel_V1_MsgRecvPacket.protoMessageName)) {
-                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcReceiveCell") as? TxCell
-                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
-                return cell!
-                
-            } else if (msg.typeURL.contains(Ibc_Core_Client_V1_MsgUpdateClient.protoMessageName)) {
-                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcUpdateClientCell") as? TxCell
-                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
-                return cell!
-                
-            } else if (msg.typeURL.contains(Ibc_Core_Channel_V1_MsgAcknowledgement.protoMessageName)) {
-                let cell = tableView.dequeueReusableCell(withIdentifier:"TxIbcAcknowledgeCell") as? TxCell
-                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
-                return cell!
             }
             
             else if (msg.typeURL.contains(Tendermint_Liquidity_V1beta1_MsgCreatePool.protoMessageName)) {
@@ -288,6 +287,13 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
                 
             } else if (msg.typeURL.contains(Tendermint_Liquidity_V1beta1_MsgSwapWithinBatch.protoMessageName)) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TxGravitySwapCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            }
+            
+            else if (msg.typeURL.contains(Rizonworld_Rizon_Tokenswap_MsgCreateTokenswapRequest.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxRizonEventHorizonCell") as? TxCell
                 cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
                 return cell!
                 

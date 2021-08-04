@@ -299,6 +299,11 @@ public struct ApiHistoryNewCustom {
                 
             }
             
+            else if (msgType.contains("MsgCreateTokenswapRequest")) {
+               result = NSLocalizedString("tx_rizon_event_horizon", comment: "")
+               
+           }
+            
             if (getMsgCnt() > 1) {
                 result = result +  " + " + String(getMsgCnt() - 1)
             }
