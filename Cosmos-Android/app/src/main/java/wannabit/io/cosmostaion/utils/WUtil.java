@@ -1633,7 +1633,7 @@ public class WUtil {
         return 18;
     }
 
-    public static String getOsmosisTokenName(String denom) {
+    public static String dpOsmosisTokenName(String denom) {
         if (denom.equals(TOKEN_OSMOSIS)) {
             return "OSMO";
 
@@ -1655,7 +1655,7 @@ public class WUtil {
         return denom;
     }
 
-    public static String getOsmosisTokenName(Context c, TextView textView, String denom) {
+    public static String dpOsmosisTokenName(Context c, TextView textView, String denom) {
         if (denom.equals(TOKEN_OSMOSIS)) {
             textView.setTextColor(c.getResources().getColor(R.color.colorOsmosis));
             textView.setText("OSMO");

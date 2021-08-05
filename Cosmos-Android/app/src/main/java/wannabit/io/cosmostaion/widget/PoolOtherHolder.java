@@ -43,7 +43,7 @@ public class PoolOtherHolder extends BaseHolder {
         Coin coin1 = new Coin(otherPool.getPoolAssets(1).getToken().getDenom(), otherPool.getPoolAssets(1).getToken().getAmount());
 
         itemPoolId.setText("POOL #" + otherPool.getId());
-        itemPoolType.setText(WUtil.getOsmosisTokenName(coin0.denom) + " / " + WUtil.getOsmosisTokenName(coin1.denom));
+        itemPoolType.setText(WUtil.dpOsmosisTokenName(coin0.denom) + " / " + WUtil.dpOsmosisTokenName(coin1.denom));
 
         itemTotalLiquidityValue.setText("" + WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(coin0.denom)));
 

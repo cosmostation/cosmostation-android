@@ -129,7 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="2"
+                        android:text="-"
                         style="@style/font_ss_12_white"/>
                 </RelativeLayout>
             </RelativeLayout>
@@ -149,20 +149,20 @@
                     android:layout_toRightOf="@+id/str_token_swap_rate_title"
                     android:gravity="right">
                     <TextView
-                        android:id="@+id/token_swap_input_coin_amount"
+                        android:id="@+id/token_swap_input_coin_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/token_swap_input_coin_symbol"
                         android:layout_marginRight="@dimen/space_2"
-                        android:text="1.00000"
+                        android:text="-"
                         style="@style/font_ss_12_white"/>
                     <TextView
                         android:id="@+id/token_swap_input_coin_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/token_swap_input_coin_amount"
-                        android:text="OSMO"
-                        style="@style/font_ss_12_atom"/>
+                        android:layout_toRightOf="@id/token_swap_input_coin_rate"
+                        android:text="Coin"
+                        style="@style/font_ss_12_white"/>
                     <TextView
                         android:id="@+id/token_swap_rate_vs"
                         android:layout_width="wrap_content"
@@ -173,21 +173,21 @@
                         android:layout_marginRight="@dimen/space_10"
                         style="@style/font_ss_12_white"/>
                     <TextView
-                        android:id="@+id/token_swap_output_coin_amount"
+                        android:id="@+id/token_swap_output_coin_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/token_swap_rate_vs"
                         android:layout_alignBaseline="@+id/token_swap_output_coin_symbol"
                         android:layout_marginRight="@dimen/space_2"
-                        android:text="0,74165165"
+                        android:text="-"
                         style="@style/font_ss_12_white"/>
                     <TextView
                         android:id="@+id/token_swap_output_coin_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/token_swap_output_coin_amount"
-                        android:text="ATOM"
-                        style="@style/font_ss_12_atom"/>
+                        android:layout_toRightOf="@id/token_swap_output_coin_rate"
+                        android:text="Coin"
+                        style="@style/font_ss_12_white"/>
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -209,7 +209,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="0.30%"
+                        android:text="-"
                         style="@style/font_ss_12_white"/>
                 </RelativeLayout>
             </RelativeLayout>

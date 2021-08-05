@@ -25,16 +25,13 @@ import wannabit.io.cosmostaion.activities.chains.osmosis.JoinPoolActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolInfoTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
 public class JoinPoolStep0Fragment extends BaseFragment implements TaskListener, View.OnClickListener {
@@ -149,11 +146,11 @@ public class JoinPoolStep0Fragment extends BaseFragment implements TaskListener,
         setDpDecimals(coin0Decimal, coin1Decimal);
 
         WUtil.DpOsmosisTokenImg(mJoinPoolInputImg, coin0Denom);
-        WUtil.getOsmosisTokenName(getSActivity(), mJoinPoolInputSymbol, coin0Denom);
+        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInputSymbol, coin0Denom);
         WUtil.DpOsmosisTokenImg(mJoinPoolOutputImg, coin1Denom);
-        WUtil.getOsmosisTokenName(getSActivity(), mJoinPoolOutputSymbol, coin1Denom);
-        WDp.showCoinDp(getSActivity(), WUtil.getOsmosisTokenName(getSActivity(), mJoinPoolIntputDenom, coin0Denom), available0MaxAmount.toString(), mJoinPoolIntputDenom, mJoinPoolInputAmount, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(getSActivity(), WUtil.getOsmosisTokenName(getSActivity(), mJoinPoolOutputDenom, coin1Denom), available1MaxAmount.toString(), mJoinPoolOutputDenom, mJoinPoolOutputAmount, BaseChain.OSMOSIS_MAIN);
+        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolOutputSymbol, coin1Denom);
+        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolIntputDenom, coin0Denom), available0MaxAmount.toString(), mJoinPoolIntputDenom, mJoinPoolInputAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolOutputDenom, coin1Denom), available1MaxAmount.toString(), mJoinPoolOutputDenom, mJoinPoolOutputAmount, BaseChain.OSMOSIS_MAIN);
 
         BigDecimal coin0Amount = new BigDecimal(getSActivity().getIntent().getStringExtra("coin0Amount"));
         BigDecimal coin1Amount = new BigDecimal(getSActivity().getIntent().getStringExtra("coin1Amount"));
