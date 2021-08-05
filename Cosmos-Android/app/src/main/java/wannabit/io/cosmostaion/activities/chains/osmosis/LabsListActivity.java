@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.osmosis;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -33,8 +35,12 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolListTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
 public class LabsListActivity extends BaseActivity implements TaskListener {
 
@@ -108,6 +114,16 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         }
     }
 
+    public void onClickMyPool(long poolId) {
+        WLog.w("onClickMyPool " + poolId);
+        Bundle bundle = new Bundle();
+        bundle.putLong("poolId", poolId);
+        Dialog_Pool_Osmosis add = Dialog_Pool_Osmosis.newInstance(bundle);
+        add.setCancelable(true);
+        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+
+    }
+
     public void onStartSwap() {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
@@ -120,24 +136,44 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 //        startActivity(intent);
     }
 
-    public void onClickMyPool(long poolId) {
-        WLog.w("onClickMyPool " + poolId);
-        Bundle bundle = new Bundle();
-        bundle.putLong("poolId", poolId);
-        Dialog_Pool_Osmosis add = Dialog_Pool_Osmosis.newInstance(bundle);
-        add.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-
-    }
-
     public void onCheckStartJoinPool(long poolId) {
         WLog.w("onCheckStartJoinPool " + poolId);
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
 
+        //TODO Fee check
+
+//        Intent intent = new Intent(getBaseContext(), JoinPoolActivity.class);
+//        intent.putExtra("mType", CONST_PW_TX_OSMOSIS_JOIN_POOL);
+//        intent.putExtra("mPoolId", poolId);
+//        startActivity(intent);
     }
 
     public void onCheckStartExitPool(long poolId) {
         WLog.w("onCheckStartExitPool " + poolId);
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
 
+        BigDecimal mainBalance = getBaseDao().getAvailable(TOKEN_OSMOSIS);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_OSMOSIS_EXIT_POOL, 0);
+
+        if (mainBalance.compareTo(feeAmount) < 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(getBaseContext(), ExitPoolActivity.class);
+        intent.putExtra("mType", CONST_PW_TX_OSMOSIS_EXIT_POOL);
+        intent.putExtra("mPoolId", poolId);
+        startActivity(intent);
     }
 
 
