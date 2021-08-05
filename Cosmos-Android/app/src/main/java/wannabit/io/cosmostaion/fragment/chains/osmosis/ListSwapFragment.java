@@ -48,7 +48,6 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     public String                               mInputCoinDenom;
     public String                               mOutputCoinDenom;
 
-
     public static ListSwapFragment newInstance(Bundle bundle) {
         ListSwapFragment fragment = new ListSwapFragment();
         fragment.setArguments(bundle);
@@ -90,8 +89,6 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     public void onRefreshTab() {
         mPoolList = getBaseDao().mPoolList;
         mAllDenoms = getBaseDao().mAllDenoms;
-//        WLog.w("mPoolList " + mPoolList.size());
-//        WLog.w("mAllDenoms " + mAllDenoms.size());
 
         if (mSelectedPool == null || mInputCoinDenom.isEmpty() || mOutputCoinDenom.isEmpty()) {
             mSelectedPool = mPoolList.get(0);
@@ -144,12 +141,34 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View v) {
         if (v.equals(mBtnInputCoinList)) {
             Bundle bundle = new Bundle();
+            bundle.putStringArrayList("denoms", mAllDenoms);
             Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
             dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnOutputCoinList)) {
+            mSwapablePools.clear();
+            mSwapableDenoms.clear();
+            for (PoolOuterClass.Pool pool: mPoolList) {
+                for (PoolOuterClass.PoolAsset asset: pool.getPoolAssetsList()) {
+                    if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
+                        mSwapablePools.add(pool);
+                        break;
+                    }
+                }
+            }
+            WLog.w("mSwapablePools " +  mSwapablePools.size());
+            for (PoolOuterClass.Pool sPool: mSwapablePools) {
+                for (PoolOuterClass.PoolAsset asset: sPool.getPoolAssetsList()) {
+                    if (!asset.getToken().getDenom().equals(mInputCoinDenom)) {
+                        mSwapableDenoms.add(asset.getToken().getDenom());
+                    }
+                }
+            }
+            WLog.w("mSwapableDenoms " +  mSwapableDenoms.size());
+
             Bundle bundle = new Bundle();
+            bundle.putStringArrayList("denoms", mSwapableDenoms);
             Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
@@ -162,10 +181,35 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
-            int SelectedChain = data.getIntExtra("SelectedChain", -1 );
-                WLog.w("SSS : " + SelectedChain);
-            super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
+            mInputCoinDenom = mAllDenoms.get(data.getIntExtra("selectedDenom", 0));
+            loop : for (PoolOuterClass.Pool pool: mPoolList) {
+                for (PoolOuterClass.PoolAsset asset: pool.getPoolAssetsList()) {
+                    if (asset.getToken().getDenom().equals(mInputCoinDenom)) {
+                        mSelectedPool = pool;
+                        break loop;
+                    }
+                }
+            }
+            for (PoolOuterClass.PoolAsset asset: mSelectedPool.getPoolAssetsList()) {
+                if (!asset.getToken().getDenom().equals(mInputCoinDenom)) {
+                    mOutputCoinDenom = asset.getToken().getDenom();
+                    break;
+                }
+            }
+            onUpdateView();
+
+        } else if (requestCode == SELECT_OUTPUT_CHAIN && resultCode == Activity.RESULT_OK) {
+            mOutputCoinDenom = mSwapableDenoms.get(data.getIntExtra("selectedDenom", 0));
+            loop : for (PoolOuterClass.Pool pool: mSwapablePools) {
+                for (PoolOuterClass.PoolAsset asset: pool.getPoolAssetsList()) {
+                    if (asset.getToken().getDenom().equals(mOutputCoinDenom)) {
+                        mSelectedPool = pool;
+                        break loop;
+                    }
+                }
+            }
+            onUpdateView();
         }
     }
 

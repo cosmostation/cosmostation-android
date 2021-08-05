@@ -51,8 +51,10 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_swap_coin_list, null);
+        mSwapCoinList = getArguments().getStringArrayList("denoms");
+        WLog.w("mSwapCoinList " +  mSwapCoinList);
+
         mRecyclerView = view.findViewById(R.id.recycler);
-        mSwapCoinList = getSActivity().getBaseDao().mAllDenoms;
         mSwapChainListAdapter = new SwapChainListAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
@@ -93,7 +95,7 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra("SelectedChain", position);
+                    resultIntent.putExtra("selectedDenom", position);
                     getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                     getDialog().dismiss();
                 }
