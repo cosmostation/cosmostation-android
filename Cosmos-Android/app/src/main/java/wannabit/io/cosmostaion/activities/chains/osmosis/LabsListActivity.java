@@ -125,7 +125,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
     }
 
-    public void onStartSwap(String inputCoinDenom, String outCoinDenom, String poolId) {
+    public void onStartSwap(String inputCoinDenom, String outCoinDenom, long poolId) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
@@ -133,7 +133,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        Intent intent = new Intent(LabsListActivity.this, JoinPoolActivity.class);
+        Intent intent = new Intent(LabsListActivity.this, SwapActivity.class);
         intent.putExtra("mType", CONST_PW_TX_OSMOSIS_SWAP);
         intent.putExtra("inputDenom", inputCoinDenom);
         intent.putExtra("outputDenom", outCoinDenom);
@@ -150,12 +150,18 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        //TODO Fee check
+        BigDecimal mainBalance = getBaseDao().getAvailable(TOKEN_OSMOSIS);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_OSMOSIS_JOIN_POOL, 0);
 
-//        Intent intent = new Intent(getBaseContext(), JoinPoolActivity.class);
-//        intent.putExtra("mType", CONST_PW_TX_OSMOSIS_JOIN_POOL);
-//        intent.putExtra("mPoolId", poolId);
-//        startActivity(intent);
+        if (mainBalance.compareTo(feeAmount) < 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(getBaseContext(), JoinPoolActivity.class);
+        intent.putExtra("mType", CONST_PW_TX_OSMOSIS_JOIN_POOL);
+        intent.putExtra("mPoolId", poolId);
+        startActivity(intent);
     }
 
     public void onCheckStartExitPool(long poolId) {

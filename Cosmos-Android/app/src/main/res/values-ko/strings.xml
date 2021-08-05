@@ -1154,6 +1154,7 @@
     <string name="str_token_swap_time">시간</string>
     <string name="str_token_swap_input_coin">Input Coin</string>
     <string name="str_token_swap_output_coin">Output Coin</string>
+    <string name="str_token_swap_output_coin_minimum">Output Coin (Minimum Guarantee)</string>
     <string name="str_token_swap_rate_coin">비율</string>
     <string name="str_token_swap_fee">수수료</string>
     <string name="str_token_swap_start">스왑 시작하기</string>
@@ -1180,6 +1181,11 @@
     <string name="str_create_did">DID</string>
     <string name="str_create_did_verification_method_id">Verification Method ID</string>
     <string name="str_create_did_from_address">From Address</string>
+    <string name="str_title_swap_osmosis">코인 스왑</string>
+    <string name="str_osmosis_swap_step_0">스왑 수량을 입력해주세요</string>
+    <string name="str_osmosis_swap_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_osmosis_swap_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_osmosis_swap_step_3">입력하신 정보를 확인하세요</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

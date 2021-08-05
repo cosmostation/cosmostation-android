@@ -34,7 +34,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
-public class JoinPoolStep0Fragment extends BaseFragment implements TaskListener, View.OnClickListener {
+public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button          mCancelBtn, mNextBtn;
 
@@ -54,7 +54,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements TaskListener,
 
     private PoolOuterClass.Pool mSelcetedPool;
     private int             mTxType;
-    private String          mPoolId;
+    private long            mPoolId;
     private BigDecimal      available0MaxAmount , available1MaxAmount;
     private int             coin0Decimal = 6, coin1Decimal = 6;
     private BigDecimal      depositRate = BigDecimal.ONE;
@@ -117,7 +117,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements TaskListener,
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
-        mPoolId = getSActivity().getIntent().getStringExtra("mPoolId");
+        mPoolId = getSActivity().getIntent().getLongExtra("mPoolId", 0);
         mTxType = getSActivity().getIntent().getIntExtra("mType", -1);
 
         return rootView;
@@ -129,32 +129,25 @@ public class JoinPoolStep0Fragment extends BaseFragment implements TaskListener,
         if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null) {
             getSActivity().onBackPressed();
         }
-        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, mTxType, 0);
-        String coin0Denom = getSActivity().getIntent().getStringExtra("coin0Denom");
-        String coin1Denom = getSActivity().getIntent().getStringExtra("coin1Denom");
 
-        available0MaxAmount = getBaseDao().getAvailable(coin0Denom);
-        if (coin0Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
-            available0MaxAmount = available0MaxAmount.subtract(txFeeAmount);
-        }
-        available1MaxAmount = getBaseDao().getAvailable(coin1Denom);
-        if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
-            available1MaxAmount = available1MaxAmount.subtract(txFeeAmount);
-        }
-        coin0Decimal = WUtil.getOsmosisCoinDecimal(coin0Denom);
-        coin1Decimal = WUtil.getOsmosisCoinDecimal(coin1Denom);
-        setDpDecimals(coin0Decimal, coin1Decimal);
-
-        WUtil.DpOsmosisTokenImg(mJoinPoolInputImg, coin0Denom);
-        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInputSymbol, coin0Denom);
-        WUtil.DpOsmosisTokenImg(mJoinPoolOutputImg, coin1Denom);
-        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolOutputSymbol, coin1Denom);
-        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolIntputDenom, coin0Denom), available0MaxAmount.toString(), mJoinPoolIntputDenom, mJoinPoolInputAmount, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolOutputDenom, coin1Denom), available1MaxAmount.toString(), mJoinPoolOutputDenom, mJoinPoolOutputAmount, BaseChain.OSMOSIS_MAIN);
-
-        BigDecimal coin0Amount = new BigDecimal(getSActivity().getIntent().getStringExtra("coin0Amount"));
-        BigDecimal coin1Amount = new BigDecimal(getSActivity().getIntent().getStringExtra("coin1Amount"));
-        depositRate = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN);
+//        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, mTxType, 0);
+//        String coin0Denom = getBaseDao().mPoolMyList.get((int) mPoolId).getPoolAssets(0).getToken().getDenom();
+//        String coin1Denom = getBaseDao().mPoolMyList.get((int) mPoolId).getPoolAssets(1).getToken().getDenom();
+//
+//        coin0Decimal = WUtil.getOsmosisCoinDecimal(coin0Denom);
+//        coin1Decimal = WUtil.getOsmosisCoinDecimal(coin1Denom);
+//        setDpDecimals(coin0Decimal, coin1Decimal);
+//
+//        WUtil.DpOsmosisTokenImg(mJoinPoolInputImg, coin0Denom);
+//        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInputSymbol, coin0Denom);
+//        WUtil.DpOsmosisTokenImg(mJoinPoolOutputImg, coin1Denom);
+//        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolOutputSymbol, coin1Denom);
+//        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolIntputDenom, coin0Denom), available0MaxAmount.toString(), mJoinPoolIntputDenom, mJoinPoolInputAmount, BaseChain.OSMOSIS_MAIN);
+//        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolOutputDenom, coin1Denom), available1MaxAmount.toString(), mJoinPoolOutputDenom, mJoinPoolOutputAmount, BaseChain.OSMOSIS_MAIN);
+//
+//        BigDecimal coin0Amount = new BigDecimal(getSActivity().getIntent().getStringExtra("coin0Amount"));
+//        BigDecimal coin1Amount = new BigDecimal(getSActivity().getIntent().getStringExtra("coin1Amount"));
+//        depositRate = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN);
 
         onAddAmountWatcher();
     }
@@ -162,28 +155,6 @@ public class JoinPoolStep0Fragment extends BaseFragment implements TaskListener,
     @Override
     public void onRefreshTab() {
         mSelcetedPool = getSActivity().getBaseDao().mSelectedPool;
-    }
-
-    private int mTaskCount;
-    public void onFetchPoolInfo() {
-        getSActivity().onShowWaitDialog();
-        mTaskCount = 1;
-        new OsmosisGrpcPoolInfoTask(getBaseApplication(), this, BaseChain.OSMOSIS_MAIN, mPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
-    @Override
-    public void onTaskResponse(TaskResult result) {
-        if (getSActivity().isFinishing()) return;
-        mTaskCount--;
-        if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_INFO) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mSelectedPool = (PoolOuterClass.Pool) result.resultData;
-            }
-        }
-
-        if (mTaskCount == 0) {
-            getSActivity().onHideWaitDialog();
-        }
     }
 
     private void onAddAmountWatcher() {

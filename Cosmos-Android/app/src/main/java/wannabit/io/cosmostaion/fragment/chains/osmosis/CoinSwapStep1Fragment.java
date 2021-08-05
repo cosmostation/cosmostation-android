@@ -10,10 +10,10 @@ import androidx.annotation.Nullable;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseFragment;
 
-public class ExitPoolStep1Fragment extends BaseFragment{
+public class CoinSwapStep1Fragment extends BaseFragment {
 
-    public static ExitPoolStep1Fragment newInstance(Bundle bundle) {
-        ExitPoolStep1Fragment fragment = new ExitPoolStep1Fragment();
+    public static CoinSwapStep1Fragment newInstance(Bundle bundle) {
+        CoinSwapStep1Fragment fragment = new CoinSwapStep1Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }

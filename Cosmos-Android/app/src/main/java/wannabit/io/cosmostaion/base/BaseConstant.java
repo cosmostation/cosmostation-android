@@ -400,9 +400,9 @@ public class BaseConstant {
     public final static int CONST_PW_TX_CLAIM_HARVEST_REWARD                = 5033;
     public final static int CONST_PW_TX_BORROW_HARD                         = 5034;
     public final static int CONST_PW_TX_REPAY_HARD                          = 5035;
-    public final static int CONST_PW_TX_OSMOSIS_JOIN_POOL                   = 5036;
-    public final static int CONST_PW_TX_OSMOSIS_EXIT_POOL                   = 5037;
-    public final static int CONST_PW_TX_OSMOSIS_SWAP                        = 5038;
+    public final static int CONST_PW_TX_OSMOSIS_SWAP                        = 5036;
+    public final static int CONST_PW_TX_OSMOSIS_JOIN_POOL                   = 5037;
+    public final static int CONST_PW_TX_OSMOSIS_EXIT_POOL                   = 5038;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
@@ -635,6 +635,13 @@ public class BaseConstant {
     public final static String MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE    = "100000";
     public final static String MEDI_GAS_AMOUNT_VOTE                     = "100000";
 
+    public final static String OSMOSIS_GAS_AMOUNT_SEND                  = "100000";
+    public final static String OSMOSIS_GAS_AMOUNT_STAKE                 = "200000";
+    public final static String OSMOSIS_GAS_AMOUNT_REDELEGATE            = "300000";
+    public final static String OSMOSIS_GAS_AMOUNT_REINVEST              = "300000";
+    public final static String OSMOSIS_GAS_AMOUNT_LOW                   = "100000";
+    public final static String OSMOSIS_GAS_AMOUNT_POOL                  = "400000";
+
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
     public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";
@@ -656,7 +663,6 @@ public class BaseConstant {
     public final static String CRYPTO_GAS_RATE_LOW                      = "0.05";
     public final static String CRYPTO_GAS_RATE_AVERAGE                  = "0.075";
 
-    public final static String OSMOSIS_GAS_AMOUNT_POOL                  = "400000";
     public final static String OSMOSIS_GAS_RATE_TINY                    = "0.000";
     public final static String OSMOSIS_GAS_RATE_LOW                     = "0.0025";
     public final static String OSMOSIS_GAS_RATE_AVERAGE                 = "0.025";

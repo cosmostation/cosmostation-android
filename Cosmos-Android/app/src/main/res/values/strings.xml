@@ -1385,6 +1385,7 @@
     <string name="str_token_swap_time">Time</string>
     <string name="str_token_swap_input_coin">Input Coin</string>
     <string name="str_token_swap_output_coin">Output Coin</string>
+    <string name="str_token_swap_output_coin_minimum">Output Coin (Minimum Guarantee)</string>
     <string name="str_token_swap_rate_coin">Rate</string>
     <string name="str_token_swap_fee">Swap Fee</string>
     <string name="str_token_swap_start">START SWAP</string>
@@ -1411,6 +1412,11 @@
     <string name="str_create_did">DID</string>
     <string name="str_create_did_verification_method_id">Verification Method ID</string>
     <string name="str_create_did_from_address">From Address</string>
+    <string name="str_title_swap_osmosis">Coin Swap</string>
+    <string name="str_osmosis_swap_step_0">Insert amount to swap</string>
+    <string name="str_osmosis_swap_step_1">Insert memo (optional)</string>
+    <string name="str_osmosis_swap_step_2">Select transaction fee</string>
+    <string name="str_osmosis_swap_step_3">Check transaction detail</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
