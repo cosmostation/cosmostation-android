@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.dialog;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +25,8 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.IbcToken;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
@@ -85,6 +89,15 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                 Picasso.get().cancelRequest(holder.chainImg);
                 holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
             }
+            holder.rootLayer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("SelectedChain", position);
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                    getDialog().dismiss();
+                }
+            });
         }
 
         @Override

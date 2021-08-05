@@ -108,6 +108,5 @@ public class PoolMyHolder extends BaseHolder {
                 fragment.getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             }
         });
-
     }
 }

@@ -12,7 +12,9 @@ import android.widget.LinearLayout;
 
 import androidx.fragment.app.DialogFragment;
 
+import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
 
 public class Dialog_Pool_Osmosis extends DialogFragment {
 

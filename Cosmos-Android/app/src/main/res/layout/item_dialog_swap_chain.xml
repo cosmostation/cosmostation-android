@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -32,4 +32,4 @@
             style="@style/font_ssm_14_gray8"
             android:singleLine="true"/>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

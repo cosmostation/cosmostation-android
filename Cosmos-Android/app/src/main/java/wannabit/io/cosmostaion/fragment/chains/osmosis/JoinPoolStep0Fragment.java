@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -20,7 +21,9 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.JoinPoolActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
@@ -46,8 +49,10 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
     private int             mTxType;
     private BigDecimal      available0MaxAmount , available1MaxAmount;
     private int             coin0Decimal = 6, coin1Decimal = 6;
+    private BigDecimal      depositRate = BigDecimal.ONE;
 
-    private String          mDecimalChecker, mDecimalSetter;
+    private String          mInDecimalChecker, mInDecimalSetter;
+    private String          mOutDecimalChecker,mOutDecimalSetter;
 
 
     public static JoinPoolStep0Fragment newInstance(Bundle bundle) {
@@ -63,7 +68,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_join_pool0, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_join_pool_step0, container, false);
         mCancelBtn                  = rootView.findViewById(R.id.btn_cancel);
         mNextBtn                    = rootView.findViewById(R.id.btn_next);
 
@@ -105,6 +110,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         mNextBtn.setOnClickListener(this);
 
         mTxType = getSActivity().getIntent().getIntExtra("mType", -1);
+
         return rootView;
     }
 
@@ -128,6 +134,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         }
         coin0Decimal = WUtil.getOsmosisCoinDecimal(coin0Denom);
         coin1Decimal = WUtil.getOsmosisCoinDecimal(coin1Denom);
+        setDpDecimals(coin0Decimal, coin1Decimal);
 
         WUtil.DpOsmosisTokenImg(mJoinPoolInputImg, coin0Denom);
         WUtil.getOsmosisTokenName(getSActivity(), mJoinPoolInputSymbol, coin0Denom);
@@ -135,6 +142,10 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         WUtil.getOsmosisTokenName(getSActivity(), mJoinPoolOutputSymbol, coin1Denom);
         WDp.showCoinDp(getSActivity(), WUtil.getOsmosisTokenName(getSActivity(), mJoinPoolIntputDenom, coin0Denom), available0MaxAmount.toString(), mJoinPoolIntputDenom, mJoinPoolInputAmount, BaseChain.OSMOSIS_MAIN);
         WDp.showCoinDp(getSActivity(), WUtil.getOsmosisTokenName(getSActivity(), mJoinPoolOutputDenom, coin1Denom), available1MaxAmount.toString(), mJoinPoolOutputDenom, mJoinPoolOutputAmount, BaseChain.OSMOSIS_MAIN);
+
+        BigDecimal coin0Amount = new BigDecimal(getSActivity().getIntent().getStringExtra("coin0Amount"));
+        BigDecimal coin1Amount = new BigDecimal(getSActivity().getIntent().getStringExtra("coin1Amount"));
+        depositRate = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN);
 
         onAddAmountWatcher();
     }
@@ -149,6 +160,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
             @Override
             public void afterTextChanged(Editable et) {
+                onUIUpdate0();
                 String es = et.toString().trim();
                 if (TextUtils.isEmpty(es)) {
                     mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
@@ -158,10 +170,13 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
                 } else if (es.endsWith(".")) {
                     mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mJoinPoolInput.setVisibility(View.VISIBLE);
+                } else if(mJoinPoolInput.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                    mJoinPoolInput.setText("0");
+                    mJoinPoolInput.setSelection(1);
                 }
 
-                if (es.equals(mDecimalChecker)) {
-                    mJoinPoolInput.setText(mDecimalSetter);
+                if (es.equals(mInDecimalChecker)) {
+                    mJoinPoolInput.setText(mInDecimalSetter);
                     mJoinPoolInput.setSelection(coin0Decimal + 1);
                 } else {
                     try {
@@ -210,10 +225,13 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
                 } else if (es.endsWith(".")) {
                     mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                     mJoinPoolOutput.setVisibility(View.VISIBLE);
+                } else if(mJoinPoolOutput.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                    mJoinPoolOutput.setText("0");
+                    mJoinPoolOutput.setSelection(1);
                 }
 
-                if (es.equals(mDecimalChecker)) {
-                    mJoinPoolOutput.setText(mDecimalSetter);
+                if (es.equals(mOutDecimalChecker)) {
+                    mJoinPoolOutput.setText(mOutDecimalSetter);
                     mJoinPoolOutput.setSelection(coin1Decimal + 1);
                 } else {
                     try {
@@ -223,7 +241,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
                             return;
                         }
 
-                        BigDecimal checkPosition = inputAmount.movePointRight(coin0Decimal);
+                        BigDecimal checkPosition = inputAmount.movePointRight(coin1Decimal);
                         BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
                         if (checkPosition.compareTo(checkMax) != 0) {
                             String recover = es.substring(0, es.length() - 1);
@@ -245,8 +263,52 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         });
     }
 
-    public void onInputUpdate() {
+    private void onUIUpdate0() {
+        try {
+            BigDecimal InputAmountTemp = new BigDecimal(mJoinPoolInput.getText().toString().trim());
+            if (InputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) {
+                mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                return;
+            }
+            if (InputAmountTemp.movePointLeft(coin0Decimal).compareTo(available0MaxAmount) > 0) {
+                mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                return;
+            }
+            mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
 
+            BigDecimal OutputAmount = InputAmountTemp.multiply(depositRate).movePointLeft(coin0Decimal);
+            mJoinPoolOutput.setText(OutputAmount.movePointLeft(-coin1Decimal).toPlainString());
+            if (OutputAmount.compareTo(available1MaxAmount) > 0 ) {
+                mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+            } else {
+                mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+            }
+        } catch (Exception e) { }
+    }
+
+    private void onUIUpdate1() {
+        BigDecimal OutputAmountTemp = new BigDecimal(mJoinPoolOutput.getText().toString().trim());
+        if (OutputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) {
+            mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+            mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+            return;
+        }
+        if (OutputAmountTemp.movePointLeft(coin1Decimal).compareTo(available1MaxAmount) > 0) {
+            mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+            mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+            return;
+        }
+        mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+
+        BigDecimal InputAmount = OutputAmountTemp.divide(depositRate, 0, RoundingMode.DOWN).movePointLeft(coin1Decimal);
+        mJoinPoolInput.setText(InputAmount.movePointLeft(-coin0Decimal).toPlainString());
+        if (InputAmount.compareTo(available0MaxAmount) > 0 ) {
+            mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+        } else {
+            mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+        }
     }
 
     @Override
@@ -271,7 +333,6 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mBtnJoinPoolInputClear)) {
             mJoinPoolInput.setText("");
-
         }
 
         else if (v.equals(mBtnJoinPoolOutput1_4)) {
@@ -294,20 +355,63 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         }
 
         else if (v.equals(mNextBtn)) {
-            getSActivity().onNextStep();
+            if (isValidateJoinPoolInputAmount() && isValidateJoinPoolOutputAmount()) {
+                getSActivity().onNextStep();
+            } else {
+                Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
-    private void setDpDecimals(int decimals) {
-        mDecimalChecker = "0.";
-        mDecimalSetter = "0.";
-        for (int i = 0; i < decimals; i ++) {
-            mDecimalChecker = mDecimalChecker+"0";
+    private boolean isValidateJoinPoolInputAmount() {
+        try {
+            BigDecimal InputAmountTemp = new BigDecimal(mJoinPoolInput.getText().toString().trim());
+            if (InputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+            if (InputAmountTemp.compareTo(available0MaxAmount.movePointLeft(coin0Decimal).setScale(coin0Decimal, RoundingMode.CEILING)) > 0) return false;
+            Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), InputAmountTemp.movePointRight(coin0Decimal).setScale(0).toPlainString());
+            getSActivity().mAmount = coin;
+            return true;
+
+        } catch (Exception e) {
+            getSActivity().mAmount = null;
+            return false;
         }
-        for (int i = 0; i < decimals-1; i ++) {
-            mDecimalSetter = mDecimalSetter + "0";
+    }
+
+    private boolean isValidateJoinPoolOutputAmount() {
+        try {
+            BigDecimal OutputAmountTemp = new BigDecimal(mJoinPoolOutput.getText().toString().trim());
+            if (OutputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+            if (OutputAmountTemp.compareTo(available1MaxAmount.movePointLeft(coin1Decimal).setScale(coin1Decimal, RoundingMode.CEILING)) > 0) return false;
+            Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), OutputAmountTemp.movePointRight(coin1Decimal).setScale(0).toPlainString());
+            getSActivity().mAmount = coin;
+            return true;
+
+        } catch (Exception e) {
+            getSActivity().mAmount = null;
+            return false;
+        }
+    }
+
+    private void setDpDecimals(int indecimals, int outdecimals) {
+        mInDecimalChecker = "0.";
+        mInDecimalSetter = "0.";
+        mOutDecimalChecker = "0.";
+        mOutDecimalSetter = "0.";
+        for (int i = 0; i < indecimals; i ++) {
+            mInDecimalChecker = mInDecimalChecker + "0";
+        }
+        for (int i = 0; i < indecimals-1; i ++) {
+            mInDecimalSetter = mInDecimalSetter + "0";
+        }
+        for (int i = 0; i < outdecimals; i ++) {
+            mOutDecimalChecker = mOutDecimalChecker + "0";
+        }
+        for (int i = 0; i < outdecimals-1; i ++) {
+            mOutDecimalSetter = mOutDecimalSetter + "0";
         }
     }
 
     private JoinPoolActivity getSActivity() { return (JoinPoolActivity)getBaseActivity(); }
+
 }

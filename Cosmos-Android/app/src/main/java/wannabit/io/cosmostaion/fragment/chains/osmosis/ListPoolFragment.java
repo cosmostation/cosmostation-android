@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.osmosis.ExitPoolActivity;
 import wannabit.io.cosmostaion.activities.chains.osmosis.JoinPoolActivity;
 import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -29,6 +30,7 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.PoolMyHolder;
 import wannabit.io.cosmostaion.widget.PoolOtherHolder;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
@@ -109,9 +111,30 @@ public class ListPoolFragment extends BaseFragment {
 
         Intent intent = new Intent(getContext(), JoinPoolActivity.class);
         intent.putExtra("mType", CONST_PW_TX_OSMOSIS_JOIN_POOL);
-        intent.putExtra("mPoolId", pool.getId());
         intent.putExtra("coin0Denom", coin0Denom);
         intent.putExtra("coin1Denom", coin1Denom);
+        intent.putExtra("coin0Amount", pool.getPoolAssets(0).getToken().getAmount());
+        intent.putExtra("coin1Amount", pool.getPoolAssets(1).getToken().getAmount());
+        startActivity(intent);
+    }
+
+    public void onCheckStartExitPool(PoolOuterClass.Pool pool) {
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+        BigDecimal mainBalance = getSActivity().getBaseDao().getAvailable(TOKEN_OSMOSIS);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), mBaseChain, CONST_PW_TX_OSMOSIS_EXIT_POOL, 0);
+
+        if (mainBalance.compareTo(feeAmount) < 0) {
+            Toast.makeText(getContext(), R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(getContext(), ExitPoolActivity.class);
+        intent.putExtra("mType", CONST_PW_TX_OSMOSIS_EXIT_POOL);
         startActivity(intent);
     }
 

@@ -31,16 +31,15 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolListTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
 
 public class LabsListActivity extends BaseActivity implements TaskListener {
 
-    private Toolbar mToolbar;
-    private ViewPager mLabPager;
-    private TabLayout mLabTapLayer;
-    private OsmoLabPageAdapter mPageAdapter;
+    private Toolbar                 mToolbar;
+    private ViewPager               mLabPager;
+    private TabLayout               mLabTapLayer;
+    private OsmoLabPageAdapter      mPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +92,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
             }
         });
-        onFetch();
+        onFetchPoolInfo();
     }
 
     @Override
@@ -119,18 +118,19 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 //        startActivity(intent);
     }
 
-    public void onFetch() {
+    public void onFetchPoolInfo() {
         onShowWaitDialog();
         mTaskCount = 1;
         getBaseDao().mPoolList.clear();
         getBaseDao().mPoolMyList.clear();
+        getBaseDao().mPoolOtherList.clear();
         new OsmosisGrpcPoolListTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        mTaskCount--;
         if (isFinishing()) return;
+        mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
                 final ArrayList<PoolOuterClass.Pool> tempPoolList = (ArrayList<PoolOuterClass.Pool>)result.resultData;

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.osmosis;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ListSwapFragment extends BaseFragment implements View.OnClickListener {
@@ -81,6 +84,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     public void onRefreshTab() {
         mPoolList = getBaseDao().mPoolList;
         mAllDenoms = getBaseDao().mAllDenoms;
+        onUpdateView();
     }
 
     private void onUpdateView() {
@@ -107,6 +111,14 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
+            int SelectedChain = data.getIntExtra("SelectedChain", -1 );
+                WLog.w("SSS : " + SelectedChain);
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
     private LabsListActivity getSActivity() { return (LabsListActivity)getBaseActivity(); }
 }
