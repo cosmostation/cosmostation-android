@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.task.gRpcTask;
 
 import java.util.concurrent.TimeUnit;
 
+import osmosis.gamm.v1beta1.PoolOuterClass;
 import osmosis.gamm.v1beta1.QueryGrpc;
 import osmosis.gamm.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -17,10 +18,10 @@ import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class OsmosisGrpcPoolInfoTask extends CommonTask {
     private BaseChain mChain;
-    private String mPoolId;
+    private long mPoolId;
     private QueryGrpc.QueryBlockingStub mStub;
 
-    public OsmosisGrpcPoolInfoTask(BaseApplication app, TaskListener listener, BaseChain chain, String mPoolId) {
+    public OsmosisGrpcPoolInfoTask(BaseApplication app, TaskListener listener, BaseChain chain, long mPoolId) {
         super(app, listener);
         this.mChain = chain;
         this.mPoolId = mPoolId;
@@ -31,9 +32,10 @@ public class OsmosisGrpcPoolInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryPoolRequest request = QueryOuterClass.QueryPoolRequest.newBuilder().setPoolId(Long.parseLong(mPoolId)).build();
+            QueryOuterClass.QueryPoolRequest request = QueryOuterClass.QueryPoolRequest.newBuilder().setPoolId(mPoolId).build();
             QueryOuterClass.QueryPoolResponse response = mStub.pool(request);
-            this.mResult.resultData = response.getPool();
+            mResult.resultData = PoolOuterClass.Pool.parseFrom(response.getPool().getValue());
+            mResult.isSuccess = true;
 
         } catch (Exception e) { WLog.e( "OsmosisGrpcPoolInfoTask "+ e.getMessage()); }
         return mResult;

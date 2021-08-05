@@ -40,10 +40,8 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
 
     public ArrayList<PoolOuterClass.Pool>       mPoolList = new ArrayList<>();
     public ArrayList<String>                    mAllDenoms = new ArrayList<>();
-
     public ArrayList<PoolOuterClass.Pool>       mSwapablePools = new ArrayList<>();
     public ArrayList<String>                    mSwapableDenoms = new ArrayList<>();
-
     public PoolOuterClass.Pool                  mSelectedPool;
     public String                               mInputCoinDenom;
     public String                               mOutputCoinDenom;

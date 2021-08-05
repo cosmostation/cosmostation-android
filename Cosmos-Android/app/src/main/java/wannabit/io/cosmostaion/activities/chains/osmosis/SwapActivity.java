@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -34,6 +35,11 @@ public class SwapActivity extends BaseBroadCastActivity {
     private ViewPager                       mViewPager;
     private CoinSwapPageAdapter             mPageAdapter;
 
+    public long                             mPoolId;
+    public PoolOuterClass.Pool              mPool;
+    public String                           mInputDenom;
+    public String                           mOutputDenom;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +51,10 @@ public class SwapActivity extends BaseBroadCastActivity {
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_swap_osmosis));
+
+        mPoolId = getIntent().getLongExtra("mPoolId", 0);
+        mInputDenom = getIntent().getStringExtra("inputDenom");
+        mOutputDenom = getIntent().getStringExtra("outputDenom");
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
