@@ -1404,6 +1404,13 @@
     <string name="str_osmosis_exit_pool_step_1">Insert memo (optional)</string>
     <string name="str_osmosis_exit_pool_step_2">Select transaction fee</string>
     <string name="str_osmosis_exit_pool_step_3">Check transaction detail</string>
+    <string name="str_add_record_topic_name">Topic Name</string>
+    <string name="str_add_record_writer_address">Writer Address</string>
+    <string name="str_add_record_owner_address">Owner Address</string>
+    <string name="str_add_record_fee_payer_address">Fee Payer Address</string>
+    <string name="str_create_did">DID</string>
+    <string name="str_create_did_verification_method_id">Verification Method ID</string>
+    <string name="str_create_did_from_address">From Address</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1572,6 +1579,8 @@
     <string name="tx_issue_token">Token Issue</string>
     <string name="tx_known">Unknown</string>
     <string name="tx_kava_post_price">Update Price</string>
+    <string name="tx_medi_add_record">Add Record</string>
+    <string name="tx_medi_create_did">Create DID</string>
 
 
     <string name="tx_kava_create_cdp">CDP\nOpen</string>
@@ -1641,6 +1650,9 @@
     <string name="tx_gravity_swap_batch">Swap Within Batch</string>
     <string name="tx_gravity_deposit_batch">Deposit Within Batch</string>
     <string name="tx_gravity_withdraw_batch">Withdraw Within Batch</string>
+
+    <string name="tx_add_record">Add Record</string>
+    <string name="tx_create_did">Create Did</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

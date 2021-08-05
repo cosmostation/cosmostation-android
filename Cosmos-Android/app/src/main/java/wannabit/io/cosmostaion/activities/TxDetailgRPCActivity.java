@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.widget.txDetail.TxAddRecordHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCloseBidHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCloseDeploymentHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommissionHolder;
@@ -44,6 +45,7 @@ import wannabit.io.cosmostaion.widget.txDetail.TxCommonHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateBidHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateCertificateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateDeploymentHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxCreateDidHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateLeaseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
@@ -248,6 +250,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_GRAVITY_DEPOSIT_WITHIN_BATCH = 52;
         private static final int TYPE_TX_GRAVITY_WITHDRAW_WITHIN_BATCH = 53;
 
+        private static final int TYPE_TX_ADD_RECORD = 60;
+        private static final int TYPE_TX_CREATE_DID = 61;
+
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -377,6 +382,13 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_GRAVITY_WITHDRAW_WITHIN_BATCH) {
                 return new TxGravityWithdrawHolder(getLayoutInflater().inflate(R.layout.item_tx_gravity_withdraw_within_batch, viewGroup, false));
             }
+
+            else if (viewType == TYPE_TX_ADD_RECORD) {
+                return new TxAddRecordHolder(getLayoutInflater().inflate(R.layout.item_tx_add_record, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_CREATE_DID) {
+                return new TxCreateDidHolder(getLayoutInflater().inflate(R.layout.item_tx_create_did, viewGroup, false));
+            }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
         }
@@ -495,6 +507,12 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_GRAVITY_DEPOSIT_WITHIN_BATCH;
                 } else if (msg.getTypeUrl().contains(tendermint.liquidity.v1beta1.Tx.MsgWithdrawWithinBatch.getDescriptor().getFullName())) {
                     return TYPE_TX_GRAVITY_WITHDRAW_WITHIN_BATCH;
+                }
+
+                else if (msg.getTypeUrl().contains(panacea.aol.v2.MsgAddRecord.getDescriptor().getFullName())) {
+                    return TYPE_TX_ADD_RECORD;
+                } else if (msg.getTypeUrl().contains(panacea.did.v2.MsgCreateDID.getDescriptor().getFullName())) {
+                    return TYPE_TX_CREATE_DID;
                 }
                 return TYPE_TX_UNKNOWN;
             }
