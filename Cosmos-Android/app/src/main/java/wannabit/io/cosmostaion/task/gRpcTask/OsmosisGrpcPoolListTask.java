@@ -5,6 +5,7 @@ import com.google.protobuf2.Any;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import cosmos.base.query.v1beta1.Pagination;
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import osmosis.gamm.v1beta1.QueryGrpc;
 import osmosis.gamm.v1beta1.QueryOuterClass;
@@ -34,7 +35,8 @@ public class OsmosisGrpcPoolListTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryPoolsRequest request = QueryOuterClass.QueryPoolsRequest.newBuilder().build();
+            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setLimit(500).build();
+            QueryOuterClass.QueryPoolsRequest request = QueryOuterClass.QueryPoolsRequest.newBuilder().setPagination(pageRequest).build();
             QueryOuterClass.QueryPoolsResponse response = mStub.pools(request);
 
             for (Any pool: response.getPoolsList()) {
