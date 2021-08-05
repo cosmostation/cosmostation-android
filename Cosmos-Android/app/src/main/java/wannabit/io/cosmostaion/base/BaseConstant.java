@@ -402,7 +402,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_REPAY_HARD                          = 5035;
     public final static int CONST_PW_TX_OSMOSIS_JOIN_POOL                   = 5036;
     public final static int CONST_PW_TX_OSMOSIS_EXIT_POOL                   = 5037;
-
+    public final static int CONST_PW_TX_OSMOSIS_SWAP                        = 5038;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;

@@ -175,7 +175,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnSwapStart)) {
-            getSActivity().onStartSwap();
+            getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool.getId());
         }
     }
 

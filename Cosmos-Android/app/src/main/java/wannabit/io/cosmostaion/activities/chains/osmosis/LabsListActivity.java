@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
@@ -124,7 +125,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
     }
 
-    public void onStartSwap() {
+    public void onStartSwap(String inputCoinDenom, String outCoinDenom, String poolId) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
@@ -132,8 +133,12 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-//        Intent intent = new Intent(LabsListActivity.this, JoinPoolActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(LabsListActivity.this, JoinPoolActivity.class);
+        intent.putExtra("mType", CONST_PW_TX_OSMOSIS_SWAP);
+        intent.putExtra("inputDenom", inputCoinDenom);
+        intent.putExtra("outputDenom", outCoinDenom);
+        intent.putExtra("mPoolId", poolId);
+        startActivity(intent);
     }
 
     public void onCheckStartJoinPool(long poolId) {
