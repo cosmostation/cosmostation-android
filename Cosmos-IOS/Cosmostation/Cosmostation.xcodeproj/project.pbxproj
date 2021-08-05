@@ -76,6 +76,10 @@
 		280524B8255CEEC7004D6172 /* ExportStarname.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280524B7255CEEC7004D6172 /* ExportStarname.swift */; };
 		28060E7725427F2C00F13510 /* EventStakeDropCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28060E7525427F2C00F13510 /* EventStakeDropCell.swift */; };
 		28060E7825427F2C00F13510 /* EventStakeDropCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28060E7625427F2C00F13510 /* EventStakeDropCell.xib */; };
+		2808FEE126BBFC4700DE5E9A /* TxMediAddRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2808FEDF26BBFC4700DE5E9A /* TxMediAddRecordCell.swift */; };
+		2808FEE226BBFC4700DE5E9A /* TxMediAddRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2808FEE026BBFC4700DE5E9A /* TxMediAddRecordCell.xib */; };
+		2808FEE526BBFC6400DE5E9A /* TxMediCreateDidCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2808FEE326BBFC6400DE5E9A /* TxMediCreateDidCell.swift */; };
+		2808FEE626BBFC6400DE5E9A /* TxMediCreateDidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2808FEE426BBFC6400DE5E9A /* TxMediCreateDidCell.xib */; };
 		280E1EF8254A7AC80007BA7D /* DeleteStarname0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E1EF6254A7AC80007BA7D /* DeleteStarname0ViewController.swift */; };
 		280E1EF9254A7AC80007BA7D /* DeleteStarname0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E1EF7254A7AC80007BA7D /* DeleteStarname0ViewController.xib */; };
 		280E1EFD254A7AD60007BA7D /* DeleteStarname3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E1EFB254A7AD60007BA7D /* DeleteStarname3ViewController.swift */; };
@@ -1105,6 +1109,10 @@
 		280524B7255CEEC7004D6172 /* ExportStarname.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportStarname.swift; sourceTree = "<group>"; };
 		28060E7525427F2C00F13510 /* EventStakeDropCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStakeDropCell.swift; sourceTree = "<group>"; };
 		28060E7625427F2C00F13510 /* EventStakeDropCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventStakeDropCell.xib; sourceTree = "<group>"; };
+		2808FEDF26BBFC4700DE5E9A /* TxMediAddRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxMediAddRecordCell.swift; sourceTree = "<group>"; };
+		2808FEE026BBFC4700DE5E9A /* TxMediAddRecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxMediAddRecordCell.xib; sourceTree = "<group>"; };
+		2808FEE326BBFC6400DE5E9A /* TxMediCreateDidCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxMediCreateDidCell.swift; sourceTree = "<group>"; };
+		2808FEE426BBFC6400DE5E9A /* TxMediCreateDidCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxMediCreateDidCell.xib; sourceTree = "<group>"; };
 		280E1EF6254A7AC80007BA7D /* DeleteStarname0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStarname0ViewController.swift; sourceTree = "<group>"; };
 		280E1EF7254A7AC80007BA7D /* DeleteStarname0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeleteStarname0ViewController.xib; sourceTree = "<group>"; };
 		280E1EFB254A7AD60007BA7D /* DeleteStarname3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStarname3ViewController.swift; sourceTree = "<group>"; };
@@ -2169,6 +2177,17 @@
 			path = osmosis;
 			sourceTree = "<group>";
 		};
+		2808FEDE26BBFC2600DE5E9A /* medi */ = {
+			isa = PBXGroup;
+			children = (
+				2808FEDF26BBFC4700DE5E9A /* TxMediAddRecordCell.swift */,
+				2808FEE026BBFC4700DE5E9A /* TxMediAddRecordCell.xib */,
+				2808FEE326BBFC6400DE5E9A /* TxMediCreateDidCell.swift */,
+				2808FEE426BBFC6400DE5E9A /* TxMediCreateDidCell.xib */,
+			);
+			path = medi;
+			sourceTree = "<group>";
+		};
 		281008462696B9DF002986A6 /* BinanceUtils */ = {
 			isa = PBXGroup;
 			children = (
@@ -2773,6 +2792,7 @@
 		284D17F32535D69000C364F9 /* txs */ = {
 			isa = PBXGroup;
 			children = (
+				2808FEDE26BBFC2600DE5E9A /* medi */,
 				2816E11726BAADAD00408F8E /* rizon */,
 				28C3F4FE269DC4C700F4A58C /* gravity */,
 				04CFBD4A269226CE0013150B /* ibc */,
@@ -3614,11 +3634,13 @@
 				28105895262EE638009244B8 /* WalletSifCell.xib in Resources */,
 				E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */,
 				E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */,
+				2808FEE226BBFC4700DE5E9A /* TxMediAddRecordCell.xib in Resources */,
 				2868559C24989ACD0099D18F /* DelegateWarnPopup.xib in Resources */,
 				283E9464254902BA007A9291 /* TxRegisterDomainCell.xib in Resources */,
 				28BBAAC7264945890013A555 /* WalletOkAddressCell.xib in Resources */,
 				283A80C824513FF7008FF813 /* CdpDetailTopCell.xib in Resources */,
 				2827F4CB255B93240029AE1C /* WalletAkashCell.xib in Resources */,
+				2808FEE626BBFC6400DE5E9A /* TxMediCreateDidCell.xib in Resources */,
 				280524B5255CDA7D004D6172 /* StarnameWalletConnectViewController.xib in Resources */,
 				2829CEA82627080C0048B52A /* WalletCrytoCell.xib in Resources */,
 				282FF36623F533AF0028CC66 /* TxUnknownCell.xib in Resources */,
@@ -4191,6 +4213,7 @@
 				28B7857926B3A7E4009F755F /* panacea_did_v2_tx.pb.swift in Sources */,
 				289EF83B26824E4700F90AC1 /* osmosis_incentives_query.pb.swift in Sources */,
 				049758822685AA270039872C /* iov_configuration_v1beta1_query.pb.swift in Sources */,
+				2808FEE126BBFC4700DE5E9A /* TxMediAddRecordCell.swift in Sources */,
 				287AC5C825FDF7250070837E /* cosmos_bank_v1beta1_tx.grpc.swift in Sources */,
 				E1827E2F225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift in Sources */,
 				281008482696BA27002986A6 /* OldKey.swift in Sources */,
@@ -4400,6 +4423,7 @@
 				287AC5D025FDF7250070837E /* random_tx.grpc.swift in Sources */,
 				28C3F509269DC53700F4A58C /* TxGravityWithdrawBatchCell.swift in Sources */,
 				283F3AE5265E283800DF1D93 /* treasury_query.grpc.swift in Sources */,
+				2808FEE526BBFC6400DE5E9A /* TxMediCreateDidCell.swift in Sources */,
 				287AC63925FDF7260070837E /* cosmos_upgrade_v1beta1_query.grpc.swift in Sources */,
 				28C3F501269DC4FB00F4A58C /* TxGravityCreatePoolCell.swift in Sources */,
 				287AC5BF25FDF7250070837E /* akash_deployment_v1beta1_deployment.grpc.swift in Sources */,

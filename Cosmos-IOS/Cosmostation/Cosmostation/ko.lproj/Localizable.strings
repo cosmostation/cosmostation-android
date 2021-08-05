@@ -760,6 +760,9 @@ support@cosmostation.io";
 
 "tx_rizon_event_horizon" = "스왑 토큰 받기";
 
+"tx_med_add_record" = "기록 추가";
+"tx_med_create_did" = "DID 생성";
+
 "tx_known" = "알 수 없음";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

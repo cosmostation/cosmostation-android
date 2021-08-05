@@ -757,6 +757,9 @@ support@cosmostation.io";
 
 "tx_rizon_event_horizon" = "Recieve Swap Token";
 
+"tx_med_add_record" = "Add Record";
+"tx_med_create_did" = "Create DID";
+
 "tx_known" = "Unknown";
 
 "chain_title_cosmos" = "Cosmos Mainnet";
