@@ -13,6 +13,7 @@ import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.activities.chains.kava.HardDetailActivity;
+import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
@@ -78,9 +79,9 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindHardDetailAvailable(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom) {
     }
 
-    public void onBindMyPool(Context context, ListPoolFragment fragment, BaseData baseData, PoolOuterClass.Pool otherPool) {
+    public void onBindMyPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool otherPool) {
     }
 
-    public void onBindOtherPool(Context context, ListPoolFragment fragment, BaseData baseData, PoolOuterClass.Pool otherPool) {
+    public void onBindOtherPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool otherPool) {
     }
 }

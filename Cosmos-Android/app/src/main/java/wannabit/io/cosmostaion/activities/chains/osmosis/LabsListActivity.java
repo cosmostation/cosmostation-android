@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Pool_Osmosis;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListFarmingFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListPoolFragment;
@@ -31,6 +32,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolListTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
 
@@ -117,6 +119,28 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 //        Intent intent = new Intent(LabsListActivity.this, JoinPoolActivity.class);
 //        startActivity(intent);
     }
+
+    public void onClickMyPool(long poolId) {
+        WLog.w("onClickMyPool " + poolId);
+        Bundle bundle = new Bundle();
+        bundle.putLong("poolId", poolId);
+        Dialog_Pool_Osmosis add = Dialog_Pool_Osmosis.newInstance(bundle);
+        add.setCancelable(true);
+        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+
+    }
+
+    public void onCheckStartJoinPool(long poolId) {
+        WLog.w("onCheckStartJoinPool " + poolId);
+
+    }
+
+    public void onCheckStartExitPool(long poolId) {
+        WLog.w("onCheckStartExitPool " + poolId);
+
+    }
+
+
 
     public void onFetchPoolListInfo() {
         onShowWaitDialog();

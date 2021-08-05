@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment;
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
+import wannabit.io.cosmostaion.base.BaseActivity;
 
 public class Dialog_Pool_Osmosis extends DialogFragment {
 
@@ -42,6 +43,7 @@ public class Dialog_Pool_Osmosis extends DialogFragment {
         mJoinPool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((LabsListActivity)getActivity()).onCheckStartJoinPool(getArguments().getLong("poolId"));
                 getDialog().dismiss();
             }
         });
@@ -49,6 +51,7 @@ public class Dialog_Pool_Osmosis extends DialogFragment {
         mExitPool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((LabsListActivity)getActivity()).onCheckStartExitPool(getArguments().getLong("poolId"));
                 getDialog().dismiss();
             }
         });

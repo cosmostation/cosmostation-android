@@ -11,11 +11,14 @@ import java.math.BigDecimal;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
+import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListPoolFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class PoolOtherHolder extends BaseHolder {
@@ -38,7 +41,7 @@ public class PoolOtherHolder extends BaseHolder {
     }
 
     @Override
-    public void onBindOtherPool(Context context, ListPoolFragment fragment, BaseData baseData, PoolOuterClass.Pool otherPool) {
+    public void onBindOtherPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool otherPool) {
         Coin coin0 = new Coin(otherPool.getPoolAssets(0).getToken().getDenom(), otherPool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(otherPool.getPoolAssets(1).getToken().getDenom(), otherPool.getPoolAssets(1).getToken().getAmount());
 
@@ -57,7 +60,9 @@ public class PoolOtherHolder extends BaseHolder {
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { fragment.onCheckStartJoinPool(otherPool); return; }
+            public void onClick(View v) {
+                ((LabsListActivity)activity).onCheckStartJoinPool(otherPool.getId());
+            }
         });
     }
 }

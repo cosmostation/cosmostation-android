@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.widget;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,12 +12,14 @@ import java.math.RoundingMode;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
+import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.dialog.Dialog_Pool_Osmosis;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListPoolFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class PoolMyHolder extends BaseHolder {
@@ -50,7 +51,7 @@ public class PoolMyHolder extends BaseHolder {
     }
 
     @Override
-    public void onBindMyPool(Context context, ListPoolFragment fragment, BaseData baseData, PoolOuterClass.Pool myPool) {
+    public void onBindMyPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool myPool) {
         Coin coin0 = new Coin(myPool.getPoolAssets(0).getToken().getDenom(), myPool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(myPool.getPoolAssets(1).getToken().getDenom(), myPool.getPoolAssets(1).getToken().getAmount());
 
@@ -85,10 +86,8 @@ public class PoolMyHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                Dialog_Pool_Osmosis add = Dialog_Pool_Osmosis.newInstance(bundle);
-                add.setCancelable(true);
-                fragment.getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                WLog.w("PoolMyHolder onClick ");
+                ((LabsListActivity)activity).onClickMyPool(myPool.getId());
             }
         });
     }
