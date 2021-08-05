@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment.chains.osmosis;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -17,18 +18,26 @@ import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
+import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.JoinPoolActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Proposal;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolInfoTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
-public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class JoinPoolStep0Fragment extends BaseFragment implements TaskListener, View.OnClickListener {
 
     private Button          mCancelBtn, mNextBtn;
 
@@ -46,7 +55,9 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
     private TextView        mJoinPoolOutputAmount, mJoinPoolOutputDenom;
     private Button          mBtnJoinPoolOutput1_4, mBtnJoinPoolOutputHalf, mBtnJoinPoolOutput3_4, mBtnJoinPoolOutputMax;
 
+    private PoolOuterClass.Pool mSelcetedPool;
     private int             mTxType;
+    private String          mPoolId;
     private BigDecimal      available0MaxAmount , available1MaxAmount;
     private int             coin0Decimal = 6, coin1Decimal = 6;
     private BigDecimal      depositRate = BigDecimal.ONE;
@@ -109,6 +120,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
+        mPoolId = getSActivity().getIntent().getStringExtra("mPoolId");
         mTxType = getSActivity().getIntent().getIntExtra("mType", -1);
 
         return rootView;
@@ -148,6 +160,33 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         depositRate = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN);
 
         onAddAmountWatcher();
+    }
+
+    @Override
+    public void onRefreshTab() {
+        mSelcetedPool = getSActivity().getBaseDao().mSelectedPool;
+    }
+
+    private int mTaskCount;
+    public void onFetchPoolInfo() {
+        getSActivity().onShowWaitDialog();
+        mTaskCount = 1;
+        new OsmosisGrpcPoolInfoTask(getBaseApplication(), this, BaseChain.OSMOSIS_MAIN, mPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if (getSActivity().isFinishing()) return;
+        mTaskCount--;
+        if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_INFO) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mSelectedPool = (PoolOuterClass.Pool) result.resultData;
+            }
+        }
+
+        if (mTaskCount == 0) {
+            getSActivity().onHideWaitDialog();
+        }
     }
 
     private void onAddAmountWatcher() {

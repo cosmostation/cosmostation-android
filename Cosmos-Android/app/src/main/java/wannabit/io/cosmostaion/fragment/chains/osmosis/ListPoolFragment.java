@@ -135,6 +135,7 @@ public class ListPoolFragment extends BaseFragment {
 
         Intent intent = new Intent(getContext(), ExitPoolActivity.class);
         intent.putExtra("mType", CONST_PW_TX_OSMOSIS_EXIT_POOL);
+        intent.putExtra("mPoolId", pool.getId());
         startActivity(intent);
     }
 

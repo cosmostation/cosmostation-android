@@ -92,7 +92,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
             }
         });
-        onFetchPoolInfo();
+        onFetchPoolListInfo();
     }
 
     @Override
@@ -118,7 +118,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 //        startActivity(intent);
     }
 
-    public void onFetchPoolInfo() {
+    public void onFetchPoolListInfo() {
         onShowWaitDialog();
         mTaskCount = 1;
         getBaseDao().mPoolList.clear();

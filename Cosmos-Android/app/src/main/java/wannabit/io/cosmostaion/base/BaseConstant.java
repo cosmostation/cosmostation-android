@@ -211,6 +211,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO        = 4106;
 
     public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_LIST           = 4200;
+    public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_INFO           = 4201;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
