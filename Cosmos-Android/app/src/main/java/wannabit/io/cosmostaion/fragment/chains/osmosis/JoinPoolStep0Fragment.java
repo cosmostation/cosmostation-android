@@ -130,24 +130,33 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBackPressed();
         }
 
-//        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, mTxType, 0);
-//        String coin0Denom = getBaseDao().mPoolMyList.get((int) mPoolId).getPoolAssets(0).getToken().getDenom();
-//        String coin1Denom = getBaseDao().mPoolMyList.get((int) mPoolId).getPoolAssets(1).getToken().getDenom();
-//
-//        coin0Decimal = WUtil.getOsmosisCoinDecimal(coin0Denom);
-//        coin1Decimal = WUtil.getOsmosisCoinDecimal(coin1Denom);
-//        setDpDecimals(coin0Decimal, coin1Decimal);
-//
-//        WUtil.DpOsmosisTokenImg(mJoinPoolInputImg, coin0Denom);
-//        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInputSymbol, coin0Denom);
-//        WUtil.DpOsmosisTokenImg(mJoinPoolOutputImg, coin1Denom);
-//        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolOutputSymbol, coin1Denom);
-//        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolIntputDenom, coin0Denom), available0MaxAmount.toString(), mJoinPoolIntputDenom, mJoinPoolInputAmount, BaseChain.OSMOSIS_MAIN);
-//        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolOutputDenom, coin1Denom), available1MaxAmount.toString(), mJoinPoolOutputDenom, mJoinPoolOutputAmount, BaseChain.OSMOSIS_MAIN);
-//
-//        BigDecimal coin0Amount = new BigDecimal(getSActivity().getIntent().getStringExtra("coin0Amount"));
-//        BigDecimal coin1Amount = new BigDecimal(getSActivity().getIntent().getStringExtra("coin1Amount"));
-//        depositRate = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN);
+        PoolOuterClass.Pool tempPool = null;
+        for (PoolOuterClass.Pool pool: getBaseDao().mPoolList) {
+            if (pool.getId() == mPoolId) { tempPool = pool; }
+        }
+        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, mTxType, 0);
+        String coin0Denom = tempPool.getPoolAssets(0).getToken().getDenom();
+        String coin1Denom = tempPool.getPoolAssets(1).getToken().getDenom();
+
+        available0MaxAmount = getBaseDao().getAvailable(coin0Denom);
+        if (coin0Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { available0MaxAmount = available0MaxAmount.subtract(txFeeAmount); }
+        available1MaxAmount = getBaseDao().getAvailable(coin1Denom);
+        if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { available1MaxAmount = available1MaxAmount.subtract(txFeeAmount); }
+
+        coin0Decimal = WUtil.getOsmosisCoinDecimal(coin0Denom);
+        coin1Decimal = WUtil.getOsmosisCoinDecimal(coin1Denom);
+        setDpDecimals(coin0Decimal, coin1Decimal);
+
+        WUtil.DpOsmosisTokenImg(mJoinPoolInputImg, coin0Denom);
+        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInputSymbol, coin0Denom);
+        WUtil.DpOsmosisTokenImg(mJoinPoolOutputImg, coin1Denom);
+        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolOutputSymbol, coin1Denom);
+        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolIntputDenom, coin0Denom), available0MaxAmount.toString(), mJoinPoolIntputDenom, mJoinPoolInputAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolOutputDenom, coin1Denom), available1MaxAmount.toString(), mJoinPoolOutputDenom, mJoinPoolOutputAmount, BaseChain.OSMOSIS_MAIN);
+
+        BigDecimal coin0Amount = new BigDecimal(tempPool.getPoolAssets(0).getToken().getAmount());
+        BigDecimal coin1Amount = new BigDecimal(tempPool.getPoolAssets(1).getToken().getAmount());
+        depositRate = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN);
 
         onAddAmountWatcher();
     }

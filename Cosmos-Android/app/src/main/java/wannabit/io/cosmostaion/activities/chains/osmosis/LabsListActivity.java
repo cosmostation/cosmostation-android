@@ -150,11 +150,22 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        BigDecimal mainBalance = getBaseDao().getAvailable(TOKEN_OSMOSIS);
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_OSMOSIS_JOIN_POOL, 0);
+        PoolOuterClass.Pool tempPool = null;
+        for (PoolOuterClass.Pool pool: getBaseDao().mPoolList) {
+            if (pool.getId() == poolId) { tempPool = pool; }
+        }
+        String coin0denom = tempPool.getPoolAssets(0).getToken().getDenom();
+        String coin1Denom = tempPool.getPoolAssets(1).getToken().getDenom();
 
-        if (mainBalance.compareTo(feeAmount) < 0) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(LabsListActivity.this, mBaseChain, CONST_PW_TX_OSMOSIS_JOIN_POOL, 0);
+        BigDecimal coin0Available = getBaseDao().getAvailable(coin0denom);
+        BigDecimal coin1Available = getBaseDao().getAvailable(coin1Denom);
+
+        if (coin0denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { coin0Available = coin0Available.subtract(feeAmount); }
+        if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { coin1Available = coin1Available.subtract(feeAmount); }
+
+        if (coin0Available.compareTo(BigDecimal.ZERO) <= 0 || coin1Available.compareTo(BigDecimal.ZERO) <=0 ) {
+            Toast.makeText(LabsListActivity.this, R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
             return;
         }
 

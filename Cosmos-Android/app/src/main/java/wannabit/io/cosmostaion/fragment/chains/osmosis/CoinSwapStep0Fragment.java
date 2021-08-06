@@ -150,33 +150,40 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mNextBtn)) {
 
         } else if (v.equals(mBtnSwapInputClear)) {
+            mSwapInputAmount.setText("");
             mSwapOutputAmount.setText("");
 
         } else if (v.equals(mBtnSwapInput1_4)) {
             BigDecimal cal = mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).multiply(new BigDecimal("0.25")).setScale(mInputCoinDecimal, RoundingMode.DOWN);
-            mSwapOutputAmount.setText(cal.toPlainString());
+            mSwapInputAmount.setText(cal.toPlainString());
             onUpdateOutputTextView();
 
         } else if (v.equals(mBtnSwapInputHalf)) {
             BigDecimal cal = mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).multiply(new BigDecimal("0.5")).setScale(mInputCoinDecimal, RoundingMode.DOWN);
-            mSwapOutputAmount.setText(cal.toPlainString());
+            mSwapInputAmount.setText(cal.toPlainString());
             onUpdateOutputTextView();
 
         } else if (v.equals(mBtnSwapInput3_4)) {
             BigDecimal cal = mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).multiply(new BigDecimal("0.75")).setScale(mInputCoinDecimal, RoundingMode.DOWN);
-            mSwapOutputAmount.setText(cal.toPlainString());
+            mSwapInputAmount.setText(cal.toPlainString());
             onUpdateOutputTextView();
 
         } else if (v.equals(mBtnSwapInputMax)) {
             BigDecimal max = mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).setScale(mInputCoinDecimal, RoundingMode.DOWN);
-            mSwapOutputAmount.setText(max.toPlainString());
+            mSwapInputAmount.setText(max.toPlainString());
             onUpdateOutputTextView();
 
         }
     }
 
     private void onUpdateOutputTextView() {
-        BigDecimal padding = new BigDecimal("0.97");
+        try {
+            BigDecimal InputAmountTemp = new BigDecimal(mSwapInputAmount.getText().toString().trim());
+
+            BigDecimal padding = new BigDecimal("0.97");
+            BigDecimal OutputAmount = InputAmountTemp.multiply(padding).multiply(mSwapRate).setScale(mInputCoinDecimal, RoundingMode.DOWN).movePointLeft(mInputCoinDecimal);
+            mSwapOutputAmount.setText(OutputAmount.movePointLeft(-mOutputCoinDecimal).toPlainString());
+        } catch (Exception e) { }
     }
 
 

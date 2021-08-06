@@ -80,42 +80,6 @@ public class ListPoolFragment extends BaseFragment {
         mAdapter.notifyDataSetChanged();
     }
 
-    public void onCheckStartJoinPool(PoolOuterClass.Pool pool) {
-        if (!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
-        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), mBaseChain, CONST_PW_TX_OSMOSIS_JOIN_POOL, 0);
-        coin0Denom = pool.getPoolAssets(0).getToken().getDenom();
-        coin1Denom = pool.getPoolAssets(1).getToken().getDenom();
-        BigDecimal coin0Available = getBaseDao().getAvailable(coin0Denom);
-        BigDecimal coin1Available = getBaseDao().getAvailable(coin1Denom);
-
-        if (coin0Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
-            coin0Available = coin0Available.subtract(feeAmount);
-        }
-
-        if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
-            coin1Available = coin1Available.subtract(feeAmount);
-        }
-
-        if (coin0Available.compareTo(BigDecimal.ZERO) <= 0 || coin1Available.compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getContext(), R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Intent intent = new Intent(getContext(), JoinPoolActivity.class);
-        intent.putExtra("mType", CONST_PW_TX_OSMOSIS_JOIN_POOL);
-        intent.putExtra("coin0Denom", coin0Denom);
-        intent.putExtra("coin1Denom", coin1Denom);
-        intent.putExtra("coin0Amount", pool.getPoolAssets(0).getToken().getAmount());
-        intent.putExtra("coin1Amount", pool.getPoolAssets(1).getToken().getAmount());
-        startActivity(intent);
-    }
-
-
     private class PoolListAdapter extends RecyclerView.Adapter<BaseHolder> {
         private static final int TYPE_MY_POOL            = 1;
         private static final int TYPE_OTHER_POOL         = 2;
