@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.base;
 
 import java.util.ArrayList;
 
+import osmosis.gamm.v1beta1.Tx;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
@@ -29,7 +30,7 @@ public class BaseBroadCastActivity extends BaseActivity {
     public String                       mStarNameAccount;                           //starname
     public ArrayList<Types.Resource>    mStarNameResources = new ArrayList();       //starname
 
-
+    public Tx.SwapAmountInRoute         swapAmountInRoute;                          // osmosis
 
     public ArrayList<Validator> mValidators = new ArrayList<>();    //ClaimReward old
 

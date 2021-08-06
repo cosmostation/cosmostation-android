@@ -2,6 +2,9 @@ package wannabit.io.cosmostaion.fragment.chains.osmosis;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +13,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
@@ -24,6 +29,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.activities.chains.osmosis.SwapActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -61,6 +67,8 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private int                 mOutputCoinDecimal;
     private BigDecimal          mAvailableMaxAmount;
     private BigDecimal          mSwapRate;
+
+    private String              mInDecimalChecker, mInDecimalSetter;
 
     public static CoinSwapStep0Fragment newInstance(Bundle bundle) {
         CoinSwapStep0Fragment fragment = new CoinSwapStep0Fragment();
@@ -101,16 +109,20 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         mBtnSwapInput3_4.setOnClickListener(this);
         mBtnSwapInputMax.setOnClickListener(this);
 
+        mCancelBtn.setOnClickListener(this);
+        mNextBtn.setOnClickListener(this);
+
         onFetchPoolInfo();
+        onAddAmountWatcher();
         return rootView;
     }
 
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
-        WLog.w("pool " + getSActivity().mPool.getId());
 
         mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mInputDenom);
         mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOutputDenom);
+        setDpDecimals(mInputCoinDecimal);
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
         BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_OSMOSIS_SWAP, 0);
         if (getSActivity().mInputDenom.equals(TOKEN_OSMOSIS)) {
@@ -142,12 +154,79 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         mSwapRate = outputAssetAmount.multiply(inputAssetWeight).divide(inputAssetAmount, 18, RoundingMode.DOWN).divide(outputAssetWeight, 18, RoundingMode.DOWN);
     }
 
+    private void onAddAmountWatcher(){
+        mSwapInputAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable et) {
+                onUpdateOutputTextView();
+                String es = et.toString().trim();
+                if (TextUtils.isEmpty(es)) {
+                    mSwapInputAmount.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                } else if (es.startsWith(".")) {
+                    mSwapInputAmount.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mSwapInputAmount.setText("");
+                } else if (es.endsWith(".")) {
+                    mSwapInputAmount.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                    mSwapInputAmount.setVisibility(View.VISIBLE);
+                } else if(mSwapInputAmount.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                    mSwapInputAmount.setText("0");
+                    mSwapInputAmount.setSelection(1);
+                }
+
+                if (es.equals(mInDecimalChecker)) {
+                    mSwapInputAmount.setText(mInDecimalSetter);
+                    mSwapInputAmount.setSelection(mInputCoinDecimal + 1);
+                } else {
+                    try {
+                        final BigDecimal inputAmount = new BigDecimal(es);
+                        if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
+                            mSwapInputAmount.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            return;
+                        }
+
+                        BigDecimal checkPosition = inputAmount.movePointRight(mInputCoinDecimal);
+                        BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
+                        if (checkPosition.compareTo(checkMax) != 0) {
+                            String recover = es.substring(0, es.length() - 1);
+                            mSwapInputAmount.setText(recover);
+                            mSwapInputAmount.setSelection(recover.length());
+                            return;
+                        }
+
+                        if (inputAmount.compareTo(mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).setScale(mInputCoinDecimal, RoundingMode.CEILING)) > 0) {
+                            mSwapInputAmount.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                        } else {
+                            mSwapInputAmount.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                        }
+                        mSwapInputAmount.setSelection(mSwapInputAmount.getText().length());
+
+                    } catch (Exception e) { }
+                }
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
+            if (isValidateSwapInputAmount()) {
+                getSActivity().onNextStep();
+            } else {
+                Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
+            }
 
         } else if (v.equals(mBtnSwapInputClear)) {
             mSwapInputAmount.setText("");
@@ -181,9 +260,26 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
             BigDecimal InputAmountTemp = new BigDecimal(mSwapInputAmount.getText().toString().trim());
 
             BigDecimal padding = new BigDecimal("0.97");
-            BigDecimal OutputAmount = InputAmountTemp.multiply(padding).multiply(mSwapRate).setScale(mInputCoinDecimal, RoundingMode.DOWN).movePointLeft(mInputCoinDecimal);
+            BigDecimal OutputAmount = InputAmountTemp.multiply(padding).multiply(mSwapRate).setScale(mOutputCoinDecimal, RoundingMode.DOWN).movePointLeft(mOutputCoinDecimal);
+            WLog.w("SSS : " + OutputAmount);
             mSwapOutputAmount.setText(OutputAmount.movePointLeft(-mOutputCoinDecimal).toPlainString());
         } catch (Exception e) { }
+    }
+
+    private boolean isValidateSwapInputAmount() {
+        try {
+            BigDecimal InputAmountTemp = new BigDecimal(mSwapInputAmount.getText().toString().trim());
+            if (InputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+            if (InputAmountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).setScale(mInputCoinDecimal, RoundingMode.CEILING)) > 0) return false;
+
+            Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), InputAmountTemp.movePointRight(mInputCoinDecimal).setScale(0).toPlainString());
+            getSActivity().mAmount = coin;
+            return true;
+
+        } catch (Exception e) {
+            getSActivity().mAmount = null;
+            return false;
+        }
     }
 
 
@@ -206,10 +302,18 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         }
     }
 
+    private void setDpDecimals(int indecimals) {
+        mInDecimalChecker = "0.";
+        mInDecimalSetter = "0.";
+        for (int i = 0; i < indecimals; i ++) {
+            mInDecimalChecker = mInDecimalChecker + "0";
+        }
+        for (int i = 0; i < indecimals-1; i ++) {
+            mInDecimalSetter = mInDecimalSetter + "0";
+        }
+    }
+
     private SwapActivity getSActivity() {
         return (SwapActivity)getBaseActivity();
     }
-
-
-
 }

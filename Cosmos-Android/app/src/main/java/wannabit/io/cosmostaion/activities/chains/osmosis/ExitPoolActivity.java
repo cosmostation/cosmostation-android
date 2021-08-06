@@ -52,6 +52,7 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_pool_exit_osmosis));
 
+        mTxType = getIntent().getIntExtra("mType", -1);
         mPoolId = getIntent().getLongExtra("mPoolId", 0);
 
         setSupportActionBar(mToolbar);

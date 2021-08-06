@@ -1417,6 +1417,14 @@
     <string name="str_osmosis_swap_step_1">Insert memo (optional)</string>
     <string name="str_osmosis_swap_step_2">Select transaction fee</string>
     <string name="str_osmosis_swap_step_3">Check transaction detail</string>
+    <string name="str_osmosis_swap_tx_fee">Tx Fee</string>
+    <string name="str_osmosis_swap_fee">Swap Fee</string>
+    <string name="str_osmosis_swap_in">Swap In</string>
+    <string name="str_osmosis_swap_out">Swap Out (MG)</string>
+    <string name="str_osmosis_join_deposit_coin">To Deposit Coin (Max)</string>
+    <string name="str_osmosis_join_receive_lp_coin">Receiving LP Coin</string>
+    <string name="str_osmosis_exit_insert_lp_coin">Insert LP Coin</string>
+    <string name="str_osmosis_exit_to_withdraw_coin">To Withdraw Coins (MG)</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

@@ -9,19 +9,27 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import java.math.BigDecimal;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.JoinPoolActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class JoinPoolStep3Fragment extends BaseFragment implements View.OnClickListener{
 
-    private TextView        mDelegateAmount;
     private TextView        mFeeAmount;
-    private TextView        mValidatorName, mMemo;
-    private Button          mBeforeBtn, mConfirmBtn;
-    private TextView        mDenomDelegateAmount, mDenomFeeType;
+    private TextView        mFeeAmountSymbol;
+    private TextView        mJoinInput0Amount, mJoinInput0AmountSymbol;
+    private TextView        mJoinInput1Amount, mJoinInput1AmountSymbol;
+    private TextView        mJoinOutAmount, mJoinOutAmountSymbol;
+    private TextView        mMemo;
     private int             mDpDecimal = 6;
+
+    private Button          mBeforeBtn, mConfirmBtn;
 
     public static JoinPoolStep3Fragment newInstance(Bundle bundle) {
         JoinPoolStep3Fragment fragment = new JoinPoolStep3Fragment();
@@ -37,29 +45,53 @@ public class JoinPoolStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_join_pool_step3, container, false);
-        mDelegateAmount         = rootView.findViewById(R.id.delegate_atom);
-        mDenomDelegateAmount    = rootView.findViewById(R.id.delegate_amount_title);
-        mFeeAmount              = rootView.findViewById(R.id.delegate_fees);
-        mDenomFeeType           = rootView.findViewById(R.id.delegate_fees_type);
-        mValidatorName          = rootView.findViewById(R.id.to_delegate_moniker);
-        mMemo                   = rootView.findViewById(R.id.memo);
-        mBeforeBtn              = rootView.findViewById(R.id.btn_before);
-        mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
+        mFeeAmount                  = rootView.findViewById(R.id.join_fee_amount);
+        mFeeAmountSymbol            = rootView.findViewById(R.id.join_fee_amount_symbol);
+        mJoinInput0Amount           = rootView.findViewById(R.id.join_input0_amount);
+        mJoinInput0AmountSymbol     = rootView.findViewById(R.id.join_input0_amount_symbol);
+        mJoinInput1Amount           = rootView.findViewById(R.id.join_input1_amount);
+        mJoinInput1AmountSymbol     = rootView.findViewById(R.id.join_input1_amount_symbol);
+        mJoinOutAmount              = rootView.findViewById(R.id.join_out_amount);
+        mJoinOutAmountSymbol        = rootView.findViewById(R.id.join_out_amount_symbol);
+        mMemo                       = rootView.findViewById(R.id.memo);
+        mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
+        mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
 
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomDelegateAmount);
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomFeeType);
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
         return rootView;
     }
 
-    private JoinPoolActivity getSActivity() {
-        return (JoinPoolActivity)getBaseActivity();
+    @Override
+    public void onRefreshTab() {
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        String InputAmount0 = getSActivity().mToInputCoin0.amount;
+        String InputDenom0 = getSActivity().mToInputCoin0.denom;
+        String InputAmount1 = getSActivity().mToInputCoin1.amount;
+        String InputDenom1 = getSActivity().mToInputCoin1.denom;
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinInput0AmountSymbol, InputDenom0), InputAmount0,  mJoinInput0AmountSymbol, mJoinInput0Amount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinInput1AmountSymbol, InputDenom1), InputAmount1, mJoinInput1AmountSymbol, mJoinInput1Amount, BaseChain.OSMOSIS_MAIN);
+//        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinOutAmount, InputDenom1), InputAmount1, mJoinOutAmount, mJoinOutAmount, BaseChain.OSMOSIS_MAIN);
+        mMemo.setText(getSActivity().mTxMemo);
     }
+
 
     @Override
     public void onClick(View v) {
+        if(v.equals(mBeforeBtn)) {
+            getSActivity().onBeforeStep();
 
+        } else if (v.equals(mConfirmBtn)) {
+            getSActivity().onStartJoinPool();
+        }
+    }
+
+    private JoinPoolActivity getSActivity() {
+        return (JoinPoolActivity)getBaseActivity();
     }
 }

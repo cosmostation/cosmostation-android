@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.osmosis;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,13 +18,20 @@ import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep3Fragment;
+import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class SwapActivity extends BaseBroadCastActivity {
 
@@ -52,6 +60,7 @@ public class SwapActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_swap_osmosis));
 
+        mTxType = getIntent().getIntExtra("mType", -1);
         mPoolId = getIntent().getLongExtra("mPoolId", 0);
         mInputDenom = getIntent().getStringExtra("inputDenom");
         mOutputDenom = getIntent().getStringExtra("outputDenom");
@@ -143,6 +152,18 @@ public class SwapActivity extends BaseBroadCastActivity {
         } else {
             onBackPressed();
         }
+    }
+
+    public void onStartSwap() {
+        Intent intent = new Intent(SwapActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_SWAP);
+        intent.putExtra("route", swapAmountInRoute);
+        intent.putExtra("inputDenom", mInputDenom);
+        intent.putExtra("outputDenom", mOutputDenom);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     private class CoinSwapPageAdapter extends FragmentPagerAdapter {

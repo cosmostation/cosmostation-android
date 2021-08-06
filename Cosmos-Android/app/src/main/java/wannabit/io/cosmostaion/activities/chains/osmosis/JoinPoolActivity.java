@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.osmosis;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,17 +16,20 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
-import cosmos.base.v1beta1.CoinOuterClass;
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.JoinPoolStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.JoinPoolStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.JoinPoolStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 
 public class JoinPoolActivity extends BaseBroadCastActivity {
 
@@ -55,6 +59,7 @@ public class JoinPoolActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_pool_join_osmosis));
 
+        mTxType = getIntent().getIntExtra("mType", -1);
         mPoolId = getIntent().getLongExtra("mPoolId", 0);
 
         setSupportActionBar(mToolbar);
@@ -144,6 +149,18 @@ public class JoinPoolActivity extends BaseBroadCastActivity {
         } else {
             onBackPressed();
         }
+    }
+
+    public void onStartJoinPool() {
+        Intent intent = new Intent(JoinPoolActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_JOIN_POOL);
+        intent.putExtra("mPoolId", mPoolId);
+        intent.putExtra("mToInputCoin0", mToInputCoin0);
+        intent.putExtra("mToInputCoin1", mToInputCoin1);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     private class JoinPoolPageAdapter extends FragmentPagerAdapter {

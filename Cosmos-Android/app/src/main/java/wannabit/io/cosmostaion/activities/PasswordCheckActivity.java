@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
+import osmosis.gamm.v1beta1.Tx;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -64,6 +65,8 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteDomainGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisJoinPoolTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisSwapInTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ReInvestGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RedelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RegisterAccountGrpcTask;
@@ -76,6 +79,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.UndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
@@ -102,6 +106,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
@@ -185,6 +191,15 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mName;
     private ArrayList<Types.Resource>   mResources = new ArrayList();
 
+    private Tx.SwapAmountInRoute        swapAmountInRoute;
+    private String                      mInputdenom;
+    private String                      mOutputdenom;
+    private String                      mInputAmount;
+    private String                      mOutputAmount;
+
+    private String                      mPoolId;
+    private Coin                        mJoinInputCoin0;
+    private Coin                        mJoinInputCoin1;
 
     private long                        mIdToDelete;
     private long                        mIdToCheck;
@@ -259,10 +274,19 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mDomain = getIntent().getStringExtra("domain");
         mDomainType = getIntent().getStringExtra("domainType");
         mName = getIntent().getStringExtra("name");
+
         StarnameResourceWrapper wrapper = (StarnameResourceWrapper) getIntent().getSerializableExtra("resource");
         if (wrapper != null) {
             mResources = wrapper.array;
         }
+
+        mInputdenom = getIntent().getStringExtra("inputDenom");
+        mOutputdenom = getIntent().getStringExtra("outputDenom");
+
+        mPoolId = String.valueOf(getIntent().getLongExtra("mPoolId", 0));
+        mJoinInputCoin0 = getIntent().getParcelableExtra("mToInputCoin0");
+        mJoinInputCoin1 = getIntent().getParcelableExtra("mToInputCoin1");
+        WLog.w("SSS : " + mPoolId + " + " + mJoinInputCoin0.amount + " + " + mJoinInputCoin0.denom + " + " + mJoinInputCoin1.amount + " + " + mJoinInputCoin1.denom);
 
 
 
@@ -547,6 +571,15 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new SimpleRepayHardTask(getBaseApplication(), this, mAccount, mHardPoolCoins, mDepositor,
                     mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
+        }
+
+        else if (mPurpose == CONST_PW_TX_OSMOSIS_SWAP) {
+            new OsmosisSwapInTask(getBaseApplication(), this, mAccount, mBaseChain, swapAmountInRoute, mInputdenom, mInputAmount, mOutputAmount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
+            new OsmosisJoinPoolTask(getBaseApplication(), this, mAccount, mBaseChain, mPoolId, mJoinInputCoin0, mJoinInputCoin1, mOutputAmount,
+                    mTargetFee, mTargetMemo, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
     }
