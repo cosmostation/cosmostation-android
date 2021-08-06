@@ -48,41 +48,53 @@ public class TxJoinPoolHolder extends TxHolder {
             itemJoinSender.setText(msg.getSender());
             itemJoinPoolId.setText("" + msg.getPoolId());
 
-            Coin coin0 = null;
-            Coin coin1 = null;
-            Coin coin2 = null;
+            Coin inCoin0 = null;
+            Coin inCoin1 = null;
+            Coin outCoin = null;
             if (response.getTxResponse().getLogsCount() > position) {
                 for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
                     if (event.getType().equals("transfer")) {
-                        String InValue1 = event.getAttributesList().get(2).getValue().split(",")[0];
-                        String InValue2 = event.getAttributesList().get(2).getValue().split(",")[1];
+                        String InValue0 = event.getAttributesList().get(2).getValue().split(",")[0];
+                        String InValue1 = event.getAttributesList().get(2).getValue().split(",")[1];
                         String OutValue = event.getAttributesList().get(5).getValue();
-                        if (InValue1.contains("ibc") && InValue2.contains("ibc")) {
-                            coin0 = new Coin(InValue1.replaceAll(InValue1.split("ibc")[0], ""), InValue1.split("ibc")[0]);
-                            coin1 = new Coin(InValue2.replaceAll(InValue2.split("ibc")[0], ""), InValue2.split("ibc")[0]);
+
+                        String coin0Amount = "";
+                        if (InValue0.contains("ibc")) {
+                            coin0Amount = InValue0.split("ibc")[0];
                         } else {
-                            coin0 = new Coin(InValue1.replaceAll(InValue1.split("ibc")[0], ""), InValue1.split("ibc")[0]);
-                            coin1 = new Coin(InValue2.replaceAll(InValue2.replaceAll("[^0-9]", ""), ""), InValue2.replaceAll("[^0-9]", ""));
+                            coin0Amount = InValue0.replaceAll("[^0-9]", "");
                         }
-                        coin2 = new Coin(OutValue.replaceAll(OutValue.split("gamm")[0], ""), OutValue.split("gamm")[0]);
+                        inCoin0 = new Coin(InValue0.replaceAll(coin0Amount, ""), coin0Amount);
+
+                        String coin1Amount = "";
+                        if (InValue1.contains("ibc")) {
+                            coin1Amount = InValue1.split("ibc")[0];
+                        } else {
+                            coin1Amount = InValue1.replaceAll("[^0-9]", "");
+                        }
+                        inCoin1 = new Coin(InValue1.replaceAll(coin1Amount, ""), coin1Amount);
+
+                        outCoin = new Coin(OutValue.replaceAll(OutValue.split("gamm")[0], ""), OutValue.split("gamm")[0]);
                     }
                 }
             }
-            if (coin0 != null && coin1 != null) {
-                WDp.showCoinDp(c, coin0, itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, baseChain);
-                WDp.showCoinDp(c, coin1, itemJoinPoolTokenInSymbol2, itemJoinPoolTokenInAmount2, baseChain);
+            if (inCoin0 != null && inCoin1 != null) {
+                WDp.showCoinDp(c, inCoin0, itemJoinPoolTokenInSymbol1, itemJoinPoolTokenInAmount1, baseChain);
+                WDp.showCoinDp(c, inCoin1, itemJoinPoolTokenInSymbol2, itemJoinPoolTokenInAmount2, baseChain);
             } else {
                 itemJoinPoolTokenInAmount1.setText("");
                 itemJoinPoolTokenInSymbol1.setText("");
                 itemJoinPoolTokenInAmount2.setText("");
                 itemJoinPoolTokenInSymbol2.setText("");
             }
-            if (coin2 != null) {
-                WDp.showCoinDp(c, coin2, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount, baseChain);
+            if (outCoin != null) {
+                WDp.showCoinDp(c, outCoin, itemJoinPoolTokenOutSymbol, itemJoinPoolTokenOutAmount, baseChain);
             } else {
                 itemJoinPoolTokenOutAmount.setText("");
                 itemJoinPoolTokenOutSymbol.setText("");
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            WLog.w("Exception " + e.getMessage());
+        }
     }
 }
