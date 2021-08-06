@@ -384,11 +384,11 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         try {
             BigDecimal InputAmountTemp = new BigDecimal(mJoinPoolInput0.getText().toString().trim());
             if (InputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (InputAmountTemp.compareTo(mAvailable0MaxAmount.movePointLeft(mCoin0Decimal)) > 0) return false;
+            if (InputAmountTemp.compareTo(mAvailable0MaxAmount.movePointLeft(mCoin0Decimal).setScale(mCoin0Decimal, RoundingMode.CEILING)) > 0) return false;
 
             BigDecimal OutputAmountTemp = new BigDecimal(mJoinPoolInput1.getText().toString().trim());
             if (OutputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (OutputAmountTemp.compareTo(mAvailable1MaxAmount.movePointLeft(mCoin1Decimal)) > 0) return false;
+            if (OutputAmountTemp.compareTo(mAvailable1MaxAmount.movePointLeft(mCoin1Decimal).setScale(mCoin1Decimal, RoundingMode.CEILING)) > 0) return false;
 
             getSActivity().mToInputCoin0 = new Coin(getSActivity().mPool.getPoolAssets(0).getToken().getDenom(), InputAmountTemp.movePointRight(mCoin0Decimal).toPlainString());
             getSActivity().mToInputCoin1 = new Coin(getSActivity().mPool.getPoolAssets(1).getToken().getDenom(), OutputAmountTemp.movePointRight(mCoin1Decimal).toPlainString());
@@ -420,7 +420,6 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
     private int mTaskCount;
     public void onFetchPoolInfo() {
-        WLog.w("JoinPoolStep0Fragment onFetchPoolInfo");
         mTaskCount = 1;
         new OsmosisGrpcPoolInfoTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

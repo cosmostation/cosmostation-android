@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -23,6 +24,7 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep3Fragment;
+import wannabit.io.cosmostaion.model.type.Coin;
 
 public class ExitPoolActivity extends BaseBroadCastActivity {
 
@@ -33,6 +35,10 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
     private TextView                        mTvStep;
     private ViewPager                       mViewPager;
     private ExitPoolPageAdapter             mPageAdapter;
+
+    public long                             mPoolId;
+    public PoolOuterClass.Pool              mPool;
+    public Coin                             mLpCoin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,8 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_pool_exit_osmosis));
+
+        mPoolId = getIntent().getLongExtra("mPoolId", 0);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
