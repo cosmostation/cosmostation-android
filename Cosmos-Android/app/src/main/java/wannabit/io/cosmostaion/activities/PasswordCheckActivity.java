@@ -200,6 +200,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mPoolId;
     private Coin                        mJoinInputCoin0;
     private Coin                        mJoinInputCoin1;
+    private Coin                        mLpToken;
 
     private long                        mIdToDelete;
     private long                        mIdToCheck;
@@ -286,8 +287,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mPoolId = String.valueOf(getIntent().getLongExtra("mPoolId", 0));
         mJoinInputCoin0 = getIntent().getParcelableExtra("mToInputCoin0");
         mJoinInputCoin1 = getIntent().getParcelableExtra("mToInputCoin1");
-        WLog.w("SSS : " + mPoolId + " + " + mJoinInputCoin0.amount + " + " + mJoinInputCoin0.denom + " + " + mJoinInputCoin1.amount + " + " + mJoinInputCoin1.denom);
-
+        mLpToken = getIntent().getParcelableExtra("mLpToken");
 
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
@@ -578,7 +578,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
-            new OsmosisJoinPoolTask(getBaseApplication(), this, mAccount, mBaseChain, mPoolId, mJoinInputCoin0, mJoinInputCoin1, mOutputAmount,
+            new OsmosisJoinPoolTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mJoinInputCoin0, mJoinInputCoin1, mLpToken.amount,
                     mTargetFee, mTargetMemo, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 

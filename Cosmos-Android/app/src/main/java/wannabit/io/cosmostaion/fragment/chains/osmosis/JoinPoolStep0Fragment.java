@@ -392,6 +392,15 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
             getSActivity().mToInputCoin0 = new Coin(getSActivity().mPool.getPoolAssets(0).getToken().getDenom(), InputAmountTemp.movePointRight(mCoin0Decimal).toPlainString());
             getSActivity().mToInputCoin1 = new Coin(getSActivity().mPool.getPoolAssets(1).getToken().getDenom(), OutputAmountTemp.movePointRight(mCoin1Decimal).toPlainString());
+
+            //Expected receiveing lp Token
+            BigDecimal originAmount = new BigDecimal(getSActivity().mPool.getPoolAssets(0).getToken().getAmount());
+            BigDecimal addedAmount = originAmount.add(InputAmountTemp.movePointRight(mCoin0Decimal));
+            BigDecimal poolTotalShare = new BigDecimal(getSActivity().mPool.getTotalShares().getAmount());
+            BigDecimal expectedLpTokenAmount = addedAmount.multiply(poolTotalShare).divide(originAmount, 0, RoundingMode.DOWN);
+            BigDecimal willReceieveLpTokenAmount = (expectedLpTokenAmount.subtract(poolTotalShare)).multiply(new BigDecimal("0.975")).setScale(0, RoundingMode.DOWN);
+            getSActivity().mLpToken = new Coin(getSActivity().mPool.getTotalShares().getDenom(), willReceieveLpTokenAmount.toPlainString());
+
             return true;
 
         } catch (Exception e) {

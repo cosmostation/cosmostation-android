@@ -246,6 +246,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_RENEW_DOMAIN             = 4512;
     public final static int TASK_GRPC_SIMULATE_RENEW_ACCOUNT            = 4513;
     public final static int TASK_GRPC_SIMULATE_REPLACE_STARNAME         = 4514;
+    public final static int TASK_GRPC_SIMULATE_SWAP_IN                  = 4515;
+    public final static int TASK_GRPC_SIMULATE_JOIN_POOL                = 4516;
 
 
 

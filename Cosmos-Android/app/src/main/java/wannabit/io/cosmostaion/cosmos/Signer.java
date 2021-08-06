@@ -798,14 +798,14 @@ public class Signer {
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcJoinPoolReq(QueryOuterClass.QueryAccountResponse auth, String poolId, Coin deposit0Coin, Coin deposit1Coin, String shareAmount, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcJoinPoolReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin deposit0Coin, Coin deposit1Coin, String shareAmount, Fee fee, String memo, DeterministicKey pKey, String chainId) {
         CoinOuterClass.Coin inputCoin0 = CoinOuterClass.Coin.newBuilder().setDenom(deposit0Coin.denom).setAmount(deposit0Coin.amount).build();
         CoinOuterClass.Coin inputCoin1 = CoinOuterClass.Coin.newBuilder().setDenom(deposit1Coin.denom).setAmount(deposit1Coin.amount).build();
         ArrayList<CoinOuterClass.Coin> tokenMax = new ArrayList<>();
         tokenMax.add(inputCoin0);
         tokenMax.add(inputCoin1);
-        osmosis.gamm.v1beta1.Tx.MsgJoinPool msgJoinPool = osmosis.gamm.v1beta1.Tx.MsgJoinPool.newBuilder().setSender(onParseAddress(auth)).setPoolId(Long.parseLong(poolId)).addAllTokenInMaxs(tokenMax).setShareOutAmount(shareAmount).build();
-        Any msgJoinPoolAny = Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.Tx.MsgJoinPool").setValue(msgJoinPool.toByteString()).build();
+        osmosis.gamm.v1beta1.Tx.MsgJoinPool msgJoinPool = osmosis.gamm.v1beta1.Tx.MsgJoinPool.newBuilder().setSender(onParseAddress(auth)).setPoolId(poolId).addAllTokenInMaxs(tokenMax).setShareOutAmount(shareAmount).build();
+        Any msgJoinPoolAny = Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgJoinPool").setValue(msgJoinPool.toByteString()).build();
 
         TxOuterClass.TxBody txBody          = getGrpcTxBody(msgJoinPoolAny, memo);
         TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
@@ -814,14 +814,14 @@ public class Signer {
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcJoinPoolSimulateReq(QueryOuterClass.QueryAccountResponse auth, String poolId, Coin deposit0Coin, Coin deposit1Coin, String shareAmount, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+    public static ServiceOuterClass.SimulateRequest getGrpcJoinPoolSimulateReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin deposit0Coin, Coin deposit1Coin, String shareAmount, Fee fee, String memo, DeterministicKey pKey, String chainId) {
         CoinOuterClass.Coin inputCoin0 = CoinOuterClass.Coin.newBuilder().setDenom(deposit0Coin.denom).setAmount(deposit0Coin.amount).build();
         CoinOuterClass.Coin inputCoin1 = CoinOuterClass.Coin.newBuilder().setDenom(deposit1Coin.denom).setAmount(deposit1Coin.amount).build();
         ArrayList<CoinOuterClass.Coin> tokenMax = new ArrayList<>();
         tokenMax.add(inputCoin0);
         tokenMax.add(inputCoin1);
-        osmosis.gamm.v1beta1.Tx.MsgJoinPool msgJoinPool = osmosis.gamm.v1beta1.Tx.MsgJoinPool.newBuilder().setSender(onParseAddress(auth)).setPoolId(Long.parseLong(poolId)).addAllTokenInMaxs(tokenMax).setShareOutAmount(shareAmount).build();
-        Any msgJoinPoolAny = Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.Tx.MsgJoinPool").setValue(msgJoinPool.toByteString()).build();
+        osmosis.gamm.v1beta1.Tx.MsgJoinPool msgJoinPool = osmosis.gamm.v1beta1.Tx.MsgJoinPool.newBuilder().setSender(onParseAddress(auth)).setPoolId(poolId).addAllTokenInMaxs(tokenMax).setShareOutAmount(shareAmount).build();
+        Any msgJoinPoolAny = Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgJoinPool").setValue(msgJoinPool.toByteString()).build();
 
         TxOuterClass.TxBody txBody          = getGrpcTxBody(msgJoinPoolAny, memo);
         TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);

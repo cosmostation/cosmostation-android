@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
@@ -40,12 +41,6 @@ public class JoinPoolActivity extends BaseBroadCastActivity {
     private TextView                        mTvStep;
     private ViewPager                       mViewPager;
     private JoinPoolPageAdapter             mPageAdapter;
-
-    public long                             mPoolId;
-    public PoolOuterClass.Pool              mPool;
-    public Coin                             mToInputCoin0;
-    public Coin                             mToInputCoin1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +152,7 @@ public class JoinPoolActivity extends BaseBroadCastActivity {
         intent.putExtra("mPoolId", mPoolId);
         intent.putExtra("mToInputCoin0", mToInputCoin0);
         intent.putExtra("mToInputCoin1", mToInputCoin1);
+        intent.putExtra("mLpToken", mLpToken);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
