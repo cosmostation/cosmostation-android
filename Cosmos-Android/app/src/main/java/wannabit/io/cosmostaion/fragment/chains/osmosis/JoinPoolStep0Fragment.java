@@ -390,8 +390,8 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
             if (OutputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (OutputAmountTemp.compareTo(mAvailable1MaxAmount.movePointLeft(mCoin1Decimal).setScale(mCoin1Decimal, RoundingMode.CEILING)) > 0) return false;
 
-            getSActivity().mToInputCoin0 = new Coin(getSActivity().mPool.getPoolAssets(0).getToken().getDenom(), InputAmountTemp.movePointRight(mCoin0Decimal).toPlainString());
-            getSActivity().mToInputCoin1 = new Coin(getSActivity().mPool.getPoolAssets(1).getToken().getDenom(), OutputAmountTemp.movePointRight(mCoin1Decimal).toPlainString());
+            getSActivity().mOsmoJoinInputCoin0 = new Coin(getSActivity().mPool.getPoolAssets(0).getToken().getDenom(), InputAmountTemp.movePointRight(mCoin0Decimal).toPlainString());
+            getSActivity().mOsmoJoinInputCoin1 = new Coin(getSActivity().mPool.getPoolAssets(1).getToken().getDenom(), OutputAmountTemp.movePointRight(mCoin1Decimal).toPlainString());
 
             //Expected receiveing lp Token
             BigDecimal originAmount = new BigDecimal(getSActivity().mPool.getPoolAssets(0).getToken().getAmount());

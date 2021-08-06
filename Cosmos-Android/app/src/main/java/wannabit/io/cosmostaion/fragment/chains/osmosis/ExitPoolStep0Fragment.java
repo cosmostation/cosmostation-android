@@ -201,7 +201,7 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
             if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (amountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0) return false;
 
-            getSActivity().mLpCoin = new Coin(getSActivity().mPool.getTotalShares().getDenom(), amountTemp.movePointRight(mCoinDecimal).toPlainString());
+            getSActivity().mLpToken = new Coin(getSActivity().mPool.getTotalShares().getDenom(), amountTemp.movePointRight(mCoinDecimal).toPlainString());
             return true;
 
         } catch (Exception e) {

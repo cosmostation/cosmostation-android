@@ -64,8 +64,8 @@ public class ExitPoolStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        String OutputAmount = getSActivity().mLpCoin.amount;
-        String OutputDenom = getSActivity().mLpCoin.denom;
+        String OutputAmount = getSActivity().mLpToken.amount;
+        String OutputDenom = getSActivity().mLpToken.denom;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
@@ -79,7 +79,7 @@ public class ExitPoolStep3Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-//            getSActivity().onStartSwap();
+            getSActivity().onStartExitPool();
         }
     }
 

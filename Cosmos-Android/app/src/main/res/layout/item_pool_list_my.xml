@@ -143,6 +143,12 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="@dimen/space_16"
+                android:background="@color/colorGray10"/>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -162,7 +168,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="ATOM"
+                        android:text="-"
                         style="@style/font_ss_12_white"/>
                     <TextView
                         android:id="@+id/mypool_lp_available_amount"
@@ -171,7 +177,7 @@
                         android:layout_alignBaseline="@+id/tx_delegate_amount_symbol"
                         android:layout_toLeftOf="@+id/mypool_lp_available_symbol"
                         android:layout_marginRight="@dimen/space_2"
-                        android:text="123132"
+                        android:text="-"
                         style="@style/font_ss_12_white"/>
                 </RelativeLayout>
             </RelativeLayout>

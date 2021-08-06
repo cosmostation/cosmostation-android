@@ -67,10 +67,10 @@ public class JoinPoolStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        String InputAmount0 = getSActivity().mToInputCoin0.amount;
-        String InputDenom0 = getSActivity().mToInputCoin0.denom;
-        String InputAmount1 = getSActivity().mToInputCoin1.amount;
-        String InputDenom1 = getSActivity().mToInputCoin1.denom;
+        String InputAmount0 = getSActivity().mOsmoJoinInputCoin0.amount;
+        String InputDenom0 = getSActivity().mOsmoJoinInputCoin0.denom;
+        String InputAmount1 = getSActivity().mOsmoJoinInputCoin1.amount;
+        String InputDenom1 = getSActivity().mOsmoJoinInputCoin1.denom;
         String LpTokenAmount = getSActivity().mLpToken.amount;
         String LpTokenSymbol = getSActivity().mLpToken.denom;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);

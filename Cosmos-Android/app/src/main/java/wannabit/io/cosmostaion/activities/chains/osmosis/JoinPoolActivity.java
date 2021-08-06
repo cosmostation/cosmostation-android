@@ -150,8 +150,8 @@ public class JoinPoolActivity extends BaseBroadCastActivity {
         Intent intent = new Intent(JoinPoolActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_JOIN_POOL);
         intent.putExtra("mPoolId", mPoolId);
-        intent.putExtra("mToInputCoin0", mToInputCoin0);
-        intent.putExtra("mToInputCoin1", mToInputCoin1);
+        intent.putExtra("mOsmoJoinInputCoin0", mOsmoJoinInputCoin0);
+        intent.putExtra("mOsmoJoinInputCoin1", mOsmoJoinInputCoin1);
         intent.putExtra("mLpToken", mLpToken);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);

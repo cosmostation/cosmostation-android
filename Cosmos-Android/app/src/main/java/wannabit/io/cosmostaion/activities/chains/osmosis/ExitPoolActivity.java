@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.osmosis;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,14 +18,17 @@ import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep3Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 
 public class ExitPoolActivity extends BaseBroadCastActivity {
 
@@ -36,9 +40,7 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
     private ViewPager                       mViewPager;
     private ExitPoolPageAdapter             mPageAdapter;
 
-    public long                             mPoolId;
     public PoolOuterClass.Pool              mPool;
-    public Coin                             mLpCoin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +144,17 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
         } else {
             onBackPressed();
         }
+    }
+
+    public void onStartExitPool() {
+        Intent intent = new Intent(ExitPoolActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_JOIN_POOL);
+        intent.putExtra("mPoolId", mPoolId);
+        intent.putExtra("mLpToken", mLpToken);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     private class ExitPoolPageAdapter extends FragmentPagerAdapter {

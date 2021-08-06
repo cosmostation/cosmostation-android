@@ -285,8 +285,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mOutputdenom = getIntent().getStringExtra("outputDenom");
 
         mPoolId = String.valueOf(getIntent().getLongExtra("mPoolId", 0));
-        mJoinInputCoin0 = getIntent().getParcelableExtra("mToInputCoin0");
-        mJoinInputCoin1 = getIntent().getParcelableExtra("mToInputCoin1");
+        mJoinInputCoin0 = getIntent().getParcelableExtra("mOsmoJoinInputCoin0");
+        mJoinInputCoin1 = getIntent().getParcelableExtra("mOsmoJoinInputCoin1");
         mLpToken = getIntent().getParcelableExtra("mLpToken");
 
 

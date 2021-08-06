@@ -371,7 +371,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
             } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
                 new SimulOsmosisJoinPoolTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
-                        getSActivity().mPoolId, getSActivity().mToInputCoin0, getSActivity().mToInputCoin1, getSActivity().mLpToken.amount,
+                        getSActivity().mPoolId, getSActivity().mOsmoJoinInputCoin0, getSActivity().mOsmoJoinInputCoin1, getSActivity().mLpToken.amount,
                         getSActivity().mTxFee, getSActivity().mTxMemo, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
