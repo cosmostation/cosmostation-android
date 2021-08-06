@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
-                android:layout_marginTop="@dimen/space_16">
+                android:layout_marginTop="@dimen/space_12">
                 <LinearLayout
                     android:id="@+id/join_pool_input_symbol_layer"
                     android:layout_width="@dimen/space_40"
@@ -29,8 +29,8 @@
                     android:gravity="center">
                     <ImageView
                         android:id="@+id/join_pool_input_icon"
-                        android:layout_width="@dimen/space_32"
-                        android:layout_height="@dimen/space_32"
+                        android:layout_width="@dimen/space_28"
+                        android:layout_height="@dimen/space_28"
                         android:src="@drawable/token_ic"/>
                     <TextView
                         android:id="@+id/join_pool_input_symbol"
@@ -42,7 +42,7 @@
                 <EditText
                     android:id="@+id/join_pool_input"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_45"
+                    android:layout_height="@dimen/space_40"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@+id/join_pool_input_symbol_layer"
@@ -68,7 +68,7 @@
                 android:id="@+id/join_pool_input_action_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_6"
+                android:layout_marginTop="@dimen/space_2"
                 android:orientation="vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -101,12 +101,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_50"
                     android:layout_marginRight="@dimen/space_12"
-                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_4"
                     android:orientation="horizontal">
                     <Button
                         android:id="@+id/join_pool_input_1_4"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_36"
+                        android:layout_height="@dimen/space_30"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -116,7 +116,7 @@
                     <Button
                         android:id="@+id/join_pool_input_half"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_36"
+                        android:layout_height="@dimen/space_30"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -126,7 +126,7 @@
                     <Button
                         android:id="@+id/join_pool_input_3_4"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_36"
+                        android:layout_height="@dimen/space_30"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -136,7 +136,7 @@
                     <Button
                         android:id="@+id/join_pool_input_max"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_36"
+                        android:layout_height="@dimen/space_30"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_12"
                 android:layout_marginRight="@dimen/space_12"
-                android:layout_marginTop="@dimen/space_16">
+                android:layout_marginTop="@dimen/space_12">
                 <LinearLayout
                     android:id="@+id/join_pool_output_symbol_layer"
                     android:layout_width="@dimen/space_40"
@@ -161,8 +161,8 @@
                     android:gravity="center">
                     <ImageView
                         android:id="@+id/join_pool_output_icon"
-                        android:layout_width="@dimen/space_32"
-                        android:layout_height="@dimen/space_32"
+                        android:layout_width="@dimen/space_28"
+                        android:layout_height="@dimen/space_28"
                         android:src="@drawable/token_ic"/>
                     <TextView
                         android:id="@+id/join_pool_output_symbol"
@@ -174,7 +174,7 @@
                 <EditText
                     android:id="@+id/join_pool_output"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_45"
+                    android:layout_height="@dimen/space_40"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/space_6"
                     android:layout_toRightOf="@+id/join_pool_output_symbol_layer"
@@ -200,7 +200,7 @@
                 android:id="@+id/join_pool_output_action_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_6"
+                android:layout_marginTop="@dimen/space_2"
                 android:orientation="vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -233,12 +233,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_50"
                     android:layout_marginRight="@dimen/space_12"
-                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_4"
                     android:orientation="horizontal">
                     <Button
                         android:id="@+id/join_pool_output_1_4"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_36"
+                        android:layout_height="@dimen/space_30"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -248,7 +248,7 @@
                     <Button
                         android:id="@+id/join_pool_output_half"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_36"
+                        android:layout_height="@dimen/space_30"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -258,7 +258,7 @@
                     <Button
                         android:id="@+id/join_pool_output_3_4"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_36"
+                        android:layout_height="@dimen/space_30"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -268,7 +268,7 @@
                     <Button
                         android:id="@+id/join_pool_output_max"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/space_36"
+                        android:layout_height="@dimen/space_30"
                         android:layout_weight="1"
                         android:layout_marginLeft="@dimen/space_8"
                         android:background="@drawable/btn_trans_with_border"
@@ -313,4 +313,15 @@
             android:textAllCaps="false"
             android:text="@string/str_next"/>
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 </RelativeLayout>

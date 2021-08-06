@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,39 +30,42 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolInfoTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
-public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
+    private RelativeLayout  mProgress;
     private Button          mCancelBtn, mNextBtn;
 
-    private ImageView       mJoinPoolInputImg;
-    private TextView        mJoinPoolInputSymbol;
-    private EditText        mJoinPoolInput;
-    private ImageView       mBtnJoinPoolInputClear;
-    private TextView        mJoinPoolInputAmount, mJoinPoolIntputDenom;
-    private Button          mBtnJoinPoolInput1_4, mBtnJoinPoolInputHalf, mBtnJoinPoolInput3_4, mBtnJoinPoolInputMax;
+    private ImageView mJoinPoolInput0Img;
+    private TextView mJoinPoolInput0Symbol;
+    private EditText mJoinPoolInput0;
+    private ImageView mJoinPoolInput0ClearBtn;
+    private TextView mJoinPoolInput0Amount, mJoinPoolInput0Denom;
+    private Button mJoinPoolInput01_4Btn, mJoinPoolInput0HalfBtn, mJoinPoolInput03_4Btn, mJoinPoolInput0MaxBtn;
 
-    private ImageView       mJoinPoolOutputImg;
-    private TextView        mJoinPoolOutputSymbol;
-    private EditText        mJoinPoolOutput;
-    private ImageView       mBtnJoinPoolOutputClear;
-    private TextView        mJoinPoolOutputAmount, mJoinPoolOutputDenom;
-    private Button          mBtnJoinPoolOutput1_4, mBtnJoinPoolOutputHalf, mBtnJoinPoolOutput3_4, mBtnJoinPoolOutputMax;
+    private ImageView mJoinPoolInput1Img;
+    private TextView mJoinPoolInput1Symbol;
+    private EditText mJoinPoolInput1;
+    private ImageView mJoinPoolInput1ClearBtn;
+    private TextView mJoinPoolInput1Amount, mJoinPoolInput1Denom;
+    private Button mJoinPoolInput11_4, mJoinPoolInput1Half, mJoinPoolInput13_4, mJoinPoolInput1Max;
 
-    private PoolOuterClass.Pool mSelcetedPool;
-    private int             mTxType;
-    private long            mPoolId;
-    private BigDecimal      available0MaxAmount , available1MaxAmount;
-    private int             coin0Decimal = 6, coin1Decimal = 6;
-    private BigDecimal      depositRate = BigDecimal.ONE;
+
+
+    private BigDecimal      mAvailable0MaxAmount, mAvailable1MaxAmount;
+    private int             mCoin0Decimal = 6, mCoin1Decimal = 6;
+    private BigDecimal      mDepositRate = BigDecimal.ONE;
 
     private String          mInDecimalChecker, mInDecimalSetter;
     private String          mOutDecimalChecker,mOutDecimalSetter;
 
+    private boolean         mIsInput0Focused;
 
     public static JoinPoolStep0Fragment newInstance(Bundle bundle) {
         JoinPoolStep0Fragment fragment = new JoinPoolStep0Fragment();
@@ -79,95 +83,101 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         View rootView = inflater.inflate(R.layout.fragment_join_pool_step0, container, false);
         mCancelBtn                  = rootView.findViewById(R.id.btn_cancel);
         mNextBtn                    = rootView.findViewById(R.id.btn_next);
+        mProgress                   = rootView.findViewById(R.id.progress);
 
-        mJoinPoolInputImg           = rootView.findViewById(R.id.join_pool_input_icon);
-        mJoinPoolInputSymbol        = rootView.findViewById(R.id.join_pool_input_symbol);
-        mJoinPoolInput              = rootView.findViewById(R.id.join_pool_input);
-        mBtnJoinPoolInputClear      = rootView.findViewById(R.id.join_pool_input_clear);
-        mJoinPoolInputAmount        = rootView.findViewById(R.id.join_pool_input_amount);
-        mJoinPoolIntputDenom        = rootView.findViewById(R.id.join_pool_input_amount_denom);
-        mBtnJoinPoolInput1_4        = rootView.findViewById(R.id.join_pool_input_1_4);
-        mBtnJoinPoolInputHalf       = rootView.findViewById(R.id.join_pool_input_half);
-        mBtnJoinPoolInput3_4        = rootView.findViewById(R.id.join_pool_input_3_4);
-        mBtnJoinPoolInputMax        = rootView.findViewById(R.id.join_pool_input_max);
+        mJoinPoolInput0Img          = rootView.findViewById(R.id.join_pool_input_icon);
+        mJoinPoolInput0Symbol       = rootView.findViewById(R.id.join_pool_input_symbol);
+        mJoinPoolInput0             = rootView.findViewById(R.id.join_pool_input);
+        mJoinPoolInput0ClearBtn     = rootView.findViewById(R.id.join_pool_input_clear);
+        mJoinPoolInput0Amount       = rootView.findViewById(R.id.join_pool_input_amount);
+        mJoinPoolInput0Denom        = rootView.findViewById(R.id.join_pool_input_amount_denom);
+        mJoinPoolInput01_4Btn       = rootView.findViewById(R.id.join_pool_input_1_4);
+        mJoinPoolInput0HalfBtn      = rootView.findViewById(R.id.join_pool_input_half);
+        mJoinPoolInput03_4Btn       = rootView.findViewById(R.id.join_pool_input_3_4);
+        mJoinPoolInput0MaxBtn       = rootView.findViewById(R.id.join_pool_input_max);
 
-        mJoinPoolOutputImg          = rootView.findViewById(R.id.join_pool_output_icon);
-        mJoinPoolOutputSymbol       = rootView.findViewById(R.id.join_pool_output_symbol);
-        mJoinPoolOutput             = rootView.findViewById(R.id.join_pool_output);
-        mBtnJoinPoolOutputClear     = rootView.findViewById(R.id.join_pool_output_clear);
-        mJoinPoolOutputAmount       = rootView.findViewById(R.id.join_pool_output_amount);
-        mJoinPoolOutputDenom        = rootView.findViewById(R.id.join_pool_output_amount_denom);
-        mBtnJoinPoolOutput1_4       = rootView.findViewById(R.id.join_pool_output_1_4);
-        mBtnJoinPoolOutputHalf      = rootView.findViewById(R.id.join_pool_output_half);
-        mBtnJoinPoolOutput3_4       = rootView.findViewById(R.id.join_pool_output_3_4);
-        mBtnJoinPoolOutputMax       = rootView.findViewById(R.id.join_pool_output_max);
+        mJoinPoolInput1Img          = rootView.findViewById(R.id.join_pool_output_icon);
+        mJoinPoolInput1Symbol       = rootView.findViewById(R.id.join_pool_output_symbol);
+        mJoinPoolInput1             = rootView.findViewById(R.id.join_pool_output);
+        mJoinPoolInput1ClearBtn     = rootView.findViewById(R.id.join_pool_output_clear);
+        mJoinPoolInput1Amount       = rootView.findViewById(R.id.join_pool_output_amount);
+        mJoinPoolInput1Denom        = rootView.findViewById(R.id.join_pool_output_amount_denom);
+        mJoinPoolInput11_4          = rootView.findViewById(R.id.join_pool_output_1_4);
+        mJoinPoolInput1Half         = rootView.findViewById(R.id.join_pool_output_half);
+        mJoinPoolInput13_4          = rootView.findViewById(R.id.join_pool_output_3_4);
+        mJoinPoolInput1Max          = rootView.findViewById(R.id.join_pool_output_max);
 
-        mBtnJoinPoolInputClear.setOnClickListener(this);
-        mBtnJoinPoolInput1_4.setOnClickListener(this);
-        mBtnJoinPoolInputHalf.setOnClickListener(this);
-        mBtnJoinPoolInput3_4.setOnClickListener(this);
-        mBtnJoinPoolInputMax.setOnClickListener(this);
+        mJoinPoolInput0ClearBtn.setOnClickListener(this);
+        mJoinPoolInput01_4Btn.setOnClickListener(this);
+        mJoinPoolInput0HalfBtn.setOnClickListener(this);
+        mJoinPoolInput03_4Btn.setOnClickListener(this);
+        mJoinPoolInput0MaxBtn.setOnClickListener(this);
 
-        mBtnJoinPoolOutputClear.setOnClickListener(this);
-        mBtnJoinPoolOutput1_4.setOnClickListener(this);
-        mBtnJoinPoolOutputHalf.setOnClickListener(this);
-        mBtnJoinPoolOutput3_4.setOnClickListener(this);
-        mBtnJoinPoolOutputMax.setOnClickListener(this);
+        mJoinPoolInput1ClearBtn.setOnClickListener(this);
+        mJoinPoolInput11_4.setOnClickListener(this);
+        mJoinPoolInput1Half.setOnClickListener(this);
+        mJoinPoolInput13_4.setOnClickListener(this);
+        mJoinPoolInput1Max.setOnClickListener(this);
 
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
 
-        mPoolId = getSActivity().getIntent().getLongExtra("mPoolId", 0);
-        mTxType = getSActivity().getIntent().getIntExtra("mType", -1);
-
+        onFetchPoolInfo();
         return rootView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!isAdded() || getSActivity() == null || getSActivity().mAccount == null) {
-            getSActivity().onBackPressed();
-        }
-
-        PoolOuterClass.Pool tempPool = null;
-        for (PoolOuterClass.Pool pool: getBaseDao().mPoolList) {
-            if (pool.getId() == mPoolId) { tempPool = pool; }
-        }
-        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, mTxType, 0);
-        String coin0Denom = tempPool.getPoolAssets(0).getToken().getDenom();
-        String coin1Denom = tempPool.getPoolAssets(1).getToken().getDenom();
-
-        available0MaxAmount = getBaseDao().getAvailable(coin0Denom);
-        if (coin0Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { available0MaxAmount = available0MaxAmount.subtract(txFeeAmount); }
-        available1MaxAmount = getBaseDao().getAvailable(coin1Denom);
-        if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { available1MaxAmount = available1MaxAmount.subtract(txFeeAmount); }
-
-        coin0Decimal = WUtil.getOsmosisCoinDecimal(coin0Denom);
-        coin1Decimal = WUtil.getOsmosisCoinDecimal(coin1Denom);
-        setDpDecimals(coin0Decimal, coin1Decimal);
-
-        WUtil.DpOsmosisTokenImg(mJoinPoolInputImg, coin0Denom);
-        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInputSymbol, coin0Denom);
-        WUtil.DpOsmosisTokenImg(mJoinPoolOutputImg, coin1Denom);
-        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolOutputSymbol, coin1Denom);
-        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolIntputDenom, coin0Denom), available0MaxAmount.toString(), mJoinPoolIntputDenom, mJoinPoolInputAmount, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolOutputDenom, coin1Denom), available1MaxAmount.toString(), mJoinPoolOutputDenom, mJoinPoolOutputAmount, BaseChain.OSMOSIS_MAIN);
-
-        BigDecimal coin0Amount = new BigDecimal(tempPool.getPoolAssets(0).getToken().getAmount());
-        BigDecimal coin1Amount = new BigDecimal(tempPool.getPoolAssets(1).getToken().getAmount());
-        depositRate = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN);
-
-        onAddAmountWatcher();
     }
 
-    @Override
-    public void onRefreshTab() {
-        mSelcetedPool = getSActivity().getBaseDao().mSelectedPool;
+    private void onInitView() {
+        mProgress.setVisibility(View.GONE);
+        WLog.w("pool " + getSActivity().mPool.getId());
+
+        BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_OSMOSIS_JOIN_POOL, 0);
+        String coin0Denom = getSActivity().mPool.getPoolAssets(0).getToken().getDenom();
+        String coin1Denom = getSActivity().mPool.getPoolAssets(1).getToken().getDenom();
+
+        mAvailable0MaxAmount = getBaseDao().getAvailable(coin0Denom);
+        if (coin0Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { mAvailable0MaxAmount = mAvailable0MaxAmount.subtract(txFeeAmount); }
+        mAvailable1MaxAmount = getBaseDao().getAvailable(coin1Denom);
+        if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(txFeeAmount); }
+
+        mCoin0Decimal = WUtil.getOsmosisCoinDecimal(coin0Denom);
+        mCoin1Decimal = WUtil.getOsmosisCoinDecimal(coin1Denom);
+        setDpDecimals(mCoin0Decimal, mCoin1Decimal);
+
+        WUtil.DpOsmosisTokenImg(mJoinPoolInput0Img, coin0Denom);
+        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInput0Symbol, coin0Denom);
+        WUtil.DpOsmosisTokenImg(mJoinPoolInput1Img, coin1Denom);
+        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInput1Symbol, coin1Denom);
+        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInput0Denom, coin0Denom), mAvailable0MaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInput1Denom, coin1Denom), mAvailable1MaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount, BaseChain.OSMOSIS_MAIN);
+
+        BigDecimal coin0Amount = new BigDecimal(getSActivity().mPool.getPoolAssets(0).getToken().getAmount());
+        BigDecimal coin1Amount = new BigDecimal(getSActivity().mPool.getPoolAssets(1).getToken().getAmount());
+        mDepositRate = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN);
+
+        onAddAmountWatcher();
+
+        mJoinPoolInput0.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean focused) {
+                mIsInput0Focused = focused;
+            }
+        });
+
+        mJoinPoolInput1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean focused) {
+                mIsInput0Focused = !focused;
+            }
+        });
     }
 
     private void onAddAmountWatcher() {
-        mJoinPoolInput.addTextChangedListener(new TextWatcher() {
+        mJoinPoolInput0.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
@@ -176,54 +186,54 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
             @Override
             public void afterTextChanged(Editable et) {
-                onUIUpdate0();
                 String es = et.toString().trim();
+                onUpdateInput1Et(es);
                 if (TextUtils.isEmpty(es)) {
-                    mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mJoinPoolInput0.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
-                    mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
-                    mJoinPoolInput.setText("");
+                    mJoinPoolInput0.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mJoinPoolInput0.setText("");
                 } else if (es.endsWith(".")) {
-                    mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                    mJoinPoolInput.setVisibility(View.VISIBLE);
-                } else if(mJoinPoolInput.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
-                    mJoinPoolInput.setText("0");
-                    mJoinPoolInput.setSelection(1);
+                    mJoinPoolInput0.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                    mJoinPoolInput0.setVisibility(View.VISIBLE);
+                } else if(mJoinPoolInput0.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                    mJoinPoolInput0.setText("0");
+                    mJoinPoolInput0.setSelection(1);
                 }
 
                 if (es.equals(mInDecimalChecker)) {
-                    mJoinPoolInput.setText(mInDecimalSetter);
-                    mJoinPoolInput.setSelection(coin0Decimal + 1);
+                    mJoinPoolInput0.setText(mInDecimalSetter);
+                    mJoinPoolInput0.setSelection(mCoin0Decimal + 1);
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
                         if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                            mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            mJoinPoolInput0.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
 
-                        BigDecimal checkPosition = inputAmount.movePointRight(coin0Decimal);
+                        BigDecimal checkPosition = inputAmount.movePointRight(mCoin0Decimal);
                         BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
                         if (checkPosition.compareTo(checkMax) != 0) {
                             String recover = es.substring(0, es.length() - 1);
-                            mJoinPoolInput.setText(recover);
-                            mJoinPoolInput.setSelection(recover.length());
+                            mJoinPoolInput0.setText(recover);
+                            mJoinPoolInput0.setSelection(recover.length());
                             return;
                         }
 
-                        if (inputAmount.compareTo(available0MaxAmount.movePointLeft(coin0Decimal).setScale(coin0Decimal, RoundingMode.CEILING)) > 0) {
-                            mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                        if (inputAmount.compareTo(mAvailable0MaxAmount.movePointLeft(mCoin0Decimal).setScale(mCoin0Decimal, RoundingMode.CEILING)) > 0) {
+                            mJoinPoolInput0.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                         } else {
-                            mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                            mJoinPoolInput0.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                         }
-                        mJoinPoolInput.setSelection(mJoinPoolInput.getText().length());
+                        mJoinPoolInput0.setSelection(mJoinPoolInput0.getText().length());
 
                     } catch (Exception e) { }
                 }
             }
         });
 
-        mJoinPoolOutput.addTextChangedListener(new TextWatcher() {
+        mJoinPoolInput1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
@@ -233,45 +243,46 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
             @Override
             public void afterTextChanged(Editable et) {
                 String es = et.toString().trim();
+                onUpdateInput0Et(es);
                 if (TextUtils.isEmpty(es)) {
-                    mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mJoinPoolInput1.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                 } else if (es.startsWith(".")) {
-                    mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
-                    mJoinPoolOutput.setText("");
+                    mJoinPoolInput1.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                    mJoinPoolInput1.setText("");
                 } else if (es.endsWith(".")) {
-                    mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                    mJoinPoolOutput.setVisibility(View.VISIBLE);
-                } else if(mJoinPoolOutput.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
-                    mJoinPoolOutput.setText("0");
-                    mJoinPoolOutput.setSelection(1);
+                    mJoinPoolInput1.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                    mJoinPoolInput1.setVisibility(View.VISIBLE);
+                } else if(mJoinPoolInput1.length() > 1 && es.startsWith("0") && !es.startsWith("0.")) {
+                    mJoinPoolInput1.setText("0");
+                    mJoinPoolInput1.setSelection(1);
                 }
 
                 if (es.equals(mOutDecimalChecker)) {
-                    mJoinPoolOutput.setText(mOutDecimalSetter);
-                    mJoinPoolOutput.setSelection(coin1Decimal + 1);
+                    mJoinPoolInput1.setText(mOutDecimalSetter);
+                    mJoinPoolInput1.setSelection(mCoin1Decimal + 1);
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
                         if (BigDecimal.ZERO.compareTo(inputAmount) >= 0 ){
-                            mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                            mJoinPoolInput1.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
 
-                        BigDecimal checkPosition = inputAmount.movePointRight(coin1Decimal);
+                        BigDecimal checkPosition = inputAmount.movePointRight(mCoin1Decimal);
                         BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
                         if (checkPosition.compareTo(checkMax) != 0) {
                             String recover = es.substring(0, es.length() - 1);
-                            mJoinPoolOutput.setText(recover);
-                            mJoinPoolOutput.setSelection(recover.length());
+                            mJoinPoolInput1.setText(recover);
+                            mJoinPoolInput1.setSelection(recover.length());
                             return;
                         }
 
-                        if (inputAmount.compareTo(available1MaxAmount.movePointLeft(coin1Decimal).setScale(coin1Decimal, RoundingMode.CEILING)) > 0) {
-                            mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
+                        if (inputAmount.compareTo(mAvailable1MaxAmount.movePointLeft(mCoin1Decimal).setScale(mCoin1Decimal, RoundingMode.CEILING)) > 0) {
+                            mJoinPoolInput1.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                         } else {
-                            mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+                            mJoinPoolInput1.setBackground(getResources().getDrawable(R.drawable.edittext_box));
                         }
-                        mJoinPoolOutput.setSelection(mJoinPoolOutput.getText().length());
+                        mJoinPoolInput1.setSelection(mJoinPoolInput1.getText().length());
 
                     } catch (Exception e) { }
                 }
@@ -279,99 +290,89 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         });
     }
 
-    private void onUIUpdate0() {
-        try {
-            BigDecimal InputAmountTemp = new BigDecimal(mJoinPoolInput.getText().toString().trim());
-            if (InputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) {
-                mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
-                return;
-            }
-            if (InputAmountTemp.movePointLeft(coin0Decimal).compareTo(available0MaxAmount) > 0) {
-                mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-                mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
-                return;
-            }
-            mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+    private void onUpdateInput0Et(String outputs) {
+        WLog.w("onUpdateInput0Et " + outputs + "  " + mIsInput0Focused);
+        if (!mIsInput0Focused) {
+            try {
+                final BigDecimal outputAmount = new BigDecimal(outputs).movePointRight(mCoin1Decimal);
+                BigDecimal inputAmount = outputAmount.divide(mDepositRate, 0, RoundingMode.DOWN);
+                mJoinPoolInput0.setText(inputAmount.movePointLeft(mCoin0Decimal).toPlainString());
 
-            BigDecimal OutputAmount = InputAmountTemp.multiply(depositRate).movePointLeft(coin0Decimal);
-            mJoinPoolOutput.setText(OutputAmount.movePointLeft(-coin1Decimal).toPlainString());
-            if (OutputAmount.compareTo(available1MaxAmount) > 0 ) {
-                mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-            } else {
-                mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+            } catch (Exception e) {
+                mJoinPoolInput0.setText("");
             }
-        } catch (Exception e) { }
+        }
     }
 
-    private void onUIUpdate1() {
-        BigDecimal OutputAmountTemp = new BigDecimal(mJoinPoolOutput.getText().toString().trim());
-        if (OutputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) {
-            mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-            mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
-            return;
-        }
-        if (OutputAmountTemp.movePointLeft(coin1Decimal).compareTo(available1MaxAmount) > 0) {
-            mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-            mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
-            return;
-        }
-        mJoinPoolOutput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+    private void onUpdateInput1Et(String inputs) {
+        WLog.w("onUpdateInput1Et " + inputs + "  " + mIsInput0Focused);
+        if (mIsInput0Focused) {
+            try {
+                final BigDecimal inputAmount = new BigDecimal(inputs).movePointRight(mCoin0Decimal);
+                BigDecimal OutputAmount = inputAmount.multiply(mDepositRate);
+                mJoinPoolInput1.setText(OutputAmount.movePointLeft(mCoin1Decimal).toPlainString());
 
-        BigDecimal InputAmount = OutputAmountTemp.divide(depositRate, 0, RoundingMode.DOWN).movePointLeft(coin1Decimal);
-        mJoinPoolInput.setText(InputAmount.movePointLeft(-coin0Decimal).toPlainString());
-        if (InputAmount.compareTo(available0MaxAmount) > 0 ) {
-            mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
-        } else {
-            mJoinPoolInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
+            } catch (Exception e) {
+                mJoinPoolInput1.setText("");
+            }
         }
     }
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mCancelBtn)) {
+        if (v.equals(mJoinPoolInput01_4Btn)) {
+            mJoinPoolInput0.requestFocus();
+            BigDecimal cal = mAvailable0MaxAmount.multiply(new BigDecimal(0.25)).setScale(0, RoundingMode.DOWN);
+            mJoinPoolInput0.setText(cal.movePointLeft(mCoin0Decimal).toPlainString());
+
+        } else if (v.equals(mJoinPoolInput0HalfBtn)) {
+            mJoinPoolInput0.requestFocus();
+            BigDecimal cal = mAvailable0MaxAmount.multiply(new BigDecimal(0.5)).setScale(0, RoundingMode.DOWN);
+            mJoinPoolInput0.setText(cal.movePointLeft(mCoin0Decimal).toPlainString());
+
+        } else if (v.equals(mJoinPoolInput03_4Btn)) {
+            mJoinPoolInput0.requestFocus();
+            BigDecimal cal = mAvailable0MaxAmount.multiply(new BigDecimal(0.75)).setScale(0, RoundingMode.DOWN);
+            mJoinPoolInput0.setText(cal.movePointLeft(mCoin0Decimal).toPlainString());
+
+        } else if (v.equals(mJoinPoolInput0MaxBtn)) {
+            mJoinPoolInput0.requestFocus();
+            mJoinPoolInput0.setText(mAvailable0MaxAmount.movePointLeft(mCoin0Decimal).toPlainString());
+
+        } else if (v.equals(mJoinPoolInput0ClearBtn)) {
+            mJoinPoolInput0.requestFocus();
+            mJoinPoolInput0.setText("");
+        }
+
+        else if (v.equals(mJoinPoolInput11_4)) {
+            mIsInput0Focused = false;
+            BigDecimal cal = mAvailable1MaxAmount.multiply(new BigDecimal(0.25)).setScale(0, RoundingMode.DOWN);
+            mJoinPoolInput1.setText(cal.movePointLeft(mCoin1Decimal).toPlainString());
+
+        } else if (v.equals(mJoinPoolInput1Half)) {
+            mJoinPoolInput1.requestFocus();
+            BigDecimal cal = mAvailable1MaxAmount.multiply(new BigDecimal(0.5)).setScale(0, RoundingMode.DOWN);
+            mJoinPoolInput1.setText(cal.movePointLeft(mCoin1Decimal).toPlainString());
+
+        } else if (v.equals(mJoinPoolInput13_4)) {
+            mJoinPoolInput1.requestFocus();
+            BigDecimal cal = mAvailable1MaxAmount.multiply(new BigDecimal(0.75)).setScale(0, RoundingMode.DOWN);
+            mJoinPoolInput1.setText(cal.movePointLeft(mCoin1Decimal).toPlainString());
+
+        } else if (v.equals(mJoinPoolInput1Max)) {
+            mJoinPoolInput1.requestFocus();
+            mJoinPoolInput1.setText(mAvailable1MaxAmount.movePointLeft(mCoin1Decimal).toPlainString());
+
+        } else if (v.equals(mJoinPoolInput1ClearBtn)) {
+            mJoinPoolInput1.requestFocus();
+            mJoinPoolInput1.setText("");
+        }
+
+        else if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
 
-        } else if (v.equals(mBtnJoinPoolInput1_4)) {
-            BigDecimal cal = available0MaxAmount.divide(new BigDecimal(4), 0, RoundingMode.DOWN);
-            mJoinPoolInput.setText(cal.movePointLeft(coin0Decimal).toPlainString());
-
-        } else if (v.equals(mBtnJoinPoolInputHalf)) {
-            BigDecimal cal = available0MaxAmount.divide(new BigDecimal(2), 0, RoundingMode.DOWN);
-            mJoinPoolInput.setText(cal.movePointLeft(coin0Decimal).toPlainString());
-
-        } else if (v.equals(mBtnJoinPoolInput3_4)) {
-            BigDecimal cal = available0MaxAmount.multiply(new BigDecimal(0.75)).setScale(0, RoundingMode.DOWN);
-            mJoinPoolInput.setText(cal.movePointLeft(coin0Decimal).toPlainString());
-
-        } else if (v.equals(mBtnJoinPoolInputMax)) {
-            mJoinPoolInput.setText(available0MaxAmount.movePointLeft(coin0Decimal).toPlainString());
-
-        } else if (v.equals(mBtnJoinPoolInputClear)) {
-            mJoinPoolInput.setText("");
-        }
-
-        else if (v.equals(mBtnJoinPoolOutput1_4)) {
-            BigDecimal cal = available1MaxAmount.divide(new BigDecimal(4), 0, RoundingMode.DOWN);
-            mJoinPoolOutput.setText(cal.movePointLeft(coin1Decimal).toPlainString());
-
-        } else if (v.equals(mBtnJoinPoolOutputHalf)) {
-            BigDecimal cal = available1MaxAmount.divide(new BigDecimal(2), 0, RoundingMode.DOWN);
-            mJoinPoolOutput.setText(cal.movePointLeft(coin1Decimal).toPlainString());
-
-        } else if (v.equals(mBtnJoinPoolOutput3_4)) {
-            BigDecimal cal = available1MaxAmount.multiply(new BigDecimal(0.75)).setScale(0, RoundingMode.DOWN);
-            mJoinPoolOutput.setText(cal.movePointLeft(coin1Decimal).toPlainString());
-
-        } else if (v.equals(mBtnJoinPoolOutputMax)) {
-            mJoinPoolOutput.setText(available1MaxAmount.movePointLeft(coin1Decimal).toPlainString());
-
-        } else if (v.equals(mBtnJoinPoolOutputClear)) {
-            mJoinPoolOutput.setText("");
-        }
-
-        else if (v.equals(mNextBtn)) {
-            if (isValidateJoinPoolInputAmount() && isValidateJoinPoolOutputAmount()) {
+        } else if (v.equals(mNextBtn)) {
+            if (isValidateJoinPool()) {
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
@@ -379,32 +380,21 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         }
     }
 
-    private boolean isValidateJoinPoolInputAmount() {
+    private boolean isValidateJoinPool() {
         try {
-            BigDecimal InputAmountTemp = new BigDecimal(mJoinPoolInput.getText().toString().trim());
+            BigDecimal InputAmountTemp = new BigDecimal(mJoinPoolInput0.getText().toString().trim());
             if (InputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (InputAmountTemp.compareTo(available0MaxAmount.movePointLeft(coin0Decimal).setScale(coin0Decimal, RoundingMode.CEILING)) > 0) return false;
-            Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), InputAmountTemp.movePointRight(coin0Decimal).setScale(0).toPlainString());
-            getSActivity().mAmount = coin;
-            return true;
+            if (InputAmountTemp.compareTo(mAvailable0MaxAmount.movePointLeft(mCoin0Decimal)) > 0) return false;
 
-        } catch (Exception e) {
-            getSActivity().mAmount = null;
-            return false;
-        }
-    }
-
-    private boolean isValidateJoinPoolOutputAmount() {
-        try {
-            BigDecimal OutputAmountTemp = new BigDecimal(mJoinPoolOutput.getText().toString().trim());
+            BigDecimal OutputAmountTemp = new BigDecimal(mJoinPoolInput1.getText().toString().trim());
             if (OutputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-            if (OutputAmountTemp.compareTo(available1MaxAmount.movePointLeft(coin1Decimal).setScale(coin1Decimal, RoundingMode.CEILING)) > 0) return false;
-            Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), OutputAmountTemp.movePointRight(coin1Decimal).setScale(0).toPlainString());
-            getSActivity().mAmount = coin;
+            if (OutputAmountTemp.compareTo(mAvailable1MaxAmount.movePointLeft(mCoin1Decimal)) > 0) return false;
+
+            getSActivity().mToInputCoin0 = new Coin(getSActivity().mPool.getPoolAssets(0).getToken().getDenom(), InputAmountTemp.movePointRight(mCoin0Decimal).toPlainString());
+            getSActivity().mToInputCoin1 = new Coin(getSActivity().mPool.getPoolAssets(1).getToken().getDenom(), OutputAmountTemp.movePointRight(mCoin1Decimal).toPlainString());
             return true;
 
         } catch (Exception e) {
-            getSActivity().mAmount = null;
             return false;
         }
     }
@@ -425,6 +415,26 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         }
         for (int i = 0; i < outdecimals-1; i ++) {
             mOutDecimalSetter = mOutDecimalSetter + "0";
+        }
+    }
+
+    private int mTaskCount;
+    public void onFetchPoolInfo() {
+        WLog.w("JoinPoolStep0Fragment onFetchPoolInfo");
+        mTaskCount = 1;
+        new OsmosisGrpcPoolInfoTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        mTaskCount--;
+        if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_INFO) {
+            if (result.isSuccess && result.resultData != null) {
+                getSActivity().mPool = (PoolOuterClass.Pool)result.resultData;
+            }
+        }
+        if (mTaskCount == 0) {
+            onInitView();
         }
     }
 

@@ -37,17 +37,10 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
 public class ListPoolFragment extends BaseFragment {
     private RecyclerView        mRecyclerView;
-
-    private Account             mAccount;
-    private BaseChain           mBaseChain;
     private PoolListAdapter     mAdapter;
 
     public ArrayList<PoolOuterClass.Pool>       mPoolMyList = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>       mPoolOtherList = new ArrayList<>();
-
-    private String      coin0Denom;
-    private String      coin1Denom;
-
 
     public static ListPoolFragment newInstance(Bundle bundle) {
         ListPoolFragment fragment = new ListPoolFragment();
