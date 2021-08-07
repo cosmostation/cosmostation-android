@@ -830,6 +830,38 @@ public class Signer {
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcExitPoolReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin Withdraw0Coin, Coin Withdraw1Coin, String shareAmount, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+        CoinOuterClass.Coin OutputCoin0 = CoinOuterClass.Coin.newBuilder().setDenom(Withdraw0Coin.denom).setAmount(Withdraw0Coin.amount).build();
+        CoinOuterClass.Coin OutputCoin1 = CoinOuterClass.Coin.newBuilder().setDenom(Withdraw1Coin.denom).setAmount(Withdraw1Coin.amount).build();
+        ArrayList<CoinOuterClass.Coin> tokenMin = new ArrayList<>();
+        tokenMin.add(OutputCoin0);
+        tokenMin.add(OutputCoin1);
+        osmosis.gamm.v1beta1.Tx.MsgExitPool msgExitPool = osmosis.gamm.v1beta1.Tx.MsgExitPool.newBuilder().setSender(onParseAddress(auth)).setPoolId(poolId).addAllTokenOutMins(tokenMin).setShareInAmount(shareAmount).build();
+        Any msgExitPoolAny = Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgExitPool").setValue(msgExitPool.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgExitPoolAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcExitPoolSimulateReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin Withdraw0Coin, Coin Withdraw1Coin, String shareAmount, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+        CoinOuterClass.Coin OutputCoin0 = CoinOuterClass.Coin.newBuilder().setDenom(Withdraw0Coin.denom).setAmount(Withdraw0Coin.amount).build();
+        CoinOuterClass.Coin OutputCoin1 = CoinOuterClass.Coin.newBuilder().setDenom(Withdraw1Coin.denom).setAmount(Withdraw1Coin.amount).build();
+        ArrayList<CoinOuterClass.Coin> tokenMin = new ArrayList<>();
+        tokenMin.add(OutputCoin0);
+        tokenMin.add(OutputCoin1);
+        osmosis.gamm.v1beta1.Tx.MsgExitPool msgExitPool = osmosis.gamm.v1beta1.Tx.MsgExitPool.newBuilder().setSender(onParseAddress(auth)).setPoolId(poolId).addAllTokenOutMins(tokenMin).setShareInAmount(shareAmount).build();
+        Any msgExitPoolAny = Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgExitPool").setValue(msgExitPool.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgExitPoolAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    }
+
 
 
     public static TxOuterClass.TxBody getGrpcTxBody(Any msgAny, String memo) {

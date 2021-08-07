@@ -84,13 +84,13 @@
                         android:orientation="horizontal"
                         android:gravity="center">
                         <TextView
-                            android:id="@+id/exit_out_amount"
+                            android:id="@+id/exit_in_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
                             style="@style/font_ssl_12_white"/>
                         <TextView
-                            android:id="@+id/exit_out_amount_symbol"
+                            android:id="@+id/exit_in_amount_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -117,13 +117,13 @@
                         android:orientation="horizontal"
                         android:layout_gravity="right">
                         <TextView
-                            android:id="@+id/exit_input0_amount"
+                            android:id="@+id/exit_output0_amount"
                             style="@style/font_ssl_12_white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-" />
                         <TextView
-                            android:id="@+id/exit_input0_amount_symbol"
+                            android:id="@+id/exit_output0_amount_symbol"
                             style="@style/font_ss_12_white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -136,13 +136,13 @@
                         android:orientation="horizontal"
                         android:layout_gravity="right">
                         <TextView
-                            android:id="@+id/exit_input1_amount"
+                            android:id="@+id/exit_output1_amount"
                             style="@style/font_ssl_12_white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-" />
                         <TextView
-                            android:id="@+id/exit_input1_amount_symbol"
+                            android:id="@+id/exit_output1_amount_symbol"
                             style="@style/font_ss_12_white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep3Fragment;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 
 public class ExitPoolActivity extends BaseBroadCastActivity {
@@ -39,8 +40,6 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
     private TextView                        mTvStep;
     private ViewPager                       mViewPager;
     private ExitPoolPageAdapter             mPageAdapter;
-
-    public PoolOuterClass.Pool              mPool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,8 +147,10 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
 
     public void onStartExitPool() {
         Intent intent = new Intent(ExitPoolActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_JOIN_POOL);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_EXIT_POOL);
         intent.putExtra("mPoolId", mPoolId);
+        intent.putExtra("mOsmoPoolCoin0", mOsmoPoolCoin0);
+        intent.putExtra("mOsmoPoolCoin1", mOsmoPoolCoin1);
         intent.putExtra("mLpToken", mLpToken);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);

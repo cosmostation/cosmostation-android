@@ -22,9 +22,9 @@ public class ExitPoolStep3Fragment extends BaseFragment implements View.OnClickL
 
     private TextView        mFeeAmount;
     private TextView        mFeeAmountSymbol;
-    private TextView        mExitOutAmount, mExitOutAmountSymbol;
-    private TextView        mExitInput0Amount, mExitInput0AmountSymbol;
-    private TextView        mExitInput1Amount, mExitInput1AmountSymbol;
+    private TextView        mExitInAmount, mExitInAmountSymbol;
+    private TextView        mExitOutput0Amount, mExitOutput0AmountSymbol;
+    private TextView        mExitOutput1Amount, mExitOutput1AmountSymbol;
     private TextView        mMemo;
     private int             mDpDecimal = 6;
 
@@ -46,15 +46,17 @@ public class ExitPoolStep3Fragment extends BaseFragment implements View.OnClickL
         View rootView = inflater.inflate(R.layout.fragment_exit_pool_step3, container, false);
         mFeeAmount                  = rootView.findViewById(R.id.exit_fee_amount);
         mFeeAmountSymbol            = rootView.findViewById(R.id.exit_fee_amount_symbol);
-        mExitOutAmount              = rootView.findViewById(R.id.exit_out_amount);
-        mExitOutAmountSymbol        = rootView.findViewById(R.id.exit_out_amount_symbol);
-        mExitInput0Amount           = rootView.findViewById(R.id.exit_input0_amount);
-        mExitInput0AmountSymbol     = rootView.findViewById(R.id.exit_input0_amount_symbol);
-        mExitInput1Amount           = rootView.findViewById(R.id.exit_input1_amount);
-        mExitInput1AmountSymbol     = rootView.findViewById(R.id.exit_input1_amount_symbol);
+        mExitInAmount               = rootView.findViewById(R.id.exit_in_amount);
+        mExitInAmountSymbol         = rootView.findViewById(R.id.exit_in_amount_symbol);
+        mExitOutput0Amount          = rootView.findViewById(R.id.exit_output0_amount);
+        mExitOutput0AmountSymbol    = rootView.findViewById(R.id.exit_output0_amount_symbol);
+        mExitOutput1Amount          = rootView.findViewById(R.id.exit_output1_amount);
+        mExitOutput1AmountSymbol    = rootView.findViewById(R.id.exit_output1_amount_symbol);
         mMemo                       = rootView.findViewById(R.id.memo);
         mBeforeBtn                  = rootView.findViewById(R.id.btn_before);
         mConfirmBtn                 = rootView.findViewById(R.id.btn_confirm);
+
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeAmountSymbol);
 
         mBeforeBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
@@ -64,12 +66,18 @@ public class ExitPoolStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        String OutputAmount = getSActivity().mLpToken.amount;
-        String OutputDenom = getSActivity().mLpToken.denom;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
+        String InputAmount = getSActivity().mLpToken.amount;
+        String InputDenom = getSActivity().mLpToken.denom;
+        String OutputAmount0 = getSActivity().mOsmoPoolCoin0.amount;
+        String OutputDenom0 = getSActivity().mOsmoPoolCoin0.denom;
+        String OutputAmount1 = getSActivity().mOsmoPoolCoin1.amount;
+        String OutputDenom1 = getSActivity().mOsmoPoolCoin1.denom;
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mExitOutAmountSymbol, OutputDenom), OutputAmount,  mExitOutAmountSymbol, mExitOutAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mExitInAmountSymbol, InputDenom), InputAmount,  mExitInAmountSymbol, mExitInAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mExitOutput0AmountSymbol, OutputDenom0), OutputAmount0,  mExitOutput0AmountSymbol, mExitOutput0Amount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mExitOutput1AmountSymbol, OutputDenom1), OutputAmount1,  mExitOutput1AmountSymbol, mExitOutput1Amount, BaseChain.OSMOSIS_MAIN);
         mMemo.setText(getSActivity().mTxMemo);
     }
 

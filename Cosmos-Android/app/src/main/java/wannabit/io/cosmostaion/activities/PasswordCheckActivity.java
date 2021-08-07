@@ -65,7 +65,8 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteDomainGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisJoinPoolTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisExitPooGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisJoinPoolGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisSwapInTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ReInvestGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RedelegateGrpcTask;
@@ -106,6 +107,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
@@ -198,8 +200,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mOutputAmount;
 
     private String                      mPoolId;
-    private Coin                        mJoinInputCoin0;
-    private Coin                        mJoinInputCoin1;
+    private Coin                        mOsmoPoolCoin0;
+    private Coin                        mOsmoPoolCoin1;
     private Coin                        mLpToken;
 
     private long                        mIdToDelete;
@@ -285,8 +287,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mOutputdenom = getIntent().getStringExtra("outputDenom");
 
         mPoolId = String.valueOf(getIntent().getLongExtra("mPoolId", 0));
-        mJoinInputCoin0 = getIntent().getParcelableExtra("mOsmoJoinInputCoin0");
-        mJoinInputCoin1 = getIntent().getParcelableExtra("mOsmoJoinInputCoin1");
+        mOsmoPoolCoin0 = getIntent().getParcelableExtra("mOsmoPoolCoin0");
+        mOsmoPoolCoin1 = getIntent().getParcelableExtra("mOsmoPoolCoin1");
         mLpToken = getIntent().getParcelableExtra("mLpToken");
 
 
@@ -578,7 +580,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
-            new OsmosisJoinPoolTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mJoinInputCoin0, mJoinInputCoin1, mLpToken.amount,
+            new OsmosisJoinPoolGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mOsmoPoolCoin0, mOsmoPoolCoin1, mLpToken.amount,
+                    mTargetFee, mTargetMemo, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
+            new OsmosisExitPooGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mOsmoPoolCoin0, mOsmoPoolCoin1, mLpToken.amount,
                     mTargetFee, mTargetMemo, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 

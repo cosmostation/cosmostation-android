@@ -202,6 +202,19 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
             if (amountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0) return false;
 
             getSActivity().mLpToken = new Coin(getSActivity().mPool.getTotalShares().getDenom(), amountTemp.movePointRight(mCoinDecimal).toPlainString());
+
+            //Expected receiveing pool tokens!!
+            String coin0Denom = getSActivity().mPool.getPoolAssets(0).getToken().getDenom();
+            String coin1Denom = getSActivity().mPool.getPoolAssets(1).getToken().getDenom();
+            BigDecimal coin0Amount = new BigDecimal(getSActivity().mPool.getPoolAssets(0).getToken().getAmount());
+            BigDecimal coin1Amount = new BigDecimal(getSActivity().mPool.getPoolAssets(1).getToken().getAmount());
+            BigDecimal poolTotalShare = new BigDecimal(getSActivity().mPool.getTotalShares().getAmount());
+
+            BigDecimal coin0PaybackAmount = coin0Amount.multiply(amountTemp.movePointRight(mCoinDecimal)).divide(poolTotalShare, 0, RoundingMode.DOWN).multiply(new BigDecimal("0.975")).setScale(0, RoundingMode.DOWN);
+            BigDecimal coin1PaybackAmount = coin1Amount.multiply(amountTemp.movePointRight(mCoinDecimal)).divide(poolTotalShare, 0, RoundingMode.DOWN).multiply(new BigDecimal("0.975")).setScale(0, RoundingMode.DOWN);
+
+            getSActivity().mOsmoPoolCoin0 = new Coin(coin0Denom, coin0PaybackAmount.toPlainString());
+            getSActivity().mOsmoPoolCoin1 = new Coin(coin1Denom, coin1PaybackAmount.toPlainString());
             return true;
 
         } catch (Exception e) {

@@ -27,7 +27,6 @@ import cosmos.base.abci.v1beta1.Abci;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -39,7 +38,8 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteDomainGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisJoinPoolTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisExitPoolGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisJoinPoolGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulReInvestGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRedelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRegisterAccountGrpcTask;
@@ -72,7 +72,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWAR
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
 public class StepFeeSetFragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -370,14 +369,14 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
-                new SimulOsmosisJoinPoolTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
-                        getSActivity().mPoolId, getSActivity().mOsmoJoinInputCoin0, getSActivity().mOsmoJoinInputCoin1, getSActivity().mLpToken.amount,
+                new SimulOsmosisJoinPoolGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
+                        getSActivity().mPoolId, getSActivity().mOsmoPoolCoin0, getSActivity().mOsmoPoolCoin1, getSActivity().mLpToken.amount,
                         getSActivity().mTxFee, getSActivity().mTxMemo, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
-                new SimulReplaceStarNameGrpcTask(getBaseApplication(),this, getSActivity().mAccount, getSActivity().mBaseChain,
-                        getSActivity().mStarNameDomain, getSActivity().mStarNameAccount, getSActivity().mStarNameResources,
-                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new SimulOsmosisExitPoolGrpcTask(getBaseApplication(),this, getSActivity().mAccount, getSActivity().mBaseChain,
+                        getSActivity().mPoolId, getSActivity().mOsmoPoolCoin0, getSActivity().mOsmoPoolCoin1, getSActivity().mLpToken.amount,
+                        getSActivity().mTxFee, getSActivity().mTxMemo, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             }
 

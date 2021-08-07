@@ -14,10 +14,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -28,7 +26,6 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.JoinPoolStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.JoinPoolStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.JoinPoolStep3Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 
@@ -150,8 +147,8 @@ public class JoinPoolActivity extends BaseBroadCastActivity {
         Intent intent = new Intent(JoinPoolActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_JOIN_POOL);
         intent.putExtra("mPoolId", mPoolId);
-        intent.putExtra("mOsmoJoinInputCoin0", mOsmoJoinInputCoin0);
-        intent.putExtra("mOsmoJoinInputCoin1", mOsmoJoinInputCoin1);
+        intent.putExtra("mOsmoPoolCoin0", mOsmoPoolCoin0);
+        intent.putExtra("mOsmoPoolCoin1", mOsmoPoolCoin1);
         intent.putExtra("mLpToken", mLpToken);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);

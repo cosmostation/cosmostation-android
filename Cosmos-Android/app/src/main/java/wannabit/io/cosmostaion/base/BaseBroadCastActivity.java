@@ -35,8 +35,8 @@ public class BaseBroadCastActivity extends BaseActivity {
 
     public long                             mPoolId;
     public PoolOuterClass.Pool              mPool;
-    public Coin                             mOsmoJoinInputCoin0;
-    public Coin                             mOsmoJoinInputCoin1;
+    public Coin                             mOsmoPoolCoin0;
+    public Coin                             mOsmoPoolCoin1;
     public Coin                             mLpToken;
 
     public ArrayList<Validator> mValidators = new ArrayList<>();    //ClaimReward old

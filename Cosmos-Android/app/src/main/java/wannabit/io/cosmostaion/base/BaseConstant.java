@@ -230,6 +230,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_REPLACE_STARNAME           = 4314;
     public final static int TASK_GRPC_GEN_TX_SWAP_IN                    = 4315;
     public final static int TASK_GRPC_GEN_TX_JOIN_POOL                  = 4316;
+    public final static int TASK_GRPC_GEN_TX_EXIT_POOL                  = 4317;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -248,6 +249,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_REPLACE_STARNAME         = 4514;
     public final static int TASK_GRPC_SIMULATE_SWAP_IN                  = 4515;
     public final static int TASK_GRPC_SIMULATE_JOIN_POOL                = 4516;
+    public final static int TASK_GRPC_SIMULATE_EXIT_POOL                = 4517;
 
 
 

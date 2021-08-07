@@ -26,7 +26,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_GEN_TX_JOIN_POOL;
 
-public class OsmosisJoinPoolTask extends CommonTask {
+public class OsmosisJoinPoolGrpcTask extends CommonTask {
 
     private Account             mAccount;
     private BaseChain           mBaseChain;
@@ -39,7 +39,7 @@ public class OsmosisJoinPoolTask extends CommonTask {
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey deterministicKey;
 
-    public OsmosisJoinPoolTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, long poolId, Coin deposit0Coin, Coin deposit1Coin, String shareAmount, Fee fee, String memo, String chainId) {
+    public OsmosisJoinPoolGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, long poolId, Coin deposit0Coin, Coin deposit1Coin, String shareAmount, Fee fee, String memo, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
