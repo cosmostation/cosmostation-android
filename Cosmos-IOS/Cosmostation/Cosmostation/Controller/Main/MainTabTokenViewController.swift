@@ -67,6 +67,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.mBalances = BaseData.instance.mBalances
         self.mBalances_gRPC = BaseData.instance.mMyBalances_gRPC
         
+        let tapTotalCard = UITapGestureRecognizer(target: self, action: #selector(self.onClickActionShare))
+        self.totalCard.addGestureRecognizer(tapTotalCard)
+        
         self.updateView()
     }
     
@@ -75,7 +78,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onPriceUpdated(_:)), name: Notification.Name("priceUpdate"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchPrice(_:)), name: Notification.Name("onFetchPrice"), object: nil)
         self.updateTitle()
         self.updateView()
     }
@@ -83,7 +86,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("priceUpdate"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchPrice"), object: nil)
     }
     
     func updateTitle() {
@@ -265,7 +268,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.refresher.endRefreshing()
     }
     
-    @objc func onPriceUpdated(_ notification: NSNotification) {
+    @objc func onFetchPrice(_ notification: NSNotification) {
         self.updateView()
     }
     
@@ -286,13 +289,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         }))
         self.present(alert, animated: true, completion: nil)
     }
-    
-//    func onUpdateTotalCard() {
-//
-////        totalBtcValue.attributedText = WUtils.dpAllAssetValueBtc(chainType, totalBtcValue.font)
-//        self.tokenCnt.text = WUtils.tokenCnt(chainType)
-//        self.totalValue.attributedText = WUtils.dpAllAssetValueUserCurrency(chainType, totalValue.font)
-//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (WUtils.isGRPC(chainType!)) {
@@ -1095,6 +1091,27 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
             }
         }
+    }
+    
+    @objc func onClickActionShare() {
+        var nickName:String?
+        if (account?.account_nick_name == "") {
+            nickName = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
+        } else {
+            nickName = account?.account_nick_name
+        }
+        var address = account!.account_address
+        if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+            address = WKey.convertAddressOkexToEth(address)
+        }
+        self.shareAddress(address, nickName!)
+    }
+    
+    func onClickValidatorList() {
+        let validatorListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "ValidatorListViewController") as! ValidatorListViewController
+        validatorListVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(validatorListVC, animated: true)
     }
     
     func sortByName() {

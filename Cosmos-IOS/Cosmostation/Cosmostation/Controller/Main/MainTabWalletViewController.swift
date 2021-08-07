@@ -75,6 +75,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         refresher.tintColor = UIColor.white
         walletTableView.addSubview(refresher)
         
+        let tapTotalCard = UITapGestureRecognizer(target: self, action: #selector(self.onClickActionShare))
+        self.totalCard.addGestureRecognizer(tapTotalCard)
+        
         self.updateFloaty()
     }
     
@@ -83,7 +86,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onPriceUpdated(_:)), name: Notification.Name("priceUpdate"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchPrice(_:)), name: Notification.Name("onFetchPrice"), object: nil)
         self.updateTitle()
         self.walletTableView.reloadData()
     }
@@ -91,7 +94,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("priceUpdate"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchPrice"), object: nil)
     }
     
     
@@ -281,7 +284,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.refresher.endRefreshing()
     }
     
-    @objc func onPriceUpdated(_ notification: NSNotification) {
+    @objc func onFetchPrice(_ notification: NSNotification) {
         self.totalValue.attributedText = WUtils.dpAllAssetValueUserCurrency(chainType, totalValue.font)
         self.walletTableView.reloadData()
     }
@@ -1088,7 +1091,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     
-    func onClickActionShare() {
+    @objc func onClickActionShare() {
         var nickName:String?
         if (account?.account_nick_name == "") {
             nickName = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
