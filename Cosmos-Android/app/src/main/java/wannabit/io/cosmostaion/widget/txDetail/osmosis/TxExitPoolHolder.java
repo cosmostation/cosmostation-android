@@ -46,37 +46,47 @@ public class TxExitPoolHolder extends TxHolder {
             itemExitSender.setText(msg.getSender());
             itemExitPoolId.setText("" + msg.getPoolId());
 
-            Coin coin0 = null;
-            Coin coin1 = null;
-            Coin coin2 = null;
+            Coin outCoin0 = null;
+            Coin outCoin1 = null;
+            Coin inCoin = null;
             if (response.getTxResponse().getLogsCount() > position) {
                 for (Abci.StringEvent event : response.getTxResponse().getLogs(position).getEventsList()) {
                     if (event.getType().equals("transfer")) {
-                        String OutValue1 = event.getAttributesList().get(2).getValue().split(",")[0];
-                        String OutValue2 = event.getAttributesList().get(2).getValue().split(",")[1];
+                        String OutValue0 = event.getAttributesList().get(2).getValue().split(",")[0];
+                        String OutValue1 = event.getAttributesList().get(2).getValue().split(",")[1];
                         String InValue = event.getAttributesList().get(5).getValue();
-                        if (OutValue1.contains("ibc") && OutValue2.contains("ibc")) {
-                            coin0 = new Coin(OutValue1.replaceAll(OutValue1.split("ibc")[0], ""), OutValue1.split("ibc")[0]);
-                            coin1 = new Coin(OutValue2.replaceAll(OutValue2.split("ibc")[0], ""), OutValue2.split("ibc")[0]);
+
+                        String coin0Amount = "";
+                        if (OutValue0.contains("ibc")) {
+                            coin0Amount = OutValue0.split("ibc")[0];
                         } else {
-                            coin0 = new Coin(OutValue1.replaceAll(OutValue1.split("ibc")[0], ""), OutValue1.split("ibc")[0]);
-                            coin1 = new Coin(OutValue2.replaceAll(OutValue2.replaceAll("[^0-9]", ""), ""), OutValue2.replaceAll("[^0-9]", ""));
+                            coin0Amount = OutValue0.replaceAll("[^0-9]", "");
                         }
-                        coin2 = new Coin(InValue.replaceAll(InValue.split("gamm")[0], ""), InValue.split("gamm")[0]);
+                        outCoin0 = new Coin(OutValue0.replaceAll(coin0Amount, ""), coin0Amount);
+
+                        String coin1Amount = "";
+                        if (OutValue1.contains("ibc")) {
+                            coin1Amount = OutValue1.split("ibc")[0];
+                        } else {
+                            coin1Amount = OutValue1.replaceAll("[^0-9]", "");
+                        }
+                        outCoin1 = new Coin(OutValue1.replaceAll(coin1Amount, ""), coin1Amount);
+
+                        inCoin = new Coin(InValue.replaceAll(InValue.split("gamm")[0], ""), InValue.split("gamm")[0]);
                     }
                 }
             }
-            if (coin0 != null && coin1 != null) {
-                WDp.showCoinDp(c, coin0, itemExitPoolTokenOutSymbol1, itemExitPoolTokenOutAmount1, baseChain);
-                WDp.showCoinDp(c, coin1, itemExitPoolTokenOutSymbol2, itemExitPoolTokenOutAmount2, baseChain);
+            if (outCoin0 != null && outCoin1 != null) {
+                WDp.showCoinDp(c, outCoin0, itemExitPoolTokenOutSymbol1, itemExitPoolTokenOutAmount1, baseChain);
+                WDp.showCoinDp(c, outCoin1, itemExitPoolTokenOutSymbol2, itemExitPoolTokenOutAmount2, baseChain);
             } else {
                 itemExitPoolTokenOutAmount1.setText("");
                 itemExitPoolTokenOutSymbol1.setText("");
                 itemExitPoolTokenOutAmount2.setText("");
                 itemExitPoolTokenOutSymbol2.setText("");
             }
-            if (coin2 != null) {
-                WDp.showCoinDp(c, coin2, itemExitPoolTokenInSymbol, itemExitPoolTokenInAmount, baseChain);
+            if (inCoin != null) {
+                WDp.showCoinDp(c, inCoin, itemExitPoolTokenInSymbol, itemExitPoolTokenInAmount, baseChain);
             } else {
                 itemExitPoolTokenInAmount.setText("");
                 itemExitPoolTokenInSymbol.setText("");

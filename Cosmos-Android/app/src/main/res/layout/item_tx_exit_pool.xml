@@ -73,10 +73,42 @@
                     android:text="-"
                     style="@style/font_ss_12_white"/>
             </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16">
+                <TextView
+                    android:id="@+id/tx_exit_token_in_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_token_in"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tx_exit_token_in_title">
+                    <TextView
+                        android:id="@+id/tx_exit_token_in_symbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="-"
+                        style="@style/font_ss_12_white"/>
+                    <TextView
+                        android:id="@+id/tx_exit_token_in_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/tx_exit_token_in_symbol"
+                        android:layout_toLeftOf="@+id/tx_exit_token_in_symbol"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text="-"
+                        style="@style/font_ss_12_white"/>
+                </RelativeLayout>
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12">
+                android:layout_marginTop="@dimen/space_16">
                 <TextView
                     android:id="@+id/tx_join_token_out_title"
                     style="@style/font_ss_12_gray1"
@@ -127,38 +159,6 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_16">
-                <TextView
-                    android:id="@+id/tx_exit_token_in_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_token_in"
-                    style="@style/font_ss_12_gray1"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tx_exit_token_in_title">
-                    <TextView
-                        android:id="@+id/tx_exit_token_in_symbol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/tx_exit_token_in_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_exit_token_in_symbol"
-                        android:layout_toLeftOf="@+id/tx_exit_token_in_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                </RelativeLayout>
-            </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

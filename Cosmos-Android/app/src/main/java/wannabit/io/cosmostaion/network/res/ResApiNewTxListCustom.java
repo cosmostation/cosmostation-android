@@ -351,6 +351,13 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_deposit);
                 }
 
+                else if (msgType.contains("MsgAddRecord")) {
+                    result = c.getString(R.string.tx_medi_add_record);
+
+                } else if (msgType.contains("MsgCreateDID")) {
+                    result = c.getString(R.string.tx_medi_create_did);
+                }
+
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
                 }

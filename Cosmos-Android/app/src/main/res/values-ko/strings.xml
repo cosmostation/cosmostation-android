@@ -1152,6 +1152,49 @@
     <string name="str_token_swap">토큰 스왑</string>
     <string name="str_token_id">ID</string>
     <string name="str_token_swap_time">시간</string>
+    <string name="str_token_swap_input_coin">Input Coin</string>
+    <string name="str_token_swap_output_coin">Output Coin</string>
+    <string name="str_token_swap_output_coin_minimum">Output Coin (Minimum Guarantee)</string>
+    <string name="str_token_swap_rate_coin">비율</string>
+    <string name="str_token_swap_fee">수수료</string>
+    <string name="str_token_swap_start">스왑 시작하기</string>
+    <string name="str_select_coin_swap_in">스왑 할 코인을 골라주세요</string>
+    <string name="str_select_coin_swap_out">스왑 할 코인을 골라주세요</string>
+    <string name="str_pool_total_liquidity_value">풀 총 가치</string>
+    <string name="str_pool_total_liquidity_amount">풀 총 양</string>
+    <string name="str_pool_my_liquidity_available_amount">My LP Available Amount</string>
+    <string name="str_pool_my_liquidity_withdrawable_amount">My Withdrawable Amount</string>
+    <string name="str_title_pool_join_osmosis">풀에 자산 넣기</string>
+    <string name="str_osmosis_join_pool_step_0">입금 수량을 입력해주세요</string>
+    <string name="str_osmosis_join_pool_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_osmosis_join_pool_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_osmosis_join_pool_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_title_pool_exit_osmosis">풀에서 자산 빼기</string>
+    <string name="str_osmosis_exit_pool_step_0">출금 수량을 입력해주세요</string>
+    <string name="str_osmosis_exit_pool_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_osmosis_exit_pool_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_osmosis_exit_pool_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_add_record_topic_name">Topic Name</string>
+    <string name="str_add_record_writer_address">Writer Address</string>
+    <string name="str_add_record_owner_address">Owner Address</string>
+    <string name="str_add_record_fee_payer_address">Fee Payer Address</string>
+    <string name="str_create_did">DID</string>
+    <string name="str_create_did_verification_method_id">Verification Method ID</string>
+    <string name="str_create_did_from_address">From Address</string>
+    <string name="str_title_swap_osmosis">코인 스왑</string>
+    <string name="str_osmosis_swap_step_0">스왑 수량을 입력해주세요</string>
+    <string name="str_osmosis_swap_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_osmosis_swap_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_osmosis_swap_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_osmosis_swap_tx_fee">Tx Fee</string>
+    <string name="str_osmosis_swap_fee">Swap Fee</string>
+    <string name="str_osmosis_swap_in">Swap In</string>
+    <string name="str_osmosis_swap_out">Swap Out (MG)</string>
+    <string name="str_osmosis_join_deposit_coin">To Deposit Coin (Max)</string>
+    <string name="str_osmosis_join_receive_lp_coin">Receiving LP Coin</string>
+    <string name="str_osmosis_exit_insert_lp_coin">Insert LP Coin</string>
+    <string name="str_osmosis_exit_to_withdraw_coin">To Withdraw Coins (MG)</string>
+
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -1258,6 +1301,7 @@
     <string name="error_no_address_export">연결할 주소가 없습니다.</string>
     <string name="error_remain_borrow_small">상환 후 남는 대출 금액이 $10 이하입니다.</string>
     <string name="error_waste_fee">Tx 수수료가 아자금액 보다 높습니다.</string>
+    <string name="error_not_enough_to_pool">예금 할 수량이 충분하지 않습니다.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>
@@ -1294,6 +1338,8 @@
     <string name="tx_Cancel_order">주문 취소</string>
     <string name="tx_issue_token">토큰 발행</string>
     <string name="tx_known">알수없음</string>
+    <string name="tx_medi_add_record">Add Record</string>
+    <string name="tx_medi_create_did">Create DID</string>
 
     <string name="tx_kava_post_price">가격 정보 갱신</string>
     <string name="tx_kava_create_cdp">CDP\n개설</string>
@@ -1363,6 +1409,9 @@
     <string name="tx_gravity_swap_batch">일괄 스왑</string>
     <string name="tx_gravity_deposit_batch">일괄 예금</string>
     <string name="tx_gravity_withdraw_batch">일괄 인출</string>
+
+    <string name="tx_add_record">Add Record</string>
+    <string name="tx_create_did">Create Did</string>
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>

@@ -502,9 +502,32 @@
         <activity
             android:name=".activities.chains.osmosis.LabsListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Translucent"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
+
+        <activity
+            android:name=".activities.chains.osmosis.SwapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.osmosis.JoinPoolActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.osmosis.ExitPoolActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+
 
         <activity
             android:name=".activities.chains.rizon.EventHorizonActivity"

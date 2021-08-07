@@ -1383,6 +1383,48 @@
     <string name="str_token_swap">Token Swap</string>
     <string name="str_token_id">ID</string>
     <string name="str_token_swap_time">Time</string>
+    <string name="str_token_swap_input_coin">Input Coin</string>
+    <string name="str_token_swap_output_coin">Output Coin</string>
+    <string name="str_token_swap_output_coin_minimum">Output Coin (Minimum Guarantee)</string>
+    <string name="str_token_swap_rate_coin">Rate</string>
+    <string name="str_token_swap_fee">Swap Fee</string>
+    <string name="str_token_swap_start">START SWAP</string>
+    <string name="str_select_coin_swap_in">Select Coin to Swap In</string>
+    <string name="str_select_coin_swap_out">Select Coin to Swap Out</string>
+    <string name="str_pool_total_liquidity_value">Total Liquidity Value</string>
+    <string name="str_pool_total_liquidity_amount">Total Liquidity Amount</string>
+    <string name="str_pool_my_liquidity_available_amount">My LP Available Amount</string>
+    <string name="str_pool_my_liquidity_withdrawable_amount">My Withdrawable Amount</string>
+    <string name="str_title_pool_join_osmosis">Deposit to Pool</string>
+    <string name="str_osmosis_join_pool_step_0">Insert amount to deposit</string>
+    <string name="str_osmosis_join_pool_step_1">Insert memo (optional)</string>
+    <string name="str_osmosis_join_pool_step_2">Select transaction fee</string>
+    <string name="str_osmosis_join_pool_step_3">Check transaction detail</string>
+    <string name="str_title_pool_exit_osmosis">Withdraw from Pool</string>
+    <string name="str_osmosis_exit_pool_step_0">Insert amount to withdraw</string>
+    <string name="str_osmosis_exit_pool_step_1">Insert memo (optional)</string>
+    <string name="str_osmosis_exit_pool_step_2">Select transaction fee</string>
+    <string name="str_osmosis_exit_pool_step_3">Check transaction detail</string>
+    <string name="str_add_record_topic_name">Topic Name</string>
+    <string name="str_add_record_writer_address">Writer Address</string>
+    <string name="str_add_record_owner_address">Owner Address</string>
+    <string name="str_add_record_fee_payer_address">Fee Payer Address</string>
+    <string name="str_create_did">DID</string>
+    <string name="str_create_did_verification_method_id">Verification Method ID</string>
+    <string name="str_create_did_from_address">From Address</string>
+    <string name="str_title_swap_osmosis">Coin Swap</string>
+    <string name="str_osmosis_swap_step_0">Insert amount to swap</string>
+    <string name="str_osmosis_swap_step_1">Insert memo (optional)</string>
+    <string name="str_osmosis_swap_step_2">Select transaction fee</string>
+    <string name="str_osmosis_swap_step_3">Check transaction detail</string>
+    <string name="str_osmosis_swap_tx_fee">Tx Fee</string>
+    <string name="str_osmosis_swap_fee">Swap Fee</string>
+    <string name="str_osmosis_swap_in">Swap In</string>
+    <string name="str_osmosis_swap_out">Swap Out (MG)</string>
+    <string name="str_osmosis_join_deposit_coin">To Deposit Coin (Max)</string>
+    <string name="str_osmosis_join_receive_lp_coin">Receiving LP Coin</string>
+    <string name="str_osmosis_exit_insert_lp_coin">Insert LP Coin</string>
+    <string name="str_osmosis_exit_to_withdraw_coin">To Withdraw Coins (MG)</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1488,6 +1530,7 @@
     <string name="error_no_address_export">No Address for Export.</string>
     <string name="error_remain_borrow_small">Remain borrow amount less than $10</string>
     <string name="error_waste_fee">Fee is bigger than reward.</string>
+    <string name="error_not_enough_to_pool">Not enough balance to deposit.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>
@@ -1550,6 +1593,8 @@
     <string name="tx_issue_token">Token Issue</string>
     <string name="tx_known">Unknown</string>
     <string name="tx_kava_post_price">Update Price</string>
+    <string name="tx_medi_add_record">Add Record</string>
+    <string name="tx_medi_create_did">Create DID</string>
 
 
     <string name="tx_kava_create_cdp">CDP\nOpen</string>
@@ -1619,6 +1664,9 @@
     <string name="tx_gravity_swap_batch">Swap Within Batch</string>
     <string name="tx_gravity_deposit_batch">Deposit Within Batch</string>
     <string name="tx_gravity_withdraw_batch">Withdraw Within Batch</string>
+
+    <string name="tx_add_record">Add Record</string>
+    <string name="tx_create_did">Create Did</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

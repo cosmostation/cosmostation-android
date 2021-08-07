@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
+import osmosis.gamm.v1beta1.Tx;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -64,6 +65,9 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteDomainGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisExitPooGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisJoinPoolGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisSwapInTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ReInvestGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RedelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RegisterAccountGrpcTask;
@@ -76,6 +80,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.UndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
@@ -102,6 +107,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
@@ -186,6 +194,14 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private ArrayList<Types.Resource>   mResources = new ArrayList();
 
 
+    private String                      mPoolId;
+    private Coin                        mOsmoPoolCoin0;
+    private Coin                        mOsmoPoolCoin1;
+    private Coin                        mLpToken;
+    private Tx.SwapAmountInRoute        mSwapAmountInRoute;
+    private Coin                        mOsmoSwapInCoin;
+    private Coin                        mOsmoSwapOutCoin;
+
     private long                        mIdToDelete;
     private long                        mIdToCheck;
 
@@ -264,6 +280,15 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             mResources = wrapper.array;
         }
 
+        mPoolId = String.valueOf(getIntent().getLongExtra("mPoolId", 0));
+        mOsmoPoolCoin0 = getIntent().getParcelableExtra("mOsmoPoolCoin0");
+        mOsmoPoolCoin1 = getIntent().getParcelableExtra("mOsmoPoolCoin1");
+        mLpToken = getIntent().getParcelableExtra("mLpToken");
+        mOsmoSwapInCoin = getIntent().getParcelableExtra("osmosisSwapInputCoin");
+        mOsmoSwapOutCoin = getIntent().getParcelableExtra("osmosisSwapOutputcoin");
+        try {
+            mSwapAmountInRoute = Tx.SwapAmountInRoute.parseFrom(getIntent().getByteArrayExtra("osmosisSwapRoute"));
+        } catch (Exception e) { WLog.w("Passing bundle Error"); }
 
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
@@ -547,6 +572,19 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new SimpleRepayHardTask(getBaseApplication(), this, mAccount, mHardPoolCoins, mDepositor,
                     mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
+        }
+
+        else if (mPurpose == CONST_PW_TX_OSMOSIS_SWAP) {
+            new OsmosisSwapInTask(getBaseApplication(), this, mAccount, mBaseChain, mSwapAmountInRoute, mOsmoSwapInCoin, mOsmoSwapOutCoin,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
+            new OsmosisJoinPoolGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mOsmoPoolCoin0, mOsmoPoolCoin1, mLpToken.amount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
+            new OsmosisExitPooGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mOsmoPoolCoin0, mOsmoPoolCoin1, mLpToken.amount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
     }

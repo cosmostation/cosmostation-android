@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -210,6 +210,9 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_STARNAME_RESOLVE            = 4105;
     public final static int TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO        = 4106;
 
+    public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_LIST           = 4200;
+    public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_INFO           = 4201;
+
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
     public final static int TASK_GRPC_BROAD_CLAIM_REWARDS               = 4302;
@@ -225,6 +228,9 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_RENEW_DOMAIN               = 4312;
     public final static int TASK_GRPC_GEN_TX_RENEW_ACCOUNT              = 4313;
     public final static int TASK_GRPC_GEN_TX_REPLACE_STARNAME           = 4314;
+    public final static int TASK_GRPC_GEN_TX_SWAP_IN                    = 4315;
+    public final static int TASK_GRPC_GEN_TX_JOIN_POOL                  = 4316;
+    public final static int TASK_GRPC_GEN_TX_EXIT_POOL                  = 4317;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -241,6 +247,9 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_RENEW_DOMAIN             = 4512;
     public final static int TASK_GRPC_SIMULATE_RENEW_ACCOUNT            = 4513;
     public final static int TASK_GRPC_SIMULATE_REPLACE_STARNAME         = 4514;
+    public final static int TASK_GRPC_SIMULATE_SWAP_IN                  = 4515;
+    public final static int TASK_GRPC_SIMULATE_JOIN_POOL                = 4516;
+    public final static int TASK_GRPC_SIMULATE_EXIT_POOL                = 4517;
 
 
 
@@ -397,7 +406,9 @@ public class BaseConstant {
     public final static int CONST_PW_TX_CLAIM_HARVEST_REWARD                = 5033;
     public final static int CONST_PW_TX_BORROW_HARD                         = 5034;
     public final static int CONST_PW_TX_REPAY_HARD                          = 5035;
-
+    public final static int CONST_PW_TX_OSMOSIS_SWAP                        = 5036;
+    public final static int CONST_PW_TX_OSMOSIS_JOIN_POOL                   = 5037;
+    public final static int CONST_PW_TX_OSMOSIS_EXIT_POOL                   = 5038;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
@@ -630,6 +641,14 @@ public class BaseConstant {
     public final static String MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE    = "100000";
     public final static String MEDI_GAS_AMOUNT_VOTE                     = "100000";
 
+    public final static String OSMOSIS_GAS_AMOUNT_SEND                  = "100000";
+    public final static String OSMOSIS_GAS_AMOUNT_STAKE                 = "200000";
+    public final static String OSMOSIS_GAS_AMOUNT_REDELEGATE            = "300000";
+    public final static String OSMOSIS_GAS_AMOUNT_REINVEST              = "300000";
+    public final static String OSMOSIS_GAS_AMOUNT_LOW                   = "100000";
+    public final static String OSMOSIS_GAS_AMOUNT_POOL                  = "600000";
+    public final static String OSMOSIS_GAS_AMOUNT_SWAP                  = "300000";
+
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
     public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";
@@ -657,7 +676,7 @@ public class BaseConstant {
 
     public final static String SIF_GAS_RATE_TINY                        = "0.50";
     public final static String SIF_GAS_RATE_LOW                         = "0.50";
-    public final static String SIF_GAS_RATE_AVERAGE                 = "0.50";
+    public final static String SIF_GAS_RATE_AVERAGE                     = "0.50";
 
     public final static String BAND_GAS_RATE_TINY                       = "0.000";
     public final static String BAND_GAS_RATE_LOW                        = "0.0025";
