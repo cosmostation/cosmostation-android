@@ -23,8 +23,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     @IBOutlet weak var titleChainName: UILabel!
     
     @IBOutlet weak var totalCard: CardView!
+    @IBOutlet weak var totalKeyState: UIImageView!
+    @IBOutlet weak var totalDpAddress: UILabel!
     @IBOutlet weak var totalValue: UILabel!
     @IBOutlet weak var totalBtcValue: UILabel!
+    
     @IBOutlet weak var tokenCnt: UILabel!
     @IBOutlet weak var btnSort: UIView!
     @IBOutlet weak var sortType: UILabel!
@@ -35,14 +38,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     var mBnbTics = [String : NSMutableDictionary]()
     var mOrder:Int?
     
-    
     var mBalances = Array<Balance>()
     var mBalances_gRPC = Array<Coin>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainTabVC = (self.parent)?.parent as? MainTabViewController
-        chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
+        self.mainTabVC = (self.parent)?.parent as? MainTabViewController
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
         
         self.tokenTableView.delegate = self
         self.tokenTableView.dataSource = self
@@ -63,6 +66,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         
         self.mBalances = BaseData.instance.mBalances
         self.mBalances_gRPC = BaseData.instance.mMyBalances_gRPC
+        
         self.updateView()
     }
     
@@ -84,13 +88,21 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func updateTitle() {
         titleChainName.textColor = WUtils.getChainColor(chainType!)
-        if (mainTabVC.mAccount.account_nick_name == "") {
-            titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
+        if (account?.account_nick_name == "") {
+            titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
         } else {
-            titleWalletName.text = mainTabVC.mAccount.account_nick_name
+            titleWalletName.text = account?.account_nick_name
         }
         
         totalCard.backgroundColor = WUtils.getChainBg(chainType)
+        
+        if (account?.account_has_private == true) {
+            totalKeyState.image = totalKeyState.image?.withRenderingMode(.alwaysTemplate)
+            totalKeyState.tintColor = WUtils.getChainColor(chainType)
+        }
+        totalDpAddress.text = account?.account_address
+        totalDpAddress.adjustsFontSizeToFitWidth = true
+        
         if (chainType! == ChainType.COSMOS_MAIN) {
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Mainnet)"
@@ -208,7 +220,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
                 DispatchQueue.main.async {
-                    if (self.mainTabVC.mAccount.account_push_alarm) {
+                    if (self.account?.account_push_alarm == true) {
                         self.titleAlarmBtn.setImage(UIImage(named: "notificationsIc"), for: .normal)
                     } else {
                         self.titleAlarmBtn.setImage(UIImage(named: "notificationsIcOff"), for: .normal)
@@ -233,8 +245,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             sortByValue()
             self.sortType.text = NSLocalizedString("value", comment: "")
         }
-        self.onUpdateTotalCard();
+//        self.onUpdateTotalCard();
         self.tokenTableView.reloadData()
+        self.tokenCnt.text = WUtils.tokenCnt(chainType)
+        self.totalValue.attributedText = WUtils.dpAllAssetValueUserCurrency(chainType, totalValue.font)
     }
     
     @objc func onRequestFetch() {
@@ -273,11 +287,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.present(alert, animated: true, completion: nil)
     }
     
-    func onUpdateTotalCard() {
-        self.tokenCnt.text = WUtils.tokenCnt(chainType)
-        totalBtcValue.attributedText = WUtils.dpAllAssetValueBtc(chainType, totalBtcValue.font)
-        totalValue.attributedText = WUtils.dpAllAssetValueUserCurrency(chainType, totalValue.font)
-    }
+//    func onUpdateTotalCard() {
+//
+////        totalBtcValue.attributedText = WUtils.dpAllAssetValueBtc(chainType, totalBtcValue.font)
+//        self.tokenCnt.text = WUtils.tokenCnt(chainType)
+//        self.totalValue.attributedText = WUtils.dpAllAssetValueUserCurrency(chainType, totalValue.font)
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (WUtils.isGRPC(chainType!)) {
@@ -1033,7 +1048,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func onClickExplorer(_ sender: UIButton) {
-        let link = WUtils.getAccountExplorer(chainType!, mainTabVC.mAccount.account_address)
+        let link = WUtils.getAccountExplorer(chainType!, account!.account_address)
         guard let url = URL(string: link) else { return }
         self.onShowSafariWeb(url)
     }
@@ -1044,7 +1059,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 if settings.authorizationStatus == .authorized {
                     DispatchQueue.main.async {
                         self.showWaittingAlert()
-                        self.onToggleAlarm(self.mainTabVC.mAccount!) { (success) in
+                        self.onToggleAlarm(self.account!) { (success) in
                             self.mainTabVC.onUpdateAccountDB()
                             self.updateTitle()
                             self.dismissAlertController()
@@ -1073,7 +1088,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else {
             DispatchQueue.main.async {
                 self.showWaittingAlert()
-                self.onToggleAlarm(self.mainTabVC.mAccount!) { (success) in
+                self.onToggleAlarm(self.account!) { (success) in
                     self.mainTabVC.onUpdateAccountDB()
                     self.updateTitle()
                     self.dismissAlertController()
