@@ -370,12 +370,12 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
             } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
                 new SimulOsmosisJoinPoolGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
-                        getSActivity().mPoolId, getSActivity().mOsmoPoolCoin0, getSActivity().mOsmoPoolCoin1, getSActivity().mLpToken.amount,
+                        getSActivity().mOsmosisPoolId, getSActivity().mOsmosisPoolCoin0, getSActivity().mOsmosisPoolCoin1, getSActivity().mOsmosisLpToken.amount,
                         getSActivity().mTxFee, getSActivity().mTxMemo, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
                 new SimulOsmosisExitPoolGrpcTask(getBaseApplication(),this, getSActivity().mAccount, getSActivity().mBaseChain,
-                        getSActivity().mPoolId, getSActivity().mOsmoPoolCoin0, getSActivity().mOsmoPoolCoin1, getSActivity().mLpToken.amount,
+                        getSActivity().mOsmosisPoolId, getSActivity().mOsmosisPoolCoin0, getSActivity().mOsmosisPoolCoin1, getSActivity().mOsmosisLpToken.amount,
                         getSActivity().mTxFee, getSActivity().mTxMemo, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             }

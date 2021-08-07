@@ -42,19 +42,19 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
     private RelativeLayout  mProgress;
     private Button          mCancelBtn, mNextBtn;
 
-    private ImageView mJoinPoolInput0Img;
-    private TextView mJoinPoolInput0Symbol;
-    private EditText mJoinPoolInput0;
-    private ImageView mJoinPoolInput0ClearBtn;
-    private TextView mJoinPoolInput0Amount, mJoinPoolInput0Denom;
-    private Button mJoinPoolInput01_4Btn, mJoinPoolInput0HalfBtn, mJoinPoolInput03_4Btn, mJoinPoolInput0MaxBtn;
+    private ImageView       mJoinPoolInput0Img;
+    private TextView        mJoinPoolInput0Symbol;
+    private EditText        mJoinPoolInput0;
+    private ImageView       mJoinPoolInput0ClearBtn;
+    private TextView        mJoinPoolInput0Amount, mJoinPoolInput0Denom;
+    private Button          mJoinPoolInput01_4Btn, mJoinPoolInput0HalfBtn, mJoinPoolInput03_4Btn, mJoinPoolInput0MaxBtn;
 
-    private ImageView mJoinPoolInput1Img;
-    private TextView mJoinPoolInput1Symbol;
-    private EditText mJoinPoolInput1;
-    private ImageView mJoinPoolInput1ClearBtn;
-    private TextView mJoinPoolInput1Amount, mJoinPoolInput1Denom;
-    private Button mJoinPoolInput11_4, mJoinPoolInput1Half, mJoinPoolInput13_4, mJoinPoolInput1Max;
+    private ImageView       mJoinPoolInput1Img;
+    private TextView        mJoinPoolInput1Symbol;
+    private EditText        mJoinPoolInput1;
+    private ImageView       mJoinPoolInput1ClearBtn;
+    private TextView        mJoinPoolInput1Amount, mJoinPoolInput1Denom;
+    private Button          mJoinPoolInput11_4, mJoinPoolInput1Half, mJoinPoolInput13_4, mJoinPoolInput1Max;
 
 
 
@@ -133,11 +133,11 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
-        WLog.w("pool " + getSActivity().mPool.getId());
+        WLog.w("pool " + getSActivity().mOsmosisPool.getId());
 
         BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_OSMOSIS_JOIN_POOL, 0);
-        String coin0Denom = getSActivity().mPool.getPoolAssets(0).getToken().getDenom();
-        String coin1Denom = getSActivity().mPool.getPoolAssets(1).getToken().getDenom();
+        String coin0Denom = getSActivity().mOsmosisPool.getPoolAssets(0).getToken().getDenom();
+        String coin1Denom = getSActivity().mOsmosisPool.getPoolAssets(1).getToken().getDenom();
 
         mAvailable0MaxAmount = getBaseDao().getAvailable(coin0Denom);
         if (coin0Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { mAvailable0MaxAmount = mAvailable0MaxAmount.subtract(txFeeAmount); }
@@ -155,8 +155,8 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInput0Denom, coin0Denom), mAvailable0MaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount, BaseChain.OSMOSIS_MAIN);
         WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInput1Denom, coin1Denom), mAvailable1MaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount, BaseChain.OSMOSIS_MAIN);
 
-        BigDecimal coin0Amount = new BigDecimal(getSActivity().mPool.getPoolAssets(0).getToken().getAmount());
-        BigDecimal coin1Amount = new BigDecimal(getSActivity().mPool.getPoolAssets(1).getToken().getAmount());
+        BigDecimal coin0Amount = new BigDecimal(getSActivity().mOsmosisPool.getPoolAssets(0).getToken().getAmount());
+        BigDecimal coin1Amount = new BigDecimal(getSActivity().mOsmosisPool.getPoolAssets(1).getToken().getAmount());
         mDepositRate = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN);
 
         onAddAmountWatcher();
@@ -390,16 +390,16 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
             if (OutputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (OutputAmountTemp.compareTo(mAvailable1MaxAmount.movePointLeft(mCoin1Decimal).setScale(mCoin1Decimal, RoundingMode.CEILING)) > 0) return false;
 
-            getSActivity().mOsmoPoolCoin0 = new Coin(getSActivity().mPool.getPoolAssets(0).getToken().getDenom(), InputAmountTemp.movePointRight(mCoin0Decimal).toPlainString());
-            getSActivity().mOsmoPoolCoin1 = new Coin(getSActivity().mPool.getPoolAssets(1).getToken().getDenom(), OutputAmountTemp.movePointRight(mCoin1Decimal).toPlainString());
+            getSActivity().mOsmosisPoolCoin0 = new Coin(getSActivity().mOsmosisPool.getPoolAssets(0).getToken().getDenom(), InputAmountTemp.movePointRight(mCoin0Decimal).toPlainString());
+            getSActivity().mOsmosisPoolCoin1 = new Coin(getSActivity().mOsmosisPool.getPoolAssets(1).getToken().getDenom(), OutputAmountTemp.movePointRight(mCoin1Decimal).toPlainString());
 
             //Expected receiveing lp Token
-            BigDecimal originAmount = new BigDecimal(getSActivity().mPool.getPoolAssets(0).getToken().getAmount());
+            BigDecimal originAmount = new BigDecimal(getSActivity().mOsmosisPool.getPoolAssets(0).getToken().getAmount());
             BigDecimal addedAmount = originAmount.add(InputAmountTemp.movePointRight(mCoin0Decimal));
-            BigDecimal poolTotalShare = new BigDecimal(getSActivity().mPool.getTotalShares().getAmount());
+            BigDecimal poolTotalShare = new BigDecimal(getSActivity().mOsmosisPool.getTotalShares().getAmount());
             BigDecimal expectedLpTokenAmount = addedAmount.multiply(poolTotalShare).divide(originAmount, 0, RoundingMode.DOWN);
             BigDecimal willReceieveLpTokenAmount = (expectedLpTokenAmount.subtract(poolTotalShare)).multiply(new BigDecimal("0.975")).setScale(0, RoundingMode.DOWN);
-            getSActivity().mLpToken = new Coin(getSActivity().mPool.getTotalShares().getDenom(), willReceieveLpTokenAmount.toPlainString());
+            getSActivity().mOsmosisLpToken = new Coin(getSActivity().mOsmosisPool.getTotalShares().getDenom(), willReceieveLpTokenAmount.toPlainString());
 
             return true;
 
@@ -430,7 +430,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
     private int mTaskCount;
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new OsmosisGrpcPoolInfoTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisGrpcPoolInfoTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -438,7 +438,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getSActivity().mPool = (PoolOuterClass.Pool)result.resultData;
+                getSActivity().mOsmosisPool = (PoolOuterClass.Pool)result.resultData;
             }
         }
         if (mTaskCount == 0) {

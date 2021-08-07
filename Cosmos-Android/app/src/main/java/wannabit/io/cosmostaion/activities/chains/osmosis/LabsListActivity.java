@@ -134,7 +134,6 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         }
 
         Intent intent = new Intent(LabsListActivity.this, SwapActivity.class);
-        intent.putExtra("mType", CONST_PW_TX_OSMOSIS_SWAP);
         intent.putExtra("inputDenom", inputCoinDenom);
         intent.putExtra("outputDenom", outCoinDenom);
         intent.putExtra("mPoolId", poolId);
@@ -170,7 +169,6 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         }
 
         Intent intent = new Intent(getBaseContext(), JoinPoolActivity.class);
-        intent.putExtra("mType", CONST_PW_TX_OSMOSIS_JOIN_POOL);
         intent.putExtra("mPoolId", poolId);
         startActivity(intent);
     }
@@ -193,7 +191,6 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         }
 
         Intent intent = new Intent(getBaseContext(), ExitPoolActivity.class);
-        intent.putExtra("mType", CONST_PW_TX_OSMOSIS_EXIT_POOL);
         intent.putExtra("mPoolId", poolId);
         startActivity(intent);
     }

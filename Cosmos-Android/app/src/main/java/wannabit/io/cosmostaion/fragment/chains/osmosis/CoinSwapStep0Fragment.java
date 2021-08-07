@@ -19,32 +19,21 @@ import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
-import osmosis.gamm.v1beta1.QueryGrpc;
-import osmosis.gamm.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.activities.chains.osmosis.SwapActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolInfoTask;
-import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolListTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
-import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -120,33 +109,33 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOutputDenom);
+        mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOsmosisSwapInputDenom);
+        mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOsmosisSwapOutputDenom);
         setDpDecimals(mInputCoinDecimal);
-        mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
+        mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mOsmosisSwapInputDenom);
         BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_OSMOSIS_SWAP, 0);
-        if (getSActivity().mInputDenom.equals(TOKEN_OSMOSIS)) {
+        if (getSActivity().mOsmosisSwapInputDenom.equals(TOKEN_OSMOSIS)) {
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
-        WUtil.dpOsmosisTokenName(getContext(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
+        WUtil.dpOsmosisTokenName(getContext(), mSwapAvailAmountSymbol, getSActivity().mOsmosisSwapInputDenom);
 
-        WUtil.dpOsmosisTokenName(getContext(), mSwapInputSymbol, getSActivity().mInputDenom);
-        WUtil.DpOsmosisTokenImg(mSwapInputImg, getSActivity().mInputDenom);
-        WUtil.dpOsmosisTokenName(getContext(), mSwapOutputSymbol, getSActivity().mOutputDenom);
-        WUtil.DpOsmosisTokenImg(mSwapOutputImg, getSActivity().mOutputDenom);
+        WUtil.dpOsmosisTokenName(getContext(), mSwapInputSymbol, getSActivity().mOsmosisSwapInputDenom);
+        WUtil.DpOsmosisTokenImg(mSwapInputImg, getSActivity().mOsmosisSwapInputDenom);
+        WUtil.dpOsmosisTokenName(getContext(), mSwapOutputSymbol, getSActivity().mOsmosisSwapOutputDenom);
+        WUtil.DpOsmosisTokenImg(mSwapOutputImg, getSActivity().mOsmosisSwapOutputDenom);
 
         BigDecimal inputAssetAmount = BigDecimal.ZERO;
         BigDecimal inputAssetWeight = BigDecimal.ZERO;
         BigDecimal outputAssetAmount = BigDecimal.ZERO;
         BigDecimal outputAssetWeight = BigDecimal.ZERO;
 
-        for (PoolOuterClass.PoolAsset asset: getSActivity().mPool.getPoolAssetsList()) {
-            if (asset.getToken().getDenom().equals(getSActivity().mInputDenom)) {
+        for (PoolOuterClass.PoolAsset asset: getSActivity().mOsmosisPool.getPoolAssetsList()) {
+            if (asset.getToken().getDenom().equals(getSActivity().mOsmosisSwapInputDenom)) {
                 inputAssetAmount = new BigDecimal(asset.getToken().getAmount());
                 inputAssetWeight = new BigDecimal(asset.getWeight());
             }
-            if (asset.getToken().getDenom().equals(getSActivity().mOutputDenom)) {
+            if (asset.getToken().getDenom().equals(getSActivity().mOsmosisSwapOutputDenom)) {
                 outputAssetAmount = new BigDecimal(asset.getToken().getAmount());
                 outputAssetWeight = new BigDecimal(asset.getWeight());
             }
@@ -286,7 +275,7 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private int mTaskCount;
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new OsmosisGrpcPoolInfoTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisGrpcPoolInfoTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -294,7 +283,7 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getSActivity().mPool = (PoolOuterClass.Pool)result.resultData;
+                getSActivity().mOsmosisPool = (PoolOuterClass.Pool)result.resultData;
             }
         }
         if (mTaskCount == 0) {

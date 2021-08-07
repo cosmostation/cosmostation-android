@@ -67,12 +67,12 @@ public class ExitPoolStep3Fragment extends BaseFragment implements View.OnClickL
     public void onRefreshTab() {
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        String InputAmount = getSActivity().mLpToken.amount;
-        String InputDenom = getSActivity().mLpToken.denom;
-        String OutputAmount0 = getSActivity().mOsmoPoolCoin0.amount;
-        String OutputDenom0 = getSActivity().mOsmoPoolCoin0.denom;
-        String OutputAmount1 = getSActivity().mOsmoPoolCoin1.amount;
-        String OutputDenom1 = getSActivity().mOsmoPoolCoin1.denom;
+        String InputAmount = getSActivity().mOsmosisLpToken.amount;
+        String InputDenom = getSActivity().mOsmosisLpToken.denom;
+        String OutputAmount0 = getSActivity().mOsmosisPoolCoin0.amount;
+        String OutputDenom0 = getSActivity().mOsmosisPoolCoin0.denom;
+        String OutputAmount1 = getSActivity().mOsmosisPoolCoin1.amount;
+        String OutputDenom1 = getSActivity().mOsmosisPoolCoin1.denom;
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mExitInAmountSymbol, InputDenom), InputAmount,  mExitInAmountSymbol, mExitInAmount, BaseChain.OSMOSIS_MAIN);

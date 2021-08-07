@@ -12,18 +12,10 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.activities.chains.osmosis.SwapActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Delegate_Warning;
-import wannabit.io.cosmostaion.fragment.DelegateStep3Fragment;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickListener{
 
@@ -73,10 +65,10 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOutputDenom);
+        mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOsmosisSwapInputDenom);
+        mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOsmosisSwapOutputDenom);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        BigDecimal swapFee = new BigDecimal(getSActivity().mPool.getPoolParams().getSwapFee());
+        BigDecimal swapFee = new BigDecimal(getSActivity().mOsmosisPool.getPoolParams().getSwapFee());
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));

@@ -16,10 +16,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -28,10 +26,8 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep3Fragment;
-import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class SwapActivity extends BaseBroadCastActivity {
 
@@ -43,10 +39,6 @@ public class SwapActivity extends BaseBroadCastActivity {
     private ViewPager                       mViewPager;
     private CoinSwapPageAdapter             mPageAdapter;
 
-    public long                             mPoolId;
-    public PoolOuterClass.Pool              mPool;
-    public String                           mInputDenom;
-    public String                           mOutputDenom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +52,10 @@ public class SwapActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_swap_osmosis));
 
-        mTxType = getIntent().getIntExtra("mType", -1);
-        mPoolId = getIntent().getLongExtra("mPoolId", 0);
-        mInputDenom = getIntent().getStringExtra("inputDenom");
-        mOutputDenom = getIntent().getStringExtra("outputDenom");
+        mTxType = CONST_PW_TX_OSMOSIS_SWAP;
+        mOsmosisPoolId = getIntent().getLongExtra("mPoolId", 0);
+        mOsmosisSwapInputDenom = getIntent().getStringExtra("inputDenom");
+        mOsmosisSwapOutputDenom = getIntent().getStringExtra("outputDenom");
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -157,9 +149,9 @@ public class SwapActivity extends BaseBroadCastActivity {
     public void onStartSwap() {
         Intent intent = new Intent(SwapActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_SWAP);
-        intent.putExtra("route", swapAmountInRoute);
-        intent.putExtra("inputDenom", mInputDenom);
-        intent.putExtra("outputDenom", mOutputDenom);
+        intent.putExtra("route", mOsmosisSwapAmountInRoute);
+        intent.putExtra("inputDenom", mOsmosisSwapInputDenom);
+        intent.putExtra("outputDenom", mOsmosisSwapOutputDenom);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

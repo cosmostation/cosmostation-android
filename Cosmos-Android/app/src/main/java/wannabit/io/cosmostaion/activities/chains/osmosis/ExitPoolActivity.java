@@ -16,7 +16,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -29,7 +28,6 @@ import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep3Fragment;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 
 public class ExitPoolActivity extends BaseBroadCastActivity {
 
@@ -53,8 +51,8 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_pool_exit_osmosis));
 
-        mTxType = getIntent().getIntExtra("mType", -1);
-        mPoolId = getIntent().getLongExtra("mPoolId", 0);
+        mTxType = CONST_PW_TX_OSMOSIS_EXIT_POOL;
+        mOsmosisPoolId = getIntent().getLongExtra("mPoolId", 0);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -148,10 +146,10 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
     public void onStartExitPool() {
         Intent intent = new Intent(ExitPoolActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_EXIT_POOL);
-        intent.putExtra("mPoolId", mPoolId);
-        intent.putExtra("mOsmoPoolCoin0", mOsmoPoolCoin0);
-        intent.putExtra("mOsmoPoolCoin1", mOsmoPoolCoin1);
-        intent.putExtra("mLpToken", mLpToken);
+        intent.putExtra("mPoolId", mOsmosisPoolId);
+        intent.putExtra("mOsmoPoolCoin0", mOsmosisPoolCoin0);
+        intent.putExtra("mOsmoPoolCoin1", mOsmosisPoolCoin1);
+        intent.putExtra("mLpToken", mOsmosisLpToken);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

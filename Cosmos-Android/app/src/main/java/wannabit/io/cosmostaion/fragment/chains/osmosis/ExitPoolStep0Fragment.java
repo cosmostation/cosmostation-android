@@ -23,7 +23,6 @@ import java.math.RoundingMode;
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.ExitPoolActivity;
-import wannabit.io.cosmostaion.activities.chains.osmosis.JoinPoolActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -31,7 +30,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolInfoTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
@@ -96,7 +94,7 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        String lpDenom = getSActivity().mPool.getTotalShares().getDenom();
+        String lpDenom = getSActivity().mOsmosisPool.getTotalShares().getDenom();
         mAvailableMaxAmount = getBaseDao().getAvailable(lpDenom);
         setDpDecimals(mCoinDecimal);
 
@@ -201,20 +199,20 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
             if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (amountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0) return false;
 
-            getSActivity().mLpToken = new Coin(getSActivity().mPool.getTotalShares().getDenom(), amountTemp.movePointRight(mCoinDecimal).toPlainString());
+            getSActivity().mOsmosisLpToken = new Coin(getSActivity().mOsmosisPool.getTotalShares().getDenom(), amountTemp.movePointRight(mCoinDecimal).toPlainString());
 
             //Expected receiveing pool tokens!!
-            String coin0Denom = getSActivity().mPool.getPoolAssets(0).getToken().getDenom();
-            String coin1Denom = getSActivity().mPool.getPoolAssets(1).getToken().getDenom();
-            BigDecimal coin0Amount = new BigDecimal(getSActivity().mPool.getPoolAssets(0).getToken().getAmount());
-            BigDecimal coin1Amount = new BigDecimal(getSActivity().mPool.getPoolAssets(1).getToken().getAmount());
-            BigDecimal poolTotalShare = new BigDecimal(getSActivity().mPool.getTotalShares().getAmount());
+            String coin0Denom = getSActivity().mOsmosisPool.getPoolAssets(0).getToken().getDenom();
+            String coin1Denom = getSActivity().mOsmosisPool.getPoolAssets(1).getToken().getDenom();
+            BigDecimal coin0Amount = new BigDecimal(getSActivity().mOsmosisPool.getPoolAssets(0).getToken().getAmount());
+            BigDecimal coin1Amount = new BigDecimal(getSActivity().mOsmosisPool.getPoolAssets(1).getToken().getAmount());
+            BigDecimal poolTotalShare = new BigDecimal(getSActivity().mOsmosisPool.getTotalShares().getAmount());
 
             BigDecimal coin0PaybackAmount = coin0Amount.multiply(amountTemp.movePointRight(mCoinDecimal)).divide(poolTotalShare, 0, RoundingMode.DOWN).multiply(new BigDecimal("0.975")).setScale(0, RoundingMode.DOWN);
             BigDecimal coin1PaybackAmount = coin1Amount.multiply(amountTemp.movePointRight(mCoinDecimal)).divide(poolTotalShare, 0, RoundingMode.DOWN).multiply(new BigDecimal("0.975")).setScale(0, RoundingMode.DOWN);
 
-            getSActivity().mOsmoPoolCoin0 = new Coin(coin0Denom, coin0PaybackAmount.toPlainString());
-            getSActivity().mOsmoPoolCoin1 = new Coin(coin1Denom, coin1PaybackAmount.toPlainString());
+            getSActivity().mOsmosisPoolCoin0 = new Coin(coin0Denom, coin0PaybackAmount.toPlainString());
+            getSActivity().mOsmosisPoolCoin1 = new Coin(coin1Denom, coin1PaybackAmount.toPlainString());
             return true;
 
         } catch (Exception e) {
@@ -227,7 +225,7 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
     private int mTaskCount;
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new OsmosisGrpcPoolInfoTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisGrpcPoolInfoTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -235,7 +233,7 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getSActivity().mPool = (PoolOuterClass.Pool)result.resultData;
+                getSActivity().mOsmosisPool = (PoolOuterClass.Pool)result.resultData;
             }
         }
         if (mTaskCount == 0) {

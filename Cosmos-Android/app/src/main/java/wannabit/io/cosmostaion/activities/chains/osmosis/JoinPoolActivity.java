@@ -51,8 +51,8 @@ public class JoinPoolActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_pool_join_osmosis));
 
-        mTxType = getIntent().getIntExtra("mType", -1);
-        mPoolId = getIntent().getLongExtra("mPoolId", 0);
+        mTxType = CONST_PW_TX_OSMOSIS_JOIN_POOL;
+        mOsmosisPoolId = getIntent().getLongExtra("mPoolId", 0);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -146,10 +146,10 @@ public class JoinPoolActivity extends BaseBroadCastActivity {
     public void onStartJoinPool() {
         Intent intent = new Intent(JoinPoolActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_JOIN_POOL);
-        intent.putExtra("mPoolId", mPoolId);
-        intent.putExtra("mOsmoPoolCoin0", mOsmoPoolCoin0);
-        intent.putExtra("mOsmoPoolCoin1", mOsmoPoolCoin1);
-        intent.putExtra("mLpToken", mLpToken);
+        intent.putExtra("mPoolId", mOsmosisPoolId);
+        intent.putExtra("mOsmoPoolCoin0", mOsmosisPoolCoin0);
+        intent.putExtra("mOsmoPoolCoin1", mOsmosisPoolCoin1);
+        intent.putExtra("mLpToken", mOsmosisLpToken);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

@@ -16,7 +16,6 @@ import wannabit.io.cosmostaion.activities.chains.osmosis.JoinPoolActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class JoinPoolStep3Fragment extends BaseFragment implements View.OnClickListener{
@@ -67,12 +66,12 @@ public class JoinPoolStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        String InputAmount0 = getSActivity().mOsmoPoolCoin0.amount;
-        String InputDenom0 = getSActivity().mOsmoPoolCoin0.denom;
-        String InputAmount1 = getSActivity().mOsmoPoolCoin1.amount;
-        String InputDenom1 = getSActivity().mOsmoPoolCoin1.denom;
-        String LpTokenAmount = getSActivity().mLpToken.amount;
-        String LpTokenSymbol = getSActivity().mLpToken.denom;
+        String InputAmount0 = getSActivity().mOsmosisPoolCoin0.amount;
+        String InputDenom0 = getSActivity().mOsmosisPoolCoin0.denom;
+        String InputAmount1 = getSActivity().mOsmosisPoolCoin1.amount;
+        String InputDenom1 = getSActivity().mOsmosisPoolCoin1.denom;
+        String LpTokenAmount = getSActivity().mOsmosisLpToken.amount;
+        String LpTokenSymbol = getSActivity().mOsmosisLpToken.denom;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
