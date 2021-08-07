@@ -2287,7 +2287,11 @@ public class WUtil {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://osmosis.zone/"));
 
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
-            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medibloc.org/"));
+            if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
+                return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medibloc.com"));
+            } else {
+                return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medibloc.com/en/ "));
+            }
 
         }
         return null;
