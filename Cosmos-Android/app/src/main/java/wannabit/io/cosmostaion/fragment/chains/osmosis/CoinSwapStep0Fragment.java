@@ -260,9 +260,9 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
             BigDecimal InputAmountTemp = new BigDecimal(mSwapInputAmount.getText().toString().trim());
 
             BigDecimal padding = new BigDecimal("0.97");
-            BigDecimal OutputAmount = InputAmountTemp.multiply(padding).multiply(mSwapRate).setScale(mOutputCoinDecimal, RoundingMode.DOWN).movePointLeft(mOutputCoinDecimal);
-            WLog.w("SSS : " + OutputAmount);
-            mSwapOutputAmount.setText(OutputAmount.movePointLeft(-mOutputCoinDecimal).toPlainString());
+            BigDecimal OutputAmount = InputAmountTemp.movePointRight(mInputCoinDecimal).multiply(padding).multiply(mSwapRate).setScale(0, RoundingMode.DOWN);
+            
+            mSwapOutputAmount.setText(OutputAmount.movePointLeft(mOutputCoinDecimal).toPlainString());
         } catch (Exception e) { }
     }
 
