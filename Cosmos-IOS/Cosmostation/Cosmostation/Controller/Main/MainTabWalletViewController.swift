@@ -103,13 +103,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleWalletName.text = account?.account_nick_name
         }
         
-        totalCard.backgroundColor = WUtils.getChainBg(chainType)
+        self.totalCard.backgroundColor = WUtils.getChainBg(chainType)
         if (account?.account_has_private == true) {
-            totalKeyState.image = totalKeyState.image?.withRenderingMode(.alwaysTemplate)
-            totalKeyState.tintColor = WUtils.getChainColor(chainType)
+            self.totalKeyState.image = totalKeyState.image?.withRenderingMode(.alwaysTemplate)
+            self.totalKeyState.tintColor = WUtils.getChainColor(chainType)
         }
-        totalDpAddress.text = account?.account_address
-        totalDpAddress.adjustsFontSizeToFitWidth = true
+        self.totalDpAddress.text = account?.account_address
+        self.totalDpAddress.adjustsFontSizeToFitWidth = true
+        self.totalValue.attributedText = WUtils.dpAllAssetValueUserCurrency(chainType, totalValue.font)
         
         if (chainType! == ChainType.COSMOS_MAIN) {
             titleChainImg.image = UIImage(named: "cosmosWhMain")
