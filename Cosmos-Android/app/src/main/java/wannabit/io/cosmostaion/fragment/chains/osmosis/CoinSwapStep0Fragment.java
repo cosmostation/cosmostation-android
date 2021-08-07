@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.gamm.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.SwapActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -109,21 +110,21 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOsmosisSwapInputDenom);
-        mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOsmosisSwapOutputDenom);
+        mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mInputDenom);
+        mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOutputDenom);
         setDpDecimals(mInputCoinDecimal);
-        mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mOsmosisSwapInputDenom);
+        mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
         BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_OSMOSIS_SWAP, 0);
-        if (getSActivity().mOsmosisSwapInputDenom.equals(TOKEN_OSMOSIS)) {
+        if (getSActivity().mInputDenom.equals(TOKEN_OSMOSIS)) {
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
-        WUtil.dpOsmosisTokenName(getContext(), mSwapAvailAmountSymbol, getSActivity().mOsmosisSwapInputDenom);
+        WUtil.dpOsmosisTokenName(getContext(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
 
-        WUtil.dpOsmosisTokenName(getContext(), mSwapInputSymbol, getSActivity().mOsmosisSwapInputDenom);
-        WUtil.DpOsmosisTokenImg(mSwapInputImg, getSActivity().mOsmosisSwapInputDenom);
-        WUtil.dpOsmosisTokenName(getContext(), mSwapOutputSymbol, getSActivity().mOsmosisSwapOutputDenom);
-        WUtil.DpOsmosisTokenImg(mSwapOutputImg, getSActivity().mOsmosisSwapOutputDenom);
+        WUtil.dpOsmosisTokenName(getContext(), mSwapInputSymbol, getSActivity().mInputDenom);
+        WUtil.DpOsmosisTokenImg(mSwapInputImg, getSActivity().mInputDenom);
+        WUtil.dpOsmosisTokenName(getContext(), mSwapOutputSymbol, getSActivity().mOutputDenom);
+        WUtil.DpOsmosisTokenImg(mSwapOutputImg, getSActivity().mOutputDenom);
 
         BigDecimal inputAssetAmount = BigDecimal.ZERO;
         BigDecimal inputAssetWeight = BigDecimal.ZERO;
@@ -131,11 +132,11 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         BigDecimal outputAssetWeight = BigDecimal.ZERO;
 
         for (PoolOuterClass.PoolAsset asset: getSActivity().mOsmosisPool.getPoolAssetsList()) {
-            if (asset.getToken().getDenom().equals(getSActivity().mOsmosisSwapInputDenom)) {
+            if (asset.getToken().getDenom().equals(getSActivity().mInputDenom)) {
                 inputAssetAmount = new BigDecimal(asset.getToken().getAmount());
                 inputAssetWeight = new BigDecimal(asset.getWeight());
             }
-            if (asset.getToken().getDenom().equals(getSActivity().mOsmosisSwapOutputDenom)) {
+            if (asset.getToken().getDenom().equals(getSActivity().mOutputDenom)) {
                 outputAssetAmount = new BigDecimal(asset.getToken().getAmount());
                 outputAssetWeight = new BigDecimal(asset.getWeight());
             }
@@ -258,15 +259,19 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private boolean isValidateSwapInputAmount() {
         try {
             BigDecimal InputAmountTemp = new BigDecimal(mSwapInputAmount.getText().toString().trim());
+            BigDecimal OutAmountTemp = new BigDecimal(mSwapOutputAmount.getText().toString().trim());
             if (InputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (InputAmountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).setScale(mInputCoinDecimal, RoundingMode.CEILING)) > 0) return false;
 
-            Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), InputAmountTemp.movePointRight(mInputCoinDecimal).setScale(0).toPlainString());
-            getSActivity().mAmount = coin;
+            getSActivity().mOsmosisSwapInCoin = new Coin(getSActivity().mInputDenom, InputAmountTemp.movePointRight(mInputCoinDecimal).setScale(0).toPlainString());
+            getSActivity().mOsmosisSwapOutCoin = new Coin(getSActivity().mOutputDenom, OutAmountTemp.movePointRight(mOutputCoinDecimal).setScale(0).toPlainString());
+            getSActivity().mOsmosisSwapAmountInRoute = Tx.SwapAmountInRoute.newBuilder().setPoolId(getSActivity().mOsmosisPool.getId()).setTokenOutDenom(getSActivity().mOutputDenom).build();
             return true;
 
         } catch (Exception e) {
-            getSActivity().mAmount = null;
+            getSActivity().mOsmosisSwapInCoin = null;
+            getSActivity().mOsmosisSwapOutCoin = null;
+            getSActivity().mOsmosisSwapAmountInRoute = null;
             return false;
         }
     }

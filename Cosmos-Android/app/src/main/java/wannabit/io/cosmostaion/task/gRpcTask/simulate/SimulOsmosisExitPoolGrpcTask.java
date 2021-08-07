@@ -38,7 +38,7 @@ public class SimulOsmosisExitPoolGrpcTask extends CommonTask {
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey deterministicKey;
 
-    public SimulOsmosisExitPoolGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, long poolId, Coin Withdraw0Coin, Coin Withdraw1Coin, String shareAmount, Fee fee, String memo, String chainId) {
+    public SimulOsmosisExitPoolGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, long poolId, Coin Withdraw0Coin, Coin Withdraw1Coin, String shareAmount, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;

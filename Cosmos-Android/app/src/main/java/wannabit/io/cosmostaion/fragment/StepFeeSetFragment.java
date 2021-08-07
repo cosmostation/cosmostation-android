@@ -40,6 +40,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteAccountGrpcTask
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteDomainGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisExitPoolGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisJoinPoolGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisSwaplGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulReInvestGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRedelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRegisterAccountGrpcTask;
@@ -364,19 +365,20 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             }
 
             else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_SWAP) {
-                new SimulReplaceStarNameGrpcTask(getBaseApplication(),this, getSActivity().mAccount, getSActivity().mBaseChain,
-                        getSActivity().mStarNameDomain, getSActivity().mStarNameAccount, getSActivity().mStarNameResources,
+                new SimulOsmosisSwaplGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
+                        getSActivity().mOsmosisSwapAmountInRoute, getSActivity().mOsmosisSwapInCoin, getSActivity().mOsmosisSwapOutCoin,
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
 
             } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
                 new SimulOsmosisJoinPoolGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                         getSActivity().mOsmosisPoolId, getSActivity().mOsmosisPoolCoin0, getSActivity().mOsmosisPoolCoin1, getSActivity().mOsmosisLpToken.amount,
-                        getSActivity().mTxFee, getSActivity().mTxMemo, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
                 new SimulOsmosisExitPoolGrpcTask(getBaseApplication(),this, getSActivity().mAccount, getSActivity().mBaseChain,
                         getSActivity().mOsmosisPoolId, getSActivity().mOsmosisPoolCoin0, getSActivity().mOsmosisPoolCoin1, getSActivity().mOsmosisLpToken.amount,
-                        getSActivity().mTxFee, getSActivity().mTxMemo, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             }
 

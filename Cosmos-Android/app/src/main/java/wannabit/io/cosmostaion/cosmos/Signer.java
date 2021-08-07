@@ -777,7 +777,7 @@ public class Signer {
     public static ServiceOuterClass.BroadcastTxRequest getGrpcSwapInReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoutes, String inputDenom, String inputAmount, String outputAmount, Fee fee, String memo, DeterministicKey pKey, String chainId) {
         CoinOuterClass.Coin inputCoin = CoinOuterClass.Coin.newBuilder().setDenom(inputDenom).setAmount(inputAmount).build();
         osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn msgSwapExactAmountIn = osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.newBuilder().setSender(onParseAddress(auth)).addRoutes(swapRoutes).setTokenIn(inputCoin).setTokenOutMinAmount(outputAmount).build();
-        Any msgSwapAny = Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn").setValue(msgSwapExactAmountIn.toByteString()).build();
+        Any msgSwapAny = Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgSwapExactAmountIn").setValue(msgSwapExactAmountIn.toByteString()).build();
 
         TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSwapAny, memo);
         TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
@@ -789,7 +789,7 @@ public class Signer {
     public static ServiceOuterClass.SimulateRequest getGrpcSwapInSimulateReq(QueryOuterClass.QueryAccountResponse auth, osmosis.gamm.v1beta1.Tx.SwapAmountInRoute swapRoute, String inputDenom, String inputAmount, String outputAmount, Fee fee, String memo, DeterministicKey pKey, String chainId) {
         CoinOuterClass.Coin inputCoin = CoinOuterClass.Coin.newBuilder().setDenom(inputDenom).setAmount(inputAmount).build();
         osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn msgSwapExactAmountIn = osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn.newBuilder().setSender(onParseAddress(auth)).addRoutes(swapRoute).setTokenIn(inputCoin).setTokenOutMinAmount(outputAmount).build();
-        Any msgSwapAny = Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.Tx.MsgSwapExactAmountIn").setValue(msgSwapExactAmountIn.toByteString()).build();
+        Any msgSwapAny = Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgSwapExactAmountIn").setValue(msgSwapExactAmountIn.toByteString()).build();
 
         TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSwapAny, memo);
         TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);

@@ -39,6 +39,8 @@ public class SwapActivity extends BaseBroadCastActivity {
     private ViewPager                       mViewPager;
     private CoinSwapPageAdapter             mPageAdapter;
 
+    public String                           mInputDenom;
+    public String                           mOutputDenom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +56,8 @@ public class SwapActivity extends BaseBroadCastActivity {
 
         mTxType = CONST_PW_TX_OSMOSIS_SWAP;
         mOsmosisPoolId = getIntent().getLongExtra("mPoolId", 0);
-        mOsmosisSwapInputDenom = getIntent().getStringExtra("inputDenom");
-        mOsmosisSwapOutputDenom = getIntent().getStringExtra("outputDenom");
+        mInputDenom = getIntent().getStringExtra("inputDenom");
+        mOutputDenom = getIntent().getStringExtra("outputDenom");
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -149,9 +151,9 @@ public class SwapActivity extends BaseBroadCastActivity {
     public void onStartSwap() {
         Intent intent = new Intent(SwapActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_SWAP);
-        intent.putExtra("route", mOsmosisSwapAmountInRoute);
-        intent.putExtra("inputDenom", mOsmosisSwapInputDenom);
-        intent.putExtra("outputDenom", mOsmosisSwapOutputDenom);
+        intent.putExtra("osmosisSwapRoute", mOsmosisSwapAmountInRoute.toByteArray());
+        intent.putExtra("osmosisSwapInputCoin", mOsmosisSwapInCoin);
+        intent.putExtra("osmosisSwapOutputcoin", mOsmosisSwapOutCoin);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

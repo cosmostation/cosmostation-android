@@ -193,16 +193,14 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mName;
     private ArrayList<Types.Resource>   mResources = new ArrayList();
 
-    private Tx.SwapAmountInRoute        swapAmountInRoute;
-    private String                      mInputdenom;
-    private String                      mOutputdenom;
-    private String                      mInputAmount;
-    private String                      mOutputAmount;
 
     private String                      mPoolId;
     private Coin                        mOsmoPoolCoin0;
     private Coin                        mOsmoPoolCoin1;
     private Coin                        mLpToken;
+    private Tx.SwapAmountInRoute        mSwapAmountInRoute;
+    private Coin                        mOsmoSwapInCoin;
+    private Coin                        mOsmoSwapOutCoin;
 
     private long                        mIdToDelete;
     private long                        mIdToCheck;
@@ -277,19 +275,20 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mDomain = getIntent().getStringExtra("domain");
         mDomainType = getIntent().getStringExtra("domainType");
         mName = getIntent().getStringExtra("name");
-
         StarnameResourceWrapper wrapper = (StarnameResourceWrapper) getIntent().getSerializableExtra("resource");
         if (wrapper != null) {
             mResources = wrapper.array;
         }
 
-        mInputdenom = getIntent().getStringExtra("inputDenom");
-        mOutputdenom = getIntent().getStringExtra("outputDenom");
-
         mPoolId = String.valueOf(getIntent().getLongExtra("mPoolId", 0));
         mOsmoPoolCoin0 = getIntent().getParcelableExtra("mOsmoPoolCoin0");
         mOsmoPoolCoin1 = getIntent().getParcelableExtra("mOsmoPoolCoin1");
         mLpToken = getIntent().getParcelableExtra("mLpToken");
+        mOsmoSwapInCoin = getIntent().getParcelableExtra("osmosisSwapInputCoin");
+        mOsmoSwapOutCoin = getIntent().getParcelableExtra("osmosisSwapOutputcoin");
+        try {
+            mSwapAmountInRoute = Tx.SwapAmountInRoute.parseFrom(getIntent().getByteArrayExtra("osmosisSwapRoute"));
+        } catch (Exception e) { WLog.w("Passing bundle Error"); }
 
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
@@ -576,16 +575,16 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         }
 
         else if (mPurpose == CONST_PW_TX_OSMOSIS_SWAP) {
-            new OsmosisSwapInTask(getBaseApplication(), this, mAccount, mBaseChain, swapAmountInRoute, mInputdenom, mInputAmount, mOutputAmount,
+            new OsmosisSwapInTask(getBaseApplication(), this, mAccount, mBaseChain, mSwapAmountInRoute, mOsmoSwapInCoin, mOsmoSwapOutCoin,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
             new OsmosisJoinPoolGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mOsmoPoolCoin0, mOsmoPoolCoin1, mLpToken.amount,
-                    mTargetFee, mTargetMemo, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
             new OsmosisExitPooGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mOsmoPoolCoin0, mOsmoPoolCoin1, mLpToken.amount,
-                    mTargetFee, mTargetMemo, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
     }

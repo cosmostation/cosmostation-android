@@ -40,7 +40,7 @@ public class OsmosisExitPooGrpcTask extends CommonTask {
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey deterministicKey;
 
-    public OsmosisExitPooGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, long poolId, Coin deposit0Coin, Coin deposit1Coin, String shareAmount, Fee fee, String memo, String chainId) {
+    public OsmosisExitPooGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, long poolId, Coin deposit0Coin, Coin deposit1Coin, String shareAmount, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;

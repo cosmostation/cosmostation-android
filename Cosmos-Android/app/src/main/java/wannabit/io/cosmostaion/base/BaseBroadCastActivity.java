@@ -38,8 +38,10 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mOsmosisPoolCoin0;
     public Coin                         mOsmosisPoolCoin1;
     public Coin                         mOsmosisLpToken;
-    public String                       mOsmosisSwapInputDenom;
-    public String                       mOsmosisSwapOutputDenom;
+//    public String                       mOsmosisSwapInputDenom;
+//    public String                       mOsmosisSwapOutputDenom;
+    public Coin                         mOsmosisSwapInCoin;
+    public Coin                         mOsmosisSwapOutCoin;
 
     public ArrayList<Validator> mValidators = new ArrayList<>();    //ClaimReward old
 
