@@ -2381,10 +2381,6 @@ public class WUtil {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
-            } else if (txType == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
-                return new BigDecimal(OSMOSIS_GAS_AMOUNT_POOL);
-            } else if (txType == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
-                return new BigDecimal(OSMOSIS_GAS_AMOUNT_POOL);
             }
 
         } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
@@ -2434,10 +2430,8 @@ public class WUtil {
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(OSMOSIS_GAS_AMOUNT_LOW);
             } else if (txType == CONST_PW_TX_OSMOSIS_SWAP) {
-                return new BigDecimal(OSMOSIS_GAS_AMOUNT_POOL);
-            } else if (txType == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
-                return new BigDecimal(OSMOSIS_GAS_AMOUNT_POOL);
-            } else if (txType == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
+                return new BigDecimal(OSMOSIS_GAS_AMOUNT_SWAP);
+            } else if (txType == CONST_PW_TX_OSMOSIS_JOIN_POOL || txType == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
                 return new BigDecimal(OSMOSIS_GAS_AMOUNT_POOL);
             }
         }
