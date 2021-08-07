@@ -1511,48 +1511,17 @@ public class WUtils {
     
     static func marketPrice(_ chain: ChainType) -> String {
         var result = "usdt"
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
-            result = result + ",uatom"
-            for balance in BaseData.instance.mMyBalances_gRPC {
-                if (balance.denom != COSMOS_MAIN_DENOM) {
-                }
-            }
-            
-        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
-            result = result + ",uiris"
-            for balance in BaseData.instance.mMyBalances_gRPC {
-                if (balance.denom != IRIS_MAIN_DENOM) {
-                }
-            }
-            
-        } else if (chain == ChainType.AKASH_MAIN) {
-            result = result + ",uakt"
-            for balance in BaseData.instance.mMyBalances_gRPC {
-                if (balance.denom != getMainDenom(chain)) {
-                }
-            }
-            
-        } else if (chain == ChainType.PERSIS_MAIN) {
-            result = result + ",uxprt"
-            for balance in BaseData.instance.mMyBalances_gRPC {
-                if (balance.denom != getMainDenom(chain)) {
-                }
-            }
-            
-        } else if (chain == ChainType.CRYPTO_MAIN) {
-            result = result + ",basecro"
-            for balance in BaseData.instance.mMyBalances_gRPC {
-                if (balance.denom != getMainDenom(chain)) {
-                }
-            }
-            
-        } else if (chain == ChainType.OSMOSIS_MAIN) {
-            result = result + ",uosmo,uion"
+        if (isGRPC(chain)) {
+            result = result + "," + getMainDenom(chain)
             BaseData.instance.mIbcTokens.forEach { ibcToken in
                 if (ibcToken.auth == true) {
                     result = result + "," + ibcToken.base_denom!
                 }
             }
+        }
+        
+        if (chain == ChainType.OSMOSIS_MAIN) {
+            result = result + "uion"
         }
         
         else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -1567,14 +1536,8 @@ public class WUtils {
         } else if (chain == ChainType.BAND_MAIN) {
             result = result + ",uband"
             
-        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
-            result = result + ",uiov"
-            
         } else if (chain == ChainType.CERTIK_MAIN) {
             result = result + ",uctk"
-            
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            result = result + ",udvpn"
             
         } else if (chain == ChainType.FETCH_MAIN) {
             result = result + ",afet"
