@@ -40,7 +40,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteAccountGrpcTask
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteDomainGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisExitPoolGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisJoinPoolGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisSwaplGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisSwaplnGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulReInvestGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRedelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRegisterAccountGrpcTask;
@@ -365,7 +365,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
             }
 
             else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_SWAP) {
-                new SimulOsmosisSwaplGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
+                new SimulOsmosisSwaplnGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                         getSActivity().mOsmosisSwapAmountInRoute, getSActivity().mOsmosisSwapInCoin, getSActivity().mOsmosisSwapOutCoin,
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 

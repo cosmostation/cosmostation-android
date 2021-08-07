@@ -25,7 +25,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_SIMULATE_SWAP_IN;
 
-public class SimulOsmosisSwaplGrpcTask extends CommonTask {
+public class SimulOsmosisSwaplnGrpcTask extends CommonTask {
 
     private Account                 mAccount;
     private BaseChain               mBaseChain;
@@ -38,8 +38,8 @@ public class SimulOsmosisSwaplGrpcTask extends CommonTask {
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey deterministicKey;
 
-    public SimulOsmosisSwaplGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, Tx.SwapAmountInRoute mSwapInRoute,
-                                     Coin inputCoin, Coin outputCoin, String memo, Fee fee, String chainId) {
+    public SimulOsmosisSwaplnGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, Tx.SwapAmountInRoute mSwapInRoute,
+                                      Coin inputCoin, Coin outputCoin, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
