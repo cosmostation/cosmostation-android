@@ -27,6 +27,7 @@ class TokenCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.tokenImg.image = UIImage(named: "tokenIc")
+        self.tokenSymbol.textColor = UIColor.white
         self.tokenSymbol.text = "-"
         self.tokenTitle.text = "-"
         self.tokenDescription.text = "-"

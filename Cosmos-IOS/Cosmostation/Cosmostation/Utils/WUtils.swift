@@ -1132,7 +1132,7 @@ public class WUtils {
                 if (coin.balance_denom == getMainDenom(chainType)) {
                     allBnb = allBnb.adding(amount)
                 } else {
-                    allBnb = allBnb.adding(getBnbConvertAmount(coin.balance_denom, amount))
+                    allBnb = allBnb.adding(getBnbConvertAmount(coin.balance_denom))
                 }
                 let assetValue = userCurrencyValue(getMainDenom(chainType), allBnb, 0)
                 totalValue = totalValue.adding(assetValue)
@@ -1214,7 +1214,7 @@ public class WUtils {
                 if (coin.balance_denom == getMainDenom(chainType)) {
                     allBnb = allBnb.adding(amount)
                 } else {
-                    allBnb = allBnb.adding(getBnbConvertAmount(coin.balance_denom, amount))
+                    allBnb = allBnb.adding(getBnbConvertAmount(coin.balance_denom))
                 }
                 let btcValue = btcValue(getMainDenom(chainType), allBnb, 0)
                 totalValue = totalValue.adding(btcValue)
@@ -1521,7 +1521,7 @@ public class WUtils {
         }
         
         if (chain == ChainType.OSMOSIS_MAIN) {
-            result = result + "uion"
+            result = result + ",uion"
         }
         
         else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -1531,7 +1531,7 @@ public class WUtils {
             result = result + ",okb,okt"
             
         } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
-            result = result + ",ukava,hard"
+            result = result + ",ukava,hard,usdx"
             
         } else if (chain == ChainType.BAND_MAIN) {
             result = result + ",uband"
@@ -1679,8 +1679,9 @@ public class WUtils {
         return BaseData.instance.mBnbTokenTicker.filter { $0.symbol == getBnbTicSymbol(symbol!)}.first
     }
     
-    static func getBnbConvertAmount(_ symbol: String?, _ amount: NSDecimalNumber) -> NSDecimalNumber {
+    static func getBnbConvertAmount(_ symbol: String) -> NSDecimalNumber {
         if let ticker = getBnbTokenTic(symbol) {
+            let amount = getAllBnbToken(symbol)
             if (isBnbMarketToken(symbol)) {
                 return amount.dividing(by: ticker.getLastPrice(), withBehavior: WUtils.handler8)
             } else {

@@ -917,6 +917,7 @@ let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
 let IOV_TEST_DENOM = "uvoi"
 let KAVA_HARD_DENOM = "hard"
+let KAVA_USDX_DENOM = "usdx"
 let OSMOSIS_ION_DENOM = "uion"
 
 
