@@ -26,7 +26,7 @@
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" red="0.25098039215686274" green="0.27058823529411763" blue="0.27058823529411763" alpha="0.44944275317548893" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.13725490196078433" green="0.14509803921568626" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="SJb-uN-Iv2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="12" id="LS4-CM-BIu"/>
                 <constraint firstItem="SJb-uN-Iv2" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="uAk-0b-bIM"/>

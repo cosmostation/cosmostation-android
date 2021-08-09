@@ -196,6 +196,14 @@ public class Account : NSObject, Codable, NSItemProviderReading, NSItemProviderW
         return result
     }
     
+    func dpAddress(_ chain: ChainType?) -> String {
+        if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
+            return WKey.convertAddressOkexToEth(account_address)
+        } else {
+            return account_address
+        }
+    }
+    
     public static var readableTypeIdentifiersForItemProvider: [String] {
         return [(kUTTypeData) as String]
     }

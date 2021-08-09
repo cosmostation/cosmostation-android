@@ -8,8 +8,8 @@
 
 import UIKit
 
-class TokenHeader: UIView {
-    private let xibName = "TokenHeader"
+class CommonHeader: UIView {
+    private let xibName = "CommonHeader"
     
     override init(frame: CGRect) {
         super.init(frame: frame)

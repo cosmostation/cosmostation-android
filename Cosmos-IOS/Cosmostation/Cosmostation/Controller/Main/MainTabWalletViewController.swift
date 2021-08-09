@@ -111,7 +111,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             self.totalKeyState.image = totalKeyState.image?.withRenderingMode(.alwaysTemplate)
             self.totalKeyState.tintColor = WUtils.getChainColor(chainType)
         }
-        self.totalDpAddress.text = account?.account_address
+        self.totalDpAddress.text = account?.dpAddress(chainType)
         self.totalDpAddress.adjustsFontSizeToFitWidth = true
         self.totalValue.attributedText = WUtils.dpAllAssetValueUserCurrency(chainType, totalValue.font)
         
