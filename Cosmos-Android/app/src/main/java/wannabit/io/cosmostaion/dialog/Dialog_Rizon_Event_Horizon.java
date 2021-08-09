@@ -42,9 +42,9 @@ public class Dialog_Rizon_Event_Horizon extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EventHorizonActivity.class);
-                startActivity(intent);
-                getDialog().dismiss();
+//                Intent intent = new Intent(getActivity(), EventHorizonActivity.class);
+//                startActivity(intent);
+//                getDialog().dismiss();
             }
         });
 
