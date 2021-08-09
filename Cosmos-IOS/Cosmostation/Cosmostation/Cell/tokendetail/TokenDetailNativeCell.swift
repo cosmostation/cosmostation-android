@@ -71,7 +71,7 @@ class TokenDetailNativeCell: TokenDetailCell {
             let locked = BaseData.instance.lockedAmount(denom!)
             let frozen = BaseData.instance.frozenAmount(denom!)
             let total = available.adding(locked).adding(frozen)
-            let convertAmount = WUtils.getBnbConvertAmount(denom, total)
+            let convertAmount = WUtils.getBnbConvertAmount(denom!)
             
             totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 0, 8)
             availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 0, 8)

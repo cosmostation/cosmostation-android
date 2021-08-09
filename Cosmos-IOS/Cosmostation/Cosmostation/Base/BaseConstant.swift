@@ -458,9 +458,9 @@ let GAS_FEE_AMOUNT_REINVEST                 = "220000"
 let GAS_FEE_AMOUNT_REDELE                   = "240000"
 
 
-let GAS_FEE_AMOUNT_OSMOS_SWAP               = "400000"
-let GAS_FEE_AMOUNT_OSMOS_JOIN_POOL          = "400000"
-let GAS_FEE_AMOUNT_OSMOS_EXIT_POOL          = "400000"
+let GAS_FEE_AMOUNT_OSMOS_SWAP               = "300000"
+let GAS_FEE_AMOUNT_OSMOS_JOIN_POOL          = "600000"
+let GAS_FEE_AMOUNT_OSMOS_EXIT_POOL          = "600000"
 
 let FEE_BNB_TRANSFER                            = "0.000075"
 
@@ -917,6 +917,7 @@ let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
 let IOV_TEST_DENOM = "uvoi"
 let KAVA_HARD_DENOM = "hard"
+let KAVA_USDX_DENOM = "usdx"
 let OSMOSIS_ION_DENOM = "uion"
 
 

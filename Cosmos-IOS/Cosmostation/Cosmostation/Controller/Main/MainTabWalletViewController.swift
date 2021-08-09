@@ -18,6 +18,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     @IBOutlet weak var titleWalletName: UILabel!
     @IBOutlet weak var titleChainName: UILabel!
     
+    @IBOutlet weak var totalCard: CardView!
+    @IBOutlet weak var totalKeyState: UIImageView!
+    @IBOutlet weak var totalDpAddress: UILabel!
+    @IBOutlet weak var totalValue: UILabel!
+    
     @IBOutlet weak var walletTableView: UITableView!
     var refresher: UIRefreshControl!
     
@@ -26,8 +31,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainTabVC = (self.parent)?.parent as? MainTabViewController
-        chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
+        self.mainTabVC = (self.parent)?.parent as? MainTabViewController
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
         
         self.walletTableView.delegate = self
         self.walletTableView.dataSource = self
@@ -68,7 +74,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         refresher.addTarget(self, action: #selector(onRequestFetch), for: .valueChanged)
         refresher.tintColor = UIColor.white
         walletTableView.addSubview(refresher)
-    
+        
+        let tapTotalCard = UITapGestureRecognizer(target: self, action: #selector(self.onClickActionShare))
+        self.totalCard.addGestureRecognizer(tapTotalCard)
+        
         self.updateFloaty()
     }
     
@@ -77,7 +86,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onPriceUpdated(_:)), name: Notification.Name("priceUpdate"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchPrice(_:)), name: Notification.Name("onFetchPrice"), object: nil)
         self.updateTitle()
         self.walletTableView.reloadData()
     }
@@ -85,17 +94,27 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("priceUpdate"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchPrice"), object: nil)
     }
     
     
     func updateTitle() {
         titleChainName.textColor = WUtils.getChainColor(chainType!)
-        if (mainTabVC.mAccount.account_nick_name == "") {
-            titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
+        if (account?.account_nick_name == "") {
+            titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
         } else {
-            titleWalletName.text = mainTabVC.mAccount.account_nick_name
+            titleWalletName.text = account?.account_nick_name
         }
+        
+        self.totalCard.backgroundColor = WUtils.getChainBg(chainType)
+        if (account?.account_has_private == true) {
+            self.totalKeyState.image = totalKeyState.image?.withRenderingMode(.alwaysTemplate)
+            self.totalKeyState.tintColor = WUtils.getChainColor(chainType)
+        }
+        self.totalDpAddress.text = account?.dpAddress(chainType)
+        self.totalDpAddress.adjustsFontSizeToFitWidth = true
+        self.totalValue.attributedText = WUtils.dpAllAssetValueUserCurrency(chainType, totalValue.font)
+        
         if (chainType! == ChainType.COSMOS_MAIN) {
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Mainnet)"
@@ -213,7 +232,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
                 DispatchQueue.main.async {
-                    if (self.mainTabVC.mAccount.account_push_alarm) {
+                    if (self.account!.account_push_alarm) {
                         self.titleAlarmBtn.setImage(UIImage(named: "notificationsIc"), for: .normal)
                     } else {
                         self.titleAlarmBtn.setImage(UIImage(named: "notificationsIcOff"), for: .normal)
@@ -260,11 +279,13 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
+        self.totalValue.attributedText = WUtils.dpAllAssetValueUserCurrency(chainType, totalValue.font)
         self.walletTableView.reloadData()
         self.refresher.endRefreshing()
     }
     
-    @objc func onPriceUpdated(_ notification: NSNotification) {
+    @objc func onFetchPrice(_ notification: NSNotification) {
+        self.totalValue.attributedText = WUtils.dpAllAssetValueUserCurrency(chainType, totalValue.font)
         self.walletTableView.reloadData()
     }
     
@@ -274,11 +295,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
-            return 4;
+            return 3;
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
-            return 4;
+            return 3;
         }
-        return 5;
+        return 4;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -340,14 +361,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             cell?.actionGravity = {
@@ -362,22 +377,22 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -386,33 +401,27 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetIrisItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletIrisCell") as? WalletIrisCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -422,28 +431,22 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetBnbItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletBnbCell") as? WalletBnbCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionWC = { self.onClickWalletConect() }
             cell?.actionBep3 = { self.onClickBep3Send(BNB_MAIN_DENOM) }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -453,35 +456,29 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetKavaItem(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletKavaCell") as? WalletKavaCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             cell?.actionCdp = { self.onClickCdp() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -490,35 +487,29 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetIovItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletIovCell") as? WalletIovCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             cell?.actionNameService = { self.onClickStarName() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -527,34 +518,28 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetBandItem(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletBandCell") as? WalletBandCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -563,34 +548,28 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetSecretItem(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletSecretCell") as? WalletSecretCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -599,30 +578,24 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetOKexItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletOkAddressCell") as? WalletOkAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletOkCell") as? WalletOkCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDeposit = { self.onClickOkDeposit() }
             cell?.actionWithdraw = { self.onClickOkWithdraw() }
             cell?.actionVoteforVal = { self.onClickOkVoteVal() }
             cell?.actionVote = { self.onShowToast(NSLocalizedString("error_not_yet", comment: "")) }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -631,34 +604,28 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetCertikItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletCertikCell") as? WalletCertikCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -667,34 +634,28 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetAkashItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAkashCell") as? WalletAkashCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -704,34 +665,28 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetPersisItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPersisCell") as? WalletPersisCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -741,34 +696,28 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetSentinelItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletSentinelCell") as? WalletSentinelCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -778,34 +727,28 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetFetchItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletFetchCell") as? WalletFetchCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -815,34 +758,28 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetCrytoItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletCrytoCell") as? WalletCrytoCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -852,33 +789,27 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetSifItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletSifCell") as? WalletSifCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletSifIncentiveCell") as? WalletSifIncentiveCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -888,33 +819,27 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetkiItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletKiCell") as? WalletKiCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -923,34 +848,28 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetRizonItems(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletRizonCell") as? WalletRizonCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             cell?.actionSwap = { self.onClickRizonSwap() }
             return cell!
 
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
 
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
 
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -960,14 +879,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetMediItems(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletMediCell") as? WalletMediCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = {
                 self.onShowToast(NSLocalizedString("prepare", comment: ""))
 //                self.onClickValidatorList()
@@ -978,21 +891,21 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             return cell!
 
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
 
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
 
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -1002,33 +915,27 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetAltheaItems(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAltheaCell") as? WalletAltheaCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
 
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
 
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
 
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -1038,34 +945,28 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetOsmoItems(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletOsmoCell") as? WalletOsmoCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             cell?.actionLab = { self.onClickOsmosisLab() }
             return cell!
 
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
 
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
 
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -1077,33 +978,27 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -1112,33 +1007,27 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetIrisTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
-            cell?.actionShare = { self.onClickActionShare() }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletIrisCell") as? WalletIrisCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.updateView(account, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
@@ -1151,7 +1040,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @IBAction func onClickExplorer(_ sender: UIButton) {
-        let link = WUtils.getAccountExplorer(chainType!, mainTabVC.mAccount.account_address)
+        let link = WUtils.getAccountExplorer(chainType!, account!.account_address)
         guard let url = URL(string: link) else { return }
         self.onShowSafariWeb(url)
     }
@@ -1163,7 +1052,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 if settings.authorizationStatus == .authorized {
                     DispatchQueue.main.async {
                         self.showWaittingAlert()
-                        self.onToggleAlarm(self.mainTabVC.mAccount!) { (success) in
+                        self.onToggleAlarm(self.account!) { (success) in
                             self.mainTabVC.onUpdateAccountDB()
                             self.updateTitle()
                             self.dismissAlertController()
@@ -1192,7 +1081,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else {
             DispatchQueue.main.async {
                 self.showWaittingAlert()
-                self.onToggleAlarm(self.mainTabVC.mAccount!) { (success) in
+                self.onToggleAlarm(self.account!) { (success) in
                     self.mainTabVC.onUpdateAccountDB()
                     self.updateTitle()
                     self.dismissAlertController()
@@ -1202,14 +1091,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     
-    func onClickActionShare() {
+    @objc func onClickActionShare() {
         var nickName:String?
-        if (mainTabVC.mAccount.account_nick_name == "") {
-            nickName = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
+        if (account?.account_nick_name == "") {
+            nickName = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
         } else {
-            nickName = mainTabVC.mAccount.account_nick_name
+            nickName = account?.account_nick_name
         }
-        var address = mainTabVC.mAccount.account_address
+        var address = account!.account_address
         if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             address = WKey.convertAddressOkexToEth(address)
         }
@@ -1234,7 +1123,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickWalletConect() {
-        if (!mainTabVC.mAccount.account_has_private) {
+        if (account?.account_has_private == false) {
             self.onShowAddMenomicDialog()
             return
         }
@@ -1252,12 +1141,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return
         }
         
-        if (!mainTabVC.mAccount.account_has_private) {
+        if (account?.account_has_private == false) {
             self.onShowAddMenomicDialog()
             return
         }
 
-        let balances = BaseData.instance.selectBalanceById(accountId: self.mainTabVC.mAccount.account_id)
+        let balances = BaseData.instance.selectBalanceById(accountId: self.account!.account_id)
         if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: FEE_BNB_TRANSFER)).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
@@ -1288,7 +1177,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickOkDeposit() {
-        if (!mainTabVC.mAccount.account_has_private) {
+        if (account?.account_has_private == false) {
             self.onShowAddMenomicDialog()
             return
         }
@@ -1307,7 +1196,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickOkWithdraw() {
-        if (!mainTabVC.mAccount.account_has_private) {
+        if (account?.account_has_private == false) {
             self.onShowAddMenomicDialog()
             return
         }
@@ -1354,14 +1243,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickRizonSwap() {
-        if (!mainTabVC.mAccount.account_has_private) {
+        if (account?.account_has_private == false) {
             self.onShowAddMenomicDialog()
             return
         }
         let rizonSwapAlert = UIAlertController(title: "Event Horizon", message: NSLocalizedString("str_rizon_swap_alert_msg", comment: ""), preferredStyle: .alert)
         rizonSwapAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default))
         rizonSwapAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
-            self.onCheckSwapStatus(self.mainTabVC.mAccount.account_address)
+            self.onCheckSwapStatus(self.account!.account_address)
         }))
         self.present(rizonSwapAlert, animated: true) {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
@@ -1689,7 +1578,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickBuyCoin() {
-        if (mainTabVC.mAccount.account_has_private) {
+        if (self.account?.account_has_private == true) {
             self.onShowBuySelectFiat()
         } else {
             self.onShowBuyWarnNoKey()
@@ -1741,7 +1630,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.BAND_MAIN) {
             query = query + "&currencyCode=band"
         }
-        query = query + "&walletAddress=" + mainTabVC.mAccount.account_address + "&baseCurrencyCode=" + fiat;
+        query = query + "&walletAddress=" + self.account!.account_address + "&baseCurrencyCode=" + fiat;
         let param = ["api_key":query] as [String : Any]
         let request = Alamofire.request(CSS_MOON_PAY, method: .post, parameters: param, encoding: JSONEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -1769,7 +1658,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickMainSend() {
-        if (!mainTabVC.mAccount.account_has_private) {
+        if (account?.account_has_private == false) {
             self.onShowAddMenomicDialog()
             return
         }

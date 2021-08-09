@@ -770,6 +770,8 @@
 		28CFB6B22613447C00A18634 /* TokenDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CFB6B12613447C00A18634 /* TokenDetailCell.swift */; };
 		28CFB6B72613594D00A18634 /* TokenDetailPersistenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CFB6B52613594D00A18634 /* TokenDetailPersistenceCell.swift */; };
 		28CFB6B82613594D00A18634 /* TokenDetailPersistenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28CFB6B62613594D00A18634 /* TokenDetailPersistenceCell.xib */; };
+		28CFBFDB26C0286A009A300D /* CommonHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28CFBFDA26C0286A009A300D /* CommonHeader.xib */; };
+		28CFBFDD26C028A3009A300D /* CommonHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CFBFDC26C028A3009A300D /* CommonHeader.swift */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
 		28D3551725386A9300B804CF /* StepHardPoolIncentive0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D3551625386A9300B804CF /* StepHardPoolIncentive0ViewController.swift */; };
 		28D3551A25386AA200B804CF /* StepHardPoolIncentive3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D3551925386AA200B804CF /* StepHardPoolIncentive3ViewController.swift */; };
@@ -1815,6 +1817,8 @@
 		28CFB6B12613447C00A18634 /* TokenDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailCell.swift; sourceTree = "<group>"; };
 		28CFB6B52613594D00A18634 /* TokenDetailPersistenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailPersistenceCell.swift; sourceTree = "<group>"; };
 		28CFB6B62613594D00A18634 /* TokenDetailPersistenceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailPersistenceCell.xib; sourceTree = "<group>"; };
+		28CFBFDA26C0286A009A300D /* CommonHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommonHeader.xib; sourceTree = "<group>"; };
+		28CFBFDC26C028A3009A300D /* CommonHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonHeader.swift; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
 		28D3551625386A9300B804CF /* StepHardPoolIncentive0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHardPoolIncentive0ViewController.swift; sourceTree = "<group>"; };
 		28D3551925386AA200B804CF /* StepHardPoolIncentive3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHardPoolIncentive3ViewController.swift; sourceTree = "<group>"; };
@@ -3527,6 +3531,8 @@
 				E16B70DF229F9A78001D6B9C /* RedelegateCell.xib */,
 				E16B89132341C558003E0922 /* TokenCell.swift */,
 				E16B89142341C558003E0922 /* TokenCell.xib */,
+				28CFBFDC26C028A3009A300D /* CommonHeader.swift */,
+				28CFBFDA26C0286A009A300D /* CommonHeader.xib */,
 				285A33D8244763290052BD3D /* SelectChainCell.swift */,
 				285A33D9244763290052BD3D /* SelectChainCell.xib */,
 				2812956C250F81C3007B217E /* SelectCoinCell.swift */,
@@ -3803,6 +3809,7 @@
 				E1CF42F123598AFE00907F45 /* ManageChainCell.xib in Resources */,
 				04CFBD492691F8460013150B /* TxTokenSwapCell.xib in Resources */,
 				28D372AB254BFCE70071B136 /* RegisterAccount4ViewController.xib in Resources */,
+				28CFBFDB26C0286A009A300D /* CommonHeader.xib in Resources */,
 				E1C3C89923B1E27800A693C0 /* NotificationView.xib in Resources */,
 				282BDFEB24A5BCE000D3A5D4 /* WcTransferPopup.xib in Resources */,
 				28B785B726B7B084009F755F /* SwapStatusCell.xib in Resources */,
@@ -4620,6 +4627,7 @@
 				28474ED4241E06AF00AF5A81 /* TxCdpCreateCell.swift in Sources */,
 				289EF81D26824E4700F90AC1 /* osmosis_pool-incentives_v1beta1_query.grpc.swift in Sources */,
 				285A33DE2447633D0052BD3D /* SelectAccountCell.swift in Sources */,
+				28CFBFDD26C028A3009A300D /* CommonHeader.swift in Sources */,
 				280E1F1B254ABB1D0007BA7D /* ResourceEditCell.swift in Sources */,
 				287AC5B425FDF7250070837E /* cosmos_evidence_v1beta1_evidence.pb.swift in Sources */,
 				E19A322022547EA100A05E41 /* AddViewController.swift in Sources */,

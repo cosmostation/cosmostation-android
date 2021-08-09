@@ -1401,7 +1401,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         BaseData.instance.mPrices.append(Price.init(priceInfo))
                     }
                 }
-                NotificationCenter.default.post(name: Notification.Name("priceUpdate"), object: nil, userInfo: nil)
+                NotificationCenter.default.post(name: Notification.Name("onFetchPrice"), object: nil, userInfo: nil)
             
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchPriceInfo ", error) }
