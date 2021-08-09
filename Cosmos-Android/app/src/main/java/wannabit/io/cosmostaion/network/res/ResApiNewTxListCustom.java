@@ -360,6 +360,10 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_medi_create_did);
                 }
 
+                else if (msgType.contains("MsgCreateTokenswapRequest")) {
+                    result = c.getString(R.string.tx_rizon_create_Token_swap);
+                }
+
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
                 }

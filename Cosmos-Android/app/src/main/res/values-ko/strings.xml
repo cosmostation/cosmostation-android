@@ -1344,6 +1344,10 @@
     <string name="tx_known">알수없음</string>
     <string name="tx_medi_add_record">Add Record</string>
     <string name="tx_medi_create_did">Create DID</string>
+    <string name="tx_rizon_create_Token_swap">스왑 토큰 받기</string>
+    <string name="str_rizon_create_token_swap_hash">Legacy Chain Tx Hash</string>
+    <string name="str_rizon_create_token_swap_recipient">Recipient</string>
+    <string name="str_rizon_create_token_swap_amount">Amount</string>
 
     <string name="tx_kava_post_price">가격 정보 갱신</string>
     <string name="tx_kava_create_cdp">CDP\n개설</string>

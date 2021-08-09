@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -101,14 +101,12 @@ let KI_URL                              = "https://lcd-kichain-app.cosmostation.
 let KI_API                              = "https://api-kichain.cosmostation.io/";
 
 
-let HDAC_STATUS                         = "https://wallet.new.hdactech.com/insight-api/status";
-let HDAC_GET_UTXO                       = "https://wallet.new.hdactech.com/insight-api/addr/";
-let HDAC_BROADCAST                      = "https://wallet.new.hdactech.com/insight-api/tx/send";
+let HDAC_MAINNET                        = "https://insight-api.rizon.world/insight-api/";
+let RIZON_SWAP_STATUS_MAINNET           = "https://swap-api.rizon.world/";
+let RIZON_MAINET_API                    = "";
 
-let HDAC_TEST_STATUS                    = "http://groot.insight-api.rizon.world/insight-api/status";
-let HDAC_TEST_GET_UTXO                  = "http://groot.insight-api.rizon.world/insight-api/addr/";
-let HDAC_TEST_BROADCAST                 = "http://groot.insight-api.rizon.world/insight-api/tx/send";
-
+let HDAC_TESTNET                        = "https://insight-api.testnet.rizon.world/insight-api/";
+let RIZON_SWAP_STATUS_TESTNET           = "https://swap-api.testnet.rizon.world/";
 let RIZON_TEST_API                      = "https://api-rizon-testnet.cosmostation.io/";
 
 
@@ -344,6 +342,9 @@ let OSMOSIS_MSG_TYPE_JOIN_POOL              = "osmosis/MsgJoinPool";
 let OSMOSIS_MSG_TYPE_EXIT_POOL              = "osmosis/MsgExitPool";
 
 
+let TASK_RIZON_EVENT_HORIZON                = "rizon_swap";
+
+
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
 let PASSWORD_ACTION_SIMPLE_CHECK            = "ACTION_SIMPLE_CHECK"
 let PASSWORD_ACTION_DELETE_ACCOUNT          = "ACTION_DELETE_ACCOUNT"
@@ -457,9 +458,9 @@ let GAS_FEE_AMOUNT_REINVEST                 = "220000"
 let GAS_FEE_AMOUNT_REDELE                   = "240000"
 
 
-let GAS_FEE_AMOUNT_OSMOS_SWAP               = "400000"
-let GAS_FEE_AMOUNT_OSMOS_JOIN_POOL          = "400000"
-let GAS_FEE_AMOUNT_OSMOS_EXIT_POOL          = "400000"
+let GAS_FEE_AMOUNT_OSMOS_SWAP               = "300000"
+let GAS_FEE_AMOUNT_OSMOS_JOIN_POOL          = "600000"
+let GAS_FEE_AMOUNT_OSMOS_EXIT_POOL          = "600000"
 
 let FEE_BNB_TRANSFER                            = "0.000075"
 
@@ -781,7 +782,7 @@ public enum ChainType: String {
 //        result.append(IOV_TEST)
 //        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
-//        result.append(RIZON_TEST)
+        result.append(RIZON_TEST)
 //        result.append(MEDI_TEST)
 //        result.append(ALTHEA_TEST)
         return result
@@ -916,6 +917,7 @@ let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
 let IOV_TEST_DENOM = "uvoi"
 let KAVA_HARD_DENOM = "hard"
+let KAVA_USDX_DENOM = "usdx"
 let OSMOSIS_ION_DENOM = "uion"
 
 
@@ -967,6 +969,7 @@ let EXPLORER_SIF_MAIN       = "https://www.mintscan.io/sifchain/";
 let EXPLORER_KI_MAIN        = "https://www.mintscan.io/ki-chain/";
 let EXPLORER_OSMOSIS_MAIN   = "https://www.mintscan.io/osmosis/";
 let EXPLORER_MEDI_MAIN      = "https://explorer.medibloc.org/en/";
+let EXPLORER_HDAC_MAIN      = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";
@@ -977,6 +980,7 @@ let EXPLORER_CERTIK         = "https://explorer.certik.foundation/";
 let EXPLORER_MEDI_TEST      = "https://testnet.mintscan.io/medibloc/";
 let EXPLORER_RIZON_TEST     = "https://testnet.mintscan.io/rizon/";
 let EXPLORER_ALTHEA_TEST    = "https://testnet.mintscan.io/althea/";
+let EXPLORER_HDAC_TEST      = "http://test.explorer.hdactech.com/hdac-explorer/";
 
 
 

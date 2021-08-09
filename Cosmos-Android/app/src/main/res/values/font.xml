@@ -293,6 +293,12 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
+    <style name="font_ss_12_rizon" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorRizon</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
     <style name="font_ss_12_ok" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorOK</item>

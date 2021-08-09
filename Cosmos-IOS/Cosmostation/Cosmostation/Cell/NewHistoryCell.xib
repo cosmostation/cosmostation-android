@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F2E-wf-Kqu" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                        <rect key="frame" x="12" y="4" width="447" height="86"/>
+                        <rect key="frame" x="12" y="0.5" width="447" height="85"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UnKnown" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymb-vi-rrd">
                                 <rect key="frame" x="12" y="12" width="99" height="13.5"/>
@@ -27,20 +27,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Failed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIT-pP-Yoh">
-                                <rect key="frame" x="12" y="62.5" width="31" height="13.5"/>
+                                <rect key="frame" x="12" y="61.5" width="31" height="13.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                 <color key="textColor" red="0.95294117649999999" green="0.098039215690000001" blue="0.38823529410000002" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vFu-7u-Ysp">
-                                <rect key="frame" x="115" y="12" width="0.5" height="62"/>
+                                <rect key="frame" x="115" y="12" width="0.5" height="61"/>
                                 <color key="backgroundColor" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="0.5" id="y2b-QD-5bi"/>
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="t9U-Og-rfC">
-                                <rect key="frame" x="417" y="31" width="24" height="24"/>
+                                <rect key="frame" x="417" y="30.5" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="I0e-ua-DcW"/>
                                     <constraint firstAttribute="width" constant="24" id="lyw-Fw-FDT"/>
@@ -53,19 +53,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A2W-3l-cw9">
-                                <rect key="frame" x="403.5" y="28" width="5.5" height="28.5"/>
+                                <rect key="frame" x="403.5" y="28" width="5.5" height="27.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COIN" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ev2-wC-0p7">
-                                <rect key="frame" x="381" y="62.5" width="28" height="13.5"/>
+                                <rect key="frame" x="381" y="61.5" width="28" height="13.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jjg-p6-Zmb">
-                                <rect key="frame" x="372" y="62.5" width="7" height="13.5"/>
+                                <rect key="frame" x="372" y="61.5" width="7" height="13.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -115,9 +115,9 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="F2E-wf-Kqu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="4Qb-Ad-0ob"/>
-                    <constraint firstAttribute="bottom" secondItem="F2E-wf-Kqu" secondAttribute="bottom" constant="4" id="DaH-33-ZiX"/>
+                    <constraint firstAttribute="bottom" secondItem="F2E-wf-Kqu" secondAttribute="bottom" constant="8.5" id="DaH-33-ZiX"/>
                     <constraint firstAttribute="trailing" secondItem="F2E-wf-Kqu" secondAttribute="trailing" constant="12" id="FUt-4N-WKv"/>
-                    <constraint firstItem="F2E-wf-Kqu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="Jtj-EQ-Y0V"/>
+                    <constraint firstItem="F2E-wf-Kqu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="0.5" id="Jtj-EQ-Y0V"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

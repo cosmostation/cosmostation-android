@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import GRPC
 import NIO
+import HDWalletKit
 
 class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, UIScrollViewDelegate {
     
@@ -121,6 +122,12 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mPoolCoin0: Coin?
     var mPoolCoin1: Coin?
     var mLPCoin: Coin?
+    
+    
+    var mHdacKey: HDWalletKit.PrivateKey?
+    var mHdacAddress: String?
+    var mHdacBalance: NSDecimalNumber?
+    var mHdacUTXOs: Array<HdacUtxo>?
     
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
@@ -373,6 +380,11 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     ExitPool3ViewController(nibName: "ExitPool3ViewController", bundle: nil)]
         }
         
+        else if (mType == TASK_RIZON_EVENT_HORIZON) {
+            return [StepEventHorizon0ViewController(nibName: "StepEventHorizon0ViewController", bundle: nil),
+                    StepEventHorizon1ViewController(nibName: "StepEventHorizon1ViewController", bundle: nil)]
+        }
+        
         
         else {
             if (WUtils.isGRPC(chainType!)) {
@@ -444,7 +456,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     func onBeforePage() {
         disableBounce = false
-        if(currentIndex == 0) {
+        if (currentIndex == 0) {
             self.navigationController?.popViewController(animated: true)
         } else {
             setViewControllers([orderedViewControllers[currentIndex - 1]], direction: .reverse, animated: true, completion: { (finished) -> Void in

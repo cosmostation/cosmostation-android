@@ -561,16 +561,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onCheckRizonEventHorizon() {
-//        if (!mAccount.hasPrivateKey) {
-//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//            return;
-//        }
-//
-//        Dialog_Rizon_Event_Horizon add = Dialog_Rizon_Event_Horizon.newInstance();
-//        add.setCancelable(true);
-//        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
 
         //정근 api 확인
         //https://swap-api.testnet.rizon.world/swaps/rizon/rizon1ng63p9669l3lscs2hnyu2ayj59pg7w6majp757
