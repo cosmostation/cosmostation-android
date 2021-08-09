@@ -35,6 +35,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
+import wannabit.io.cosmostaion.activities.chains.rizon.RizonSwapStatusActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -557,12 +558,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
+//        } else {
+//            Intent isStatus = new Intent(MainActivity.this, RizonSwapStatusActivity.class);
+//            startActivity(isStatus);
         }
-    }
-
-    public void onStartRizonEventHorzion() {
-        Intent intent = new Intent(this, EventHorizonActivity.class);
-        startActivity(intent);
     }
 
     private class MainViewPageAdapter extends FragmentPagerAdapter {

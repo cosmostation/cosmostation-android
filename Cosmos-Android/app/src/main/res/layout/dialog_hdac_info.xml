@@ -19,7 +19,7 @@
             android:layout_marginTop="@dimen/space_16"
             android:drawableLeft="@drawable/token_hdac"
             android:drawablePadding="@dimen/space_8"
-            android:text="HDAC Testnet info"/>
+            android:text="HDAC Balance info"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -49,19 +49,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/space_6">
+                android:layout_marginTop="@dimen/space_6"
+                android:layout_gravity="end">
                 <TextView
                     android:id="@+id/hdac_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/font_ss_14_gray8"
+                    style="@style/font_ss_12_gray8"
                     android:text="22001.2175464566433526" />
                 <TextView
                     android:id="@+id/hdac_amount_symbol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_6"
-                    style="@style/font_ss_15_hdac"
+                    style="@style/font_ss_12_hdac"
                     android:text="HDAC" />
             </LinearLayout>
         </LinearLayout>

@@ -20,6 +20,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
 
 
@@ -55,22 +56,35 @@ public class HdacUtil {
         return convPubkeyToHdacAddress(getKey().getPubKey(), mainnet);
     }
 
-    public BigDecimal getBalance(ArrayList<HdacUtxo> utxos) {
+    public BigDecimal getBalance(boolean mainnet, ArrayList<HdacUtxo> utxos) {
         BigDecimal result = BigDecimal.ZERO;
         for (HdacUtxo utxo: utxos){
-            if (utxo.satoshis > 0 && utxo.confirmations > 0) {
-                result = result.add(new BigDecimal(utxo.amount));
+            if (!mainnet) {
+                if (utxo.satoshis > 0 && utxo.confirmations > 0) {
+                    result = result.add(new BigDecimal(utxo.amount));
+                }
+            } else {
+                if (utxo.satoshis > 0 && utxo.confirmations >= 8) {
+                    result = result.add(new BigDecimal(utxo.amount));
+                }
             }
         }
         return result.movePointRight(8);
     }
 
-    public ArrayList<HdacUtxo> getRemainUtxo(ArrayList<HdacUtxo> utxos) {
+    public ArrayList<HdacUtxo> getRemainUtxo(boolean mainnet, ArrayList<HdacUtxo> utxos) {
         ArrayList<HdacUtxo> result = new ArrayList<>();
         for (HdacUtxo utxo: utxos){
-            if (utxo.satoshis > 0 && utxo.confirmations > 0) {
-                result.add(utxo);
+            if (!mainnet) {
+                if (utxo.satoshis > 0 && utxo.confirmations >= 1) {
+                    result.add(utxo);
+                }
+            } else {
+                if (utxo.satoshis > 0 && utxo.confirmations >= 1) {
+                    result.add(utxo);
+                }
             }
+
         }
         return result;
     }
@@ -78,7 +92,7 @@ public class HdacUtil {
     public String genRawTxSend(boolean mainnet, ArrayList<HdacUtxo> utxos, String toAddress, BigDecimal send_amount) {
         String txHex = null;
         HdacTx hdacTx = new HdacTx();
-        BigDecimal balance = getBalance(utxos);
+        BigDecimal balance = getBalance(mainnet, utxos);
         BigDecimal fee = new BigDecimal("0.1").movePointRight(8);
         BigDecimal remain = balance.subtract(send_amount).subtract(fee);
 
@@ -95,7 +109,7 @@ public class HdacUtil {
     public String genSignedTxSend(boolean mainnet, ArrayList<HdacUtxo> utxos, String toAddress, BigDecimal send_amount) {
         String txHex = null;
         HdacTx hdacTx = new HdacTx();
-        BigDecimal balance = getBalance(utxos);
+        BigDecimal balance = getBalance(mainnet, utxos);
         BigDecimal fee = new BigDecimal("0.1").movePointRight(8);
         BigDecimal remain = balance.subtract(send_amount).subtract(fee);
 
@@ -111,10 +125,10 @@ public class HdacUtil {
         return txHex;
     }
 
-    public String genRawTxSwap(ArrayList<HdacUtxo> utxos, String rizonAddress) {
+    public String genRawTxSwap(boolean mainnet, ArrayList<HdacUtxo> utxos, String rizonAddress) {
         String txHex = null;
         HdacTx hdacTx = new HdacTx();
-        BigDecimal balance = getBalance(utxos);
+        BigDecimal balance = getBalance(mainnet, utxos);
         BigDecimal toBurnAmount = balance.subtract(mTxFee);
 
         hdacTx.addOutput(mBurnAddress, toBurnAmount.longValue());
@@ -128,10 +142,10 @@ public class HdacUtil {
         return txHex;
     }
 
-    public String genSignedTxSwap(ArrayList<HdacUtxo> utxos, String rizonAddress) {
+    public String genSignedTxSwap(boolean mainnet, ArrayList<HdacUtxo> utxos, String rizonAddress) {
         String txHex = null;
         HdacTx hdacTx = new HdacTx();
-        BigDecimal balance = getBalance(utxos);
+        BigDecimal balance = getBalance(mainnet, utxos);
         BigDecimal toBurnAmount = balance.subtract(mTxFee);
 
         hdacTx.addOutput(mBurnAddress, toBurnAmount.longValue());

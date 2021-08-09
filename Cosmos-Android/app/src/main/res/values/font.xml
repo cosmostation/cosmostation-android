@@ -249,6 +249,12 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
+    <style name="font_ss_12_hdac" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorHdac</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
 
 
     <style name="font_ss_12_gray6" parent="@android:style/TextAppearance">
@@ -485,6 +491,12 @@
     <style name="font_ss_14_osmosis" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorOsmosis</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="font_ss_14_hdac" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorHdac</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 

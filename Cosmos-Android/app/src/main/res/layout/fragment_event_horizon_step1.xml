@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/cro_icon"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:text="HDAC Testnet info"
+                    android:text="HDAC Testnet"
                     style="@style/font_ss_15_hdac"/>
             </RelativeLayout>
 
@@ -45,20 +45,66 @@
                 android:layout_marginTop="@dimen/space_12"
                 android:background="@color/colorGray3"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Address"
-                android:layout_marginTop="@dimen/space_12"
-                style="@style/font_ss_12_gray1"/>
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/space_16">
+                <TextView
+                    android:id="@+id/burn_from_address_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/burn_from_address_title">
+                    <TextView
+                        android:id="@+id/burn_from_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text="htmreYHCaMMXCG2j5Qbn6mS8dQfQWbw"
+                        style="@style/font_ss_14_white"/>
+                </RelativeLayout>
+            </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Address"
-                android:layout_marginTop="@dimen/space_6"
-                style="@style/font_ss_12_white"/>
-
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/space_16">
+                <TextView
+                    android:id="@+id/burn_amount_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Burn Amount"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
+                    android:id="@+id/burn_amount_layer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/burn_amount_title">
+                    <TextView
+                        android:id="@+id/burn_amount_symbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="HDAC"
+                        style="@style/font_ss_15_hdac"/>
+                    <TextView
+                        android:id="@+id/burn_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/burn_amount_symbol"
+                        android:layout_toLeftOf="@+id/burn_amount_symbol"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text="22,001.522823423446262355"
+                        style="@style/font_ss_14_white"/>
+                </RelativeLayout>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -66,31 +112,31 @@
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/space_16">
             <TextView
-                android:id="@+id/tx_send_title"
+                android:id="@+id/tx_fee_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Balance"
+                android:text="Tx Fee"
                 style="@style/font_ss_12_gray1"/>
             <RelativeLayout
                 android:id="@+id/tx_send_single_coin_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/tx_send_title">
+                android:layout_toRightOf="@+id/tx_fee_title">
                 <TextView
-                    android:id="@+id/tx_transfer_amount_symbol"
+                    android:id="@+id/horizon_tx_fee_symbol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="HDAC"
                     style="@style/font_ss_15_hdac"/>
                 <TextView
-                    android:id="@+id/tx_transfer_amount"
+                    android:id="@+id/horizon_tx_fee_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/tx_transfer_amount_symbol"
-                    android:layout_toLeftOf="@+id/tx_transfer_amount_symbol"
+                    android:layout_alignBaseline="@+id/horizon_tx_fee_symbol"
+                    android:layout_toLeftOf="@+id/horizon_tx_fee_symbol"
                     android:layout_marginRight="@dimen/space_2"
-                    android:text="22,001.522823423446262355"
+                    android:text="0.56262355"
                     style="@style/font_ss_14_white"/>
             </RelativeLayout>
             </RelativeLayout>
@@ -104,7 +150,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/card_root"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/icon_swaparrow" />
+        app:srcCompat="@drawable/icon_arrow" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -120,10 +166,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_16"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/space_16">
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -137,83 +181,75 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/rizon_icon"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:text="RIZON Address"
+                    android:text="RIZON Testnet"
                     style="@style/font_ss_14_rizon"/>
             </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/space_12"
+                android:background="@color/colorGray3"/>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12">
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/space_16">
                 <TextView
-                    android:id="@+id/rizon_to_address"
+                    android:id="@+id/rizon_to_address_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_50"
-                    android:maxLength="60"
-                    android:background="@drawable/btn_trans_with_border"
-                    android:paddingLeft="@dimen/space_16"
-                    android:paddingRight="@dimen/space_16"
-                    android:gravity="center"
-                    android:text="rizon136fzkc73rm5def5fngs386qdlxcuvxvrte8lk7"
-                    style="@style/font_ss_12_white" />
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/rizon_to_address_title">
+                    <TextView
+                        android:id="@+id/rizon_to_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text=""
+                        style="@style/font_ss_14_white"/>
+                </RelativeLayout>
             </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/space_36"
-                    android:layout_weight="1">
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/space_36"
-                    android:layout_weight="1">
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/btn_qr"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/space_36"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:background="@drawable/btn_trans_with_border">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/qr_ic"/>
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/space_16">
+                <TextView
+                    android:id="@+id/mint_amount_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Burn Amount"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
+                    android:id="@+id/mint_amount_layer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/mint_amount_title">
                     <TextView
+                        android:id="@+id/mint_amount_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_4"
-                        style="@style/font_ss_11_white"
-                        android:text="@string/str_qr_code"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/btn_paste"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/space_36"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="@dimen/space_8"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:background="@drawable/btn_trans_with_border">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/btn_copy"/>
+                        android:layout_alignParentRight="true"
+                        android:text="ATOLO"
+                        style="@style/font_ss_14_rizon"/>
                     <TextView
+                        android:id="@+id/mint_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_4"
-                        style="@style/font_ss_11_white"
-                        android:text="@string/str_copy"/>
-                </LinearLayout>
-            </LinearLayout>
+                        android:layout_alignBaseline="@+id/mint_amount_symbol"
+                        android:layout_toLeftOf="@+id/mint_amount_symbol"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text="101.52282355"
+                        style="@style/font_ss_14_white"/>
+                </RelativeLayout>
+            </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
