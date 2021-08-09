@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.dialog;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -14,11 +13,7 @@ import android.widget.Button;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.WalletConnectActivity;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 
 public class Dialog_Rizon_Event_Horizon extends DialogFragment {
 
@@ -47,8 +42,9 @@ public class Dialog_Rizon_Event_Horizon extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).onStartRizonEventHorzion();
-                getDialog().dismiss();
+//                Intent intent = new Intent(getActivity(), EventHorizonActivity.class);
+//                startActivity(intent);
+//                getDialog().dismiss();
             }
         });
 

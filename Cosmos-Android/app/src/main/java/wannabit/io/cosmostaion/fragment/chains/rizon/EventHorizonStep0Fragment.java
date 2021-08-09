@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.crypto.MnemonicCode;
 
 import java.util.ArrayList;
@@ -36,21 +37,26 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
+import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_FetchRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_Hdac_info;
 import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_OkexRestoreType;
 import wannabit.io.cosmostaion.dialog.Dialog_SecretRestorePath;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.hdac.HdacUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class EventHorizonStep0Fragment extends BaseFragment implements View.OnClickListener{
@@ -191,7 +197,9 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
             }
 
             if (isValidWords()) {
-                Dialog_Hdac_info hdacInfo = Dialog_Hdac_info.newInstance();
+                Bundle bundle = new Bundle();
+                bundle.putString("mHdacAddress", onHdacAddress(getSActivity().mBaseChain));
+                Dialog_Hdac_info hdacInfo = Dialog_Hdac_info.newInstance(bundle);
                 hdacInfo.setCancelable(true);
                 hdacInfo.setTargetFragment(this, HDAC_INFO);
                 getFragmentManager().beginTransaction().add(hdacInfo, "dialog").commitNowAllowingStateLoss();
@@ -220,7 +228,6 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
             mEtMnemonics[mMnemonicPosition].setText(mEtMnemonics[mMnemonicPosition].getText().toString() + input);
             mEtMnemonics[mMnemonicPosition].setSelection(mEtMnemonics[mMnemonicPosition].getText().length());
             mMnemonicAdapter.getFilter().filter(mEtMnemonics[mMnemonicPosition].getText().toString().trim());
-
             return;
         }
     }
@@ -249,12 +256,22 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     }
 
     private boolean isValidWords() {
-        if( (mWords.size() == 3 || mWords.size() == 12 || mWords.size() == 16 || mWords.size() == 24) &&
-                WKey.isMnemonicWords(mWords) && WKey.isValidStringHdSeedFromWords(mWords)) {
+        if (mWords.size() >= 3 && WKey.isMnemonicWords(mWords) && onHdacAddress(getSActivity().mBaseChain) != null) {
             return true;
         } else {
             return false;
         }
+    }
+
+    private String onHdacAddress(BaseChain baseChain) {
+        boolean mainnet = true;
+        String address = null;
+        if (getSActivity().mBaseChain.equals(RIZON_TEST)) {
+            mainnet = false;
+        }
+        HdacUtil hdacUtil = new HdacUtil(mWords);
+        address = hdacUtil.getAddress(mainnet);
+        return address;
     }
 
     private EventHorizonActivity getSActivity() { return (EventHorizonActivity)getBaseActivity(); }

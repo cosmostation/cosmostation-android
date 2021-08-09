@@ -385,7 +385,7 @@ public class BaseData {
     public ArrayList<String>                                    mAllDenoms = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>                       mPoolMyList = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>                       mPoolOtherList = new ArrayList<>();
-    public PoolOuterClass.Pool                                  mSelectedPool;
+
 
     //gRPC funcs
     public String getChainIdGrpc() {

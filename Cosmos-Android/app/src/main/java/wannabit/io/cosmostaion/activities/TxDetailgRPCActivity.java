@@ -47,6 +47,7 @@ import wannabit.io.cosmostaion.widget.txDetail.TxCreateCertificateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateDeploymentHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateDidHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateLeaseHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxCreateTokenSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityCreatePoolHolder;
@@ -252,6 +253,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
         private static final int TYPE_TX_ADD_RECORD = 60;
         private static final int TYPE_TX_CREATE_DID = 61;
+        private static final int TYPE_TX_CREATE_TOKEN_SWAP = 62;
 
         private static final int TYPE_TX_UNKNOWN = 999;
 
@@ -388,6 +390,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_CREATE_DID) {
                 return new TxCreateDidHolder(getLayoutInflater().inflate(R.layout.item_tx_create_did, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_CREATE_TOKEN_SWAP) {
+                return new TxCreateTokenSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_create_token_swap, viewGroup, false));
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
@@ -513,6 +518,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_ADD_RECORD;
                 } else if (msg.getTypeUrl().contains(panacea.did.v2.MsgCreateDID.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_DID;
+                } else if (msg.getTypeUrl().contains(rizonworld.rizon.tokenswap.Tx.MsgCreateTokenswapRequest.getDescriptor().getFullName())) {
+                    return TYPE_TX_CREATE_TOKEN_SWAP;
                 }
                 return TYPE_TX_UNKNOWN;
             }

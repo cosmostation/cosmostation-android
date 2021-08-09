@@ -20,8 +20,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.chains.rizon.EventHorizonStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.rizon.EventHorizonStep1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.rizon.EventHorizonStep2Fragment;
-import wannabit.io.cosmostaion.utils.WLog;
+
 
 public class EventHorizonActivity extends BaseBroadCastActivity implements View.OnClickListener{
 
@@ -54,7 +53,7 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mPageAdapter = new HorizonPageAdapter(getSupportFragmentManager());
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(1);
         mViewPager.setAdapter(mPageAdapter);;
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -70,10 +69,6 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
                 } else if (i == 1 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_2));
                     mTvStep.setText(getString(R.string.str_event_horizon_step_1));
-                    mClearAll.setVisibility(View.GONE);
-                } else if (i == 2 ) {
-                    mIvStep.setImageDrawable(getDrawable(R.drawable.step_3));
-                    mTvStep.setText(getString(R.string.str_event_horizon_step_2));
                     mClearAll.setVisibility(View.GONE);
                 }
             }
@@ -107,7 +102,7 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
 
     public void onNextStep() {
         onHideKeyboard();
-        if(mViewPager.getCurrentItem() < 3) {
+        if(mViewPager.getCurrentItem() < 2) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
@@ -139,7 +134,6 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
             mFragments.clear();
             mFragments.add(EventHorizonStep0Fragment.newInstance(null));
             mFragments.add(EventHorizonStep1Fragment.newInstance(null));
-            mFragments.add(EventHorizonStep2Fragment.newInstance(null));
         }
 
         @Override

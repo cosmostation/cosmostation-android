@@ -35,6 +35,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
+import wannabit.io.cosmostaion.activities.chains.rizon.RizonSwapStatusActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -546,23 +547,25 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
     }
 
-    public void onCheckRizonEventHorizon() {
+    public void onClickEventHorizon() {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
-        } else {
-            Dialog_Rizon_Event_Horizon add = Dialog_Rizon_Event_Horizon.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
         }
+
+        Dialog_Rizon_Event_Horizon add = Dialog_Rizon_Event_Horizon.newInstance();
+        add.setCancelable(true);
+        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
     }
 
-    public void onStartRizonEventHorzion() {
-        Intent intent = new Intent(this, EventHorizonActivity.class);
-        startActivity(intent);
+    public void onCheckRizonEventHorizon() {
+
+        //정근 api 확인
+        //https://swap-api.testnet.rizon.world/swaps/rizon/rizon1ng63p9669l3lscs2hnyu2ayj59pg7w6majp757
+        // 데이터 있으면  -> 스왑 스테이터스
+        // 데이터 없으면  --> 니모닉 입력 화면
     }
 
     private class MainViewPageAdapter extends FragmentPagerAdapter {

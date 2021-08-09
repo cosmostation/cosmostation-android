@@ -91,6 +91,11 @@
     <string name="url_api_osmosis" translatable="false">https://api-osmosis.cosmostation.io/</string>
 
 
+    <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
+    <string name="url_rizon_swap_status_mainnet" translatable="false">https://swap-api.rizon.world/</string>
+
+    <string name="url_hdac_testnet" translatable="false">https://insight-api.testnet.rizon.world/insight-api/</string>
+    <string name="url_rizon_swap_status_testnet" translatable="false">https://swap-api.testnet.rizon.world/</string>
     <string name="url_api_rizon_test" translatable="false">https://api-rizon-testnet.cosmostation.io/</string>
 
 
@@ -1377,9 +1382,8 @@
     <string name="str_osmosis_pool_list">Pool</string>
     <string name="str_osmosis_farming">Farming</string>
     <string name="str_event_horizon_c">Event Horizon</string>
-    <string name="str_event_horizon_step_0">Enter HDAC menemonic.</string>
-    <string name="str_event_horizon_step_1">Enter RIZON address.</string>
-    <string name="str_event_horizon_step_2">RIZON Token Swap Status</string>
+    <string name="str_event_horizon_step_0">Insert mnemonic for Hdac</string>
+    <string name="str_event_horizon_step_1">Check Transaction Detail</string>
     <string name="str_token_swap">Token Swap</string>
     <string name="str_token_id">ID</string>
     <string name="str_token_swap_time">Time</string>
@@ -1425,6 +1429,15 @@
     <string name="str_osmosis_join_receive_lp_coin">Receiving LP Coin</string>
     <string name="str_osmosis_exit_insert_lp_coin">Insert LP Coin</string>
     <string name="str_osmosis_exit_to_withdraw_coin">To Withdraw Coins (MG)</string>
+    <string name="str_rizon_event_horizon_msg_title">Event Horizon</string>
+    <string name="str_rizon_event_horizon_msg">Swap Hdac chain assets to Rizon chain.\nDue to the nature of the swap, it is irreversible, and it may take some time until the actual swap is completed due to the asynchronous operation between the two chains.</string>
+    <string name="str_rizon_event_horizon_status">Event Horizon Status</string>
+    <string name="str_rizon_event_horizon_status_title">Total Result</string>
+    <string name="str_rizon_event_horizon_request_time">Request Time</string>
+    <string name="str_rizon_event_horizon_request_id">Request ID</string>
+    <string name="str_rizon_create_token_swap_hash">Legacy Chain Tx Hash</string>
+    <string name="str_rizon_create_token_swap_recipient">Recipient</string>
+    <string name="str_rizon_create_token_swap_amount">Amount</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1595,6 +1608,7 @@
     <string name="tx_kava_post_price">Update Price</string>
     <string name="tx_medi_add_record">Add Record</string>
     <string name="tx_medi_create_did">Create DID</string>
+    <string name="tx_rizon_create_Token_swap">Receive Swap Token</string>
 
 
     <string name="tx_kava_create_cdp">CDP\nOpen</string>

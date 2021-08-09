@@ -935,11 +935,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
                 holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
                 holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.data.timestamp));
-                final Coin coin = history.getDpCoin();
+                final Coin coin = history.getDpCoin(mBaseChain);
                 if (coin != null) {
                     holder.history_amount_symbol.setVisibility(View.VISIBLE);
                     holder.history_amount.setVisibility(View.VISIBLE);
-                    WDp.showCoinDp(getBaseContext(), history.getDpCoin().denom, history.getDpCoin().amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
+                    WDp.showCoinDp(getBaseContext(), history.getDpCoin(mBaseChain).denom, history.getDpCoin(mBaseChain).amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
+                } else if (history.getMsgType(ValidatorActivity.this, mAccount.address).equals(getString(R.string.tx_vote))) {
+                    holder.history_amount_symbol.setVisibility(View.VISIBLE);
+                    holder.history_amount_symbol.setText(history.getVoteOption());
+                    holder.history_amount_symbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                    holder.history_amount.setVisibility(View.GONE);
                 } else {
                     holder.history_amount_symbol.setVisibility(View.GONE);
                     holder.history_amount.setVisibility(View.GONE);
@@ -1233,11 +1238,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
                 holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
                 holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.data.timestamp));
-                final Coin coin = history.getDpCoin();
+                final Coin coin = history.getDpCoin(mBaseChain);
                 if (coin != null) {
                     holder.history_amount_symbol.setVisibility(View.VISIBLE);
                     holder.history_amount.setVisibility(View.VISIBLE);
-                    WDp.showCoinDp(getBaseContext(), history.getDpCoin().denom, history.getDpCoin().amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
+                    WDp.showCoinDp(getBaseContext(), history.getDpCoin(mBaseChain).denom, history.getDpCoin(mBaseChain).amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
+                } else if (history.getMsgType(ValidatorActivity.this, mAccount.address).equals(getString(R.string.tx_vote))) {
+                    holder.history_amount_symbol.setVisibility(View.VISIBLE);
+                    holder.history_amount_symbol.setText(history.getVoteOption());
+                    holder.history_amount_symbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                    holder.history_amount.setVisibility(View.GONE);
                 } else {
                     holder.history_amount_symbol.setVisibility(View.GONE);
                     holder.history_amount.setVisibility(View.GONE);

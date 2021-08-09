@@ -18,8 +18,8 @@
             android:fontFamily="sans-serif-medium"
             android:layout_marginTop="@dimen/space_12"
             android:textSize="@dimen/space_18"
-            android:textColor="#f31963"
-            android:text="Hello"/>
+            style="@style/font_ss_26_black"
+            android:text="@string/str_rizon_event_horizon_msg_title"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,8 +30,8 @@
             android:layout_marginRight="@dimen/space_16"
             android:textSize="@dimen/text_size_12"
             android:gravity="center_horizontal"
-            android:textColor="#191919"
-            android:text="@string/str_mnemonics_warning_msg"/>
+            style="@style/font_ss_14_black"
+            android:text="@string/str_rizon_event_horizon_msg"/>
 
 
         <View

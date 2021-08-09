@@ -146,24 +146,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <RelativeLayout
                     android:id="@+id/btn_rizon_reward"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="@dimen/space_40"
-                    android:minHeight="@dimen/space_40"
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="@dimen/space_5"
+                    android:layout_weight="1"
                     android:background="@drawable/btn_trans_with_border"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:minHeight="@dimen/space_40">
+
                     <TextView
+                        style="@style/font_ss_12_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:drawableLeft="@drawable/reward_ic"
                         android:drawablePadding="@dimen/space_4"
                         android:gravity="center"
-                        style="@style/font_ss_12_white"
                         android:text="@string/str_get_reward" />
                 </RelativeLayout>
 

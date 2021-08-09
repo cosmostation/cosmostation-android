@@ -15,11 +15,13 @@ import android.widget.TextView;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class Dialog_Hdac_info extends DialogFragment {
 
-    public static Dialog_Hdac_info newInstance() {
+    public static Dialog_Hdac_info newInstance(Bundle bundle) {
         Dialog_Hdac_info frag = new Dialog_Hdac_info();
+        frag.setArguments(bundle);
         return frag;
     }
 
@@ -34,9 +36,11 @@ public class Dialog_Hdac_info extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_hdac_info, null);
         TextView hdac_address = view.findViewById(R.id.hdac_address);
         TextView hdac_amount = view.findViewById(R.id.hdac_amount);
-        TextView hdac_amount_symbol = view.findViewById(R.id.hdac_amount_symbol);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
+
+        String mHdacAddress = getArguments().getString("mHdacAddress");
+        hdac_address.setText(mHdacAddress);
 
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override
