@@ -7,12 +7,15 @@ import com.google.gson.annotations.SerializedName;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResApiNewTxListCustom {
@@ -63,6 +66,9 @@ public class ResApiNewTxListCustom {
 
         @SerializedName("timestamp")
         public String timestamp;
+
+        @SerializedName("logs")
+        public ArrayList<Object> logs;
     }
 
     public class Tx {
@@ -124,21 +130,19 @@ public class ResApiNewTxListCustom {
                     String msgType1 = "";
                     try {
                         msgType0 = getMsgs().getJSONObject(0).getString("@type");
-                    } catch (Exception e) {
-                    }
+                    } catch (Exception e) { }
                     try {
                         msgType0 = getMsgs().getJSONObject(0).getString("type");
-                    } catch (Exception e) {
-                    }
+                    } catch (Exception e) { }
                     try {
                         msgType1 = getMsgs().getJSONObject(1).getString("@type");
-                    } catch (Exception e) {
-                    }
+                    } catch (Exception e) { }
                     try {
                         msgType1 = getMsgs().getJSONObject(1).getString("type");
-                    } catch (Exception e) {
-                    }
-                    if (msgType0.contains("MsgWithdrawDelegatorReward") || msgType0.contains("MsgWithdrawDelegationReward") && msgType1.contains("MsgDelegate")) {
+                    } catch (Exception e) { }
+
+                    if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate") ||
+                            msgType0.contains("MsgWithdrawDelegationReward") && msgType1.contains("MsgDelegate")) {
                         return c.getString(R.string.tx_reinvest);
                     }
 
@@ -150,12 +154,10 @@ public class ResApiNewTxListCustom {
                 String msgType = "";
                 try {
                     msgType = getMsgs().getJSONObject(0).getString("@type");
-                } catch (Exception e) {
-                }
+                } catch (Exception e) { }
                 try {
                     msgType = getMsgs().getJSONObject(0).getString("type");
-                } catch (Exception e) {
-                }
+                } catch (Exception e) { }
 
                 if (msgType.contains("MsgDelegate")) {
                     result = c.getString(R.string.tx_delegate);
@@ -164,22 +166,22 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("MsgWithdrawDelegatorReward") || msgType.contains("MsgWithdrawDelegationReward")) {
                     result = c.getString(R.string.tx_get_reward);
                 } else if (msgType.contains("MsgSend")) {
+                    String to_address = "";
+                    String from_address = "";
                     try {
-                        if (getMsgs().getJSONObject(0).getString("to_address").equals(address)) {
-                            return c.getString(R.string.tx_receive);
-                        } else if (getMsgs().getJSONObject(0).getString("from_address").equals(address)) {
-                            result = c.getString(R.string.tx_send);
-                        } else {
-                            return c.getString(R.string.tx_transfer);
-                        }
-                    } catch (Exception e) {
-                        if (getMsgs().getJSONObject(0).getJSONObject("value").getString("to_address").equals(address)) {
-                            return c.getString(R.string.tx_receive);
-                        } else if (getMsgs().getJSONObject(0).getJSONObject("value").getString("from_address").equals(address)) {
-                            result = c.getString(R.string.tx_send);
-                        } else {
-                            result = c.getString(R.string.tx_transfer);
-                        }
+                        to_address = getMsgs().getJSONObject(0).getString("to_address");
+                        from_address = getMsgs().getJSONObject(0).getString("from_address");
+                    } catch (Exception e) { }
+                    try {
+                        to_address = getMsgs().getJSONObject(0).getJSONObject("value").getString("to_address");
+                        from_address = getMsgs().getJSONObject(0).getJSONObject("value").getString("from_address");
+                    } catch (Exception e) { }
+                    if (to_address.equals(address)) {
+                        result = c.getString(R.string.tx_receive);
+                    } else if (from_address.equals(address)) {
+                        result = c.getString(R.string.tx_send);
+                    } else {
+                        result = c.getString(R.string.tx_transfer);
                     }
                 } else if (msgType.contains("MsgMultiSend")) {
                     result = c.getString(R.string.tx_transfer);
@@ -369,7 +371,69 @@ public class ResApiNewTxListCustom {
         }
     }
 
-    public Coin getDpCoin() {
+    public Coin getDpCoin(BaseChain chain) {
+        //display staking reward amount
+        if (getMsgCnt() > 0) {
+            boolean allReward = false;
+            for (int i = 0; i < getMsgs().length(); i++) {
+                String msgType = "";
+                try {
+                    msgType = getMsgs().getJSONObject(0).getString("@type");
+                } catch (Exception e) { }
+                try {
+                    msgType = getMsgs().getJSONObject(0).getString("type");
+                } catch (Exception e) { }
+                if (msgType.contains("MsgWithdrawDelegatorReward") || msgType.contains("MsgWithdrawDelegationReward")) {
+                    allReward = true;
+                }
+            }
+            if (allReward) {
+                if (data != null && data.logs != null) {
+                    BigDecimal totalRewardSum = BigDecimal.ZERO;
+                    for (int i = 0; i < data.logs.size(); i ++) {
+                        try {
+                            String value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(1).
+                                    getJSONArray("attributes").getJSONObject(2).getString("value");
+                            totalRewardSum = totalRewardSum.add(new BigDecimal(value.split("[^0-9]")[0]));
+                        } catch (Exception e) { }
+                    }
+                    return new Coin(WDp.mainDenom(chain), totalRewardSum.toString());
+                }
+            }
+        }
+
+        //display re-invset amount
+        if (getMsgCnt() == 2) {
+            String msgType0 = "";
+            String msgType1 = "";
+            try {
+                msgType0 = getMsgs().getJSONObject(0).getString("@type");
+            } catch (Exception e) { }
+            try {
+                msgType0 = getMsgs().getJSONObject(0).getString("type");
+            } catch (Exception e) { }
+            try {
+                msgType1 = getMsgs().getJSONObject(1).getString("@type");
+            } catch (Exception e) { }
+            try {
+                msgType1 = getMsgs().getJSONObject(1).getString("type");
+            } catch (Exception e) { }
+            if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate") ||
+                    msgType0.contains("MsgWithdrawDelegationReward") && msgType1.contains("MsgDelegate")) {
+                String denom = "";
+                String amount = "";
+                try {
+                    denom = getMsgs().getJSONObject(1).getJSONObject("amount").getString("denom");
+                    amount = getMsgs().getJSONObject(1).getJSONObject("amount").getString("amount");
+                } catch (JSONException e) { e.printStackTrace(); }
+                try {
+                    denom = getMsgs().getJSONObject(1).getJSONObject("value").getJSONObject("amount").getString("denom");
+                    amount = getMsgs().getJSONObject(1).getJSONObject("value").getJSONObject("amount").getString("amount");
+                } catch (JSONException e) { e.printStackTrace(); }
+                return new Coin(denom, amount);
+            }
+        }
+
         if (getMsgCnt() == 0 || getMsgCnt() > 1) {
             return null;
         }
@@ -382,37 +446,71 @@ public class ResApiNewTxListCustom {
             msgType = getMsgs().getJSONObject(0).getString("type");
         } catch (Exception e) { }
 
+        String denom = "";
+        String amount = "";
         if (msgType.contains("MsgSend")) {
             try {
-                String denom = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("denom");
-                String amount = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("amount");
+                denom = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("denom");
+                amount = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("amount");
                 return new Coin(denom, amount);
             } catch (JSONException e) { e.printStackTrace(); }
             try {
-                String denom = getMsgs().getJSONObject(0).getJSONObject("value").getJSONArray("amount").getJSONObject(0).getString("denom");
-                String amount = getMsgs().getJSONObject(0).getJSONObject("value").getJSONArray("amount").getJSONObject(0).getString("amount");
-                return new Coin(denom, amount);
+                denom = getMsgs().getJSONObject(0).getJSONObject("value").getJSONArray("amount").getJSONObject(0).getString("denom");
+                amount = getMsgs().getJSONObject(0).getJSONObject("value").getJSONArray("amount").getJSONObject(0).getString("amount");
             } catch (JSONException e) { e.printStackTrace(); }
+            return new Coin(denom, amount);
 
         } else if (msgType.contains("MsgDelegate") || msgType.contains("MsgUndelegate") || msgType.contains("MsgBeginRedelegate")) {
             try {
-                String denom = getMsgs().getJSONObject(0).getJSONObject("amount").getString("denom");
-                String amount = getMsgs().getJSONObject(0).getJSONObject("amount").getString("amount");
-                return new Coin(denom, amount);
+                denom = getMsgs().getJSONObject(0).getJSONObject("amount").getString("denom");
+                amount = getMsgs().getJSONObject(0).getJSONObject("amount").getString("amount");
             } catch (JSONException e) { e.printStackTrace(); }
             try {
-                String denom = getMsgs().getJSONObject(0).getJSONObject("value").getJSONObject("amount").getString("denom");
-                String amount = getMsgs().getJSONObject(0).getJSONObject("value").getJSONObject("amount").getString("amount");
-                return new Coin(denom, amount);
+                denom = getMsgs().getJSONObject(0).getJSONObject("value").getJSONObject("amount").getString("denom");
+                amount = getMsgs().getJSONObject(0).getJSONObject("value").getJSONObject("amount").getString("amount");
             } catch (JSONException e) { e.printStackTrace(); }
+            return new Coin(denom, amount);
 
         } else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
             try {
-                String denom = getMsgs().getJSONObject(0).getJSONObject("token").getString("denom");
-                String amount = getMsgs().getJSONObject(0).getJSONObject("token").getString("amount");
-                return new Coin(denom, amount);
+                denom = getMsgs().getJSONObject(0).getJSONObject("token").getString("denom");
+                amount = getMsgs().getJSONObject(0).getJSONObject("token").getString("amount");
             } catch (JSONException e) { e.printStackTrace(); }
+            return new Coin(denom, amount);
         }
+        return null;
+    }
+
+    public String getVoteOption() {
+        try {
+            String result = "";
+            String msgType = "";
+            try {
+                msgType = getMsgs().getJSONObject(0).getString("@type");
+            } catch (Exception e) { }
+            try {
+                msgType = getMsgs().getJSONObject(0).getString("type");
+            } catch (Exception e) { }
+            String option = "";
+            try {
+                option = getMsgs().getJSONObject(0).getString("option");
+            } catch (Exception e) { }
+            try {
+                option = getMsgs().getJSONObject(0).getJSONObject("value").getString("option");
+            } catch (Exception e) { }
+            if (msgType.contains("MsgVote")) {
+                if (option.equals("VOTE_OPTION_YES") || option.equals("Yes")) {
+                    result = "YES";
+                } else if (option.equals("VOTE_OPTION_NO") || option.equals("No")) {
+                    result = "NO";
+                } else if (option.equals("VOTE_OPTION_ABSTAIN") || option.equals("Abstain")) {
+                    result = "ABSTAIN";
+                } else if (option.equals("VOTE_OPTION_NO_WITH_VETO") || option.equals("NoWithVeto")) {
+                    result = "VETO";
+                }
+            }
+            return result;
+        } catch (Exception e) { WLog.w("Exception : " + e.getMessage()); }
         return null;
     }
 
