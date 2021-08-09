@@ -43,6 +43,7 @@ import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.RewardInfo;
+import wannabit.io.cosmostaion.model.RizonSwapStatus;
 import wannabit.io.cosmostaion.model.SifIncentive;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.kava.AuctionParam;
@@ -385,6 +386,9 @@ public class BaseData {
     public ArrayList<String>                                    mAllDenoms = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>                       mPoolMyList = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>                       mPoolOtherList = new ArrayList<>();
+
+    //COMMON DATA FOR RizonSwapStatus
+    public ArrayList<RizonSwapStatus>                           mRizonSwapStatus = new ArrayList<>();
 
 
     //gRPC funcs

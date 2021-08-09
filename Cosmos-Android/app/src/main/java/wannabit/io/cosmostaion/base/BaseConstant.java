@@ -171,6 +171,7 @@ public class BaseConstant {
     public final static int TASK_HDAC_NODE_INFO                         = 2900;
     public final static int TASK_HDAC_UTXO                              = 2901;
     public final static int TASK_HDAC_BROAD_BURN                        = 2902;
+    public final static int TASK_RIZON_SWAP_STATUS                      = 2903;
 
     public final static int TASK_FETCH_SIF_INCENTIVE_VS                 = 3500;
     public final static int TASK_FETCH_SIF_INCENTIVE_LM                 = 3501;

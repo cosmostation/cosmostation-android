@@ -535,6 +535,21 @@ public class ApiClient {
         return api_rizon_test;
     }
 
+    //Services for Rizon swap_status test api
+    private static HdacChain api_rizon_swap_test_status = null;
+    public static HdacChain getRizonSwapTestStatus(Context c) {
+        if (api_rizon_swap_test_status == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_rizon_swap_status_testnet))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_rizon_swap_test_status = retrofit.create(HdacChain.class);
+            }
+        }
+        return api_rizon_swap_test_status;
+    }
+
     //Services for Medi test chain
     private static MediChain service_medi_test = null;
     public static MediChain getMediTestChain(Context c) {

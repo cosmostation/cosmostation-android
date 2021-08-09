@@ -37,7 +37,6 @@ public class TxCreateTokenSwapHolder extends TxHolder {
             itemCreateTokenSwapHash.setText(msg.getTxHash());
             itemCreateTokenSwapRecipient.setText(msg.getReceiver());
             BigDecimal receiveAmount = new BigDecimal(msg.getAmount()).movePointLeft(18);
-            WLog.w("SSS : " + receiveAmount);
             itemCreateTokenSwapAmount.setText(WDp.getDpAmount2(c, receiveAmount, 6, 6));
 
         } catch (Exception e) { }

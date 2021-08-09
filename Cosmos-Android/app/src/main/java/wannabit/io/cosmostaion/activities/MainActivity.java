@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
+import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.rizon.RizonSwapStatusActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -52,6 +54,7 @@ import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -561,11 +564,14 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onCheckRizonEventHorizon() {
-
-        //정근 api 확인
-        //https://swap-api.testnet.rizon.world/swaps/rizon/rizon1ng63p9669l3lscs2hnyu2ayj59pg7w6majp757
-        // 데이터 있으면  -> 스왑 스테이터스
-        // 데이터 없으면  --> 니모닉 입력 화면
+        if (getBaseDao().mRizonSwapStatus.size() != 0) {
+            Toast.makeText(MainActivity.this, R.string.error_already_rizon_swap, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, RizonSwapStatusActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(MainActivity.this, EventHorizonActivity.class);
+            startActivity(intent);
+        }
     }
 
     private class MainViewPageAdapter extends FragmentPagerAdapter {

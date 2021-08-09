@@ -1544,6 +1544,7 @@
     <string name="error_remain_borrow_small">Remain borrow amount less than $10</string>
     <string name="error_waste_fee">Fee is bigger than reward.</string>
     <string name="error_not_enough_to_pool">Not enough balance to deposit.</string>
+    <string name="error_already_rizon_swap">There is already a swap request in progress.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>

@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.activities.chains.rizon;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.RizonSwapStatusHolder;
 
@@ -43,13 +45,15 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                mEventHorizonStatusAdapter.notifyDataSetChanged();
             }
         });
-
+        
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mEventHorizonStatusAdapter = new EventHorizonStatusAdapter();
         mRecyclerView.setAdapter(mEventHorizonStatusAdapter);
+        mLoadingLayer.setVisibility(View.GONE);
     }
 
     @Override
@@ -92,7 +96,8 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity {
 
         @Override
         public int getItemCount() {
-            return 1;
+            WLog.w("SSS : " + getBaseDao().mRizonSwapStatus.size());
+            return getBaseDao().mRizonSwapStatus.size();
         }
     }
 }
