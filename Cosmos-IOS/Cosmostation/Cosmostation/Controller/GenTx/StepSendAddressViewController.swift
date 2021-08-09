@@ -236,7 +236,7 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
             
-            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            let channel = BaseNetWork.getConnection(ChainType.IOV_MAIN, group)!
             defer { try! channel.close().wait() }
             
             do {
