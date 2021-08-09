@@ -113,17 +113,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(MEDI_TEST)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getMediTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
             }
-
 
             else if (mChain.equals(COSMOS_MAIN)) {
 //                WLog.w("COSMOS_MAIN " + ApiClient.getCosmosApi(mApp).getAccountTxsCustom(mAddress, "50").request().url());
@@ -190,6 +180,13 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 }
             } else if (mChain.equals(BaseChain.IOV_MAIN)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getIovApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.MEDI_MAIN) || mChain.equals(MEDI_TEST)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getMediblocApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

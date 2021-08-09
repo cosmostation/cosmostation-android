@@ -40,11 +40,11 @@ public class WalletMediHolder extends BaseHolder {
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
         final String denom = WDp.mainDenom(mainActivity.mBaseChain);
-        final BigDecimal availableAmount = baseData.availableAmount(denom);
-        final BigDecimal delegateAmount = baseData.delegatedSumAmount();
-        final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
-        final BigDecimal rewardAmount = baseData.rewardAmount(denom);
-        final BigDecimal totalAmount = baseData.getAllMainAssetOld(denom);
+        final BigDecimal availableAmount = baseData.getAvailable(denom);
+        final BigDecimal delegateAmount = baseData.getDelegationSum();
+        final BigDecimal unbondingAmount = baseData.getUndelegationSum();
+        final BigDecimal rewardAmount = baseData.getRewardSum(denom);
+        final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
 
         mTvMediTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvMediAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
@@ -57,25 +57,15 @@ public class WalletMediHolder extends BaseHolder {
         mBtnMediStake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivity.mBaseChain.equals(BaseChain.MEDI_MAIN)) {
-                    Toast.makeText(mainActivity, "다음 버전에 업데이트 될 예정입니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
-                    mainActivity.startActivity(validators);
-                }
+                Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
+                mainActivity.startActivity(validators);
             }
         });
         mBtnMediVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivity.mBaseChain.equals(BaseChain.MEDI_MAIN)) {
-                    Toast.makeText(mainActivity, "다음 버전에 업데이트 될 예정입니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    Intent proposals = new Intent(mainActivity, VoteListActivity.class);
-                    mainActivity.startActivity(proposals);
-                }
+                Intent proposals = new Intent(mainActivity, VoteListActivity.class);
+                mainActivity.startActivity(proposals);
             }
         });
     }

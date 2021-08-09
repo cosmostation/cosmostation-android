@@ -505,19 +505,19 @@ public class ApiClient {
         return api_osmosis;
     }
 
-    //Services for osmosis mainnet api
-    private static MediChain service_medi = null;
-    public static MediChain getMediChain(Context c) {
-        if (service_medi == null) {
+    //Services for Medi mainnet api
+    private static HistoryApi api_medi = null;
+    public static HistoryApi getMediblocApi(Context c) {
+        if (api_medi == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_medi))
+                        .baseUrl(c.getString(R.string.url_api_medibloc))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_medi = retrofit.create(MediChain.class);
+                api_medi = retrofit.create(HistoryApi.class);
             }
         }
-        return service_medi;
+        return api_medi;
     }
 
     //Services for Rizon test api
@@ -533,21 +533,6 @@ public class ApiClient {
             }
         }
         return api_rizon_test;
-    }
-
-    //Services for Medi test chain
-    private static MediChain service_medi_test = null;
-    public static MediChain getMediTestChain(Context c) {
-        if (service_medi_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_medi_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_medi_test = retrofit.create(MediChain.class);
-            }
-        }
-        return service_medi_test;
     }
 
     //Services for Medi test api

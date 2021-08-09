@@ -111,13 +111,6 @@ public class AccountInfoTask extends CommonTask {
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(MEDI_MAIN)) {
-                Response<ResLcdAccountInfo> response = ApiClient.getMediChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
-                }
-
             }
 
             else if (BaseChain.getChain(mAccount.baseChain).equals(KAVA_TEST)) {
@@ -147,13 +140,6 @@ public class AccountInfoTask extends CommonTask {
             } else if (BaseChain.getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
                 Response<ResLcdAccountInfo> response = ApiClient.getCertikTestChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
-                }
-
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(MEDI_TEST)) {
-                Response<ResLcdAccountInfo> response = ApiClient.getMediTestChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
                 }

@@ -326,9 +326,12 @@ public enum BaseChain {
             return true;
         } else if (baseChain.equals(SIF_MAIN)) {
             return true;
+        } else if (baseChain.equals(MEDI_MAIN)) {
+            return true;
+        }
 //        } else if (baseChain.equals(BAND_MAIN)) {
 //            return true;
-        } else if (baseChain.equals(RIZON_TEST)) {
+          else if (baseChain.equals(RIZON_TEST)) {
             return true;
         } else if (baseChain.equals(ALTHEA_TEST)) {
             return true;

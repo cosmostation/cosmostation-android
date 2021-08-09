@@ -13,6 +13,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
@@ -46,6 +47,9 @@ public class ChannelBuilder {
 
     private final static String GRPC_SIF_MAIN = "lcd-sifchain-app.cosmostation.io";
     private final static int PORT_SIF_MAIN = 9090;
+
+    private final static String GRPC_MEDI_MAIN = "lcd-medibloc-app.cosmostation.io";
+    private final static int PORT_MEDI_MAIN = 9090;
 
 //    private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
 //    private final static int PORT_BAND_MAIN = 21700;
@@ -88,6 +92,8 @@ public class ChannelBuilder {
             return getStarnameMain();
         } else if (chain.equals(SIF_MAIN)) {
             return getSifMain();
+        } else if (chain.equals(MEDI_MAIN)) {
+            return getMediMain();
 //        } else if (chain.equals(BAND_MAIN)) {
 //            return getBandMain();
         }
@@ -221,6 +227,19 @@ public class ChannelBuilder {
             }
         }
         return channel_sif_main;
+    }
+
+    //Channel for medibloc main
+    private static ManagedChannel channel_medi_main = null;
+    public static ManagedChannel getMediMain() {
+        if (channel_medi_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_medi_main = ManagedChannelBuilder.forAddress(GRPC_MEDI_MAIN, PORT_MEDI_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_medi_main;
     }
 
 //    //Channel for band main

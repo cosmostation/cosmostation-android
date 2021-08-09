@@ -83,15 +83,7 @@ public class AllRewardsTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(MEDI_MAIN)) {
-                Response<ResLcdAllRewards> response = ApiClient.getMediChain(mApp).getAllRewards(mAccount.address).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().result.rewards;
-                    mResult.isSuccess = true;
-                }
-
             }
-
 
             else if (BaseChain.getChain(mAccount.baseChain).equals(KAVA_TEST)) {
                 Response<ResLcdAllRewards> response = ApiClient.getKavaTestChain(mApp).getAllRewards(mAccount.address).execute();
@@ -102,13 +94,6 @@ public class AllRewardsTask extends CommonTask {
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
                 Response<ResLcdAllRewards> response = ApiClient.getCertikTestChain(mApp).getAllRewards(mAccount.address).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().result.rewards;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(MEDI_TEST)) {
-                Response<ResLcdAllRewards> response = ApiClient.getMediTestChain(mApp).getAllRewards(mAccount.address).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body().result.rewards;
                     mResult.isSuccess = true;
