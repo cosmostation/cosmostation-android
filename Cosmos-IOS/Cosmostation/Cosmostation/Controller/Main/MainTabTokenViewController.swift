@@ -393,17 +393,24 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         }
         
         else if (indexPath.section == SECTION_NATIVE) {
-            if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BINANCE_MAIN || chainType == ChainType.OKEX_MAIN) {
+            if (mNative[indexPath.row].balance_denom == WUtils.getMainDenom(chainType)) {
                 let sTokenDetailVC = StakingTokenDetailViewController(nibName: "StakingTokenDetailViewController", bundle: nil)
                 sTokenDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
+
+            } else {
+                let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
+                nTokenDetailVC.hidesBottomBarWhenPushed = true
+                nTokenDetailVC.denom = mNative[indexPath.row].balance_denom
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
             }
             
         } else if (indexPath.section == SECTION_KAVA_BEP2) {
             let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
             nTokenDetailVC.hidesBottomBarWhenPushed = true
-            nTokenDetailVC.denom = mBalances[indexPath.row].balance_denom
+            nTokenDetailVC.denom = mKavaBep2[indexPath.row].balance_denom
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
             
@@ -411,7 +418,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BINANCE_MAIN || chainType == ChainType.OKEX_MAIN) {
                 let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
                 nTokenDetailVC.hidesBottomBarWhenPushed = true
-                nTokenDetailVC.denom = mBalances[indexPath.row].balance_denom
+                nTokenDetailVC.denom = mEtc[indexPath.row].balance_denom
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
             }
@@ -419,76 +426,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (indexPath.section == SECTION_UNKNOWN) {
             
         }
-        
-//        if (WUtils.isGRPC(chainType!)) {
-//            let balance = mBalances_gRPC[indexPath.row]
-//            if (balance.denom == WUtils.getMainDenom(chainType)) {
-//                let sTokenDetailVC = StakingTokenDetailViewController(nibName: "StakingTokenDetailViewController", bundle: nil)
-//                sTokenDetailVC.hidesBottomBarWhenPushed = true
-//                self.navigationItem.title = ""
-//                self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
-//                return
-//            } else {
-//                if (chainType == ChainType.SIF_MAIN) {
-//                    let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
-//                    nTokenDetailVC.hidesBottomBarWhenPushed = true
-//                    nTokenDetailVC.denom = balance.denom
-//                    self.navigationItem.title = ""
-//                    self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
-//                }
-//            }
-//
-//        } else {
-//            //TODO update for all chains
-//            let balance = mBalances[indexPath.row]
-//            if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-//                if (balance.balance_denom == WUtils.getMainDenom(chainType)) {
-//                    let sTokenDetailVC = StakingTokenDetailViewController(nibName: "StakingTokenDetailViewController", bundle: nil)
-//                    sTokenDetailVC.hidesBottomBarWhenPushed = true
-//                    self.navigationItem.title = ""
-//                    self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
-//
-//                } else {
-//                    let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
-//                    nTokenDetailVC.hidesBottomBarWhenPushed = true
-//                    nTokenDetailVC.denom = mBalances[indexPath.row].balance_denom
-//                    self.navigationItem.title = ""
-//                    self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
-//                }
-//
-//            } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-//                if (balance.balance_denom == WUtils.getMainDenom(chainType)) {
-//                    let sTokenDetailVC = StakingTokenDetailViewController(nibName: "StakingTokenDetailViewController", bundle: nil)
-//                    sTokenDetailVC.hidesBottomBarWhenPushed = true
-//                    self.navigationItem.title = ""
-//                    self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
-//
-//                } else {
-//                    let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
-//                    nTokenDetailVC.hidesBottomBarWhenPushed = true
-//                    nTokenDetailVC.denom = mBalances[indexPath.row].balance_denom
-//                    self.navigationItem.title = ""
-//                    self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
-//                }
-//
-//            } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
-//                if (balance.balance_denom == WUtils.getMainDenom(chainType)) {
-//                    let sTokenDetailVC = StakingTokenDetailViewController(nibName: "StakingTokenDetailViewController", bundle: nil)
-//                    sTokenDetailVC.hidesBottomBarWhenPushed = true
-//                    self.navigationItem.title = ""
-//                    self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
-//
-//                } else {
-//                    let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
-//                    nTokenDetailVC.hidesBottomBarWhenPushed = true
-//                    nTokenDetailVC.denom = mBalances[indexPath.row].balance_denom
-//                    self.navigationItem.title = ""
-//                    self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
-//                }
-//
-//
-//            }
-//        }
     }
     
     //bind native tokens with grpc
