@@ -291,23 +291,23 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         else if (section == SECTION_KAVA_BEP2 && mKavaBep2.count == 0) { return 0 }
         else if (section == SECTION_ETC && mEtc.count == 0) { return 0 }
         else if (section == SECTION_UNKNOWN && mUnKnown.count == 0) { return 0 }
-        else { return 25 }
+        else { return 30 }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = CommonHeader(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        if (section == SECTION_NATIVE_GRPC) { view.tokenHeaderTitle.text = "Native Tokens" }
-        else if (section == SECTION_IBC_AUTHED_GRPC) { view.tokenHeaderTitle.text = "IBC Tokens" }
-        else if (section == SECTION_OSMOSIS_POOL_GRPC) { view.tokenHeaderTitle.text = "POOL Tokens"}
-        else if (section == SECTION_SIF_ETHER_GRPC) { view.tokenHeaderTitle.text = "Ether Bridged Tokens" }
-        else if (section == SECTION_IBC_UNKNOWN_GRPC) { view.tokenHeaderTitle.text = "Unknown IBC Tokens" }
-        else if (section == SECTION_UNKNOWN_GRPC) { view.tokenHeaderTitle.text = "Unknown Tokens" }
+        if (section == SECTION_NATIVE_GRPC) { view.headerTitleLabel.text = "Native Tokens"; view.headerCntLabel.text = String(self.mNative_gRPC.count) }
+        else if (section == SECTION_IBC_AUTHED_GRPC) { view.headerTitleLabel.text = "IBC Tokens"; view.headerCntLabel.text = String(self.mIbcAuthed_gRPC.count) }
+        else if (section == SECTION_OSMOSIS_POOL_GRPC) { view.headerTitleLabel.text = "POOL Tokens"; view.headerCntLabel.text = String(self.mOsmosisPool_gRPC.count)}
+        else if (section == SECTION_SIF_ETHER_GRPC) { view.headerTitleLabel.text = "Ether Bridged Tokens"; view.headerCntLabel.text = String(self.mSifEther_gRPC.count) }
+        else if (section == SECTION_IBC_UNKNOWN_GRPC) { view.headerTitleLabel.text = "Unknown IBC Tokens"; view.headerCntLabel.text = String(self.mIbcUnknown_gRPC.count) }
+        else if (section == SECTION_UNKNOWN_GRPC) { view.headerTitleLabel.text = "Unknown Tokens"; view.headerCntLabel.text = String(self.mUnKnown_gRPC.count) }
         
-        else if (section == SECTION_NATIVE) { view.tokenHeaderTitle.text = "Native Tokens" }
-        else if (section == SECTION_KAVA_BEP2) { view.tokenHeaderTitle.text = "BEP2 Tokens" }
-        else if (section == SECTION_ETC) { view.tokenHeaderTitle.text = "Etc Tokens" }
-        else if (section == SECTION_UNKNOWN) { view.tokenHeaderTitle.text = "Unknown Tokens" }
-        else { view.tokenHeaderTitle.text = "" }
+        else if (section == SECTION_NATIVE) { view.headerTitleLabel.text = "Native Tokens"; view.headerCntLabel.text = String(self.mNative.count) }
+        else if (section == SECTION_KAVA_BEP2) { view.headerTitleLabel.text = "BEP2 Tokens"; view.headerCntLabel.text = String(self.mKavaBep2.count) }
+        else if (section == SECTION_ETC) { view.headerTitleLabel.text = "Etc Tokens"; view.headerCntLabel.text = String(self.mEtc.count) }
+        else if (section == SECTION_UNKNOWN) { view.headerTitleLabel.text = "Unknown Tokens"; view.headerCntLabel.text = String(self.mUnKnown.count) }
+        else { view.headerTitleLabel.text = ""; view.headerCntLabel.text = "0" }
         return view
     }
     
@@ -323,7 +323,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         else if (section == SECTION_KAVA_BEP2) { return mKavaBep2.count }
         else if (section == SECTION_ETC) { return mEtc.count }
         else if (section == SECTION_UNKNOWN) { return mUnKnown.count }
-        else { return 30 }
+        else { return 0 }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

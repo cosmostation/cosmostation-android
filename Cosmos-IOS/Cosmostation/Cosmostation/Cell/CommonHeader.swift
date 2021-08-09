@@ -31,6 +31,6 @@ class CommonHeader: UIView {
         view.frame = self.bounds
         self.addSubview(view)
     }
-
-    @IBOutlet weak var tokenHeaderTitle: UILabel!
+    @IBOutlet weak var headerTitleLabel: UILabel!
+    @IBOutlet weak var headerCntLabel: UILabel!
 }

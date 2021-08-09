@@ -267,6 +267,33 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchNewApiHistoryCustom(account!.account_address)
         }
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = CommonHeader(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        view.headerTitleLabel.text = "Recently Histories"
+        var cntString = "0"
+        if (chainType == ChainType.CRYPTO_MAIN) {
+            cntString = String(self.mApiCustomHistories.count)
+        } else if (chainType == ChainType.BAND_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.KI_MAIN) {
+            cntString = String(self.mApiHistories.count)
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+            cntString = String(self.mBnbHistories.count)
+        } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+            cntString = String(self.mOkHistories.count)
+        } else {
+            cntString = String(self.mApiCustomNewHistories.count)
+        }
+        view.headerCntLabel.text = cntString
+        return view
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (chainType == ChainType.CRYPTO_MAIN) {
