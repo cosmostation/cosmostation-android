@@ -126,11 +126,6 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         return rootView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
         WLog.w("pool " + getSActivity().mOsmosisPool.getId());

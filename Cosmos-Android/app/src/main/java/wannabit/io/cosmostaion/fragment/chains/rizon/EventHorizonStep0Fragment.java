@@ -73,7 +73,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_UTXO;
 
 public class EventHorizonStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
-    public final static int             HDAC_INFO = 9500;
+    public final static int             HDAC_INFO_DIALOG = 9500;
 
     private Button                      mPaste, mBtnConfirm;
     private Button[]                    mAlphabetBtns = new Button[26];
@@ -87,7 +87,9 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     private ArrayList<String>           mAllMnemonic;
     private static MnemonicAdapter      mMnemonicAdapter;
     private ArrayList<String>           mWords = new ArrayList<>();
+
     private ArrayList<HdacUtxo>         mUtxo;
+    private String                      mAddress;
     private BigDecimal                  mBalance;
 
     public static EventHorizonStep0Fragment newInstance(Bundle bundle) {
@@ -275,17 +277,14 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     }
 
     private String onHdacAddress(BaseChain baseChain) {
-        boolean mainnet = true;
-        if (getSActivity().mBaseChain.equals(RIZON_TEST)) {
-            mainnet = false;
-        }
         HdacUtil hdacUtil = new HdacUtil(mWords);
-        String HdacAddress = hdacUtil.getAddress(mainnet);
-        return HdacAddress;
+        mAddress = hdacUtil.getAddress(baseChain);
+        return mAddress;
     }
 
     private int mTaskCount;
     public void onHdacInfo() {
+        getSActivity().onShowWaitDialog();
         mTaskCount = 1;
         new HdacUtxoTask(getBaseApplication(), this, onHdacAddress(getSActivity().mBaseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -298,15 +297,18 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
                 mUtxo = (ArrayList<HdacUtxo>) result.resultData;
 
                 HdacUtil hdacUtil = new HdacUtil(mWords);
-                mBalance = hdacUtil.getBalance(!getSActivity().mBaseChain.equals(RIZON_TEST), mUtxo);
+                mBalance = hdacUtil.getBalance(getSActivity().mBaseChain, mUtxo);
                 Bundle bundle = new Bundle();
                 bundle.putString("hdacAddress", onHdacAddress(getSActivity().mBaseChain));
                 bundle.putString("hdacBalance", mBalance.toPlainString());
                 Dialog_Hdac_info hdacInfo = Dialog_Hdac_info.newInstance(bundle);
                 hdacInfo.setCancelable(true);
-                hdacInfo.setTargetFragment(this, HDAC_INFO);
+                hdacInfo.setTargetFragment(this, HDAC_INFO_DIALOG);
                 getFragmentManager().beginTransaction().add(hdacInfo, "dialog").commitNowAllowingStateLoss();
             }
+        }
+        if (mTaskCount == 0) {
+            getSActivity().onHideWaitDialog();
         }
     }
 
@@ -314,17 +316,16 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == HDAC_INFO && resultCode == Activity.RESULT_OK) {
+        if (requestCode == HDAC_INFO_DIALOG && resultCode == Activity.RESULT_OK) {
             if (data.getIntExtra("hdac" , -1) == 0 ) {
                 mUtxo = null;
-                onClearAll();
 
             } else if(data.getIntExtra("hdac" , -1) == 1) {
+                getSActivity().mHdacAddress = mAddress;
                 getSActivity().mHdacUtxo = mUtxo;
                 getSActivity().mHdacBalance = mBalance;
                 getSActivity().onNextStep();
             }
-
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

@@ -536,8 +536,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mSifVsIncentive = null;
         getBaseDao().mSifLmIncentive = null;
 
-        getBaseDao().mRizonSwapStatus.clear();
-
         getBaseDao().mBandOracles = null;
 
         getBaseDao().mNodeInfo = null;

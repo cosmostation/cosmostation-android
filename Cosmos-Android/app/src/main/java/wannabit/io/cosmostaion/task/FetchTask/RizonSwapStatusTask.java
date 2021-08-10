@@ -37,7 +37,7 @@ public class RizonSwapStatusTask extends CommonTask {
             }
 
             if (response.body() != null) {
-                mApp.getBaseDao().mRizonSwapStatus = response.body();
+                mResult.resultData = response.body();
             }
         } catch (Exception e) {
             WLog.w("RizonSwapStatusTask Error " + e.getMessage());

@@ -71,6 +71,7 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_2));
                     mTvStep.setText(getString(R.string.str_event_horizon_step_1));
                     mClearAll.setVisibility(View.GONE);
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
 
@@ -102,15 +103,15 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
     }
 
     public void onNextStep() {
-        onHideKeyboard();
-        if(mViewPager.getCurrentItem() < 2) {
+        if(mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+            onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
-        onHideKeyboard();
         if(mViewPager.getCurrentItem() > 0) {
+            onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             onBackPressed();

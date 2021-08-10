@@ -15,11 +15,11 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_UTXO;
 
 public class HdacUtxoTask extends CommonTask {
 
-    private String hdacAddress;
+    private String                  hdacAddress;
 
-    public HdacUtxoTask(BaseApplication app, TaskListener listener, String address) {
+    public HdacUtxoTask(BaseApplication app, TaskListener listener, String hdacAddress) {
         super(app, listener);
-        this.hdacAddress = address;
+        this.hdacAddress = hdacAddress;
         this.mResult.taskType = TASK_HDAC_UTXO;
     }
 
@@ -28,7 +28,7 @@ public class HdacUtxoTask extends CommonTask {
         try {
             Response<ArrayList<HdacUtxo>> response = ApiClient.getHdac(mApp).getUtxo(hdacAddress).execute();
             if (response.isSuccessful()) {
-                mApp.getBaseDao().mHdacUtxo = response.body();
+                mResult.resultData = response.body();
                 mResult.isSuccess = true;
             }
         } catch (Exception e) {
