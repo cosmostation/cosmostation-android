@@ -1558,7 +1558,7 @@ public class WUtils {
             
         } else if (chain == ChainType.RIZON_TEST) {
             
-        } else if (chain == ChainType.MEDI_MAIN || chain == ChainType.MEDI_TEST) {
+        } else if (chain == ChainType.MEDI_TEST) {
             result = result + ",umed"
             
         }
@@ -4914,7 +4914,7 @@ public class WUtils {
     public static func isGRPC(_ chain: ChainType?) -> Bool {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
                 chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN ||
-                chain == ChainType.OSMOSIS_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.SIF_MAIN ||
+                chain == ChainType.OSMOSIS_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.SIF_MAIN || chain == ChainType.MEDI_MAIN ||
                 chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             return true
         }

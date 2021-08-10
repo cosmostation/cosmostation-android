@@ -559,6 +559,17 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allAlthea = WUtils.getAllMainAsset(ALTHEA_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAlthea.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(ALTHEA_MAIN_DENOM, allAlthea, 6, cell!.tokenValue.font)
+            
+        } else if (coin.denom == MEDI_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenmedibloc")
+            cell?.tokenSymbol.text = "MED"
+            cell?.tokenSymbol.textColor = COLOR_MEDI
+            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenDescription.text = "Mediblock Staking Token"
+
+            let allMed = WUtils.getAllMainAsset(MEDI_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allMed.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(MEDI_MAIN_DENOM, allMed, 6, cell!.tokenValue.font)
         }
         
         else if (coin.denom == COSMOS_TEST_DENOM) {
@@ -747,17 +758,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allKi = WUtils.getAllMainAssetOld(KI_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allKi.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KI_MAIN_DENOM, allKi, 6, cell!.tokenValue.font)
-            
-        } else if (balance.balance_denom == MEDI_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "tokenmedibloc")
-            cell?.tokenSymbol.text = "MED"
-            cell?.tokenSymbol.textColor = COLOR_MEDI
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = "Mediblock Staking Token"
-            
-            let allMed = WUtils.getAllMainAssetOld(MEDI_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allMed.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(MEDI_MAIN_DENOM, allMed, 6, cell!.tokenValue.font)
             
         } else if (balance.balance_denom == BAND_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokenBand")

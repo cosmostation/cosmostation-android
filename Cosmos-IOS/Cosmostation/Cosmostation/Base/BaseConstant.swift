@@ -110,7 +110,7 @@ let RIZON_SWAP_STATUS_TESTNET           = "https://swap-api.testnet.rizon.world/
 let RIZON_TEST_API                      = "https://api-rizon-testnet.cosmostation.io/";
 
 
-let MEDI_URL                            = "https://api.gopanacea.org/";
+let MEDI_API                            = "https://api-medibloc.cosmostation.io/";
 
 let MEDI_TEST_URL                       = "https://lcd-medibloc-opentestnet.cosmostation.io/";
 let MEDI_TEST_API                       = "https://api-medibloc-opentestnet.cosmostation.io/";
@@ -968,7 +968,7 @@ let EXPLORER_CRYPTO_MAIN    = "https://www.mintscan.io/crypto-org/";
 let EXPLORER_SIF_MAIN       = "https://www.mintscan.io/sifchain/";
 let EXPLORER_KI_MAIN        = "https://www.mintscan.io/ki-chain/";
 let EXPLORER_OSMOSIS_MAIN   = "https://www.mintscan.io/osmosis/";
-let EXPLORER_MEDI_MAIN      = "https://explorer.medibloc.org/en/";
+let EXPLORER_MEDI_MAIN      = "https://www.mintscan.io/medibloc/";
 let EXPLORER_HDAC_MAIN      = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
