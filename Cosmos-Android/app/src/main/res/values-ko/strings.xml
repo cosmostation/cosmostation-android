@@ -1145,7 +1145,7 @@
     <string name="str_osmosis_swap">Swap</string>
     <string name="str_osmosis_pool_list">Pool</string>
     <string name="str_osmosis_farming">Farming</string>
-    <string name="str_event_horizon_c">Event Horizon</string>
+    <string name="str_event_horizon_c">이벤트 호라이즌</string>
     <string name="str_event_horizon_step_0">HDAC 니모닉을 입력해주세요.</string>
     <string name="str_event_horizon_step_1">입력하신 정보를 확인하세요.</string>
     <string name="str_token_swap">토큰 스왑</string>

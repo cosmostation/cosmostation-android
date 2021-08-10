@@ -46,6 +46,7 @@ import wannabit.io.cosmostaion.model.RewardInfo;
 import wannabit.io.cosmostaion.model.RizonSwapStatus;
 import wannabit.io.cosmostaion.model.SifIncentive;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
+import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
 import wannabit.io.cosmostaion.model.kava.AuctionParam;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
@@ -387,7 +388,8 @@ public class BaseData {
     public ArrayList<PoolOuterClass.Pool>                       mPoolMyList = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>                       mPoolOtherList = new ArrayList<>();
 
-    //COMMON DATA FOR RizonSwapStatus
+    //COMMON DATA FOR Rizon
+    public ArrayList<HdacUtxo>                                  mHdacUtxo = new ArrayList<>();
     public ArrayList<RizonSwapStatus>                           mRizonSwapStatus = new ArrayList<>();
 
 

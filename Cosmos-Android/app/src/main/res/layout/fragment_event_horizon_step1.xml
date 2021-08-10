@@ -66,8 +66,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/space_2"
-                        android:text="htmreYHCaMMXCG2j5Qbn6mS8dQfQWbw"
-                        style="@style/font_ss_14_white"/>
+                        android:text=""
+                        style="@style/font_ss_12_white"/>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -101,8 +101,8 @@
                         android:layout_alignBaseline="@+id/burn_amount_symbol"
                         android:layout_toLeftOf="@+id/burn_amount_symbol"
                         android:layout_marginRight="@dimen/space_2"
-                        android:text="22,001.522823423446262355"
-                        style="@style/font_ss_14_white"/>
+                        android:text=""
+                        style="@style/font_ss_12_white"/>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -136,8 +136,8 @@
                     android:layout_alignBaseline="@+id/horizon_tx_fee_symbol"
                     android:layout_toLeftOf="@+id/horizon_tx_fee_symbol"
                     android:layout_marginRight="@dimen/space_2"
-                    android:text="0.56262355"
-                    style="@style/font_ss_14_white"/>
+                    android:text=""
+                    style="@style/font_ss_12_white"/>
             </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>
@@ -212,7 +212,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/space_2"
                         android:text=""
-                        style="@style/font_ss_14_white"/>
+                        style="@style/font_ss_12_white"/>
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -225,7 +225,7 @@
                     android:id="@+id/mint_amount_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Burn Amount"
+                    android:text="Mint Amount"
                     style="@style/font_ss_12_gray1"/>
                 <RelativeLayout
                     android:id="@+id/mint_amount_layer"
@@ -240,14 +240,14 @@
                         android:text="ATOLO"
                         style="@style/font_ss_14_rizon"/>
                     <TextView
-                        android:id="@+id/mint_amount"
+                        android:id="@+id/rizon_mint_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/mint_amount_symbol"
                         android:layout_toLeftOf="@+id/mint_amount_symbol"
                         android:layout_marginRight="@dimen/space_2"
-                        android:text="101.52282355"
-                        style="@style/font_ss_14_white"/>
+                        android:text=""
+                        style="@style/font_ss_12_white"/>
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

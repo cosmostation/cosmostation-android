@@ -28,6 +28,7 @@ public class HdacUtxoTask extends CommonTask {
         try {
             Response<ArrayList<HdacUtxo>> response = ApiClient.getHdac(mApp).getUtxo(hdacAddress).execute();
             if (response.isSuccessful()) {
+                mApp.getBaseDao().mHdacUtxo = response.body();
                 mResult.isSuccess = true;
             }
         } catch (Exception e) {

@@ -14,7 +14,10 @@ import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 
+import java.math.BigDecimal;
+
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class Dialog_Hdac_info extends DialogFragment {
@@ -40,7 +43,9 @@ public class Dialog_Hdac_info extends DialogFragment {
         Button btn_positive = view.findViewById(R.id.btn_posi);
 
         String mHdacAddress = getArguments().getString("mHdacAddress");
+        String mHdacBalance = getArguments().getString("mHdacBalance");
         hdac_address.setText(mHdacAddress);
+        hdac_amount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(mHdacBalance), 8, 8));
 
         btn_negative.setOnClickListener(new View.OnClickListener() {
             @Override

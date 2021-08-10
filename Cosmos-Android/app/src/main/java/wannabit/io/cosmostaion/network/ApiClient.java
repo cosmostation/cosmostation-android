@@ -632,13 +632,13 @@ public class ApiClient {
 
 
 
-    //Services for Hdac chain
+    //Services for hdac testnet chain
     private static HdacChain service_hdac = null;
     public static HdacChain getHdac(Context c) {
         if (service_hdac == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_hdac))
+                        .baseUrl(c.getString(R.string.url_hdac_testnet))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 service_hdac = retrofit.create(HdacChain.class);

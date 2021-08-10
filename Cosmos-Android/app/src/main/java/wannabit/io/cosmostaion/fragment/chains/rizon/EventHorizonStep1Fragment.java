@@ -9,13 +9,17 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import java.math.BigDecimal;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class EventHorizonStep1Fragment extends BaseFragment implements View.OnClickListener{
 
-    private TextView                        mRizonToAddress;
+    private TextView                        mHdacToAddress, mHdacBurnAmount, mHdacTxFee;
+    private TextView                        mRizonToAddress, mRizonMintAmount;
 
     private RelativeLayout                  mBtnBack;
     private RelativeLayout                  mBtnTokenSwap;
@@ -36,7 +40,12 @@ public class EventHorizonStep1Fragment extends BaseFragment implements View.OnCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_event_horizon_step1, container, false);
 
+        mHdacToAddress              = rootView.findViewById(R.id.burn_from_address);
+        mHdacBurnAmount             = rootView.findViewById(R.id.burn_amount);
+        mHdacTxFee                  = rootView.findViewById(R.id.horizon_tx_fee_amount);
         mRizonToAddress             = rootView.findViewById(R.id.rizon_to_address);
+        mRizonMintAmount            = rootView.findViewById(R.id.rizon_mint_amount);
+
         mBtnBack                    = rootView.findViewById(R.id.btn_back);
         mBtnTokenSwap               = rootView.findViewById(R.id.btn_token_swap);
 
@@ -44,9 +53,14 @@ public class EventHorizonStep1Fragment extends BaseFragment implements View.OnCl
 
         mBtnBack.setOnClickListener(this);
         mBtnTokenSwap.setOnClickListener(this);
+
+        onInitView();
         return rootView;
     }
 
+    private void onInitView() {
+        mRizonToAddress.setText(getSActivity().mAccount.address);
+    }
 
     private EventHorizonActivity getSActivity() { return (EventHorizonActivity)getBaseActivity(); }
 
