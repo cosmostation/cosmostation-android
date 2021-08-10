@@ -6,16 +6,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.hdac.HdacUtil;
 
 public class EventHorizonStep1Fragment extends BaseFragment implements View.OnClickListener{
 
@@ -24,6 +29,8 @@ public class EventHorizonStep1Fragment extends BaseFragment implements View.OnCl
 
     private RelativeLayout                  mBtnBack;
     private RelativeLayout                  mBtnTokenSwap;
+
+    private BigDecimal                      mSendAmount;
 
 
     public static EventHorizonStep1Fragment newInstance(Bundle bundle) {
@@ -59,6 +66,8 @@ public class EventHorizonStep1Fragment extends BaseFragment implements View.OnCl
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
+        HdacUtil hdacUtil = new HdacUtil();
+        ArrayList<HdacUtxo> hdacUtxo = getSActivity().mHdacUtxo;
         String HdacAddress = getSActivity().mHdacAddress;
         BigDecimal HdacBalance = getSActivity().mHdacBalance;
 
@@ -67,7 +76,8 @@ public class EventHorizonStep1Fragment extends BaseFragment implements View.OnCl
         mHdacTxFee.setText("" + WDp.getDpAmount2(getSActivity(), new BigDecimal("0.1"), 0, 8));
 
         mRizonToAddress.setText(getSActivity().mAccount.address);
-//        mRizonMintAmount.setText("" + WDp.getDpAmount2(getSActivity());
+        mSendAmount = HdacBalance.subtract(new BigDecimal("0.1").movePointRight(8));
+        mRizonMintAmount.setText("" + WDp.getDpAmount2(getSActivity(), mSendAmount, 8, 6));
     }
 
     private EventHorizonActivity getSActivity() { return (EventHorizonActivity)getBaseActivity(); }
@@ -79,7 +89,11 @@ public class EventHorizonStep1Fragment extends BaseFragment implements View.OnCl
             return;
 
         } else if (v.equals(mBtnTokenSwap)) {
-            getSActivity();
+            if (mSendAmount.compareTo(BigDecimal.ZERO) < 0) {
+                Toast.makeText(getSActivity(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            getSActivity().onStartSwap();
             return;
 
         }

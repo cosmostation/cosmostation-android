@@ -205,6 +205,7 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
         } else if (v.equals(mBtnConfirm)) {
             mUtxo = null;
             mBalance = null;
+            mAddress = null;
             mWords.clear();
             for(int i = 0; i < mEtMnemonics.length; i++) {
                 if(!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {

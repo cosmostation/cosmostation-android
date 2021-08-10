@@ -550,19 +550,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onCheckRizonEventHorizon() {
-        if (getBaseDao().mRizonSwapStatus.size() != 0) {
-            Toast.makeText(MainActivity.this, R.string.error_already_rizon_swap, Toast.LENGTH_SHORT).show();
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(MainActivity.this, RizonSwapStatusActivity.class);
-                    startActivity(intent);
-                }
-            },2000);
-        } else {
-            Intent intent = new Intent(MainActivity.this, EventHorizonActivity.class);
-            startActivity(intent);
-        }
+        onStartEventHorizon();
     }
 
     private class MainViewPageAdapter extends FragmentPagerAdapter {

@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -19,28 +18,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.VoteListActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.RizonSwapStatus;
 import wannabit.io.cosmostaion.task.FetchTask.RizonSwapStatusTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.widget.BaseHolder;
-import wannabit.io.cosmostaion.widget.RizonSwapStatusHolder;
 
-public class RizonSwapStatusActivity extends BaseBroadCastActivity implements View.OnClickListener{
+
+public class RizonSwapStatusActivity extends BaseBroadCastActivity implements View.OnClickListener, TaskListener {
 
     private Toolbar                             mToolbar;
     private SwipeRefreshLayout                  mSwipeRefreshLayout;
     private RecyclerView                        mRecyclerView;
     private RelativeLayout                      mLoadingLayer;
     private Button                              mBtnDone;
+
+    private ArrayList<RizonSwapStatus>          mRizonSwapStatus = new ArrayList<>();
 
     private EventHorizonStatusAdapter           mEventHorizonStatusAdapter;
 
@@ -52,7 +51,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
         mRecyclerView           = findViewById(R.id.recycler);
         mLoadingLayer           = findViewById(R.id.loadingLayer);
-        mBtnDone           = findViewById(R.id.btn_done);
+        mBtnDone                = findViewById(R.id.btn_done);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
 
@@ -65,17 +64,14 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() {
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
+            public void onRefresh() { onRizonStatus(); }
         });
+
         
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mEventHorizonStatusAdapter = new EventHorizonStatusAdapter();
         mRecyclerView.setAdapter(mEventHorizonStatusAdapter);
-        mLoadingLayer.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -97,6 +93,30 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         }
     }
 
+    public void onRizonStatus() {
+        new RizonSwapStatusTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if (isFinishing()) return;
+        if (result.taskType == BaseConstant.TASK_RIZON_SWAP_STATUS) {
+            if (result.isSuccess) {
+                mRizonSwapStatus.clear();
+                mLoadingLayer.setVisibility(View.GONE);
+                mRizonSwapStatus = (ArrayList<RizonSwapStatus>) result.resultData;
+                mEventHorizonStatusAdapter.notifyDataSetChanged();
+            }
+        }
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onRizonStatus();
+    }
+
     private class EventHorizonStatusAdapter extends RecyclerView.Adapter<EventHorizonStatusAdapter.StatusHolder> {
 
         @NonNull
@@ -107,7 +127,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
 
         @Override
         public void onBindViewHolder(@NonNull EventHorizonStatusAdapter.StatusHolder holder, int position) {
-            final RizonSwapStatus rizonSwapStatus = getBaseDao().mRizonSwapStatus.get(position);
+            final RizonSwapStatus rizonSwapStatus = mRizonSwapStatus.get(position);
             holder.swap_result_status.setText(rizonSwapStatus.status.toUpperCase());
 
             holder.swap_result_time.setText(WDp.getDpTime(RizonSwapStatusActivity.this, rizonSwapStatus.hdacTx.time * 1000));
@@ -138,7 +158,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         }
 
         @Override
-        public int getItemCount() { return getBaseDao().mRizonSwapStatus.size(); }
+        public int getItemCount() { return mRizonSwapStatus.size(); }
 
         public class StatusHolder extends RecyclerView.ViewHolder {
             private CardView    card_status;

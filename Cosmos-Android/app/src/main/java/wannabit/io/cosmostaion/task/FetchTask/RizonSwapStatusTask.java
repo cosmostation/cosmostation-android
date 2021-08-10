@@ -33,10 +33,10 @@ public class RizonSwapStatusTask extends CommonTask {
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;
                 mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                return mResult;
             }
 
-            if (response.body() != null) {
+            if (response.isSuccessful() && response.body() != null) {
+                mResult.isSuccess = true;
                 mResult.resultData = response.body();
             }
         } catch (Exception e) {

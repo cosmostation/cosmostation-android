@@ -58,6 +58,8 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.SendActivity;
+import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
+import wannabit.io.cosmostaion.activities.chains.rizon.RizonSwapStatusActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.BnbTicker;
@@ -670,7 +672,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
 
         else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(PERSIS_MAIN) ||
-                 mBaseChain.equals(CRYPTO_MAIN) || mBaseChain.equals(OSMOSIS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) || mBaseChain.equals(ALTHEA_TEST)) {
+                 mBaseChain.equals(CRYPTO_MAIN) || mBaseChain.equals(OSMOSIS_MAIN) || mBaseChain.equals(RIZON_TEST) ||
+                    mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) || mBaseChain.equals(ALTHEA_TEST)) {
             mTaskCount = 9;
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -714,21 +717,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
             new SifVsIncentiveTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SifLmIncentiveTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(RIZON_TEST)) {
-            mTaskCount = 10;
-            new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondingValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new DelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new RizonSwapStatusTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 //        } else if (mBaseChain.equals(BAND_MAIN)) {
 //            mTaskCount = 10;
@@ -979,11 +967,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mGrpcStarNameConfig = ((starnamed.x.configuration.v1beta1.Types.Config )result.resultData);
             }
 
-        } else if (result.taskType == TASK_RIZON_SWAP_STATUS) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mRizonSwapStatus = (ArrayList<RizonSwapStatus>) result.resultData;
-            }
-
 //        } else if (result.taskType == TASK_GRPC_FETCH_BAND_ORACLE_STATUS) {
 //            ArrayList<Oracle.ActiveValidator> validators = (ArrayList<Oracle.ActiveValidator>) result.resultData;
 //            if (validators != null) { getBaseDao().mGrpcBandOracles = validators; }
@@ -1200,6 +1183,32 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 }
             }
         }, query).executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+    }
+
+    public void onStartEventHorizon() {
+        new RizonSwapStatusTask(getBaseApplication(), new TaskListener() {
+            @Override
+            public void onTaskResponse(TaskResult result) {
+                if (result.isSuccess) {
+                    ArrayList<RizonSwapStatus> tempStatus = (ArrayList<RizonSwapStatus>) result.resultData;
+                    if (tempStatus.size() != 0) {
+                        Toast.makeText(BaseActivity.this, R.string.error_already_rizon_swap, Toast.LENGTH_SHORT).show();
+                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(BaseActivity.this, RizonSwapStatusActivity.class);
+                                startActivity(intent);
+                            }
+                        },2000);
+                    } else {
+                        Intent intent = new Intent(BaseActivity.this, EventHorizonActivity.class);
+                        startActivity(intent);
+                    }
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                }
+            }
+        },mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
 }
