@@ -2,7 +2,7 @@ package wannabit.io.cosmostaion.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import wannabit.io.cosmostaion.utils.hdac.HdacTx;
+import java.util.ArrayList;
 
 public class RizonSwapStatus {
     @SerializedName("status")
@@ -32,4 +32,27 @@ public class RizonSwapStatus {
     @SerializedName("hdacTx")
     public HdacTx hdacTx;
 
+    public class HdacTx {
+        @SerializedName("txid")
+        public String txid;
+
+        @SerializedName("confirmations")
+        public int confirmations;
+
+        @SerializedName("blockhash")
+        public String blockhash;
+
+        @SerializedName("blockheight")
+        public long blockheight;
+
+        @SerializedName("time")
+        public long time;
+
+        @SerializedName("valueOut")
+        public double valueOut;
+
+        @SerializedName("data")
+        public ArrayList<String> data;
+
+    }
 }

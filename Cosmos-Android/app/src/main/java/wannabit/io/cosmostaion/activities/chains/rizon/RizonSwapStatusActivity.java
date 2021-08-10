@@ -4,17 +4,26 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.util.ArrayList;
+
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
+import wannabit.io.cosmostaion.model.RizonSwapStatus;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.RizonSwapStatusHolder;
@@ -45,7 +54,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mEventHorizonStatusAdapter.notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
         
@@ -67,37 +76,60 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity {
         }
     }
 
-    private class EventHorizonStatusAdapter extends RecyclerView.Adapter<BaseHolder> {
-//        private static final int TYPE_MY_POOL            = 1;
-//        private static final int TYPE_OTHER_POOL         = 2;
+    private class EventHorizonStatusAdapter extends RecyclerView.Adapter<EventHorizonStatusAdapter.StatusHolder> {
 
         @NonNull
         @Override
-        public BaseHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            return new RizonSwapStatusHolder(getLayoutInflater().inflate(R.layout.item_rizon_event_horzion_status, viewGroup, false));
-//            if (viewType == TYPE_MY_POOL) {
-//                return new PoolMyHolder(getLayoutInflater().inflate(R.layout.item_pool_list_my, viewGroup, false));
-//            } else if (viewType == TYPE_OTHER_POOL) {
-//                return new PoolOtherHolder(getLayoutInflater().inflate(R.layout.item_pool_list_all, viewGroup, false));
-//            }
+        public EventHorizonStatusAdapter.StatusHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            return new EventHorizonStatusAdapter.StatusHolder(getLayoutInflater().inflate(R.layout.item_rizon_event_horzion_status, viewGroup, false));
         }
 
         @Override
-        public void onBindViewHolder(@NonNull BaseHolder viewHolder, int position) {
-//            if (getItemViewType(position) == TYPE_MY_POOL) {
-//                final PoolOuterClass.Pool myPool = mPoolMyList.get(position);
-//                viewHolder.onBindMyPool(getContext(), getSActivity(), getBaseDao(), myPool);
-//            }
-//            else if (getItemViewType(position) == TYPE_OTHER_POOL) {
-//                final PoolOuterClass.Pool otherPool = mPoolOtherList.get(position - mPoolMyList.size());
-//                viewHolder.onBindOtherPool(getContext(), getSActivity(), getBaseDao(), otherPool);
-//            }
+        public void onBindViewHolder(@NonNull EventHorizonStatusAdapter.StatusHolder holder, int position) {
+            final RizonSwapStatus rizonSwapStatus = getBaseDao().mRizonSwapStatus.get(position);
+            holder.swap_result_status.setText(rizonSwapStatus.status);
+            String time = WDp.getDpTime(RizonSwapStatusActivity.this, rizonSwapStatus.hdacTx.time * 1000);
+            WLog.w("SSS : " + time);
+            holder.swap_result_time.setText(WDp.getTimeTxformat(RizonSwapStatusActivity.this, time));
+            holder.swap_result_id.setText(rizonSwapStatus.id);
+            if (rizonSwapStatus.hdacTx.confirmations >= 1) {
+                holder.swap_hdac_status.setText("Success");
+            } else {
+                holder.swap_hdac_status.setText("Fail");
+            }
+            holder.swap_burn_from_address.setText(rizonSwapStatus.from);
+            holder.swap_burn_tx_hash.setText(rizonSwapStatus.hdacTxId);
+            holder.swap_burn_amount.setText("" + rizonSwapStatus.amount);
+
+
         }
 
         @Override
-        public int getItemCount() {
-            WLog.w("SSS : " + getBaseDao().mRizonSwapStatus.size());
-            return getBaseDao().mRizonSwapStatus.size();
+        public int getItemCount() { return getBaseDao().mRizonSwapStatus.size(); }
+
+        public class StatusHolder extends RecyclerView.ViewHolder {
+            private CardView    card_status;
+            private TextView    swap_result_status, swap_result_time, swap_result_id;
+            private TextView    swap_hdac_status, swap_burn_from_address, swap_burn_tx_hash, swap_burn_amount;
+            private ImageView   swap_rizon_status_icon;
+            private TextView    swap_rizon_to_Address, swap_rizon_status, swap_rizon_status_tx_hash, swap_rizon_status_mint_amount;
+
+            public StatusHolder(@NonNull View itemView) {
+                super(itemView);
+                card_status                     = itemView.findViewById(R.id.card_status_root);
+                swap_result_status              = itemView.findViewById(R.id.tx_result_status);
+                swap_result_time                = itemView.findViewById(R.id.tx_request_time);
+                swap_result_id                  = itemView.findViewById(R.id.tx_request_id);
+                swap_hdac_status                = itemView.findViewById(R.id.hdac_status);
+                swap_burn_from_address          = itemView.findViewById(R.id.burn_from_address);
+                swap_burn_tx_hash               = itemView.findViewById(R.id.burn_tx_hash);
+                swap_burn_amount                = itemView.findViewById(R.id.burn_amount);
+                swap_rizon_status_icon          = itemView.findViewById(R.id.rizon_swap_status_icon);
+                swap_rizon_status               = itemView.findViewById(R.id.rizon_swap_status);
+                swap_rizon_to_Address           = itemView.findViewById(R.id.rizon_to_address);
+                swap_rizon_status_tx_hash       = itemView.findViewById(R.id.rizon_tx_hash);
+                swap_rizon_status_mint_amount   = itemView.findViewById(R.id.rizon_mint_amount);
+            }
         }
     }
 }

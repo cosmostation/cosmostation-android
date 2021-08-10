@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -551,12 +552,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onClickEventHorizon() {
-        if (!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
+//        if (!mAccount.hasPrivateKey) {
+//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+//            add.setCancelable(true);
+//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+//            return;
+//        }
 
         Dialog_Rizon_Event_Horizon add = Dialog_Rizon_Event_Horizon.newInstance();
         add.setCancelable(true);
@@ -566,8 +567,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void onCheckRizonEventHorizon() {
         if (getBaseDao().mRizonSwapStatus.size() != 0) {
             Toast.makeText(MainActivity.this, R.string.error_already_rizon_swap, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MainActivity.this, RizonSwapStatusActivity.class);
-            startActivity(intent);
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(MainActivity.this, RizonSwapStatusActivity.class);
+                    startActivity(intent);
+                }
+            },2000);
         } else {
             Intent intent = new Intent(MainActivity.this, EventHorizonActivity.class);
             startActivity(intent);
