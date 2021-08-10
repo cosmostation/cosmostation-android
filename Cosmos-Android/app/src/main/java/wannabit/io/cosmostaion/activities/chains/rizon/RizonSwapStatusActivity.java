@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,11 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
+import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.model.RizonSwapStatus;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -28,12 +32,13 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.RizonSwapStatusHolder;
 
-public class RizonSwapStatusActivity extends BaseBroadCastActivity {
+public class RizonSwapStatusActivity extends BaseBroadCastActivity implements View.OnClickListener{
 
     private Toolbar                             mToolbar;
     private SwipeRefreshLayout                  mSwipeRefreshLayout;
     private RecyclerView                        mRecyclerView;
     private RelativeLayout                      mLoadingLayer;
+    private Button                              mBtnDone;
 
     private EventHorizonStatusAdapter           mEventHorizonStatusAdapter;
 
@@ -45,6 +50,11 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity {
         mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
         mRecyclerView           = findViewById(R.id.recycler);
         mLoadingLayer           = findViewById(R.id.loadingLayer);
+        mBtnDone           = findViewById(R.id.btn_done);
+
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+
+        mBtnDone.setOnClickListener(this);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -76,6 +86,14 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mBtnDone)) {
+            onBackPressed();
+            return;
+        }
+    }
+
     private class EventHorizonStatusAdapter extends RecyclerView.Adapter<EventHorizonStatusAdapter.StatusHolder> {
 
         @NonNull
@@ -87,21 +105,31 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity {
         @Override
         public void onBindViewHolder(@NonNull EventHorizonStatusAdapter.StatusHolder holder, int position) {
             final RizonSwapStatus rizonSwapStatus = getBaseDao().mRizonSwapStatus.get(position);
-            holder.swap_result_status.setText(rizonSwapStatus.status);
-            String time = WDp.getDpTime(RizonSwapStatusActivity.this, rizonSwapStatus.hdacTx.time * 1000);
-            WLog.w("SSS : " + time);
-            holder.swap_result_time.setText(WDp.getTimeTxformat(RizonSwapStatusActivity.this, time));
+            holder.swap_result_status.setText(rizonSwapStatus.status.toUpperCase());
+
+            holder.swap_result_time.setText(WDp.getDpTime(RizonSwapStatusActivity.this, rizonSwapStatus.hdacTx.time * 1000));
             holder.swap_result_id.setText(rizonSwapStatus.id);
             if (rizonSwapStatus.hdacTx.confirmations >= 1) {
                 holder.swap_hdac_status.setText("Success");
+                holder.swap_hdac_status_icon.setVisibility(View.GONE);
             } else {
-                holder.swap_hdac_status.setText("Fail");
+                holder.swap_hdac_status.setText("Pending");
+                holder.swap_hdac_status_icon.setVisibility(View.VISIBLE);
             }
             holder.swap_burn_from_address.setText(rizonSwapStatus.from);
             holder.swap_burn_tx_hash.setText(rizonSwapStatus.hdacTxId);
             holder.swap_burn_amount.setText("" + rizonSwapStatus.amount);
 
-
+            if (rizonSwapStatus.rizonTx != null) {
+                holder.swap_rizon_status.setText("Success");
+                holder.swap_rizon_status_icon.setVisibility(View.GONE);
+            } else {
+                holder.swap_rizon_status.setText("Pending");
+                holder.swap_rizon_status_icon.setVisibility(View.VISIBLE);
+            }
+            holder.swap_rizon_to_Address.setText(mAccount.address);
+            holder.swap_rizon_status_tx_hash.setText(rizonSwapStatus.rizonTxId);
+            holder.swap_rizon_status_mint_amount.setText("" + WDp.getDpAmount2(RizonSwapStatusActivity.this, new BigDecimal(rizonSwapStatus.amount), 0, 6 ));
         }
 
         @Override
@@ -110,6 +138,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity {
         public class StatusHolder extends RecyclerView.ViewHolder {
             private CardView    card_status;
             private TextView    swap_result_status, swap_result_time, swap_result_id;
+            private ImageView   swap_hdac_status_icon;
             private TextView    swap_hdac_status, swap_burn_from_address, swap_burn_tx_hash, swap_burn_amount;
             private ImageView   swap_rizon_status_icon;
             private TextView    swap_rizon_to_Address, swap_rizon_status, swap_rizon_status_tx_hash, swap_rizon_status_mint_amount;
@@ -120,6 +149,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity {
                 swap_result_status              = itemView.findViewById(R.id.tx_result_status);
                 swap_result_time                = itemView.findViewById(R.id.tx_request_time);
                 swap_result_id                  = itemView.findViewById(R.id.tx_request_id);
+                swap_hdac_status_icon           = itemView.findViewById(R.id.hdac_swap_status_icon);
                 swap_hdac_status                = itemView.findViewById(R.id.hdac_status);
                 swap_burn_from_address          = itemView.findViewById(R.id.burn_from_address);
                 swap_burn_tx_hash               = itemView.findViewById(R.id.burn_tx_hash);

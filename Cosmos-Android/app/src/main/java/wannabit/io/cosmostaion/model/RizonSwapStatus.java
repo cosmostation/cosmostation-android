@@ -23,6 +23,9 @@ public class RizonSwapStatus {
     @SerializedName("hdacTxId")
     public String hdacTxId;
 
+    @SerializedName("rizonTx")
+    public Object rizonTx;
+
     @SerializedName("rizonTxId")
     public String rizonTxId;
 
