@@ -123,13 +123,15 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
             if (rizonSwapStatus.rizonTx != null) {
                 holder.swap_rizon_status.setText("Success");
                 holder.swap_rizon_status_icon.setVisibility(View.GONE);
+                holder.swap_rizon_status_tx_hash.setText(rizonSwapStatus.rizonTxId);
+                holder.swap_rizon_status_mint_amount.setText("" + WDp.getDpAmount2(RizonSwapStatusActivity.this, new BigDecimal(rizonSwapStatus.amount), 0, 6 ));
             } else {
                 holder.swap_rizon_status.setText("Pending");
                 holder.swap_rizon_status_icon.setVisibility(View.VISIBLE);
+                holder.swap_rizon_status_tx_hash.setText("--");
+                holder.swap_rizon_status_mint_amount.setText("--");
             }
             holder.swap_rizon_to_Address.setText(mAccount.address);
-            holder.swap_rizon_status_tx_hash.setText(rizonSwapStatus.rizonTxId);
-            holder.swap_rizon_status_mint_amount.setText("" + WDp.getDpAmount2(RizonSwapStatusActivity.this, new BigDecimal(rizonSwapStatus.amount), 0, 6 ));
         }
 
         @Override
