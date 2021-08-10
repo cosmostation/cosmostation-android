@@ -389,7 +389,7 @@ public class BaseData {
     public ArrayList<PoolOuterClass.Pool>                       mPoolOtherList = new ArrayList<>();
 
     //COMMON DATA FOR Rizon
-    public ArrayList<HdacUtxo>                                  mHdacUtxo = new ArrayList<>();
+//    public ArrayList<HdacUtxo>                                  mHdacUtxo = new ArrayList<>();
     public ArrayList<RizonSwapStatus>                           mRizonSwapStatus = new ArrayList<>();
 
 

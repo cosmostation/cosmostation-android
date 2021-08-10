@@ -60,6 +60,8 @@ public class EventHorizonStep1Fragment extends BaseFragment implements View.OnCl
 
     private void onInitView() {
         mRizonToAddress.setText(getSActivity().mAccount.address);
+
+        // getSActivity().mHdacUtxo
     }
 
     private EventHorizonActivity getSActivity() { return (EventHorizonActivity)getBaseActivity(); }

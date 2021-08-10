@@ -38,6 +38,9 @@ public class HdacUtil {
     private DeterministicHierarchy      mDeterministicHierarchy;
     private DeterministicKey            mMasterKey;
 
+
+    public HdacUtil() { }
+
     public HdacUtil(List<String> words) {
         try {
             DeterministicSeed dSeed         = new DeterministicSeed(words, null, "", 0);

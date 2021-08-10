@@ -87,6 +87,8 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     private ArrayList<String>           mAllMnemonic;
     private static MnemonicAdapter      mMnemonicAdapter;
     private ArrayList<String>           mWords = new ArrayList<>();
+    private ArrayList<HdacUtxo>         mUtxo;
+    private BigDecimal                  mBalance;
 
     public static EventHorizonStep0Fragment newInstance(Bundle bundle) {
         EventHorizonStep0Fragment fragment = new EventHorizonStep0Fragment();
@@ -199,6 +201,8 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
             }
 
         } else if (v.equals(mBtnConfirm)) {
+            mUtxo = null;
+            mBalance = null;
             mWords.clear();
             for(int i = 0; i < mEtMnemonics.length; i++) {
                 if(!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
@@ -291,23 +295,18 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
         mTaskCount--;
         if (result.taskType == TASK_HDAC_UTXO) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mHdacUtxo = (ArrayList<HdacUtxo>) result.resultData;
+                mUtxo = (ArrayList<HdacUtxo>) result.resultData;
+
+                HdacUtil hdacUtil = new HdacUtil(mWords);
+                mBalance = hdacUtil.getBalance(!getSActivity().mBaseChain.equals(RIZON_TEST), mUtxo);
+                Bundle bundle = new Bundle();
+                bundle.putString("hdacAddress", onHdacAddress(getSActivity().mBaseChain));
+                bundle.putString("hdacBalance", mBalance.toPlainString());
+                Dialog_Hdac_info hdacInfo = Dialog_Hdac_info.newInstance(bundle);
+                hdacInfo.setCancelable(true);
+                hdacInfo.setTargetFragment(this, HDAC_INFO);
+                getFragmentManager().beginTransaction().add(hdacInfo, "dialog").commitNowAllowingStateLoss();
             }
-        }
-        boolean mainnet = true;
-        if (getSActivity().mBaseChain.equals(RIZON_TEST)) {
-            mainnet = false;
-        }
-        if (mTaskCount == 0) {
-            HdacUtil hdacUtil = new HdacUtil(mWords);
-            BigDecimal mHdacBalance = hdacUtil.getBalance(mainnet, getBaseDao().mHdacUtxo);
-            Bundle bundle = new Bundle();
-            bundle.putString("mHdacAddress", onHdacAddress(getSActivity().mBaseChain));
-            bundle.putString("mHdacBalance", mHdacBalance.toPlainString());
-            Dialog_Hdac_info hdacInfo = Dialog_Hdac_info.newInstance(bundle);
-            hdacInfo.setCancelable(true);
-            hdacInfo.setTargetFragment(this, HDAC_INFO);
-            getFragmentManager().beginTransaction().add(hdacInfo, "dialog").commitNowAllowingStateLoss();
         }
     }
 
@@ -316,10 +315,13 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == HDAC_INFO && resultCode == Activity.RESULT_OK) {
-            if(data.getIntExtra("hdac" , -1) == 0 ){
+            if (data.getIntExtra("hdac" , -1) == 0 ) {
+                mUtxo = null;
                 onClearAll();
 
-            } else if(data.getIntExtra("hdac" , -1) == 1){
+            } else if(data.getIntExtra("hdac" , -1) == 1) {
+                getSActivity().mHdacUtxo = mUtxo;
+                getSActivity().mHdacBalance = mBalance;
                 getSActivity().onNextStep();
             }
 

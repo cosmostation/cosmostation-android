@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.rizon;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,7 @@ import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.model.RizonSwapStatus;
+import wannabit.io.cosmostaion.task.FetchTask.RizonSwapStatusTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -73,6 +75,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         mEventHorizonStatusAdapter = new EventHorizonStatusAdapter();
         mRecyclerView.setAdapter(mEventHorizonStatusAdapter);
         mLoadingLayer.setVisibility(View.GONE);
+
     }
 
     @Override

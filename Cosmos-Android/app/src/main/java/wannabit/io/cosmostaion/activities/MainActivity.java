@@ -433,21 +433,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorBlack));
         }
 
-//        if (mContentsPager != null) {
-//            if (mContentsPager.getCurrentItem() == 1 &&
-//                    (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST))) {
-//                if (!mFaucetBtn.isShown()) mFaucetBtn.show();
-//            } else {
-//                mFaucetBtn.hide();
-//            }
-
-//            if (mContentsPager.getCurrentItem() == 1 && mBaseChain.equals(KAVA_MAIN) && mAccount.accountNumber <= 0) {
-//                if (!mAirDropBtn.isShown()) mAirDropBtn.show();
-//            } else {
-//                mAirDropBtn.hide();
-//            }
-//        }
-
         onUpdateTitle();
         onFetchAllData();
         mSelectChainPosition = getBaseDao().getLastChain();

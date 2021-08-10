@@ -42,8 +42,8 @@ public class Dialog_Hdac_info extends DialogFragment {
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
 
-        String mHdacAddress = getArguments().getString("mHdacAddress");
-        String mHdacBalance = getArguments().getString("mHdacBalance");
+        String mHdacAddress = getArguments().getString("hdacAddress");
+        String mHdacBalance = getArguments().getString("hdacBalance");
         hdac_address.setText(mHdacAddress);
         hdac_amount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(mHdacBalance), 8, 8));
 
