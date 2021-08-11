@@ -1045,6 +1045,7 @@ class BaseNetWork {
             
         } else if (chain == ChainType.MEDI_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "52.78.196.16", port: 9090)
+            
         }
         
         
@@ -1060,6 +1061,7 @@ class BaseNetWork {
             
         } else if (chain == ChainType.ALTHEA_TEST) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 20100)
+            
         }
         return nil
     }
