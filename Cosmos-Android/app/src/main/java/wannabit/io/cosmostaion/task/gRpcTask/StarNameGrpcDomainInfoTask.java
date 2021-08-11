@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.task.FetchTask;
+package wannabit.io.cosmostaion.task.gRpcTask;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,33 +12,32 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_RESOLVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
-public class StarNameGrpcResolveTask extends CommonTask {
+public class StarNameGrpcDomainInfoTask extends CommonTask {
     private BaseChain                   mBaseChain;
-    private String                      mAccount;
-    private String                      mDomain;
+    private String                      mDomainName;
     private QueryGrpc.QueryBlockingStub mStub;
 
-    public StarNameGrpcResolveTask(BaseApplication app, TaskListener listener, BaseChain basecahin, String account, String domain) {
+    public StarNameGrpcDomainInfoTask(BaseApplication app, TaskListener listener, BaseChain basecahin, String domainName) {
         super(app, listener);
         this.mBaseChain = basecahin;
-        this.mAccount = account;
-        this.mDomain = domain;
-        this.mResult.taskType = TASK_GRPC_FETCH_STARNAME_RESOLVE;
+        this.mDomainName = domainName;
+        this.mResult.taskType = TASK_GRPC_FETCH_STARNAME_DOMAIN_INFO;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryStarnameRequest request = QueryOuterClass.QueryStarnameRequest.newBuilder().setStarname(mAccount + "*" + mDomain).build();
-            QueryOuterClass.QueryStarnameResponse response = mStub.starname(request);
-            mResult.resultData = response.getAccount();
+            QueryOuterClass.QueryDomainRequest request = QueryOuterClass.QueryDomainRequest.newBuilder().setName(mDomainName).build();
+            QueryOuterClass.QueryDomainResponse response = mStub.domain(request);
+            mResult.resultData = response.getDomain();
             mResult.isSuccess = true;
 
-        } catch (Exception e) { WLog.e( "StarNameGrpcResolveTask "+ e.getMessage()); }
+        } catch (Exception e) { WLog.e( "StarNameGrpcDomainInfoTask "+ e.getMessage()); }
         return mResult;
     }
 }

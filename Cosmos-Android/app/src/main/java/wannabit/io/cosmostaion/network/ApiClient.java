@@ -633,17 +633,32 @@ public class ApiClient {
 
 
     //Services for hdac testnet chain
-    private static HdacChain service_hdac = null;
-    public static HdacChain getHdac(Context c) {
-        if (service_hdac == null) {
+    private static HdacChain service_hdac_mainnet = null;
+    public static HdacChain getMainHdac(Context c) {
+        if (service_hdac_mainnet == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_hdac_mainnet))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_hdac_mainnet = retrofit.create(HdacChain.class);
+            }
+        }
+        return service_hdac_mainnet;
+    }
+
+    //Services for hdac testnet chain
+    private static HdacChain service_hdac_testnet = null;
+    public static HdacChain getTestHdac(Context c) {
+        if (service_hdac_testnet == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_hdac_testnet))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_hdac = retrofit.create(HdacChain.class);
+                service_hdac_testnet = retrofit.create(HdacChain.class);
             }
         }
-        return service_hdac;
+        return service_hdac_testnet;
     }
 }

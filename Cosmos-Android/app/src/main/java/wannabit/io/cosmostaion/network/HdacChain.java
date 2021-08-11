@@ -27,4 +27,8 @@ public interface HdacChain {
     // rizon swap status
     @GET("/swaps/rizon/{address}")
     Call<ArrayList<RizonSwapStatus>> getSwapStatus(@Path("address") String address);
+
+    // rizon swap insight
+    @GET("/tx/{hash}")
+    Call<ArrayList<RizonSwapStatus>> gethdacTxDetail(@Path("hash") String hash);
 }

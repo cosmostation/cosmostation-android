@@ -45,7 +45,7 @@ public class BaseBroadCastActivity extends BaseActivity {
 
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap;
     public BigDecimal                   mHdacBalance;                               //rizon swap amount
-    public String                       mHdacAddress;                               //rizon swap Hdac address
+    public ArrayList<String>            mHdacWords;                                 //rizon swap Hdac Mnemonic words
 
     public ArrayList<Validator> mValidators = new ArrayList<>();    //ClaimReward old
 

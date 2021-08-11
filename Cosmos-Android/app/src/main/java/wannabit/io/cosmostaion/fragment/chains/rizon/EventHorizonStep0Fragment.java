@@ -28,47 +28,26 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.bitcoinj.crypto.DeterministicKey;
+
 import org.bitcoinj.crypto.MnemonicCode;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.activities.PasswordSetActivity;
-import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
-import wannabit.io.cosmostaion.dialog.Dialog_FetchRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_Hdac_info;
-import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
-import wannabit.io.cosmostaion.dialog.Dialog_OkexRestoreType;
-import wannabit.io.cosmostaion.dialog.Dialog_SecretRestorePath;
-import wannabit.io.cosmostaion.model.RizonSwapStatus;
 import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
 import wannabit.io.cosmostaion.task.FetchTask.HdacUtxoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolInfoTask;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.hdac.HdacUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_UTXO;
 
 public class EventHorizonStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
@@ -89,7 +68,6 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     private ArrayList<String>           mWords = new ArrayList<>();
 
     private ArrayList<HdacUtxo>         mUtxo;
-    private String                      mAddress;
     private BigDecimal                  mBalance;
 
     public static EventHorizonStep0Fragment newInstance(Bundle bundle) {
@@ -205,7 +183,6 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
         } else if (v.equals(mBtnConfirm)) {
             mUtxo = null;
             mBalance = null;
-            mAddress = null;
             mWords.clear();
             for(int i = 0; i < mEtMnemonics.length; i++) {
                 if(!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
@@ -279,7 +256,7 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
 
     private String onHdacAddress(BaseChain baseChain) {
         HdacUtil hdacUtil = new HdacUtil(mWords);
-        mAddress = hdacUtil.getAddress(baseChain);
+        String mAddress = hdacUtil.getAddress(baseChain);
         return mAddress;
     }
 
@@ -287,7 +264,7 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     public void onHdacInfo() {
         getSActivity().onShowWaitDialog();
         mTaskCount = 1;
-        new HdacUtxoTask(getBaseApplication(), this, onHdacAddress(getSActivity().mBaseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new HdacUtxoTask(getBaseApplication(), this, getSActivity().mBaseChain, onHdacAddress(getSActivity().mBaseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -322,7 +299,7 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
                 mUtxo = null;
 
             } else if(data.getIntExtra("hdac" , -1) == 1) {
-                getSActivity().mHdacAddress = mAddress;
+                getSActivity().mHdacWords = mWords;
                 getSActivity().mHdacUtxo = mUtxo;
                 getSActivity().mHdacBalance = mBalance;
                 getSActivity().onNextStep();

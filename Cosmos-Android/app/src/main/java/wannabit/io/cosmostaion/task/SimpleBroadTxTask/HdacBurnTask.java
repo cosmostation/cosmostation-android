@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqHdacBurn;
 import wannabit.io.cosmostaion.network.res.ResHdacBurn;
@@ -14,10 +15,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_BROAD_BURN;
 
 public class HdacBurnTask extends CommonTask {
 
+    private BaseChain baseChain;
     private String mTxHex;
 
-    public HdacBurnTask(BaseApplication app, TaskListener listener, String txHex) {
+    public HdacBurnTask(BaseApplication app, TaskListener listener, BaseChain baseChain, String txHex) {
         super(app, listener);
+        this.baseChain = baseChain;
         this.mTxHex = txHex;
         this.mResult.taskType = TASK_HDAC_BROAD_BURN;
     }
@@ -26,7 +29,12 @@ public class HdacBurnTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             ReqHdacBurn req = new ReqHdacBurn(mTxHex);
-            Response<ResHdacBurn> response = ApiClient.getHdac(mApp).broadTx(req).execute();
+            Response<ResHdacBurn> response;
+            if (baseChain.equals(BaseChain.RIZON_TEST)) {
+                response = ApiClient.getTestHdac(mApp).broadTx(req).execute();
+            } else {
+                response = ApiClient.getMainHdac(mApp).broadTx(req).execute();
+            }
             if (response.isSuccessful() && response.body() != null) {
                 mResult.isSuccess = true;
                 mResult.resultData = response.body().txid;

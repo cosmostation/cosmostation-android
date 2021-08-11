@@ -25,8 +25,10 @@ import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
 
 
 public class HdacUtil {
-    private final static String         mBurnAddress    = "HDC1cXNDDuDgmmpmqxoR2Bwf2bzx2fxVZy";
-    private final static BigDecimal     mTxFee          = new BigDecimal("10000000");
+    private final static String         HDAC_BURN_ADDRESS_TEST      = "hXXXXXXXXXXXXXXXXXXXXXXXXXXXYHCpEz";
+    private final static String         HDAC_BURN_ADDRESS_MAIN      = "HJXXXXXXXXXXXXXXXXXXXXXXXXXXVarS5i";
+
+    private final static BigDecimal     HDAC_TXFEE                  = new BigDecimal("10000000");
 
     protected final static int          mAddressHeader_Mainnet = 40;
     protected final static int          mAddressHeader_Testnet = 100;
@@ -38,8 +40,6 @@ public class HdacUtil {
     private DeterministicHierarchy      mDeterministicHierarchy;
     private DeterministicKey            mMasterKey;
 
-
-    public HdacUtil() { }
 
     public HdacUtil(List<String> words) {
         try {
@@ -132,9 +132,13 @@ public class HdacUtil {
         String txHex = null;
         HdacTx hdacTx = new HdacTx();
         BigDecimal balance = getBalance(baseChain, utxos);
-        BigDecimal toBurnAmount = balance.subtract(mTxFee);
+        BigDecimal toBurnAmount = balance.subtract(HDAC_TXFEE);
 
-        hdacTx.addOutput(mBurnAddress, toBurnAmount.longValue());
+        if (baseChain.equals(BaseChain.RIZON_TEST)) {
+            hdacTx.addOutput(HDAC_BURN_ADDRESS_TEST, toBurnAmount.longValue());
+        } else {
+            hdacTx.addOutput(HDAC_BURN_ADDRESS_MAIN, toBurnAmount.longValue());
+        }
         hdacTx.addOpReturnOutput(rizonAddress.getBytes());
 
         for (int i=0; i<utxos.size();i++) {
@@ -149,9 +153,13 @@ public class HdacUtil {
         String txHex = null;
         HdacTx hdacTx = new HdacTx();
         BigDecimal balance = getBalance(baseChain, utxos);
-        BigDecimal toBurnAmount = balance.subtract(mTxFee);
+        BigDecimal toBurnAmount = balance.subtract(HDAC_TXFEE);
 
-        hdacTx.addOutput(mBurnAddress, toBurnAmount.longValue());
+        if (baseChain.equals(BaseChain.RIZON_TEST)) {
+            hdacTx.addOutput(HDAC_BURN_ADDRESS_TEST, toBurnAmount.longValue());
+        } else {
+            hdacTx.addOutput(HDAC_BURN_ADDRESS_MAIN, toBurnAmount.longValue());
+        }
         hdacTx.addOpReturnOutput(rizonAddress.getBytes());
 
         for (int i=0; i<utxos.size();i++) {
