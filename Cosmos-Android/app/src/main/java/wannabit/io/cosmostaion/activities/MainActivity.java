@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +37,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
+import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonDetailActivity;
 import wannabit.io.cosmostaion.activities.chains.rizon.RizonSwapStatusActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -52,6 +55,7 @@ import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -429,21 +433,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorBlack));
         }
 
-//        if (mContentsPager != null) {
-//            if (mContentsPager.getCurrentItem() == 1 &&
-//                    (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST))) {
-//                if (!mFaucetBtn.isShown()) mFaucetBtn.show();
-//            } else {
-//                mFaucetBtn.hide();
-//            }
-
-//            if (mContentsPager.getCurrentItem() == 1 && mBaseChain.equals(KAVA_MAIN) && mAccount.accountNumber <= 0) {
-//                if (!mAirDropBtn.isShown()) mAirDropBtn.show();
-//            } else {
-//                mAirDropBtn.hide();
-//            }
-//        }
-
         onUpdateTitle();
         onFetchAllData();
         mSelectChainPosition = getBaseDao().getLastChain();
@@ -547,21 +536,21 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
     }
 
+    public void onClickEventHorizon() {
+//        if (!mAccount.hasPrivateKey) {
+//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+//            add.setCancelable(true);
+//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+//            return;
+//        }
+
+        Dialog_Rizon_Event_Horizon add = Dialog_Rizon_Event_Horizon.newInstance();
+        add.setCancelable(true);
+        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+    }
+
     public void onCheckRizonEventHorizon() {
-        if (!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        } else {
-            Dialog_Rizon_Event_Horizon add = Dialog_Rizon_Event_Horizon.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-//        } else {
-//            Intent isStatus = new Intent(MainActivity.this, RizonSwapStatusActivity.class);
-//            startActivity(isStatus);
-        }
+        onStartEventHorizon();
     }
 
     private class MainViewPageAdapter extends FragmentPagerAdapter {

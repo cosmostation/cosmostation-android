@@ -21,7 +21,7 @@ public class HdacNodeStatusTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResHdacStatus> response = ApiClient.getHdac(mApp).getNodeInfo().execute();
+            Response<ResHdacStatus> response = ApiClient.getTestHdac(mApp).getNodeInfo().execute();
             if (response.isSuccessful() && response.body().info != null) {
                 mResult.isSuccess = true;
             }

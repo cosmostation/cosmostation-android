@@ -93,11 +93,12 @@
     <string name="url_api_osmosis" translatable="false">https://api-osmosis.cosmostation.io/</string>
 
 
+    <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
+    <string name="url_rizon_swap_status_mainnet" translatable="false">https://swap-api.rizon.world/</string>
+
+    <string name="url_hdac_testnet" translatable="false">https://insight-api.testnet.rizon.world/insight-api/</string>
+    <string name="url_rizon_swap_status_testnet" translatable="false">https://swap-api.testnet.rizon.world/</string>
     <string name="url_api_rizon_test" translatable="false">https://api-rizon-testnet.cosmostation.io/</string>
-
-
-    <string name="url_lcd_medi_test" translatable="false">https://lcd-medibloc-opentestnet.cosmostation.io/</string>
-    <string name="url_api_medi_test" translatable="false">https://api-medibloc-opentestnet.cosmostation.io/</string>
 
 
     <string name="url_hdac" translatable="false">https://wallet.new.hdactech.com/insight-api/</string>
@@ -1432,6 +1433,9 @@
     <string name="str_rizon_event_horizon_status_title">Total Result</string>
     <string name="str_rizon_event_horizon_request_time">Request Time</string>
     <string name="str_rizon_event_horizon_request_id">Request ID</string>
+    <string name="str_rizon_create_token_swap_hash">Legacy Chain Tx Hash</string>
+    <string name="str_rizon_create_token_swap_recipient">Recipient</string>
+    <string name="str_rizon_create_token_swap_amount">Amount</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1538,6 +1542,7 @@
     <string name="error_remain_borrow_small">Remain borrow amount less than $10</string>
     <string name="error_waste_fee">Fee is bigger than reward.</string>
     <string name="error_not_enough_to_pool">Not enough balance to deposit.</string>
+    <string name="error_already_rizon_swap">There is already a swap request in progress.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>
@@ -1602,6 +1607,7 @@
     <string name="tx_kava_post_price">Update Price</string>
     <string name="tx_medi_add_record">Add Record</string>
     <string name="tx_medi_create_did">Create DID</string>
+    <string name="tx_rizon_create_Token_swap">Receive Swap Token</string>
 
 
     <string name="tx_kava_create_cdp">CDP\nOpen</string>

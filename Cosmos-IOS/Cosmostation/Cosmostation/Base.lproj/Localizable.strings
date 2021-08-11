@@ -433,6 +433,8 @@
 "str_osmosis_exit_pool_step_1" = "Insert memo (optional)";
 "str_osmosis_exit_pool_step_2" = "Select transaction fee";
 "str_osmosis_exit_pool_step_3" = "Check transaction detail";
+"str_rizon_swap_step_0" = "Insert mnemonic for Hdac";
+"str_rizon_swap_step_1" = "Check transaction detail";
 
 "str_description_open_domain" = "Open type in which an account owner is the only entity that can perform actions on the account.";
 "str_description_closed_domain" = "Closed type in which the domain owner has control over accounts too.";
@@ -455,6 +457,7 @@ Please consult with the Cosmostation support team before enabling this feature.\
 support@cosmostation.io";
 "str_enginer_is_on_title" = "Engineer Mode Enabled";
 "str_enginer_is_on_msg" = "Engineer mode is currently on.\n\nThere is a very low probability that an account with incompatibility may be created, which may cause inconvenience to users.\n\nBefore use, be sure to consult with the Cosmo Station administrator team before use.";
+"str_rizon_swap_alert_msg" = "Swap Hdac chain assets to Rizon chain.\nDue to the nature of the swap, it is irreversible, and it may take some time until the actual swap is completed due to the asynchronous operation between the two chains.";
 
 
 "clear_all" = "Clear All";
@@ -535,6 +538,8 @@ support@cosmostation.io";
 "title_swap_osmosis" = "Coin Swap";
 "title_pool_join_osmosis" = "Deposit to Pool";
 "title_pool_exit_osmosis" = "Withdraw from Pool";
+"title_rizon_swap_status" = "Event Horizon Status";
+"title_rizon_swap" = "Event Horizon";
 
 
 "proposal_type_basic" = "Basic";
@@ -646,6 +651,7 @@ support@cosmostation.io";
 "error_no_repay_asset" = "Can not repay now.";
 "error_noting_repay_asset" = "Noting to be repaid";
 "error_remain_borrow_small" = "Remain borrow amount less than $10";
+"error_alreay_rizon_swap" = "There is already a swap request in progress.";
 
 
 
@@ -748,6 +754,12 @@ support@cosmostation.io";
 "tx_osmosis_token_unluck" = "Unlock Token";
 "tx_osmosis_token_unluck_all" = "Unlock All Tokens";
 "tx_osmosis_preriodlock_unlock" = "Claim Unlocked Token";
+
+"tx_rizon_event_horizon" = "Recieve Swap Token";
+
+"tx_med_add_record" = "Add Record";
+"tx_med_create_did" = "Create DID";
+
 "tx_known" = "Unknown";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

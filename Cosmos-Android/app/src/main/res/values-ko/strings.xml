@@ -1145,7 +1145,7 @@
     <string name="str_osmosis_swap">Swap</string>
     <string name="str_osmosis_pool_list">Pool</string>
     <string name="str_osmosis_farming">Farming</string>
-    <string name="str_event_horizon_c">Event Horizon</string>
+    <string name="str_event_horizon_c">이벤트 호라이즌</string>
     <string name="str_event_horizon_step_0">HDAC 니모닉을 입력해주세요.</string>
     <string name="str_event_horizon_step_1">입력하신 정보를 확인하세요.</string>
     <string name="str_token_swap">토큰 스왑</string>
@@ -1195,7 +1195,7 @@
     <string name="str_osmosis_exit_to_withdraw_coin">To Withdraw Coins (MG)</string>
     <string name="str_rizon_event_horizon_msg_title">이벤트 호라이즌</string>
     <string name="str_rizon_event_horizon_msg">에이치닥 체인의 자산을 라이젠 체인으로 스왑을 진행합니다.\n스왑 특성상 되돌릴 수 없으며, 두 체인간의 비동기적 작동으로 인해 실제 스왑 완료시까지 시간이 걸릴 수 있습니다.</string>
-    <string name="str_rizon_event_horizon_status">이벤트 호라이즌 상태</string>
+    <string name="str_rizon_event_horizon_status">스왑 상태 확인</string>
     <string name="str_rizon_event_horizon_status_title">전체 결과</string>
     <string name="str_rizon_event_horizon_request_time">요청 시간</string>
     <string name="str_rizon_event_horizon_request_id">요청 ID</string>
@@ -1306,6 +1306,7 @@
     <string name="error_remain_borrow_small">상환 후 남는 대출 금액이 $10 이하입니다.</string>
     <string name="error_waste_fee">Tx 수수료가 아자금액 보다 높습니다.</string>
     <string name="error_not_enough_to_pool">예금 할 수량이 충분하지 않습니다.</string>
+    <string name="error_already_rizon_swap">이미 진행중인 스왑요청이 있습니다.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>
@@ -1344,6 +1345,10 @@
     <string name="tx_known">알수없음</string>
     <string name="tx_medi_add_record">Add Record</string>
     <string name="tx_medi_create_did">Create DID</string>
+    <string name="tx_rizon_create_Token_swap">스왑 토큰 받기</string>
+    <string name="str_rizon_create_token_swap_hash">Legacy Chain Tx Hash</string>
+    <string name="str_rizon_create_token_swap_recipient">Recipient</string>
+    <string name="str_rizon_create_token_swap_amount">Amount</string>
 
     <string name="tx_kava_post_price">가격 정보 갱신</string>
     <string name="tx_kava_create_cdp">CDP\n개설</string>

@@ -51,4 +51,9 @@ public struct Coin: Codable {
     func isOsmosisAmmDpDenom() -> String {
         return "GAMM-" + String(denom.split(separator: "/").last!)
     }
+    
+    func osmosisAmmPoolId() -> Int {
+        let id =  denom.replacingOccurrences(of: "gamm/pool/", with: "")
+        return Int(id) ?? 0
+    }
 }

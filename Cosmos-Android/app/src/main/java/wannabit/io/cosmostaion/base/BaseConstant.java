@@ -171,6 +171,7 @@ public class BaseConstant {
     public final static int TASK_HDAC_NODE_INFO                         = 2900;
     public final static int TASK_HDAC_UTXO                              = 2901;
     public final static int TASK_HDAC_BROAD_BURN                        = 2902;
+    public final static int TASK_RIZON_SWAP_STATUS                      = 2903;
 
     public final static int TASK_FETCH_SIF_INCENTIVE_VS                 = 3500;
     public final static int TASK_FETCH_SIF_INCENTIVE_LM                 = 3501;
@@ -409,6 +410,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_OSMOSIS_SWAP                        = 5036;
     public final static int CONST_PW_TX_OSMOSIS_JOIN_POOL                   = 5037;
     public final static int CONST_PW_TX_OSMOSIS_EXIT_POOL                   = 5038;
+    public final static int CONST_PW_TX_RIZON_SWAP                          = 5039;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;

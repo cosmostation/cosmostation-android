@@ -1132,7 +1132,7 @@ public class WUtils {
                 if (coin.balance_denom == getMainDenom(chainType)) {
                     allBnb = allBnb.adding(amount)
                 } else {
-                    allBnb = allBnb.adding(getBnbConvertAmount(coin.balance_denom, amount))
+                    allBnb = allBnb.adding(getBnbConvertAmount(coin.balance_denom))
                 }
                 let assetValue = userCurrencyValue(getMainDenom(chainType), allBnb, 0)
                 totalValue = totalValue.adding(assetValue)
@@ -1214,7 +1214,7 @@ public class WUtils {
                 if (coin.balance_denom == getMainDenom(chainType)) {
                     allBnb = allBnb.adding(amount)
                 } else {
-                    allBnb = allBnb.adding(getBnbConvertAmount(coin.balance_denom, amount))
+                    allBnb = allBnb.adding(getBnbConvertAmount(coin.balance_denom))
                 }
                 let btcValue = btcValue(getMainDenom(chainType), allBnb, 0)
                 totalValue = totalValue.adding(btcValue)
@@ -1511,48 +1511,17 @@ public class WUtils {
     
     static func marketPrice(_ chain: ChainType) -> String {
         var result = "usdt"
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
-            result = result + ",uatom"
-            for balance in BaseData.instance.mMyBalances_gRPC {
-                if (balance.denom != COSMOS_MAIN_DENOM) {
-                }
-            }
-            
-        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
-            result = result + ",uiris"
-            for balance in BaseData.instance.mMyBalances_gRPC {
-                if (balance.denom != IRIS_MAIN_DENOM) {
-                }
-            }
-            
-        } else if (chain == ChainType.AKASH_MAIN) {
-            result = result + ",uakt"
-            for balance in BaseData.instance.mMyBalances_gRPC {
-                if (balance.denom != getMainDenom(chain)) {
-                }
-            }
-            
-        } else if (chain == ChainType.PERSIS_MAIN) {
-            result = result + ",uxprt"
-            for balance in BaseData.instance.mMyBalances_gRPC {
-                if (balance.denom != getMainDenom(chain)) {
-                }
-            }
-            
-        } else if (chain == ChainType.CRYPTO_MAIN) {
-            result = result + ",basecro"
-            for balance in BaseData.instance.mMyBalances_gRPC {
-                if (balance.denom != getMainDenom(chain)) {
-                }
-            }
-            
-        } else if (chain == ChainType.OSMOSIS_MAIN) {
-            result = result + ",uosmo,uion"
+        if (isGRPC(chain)) {
+            result = result + "," + getMainDenom(chain)
             BaseData.instance.mIbcTokens.forEach { ibcToken in
                 if (ibcToken.auth == true) {
                     result = result + "," + ibcToken.base_denom!
                 }
             }
+        }
+        
+        if (chain == ChainType.OSMOSIS_MAIN) {
+            result = result + ",uion"
         }
         
         else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -1562,19 +1531,13 @@ public class WUtils {
             result = result + ",okb,okt"
             
         } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
-            result = result + ",ukava,hard"
+            result = result + ",ukava,hard,usdx"
             
         } else if (chain == ChainType.BAND_MAIN) {
             result = result + ",uband"
             
-        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
-            result = result + ",uiov"
-            
         } else if (chain == ChainType.CERTIK_MAIN) {
             result = result + ",uctk"
-            
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            result = result + ",udvpn"
             
         } else if (chain == ChainType.FETCH_MAIN) {
             result = result + ",afet"
@@ -1716,8 +1679,9 @@ public class WUtils {
         return BaseData.instance.mBnbTokenTicker.filter { $0.symbol == getBnbTicSymbol(symbol!)}.first
     }
     
-    static func getBnbConvertAmount(_ symbol: String?, _ amount: NSDecimalNumber) -> NSDecimalNumber {
+    static func getBnbConvertAmount(_ symbol: String) -> NSDecimalNumber {
         if let ticker = getBnbTokenTic(symbol) {
+            let amount = getAllBnbToken(symbol)
             if (isBnbMarketToken(symbol)) {
                 return amount.dividing(by: ticker.getLastPrice(), withBehavior: WUtils.handler8)
             } else {
@@ -4995,6 +4959,21 @@ extension String {
         let startIndex = index(from: r.lowerBound)
         let endIndex = index(from: r.upperBound)
         return String(self[startIndex..<endIndex])
+    }
+    
+    func hexToString() -> String{
+        var finalString = ""
+        let chars = Array(self)
+        
+        for count in stride(from: 0, to: chars.count - 1, by: 2){
+            let firstDigit =  Int.init("\(chars[count])", radix: 16) ?? 0
+            let lastDigit = Int.init("\(chars[count + 1])", radix: 16) ?? 0
+            let decimal = firstDigit * 16 + lastDigit
+            let decimalString = String(format: "%c", decimal) as String
+            finalString.append(Character.init(decimalString))
+        }
+        return finalString
+        
     }
 }
 

@@ -40,11 +40,16 @@ public class HistoryNewHolder extends BaseHolder {
         historyType.setText(history.getMsgType(mainActivity, mainActivity.mAccount.address));
         history_time.setText(WDp.getTimeTxformat(mainActivity, history.data.timestamp));
         history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.data.timestamp));
-        final Coin coin = history.getDpCoin();
+        final Coin coin = history.getDpCoin(mainActivity.mBaseChain);
         if (coin != null) {
             history_amount_symbol.setVisibility(View.VISIBLE);
             history_amount.setVisibility(View.VISIBLE);
-            WDp.showCoinDp(mainActivity, history.getDpCoin().denom, history.getDpCoin().amount, history_amount_symbol, history_amount, mainActivity.mBaseChain);
+            WDp.showCoinDp(mainActivity, history.getDpCoin(mainActivity.mBaseChain).denom, history.getDpCoin(mainActivity.mBaseChain).amount, history_amount_symbol, history_amount, mainActivity.mBaseChain);
+        } else if (history.getMsgType(mainActivity, mainActivity.mAccount.address).equals(mainActivity.getString(R.string.tx_vote))) {
+            history_amount_symbol.setVisibility(View.VISIBLE);
+            history_amount_symbol.setText(history.getVoteOption());
+            history_amount_symbol.setTextColor(mainActivity.getResources().getColor(R.color.colorWhite));
+            history_amount.setVisibility(View.GONE);
         } else {
             history_amount_symbol.setVisibility(View.GONE);
             history_amount.setVisibility(View.GONE);
@@ -76,11 +81,16 @@ public class HistoryNewHolder extends BaseHolder {
         historyType.setText(history.getMsgType(mainActivity, mainActivity.mAccount.address));
         history_time.setText(WDp.getTimeTxformat(mainActivity, history.data.timestamp));
         history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.data.timestamp));
-        final Coin coin = history.getDpCoin();
+        final Coin coin = history.getDpCoin(mainActivity.mBaseChain);
         if (coin != null) {
             history_amount_symbol.setVisibility(View.VISIBLE);
             history_amount.setVisibility(View.VISIBLE);
-            WDp.showCoinDp(mainActivity, history.getDpCoin().denom, history.getDpCoin().amount, history_amount_symbol, history_amount, mainActivity.mBaseChain);
+            WDp.showCoinDp(mainActivity, history.getDpCoin(mainActivity.mBaseChain).denom, history.getDpCoin(mainActivity.mBaseChain).amount, history_amount_symbol, history_amount, mainActivity.mBaseChain);
+        } else if (history.getMsgType(mainActivity, mainActivity.mAccount.address).equals(mainActivity.getString(R.string.tx_vote))) {
+            history_amount_symbol.setVisibility(View.VISIBLE);
+            history_amount_symbol.setText(history.getVoteOption());
+            history_amount_symbol.setTextColor(mainActivity.getResources().getColor(R.color.colorWhite));
+            history_amount.setVisibility(View.GONE);
         } else {
             history_amount_symbol.setVisibility(View.GONE);
             history_amount.setVisibility(View.GONE);

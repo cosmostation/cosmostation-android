@@ -18,17 +18,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UEl-4g-UdM" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                        <rect key="frame" x="12" y="4" width="296" height="71.5"/>
+                        <rect key="frame" x="12" y="0.5" width="296" height="71"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tokenIc" translatesAutoresizingMaskIntoConstraints="NO" id="bXY-sd-W4V">
-                                <rect key="frame" x="12" y="24" width="24" height="24"/>
+                                <rect key="frame" x="12" y="23.5" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="Jx3-CW-5YW"/>
                                     <constraint firstAttribute="height" constant="24" id="bPM-kq-Ae0"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowNextGr" translatesAutoresizingMaskIntoConstraints="NO" id="TG1-pz-YZe">
-                                <rect key="frame" x="264" y="24" width="24" height="24"/>
+                                <rect key="frame" x="264" y="23.5" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="Ube-ys-uxG"/>
                                     <constraint firstAttribute="height" constant="24" id="umX-74-2W6"/>
@@ -47,7 +47,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3sf-gI-6rG">
-                                <rect key="frame" x="48" y="34.5" width="180" height="21"/>
+                                <rect key="frame" x="48" y="34.5" width="180" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="yiz-Py-HQI"/>
                                 </constraints>
@@ -107,10 +107,10 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="UEl-4g-UdM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="Jur-Zx-WOK"/>
+                    <constraint firstItem="UEl-4g-UdM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="0.5" id="Jur-Zx-WOK"/>
                     <constraint firstAttribute="trailing" secondItem="UEl-4g-UdM" secondAttribute="trailing" constant="12" id="z2d-ZO-Nnx"/>
                     <constraint firstItem="UEl-4g-UdM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="z8i-sQ-W2m"/>
-                    <constraint firstAttribute="bottom" secondItem="UEl-4g-UdM" secondAttribute="bottom" constant="4.5" id="ze5-lK-EYG"/>
+                    <constraint firstAttribute="bottom" secondItem="UEl-4g-UdM" secondAttribute="bottom" constant="8.5" id="ze5-lK-EYG"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

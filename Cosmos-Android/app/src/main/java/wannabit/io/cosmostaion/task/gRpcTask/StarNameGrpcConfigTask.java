@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.task.FetchTask;
+package wannabit.io.cosmostaion.task.gRpcTask;
 
 import java.util.concurrent.TimeUnit;
 

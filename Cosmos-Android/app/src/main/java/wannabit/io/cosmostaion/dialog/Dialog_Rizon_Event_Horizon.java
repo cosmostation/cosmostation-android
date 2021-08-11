@@ -13,7 +13,9 @@ import android.widget.Button;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class Dialog_Rizon_Event_Horizon extends DialogFragment {
 
@@ -42,8 +44,7 @@ public class Dialog_Rizon_Event_Horizon extends DialogFragment {
         btn_positive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EventHorizonActivity.class);
-                startActivity(intent);
+                ((MainActivity)getActivity()).onCheckRizonEventHorizon();
                 getDialog().dismiss();
             }
         });

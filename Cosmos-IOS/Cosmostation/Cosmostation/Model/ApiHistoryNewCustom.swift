@@ -141,8 +141,22 @@ public struct ApiHistoryNewCustom {
                 
             }
             
+            // ibc msg type
+            else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
+                result = NSLocalizedString("tx_ibc_send", comment: "")
+                
+            } else if (msgType.contains("ibc") && msgType.contains("MsgUpdateClient")) {
+                result = NSLocalizedString("tx_ibc_client_update", comment: "")
+                
+            } else if (msgType.contains("ibc") && msgType.contains("MsgAcknowledgement")) {
+                result = NSLocalizedString("tx_ibc_acknowledgement", comment: "")
+                
+            } else if (msgType.contains("ibc") && msgType.contains("MsgRecvPacket")) {
+                result = NSLocalizedString("tx_ibc_receive", comment: "")
+                
+            }
             
-            
+            // iris msg type
             else if (msgType.contains("MsgMintNFT")) {
                 result = "NFT Mint"
                 
@@ -160,20 +174,7 @@ public struct ApiHistoryNewCustom {
                 
             }
             
-            else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
-                result = NSLocalizedString("tx_ibc_send", comment: "")
-                
-            } else if (msgType.contains("ibc") && msgType.contains("MsgUpdateClient")) {
-                result = NSLocalizedString("tx_ibc_client_update", comment: "")
-                
-            } else if (msgType.contains("ibc") && msgType.contains("MsgAcknowledgement")) {
-                result = NSLocalizedString("tx_ibc_acknowledgement", comment: "")
-                
-            } else if (msgType.contains("ibc") && msgType.contains("MsgRecvPacket")) {
-                result = NSLocalizedString("tx_ibc_receive", comment: "")
-                
-            }
-            
+            // starname msg type
             else if (msgType.contains("RegisterDomain")) {
                 result = NSLocalizedString("tx_starname_registe_domain", comment: "")
                 
@@ -197,11 +198,11 @@ public struct ApiHistoryNewCustom {
                 
             }
             
+            // kava msg type
             else if (msgType.contains(KAVA_MSG_TYPE_POST_PRICE)) {
                 result = NSLocalizedString("tx_kava_post_price", comment: "")
                 
-            }
-            else if (msgType.contains(KAVA_MSG_TYPE_CREATE_CDP)) {
+            } else if (msgType.contains(KAVA_MSG_TYPE_CREATE_CDP)) {
                 result = NSLocalizedString("tx_kava_create_cdp", comment: "")
 
             } else if (msgType.contains(KAVA_MSG_TYPE_DEPOSIT_CDP)) {
@@ -251,6 +252,7 @@ public struct ApiHistoryNewCustom {
 
             }
             
+            // osmosis msg type
             else if (msgType.contains("MsgCreatePool")) {
                 result = NSLocalizedString("tx_create_pool", comment: "")
                 
@@ -288,6 +290,7 @@ public struct ApiHistoryNewCustom {
 //
 //            }
             
+            // gravity dex msg type
             else if (msgType.contains("MsgDepositWithinBatch")) {
                 result = NSLocalizedString("tx_join_pool", comment: "")
                 
@@ -296,6 +299,21 @@ public struct ApiHistoryNewCustom {
                 
             } else if (msgType.contains("MsgWithdrawWithinBatch")) {
                 result = NSLocalizedString("tx_exit_pool", comment: "")
+                
+            }
+            
+            // rizon msg type
+            else if (msgType.contains("MsgCreateTokenswapRequest")) {
+               result = NSLocalizedString("tx_rizon_event_horizon", comment: "")
+               
+            }
+            
+            // medi msg type
+            else if (msgType.contains("MsgAddRecord")) {
+                result = NSLocalizedString("tx_med_add_record", comment: "")
+                
+            } else if (msgType.contains("MsgCreateTokenswapRequest")) {
+                result = NSLocalizedString("tx_med_create_did", comment: "")
                 
             }
             

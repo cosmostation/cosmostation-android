@@ -36,10 +36,10 @@ public class ChannelBuilder {
     private final static String GRPC_PERSIS_MAIN = "lcd-persistence-app.cosmostation.io";
     private final static int PORT_PERSIS_MAIN = 9090;
 
-    private final static String GRPC_CRYPTO_MAIN = "lcd-cryptocom.cosmostation.io";
+    private final static String GRPC_CRYPTO_MAIN = "lcd-cryptocom-app.cosmostation.io";
     private final static int PORT_CRYPTO_MAIN = 9090;
 
-    private final static String GRPC_OSMOSIS_MAIN = "lcd-osmosis.cosmostation.io";
+    private final static String GRPC_OSMOSIS_MAIN = "lcd-osmosis-app.cosmostation.io";
     private final static int PORT_OSMOSIS_MAIN = 9090;
 
     private final static String GRPC_STARNAME_MAIN = "lcd-iov-app.cosmostation.io";

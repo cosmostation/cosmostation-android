@@ -72,7 +72,7 @@ public class WalletRizonHolder extends BaseHolder {
         mBtnSwap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.onCheckRizonEventHorizon();
+                mainActivity.onClickEventHorizon();
             }
         });
     }

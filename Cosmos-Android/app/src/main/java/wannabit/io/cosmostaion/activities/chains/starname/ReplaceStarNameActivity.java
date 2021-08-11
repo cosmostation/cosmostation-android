@@ -28,8 +28,8 @@ import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName3Fragment;
-import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcDomainInfoTask;
-import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcResolveTask;
+import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcDomainInfoTask;
+import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcResolveTask;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
