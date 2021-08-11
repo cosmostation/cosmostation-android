@@ -1,10 +1,12 @@
 package wannabit.io.cosmostaion.base;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import starnamed.x.starname.v1beta1.Types;
+import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -38,10 +40,12 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mOsmosisPoolCoin0;
     public Coin                         mOsmosisPoolCoin1;
     public Coin                         mOsmosisLpToken;
-//    public String                       mOsmosisSwapInputDenom;
-//    public String                       mOsmosisSwapOutputDenom;
     public Coin                         mOsmosisSwapInCoin;
     public Coin                         mOsmosisSwapOutCoin;
+
+    public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap;
+    public BigDecimal                   mHdacBalance;                               //rizon swap amount
+    public ArrayList<String>            mHdacWords;                                 //rizon swap Hdac Mnemonic words
 
     public ArrayList<Validator> mValidators = new ArrayList<>();    //ClaimReward old
 

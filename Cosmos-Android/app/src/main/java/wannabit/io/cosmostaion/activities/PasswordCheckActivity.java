@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HdacBurnTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbSendTask;
@@ -118,6 +119,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RIZON_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
@@ -201,6 +203,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Tx.SwapAmountInRoute        mSwapAmountInRoute;
     private Coin                        mOsmoSwapInCoin;
     private Coin                        mOsmoSwapOutCoin;
+
+    private String                      mHdacBurnRawTx;                 //for hdac burn & swap
 
     private long                        mIdToDelete;
     private long                        mIdToCheck;
@@ -289,6 +293,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         try {
             mSwapAmountInRoute = Tx.SwapAmountInRoute.parseFrom(getIntent().getByteArrayExtra("osmosisSwapRoute"));
         } catch (Exception e) { WLog.w("Passing bundle Error"); }
+
+        mHdacBurnRawTx = getIntent().getStringExtra("hdacBurnRawTx");
 
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
@@ -585,6 +591,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
             new OsmosisExitPooGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mOsmoPoolCoin0, mOsmoPoolCoin1, mLpToken.amount,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        }
+
+        else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {
+            new HdacBurnTask(getBaseApplication(), this, mBaseChain, mHdacBurnRawTx).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
     }

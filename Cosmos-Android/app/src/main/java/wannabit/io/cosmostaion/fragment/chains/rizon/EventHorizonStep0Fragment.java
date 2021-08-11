@@ -6,7 +6,9 @@ import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,42 +28,31 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.bitcoinj.crypto.DeterministicKey;
+
 import org.bitcoinj.crypto.MnemonicCode;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.activities.PasswordSetActivity;
-import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
-import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
-import wannabit.io.cosmostaion.dialog.Dialog_FetchRestorePath;
 import wannabit.io.cosmostaion.dialog.Dialog_Hdac_info;
-import wannabit.io.cosmostaion.dialog.Dialog_KavaRestorePath;
-import wannabit.io.cosmostaion.dialog.Dialog_OkexRestoreType;
-import wannabit.io.cosmostaion.dialog.Dialog_SecretRestorePath;
+import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
+import wannabit.io.cosmostaion.task.FetchTask.HdacUtxoTask;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.hdac.HdacUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_UTXO;
 
-public class EventHorizonStep0Fragment extends BaseFragment implements View.OnClickListener{
+public class EventHorizonStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
-    public final static int             HDAC_INFO = 9500;
+    public final static int             HDAC_INFO_DIALOG = 9500;
 
     private Button                      mPaste, mBtnConfirm;
     private Button[]                    mAlphabetBtns = new Button[26];
@@ -75,6 +66,9 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     private ArrayList<String>           mAllMnemonic;
     private static MnemonicAdapter      mMnemonicAdapter;
     private ArrayList<String>           mWords = new ArrayList<>();
+
+    private ArrayList<HdacUtxo>         mUtxo;
+    private BigDecimal                  mBalance;
 
     public static EventHorizonStep0Fragment newInstance(Bundle bundle) {
         EventHorizonStep0Fragment fragment = new EventHorizonStep0Fragment();
@@ -187,6 +181,8 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
             }
 
         } else if (v.equals(mBtnConfirm)) {
+            mUtxo = null;
+            mBalance = null;
             mWords.clear();
             for(int i = 0; i < mEtMnemonics.length; i++) {
                 if(!TextUtils.isEmpty(mEtMnemonics[i].getText().toString().trim())) {
@@ -197,12 +193,7 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
             }
 
             if (isValidWords()) {
-                Bundle bundle = new Bundle();
-                bundle.putString("mHdacAddress", onHdacAddress(getSActivity().mBaseChain));
-                Dialog_Hdac_info hdacInfo = Dialog_Hdac_info.newInstance(bundle);
-                hdacInfo.setCancelable(true);
-                hdacInfo.setTargetFragment(this, HDAC_INFO);
-                getFragmentManager().beginTransaction().add(hdacInfo, "dialog").commitNowAllowingStateLoss();
+                onHdacInfo();
             } else {
                 Toast.makeText(getSActivity(), R.string.error_invalid_mnemonic_count, Toast.LENGTH_SHORT).show();
             }
@@ -264,28 +255,55 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
     }
 
     private String onHdacAddress(BaseChain baseChain) {
-        boolean mainnet = true;
-        String address = null;
-        if (getSActivity().mBaseChain.equals(RIZON_TEST)) {
-            mainnet = false;
-        }
         HdacUtil hdacUtil = new HdacUtil(mWords);
-        address = hdacUtil.getAddress(mainnet);
-        return address;
+        String mAddress = hdacUtil.getAddress(baseChain);
+        return mAddress;
+    }
+
+    private int mTaskCount;
+    public void onHdacInfo() {
+        getSActivity().onShowWaitDialog();
+        mTaskCount = 1;
+        new HdacUtxoTask(getBaseApplication(), this, getSActivity().mBaseChain, onHdacAddress(getSActivity().mBaseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        mTaskCount--;
+        if (result.taskType == TASK_HDAC_UTXO) {
+            if (result.isSuccess && result.resultData != null) {
+                mUtxo = (ArrayList<HdacUtxo>) result.resultData;
+
+                HdacUtil hdacUtil = new HdacUtil(mWords);
+                mBalance = hdacUtil.getBalance(getSActivity().mBaseChain, mUtxo);
+                Bundle bundle = new Bundle();
+                bundle.putString("hdacAddress", onHdacAddress(getSActivity().mBaseChain));
+                bundle.putString("hdacBalance", mBalance.toPlainString());
+                Dialog_Hdac_info hdacInfo = Dialog_Hdac_info.newInstance(bundle);
+                hdacInfo.setCancelable(true);
+                hdacInfo.setTargetFragment(this, HDAC_INFO_DIALOG);
+                getFragmentManager().beginTransaction().add(hdacInfo, "dialog").commitNowAllowingStateLoss();
+            }
+        }
+        if (mTaskCount == 0) {
+            getSActivity().onHideWaitDialog();
+        }
     }
 
     private EventHorizonActivity getSActivity() { return (EventHorizonActivity)getBaseActivity(); }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == HDAC_INFO && resultCode == Activity.RESULT_OK) {
-            if(data.getIntExtra("hdac" , -1) == 0 ){
-                onClearAll();
+        if (requestCode == HDAC_INFO_DIALOG && resultCode == Activity.RESULT_OK) {
+            if (data.getIntExtra("hdac" , -1) == 0 ) {
+                mUtxo = null;
 
-            } else if(data.getIntExtra("hdac" , -1) == 1){
+            } else if(data.getIntExtra("hdac" , -1) == 1) {
+                getSActivity().mHdacWords = mWords;
+                getSActivity().mHdacUtxo = mUtxo;
+                getSActivity().mHdacBalance = mBalance;
                 getSActivity().onNextStep();
             }
-
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

@@ -136,7 +136,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         mButtonGroup.setSelectedBackground(WDp.getChainColor(getContext(), getSActivity().mBaseChain));
         mButtonGroup.setRipple(WDp.getChainColor(getContext(), getSActivity().mBaseChain));
         mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, getSActivity().mTxType, (getSActivity().mValAddresses.size()));
-        WLog.w("SSS : " + getSActivity().mTxType);
+
         onUpdateView();
 
         mButtonGroup.setOnPositionChangedListener(new SegmentedButtonGroup.OnPositionChangedListener() {

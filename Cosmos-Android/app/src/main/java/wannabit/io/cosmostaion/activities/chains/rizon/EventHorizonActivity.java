@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.rizon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,11 +16,16 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.chains.rizon.EventHorizonStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.rizon.EventHorizonStep1Fragment;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RIZON_SWAP;
 
 
 public class EventHorizonActivity extends BaseBroadCastActivity implements View.OnClickListener{
@@ -70,6 +76,7 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_2));
                     mTvStep.setText(getString(R.string.str_event_horizon_step_1));
                     mClearAll.setVisibility(View.GONE);
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
 
@@ -101,15 +108,15 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
     }
 
     public void onNextStep() {
-        onHideKeyboard();
-        if(mViewPager.getCurrentItem() < 2) {
+        if(mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+            onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
     }
 
     public void onBeforeStep() {
-        onHideKeyboard();
         if(mViewPager.getCurrentItem() > 0) {
+            onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
         } else {
             onBackPressed();
@@ -122,6 +129,14 @@ public class EventHorizonActivity extends BaseBroadCastActivity implements View.
             EventHorizonStep0Fragment.onClearAll();
             return;
         }
+    }
+
+    public void onStartSwap(String hdacTxString) {
+        Intent intent = new Intent(EventHorizonActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_RIZON_SWAP);
+        intent.putExtra("hdacBurnRawTx", hdacTxString);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     private class HorizonPageAdapter extends FragmentPagerAdapter {

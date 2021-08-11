@@ -535,6 +535,21 @@ public class ApiClient {
         return api_rizon_test;
     }
 
+    //Services for Rizon swap_status test api
+    private static HdacChain api_rizon_swap_test_status = null;
+    public static HdacChain getRizonSwapTestStatus(Context c) {
+        if (api_rizon_swap_test_status == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_rizon_swap_status_testnet))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_rizon_swap_test_status = retrofit.create(HdacChain.class);
+            }
+        }
+        return api_rizon_swap_test_status;
+    }
+
     //Services for Medi test chain
     private static MediChain service_medi_test = null;
     public static MediChain getMediTestChain(Context c) {
@@ -617,18 +632,33 @@ public class ApiClient {
 
 
 
-    //Services for Hdac chain
-    private static HdacChain service_hdac = null;
-    public static HdacChain getHdac(Context c) {
-        if (service_hdac == null) {
+    //Services for hdac testnet chain
+    private static HdacChain service_hdac_mainnet = null;
+    public static HdacChain getMainHdac(Context c) {
+        if (service_hdac_mainnet == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_hdac))
+                        .baseUrl(c.getString(R.string.url_hdac_mainnet))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_hdac = retrofit.create(HdacChain.class);
+                service_hdac_mainnet = retrofit.create(HdacChain.class);
             }
         }
-        return service_hdac;
+        return service_hdac_mainnet;
+    }
+
+    //Services for hdac testnet chain
+    private static HdacChain service_hdac_testnet = null;
+    public static HdacChain getTestHdac(Context c) {
+        if (service_hdac_testnet == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_hdac_testnet))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_hdac_testnet = retrofit.create(HdacChain.class);
+            }
+        }
+        return service_hdac_testnet;
     }
 }
