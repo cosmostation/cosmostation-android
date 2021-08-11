@@ -195,9 +195,14 @@ public class WDp {
             }
 
         } else if (chain.equals(COSMOS_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
-            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
-
+            if (coin.denom.equals(TOKEN_ATOM)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
         } else if (chain.equals(IRIS_MAIN)) {
             if (coin.denom.equals(TOKEN_IRIS)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
@@ -316,7 +321,7 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
-        }else if (chain.equals(COSMOS_TEST)) {
+        } else if (chain.equals(COSMOS_TEST)) {
             if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
@@ -363,8 +368,14 @@ public class WDp {
             }
 
         } else if (chain.equals(COSMOS_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+            if (symbol.equals(TOKEN_ATOM)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+                denomTv.setText(symbol.toUpperCase());
+            }
 
         } else if (chain.equals(IRIS_MAIN)) {
             if (symbol.equals(TOKEN_IRIS)) {

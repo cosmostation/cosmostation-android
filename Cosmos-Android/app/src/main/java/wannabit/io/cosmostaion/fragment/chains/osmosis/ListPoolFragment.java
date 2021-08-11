@@ -1,38 +1,24 @@
 package wannabit.io.cosmostaion.fragment.chains.osmosis;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.osmosis.ExitPoolActivity;
-import wannabit.io.cosmostaion.activities.chains.osmosis.JoinPoolActivity;
 import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.PoolMyHolder;
 import wannabit.io.cosmostaion.widget.PoolOtherHolder;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
 
 public class ListPoolFragment extends BaseFragment {
