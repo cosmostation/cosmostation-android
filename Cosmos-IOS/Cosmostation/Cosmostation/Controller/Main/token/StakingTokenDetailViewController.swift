@@ -41,6 +41,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailOsmoCell", bundle: nil), forCellReuseIdentifier: "TokenDetailOsmoCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailBandCell", bundle: nil), forCellReuseIdentifier: "TokenDetailBandCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailIovCell", bundle: nil), forCellReuseIdentifier: "TokenDetailIovCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailMediCell", bundle: nil), forCellReuseIdentifier: "TokenDetailMediCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
         self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
@@ -134,7 +135,17 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 cell?.onBindToken()
                 return cell!
                 
-            } else if (chainType == ChainType.RIZON_TEST) {
+            } else if (chainType == ChainType.SIF_MAIN) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailSifCell") as? TokenDetailCell
+                cell?.onBindToken()
+                return cell!
+                
+            } else if (chainType == ChainType.MEDI_MAIN) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailMediCell") as? TokenDetailCell
+                cell?.onBindToken()
+                return cell!
+                
+            }  else if (chainType == ChainType.RIZON_TEST) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailRizonCell") as? TokenDetailCell
                 cell?.onBindToken()
                 return cell!
@@ -145,12 +156,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 return cell!
             }
             
-            else if (chainType == ChainType.SIF_MAIN) {
-                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailSifCell") as? TokenDetailCell
-                cell?.onBindToken()
-                return cell!
-                
-            } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+            else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailExCell") as? TokenDetailExCell
                 cell?.onBindTokens(account!)
                 return cell!

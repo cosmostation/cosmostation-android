@@ -110,7 +110,7 @@ let RIZON_SWAP_STATUS_TESTNET           = "https://swap-api.testnet.rizon.world/
 let RIZON_TEST_API                      = "https://api-rizon-testnet.cosmostation.io/";
 
 
-let MEDI_URL                            = "https://api.gopanacea.org/";
+let MEDI_API                            = "https://api-medibloc.cosmostation.io/";
 
 let MEDI_TEST_URL                       = "https://lcd-medibloc-opentestnet.cosmostation.io/";
 let MEDI_TEST_API                       = "https://api-medibloc-opentestnet.cosmostation.io/";
@@ -451,6 +451,10 @@ let GAS_FEE_RATE_TINY_SIF                   = "0.50";
 let GAS_FEE_RATE_LOW_SIF                    = "0.50";
 let GAS_FEE_RATE_AVERAGE_SIF                = "0.50";
 
+let GAS_FEE_RATE_TINY_MEDI                  = "5";
+let GAS_FEE_RATE_LOW_MEDI                   = "5";
+let GAS_FEE_RATE_AVERAGE_MEDI               = "5";
+
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
 let GAS_FEE_AMOUNT_HIGH                     = "300000"
@@ -550,7 +554,6 @@ let KI_GAS_AMOUNT_REINVEST                      = "350000";
 let KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE         = "100000";
 let KI_GAS_AMOUNT_VOTE                          = "100000";
 
-let MEDI_GAS_FEE_RATE_AVERAGE                   = "5";
 let MEDI_GAS_AMOUNT_SEND                        = "100000";
 let MEDI_GAS_AMOUNT_STAKE                       = "200000";
 let MEDI_GAS_AMOUNT_REDELEGATE                  = "300000";
@@ -968,7 +971,7 @@ let EXPLORER_CRYPTO_MAIN    = "https://www.mintscan.io/crypto-org/";
 let EXPLORER_SIF_MAIN       = "https://www.mintscan.io/sifchain/";
 let EXPLORER_KI_MAIN        = "https://www.mintscan.io/ki-chain/";
 let EXPLORER_OSMOSIS_MAIN   = "https://www.mintscan.io/osmosis/";
-let EXPLORER_MEDI_MAIN      = "https://explorer.medibloc.org/en/";
+let EXPLORER_MEDI_MAIN      = "https://www.mintscan.io/medibloc/";
 let EXPLORER_HDAC_MAIN      = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";

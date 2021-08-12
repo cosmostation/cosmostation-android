@@ -881,14 +881,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletMediCell") as? WalletMediCell
             cell?.updateView(account, chainType)
-            cell?.actionDelegate = {
-                self.onShowToast(NSLocalizedString("prepare", comment: ""))
-//                self.onClickValidatorList()
-            }
-            cell?.actionVote = {
-                self.onShowToast(NSLocalizedString("prepare", comment: ""))
-//                self.onClickVoteList()
-            }
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
             return cell!
 
         } else if (indexPath.row == 1) {
