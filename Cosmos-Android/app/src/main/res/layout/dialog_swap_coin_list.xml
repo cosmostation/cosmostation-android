@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_32">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_bg"
@@ -14,7 +14,8 @@
         android:layout_marginBottom="@dimen/space_4">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/dialog_swap_chain_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16"
             style="@style/font_ss_17_gray8"
@@ -23,11 +24,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
+            android:layout_below="@+id/dialog_swap_chain_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_300"
             android:layout_marginTop="@dimen/space_16"
             android:overScrollMode="never"
             android:clipToPadding="false"
             android:layout_marginBottom="@dimen/space_4"/>
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
