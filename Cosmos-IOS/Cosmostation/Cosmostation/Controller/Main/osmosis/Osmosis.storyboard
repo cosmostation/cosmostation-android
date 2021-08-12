@@ -452,7 +452,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DwS-M1-jX2">
-                                <rect key="frame" x="0.0" y="60" width="414" height="745"/>
+                                <rect key="frame" x="0.0" y="54" width="414" height="751"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_1" translatesAutoresizingMaskIntoConstraints="NO" id="GVm-z4-LK0" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
@@ -470,7 +470,7 @@
                             <constraint firstItem="GVm-z4-LK0" firstAttribute="centerX" secondItem="zfS-Ui-OfR" secondAttribute="centerX" id="9J5-rr-5wj"/>
                             <constraint firstItem="DwS-M1-jX2" firstAttribute="leading" secondItem="zfS-Ui-OfR" secondAttribute="leading" id="Bxk-DM-Xdm"/>
                             <constraint firstItem="zfS-Ui-OfR" firstAttribute="bottom" secondItem="DwS-M1-jX2" secondAttribute="bottom" id="J7r-q9-RgT"/>
-                            <constraint firstItem="zfS-Ui-OfR" firstAttribute="top" secondItem="DwS-M1-jX2" secondAttribute="top" constant="-16" id="KxV-eT-Ezd"/>
+                            <constraint firstItem="zfS-Ui-OfR" firstAttribute="top" secondItem="DwS-M1-jX2" secondAttribute="top" constant="-10" id="KxV-eT-Ezd"/>
                             <constraint firstItem="zfS-Ui-OfR" firstAttribute="trailing" secondItem="DwS-M1-jX2" secondAttribute="trailing" id="WrM-3A-x5T"/>
                         </constraints>
                     </view>
@@ -490,13 +490,38 @@
                     <view key="view" contentMode="scaleToFill" id="Zfd-Dt-Txe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5nV-Ed-vfD">
+                                <rect key="frame" x="0.0" y="54" width="414" height="751"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_1" translatesAutoresizingMaskIntoConstraints="NO" id="3Kp-0s-L0j" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
+                                <rect key="frame" x="177" y="394.5" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="XI5-zk-Uue"/>
+                                    <constraint firstAttribute="width" constant="60" id="nkQ-Qh-nep"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="NPz-U0-IpG"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="NPz-U0-IpG" firstAttribute="trailing" secondItem="5nV-Ed-vfD" secondAttribute="trailing" id="3KC-we-k8W"/>
+                            <constraint firstItem="NPz-U0-IpG" firstAttribute="bottom" secondItem="5nV-Ed-vfD" secondAttribute="bottom" id="DqE-MX-tJL"/>
+                            <constraint firstItem="5nV-Ed-vfD" firstAttribute="leading" secondItem="NPz-U0-IpG" secondAttribute="leading" id="Esd-xj-cKc"/>
+                            <constraint firstItem="3Kp-0s-L0j" firstAttribute="centerX" secondItem="NPz-U0-IpG" secondAttribute="centerX" id="dhk-3e-tu9"/>
+                            <constraint firstItem="3Kp-0s-L0j" firstAttribute="centerY" secondItem="NPz-U0-IpG" secondAttribute="centerY" id="gNv-1X-UeL"/>
+                            <constraint firstItem="5nV-Ed-vfD" firstAttribute="top" secondItem="NPz-U0-IpG" secondAttribute="top" constant="10" id="vkt-aU-Cvn"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="farmListTableView" destination="5nV-Ed-vfD" id="CC2-eO-cga"/>
+                        <outlet property="loadingImg" destination="3Kp-0s-L0j" id="uYS-Rs-wqx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yti-bU-f7M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1107" y="954"/>
+            <point key="canvasLocation" x="1105.7971014492755" y="953.90625"/>
         </scene>
     </scenes>
     <resources>

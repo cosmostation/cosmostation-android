@@ -1044,7 +1044,7 @@ class BaseNetWork {
             return ClientConnection.insecure(group: group).connect(host: "lcd-sifchain-app.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.MEDI_MAIN) {
-            return ClientConnection.insecure(group: group).connect(host: "52.78.196.16", port: 9090)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-medibloc-app.cosmostation.io", port: 9090)
             
         }
         

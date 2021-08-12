@@ -451,6 +451,10 @@ let GAS_FEE_RATE_TINY_SIF                   = "0.50";
 let GAS_FEE_RATE_LOW_SIF                    = "0.50";
 let GAS_FEE_RATE_AVERAGE_SIF                = "0.50";
 
+let GAS_FEE_RATE_TINY_MEDI                  = "5";
+let GAS_FEE_RATE_LOW_MEDI                   = "5";
+let GAS_FEE_RATE_AVERAGE_MEDI               = "5";
+
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
 let GAS_FEE_AMOUNT_HIGH                     = "300000"
@@ -550,7 +554,6 @@ let KI_GAS_AMOUNT_REINVEST                      = "350000";
 let KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE         = "100000";
 let KI_GAS_AMOUNT_VOTE                          = "100000";
 
-let MEDI_GAS_FEE_RATE_AVERAGE                   = "5";
 let MEDI_GAS_AMOUNT_SEND                        = "100000";
 let MEDI_GAS_AMOUNT_STAKE                       = "200000";
 let MEDI_GAS_AMOUNT_REDELEGATE                  = "300000";
