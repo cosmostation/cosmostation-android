@@ -759,7 +759,7 @@ public class BaseConstant {
     public final static String EXPLORER_SIF_MAIN        = "https://www.mintscan.io/sifchain/";
     public final static String EXPLORER_KI_MAIN         = "https://www.mintscan.io/ki-chain/";
     public final static String EXPLORER_OSMOSIS_MAIN    = "https://www.mintscan.io/osmosis/";
-    public final static String EXPLORER_MEDI_MAIN       = "https://explorer.medibloc.org/en/";
+    public final static String EXPLORER_MEDI_MAIN       = "https://www.mintscan.io/medibloc";
 
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";

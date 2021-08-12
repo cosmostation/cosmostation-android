@@ -340,7 +340,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         }
 
         else if (v.equals(mJoinPoolInput11_4)) {
-            mIsInput0Focused = false;
+            mJoinPoolInput1.requestFocus();
             BigDecimal cal = mAvailable1MaxAmount.multiply(new BigDecimal(0.25)).setScale(0, RoundingMode.DOWN);
             mJoinPoolInput1.setText(cal.movePointLeft(mCoin1Decimal).toPlainString());
 
