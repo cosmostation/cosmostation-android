@@ -554,7 +554,7 @@ public class BaseConstant {
 
     public final static String KAVA_GAS_RATE_LOW                        = "0.0025";
     public final static String KAVA_GAS_RATE_AVERAGE                    = "0.025";
-    public final static String KAVA_GAS_AMOUNT_SEND                     = "300000";
+    public final static String KAVA_GAS_AMOUNT_SEND                     = "400000";
     public final static String KAVA_GAS_AMOUNT_STAKE                    = "800000";
     public final static String KAVA_GAS_AMOUNT_REINVEST                 = "800000";
     public final static String KAVA_GAS_AMOUNT_REDELEGATE               = "800000";
