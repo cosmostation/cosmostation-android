@@ -2690,6 +2690,11 @@ public class WUtil {
 //            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
 //            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
+            BigDecimal gasRate = new BigDecimal(MEDI_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         } else if (basechain.equals(RIZON_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
@@ -2734,11 +2739,6 @@ public class WUtil {
 
         } else if (basechain.equals(KI_MAIN)) {
             BigDecimal gasRate = new BigDecimal(KI_GAS_FEE_RATE_AVERAGE);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
-
-        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
-            BigDecimal gasRate = new BigDecimal(MEDI_GAS_FEE_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -2819,6 +2819,13 @@ public class WUtil {
 //            }
 //            return new BigDecimal(BAND_GAS_RATE_AVERAGE);
 
+        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
+            if (position == 0) {
+                return new BigDecimal(MEDI_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(MEDI_GAS_RATE_LOW);
+            }
+            return new BigDecimal(MEDI_GAS_RATE_AVERAGE);
         }
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
@@ -2863,9 +2870,6 @@ public class WUtil {
 
         } else if (basechain.equals(KI_MAIN)) {
             return new BigDecimal(KI_GAS_FEE_RATE_AVERAGE);
-
-        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
-            return new BigDecimal(MEDI_GAS_FEE_RATE_AVERAGE);
 
         }
         return BigDecimal.ZERO.setScale(3);
@@ -3261,7 +3265,7 @@ public class WUtil {
             return EXPLORER_KI_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(MEDI_MAIN)) {
-            return EXPLORER_MEDI_MAIN + "tx/" + hash;
+            return EXPLORER_MEDI_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(MEDI_TEST)) {
             return EXPLORER_MEDI_TEST + "txs/" + hash;

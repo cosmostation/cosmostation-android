@@ -48,7 +48,7 @@ public class ChannelBuilder {
     private final static String GRPC_SIF_MAIN = "lcd-sifchain-app.cosmostation.io";
     private final static int PORT_SIF_MAIN = 9090;
 
-    private final static String GRPC_MEDI_MAIN = "52.78.196.16";
+    private final static String GRPC_MEDI_MAIN = "lcd-medibloc-app.cosmostation.io";
     private final static int PORT_MEDI_MAIN = 9090;
 
 //    private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
