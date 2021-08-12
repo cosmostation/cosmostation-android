@@ -80,6 +80,8 @@
 		2808FEE226BBFC4700DE5E9A /* TxMediAddRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2808FEE026BBFC4700DE5E9A /* TxMediAddRecordCell.xib */; };
 		2808FEE526BBFC6400DE5E9A /* TxMediCreateDidCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2808FEE326BBFC6400DE5E9A /* TxMediCreateDidCell.swift */; };
 		2808FEE626BBFC6400DE5E9A /* TxMediCreateDidCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2808FEE426BBFC6400DE5E9A /* TxMediCreateDidCell.xib */; };
+		2809748026C26A4F00544D96 /* TokenDetailMediCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2809747E26C26A4F00544D96 /* TokenDetailMediCell.swift */; };
+		2809748126C26A4F00544D96 /* TokenDetailMediCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2809747F26C26A4F00544D96 /* TokenDetailMediCell.xib */; };
 		280E1EF8254A7AC80007BA7D /* DeleteStarname0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E1EF6254A7AC80007BA7D /* DeleteStarname0ViewController.swift */; };
 		280E1EF9254A7AC80007BA7D /* DeleteStarname0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E1EF7254A7AC80007BA7D /* DeleteStarname0ViewController.xib */; };
 		280E1EFD254A7AD60007BA7D /* DeleteStarname3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E1EFB254A7AD60007BA7D /* DeleteStarname3ViewController.swift */; };
@@ -150,6 +152,12 @@
 		282BDFE724A5BCCB00D3A5D4 /* WcCancelPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282BDFE524A5BCCB00D3A5D4 /* WcCancelPopup.xib */; };
 		282BDFEA24A5BCE000D3A5D4 /* WcTransferPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282BDFE824A5BCE000D3A5D4 /* WcTransferPopup.swift */; };
 		282BDFEB24A5BCE000D3A5D4 /* WcTransferPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282BDFE924A5BCE000D3A5D4 /* WcTransferPopup.xib */; };
+		282FC71726C3FD62001BE250 /* FarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FC71526C3FD62001BE250 /* FarmCell.swift */; };
+		282FC71826C3FD62001BE250 /* FarmCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FC71626C3FD62001BE250 /* FarmCell.xib */; };
+		282FC71B26C3FD72001BE250 /* MyFarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FC71926C3FD72001BE250 /* MyFarmCell.swift */; };
+		282FC71C26C3FD72001BE250 /* MyFarmCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FC71A26C3FD72001BE250 /* MyFarmCell.xib */; };
+		282FC71F26C3FDAF001BE250 /* FarmDashCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FC71D26C3FDAF001BE250 /* FarmDashCell.swift */; };
+		282FC72026C3FDAF001BE250 /* FarmDashCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FC71E26C3FDAF001BE250 /* FarmDashCell.xib */; };
 		282FF34123F4FFD20028CC66 /* TxCommissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FF33F23F4FFD20028CC66 /* TxCommissionCell.swift */; };
 		282FF34223F4FFD20028CC66 /* TxCommissionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282FF34023F4FFD20028CC66 /* TxCommissionCell.xib */; };
 		282FF34523F5062A0028CC66 /* TxDelegateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282FF34323F5062A0028CC66 /* TxDelegateCell.swift */; };
@@ -1115,6 +1123,8 @@
 		2808FEE026BBFC4700DE5E9A /* TxMediAddRecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxMediAddRecordCell.xib; sourceTree = "<group>"; };
 		2808FEE326BBFC6400DE5E9A /* TxMediCreateDidCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxMediCreateDidCell.swift; sourceTree = "<group>"; };
 		2808FEE426BBFC6400DE5E9A /* TxMediCreateDidCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxMediCreateDidCell.xib; sourceTree = "<group>"; };
+		2809747E26C26A4F00544D96 /* TokenDetailMediCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailMediCell.swift; sourceTree = "<group>"; };
+		2809747F26C26A4F00544D96 /* TokenDetailMediCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailMediCell.xib; sourceTree = "<group>"; };
 		280E1EF6254A7AC80007BA7D /* DeleteStarname0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStarname0ViewController.swift; sourceTree = "<group>"; };
 		280E1EF7254A7AC80007BA7D /* DeleteStarname0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeleteStarname0ViewController.xib; sourceTree = "<group>"; };
 		280E1EFB254A7AD60007BA7D /* DeleteStarname3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStarname3ViewController.swift; sourceTree = "<group>"; };
@@ -1185,6 +1195,12 @@
 		282BDFE524A5BCCB00D3A5D4 /* WcCancelPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WcCancelPopup.xib; sourceTree = "<group>"; };
 		282BDFE824A5BCE000D3A5D4 /* WcTransferPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WcTransferPopup.swift; sourceTree = "<group>"; };
 		282BDFE924A5BCE000D3A5D4 /* WcTransferPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WcTransferPopup.xib; sourceTree = "<group>"; };
+		282FC71526C3FD62001BE250 /* FarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmCell.swift; sourceTree = "<group>"; };
+		282FC71626C3FD62001BE250 /* FarmCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FarmCell.xib; sourceTree = "<group>"; };
+		282FC71926C3FD72001BE250 /* MyFarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFarmCell.swift; sourceTree = "<group>"; };
+		282FC71A26C3FD72001BE250 /* MyFarmCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyFarmCell.xib; sourceTree = "<group>"; };
+		282FC71D26C3FDAF001BE250 /* FarmDashCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmDashCell.swift; sourceTree = "<group>"; };
+		282FC71E26C3FDAF001BE250 /* FarmDashCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FarmDashCell.xib; sourceTree = "<group>"; };
 		282FF33F23F4FFD20028CC66 /* TxCommissionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCommissionCell.swift; sourceTree = "<group>"; };
 		282FF34023F4FFD20028CC66 /* TxCommissionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxCommissionCell.xib; sourceTree = "<group>"; };
 		282FF34323F5062A0028CC66 /* TxDelegateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxDelegateCell.swift; sourceTree = "<group>"; };
@@ -2613,6 +2629,8 @@
 				28E3E37C2670BA8D00BA89C2 /* TokenDetailAltheaCell.xib */,
 				283F3AF0265F574E00DF1D93 /* TokenDetailRizonCell.swift */,
 				283F3AF1265F574E00DF1D93 /* TokenDetailRizonCell.xib */,
+				2809747E26C26A4F00544D96 /* TokenDetailMediCell.swift */,
+				2809747F26C26A4F00544D96 /* TokenDetailMediCell.xib */,
 				28A209DD248897F400C2C078 /* TokenDetailVestingDetailCell.swift */,
 				28A209DE248897F400C2C078 /* TokenDetailVestingDetailCell.xib */,
 				28429198264A586B00130651 /* TokenDetailNativeCell.swift */,
@@ -3042,6 +3060,12 @@
 				28D809BC26A177A30030B1BE /* PoolCell.xib */,
 				28D809BF26A19DBA0030B1BE /* MyPoolCell.swift */,
 				28D809C026A19DBA0030B1BE /* MyPoolCell.xib */,
+				282FC71526C3FD62001BE250 /* FarmCell.swift */,
+				282FC71626C3FD62001BE250 /* FarmCell.xib */,
+				282FC71926C3FD72001BE250 /* MyFarmCell.swift */,
+				282FC71A26C3FD72001BE250 /* MyFarmCell.xib */,
+				282FC71D26C3FDAF001BE250 /* FarmDashCell.swift */,
+				282FC71E26C3FDAF001BE250 /* FarmDashCell.xib */,
 			);
 			path = osmosis;
 			sourceTree = "<group>";
@@ -3667,6 +3691,8 @@
 				285A33DF2447633D0052BD3D /* SelectAccountCell.xib in Resources */,
 				E103DAC02281296E006C2146 /* QRScanViewController.xib in Resources */,
 				04D138542691E23200D6AF9F /* TxCreatePoolCell.xib in Resources */,
+				282FC71C26C3FD72001BE250 /* MyFarmCell.xib in Resources */,
+				2809748126C26A4F00544D96 /* TokenDetailMediCell.xib in Resources */,
 				E126CFB42387A7BD002A546F /* TokenDetailKavaCell.xib in Resources */,
 				282FF34A23F50C540028CC66 /* TxUndelegateCell.xib in Resources */,
 				E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */,
@@ -3685,6 +3711,7 @@
 				E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				286EB38726035FB00021C79D /* TxCdpLiquidateCell.xib in Resources */,
 				287D746626A52B9C00532E01 /* JoinPool3ViewController.xib in Resources */,
+				282FC72026C3FDAF001BE250 /* FarmDashCell.xib in Resources */,
 				28B4303624F7766200BD7BB2 /* TxOkDirectVoteCell.xib in Resources */,
 				280E1F26254AC6460007BA7D /* ReplaceEditAddressViewController.xib in Resources */,
 				283F3AEF265F467500DF1D93 /* WalletRizonCell.xib in Resources */,
@@ -3699,6 +3726,7 @@
 				28474ECF241E06AF00AF5A81 /* TxCdpRepayCell.xib in Resources */,
 				283E946E254902E5007A9291 /* TxDeleteDomainCell.xib in Resources */,
 				28641F2D2601959E000AAEB8 /* TxDetailgRPCViewController.xib in Resources */,
+				282FC71826C3FD62001BE250 /* FarmCell.xib in Resources */,
 				E126CF7D2387A3E1002A546F /* WalletCosmosCell.xib in Resources */,
 				28DB570225FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.xib in Resources */,
 				28C3F506269DC52600F4A58C /* TxGravityDepositBatchCell.xib in Resources */,
@@ -3956,6 +3984,7 @@
 				287AC62E25FDF7260070837E /* htlc_htlc.pb.swift in Sources */,
 				289EF83426824E4700F90AC1 /* osmosis_claim_v1beta1_genesis.pb.swift in Sources */,
 				287AC60225FDF7260070837E /* service_query.pb.swift in Sources */,
+				282FC71B26C3FD72001BE250 /* MyFarmCell.swift in Sources */,
 				28B785A126B3A7F1009F755F /* sifnode_dispensation_v1_types.pb.swift in Sources */,
 				289DF17C242DDF4F00433CF4 /* CdpDetailMyTopCell.swift in Sources */,
 				E1945E48222E81A300A1436F /* ValidatorListViewController.swift in Sources */,
@@ -4295,6 +4324,7 @@
 				285A33D624475DC00052BD3D /* SelectPopupViewController.swift in Sources */,
 				046E9037268C3F29002CFFE1 /* BinanceMessage.swift in Sources */,
 				289EF81E26824E4700F90AC1 /* osmosis_lockup_lock.pb.swift in Sources */,
+				282FC71F26C3FDAF001BE250 /* FarmDashCell.swift in Sources */,
 				2839C1FD26A2A47C00638EBC /* Swap3ViewController.swift in Sources */,
 				2889FD7C260337C600CA9896 /* TxHardLiquidateCell.swift in Sources */,
 				289EF82A26824E4700F90AC1 /* osmosis_gamm_v1beta1_query.grpc.swift in Sources */,
@@ -4466,6 +4496,7 @@
 				E183EF2122A75E09003B3580 /* ReInvestCheckViewController.swift in Sources */,
 				28CFB6B22613447C00A18634 /* TokenDetailCell.swift in Sources */,
 				288D250426834E980093121A /* TxIbcSendCell.swift in Sources */,
+				2809748026C26A4F00544D96 /* TokenDetailMediCell.swift in Sources */,
 				287AC62525FDF7260070837E /* token_tx.grpc.swift in Sources */,
 				283E946D254902E5007A9291 /* TxDeleteDomainCell.swift in Sources */,
 				289EF81B26824E4700F90AC1 /* osmosis_claim_v1beta1_params.pb.swift in Sources */,
@@ -4681,6 +4712,7 @@
 				287AC5D825FDF7260070837E /* cosmos_mint_v1beta1_query.pb.swift in Sources */,
 				04D138532691E23200D6AF9F /* TxCreatePoolCell.swift in Sources */,
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
+				282FC71726C3FD62001BE250 /* FarmCell.swift in Sources */,
 				287AC5F125FDF7260070837E /* akash_deployment_v1beta1_query.pb.swift in Sources */,
 				28B4304424F8B34100BD7BB2 /* OkValidatorListViewController.swift in Sources */,
 				2888B802246CE35D00B2EB4A /* StepHtlcRefund0ViewController.swift in Sources */,
