@@ -9,6 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import wannabit.io.cosmostaion.model.RizonSwapStatus;
+import wannabit.io.cosmostaion.model.hdac.HdacTxInfo;
 import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
 import wannabit.io.cosmostaion.network.req.ReqHdacBurn;
 import wannabit.io.cosmostaion.network.res.ResHdacBurn;
@@ -29,6 +30,6 @@ public interface HdacChain {
     Call<ArrayList<RizonSwapStatus>> getSwapStatus(@Path("address") String address);
 
     // rizon swap insight
-    @GET("/tx/{hash}")
-    Call<ArrayList<RizonSwapStatus>> gethdacTxDetail(@Path("hash") String hash);
+    @GET("/insight-api/tx/{hash}")
+    Call<HdacTxInfo> gethdacTxDetail(@Path("hash") String hash);
 }

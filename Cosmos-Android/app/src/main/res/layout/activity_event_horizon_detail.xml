@@ -5,45 +5,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_root"
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
-        android:layout_marginBottom="2dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
-        app:cardElevation="1.5dp"
-        app:cardBackgroundColor="@color/colorTransBgRizon"
-        app:cardUseCompatPadding="true">
-        <LinearLayout
+        android:layout_height="@dimen/toolbar_bar_height"
+        android:background="@color/colorBlack"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/space_16"
-            android:paddingTop="@dimen/space_12"
-            android:paddingBottom="@dimen/space_12"
-            android:paddingRight="@dimen/space_4">
+            android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_4"
-                android:layout_centerVertical="true"
-                style="@style/font_ss_14_rizon"
-                android:singleLine="true"
-                android:text="RIZON Address"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_4"
-                android:layout_marginTop="@dimen/space_10"
-                android:layout_centerVertical="true"
-                style="@style/font_ss_14_white"
-                android:singleLine="true"
-                android:text="rizon136fzkc73rm5def5fngs386qdlxcuvxvrte8lk7"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                style="@style/font_ssm_17_white"
+                android:text="@string/str_tx_detail"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_status_root"
@@ -56,7 +35,8 @@
         app:cardElevation="1.5dp"
         app:cardBackgroundColor="@color/colorTransBg"
         app:cardUseCompatPadding="true"
-        android:layout_below="@id/card_root">
+        android:layout_below="@+id/tool_bar"
+        android:visibility="gone">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,7 +49,7 @@
                     android:id="@+id/tx_status_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_tx_status"
+                    android:text="@string/str_rizon_swap_result"
                     style="@style/font_ss_12_gray1"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -100,14 +80,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_token_swap_time"
+                    android:text="@string/str_tx_height"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_block_height"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="2021-07-05 17:14:10"
+                    android:text=""
                     style="@style/font_ss_12_white"/>
             </RelativeLayout>
             <RelativeLayout
@@ -117,91 +97,146 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_token_id"
+                    android:text="@string/str_tx_time"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/tx_msg_cnt"
+                    android:id="@+id/tx_block_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="a6pw0988mS8dQfgWfQWbwfQWbw"
+                    android:text=""
                     style="@style/font_ss_12_white"/>
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGray3"
+                android:layout_marginTop="@dimen/space_16"/>
+
             <LinearLayout
-                android:layout_below="@+id/card_status_root"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_14"
-                android:layout_marginTop="@dimen/space_14"
-                android:background="@drawable/box_round_darkgray">
+                android:layout_marginTop="@dimen/space_16">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_ss_12_white"
-                    android:layout_gravity="right"
-                    android:text="htmreYHCaMMXCG2j5Qbn6mS8dQfgWfQWbw" />
-                <LinearLayout
+                    android:text="@string/str_rizon_swap_block_hash"
+                    style="@style/font_ss_12_gray1"/>
+                <TextView
+                    android:id="@+id/tx_block_hash"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="right"
-                    android:layout_marginTop="@dimen/space_10">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/font_ss_12_white"
-                        android:text="22,001.522823423446262355" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_6"
-                        style="@style/font_ss_15_hdac"
-                        android:text="HDAC" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
+                    android:text="-"
+                    style="@style/font_ss_12_white"/>
             </LinearLayout>
-            <ImageView
-                android:id="@+id/swap_icon"
-                android:layout_margin="@dimen/space_10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/card_root"
-                app:srcCompat="@drawable/icon_arrow" />
             <LinearLayout
-                android:layout_below="@+id/card_status_root"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_14"
-                android:background="@drawable/box_round_darkgray">
+                android:layout_marginTop="@dimen/space_16">
                 <TextView
-                    android:id="@+id/rizon_to_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_ss_12_white"
-                    android:layout_gravity="right"
-                    android:text="rizon136fzkc73rm5def5fngs386qdlxcuvxvrte8lk7" />
-                <LinearLayout
+                    android:text="@string/str_tx_hash"
+                    style="@style/font_ss_12_gray1"/>
+                <TextView
+                    android:id="@+id/tx_transaction_hash"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="right"
-                    android:layout_marginTop="@dimen/space_10">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
+                    android:text="-"
+                    style="@style/font_ss_12_white"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/space_16">
+                <TextView
+                    android:id="@+id/tx_hdac_burn_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_amount"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tx_hdac_burn_title">
                     <TextView
+                        android:id="@+id/tx_hdac_burn_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/font_ss_12_white"
-                        android:text="22,001.262355" />
+                        android:layout_alignParentRight="true"
+                        android:text="HDAC"
+                        style="@style/font_ss_12_hdac"/>
                     <TextView
+                        android:id="@+id/tx_hdac_burn_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_6"
-                        style="@style/font_ss_14_rizon"
-                        android:text="ATOLO" />
-                </LinearLayout>
+                        android:layout_alignBaseline="@+id/tx_hdac_burn_symbol"
+                        android:layout_toLeftOf="@+id/tx_hdac_burn_symbol"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text="-"
+                        style="@style/font_ss_12_white"/>
+                </RelativeLayout>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/space_16">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_rizon_swap_mint_recipient_Address"
+                    style="@style/font_ss_12_gray1"/>
+                <TextView
+                    android:id="@+id/tx_mint_recipient_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:singleLine="true"
+                    android:ellipsize="middle"
+                    android:text="-"
+                    style="@style/font_ss_12_white"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/loadingLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ProgressBar
+                android:layout_width="@dimen/space_60"
+                android:layout_height="@dimen/space_60"
+                android:indeterminateDrawable="@drawable/loading"/>
+            <TextView
+                android:id="@+id/tx_loading_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_4"
+                android:gravity="center"
+                android:text="@string/str_success_loading"
+                style="@style/font_ss_12_white"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/control_later"
         android:layout_width="match_parent"
@@ -211,24 +246,29 @@
         android:layout_marginTop="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-        <RelativeLayout
-            android:id="@+id/btn_done"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <Button
+            android:id="@+id/btn_explorer"
+            style="@style/font_ss_14_white"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
             android:layout_marginRight="@dimen/space_4"
-            android:layout_marginLeft="@dimen/space_4"
+            android:layout_weight="1"
             android:background="@drawable/btn_trans_with_border"
-            android:clickable="true">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                style="@style/font_ssl_14_photon"
-                android:text="@string/str_done" />
-        </RelativeLayout>
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_explorer"
+            android:textAllCaps="false" />
+        <Button
+            android:id="@+id/btn_done"
+            style="@style/font_ss_14_photon"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_4"
+            android:layout_weight="1"
+            android:background="@drawable/btn_trans_with_border"
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_done"
+            android:textAllCaps="false" />
     </LinearLayout>
 </RelativeLayout>
