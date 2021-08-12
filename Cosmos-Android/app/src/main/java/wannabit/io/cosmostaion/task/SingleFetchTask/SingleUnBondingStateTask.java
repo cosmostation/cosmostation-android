@@ -98,13 +98,6 @@ public class SingleUnBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(MEDI_TEST)) {
-                Response<ResLcdSingleUnBonding> response = ApiClient.getMediTestChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             }
 
         } catch (Exception e) {

@@ -142,18 +142,6 @@ public class SingleRedelegateStateTask extends CommonTask {
                     }
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(MEDI_TEST)) {
-                Response<ResLcdRedelegate> response = ApiClient.getMediTestChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
-                if (response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null) {
-                        mResult.resultData = response.body().result;
-                        mResult.isSuccess = true;
-                    } else {
-                        mResult.resultData = new ArrayList<Redelegate>();
-                        mResult.isSuccess = true;
-                    }
-                }
-
             }
 
         } catch (Exception e) {

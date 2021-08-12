@@ -137,19 +137,6 @@ public class ValidatorInfoBondedTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(MEDI_MAIN)) {
-                Response<ResLcdValidators> response = ApiClient.getMediChain(mApp).getBondedValidatorDetailList().execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             }
 
             else if (mChain.equals(KAVA_TEST)) {
@@ -180,19 +167,6 @@ public class ValidatorInfoBondedTask extends CommonTask {
 
             } else if (mChain.equals(CERTIK_TEST)) {
                 Response<ResLcdValidators> response = ApiClient.getCertikTestChain(mApp).getBondedValidatorDetailList().execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(MEDI_TEST)) {
-                Response<ResLcdValidators> response = ApiClient.getMediTestChain(mApp).getBondedValidatorDetailList().execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

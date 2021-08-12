@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
@@ -110,15 +111,6 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(BaseChain.MEDI_TEST)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getMediTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("ApiStakeTxsHistoryTask : NOk");
-                }
-
             }
 
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
@@ -186,6 +178,13 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
 
             } else if (mChain.equals(BaseChain.IOV_MAIN)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getIovApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.MEDI_MAIN) || mChain.equals(MEDI_TEST)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getMediblocApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

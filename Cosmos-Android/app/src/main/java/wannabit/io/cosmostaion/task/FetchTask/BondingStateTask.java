@@ -84,13 +84,6 @@ public class BondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(MEDI_MAIN)) {
-                Response<ResLcdBondings> response = ApiClient.getMediChain(mApp).getBondingList(mAccount.address).execute();
-                if (response.isSuccessful() && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             }
 
             else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
@@ -102,13 +95,6 @@ public class BondingStateTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
                 Response<ResLcdBondings> response = ApiClient.getCertikTestChain(mApp).getBondingList(mAccount.address).execute();
-                if (response.isSuccessful() && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(MEDI_TEST)) {
-                Response<ResLcdBondings> response = ApiClient.getMediTestChain(mApp).getBondingList(mAccount.address).execute();
                 if (response.isSuccessful() && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;

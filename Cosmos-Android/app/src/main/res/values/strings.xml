@@ -86,7 +86,9 @@
     <string name="url_lcd_ki" translatable="false">https://lcd-kichain.cosmostation.io/</string>
     <string name="url_api_ki" translatable="false">https://api-kichain.cosmostation.io/</string>
 
-    <string name="url_lcd_medi" translatable="false">https://api.gopanacea.org/</string>
+<!--    <string name="url_lcd_medi" translatable="false">https://api.gopanacea.org/</string>-->
+    <string name="url_api_medibloc" translatable="false">https://api-medibloc.cosmostation.io/</string>
+
 
     <string name="url_api_osmosis" translatable="false">https://api-osmosis.cosmostation.io/</string>
 
@@ -97,10 +99,6 @@
     <string name="url_hdac_testnet" translatable="false">https://insight-api.testnet.rizon.world/insight-api/</string>
     <string name="url_rizon_swap_status_testnet" translatable="false">https://swap-api.testnet.rizon.world/</string>
     <string name="url_api_rizon_test" translatable="false">https://api-rizon-testnet.cosmostation.io/</string>
-
-
-    <string name="url_lcd_medi_test" translatable="false">https://lcd-medibloc-opentestnet.cosmostation.io/</string>
-    <string name="url_api_medi_test" translatable="false">https://api-medibloc-opentestnet.cosmostation.io/</string>
 
 
     <string name="url_hdac" translatable="false">https://wallet.new.hdactech.com/insight-api/</string>

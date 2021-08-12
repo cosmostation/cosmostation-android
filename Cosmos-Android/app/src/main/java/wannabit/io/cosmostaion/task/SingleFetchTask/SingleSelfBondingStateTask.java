@@ -99,13 +99,6 @@ public class SingleSelfBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(MEDI_TEST)) {
-                Response<ResLcdSingleBonding> response = ApiClient.getMediTestChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             }
         } catch (Exception e) {
             WLog.w("SingleBondingStateTask Error " + e.getMessage());

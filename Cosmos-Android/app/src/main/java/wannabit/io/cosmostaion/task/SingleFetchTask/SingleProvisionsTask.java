@@ -141,19 +141,6 @@ public class SingleProvisionsTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(MEDI_TEST)) {
-                Response<ResProvisions> response = ApiClient.getMediTestChain(mApp).getProvisions().execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if (response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             }
 
 

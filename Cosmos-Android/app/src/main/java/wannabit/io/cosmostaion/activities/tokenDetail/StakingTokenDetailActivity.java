@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.widget.tokenDetail.TokenCosmosHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenCrytoHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenIrisHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenKavaHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenMediblocHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenOKExHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenOsmosisHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenPersisHolder;
@@ -59,6 +60,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
@@ -204,6 +207,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private static final int TYPE_OSMOSIS               = 8;
     private static final int TYPE_STARNAME              = 9;
     private static final int TYPE_SIF                   = 10;
+    private static final int TYPE_MEDI                  = 11;
 //    private static final int TYPE_BAND                  = 10;
 
     private static final int TYPE_OKEX                  = 32;
@@ -240,6 +244,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 return new TokenStarnameHolder(getLayoutInflater().inflate(R.layout.layout_card_starname, viewGroup, false));
             } else if (viewType == TYPE_SIF) {
                 return new TokenSifHolder(getLayoutInflater().inflate(R.layout.layout_card_sif, viewGroup, false));
+            } else if (viewType == TYPE_MEDI) {
+                return new TokenMediblocHolder(getLayoutInflater().inflate(R.layout.layout_card_medi, viewGroup, false));
 //            } else if (viewType == TYPE_BAND) {
 //                return new TokenBandHolder(getLayoutInflater().inflate(R.layout.layout_card_band_token, viewGroup, false));
 
@@ -294,6 +300,9 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
             } else if (getItemViewType(position) == TYPE_SIF) {
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+
+            } else if (getItemViewType(position) == TYPE_MEDI) {
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
 //            } else if (getItemViewType(position) == TYPE_BAND) {
@@ -377,6 +386,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                     return TYPE_ALTHEA;
                 } else if (mBaseChain.equals(SIF_MAIN)) {
                     return TYPE_SIF;
+                } else if (mBaseChain.equals(MEDI_MAIN) || mBaseChain.equals(MEDI_TEST)) {
+                    return TYPE_MEDI;
 //                } else if (mBaseChain.equals(BAND_MAIN)) {
 //                    return TYPE_BAND;
                 }

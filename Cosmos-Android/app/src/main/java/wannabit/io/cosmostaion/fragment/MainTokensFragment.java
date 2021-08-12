@@ -577,25 +577,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-    private void onBindMediItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = getBaseDao().mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_MEDI)) {
-            holder.itemSymbol.setText(getString(R.string.str_medi_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), MEDI_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Medibloc Staking Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenmedibloc));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_MEDI);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
-
-        } else {
-
-        }
-    }
-
-
     //with gRPC
     private void onBindCosmosItem(TokensAdapter.AssetHolder holder, final int position) {
         final Coin coin = getBaseDao().mGrpcBalance.get(position);
@@ -952,6 +933,34 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                     startActivity(intent);
                 }
             });
+        }
+    }
+
+    private void onBindMediItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Coin coin = getBaseDao().mGrpcBalance.get(position);
+        if (coin.denom.equals(TOKEN_MEDI)) {
+            holder.itemSymbol.setText(getString(R.string.str_medi_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), MEDI_MAIN));
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText("Medibloc Staking Token");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenmedibloc));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_MEDI);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
+        } else if (coin.denom.startsWith("ibc/")) {
+            onBincIbctoken(holder, coin);
+
+        } else {
+
         }
     }
 
