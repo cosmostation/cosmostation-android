@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.activities.chains.rizon;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +21,24 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.RizonSwapStatus;
+import wannabit.io.cosmostaion.model.hdac.HdacTxInfo;
+import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.task.FetchTask.RizonSwapStatusTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
 
 
 public class RizonSwapStatusActivity extends BaseBroadCastActivity implements View.OnClickListener, TaskListener {
@@ -40,6 +50,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
     private Button                              mBtnDone;
 
     private ArrayList<RizonSwapStatus>          mRizonSwapStatus = new ArrayList<>();
+    private HdacTxInfo                          mHdacTxInfo;
 
     private EventHorizonStatusAdapter           mEventHorizonStatusAdapter;
 
@@ -53,7 +64,8 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         mLoadingLayer           = findViewById(R.id.loadingLayer);
         mBtnDone                = findViewById(R.id.btn_done);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain  = BaseChain.getChain(mAccount.baseChain);
 
         mBtnDone.setOnClickListener(this);
 
@@ -64,7 +76,10 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() { onRizonStatus(); }
+            public void onRefresh() {
+                onRizonStatus();
+                mEventHorizonStatusAdapter.notifyDataSetChanged();
+            }
         });
 
         
@@ -72,6 +87,8 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         mRecyclerView.setHasFixedSize(true);
         mEventHorizonStatusAdapter = new EventHorizonStatusAdapter();
         mRecyclerView.setAdapter(mEventHorizonStatusAdapter);
+
+        onRizonStatus();
     }
 
     @Override
@@ -103,18 +120,16 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         if (result.taskType == BaseConstant.TASK_RIZON_SWAP_STATUS) {
             if (result.isSuccess) {
                 mRizonSwapStatus.clear();
+                mHdacTxInfo = null;
                 mLoadingLayer.setVisibility(View.GONE);
                 mRizonSwapStatus = (ArrayList<RizonSwapStatus>) result.resultData;
+                for(RizonSwapStatus rizonSwapStatus: mRizonSwapStatus) {
+                    onCheckStatus(rizonSwapStatus);
+                }
                 mEventHorizonStatusAdapter.notifyDataSetChanged();
             }
         }
         mSwipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        onRizonStatus();
     }
 
     private class EventHorizonStatusAdapter extends RecyclerView.Adapter<EventHorizonStatusAdapter.StatusHolder> {
@@ -185,6 +200,30 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
                 swap_rizon_status_tx_hash       = itemView.findViewById(R.id.rizon_tx_hash);
                 swap_rizon_status_mint_amount   = itemView.findViewById(R.id.rizon_mint_amount);
             }
+        }
+    }
+
+    private void onCheckStatus(RizonSwapStatus status) {
+        WLog.w("hash " + status.hdacTxId);
+        if (mBaseChain.equals(RIZON_TEST)) {
+            ApiClient.getTestHdac(getBaseContext()).gethdacTxDetail(status.hdacTxId).enqueue(new Callback<HdacTxInfo>() {
+                @Override
+                public void onResponse(Call<HdacTxInfo> call, Response<HdacTxInfo> response) {
+                    if (isFinishing()) return;
+                    WLog.w("onFetchTx " + response.toString());
+                    if (response.isSuccessful() && response.body() != null) {
+                        mHdacTxInfo = response.body();
+                        WLog.w("confirmations : " + mHdacTxInfo.confirmations);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<HdacTxInfo> call, Throwable t) {
+                    WLog.w("Hdac onFailure");
+                    if (IS_SHOWLOG) t.printStackTrace();
+                    if (isFinishing()) return;
+                }
+            });
         }
     }
 }
