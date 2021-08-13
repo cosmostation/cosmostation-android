@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.fragment.chains.rizon;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.hdac.HdacUtil;
 
 public class EventHorizonStep1Fragment extends BaseFragment implements View.OnClickListener{
@@ -110,12 +107,7 @@ public class EventHorizonStep1Fragment extends BaseFragment implements View.OnCl
                 return;
             }
             String hdacTxString = mHdacUtil.genSignedTxSwap(getSActivity().mBaseChain, mHdacUtxo, getSActivity().mAccount.address);
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getSActivity().onStartSwap(hdacTxString);
-                }
-            },1000);
+            getSActivity().onStartSwap(hdacTxString);
         }
     }
 }
