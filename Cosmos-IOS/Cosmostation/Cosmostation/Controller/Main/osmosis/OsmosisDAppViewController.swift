@@ -95,10 +95,8 @@ extension WUtils {
             label.text = "GAMM-" + String(denom.split(separator: "/").last!)
             
         } else if (denom.starts(with: "ibc/")) {
-            print("denom ", denom)
             label.textColor = .white
             if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")) {
-                print("ibcToken ", ibcToken)
                 label.text = ibcToken.display_denom?.uppercased()
             } else {
                 label.text = "UnKnown"
@@ -158,7 +156,21 @@ extension WUtils {
         return 6;
     }
     
-    
+    static func getGaugesByPoolId(_ poolId: UInt64, _ incentivizedPools: Array<Osmosis_Poolincentives_V1beta1_IncentivizedPool>, _ allGauge: Array<Osmosis_Incentives_Gauge>) -> Array<Osmosis_Incentives_Gauge> {
+        var gaugeIds = Array<UInt64>()
+        var result = Array<Osmosis_Incentives_Gauge>()
+        incentivizedPools.forEach { incentivizedPool in
+            if (incentivizedPool.poolID == poolId) {
+                gaugeIds.append(incentivizedPool.gaugeID)
+            }
+        }
+        allGauge.forEach { gauge in
+            if (gaugeIds.contains(gauge.id)){
+                result.append(gauge)
+            }
+        }
+        return result
+    }
     
     static func isAssetHasDenom(_ assets: [Osmosis_Gamm_V1beta1_PoolAsset], _ denom: String?) -> Bool {
         guard let token = assets.filter { $0.token.denom == denom }.first else {

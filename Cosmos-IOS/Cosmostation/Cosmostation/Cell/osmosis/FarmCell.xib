@@ -33,7 +33,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pool #1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zWu-As-cG5">
                                         <rect key="frame" x="0.0" y="0.0" width="59.5" height="36.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                                        <color key="textColor" red="0.57254901960000004" green="0.28235294119999998" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="752" text="COIN / COIN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFc-0F-x5W">
@@ -62,19 +62,19 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="752" text="Available Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ht-Ev-fm8">
-                                <rect key="frame" x="12" y="103.5" width="90.5" height="10.5"/>
+                                <rect key="frame" x="12" y="103.5" width="90.5" height="30.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmW-jk-eFU">
-                                <rect key="frame" x="336" y="102" width="11" height="13.5"/>
+                                <rect key="frame" x="336" y="112" width="11" height="13.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coin" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAt-da-Ho1">
-                                <rect key="frame" x="349" y="102" width="24" height="13.5"/>
+                                <rect key="frame" x="349" y="112" width="24" height="13.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -92,7 +92,7 @@
                             <constraint firstItem="c6m-Wj-9MB" firstAttribute="leading" secondItem="Jdf-67-850" secondAttribute="trailing" constant="8" id="A1x-zI-qOq"/>
                             <constraint firstItem="Jdf-67-850" firstAttribute="leading" secondItem="OiD-D8-nb0" secondAttribute="leading" constant="15" id="CAp-ba-kcg"/>
                             <constraint firstItem="F0f-Cu-QNv" firstAttribute="leading" secondItem="OiD-D8-nb0" secondAttribute="leading" constant="12" id="G5j-wi-alj"/>
-                            <constraint firstAttribute="bottom" secondItem="9Ht-Ev-fm8" secondAttribute="bottom" constant="40" id="GPQ-yF-QFS"/>
+                            <constraint firstAttribute="bottom" secondItem="9Ht-Ev-fm8" secondAttribute="bottom" constant="20" id="GPQ-yF-QFS"/>
                             <constraint firstItem="9Ht-Ev-fm8" firstAttribute="leading" secondItem="F0f-Cu-QNv" secondAttribute="leading" id="M0e-9m-sJ2"/>
                             <constraint firstItem="c6m-Wj-9MB" firstAttribute="centerY" secondItem="Jdf-67-850" secondAttribute="centerY" id="Mcz-Ng-2Gg"/>
                             <constraint firstItem="vAt-da-Ho1" firstAttribute="centerY" secondItem="9Ht-Ev-fm8" secondAttribute="centerY" id="Q19-zz-pW1"/>

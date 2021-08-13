@@ -163,7 +163,7 @@ class PoolViewController: BaseViewController, UITableViewDelegate, UITableViewDa
             defer { try! channel.close().wait() }
             
             do {
-                let page = Cosmos_Base_Query_V1beta1_PageRequest.with { $0.limit = 300 }
+                let page = Cosmos_Base_Query_V1beta1_PageRequest.with { $0.limit = 1000 }
                 let req = Osmosis_Gamm_V1beta1_QueryPoolsRequest.with { $0.pagination = page }
                 let response = try Osmosis_Gamm_V1beta1_QueryClient(channel: channel).pools(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
                 
@@ -178,8 +178,8 @@ class PoolViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                         }
                     }
                 }
-                print("mMyPoolList ", self.mMyPoolList.count)
-                print("mOtherPoolList ", self.mOtherPoolList.count)
+//                print("mMyPoolList ", self.mMyPoolList.count)
+//                print("mOtherPoolList ", self.mOtherPoolList.count)
                 
             } catch {
                 print("onFetchGammPools failed: \(error)")
