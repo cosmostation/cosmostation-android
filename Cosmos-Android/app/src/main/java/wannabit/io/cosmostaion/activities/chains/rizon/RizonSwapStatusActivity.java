@@ -31,7 +31,9 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.RizonSwapStatus;
 import wannabit.io.cosmostaion.model.hdac.HdacTxInfo;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.task.FetchTask.HdacTxDetailTask;
 import wannabit.io.cosmostaion.task.FetchTask.RizonSwapStatusTask;
+import wannabit.io.cosmostaion.task.FetchTask.StationParamInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -39,6 +41,8 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_TX_DETAIL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_RIZON_SWAP_STATUS;
 
 
 public class RizonSwapStatusActivity extends BaseBroadCastActivity implements View.OnClickListener, TaskListener {
@@ -50,7 +54,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
     private Button                              mBtnDone;
 
     private ArrayList<RizonSwapStatus>          mRizonSwapStatus = new ArrayList<>();
-    private HdacTxInfo                          mHdacTxInfo;
+    private ArrayList<HdacTxInfo>               mHdacTxInfos = new ArrayList<>();
 
     private EventHorizonStatusAdapter           mEventHorizonStatusAdapter;
 
@@ -117,19 +121,32 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
-        if (result.taskType == BaseConstant.TASK_RIZON_SWAP_STATUS) {
+        mTaskCount--;
+        if (result.taskType == TASK_RIZON_SWAP_STATUS) {
             if (result.isSuccess) {
                 mRizonSwapStatus.clear();
-                mHdacTxInfo = null;
-                mLoadingLayer.setVisibility(View.GONE);
+                mHdacTxInfos.clear();
                 mRizonSwapStatus = (ArrayList<RizonSwapStatus>) result.resultData;
+
+                mTaskCount = mRizonSwapStatus.size();
                 for(RizonSwapStatus rizonSwapStatus: mRizonSwapStatus) {
-                    onCheckStatus(rizonSwapStatus);
+                    new HdacTxDetailTask(getBaseApplication(), this, mBaseChain, rizonSwapStatus.hdacTxId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 }
-                mEventHorizonStatusAdapter.notifyDataSetChanged();
             }
+
+        } else if (result.taskType == TASK_HDAC_TX_DETAIL) {
+            if (result.isSuccess) {
+                mHdacTxInfos.add((HdacTxInfo)result.resultData);
+            }
+
         }
-        mSwipeRefreshLayout.setRefreshing(false);
+
+
+        if (mTaskCount == 0) {
+            mSwipeRefreshLayout.setRefreshing(false);
+            mLoadingLayer.setVisibility(View.GONE);
+            mEventHorizonStatusAdapter.notifyDataSetChanged();
+        }
     }
 
     private class EventHorizonStatusAdapter extends RecyclerView.Adapter<EventHorizonStatusAdapter.StatusHolder> {
@@ -147,29 +164,45 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
 
             holder.swap_result_time.setText(WDp.getDpTime(RizonSwapStatusActivity.this, rizonSwapStatus.hdacTx.time * 1000));
             holder.swap_result_id.setText(rizonSwapStatus.id);
-            if (rizonSwapStatus.hdacTx.confirmations >= 1) {
-                holder.swap_hdac_status.setText("Success");
-                holder.swap_hdac_status_icon.setVisibility(View.GONE);
-            } else {
-                holder.swap_hdac_status.setText("Pending");
-                holder.swap_hdac_status_icon.setVisibility(View.VISIBLE);
-            }
-            holder.swap_burn_from_address.setText(rizonSwapStatus.from);
-            holder.swap_burn_tx_hash.setText(rizonSwapStatus.hdacTxId);
-            holder.swap_burn_amount.setText("" + rizonSwapStatus.amount);
 
-            if (rizonSwapStatus.rizonTx != null) {
-                holder.swap_rizon_status.setText("Success");
-                holder.swap_rizon_status_icon.setVisibility(View.GONE);
-                holder.swap_rizon_status_tx_hash.setText(rizonSwapStatus.rizonTxId);
-                holder.swap_rizon_status_mint_amount.setText("" + WDp.getDpAmount2(RizonSwapStatusActivity.this, new BigDecimal(rizonSwapStatus.amount), 0, 6 ));
+            HdacTxInfo matchedHdacTxInfo = getHdacTxDetail(rizonSwapStatus.hdacTxId);
+            if (matchedHdacTxInfo == null) {
+
             } else {
-                holder.swap_rizon_status.setText("Pending");
-                holder.swap_rizon_status_icon.setVisibility(View.VISIBLE);
-                holder.swap_rizon_status_tx_hash.setText("--");
-                holder.swap_rizon_status_mint_amount.setText("--");
+                // info 컨펌이 테넷은 1보다 크거나 같으면 썩세스
+                //           메인넷은 8보다 크거나 같으면 썩세스
+                
+
+                if (rizonSwapStatus.rizonTx != null) {
+
+                } else {
+
+                }
             }
-            holder.swap_rizon_to_Address.setText(mAccount.address);
+
+//            if (rizonSwapStatus.hdacTx.confirmations >= 1) {
+//                holder.swap_hdac_status.setText("Success");
+//                holder.swap_hdac_status_icon.setVisibility(View.GONE);
+//            } else {
+//                holder.swap_hdac_status.setText("Pending");
+//                holder.swap_hdac_status_icon.setVisibility(View.VISIBLE);
+//            }
+//            holder.swap_burn_from_address.setText(rizonSwapStatus.from);
+//            holder.swap_burn_tx_hash.setText(rizonSwapStatus.hdacTxId);
+//            holder.swap_burn_amount.setText("" + rizonSwapStatus.amount);
+//
+//            if (rizonSwapStatus.rizonTx != null) {
+//                holder.swap_rizon_status.setText("Success");
+//                holder.swap_rizon_status_icon.setVisibility(View.GONE);
+//                holder.swap_rizon_status_tx_hash.setText(rizonSwapStatus.rizonTxId);
+//                holder.swap_rizon_status_mint_amount.setText("" + WDp.getDpAmount2(RizonSwapStatusActivity.this, new BigDecimal(rizonSwapStatus.amount), 0, 6 ));
+//            } else {
+//                holder.swap_rizon_status.setText("Pending");
+//                holder.swap_rizon_status_icon.setVisibility(View.VISIBLE);
+//                holder.swap_rizon_status_tx_hash.setText("--");
+//                holder.swap_rizon_status_mint_amount.setText("--");
+//            }
+//            holder.swap_rizon_to_Address.setText(mAccount.address);
         }
 
         @Override
@@ -203,27 +236,33 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         }
     }
 
-    private void onCheckStatus(RizonSwapStatus status) {
-        WLog.w("hash " + status.hdacTxId);
-        if (mBaseChain.equals(RIZON_TEST)) {
-            ApiClient.getTestHdac(getBaseContext()).gethdacTxDetail(status.hdacTxId).enqueue(new Callback<HdacTxInfo>() {
-                @Override
-                public void onResponse(Call<HdacTxInfo> call, Response<HdacTxInfo> response) {
-                    if (isFinishing()) return;
-                    WLog.w("onFetchTx " + response.toString());
-                    if (response.isSuccessful() && response.body() != null) {
-                        mHdacTxInfo = response.body();
-                        WLog.w("confirmations : " + mHdacTxInfo.confirmations);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<HdacTxInfo> call, Throwable t) {
-                    WLog.w("Hdac onFailure");
-                    if (IS_SHOWLOG) t.printStackTrace();
-                    if (isFinishing()) return;
-                }
-            });
+    private HdacTxInfo getHdacTxDetail(String txhash) {
+        if (mHdacTxInfos == null) { return null;}
+        for (HdacTxInfo info: mHdacTxInfos) {
+            if (info.txid.equals(txhash)) {
+                return info;
+            }
         }
+        return null;
     }
+
+//    private void onCheckStatus(RizonSwapStatus status) {
+//        WLog.w("hash " + status.hdacTxId);
+//        if (mBaseChain.equals(RIZON_TEST)) {
+//            ApiClient.getTestHdac(getBaseContext()).gethdacTxDetail(status.hdacTxId).enqueue(new Callback<HdacTxInfo>() {
+//                @Override
+//                public void onResponse(Call<HdacTxInfo> call, Response<HdacTxInfo> response) {
+//                    WLog.w("onFetchTx " + response.toString());
+//                    if (response.isSuccessful() && response.body() != null) {
+//                        mHdacTxInfos.add(response.body());
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<HdacTxInfo> call, Throwable t) {
+//                    WLog.w("Hdac onFailure");
+//                }
+//            });
+//        }
+//    }
 }
