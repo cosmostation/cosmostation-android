@@ -302,6 +302,10 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
                 getSActivity().mHdacWords = mWords;
                 getSActivity().mHdacUtxo = mUtxo;
                 getSActivity().mHdacBalance = mBalance;
+                if (mBalance.subtract(new BigDecimal("0.1").movePointRight(8)).compareTo(BigDecimal.ZERO) <= 0) {
+                    Toast.makeText(getSActivity(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 getSActivity().onNextStep();
             }
         } else {
