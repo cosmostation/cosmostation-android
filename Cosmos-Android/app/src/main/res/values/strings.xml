@@ -1436,6 +1436,9 @@
     <string name="str_rizon_create_token_swap_hash">Legacy Chain Tx Hash</string>
     <string name="str_rizon_create_token_swap_recipient">Recipient</string>
     <string name="str_rizon_create_token_swap_amount">Amount</string>
+    <string name="str_rizon_swap_result">Tx Result</string>
+    <string name="str_rizon_swap_block_hash">Block Hash</string>
+    <string name="str_rizon_swap_mint_recipient_Address">Mint Recipient Address</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -170,8 +170,9 @@ public class BaseConstant {
 
     public final static int TASK_HDAC_NODE_INFO                         = 2900;
     public final static int TASK_HDAC_UTXO                              = 2901;
-    public final static int TASK_HDAC_BROAD_BURN                        = 2902;
-    public final static int TASK_RIZON_SWAP_STATUS                      = 2903;
+    public final static int TASK_HDAC_TX_DETAIL                         = 2902;
+    public final static int TASK_HDAC_BROAD_BURN                        = 2903;
+    public final static int TASK_RIZON_SWAP_STATUS                      = 2904;
 
     public final static int TASK_FETCH_SIF_INCENTIVE_VS                 = 3500;
     public final static int TASK_FETCH_SIF_INCENTIVE_LM                 = 3501;
@@ -760,6 +761,7 @@ public class BaseConstant {
     public final static String EXPLORER_KI_MAIN         = "https://www.mintscan.io/ki-chain/";
     public final static String EXPLORER_OSMOSIS_MAIN    = "https://www.mintscan.io/osmosis/";
     public final static String EXPLORER_MEDI_MAIN       = "https://www.mintscan.io/medibloc/";
+    public final static String EXPLORER_RIZON_MAIN      = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
@@ -768,10 +770,9 @@ public class BaseConstant {
     public final static String EXPLORER_KAVA_TEST       = "https://dev.mintscan.io/kava-testnet/";
     public final static String EXPLORER_OKEX_TEST       = "https://www.oklink.com/okexchain-test/";
     public final static String EXPLORER_CERTIK          = "https://explorer.certik.foundation/";
-    public final static String EXPLORER_RIZON_TEST      = "https://testnet.mintscan.io/rizon/";
+    public final static String EXPLORER_RIZON_TEST      = "http://test.explorer.hdactech.com/hdac-explorer/";
     public final static String EXPLORER_MEDI_TEST       = "https://testnet.mintscan.io/medibloc/";
     public final static String EXPLORER_ALTHEA_TEST     = "https://testnet.mintscan.io/althea/";
-
 
 
     public final static String  PERSISTENCE_COSMOS_EVENT_ADDRESS    = "cosmos1ea6cx6km3jmryax5aefq0vy5wrfcdqtaau4f22";

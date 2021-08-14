@@ -1199,6 +1199,9 @@
     <string name="str_rizon_event_horizon_status_title">전체 결과</string>
     <string name="str_rizon_event_horizon_request_time">요청 시간</string>
     <string name="str_rizon_event_horizon_request_id">요청 ID</string>
+    <string name="str_rizon_swap_result">트랜잭션 결과</string>
+    <string name="str_rizon_swap_block_hash">블록 해쉬</string>
+    <string name="str_rizon_swap_mint_recipient_Address">수령 주소</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
