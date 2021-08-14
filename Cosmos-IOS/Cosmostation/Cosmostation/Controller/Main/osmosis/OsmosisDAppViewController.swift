@@ -101,7 +101,6 @@ extension WUtils {
             } else {
                 label.text = "UnKnown"
             }
-            
         }
     }
     
@@ -172,8 +171,19 @@ extension WUtils {
         return result
     }
     
+    static func getLockupByPoolId(_ poolId: UInt64, _ lockUps: Array<Osmosis_Lockup_PeriodLock>) -> Array<Osmosis_Lockup_PeriodLock> {
+        var result = Array<Osmosis_Lockup_PeriodLock>()
+        lockUps.forEach { lockup in
+            let lpCoin = Coin.init(lockup.coins[0].denom, lockup.coins[0].amount)
+            if (lpCoin.osmosisAmmPoolId() == poolId) {
+                result.append(lockup)
+            }
+        }
+        return result
+    }
+    
     static func isAssetHasDenom(_ assets: [Osmosis_Gamm_V1beta1_PoolAsset], _ denom: String?) -> Bool {
-        guard let token = assets.filter { $0.token.denom == denom }.first else {
+        guard let token = assets.filter({ $0.token.denom == denom }).first else {
             return false
         }
         return true

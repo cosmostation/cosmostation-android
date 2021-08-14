@@ -9,7 +9,7 @@
 import UIKit
 import SwiftProtobuf
 
-class TxUnlockTokenCell: TxCell {
+class TxBeginUnlockTokenCell: TxCell {
     @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var txOwenerLabel: UILabel!
     @IBOutlet weak var txIdLabel: UILabel!

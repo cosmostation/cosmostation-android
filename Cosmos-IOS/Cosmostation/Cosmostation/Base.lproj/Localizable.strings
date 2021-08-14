@@ -538,6 +538,7 @@ support@cosmostation.io";
 "title_swap_osmosis" = "Coin Swap";
 "title_pool_join_osmosis" = "Deposit to Pool";
 "title_pool_exit_osmosis" = "Withdraw from Pool";
+"title_farm_detail_osmosis" = "Fram Detail";
 "title_rizon_swap_status" = "Event Horizon Status";
 "title_rizon_swap" = "Event Horizon";
 
@@ -751,8 +752,9 @@ support@cosmostation.io";
 "tx_coin_swap" = "Swap Coin";
 
 "tx_osmosis_token_lockup" = "Lockup Token";
-"tx_osmosis_token_unluck" = "Unlock Token";
-"tx_osmosis_token_unluck_all" = "Unlock All Tokens";
+"tx_osmosis_token_unlock" = "Unlock Token";
+"tx_osmosis_begin_unluck" = "Begin Unlocking";
+"tx_osmosis_begin_unluck_all" = "Begin Unlocking All";
 "tx_osmosis_preriodlock_unlock" = "Claim Unlocked Token";
 
 "tx_rizon_event_horizon" = "Recieve Swap Token";

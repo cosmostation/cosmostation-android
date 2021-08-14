@@ -51,13 +51,8 @@ class MyFarmCell: UITableViewCell {
         let lpCoinPrice = WUtils.getOsmoLpTokenPerUsdPrice(pool)
         let nf = WUtils.getNumberFormatter(2)
         
-        poolIDLabel.text = "MY FARM #" + String(pool.id)
+        poolIDLabel.text = "MY EARNING #" + String(pool.id)
         poolPairLabel.text = coin0Symbol + " / " + coin1Symbol
-        
-        
-        
-        
-        
         
         
         var bondedAmount = NSDecimalNumber.zero
@@ -132,9 +127,5 @@ class MyFarmCell: UITableViewCell {
         availableDenomLabel.adjustsFontSizeToFitWidth = true
         availableAmountLabel.attributedText = WUtils.displayAmount2(lpCoin, availableAmountLabel.font, 18, 6)
         availableValueLabel.attributedText = WUtils.getDpAttributedString(formattedLpCoinValue, 2, availableValueLabel.font)
-        
-        Osmosis_Lockup_MsgBeginUnlockingAll.with {
-            $0.unknownFields
-        }
     }
 }

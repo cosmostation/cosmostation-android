@@ -86,6 +86,28 @@ class FarmingViewController: BaseViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.section == 1) {
+            let farmDetailVC = FarmingDetailViewController(nibName: "FarmingDetailViewController", bundle: nil)
+            let pool = mMyIncentivePoolList[indexPath.row]
+            farmDetailVC.mPool = pool
+            farmDetailVC.mPoolGauges = WUtils.getGaugesByPoolId(pool.id, mIncentivizedPool, mActiveGauges)
+            farmDetailVC.mLockUps = WUtils.getLockupByPoolId(pool.id, mPeriodLockUps)
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(farmDetailVC, animated: true)
+            
+        } else if (indexPath.section == 2) {
+            let farmDetailVC = FarmingDetailViewController(nibName: "FarmingDetailViewController", bundle: nil)
+            let pool = mOtherIncentivePoolList[indexPath.row]
+            farmDetailVC.mPool = pool
+            farmDetailVC.mPoolGauges = WUtils.getGaugesByPoolId(pool.id, mIncentivizedPool, mActiveGauges)
+            farmDetailVC.mLockUps = WUtils.getLockupByPoolId(pool.id, mPeriodLockUps)
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(farmDetailVC, animated: true)
+            
+        }
+    }
+    
     var mFetchCnt = 0
     @objc func onFetchFarmData() {
         print("onFetchFarmData")

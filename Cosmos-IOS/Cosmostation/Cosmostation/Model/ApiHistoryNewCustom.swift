@@ -273,22 +273,15 @@ public struct ApiHistoryNewCustom {
                 result = NSLocalizedString("tx_osmosis_token_lockup", comment: "")
                 
             } else if (msgType.split(separator: ".").last == "MsgBeginUnlocking") {
-                result = NSLocalizedString("tx_osmosis_token_unluck", comment: "")
+                result = NSLocalizedString("tx_osmosis_begin_unluck", comment: "")
                 
             } else if (msgType.split(separator: ".").last == "MsgBeginUnlockingAll") {
-                result = NSLocalizedString("tx_osmosis_token_unluck_all", comment: "")
+                result = NSLocalizedString("tx_osmosis_begin_unluck_all", comment: "")
                 
-            } else if (msgType.contains("MsgUnlockPeriodLock")) {
-                result = NSLocalizedString("tx_osmosis_preriodlock_unlock", comment: "")
-                
+            } else if (msgType.contains("MsgUnlockTokens")) {
+                result = NSLocalizedString("tx_osmosis_token_unlock", comment: "")
+
             }
-            
-//            else if (msgType.contains("MsgUnlockTokens")) {
-//                result = NSLocalizedString("tx_osmosis_token_unluck", comment: "")
-//
-//            } else if (msgType.contains("MsgBeginUnlockPeriodLock")) {
-//
-//            }
             
             // gravity dex msg type
             else if (msgType.contains("MsgDepositWithinBatch")) {
