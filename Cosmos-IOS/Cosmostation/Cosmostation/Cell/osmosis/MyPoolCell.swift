@@ -47,7 +47,7 @@ class MyPoolCell: UITableViewCell {
         let coin0Decimal = WUtils.getOsmosisCoinDecimal(coin0.denom)
         let coin1Decimal = WUtils.getOsmosisCoinDecimal(coin1.denom)
         
-        poolIDLabel.text = "POOL #" + String(pool.id)
+        poolIDLabel.text = "MY POOL #" + String(pool.id)
         poolPairLabel.text = coin0Symbol + " / " + coin1Symbol
         
         let coin0Value = WUtils.usdValue(coin0BaseDenom, NSDecimalNumber.init(string: coin0.amount), coin0Decimal)
@@ -57,9 +57,9 @@ class MyPoolCell: UITableViewCell {
         let formatted = "$ " + nf.string(from: poolValue)!
         totalLiquidityValueLabel.attributedText = WUtils.getDpAttributedString(formatted, 2, totalLiquidityValueLabel.font)
         
-        liquidity1DenomLabel.text = coin0Symbol
+        WUtils.DpOsmosisTokenName(liquidity1DenomLabel, coin0.denom)
         liquidity1DenomLabel.adjustsFontSizeToFitWidth = true
-        liquidity2DenomLabel.text = coin1Symbol
+        WUtils.DpOsmosisTokenName(liquidity2DenomLabel, coin1.denom)
         liquidity2DenomLabel.adjustsFontSizeToFitWidth = true
         liquidity1AmountLabel.attributedText = WUtils.displayAmount2(coin0.amount, liquidity1AmountLabel.font, coin0Decimal, 6)
         liquidity2AmountLabel.attributedText = WUtils.displayAmount2(coin1.amount, liquidity2AmountLabel.font, coin1Decimal, 6)
@@ -69,14 +69,14 @@ class MyPoolCell: UITableViewCell {
         let availableCoin1 = BaseData.instance.getAvailable_gRPC(coin1.denom)
         let lpCoin = BaseData.instance.getAvailable_gRPC("gamm/pool/" + String(pool.id))
         
-        availableCoin0DenomLabel.text = coin0Symbol
+        WUtils.DpOsmosisTokenName(availableCoin0DenomLabel, coin0.denom)
         availableCoin0DenomLabel.adjustsFontSizeToFitWidth = true
-        availableCoin1DenomLabel.text = coin1Symbol
+        WUtils.DpOsmosisTokenName(availableCoin1DenomLabel, coin1.denom)
         availableCoin1DenomLabel.adjustsFontSizeToFitWidth = true
         availableCoin0AmountLabel.attributedText = WUtils.displayAmount2(availableCoin0, availableCoin0AmountLabel.font, coin0Decimal, 6)
         availableCoin1AmountLabel.attributedText = WUtils.displayAmount2(availableCoin1, availableCoin1AmountLabel.font, coin1Decimal, 6)
         
-        availableLpDenomLabel.text = WUtils.getOsmosisTokenName("gamm/pool/" + String(pool.id))
+        availableLpDenomLabel.text = "GAMM-" + String(pool.id)
         availableLpAmountLabel.attributedText = WUtils.displayAmount2(lpCoin, availableLpAmountLabel.font, 18, 6)
         
         let lpCoinPrice = WUtils.getOsmoLpTokenPerUsdPrice(pool)

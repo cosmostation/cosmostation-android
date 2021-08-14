@@ -53,9 +53,9 @@ class PoolCell: UITableViewCell {
         let formatted = "$ " + nf.string(from: poolValue)!
         totalLiquidityValueLabel.attributedText = WUtils.getDpAttributedString(formatted, 2, totalLiquidityValueLabel.font)
         
-        liquidity1DenomLabel.text = coin0Symbol
+        WUtils.DpOsmosisTokenName(liquidity1DenomLabel, coin0.denom)
         liquidity1DenomLabel.adjustsFontSizeToFitWidth = true
-        liquidity2DenomLabel.text = coin1Symbol
+        WUtils.DpOsmosisTokenName(liquidity2DenomLabel, coin1.denom)
         liquidity2DenomLabel.adjustsFontSizeToFitWidth = true
         liquidity1AmountLabel.attributedText = WUtils.displayAmount2(coin0.amount, liquidity1AmountLabel.font, coin0Decimal, 6)
         liquidity2AmountLabel.attributedText = WUtils.displayAmount2(coin1.amount, liquidity2AmountLabel.font, coin1Decimal, 6)
@@ -64,9 +64,9 @@ class PoolCell: UITableViewCell {
         let availableCoin0 = BaseData.instance.getAvailable_gRPC(coin0.denom)
         let availableCoin1 = BaseData.instance.getAvailable_gRPC(coin1.denom)
         
-        availableCoin0DenomLabel.text = coin0Symbol
+        WUtils.DpOsmosisTokenName(availableCoin0DenomLabel, coin0.denom)
         availableCoin0DenomLabel.adjustsFontSizeToFitWidth = true
-        availableCoin1DenomLabel.text = coin1Symbol
+        WUtils.DpOsmosisTokenName(availableCoin1DenomLabel, coin1.denom)
         availableCoin1DenomLabel.adjustsFontSizeToFitWidth = true
         availableCoin0AmountLabel.attributedText = WUtils.displayAmount2(availableCoin0, availableCoin0AmountLabel.font, coin0Decimal, 6)
         availableCoin1AmountLabel.attributedText = WUtils.displayAmount2(availableCoin1, availableCoin1AmountLabel.font, coin1Decimal, 6)

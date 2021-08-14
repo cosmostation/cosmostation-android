@@ -28,7 +28,7 @@ class FarmCell: UITableViewCell {
         let coin0 = Coin.init(pool.poolAssets[0].token.denom, pool.poolAssets[0].token.amount)
         let coin1 = Coin.init(pool.poolAssets[1].token.denom, pool.poolAssets[1].token.amount)
         
-        poolIDLabel.text = "POOL #" + String(pool.id)
+        poolIDLabel.text = "FARM #" + String(pool.id)
         poolPairLabel.text = WUtils.getOsmosisTokenName(coin0.denom) + " / " + WUtils.getOsmosisTokenName(coin1.denom)
         
         if let lpCoin = BaseData.instance.mMyBalances_gRPC.filter({ $0.denom == "gamm/pool/" + String(pool.id) }).first {
