@@ -179,6 +179,16 @@ extension WUtils {
         return true
     }
     
+    static func getOsmoLpTokenPerUsdPrice(_ pool: Osmosis_Gamm_V1beta1_Pool) -> NSDecimalNumber {
+        let coin0 = Coin.init(pool.poolAssets[0].token.denom, pool.poolAssets[0].token.amount)
+        let coin1 = Coin.init(pool.poolAssets[1].token.denom, pool.poolAssets[1].token.amount)
+        let coin0Value = WUtils.usdValue(BaseData.instance.getBaseDenom(coin0.denom), NSDecimalNumber.init(string: coin0.amount), WUtils.getOsmosisCoinDecimal(coin0.denom))
+        let coin1Value = WUtils.usdValue(BaseData.instance.getBaseDenom(coin1.denom), NSDecimalNumber.init(string: coin1.amount), WUtils.getOsmosisCoinDecimal(coin1.denom))
+        let poolValue = coin0Value.adding(coin1Value)
+        let totalShare = NSDecimalNumber.init(string: pool.totalShares.amount).multiplying(byPowerOf10: -18, withBehavior: handler18)
+        return poolValue.dividing(by: totalShare, withBehavior: handler18)
+    }
+    
 }
 
 extension UIImage {
