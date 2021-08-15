@@ -173,7 +173,7 @@
                         <constraint firstAttribute="height" constant="50" id="iBt-8m-18c"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                    <state key="normal" title="Start New Farming">
+                    <state key="normal" title="Start New Earning">
                         <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <userDefinedRuntimeAttributes>

@@ -542,7 +542,7 @@ support@cosmostation.io";
 "title_swap_osmosis" = "코인 스왑";
 "title_pool_join_osmosis" = "풀에 자산 넣기";
 "title_pool_exit_osmosis" = "풀에서 자산 빼기";
-"title_farm_detail_osmosis" = "팜 상세";
+"title_farm_detail_osmosis" = "Earning 상세";
 "title_rizon_swap_status" = "스왑 상태 확인";
 "title_rizon_swap" = "이벤트 호라이즌";
 
@@ -756,9 +756,9 @@ support@cosmostation.io";
 
 "tx_osmosis_token_lockup" = "토큰 잠그기";
 "tx_osmosis_token_unlock" = "토큰 풀기";
-"tx_osmosis_begin_unluck" = "토큰 풀기 시작";
-"tx_osmosis_begin_unluck_all" = "모든 토큰 풀기 시작";
-"tx_osmosis_preriodlock_unlock" = "풀린 토큰 받기";
+"tx_osmosis_begin_unlucking" = "토큰 풀기 시작";
+"tx_osmosis_begin_unlucking_all" = "모든 토큰 풀기 시작";
+"tx_osmosis_preriodlock_unlock" = "기간 토큰 풀기";
 
 "tx_rizon_event_horizon" = "스왑 토큰 받기";
 

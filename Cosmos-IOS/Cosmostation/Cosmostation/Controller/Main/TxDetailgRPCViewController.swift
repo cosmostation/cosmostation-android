@@ -59,7 +59,7 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
         self.txTableView.register(UINib(nibName: "TxLockTokenCell", bundle: nil), forCellReuseIdentifier: "TxLockTokenCell")
         self.txTableView.register(UINib(nibName: "TxBeginUnlockTokenCell", bundle: nil), forCellReuseIdentifier: "TxBeginUnlockTokenCell")
         self.txTableView.register(UINib(nibName: "TxBeginUnlockAllTokensCell", bundle: nil), forCellReuseIdentifier: "TxBeginUnlockAllTokensCell")
-//        self.txTableView.register(UINib(nibName: "TxUnlockPeriodLockCell", bundle: nil), forCellReuseIdentifier: "TxUnlockPeriodLockCell")
+        self.txTableView.register(UINib(nibName: "TxUnlockPeriodLockCell", bundle: nil), forCellReuseIdentifier: "TxUnlockPeriodLockCell")
         
         //for ibc msg type
         self.txTableView.register(UINib(nibName: "TxIbcSendCell", bundle: nil), forCellReuseIdentifier: "TxIbcSendCell")
@@ -263,14 +263,12 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
                 cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
                 return cell!
                 
+            } else if (msg.typeURL.contains(Osmosis_Lockup_MsgUnlockPeriodLock.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxUnlockPeriodLockCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
             }
-            
-//            else if (msg.typeURL.contains(Osmosis_Lockup_MsgUnlockPeriodLock.protoMessageName)) {
-//                let cell = tableView.dequeueReusableCell(withIdentifier:"TxUnlockPeriodLockCell") as? TxCell
-//                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
-//                return cell!
-//                
-//            }
             
             else if (msg.typeURL.contains(Tendermint_Liquidity_V1beta1_MsgCreatePool.protoMessageName)) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TxGravityCreatePoolCell") as? TxCell

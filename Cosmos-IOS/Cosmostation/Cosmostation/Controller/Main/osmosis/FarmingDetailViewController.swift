@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FarmingDetailViewController: BaseViewController {
+class FarmingDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var loadingImg: LoadingImageView!
     @IBOutlet weak var farmDetailTableView: UITableView!
@@ -25,6 +25,9 @@ class FarmingDetailViewController: BaseViewController {
     var mPool: Osmosis_Gamm_V1beta1_Pool!
     var mPoolGauges: Array<Osmosis_Incentives_Gauge>!
     var mLockUps: Array<Osmosis_Lockup_PeriodLock>!
+    var mBondedList: Array<Osmosis_Lockup_PeriodLock> = Array<Osmosis_Lockup_PeriodLock>()
+    var mUnbondingList: Array<Osmosis_Lockup_PeriodLock> = Array<Osmosis_Lockup_PeriodLock>()
+    var mUnbondedList: Array<Osmosis_Lockup_PeriodLock> = Array<Osmosis_Lockup_PeriodLock>()
     
     var coin0: Coin!
     var coin1: Coin!
@@ -37,13 +40,25 @@ class FarmingDetailViewController: BaseViewController {
     var lpCoinPrice = NSDecimalNumber.zero
     var poolValue = NSDecimalNumber.zero
     var nf: NumberFormatter!
-    
+    var apr1Day = NSDecimalNumber.zero
+    var apr7Day = NSDecimalNumber.zero
+    var apr14Day = NSDecimalNumber.zero
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
         self.balances = account!.account_balances
+        
+        topApr1dayLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        topArp7dayLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        topArp14DayLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        
+        self.farmDetailTableView.delegate = self
+        self.farmDetailTableView.dataSource = self
+        self.farmDetailTableView.register(UINib(nibName: "EarnBondedCell", bundle: nil), forCellReuseIdentifier: "EarnBondedCell")
+        self.farmDetailTableView.register(UINib(nibName: "EarnUnbondingCell", bundle: nil), forCellReuseIdentifier: "EarnUnbondingCell")
+        self.farmDetailTableView.register(UINib(nibName: "EarnUnbondedCell", bundle: nil), forCellReuseIdentifier: "EarnUnbondedCell")
         
         print("mPool ", mPool.id)
         print("mPoolGauges ", mPoolGauges.count)
@@ -66,7 +81,7 @@ class FarmingDetailViewController: BaseViewController {
         
         
         //display title
-        topPoolIDLabel.text = "FARM #" + String(mPool.id)
+        topPoolIDLabel.text = "EARNING #" + String(mPool.id)
         topPoolPairLabel.text = coin0Symbol + " / " + coin1Symbol
         
         
@@ -83,9 +98,9 @@ class FarmingDetailViewController: BaseViewController {
         incentiveValue14Day = incentiveValue14Day.adding(incentiveValue7Day).adding(incentiveValue1Day)
         incentiveValue7Day = incentiveValue7Day.adding(incentiveValue1Day)
         
-        let apr1Day = incentiveValue1Day.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
-        let apr7Day = incentiveValue7Day.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
-        let apr14Day = incentiveValue14Day.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
+        apr1Day = incentiveValue1Day.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
+        apr7Day = incentiveValue7Day.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
+        apr14Day = incentiveValue14Day.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
         
         topApr1dayLabel.attributedText = WUtils.displayPercent(apr1Day, topApr1dayLabel.font)
         topArp7dayLabel.attributedText = WUtils.displayPercent(apr7Day, topArp7dayLabel.font)
@@ -101,6 +116,20 @@ class FarmingDetailViewController: BaseViewController {
         topAvailableAmountLabel.attributedText = WUtils.displayAmount2(lpCoin, topAvailableAmountLabel.font, 18, 18)
         topAvailableValueLabel.attributedText = WUtils.getDpAttributedString(formattedLpCoinValue, 2, topAvailableValueLabel.font)
         
+        
+        mLockUps.forEach { lockup in
+            let now = Date.init().millisecondsSince1970
+            let endTime = lockup.endTime.date.millisecondsSince1970
+            if (endTime == -62135596800000) {
+                mBondedList.append(lockup)
+            } else if (endTime > now) {
+                mUnbondingList.append(lockup)
+            } else {
+                mUnbondedList.append(lockup)
+            }
+        }
+        farmDetailTableView.reloadData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,6 +139,40 @@ class FarmingDetailViewController: BaseViewController {
         self.navigationItem.title = NSLocalizedString("title_farm_detail_osmosis", comment: "")
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (section == 0) {
+            return mBondedList.count
+        } else if (section == 1) {
+            return mUnbondingList.count
+        } else if (section == 2) {
+            return mUnbondedList.count
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.section == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"EarnBondedCell") as? EarnBondedCell
+            let lock = mBondedList[indexPath.row]
+//            cell?.onBindView(lock, lpCoinPrice, apr1Day, apr7Day, apr14Day)
+            cell?.onBindView(lock, mPool, mPoolGauges)
+            return cell!
+            
+        } else if (indexPath.section == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"EarnUnbondingCell") as? EarnUnbondingCell
+            return cell!
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"EarnUnbondedCell") as? EarnUnbondedCell
+            return cell!
+        }
     }
     
     @IBAction func onClickNewFarm(_ sender: UIButton) {
