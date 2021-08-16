@@ -51,7 +51,7 @@ class RegisterAccount4ViewController: BaseViewController, UITableViewDelegate, U
         cell?.starnameLabel.text = pageHolderVC.mStarnameAccount! + "*iov"
         
         let extendTime = WUtils.getStarNameRegisterDomainExpireTime()
-        cell?.expireDate.text = WUtils.longTimetoString(input: Date().millisecondsSince1970 + extendTime)
+        cell?.expireDate.text = WUtils.longTimetoString(Date().millisecondsSince1970 + extendTime)
         cell?.memoLabel.text = pageHolderVC.mMemo
         
         let resources = pageHolderVC.mStarnameResources_gRPC

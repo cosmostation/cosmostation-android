@@ -161,16 +161,19 @@ class FarmingDetailViewController: BaseViewController, UITableViewDelegate, UITa
         if (indexPath.section == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"EarnBondedCell") as? EarnBondedCell
             let lock = mBondedList[indexPath.row]
-//            cell?.onBindView(lock, lpCoinPrice, apr1Day, apr7Day, apr14Day)
             cell?.onBindView(lock, mPool, mPoolGauges)
             return cell!
             
         } else if (indexPath.section == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"EarnUnbondingCell") as? EarnUnbondingCell
+            let lock = mUnbondingList[indexPath.row]
+            cell?.onBindView(lock, mPool, mPoolGauges)
             return cell!
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"EarnUnbondedCell") as? EarnUnbondedCell
+            let lock = mUnbondedList[indexPath.row]
+            cell?.onBindView(lock, mPool, mPoolGauges)
             return cell!
         }
     }

@@ -62,7 +62,7 @@ class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableV
             let starnameAccount = myAccounts_gRPC[indexPath.row]
             cell?.starNameLabel.text = starnameAccount.name.value + "*" + starnameAccount.domain
             cell?.accountConnectedAddressLabel.text = String(starnameAccount.resources.count)
-            cell?.accountExpireTime.text = WUtils.longTimetoString(input: starnameAccount.validUntil * 1000)
+            cell?.accountExpireTime.text = WUtils.longTimetoString(starnameAccount.validUntil * 1000)
             return cell!
         }
     }

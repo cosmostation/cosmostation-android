@@ -39,8 +39,8 @@ class RenewStarname0ViewController: BaseViewController {
             extendTime = WUtils.getRenewPeriod(IOV_MSG_TYPE_RENEW_ACCOUNT)
             starnameFee = WUtils.getStarNameRenewAccountFee(pageHolderVC!.mStarnameDomainType!)
         }
-        expireDateLabel.text = WUtils.longTimetoString(input: pageHolderVC.mStarnameTime! * 1000)
-        renewExpireDate.text = WUtils.longTimetoString(input: (pageHolderVC.mStarnameTime! * 1000) + extendTime)
+        expireDateLabel.text = WUtils.longTimetoString(pageHolderVC.mStarnameTime! * 1000)
+        renewExpireDate.text = WUtils.longTimetoString((pageHolderVC.mStarnameTime! * 1000) + extendTime)
         starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, starnameFeeAmount.font, 6, 6)
     }
     

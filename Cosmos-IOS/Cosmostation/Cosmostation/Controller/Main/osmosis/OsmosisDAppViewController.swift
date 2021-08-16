@@ -199,6 +199,39 @@ extension WUtils {
         return poolValue.dividing(by: totalShare, withBehavior: handler18)
     }
     
+    static func getPoolValue(_ pool: Osmosis_Gamm_V1beta1_Pool) -> NSDecimalNumber {
+        let coin0 = Coin.init(pool.poolAssets[0].token.denom, pool.poolAssets[0].token.amount)
+        let coin1 = Coin.init(pool.poolAssets[1].token.denom, pool.poolAssets[1].token.amount)
+        let coin0BaseDenom = BaseData.instance.getBaseDenom(coin0.denom)
+        let coin1BaseDenom = BaseData.instance.getBaseDenom(coin1.denom)
+        let coin0Decimal = getOsmosisCoinDecimal(coin0.denom)
+        let coin1Decimal = getOsmosisCoinDecimal(coin1.denom)
+        let coin0Value = usdValue(coin0BaseDenom, NSDecimalNumber.init(string: coin0.amount), coin0Decimal)
+        let coin1Value = usdValue(coin1BaseDenom, NSDecimalNumber.init(string: coin1.amount), coin1Decimal)
+        return coin0Value.adding(coin1Value)
+    }
+    
+    static func getNextIncentiveAmount(_ pool: Osmosis_Gamm_V1beta1_Pool, _ gauges: Array<Osmosis_Incentives_Gauge>, _ position: UInt) -> NSDecimalNumber  {
+        if (gauges.count != 3) { return NSDecimalNumber.zero }
+        let incentive1Day = NSDecimalNumber.init(string: gauges[0].coins[0].amount).subtracting(NSDecimalNumber.init(string: gauges[0].distributedCoins[0].amount))
+        let incentive7Day = NSDecimalNumber.init(string: gauges[1].coins[0].amount).subtracting(NSDecimalNumber.init(string: gauges[1].distributedCoins[0].amount))
+        let incentive14Day = NSDecimalNumber.init(string: gauges[2].coins[0].amount).subtracting(NSDecimalNumber.init(string: gauges[2].distributedCoins[0].amount))
+        if (position == 0) {
+            return incentive1Day
+        } else if (position == 1) {
+            return incentive1Day.adding(incentive7Day)
+        } else {
+            return incentive1Day.adding(incentive7Day).adding(incentive14Day)
+        }
+    }
+    
+    static func getPoolArp(_ pool: Osmosis_Gamm_V1beta1_Pool, _ gauges: Array<Osmosis_Incentives_Gauge>, _ position: UInt) -> NSDecimalNumber  {
+        let poolValue = getPoolValue(pool)
+        let incentiveAmount = getNextIncentiveAmount(pool, gauges, position)
+        let incentiveValue = WUtils.usdValue(BaseData.instance.getBaseDenom(OSMOSIS_MAIN_DENOM), incentiveAmount, WUtils.getOsmosisCoinDecimal(OSMOSIS_MAIN_DENOM))
+        return incentiveValue.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
+    }
+    
 }
 
 extension UIImage {

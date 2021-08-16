@@ -65,7 +65,7 @@ class SwapStatusCell: UITableViewCell {
         totalResultLabel.text = swapInfo?.status?.uppercased()
         requestIdLabel.text = swapInfo?._id
         if let time = swapInfo?.hdacTx?.time {
-            requestTimeLabel.text = WUtils.longTimetoString(input: Int64(time) * 1000)
+            requestTimeLabel.text = WUtils.longTimetoString(Int64(time) * 1000)
         }
         
         burnAddressLabel.text = swapInfo?.from

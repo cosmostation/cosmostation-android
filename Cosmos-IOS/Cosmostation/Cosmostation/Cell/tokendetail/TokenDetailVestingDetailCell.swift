@@ -79,31 +79,31 @@ class TokenDetailVestingDetailCell: TokenDetailCell {
         vestingCntLabel.text = "(" + String(vps.count) + ")"
         vestingTotalAmount.attributedText = WUtils.displayAmount2(baseData.onParseRemainVestingsAmountSumByDenom_gRPC(denom).stringValue, vestingTotalAmount.font!, 6, 6)
         
-        vestingTime0.text = WUtils.longTimetoString(input: vps[0].length)
+        vestingTime0.text = WUtils.longTimetoString(vps[0].length)
         vestingGap0.text = WUtils.getUnbondingTimeleft(vps[0].length)
         vestingAmount0.attributedText = WUtils.displayAmount2(WUtils.getAmountVp(vps[0], denom).stringValue, vestingAmount0.font!, 6, 6)
         
         if (vps.count > 1) {
             vestingLayer1.isHidden = false
-            vestingTime1.text = WUtils.longTimetoString(input: vps[1].length)
+            vestingTime1.text = WUtils.longTimetoString(vps[1].length)
             vestingGap1.text = WUtils.getUnbondingTimeleft(vps[1].length)
             vestingAmount1.attributedText = WUtils.displayAmount2(WUtils.getAmountVp(vps[1], denom).stringValue, vestingAmount0.font!, 6, 6)
         }
         if (vps.count > 2) {
             vestingLayer2.isHidden = false
-            vestingTime2.text = WUtils.longTimetoString(input: vps[2].length)
+            vestingTime2.text = WUtils.longTimetoString(vps[2].length)
             vestingGap2.text = WUtils.getUnbondingTimeleft(vps[2].length)
             vestingAmount2.attributedText = WUtils.displayAmount2(WUtils.getAmountVp(vps[2], denom).stringValue, vestingAmount0.font!, 6, 6)
         }
         if (vps.count > 3) {
             vestingLayer3.isHidden = false
-            vestingTime3.text = WUtils.longTimetoString(input: vps[3].length)
+            vestingTime3.text = WUtils.longTimetoString(vps[3].length)
             vestingGap3.text = WUtils.getUnbondingTimeleft(vps[3].length)
             vestingAmount3.attributedText = WUtils.displayAmount2(WUtils.getAmountVp(vps[3], denom).stringValue, vestingAmount0.font!, 6, 6)
         }
         if (vps.count > 4) {
             vestingLayer4.isHidden = false
-            vestingTime4.text = WUtils.longTimetoString(input: vps[4].length)
+            vestingTime4.text = WUtils.longTimetoString(vps[4].length)
             vestingGap4.text = WUtils.getUnbondingTimeleft(vps[4].length)
             vestingAmount4.attributedText = WUtils.displayAmount2(WUtils.getAmountVp(vps[4], denom).stringValue, vestingAmount0.font!, 6, 6)
         }
@@ -115,31 +115,31 @@ class TokenDetailVestingDetailCell: TokenDetailCell {
         vestingCntLabel.text = "(" + String(mKavaAccount.getCalcurateVestingCntByDenom(denom)) + ")"
         vestingTotalAmount.attributedText = WUtils.displayAmount2(mKavaAccount.getCalcurateVestingAmountSumByDenom(denom).stringValue, vestingTotalAmount.font!, 6, 6)
         if (mKavaAccount.getCalcurateVestingCntByDenom(denom) > 0) {
-            vestingTime0.text = WUtils.longTimetoString(input: mKavaAccount.getCalcurateTime(denom, 0))
+            vestingTime0.text = WUtils.longTimetoString(mKavaAccount.getCalcurateTime(denom, 0))
             vestingGap0.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCalcurateTime(denom, 0))
             vestingAmount0.attributedText = WUtils.displayAmount2(mKavaAccount.getCalcurateAmount(denom, 0).stringValue, vestingAmount0.font!, 6, 6)
         }
         if (mKavaAccount.getCalcurateVestingCntByDenom(denom) > 1) {
             vestingLayer1.isHidden = false
-            vestingTime1.text = WUtils.longTimetoString(input: mKavaAccount.getCalcurateTime(denom, 1))
+            vestingTime1.text = WUtils.longTimetoString(mKavaAccount.getCalcurateTime(denom, 1))
             vestingGap1.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCalcurateTime(denom, 1))
             vestingAmount1.attributedText = WUtils.displayAmount2(mKavaAccount.getCalcurateAmount(denom, 1).stringValue, vestingAmount1.font!, 6, 6)
         }
         if (mKavaAccount.getCalcurateVestingCntByDenom(denom) > 2) {
             vestingLayer2.isHidden = false
-            vestingTime2.text = WUtils.longTimetoString(input: mKavaAccount.getCalcurateTime(denom, 2))
+            vestingTime2.text = WUtils.longTimetoString(mKavaAccount.getCalcurateTime(denom, 2))
             vestingGap2.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCalcurateTime(denom, 2))
             vestingAmount2.attributedText = WUtils.displayAmount2(mKavaAccount.getCalcurateAmount(denom, 2).stringValue, vestingAmount2.font!, 6, 6)
         }
         if (mKavaAccount.getCalcurateVestingCntByDenom(denom) > 3) {
             vestingLayer3.isHidden = false
-            vestingTime3.text = WUtils.longTimetoString(input: mKavaAccount.getCalcurateTime(denom, 3))
+            vestingTime3.text = WUtils.longTimetoString(mKavaAccount.getCalcurateTime(denom, 3))
             vestingGap3.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCalcurateTime(denom, 3))
             vestingAmount3.attributedText = WUtils.displayAmount2(mKavaAccount.getCalcurateAmount(denom, 3).stringValue, vestingAmount3.font!, 6, 6)
         }
         if (mKavaAccount.getCalcurateVestingCntByDenom(denom) > 4) {
             vestingLayer4.isHidden = false
-            vestingTime4.text = WUtils.longTimetoString(input: mKavaAccount.getCalcurateTime(denom, 4))
+            vestingTime4.text = WUtils.longTimetoString(mKavaAccount.getCalcurateTime(denom, 4))
             vestingGap4.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCalcurateTime(denom, 4))
             vestingAmount4.attributedText = WUtils.displayAmount2(mKavaAccount.getCalcurateAmount(denom, 4).stringValue, vestingAmount4.font!, 6, 6)
         }

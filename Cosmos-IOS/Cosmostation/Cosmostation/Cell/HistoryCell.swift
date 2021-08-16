@@ -60,7 +60,7 @@ class HistoryCell: UITableViewCell {
     
     func bindHistoryOkView(_ history: OkHistory.DataDetail, _ address: String) {
         txTypeLabel.text = WUtils.okHistoryTitle(history)
-        txTimeLabel.text = WUtils.longTimetoString(input: history.timestamp! * 1000)
+        txTimeLabel.text = WUtils.longTimetoString(history.timestamp! * 1000)
         txTimeGapLabel.text = WUtils.timeGap2(input: history.timestamp! * 1000)
         txBlockLabel.text = history.txhash
     }
