@@ -145,6 +145,28 @@ class FarmingDetailViewController: BaseViewController, UITableViewDelegate, UITa
         return 3
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (section == 0 && mBondedList.count == 0) { return 0 }
+        else if (section == 1 && mUnbondingList.count == 0) { return 0 }
+        else if (section == 2 && mUnbondedList.count == 0) { return 0 }
+        else { return 30 }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = CommonHeader(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        if (section == 0) {
+            view.headerTitleLabel.text = "Bonded";
+            view.headerCntLabel.text = String(self.mBondedList.count)
+        } else if (section == 1) {
+            view.headerTitleLabel.text = "Unbonding";
+            view.headerCntLabel.text = String(self.mUnbondingList.count)
+        } else {
+            view.headerTitleLabel.text = "Unbonded";
+            view.headerCntLabel.text = String(self.mUnbondedList.count)
+        }
+        return view
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
             return mBondedList.count

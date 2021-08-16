@@ -42,36 +42,55 @@ class MyFarmCell: UITableViewCell {
     func onBindView(_ pool: Osmosis_Gamm_V1beta1_Pool, _ lockUps: Array<Osmosis_Lockup_PeriodLock>, _ gauges: Array<Osmosis_Incentives_Gauge>) {
         let coin0 = Coin.init(pool.poolAssets[0].token.denom, pool.poolAssets[0].token.amount)
         let coin1 = Coin.init(pool.poolAssets[1].token.denom, pool.poolAssets[1].token.amount)
-        let coin0BaseDenom = BaseData.instance.getBaseDenom(coin0.denom)
-        let coin1BaseDenom = BaseData.instance.getBaseDenom(coin1.denom)
-        let coin0Symbol = WUtils.getOsmosisTokenName(coin0.denom)
-        let coin1Symbol = WUtils.getOsmosisTokenName(coin1.denom)
-        let coin0Decimal = WUtils.getOsmosisCoinDecimal(coin0.denom)
-        let coin1Decimal = WUtils.getOsmosisCoinDecimal(coin1.denom)
         let lpCoinPrice = WUtils.getOsmoLpTokenPerUsdPrice(pool)
         let nf = WUtils.getNumberFormatter(2)
+        let apr = WUtils.getPoolArp(pool, gauges, 2)
+        let totalShares = NSDecimalNumber.init(string: pool.totalShares.amount)
         
         poolIDLabel.text = "MY EARNING #" + String(pool.id)
-        poolPairLabel.text = coin0Symbol + " / " + coin1Symbol
+        poolPairLabel.text = WUtils.getOsmosisTokenName(coin0.denom) + " / " + WUtils.getOsmosisTokenName(coin1.denom)
+        poolArpLabel.attributedText = WUtils.displayPercent(apr, poolArpLabel.font)
         
         
+        //pool incentives
+        let incentive1Day = WUtils.getNextIncentiveAmount(pool, gauges, 0)
+        let incentive7Day = WUtils.getNextIncentiveAmount(pool, gauges, 1)
+        let incentive14Day = WUtils.getNextIncentiveAmount(pool, gauges, 2)
+        
+        
+        //display lock
         var bondedAmount = NSDecimalNumber.zero
         var unbondingAmount = NSDecimalNumber.zero
         var unbondedAmount = NSDecimalNumber.zero
-        
-//        print("pool ", pool.id, "  ",  lockUps.count)
-        
+        var myRewards = NSDecimalNumber.zero
         lockUps.forEach { lockup in
             let lpCoin = Coin.init(lockup.coins[0].denom, lockup.coins[0].amount)
+            let myShare = NSDecimalNumber.init(string: lpCoin.amount)
+            let myShareRate = myShare.dividing(by: totalShares, withBehavior: WUtils.handler24Down)
             let now = Date.init().millisecondsSince1970
+            let day7 = Date.init().millisecondsSince1970 + 604800000
             let endTime = lockup.endTime.date.millisecondsSince1970
             if (lpCoin.osmosisAmmPoolId() == pool.id) {
                 if (endTime == -62135596800000) {
                     bondedAmount = bondedAmount.adding(NSDecimalNumber.init(string: lpCoin.amount))
+                    if (lockup.duration.seconds == 86400) {
+                        myRewards = myRewards.adding(myShareRate.multiplying(by: incentive1Day))
+                    } else if (lockup.duration.seconds == 604800) {
+                        myRewards = myRewards.adding(myShareRate.multiplying(by: incentive7Day))
+                    } else if (lockup.duration.seconds == 1209600) {
+                        myRewards = myRewards.adding(myShareRate.multiplying(by: incentive14Day))
+                    }
+                    
                 } else if (endTime > now) {
                     unbondingAmount = unbondingAmount.adding(NSDecimalNumber.init(string: lpCoin.amount))
+                    if (lockup.endTime.date.millisecondsSince1970 > day7) {
+                        myRewards = myRewards.adding(myShareRate.multiplying(by: incentive7Day))
+                    } else {
+                        myRewards = myRewards.adding(myShareRate.multiplying(by: incentive1Day))
+                    }
                 } else {
                     unbondedAmount = unbondedAmount.adding(NSDecimalNumber.init(string: lpCoin.amount))
+                    myRewards = myRewards.adding(myShareRate.multiplying(by: incentive1Day))
                 }
             }
         }
@@ -82,7 +101,6 @@ class MyFarmCell: UITableViewCell {
         unbondingDenomLabel.text = "GAMM-" + String(pool.id)
         unbondedAmountLabel.attributedText = WUtils.displayAmount2(unbondedAmount.stringValue, unbondedAmountLabel.font, 18, 6)
         unbondedDenomLabel.text = "GAMM-" + String(pool.id)
-        
         
         let farmingCoinValue = bondedAmount.multiplying(by: lpCoinPrice).multiplying(byPowerOf10: -18, withBehavior: WUtils.handler2)
         let formattedFarmingCoin = "$ " + nf.string(from: farmingCoinValue)!
@@ -96,30 +114,7 @@ class MyFarmCell: UITableViewCell {
         unbondedValueLabel.attributedText = WUtils.getDpAttributedString(formattedUnbondedCoin, 2, unbondedValueLabel.font)
         
         
-        
-        let coin0Value = WUtils.usdValue(coin0BaseDenom, NSDecimalNumber.init(string: coin0.amount), coin0Decimal)
-        let coin1Value = WUtils.usdValue(coin1BaseDenom, NSDecimalNumber.init(string: coin1.amount), coin1Decimal)
-        let poolValue = coin0Value.adding(coin1Value)
-//        print("poolValue ", poolValue)
-        
-        var thisTotalIncentiveValue = NSDecimalNumber.zero
-        gauges.forEach { gauge in
-            if (gauge.coins.count > 0 && gauge.distributedCoins.count > 0) {
-                let cIncentive = gauge.coins[0]
-                let dIncentive = gauge.distributedCoins[0]
-                
-                let thisIncentive = NSDecimalNumber.init(string: cIncentive.amount).subtracting(NSDecimalNumber.init(string: dIncentive.amount))
-                let thisIncentiveValue = WUtils.usdValue(BaseData.instance.getBaseDenom(OSMOSIS_MAIN_DENOM), thisIncentive, WUtils.getOsmosisCoinDecimal(OSMOSIS_MAIN_DENOM))
-                
-                thisTotalIncentiveValue = thisTotalIncentiveValue.adding(thisIncentiveValue)
-                
-            }
-        }
-        let apr = thisTotalIncentiveValue.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
-        poolArpLabel.attributedText = WUtils.displayPercent(apr, poolArpLabel.font)
-        
-        
-        
+        //display available
         let lpCoin = BaseData.instance.getAvailable_gRPC("gamm/pool/" + String(pool.id))
         let lpCoinValue = NSDecimalNumber.init(string: lpCoin).multiplying(by: lpCoinPrice).multiplying(byPowerOf10: -18, withBehavior: WUtils.handler2)
         let formattedLpCoinValue = "$ " + nf.string(from: lpCoinValue)!
@@ -127,5 +122,7 @@ class MyFarmCell: UITableViewCell {
         availableDenomLabel.adjustsFontSizeToFitWidth = true
         availableAmountLabel.attributedText = WUtils.displayAmount2(lpCoin, availableAmountLabel.font, 18, 6)
         availableValueLabel.attributedText = WUtils.getDpAttributedString(formattedLpCoinValue, 2, availableValueLabel.font)
+        
+        nextRewardAmountLabel.attributedText = WUtils.displayAmount2(myRewards.stringValue, nextRewardAmountLabel.font, 6, 6)
     }
 }
