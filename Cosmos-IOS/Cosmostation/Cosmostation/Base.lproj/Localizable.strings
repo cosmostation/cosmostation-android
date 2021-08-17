@@ -314,6 +314,9 @@
 "str_apr_help_msg" = "This figure is an estimated percentage calculated by taking into account the current average network block time.";
 "str_select_coin_swap_in" = "Select Coin to Swap In.";
 "str_select_coin_swap_out" = "Select Coin to Swap Out.";
+"str_select_osmo_lockup_duration_title" = "Select Lockup Type.";
+"str_select_osmo_unbonding_all" = "Unbonding all for same durations?";
+"str_select_osmo_unlock_all" = "Unlock all?";
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";
 "creat_cdp_step_1" = "Insert memo (optional)";
@@ -433,6 +436,22 @@
 "str_osmosis_exit_pool_step_1" = "Insert memo (optional)";
 "str_osmosis_exit_pool_step_2" = "Select transaction fee";
 "str_osmosis_exit_pool_step_3" = "Check transaction detail";
+"str_osmosis_lock_token_step_0" = "Insert amount to lock";
+"str_osmosis_lock_token_step_1" = "Insert memo (optional)";
+"str_osmosis_lock_token_step_2" = "Select transaction fee";
+"str_osmosis_lock_token_step_3" = "Check transaction detail";
+"str_osmosis_begin_unbonding_step_0" = "Insert amount to unbonding";
+"str_osmosis_begin_unbonding_step_1" = "Insert memo (optional)";
+"str_osmosis_begin_unbonding_step_2" = "Select transaction fee";
+"str_osmosis_begin_unbonding_step_3" = "Check transaction detail";
+"str_osmosis_unlock_token_step_0" = "Insert amount to unlock";
+"str_osmosis_unlock_token_step_1" = "Insert memo (optional)";
+"str_osmosis_unlock_token_step_2" = "Select transaction fee";
+"str_osmosis_unlock_token_step_3" = "Check transaction detail";
+
+
+
+
 "str_rizon_swap_step_0" = "Insert mnemonic for Hdac";
 "str_rizon_swap_step_1" = "Check transaction detail";
 
@@ -539,6 +558,9 @@ support@cosmostation.io";
 "title_pool_join_osmosis" = "Deposit to Pool";
 "title_pool_exit_osmosis" = "Withdraw from Pool";
 "title_farm_detail_osmosis" = "Earning Detail";
+"title_lock_token_osmosis" = "Lock Token";
+"title_begin_unbonding_osmosis" = "Begin Unbonding";
+"title_unlock_osmosis" = "Unlock Token";
 "title_rizon_swap_status" = "Event Horizon Status";
 "title_rizon_swap" = "Event Horizon";
 

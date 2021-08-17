@@ -10,6 +10,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StartUnbonding0ViewController" customModule="Cosmostation" customModuleProvider="target">
             <connections>
+                <outlet property="btnCancel" destination="RWh-O7-JFv" id="Ngf-GB-iRt"/>
+                <outlet property="btnNext" destination="gEZ-Nd-E6K" id="h1Z-oE-Kvp"/>
+                <outlet property="toUnbondingAmountLabel" destination="olJ-HI-F3a" id="LKf-hc-6yJ"/>
+                <outlet property="toUnbondingDenomLabel" destination="FKH-3p-BlR" id="OA1-r3-6mW"/>
+                <outlet property="toUnbondingDurationLabel" destination="XfH-Qh-jrH" id="4J4-9b-kif"/>
+                <outlet property="toUnbondingIdsLabel" destination="rfD-sA-pxr" id="Nys-Rn-4MR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -41,6 +47,9 @@
                                     <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickCancel:" destination="-1" eventType="touchUpInside" id="14a-yF-OVf"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gEZ-Nd-E6K">
                             <rect key="frame" x="196" y="0.0" width="186" height="50"/>
@@ -62,11 +71,14 @@
                                     <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickNext:" destination="-1" eventType="touchUpInside" id="4Dm-kx-MbL"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fl9-Y8-diV" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                    <rect key="frame" x="16" y="60" width="382" height="160"/>
+                    <rect key="frame" x="16" y="60" width="382" height="180"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To Unbonding ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFZ-WN-iVR">
                             <rect key="frame" x="16" y="16" width="104.5" height="16.5"/>
@@ -74,8 +86,8 @@
                             <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfD-sA-pxr">
-                            <rect key="frame" x="361" y="16" width="5" height="16.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfD-sA-pxr">
+                            <rect key="frame" x="160.5" y="16" width="205.5" height="16.5"/>
                             <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -88,7 +100,7 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unbonding Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBS-H2-6LN">
-                            <rect key="frame" x="16" y="105.5" width="125" height="16.5"/>
+                            <rect key="frame" x="16" y="117.5" width="125" height="16.5"/>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                             <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
@@ -99,21 +111,21 @@
                             <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfH-Qh-jrH">
+                            <rect key="frame" x="362" y="119" width="4" height="14"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKH-3p-BlR">
-                            <rect key="frame" x="336" y="66.5" width="30" height="14"/>
+                            <rect key="frame" x="336" y="83.5" width="30" height="14"/>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olJ-HI-F3a">
-                            <rect key="frame" x="327" y="65" width="5" height="16.5"/>
+                            <rect key="frame" x="327" y="82.5" width="5" height="16.5"/>
                             <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfH-Qh-jrH">
-                            <rect key="frame" x="362" y="107" width="4" height="14"/>
-                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -124,16 +136,17 @@
                         <constraint firstItem="PFZ-WN-iVR" firstAttribute="top" secondItem="Fl9-Y8-diV" secondAttribute="top" constant="16" id="7Wq-jC-dSM"/>
                         <constraint firstItem="wBS-H2-6LN" firstAttribute="leading" secondItem="Fl9-Y8-diV" secondAttribute="leading" constant="16" id="C3Z-JP-gVw"/>
                         <constraint firstAttribute="trailing" secondItem="40p-EX-Oq8" secondAttribute="trailing" constant="16" id="Exz-pJ-DHO"/>
-                        <constraint firstAttribute="height" constant="160" id="JeD-Zc-jkt"/>
+                        <constraint firstItem="FKH-3p-BlR" firstAttribute="top" secondItem="Zsl-MK-KLp" secondAttribute="bottom" constant="2" id="HzH-N0-gdG"/>
+                        <constraint firstAttribute="height" constant="180" id="JeD-Zc-jkt"/>
                         <constraint firstItem="FKH-3p-BlR" firstAttribute="trailing" secondItem="40p-EX-Oq8" secondAttribute="trailing" id="KxR-hN-gQf"/>
                         <constraint firstItem="Zsl-MK-KLp" firstAttribute="top" secondItem="40p-EX-Oq8" secondAttribute="bottom" constant="16" id="UgE-Cr-R2o"/>
                         <constraint firstItem="rfD-sA-pxr" firstAttribute="firstBaseline" secondItem="PFZ-WN-iVR" secondAttribute="firstBaseline" id="Uxi-Lu-hCT"/>
                         <constraint firstAttribute="trailing" secondItem="rfD-sA-pxr" secondAttribute="trailing" constant="16" id="V66-Rt-joW"/>
-                        <constraint firstItem="wBS-H2-6LN" firstAttribute="top" secondItem="Zsl-MK-KLp" secondAttribute="bottom" constant="24" id="Xwx-TL-QPx"/>
+                        <constraint firstItem="wBS-H2-6LN" firstAttribute="top" secondItem="Zsl-MK-KLp" secondAttribute="bottom" constant="36" id="Xwx-TL-QPx"/>
                         <constraint firstItem="XfH-Qh-jrH" firstAttribute="centerY" secondItem="wBS-H2-6LN" secondAttribute="centerY" id="aZk-K7-ewr"/>
                         <constraint firstItem="Zsl-MK-KLp" firstAttribute="leading" secondItem="PFZ-WN-iVR" secondAttribute="leading" id="cdg-Fc-xDK"/>
                         <constraint firstItem="FKH-3p-BlR" firstAttribute="leading" secondItem="olJ-HI-F3a" secondAttribute="trailing" constant="4" id="e8U-vM-6Ro"/>
-                        <constraint firstItem="FKH-3p-BlR" firstAttribute="centerY" secondItem="Zsl-MK-KLp" secondAttribute="centerY" id="oqB-Dx-mdX"/>
+                        <constraint firstItem="rfD-sA-pxr" firstAttribute="leading" secondItem="PFZ-WN-iVR" secondAttribute="trailing" constant="40" id="m4L-dR-dAv"/>
                         <constraint firstItem="olJ-HI-F3a" firstAttribute="centerY" secondItem="FKH-3p-BlR" secondAttribute="centerY" id="q54-xZ-I43"/>
                         <constraint firstItem="40p-EX-Oq8" firstAttribute="top" secondItem="PFZ-WN-iVR" secondAttribute="bottom" constant="16" id="ucx-3M-N8h"/>
                         <constraint firstItem="XfH-Qh-jrH" firstAttribute="trailing" secondItem="FKH-3p-BlR" secondAttribute="trailing" id="vvo-xk-xMA"/>

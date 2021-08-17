@@ -48,6 +48,9 @@ class TransactionViewController: UIViewController {
     var mPoolId: String?
     var mSwapInDenom: String?
     var mSwapOutDenom: String?
+    var mPool: Osmosis_Gamm_V1beta1_Pool?
+    var mLockupDuration: Int64?
+    var mLockups: Array<Osmosis_Lockup_PeriodLock>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -239,6 +242,21 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_pool_exit_osmosis", comment: "")
             
+        } else if (mType == OSMOSIS_MSG_TYPE_LOCK) {
+            stepDescription.text = NSLocalizedString("str_osmosis_lock_token_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_lock_token_osmosis", comment: "")
+            
+        } else if (mType == OSMOSIS_MSG_TYPE_BEGIN_UNLCOK) {
+            stepDescription.text = NSLocalizedString("str_osmosis_begin_unbonding_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_begin_unbonding_osmosis", comment: "")
+            
+        } else if (mType == OSMOSIS_MSG_TYPE_PERIOD_UNLOCK) {
+            stepDescription.text = NSLocalizedString("str_osmosis_unlock_token_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_unlock_osmosis", comment: "")
+            
         }
         
         else if (mType == TASK_RIZON_EVENT_HORIZON) {
@@ -301,6 +319,9 @@ class TransactionViewController: UIViewController {
             StepVc.mPoolId = self.mPoolId
             StepVc.mSwapInDenom = self.mSwapInDenom
             StepVc.mSwapOutDenom = self.mSwapOutDenom
+            StepVc.mPool = self.mPool
+            StepVc.mLockupDuration = self.mLockupDuration
+            StepVc.mLockups = self.mLockups
         }
     }
     
@@ -447,6 +468,19 @@ class TransactionViewController: UIViewController {
                 } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
                     stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_0", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_LOCK) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_lock_token_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_BEGIN_UNLCOK) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_begin_unbonding_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_PERIOD_UNLOCK) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_unlock_token_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
                 }
                 
                 else if (mType == TASK_RIZON_EVENT_HORIZON) {
@@ -596,6 +630,19 @@ class TransactionViewController: UIViewController {
                 } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
                     stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_1", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_LOCK) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_lock_token_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_BEGIN_UNLCOK) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_begin_unbonding_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_PERIOD_UNLOCK) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_unlock_token_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
                 }
                 
                 else if (mType == TASK_RIZON_EVENT_HORIZON) {
@@ -745,6 +792,19 @@ class TransactionViewController: UIViewController {
                 } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
                     stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_2", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_LOCK) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_lock_token_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_BEGIN_UNLCOK) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_begin_unbonding_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_PERIOD_UNLOCK) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_unlock_token_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
                 }
                 
                 
@@ -888,6 +948,19 @@ class TransactionViewController: UIViewController {
                 } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
                     stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_3", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_LOCK) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_lock_token_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_BEGIN_UNLCOK) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_begin_unbonding_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == OSMOSIS_MSG_TYPE_PERIOD_UNLOCK) {
+                    stepDescription.text = NSLocalizedString("str_osmosis_unlock_token_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
                 }
                 
             } else if (step == 4) {

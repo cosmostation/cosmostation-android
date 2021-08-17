@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftProtobuf
 
 class FarmingDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -202,19 +203,151 @@ class FarmingDetailViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
-    @IBAction func onClickNewFarm(_ sender: UIButton) {
-        print("onClickNewFarm")
+    @IBAction func onClickNewEarning(_ sender: UIButton) {
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
         
+        let lpCoin = BaseData.instance.getAvailableAmount_gRPC("gamm/pool/" + String(mPool.id))
+        if (lpCoin.compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+            return
+        }
+        
+        self.onShowUnbondingDuration()
     }
+    
+    func onStartNewEaring(_ duration: Int64) {
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = OSMOSIS_MSG_TYPE_LOCK
+        txVC.mPool = mPool
+        txVC.mLockupDuration = duration
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
     
     func onClickUnbonding(_ lock: Osmosis_Lockup_PeriodLock) {
-        print("onClickUnbonding ", lock.id)
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
         
+        var lockups = Array<Osmosis_Lockup_PeriodLock>()
+        var totalToUnbonding = NSDecimalNumber.zero
+        mBondedList.forEach { lockup in
+            if (lockup.duration.seconds == lock.duration.seconds) {
+                lockups.append(lockup)
+                totalToUnbonding = totalToUnbonding.adding(NSDecimalNumber.init(string: lockup.coins[0].amount))
+            }
+        }
+        
+        if (lockups.count > 1) {
+            onShowSameClassToUnbonding(lockups, totalToUnbonding, lock)
+        } else {
+            self.onStartUnbonding(lockups)
+        }
     }
     
+    func onStartUnbonding(_ lockups: Array<Osmosis_Lockup_PeriodLock>) {
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = OSMOSIS_MSG_TYPE_BEGIN_UNLCOK
+        txVC.mLockups = lockups
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    
     func onClickUnLock(_ lock: Osmosis_Lockup_PeriodLock) {
-        print("onClickUnLock ", lock.id)
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
         
+        var lockups = Array<Osmosis_Lockup_PeriodLock>()
+        var totalUnlock = NSDecimalNumber.zero
+        mUnbondedList.forEach { lockup in
+            lockups.append(lockup)
+            totalUnlock = totalUnlock.adding(NSDecimalNumber.init(string: lockup.coins[0].amount))
+        }
+
+        if (lockups.count > 1) {
+            onShowSameClassToUnLock(lockups, totalUnlock, lock)
+        } else {
+            self.onStartUnLock(lockups)
+        }
+    }
+    
+    func onStartUnLock(_ lockups: Array<Osmosis_Lockup_PeriodLock>) {
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = OSMOSIS_MSG_TYPE_PERIOD_UNLOCK
+        txVC.mLockups = lockups
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    
+    func onShowUnbondingDuration() {
+        let selectLockupAlert = UIAlertController(title: NSLocalizedString("str_select_osmo_lockup_duration_title", comment: ""), message: "", preferredStyle: .alert)
+        let day1Action = UIAlertAction(title: "1 Day", style: .default, handler: { _ in
+            self.onStartNewEaring(86400)
+        })
+        let day7Action = UIAlertAction(title: "7 Days", style: .default, handler: { _ in
+            self.onStartNewEaring(604800)
+        })
+        let day14Action = UIAlertAction(title: "14 Days", style: .default, handler: { _ in
+            self.onStartNewEaring(1209600)
+        })
+        selectLockupAlert.addAction(day1Action)
+        selectLockupAlert.addAction(day7Action)
+        selectLockupAlert.addAction(day14Action)
+        self.present(selectLockupAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            selectLockupAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    func onShowSameClassToUnbonding(_ lockups: Array<Osmosis_Lockup_PeriodLock>, _ amount: NSDecimalNumber, _ lockup: Osmosis_Lockup_PeriodLock) {
+        var msg = ""
+        for lockUp in lockups {
+            msg = msg + "# " + String(lockUp.id) + "  "
+        }
+        msg = msg + "\n\n" + amount.multiplying(byPowerOf10: -18, withBehavior: WUtils.handler2).stringValue
+        let askUnbondingAllAlert = UIAlertController(title: NSLocalizedString("str_select_osmo_unbonding_all", comment: ""), message: msg, preferredStyle: .alert)
+        let unbondingSingleAction = UIAlertAction(title: NSLocalizedString("Unbonding This One", comment: ""), style: .default) { (_) -> Void in
+            self.onStartUnbonding([lockup])
+        }
+        let unbondingAllAction = UIAlertAction(title: NSLocalizedString("Unbonding All", comment: ""), style: .default) { (_) -> Void in
+            self.onStartUnbonding(lockups)
+        }
+        askUnbondingAllAlert.addAction(unbondingSingleAction)
+        askUnbondingAllAlert.addAction(unbondingAllAction)
+        self.present(askUnbondingAllAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            askUnbondingAllAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    func onShowSameClassToUnLock(_ lockups: Array<Osmosis_Lockup_PeriodLock>, _ amount: NSDecimalNumber, _ lockup: Osmosis_Lockup_PeriodLock) {
+        var msg = ""
+        for lockUp in lockups {
+            msg = msg + "# " + String(lockUp.id) + "  "
+        }
+        msg = msg + "\n\n" + amount.multiplying(byPowerOf10: -18, withBehavior: WUtils.handler2).stringValue
+        let askUnlockAllAlert = UIAlertController(title: NSLocalizedString("str_select_osmo_unlock_all", comment: ""), message: msg, preferredStyle: .alert)
+        let unlockSingleAction = UIAlertAction(title: NSLocalizedString("Unlock This One", comment: ""), style: .default) { (_) -> Void in
+            self.onStartUnLock([lockup])
+        }
+        let unlockAllAction = UIAlertAction(title: NSLocalizedString("Unlock All", comment: ""), style: .default) { (_) -> Void in
+            self.onStartUnLock(lockups)
+        }
+        askUnlockAllAlert.addAction(unlockSingleAction)
+        askUnlockAllAlert.addAction(unlockAllAction)
+        self.present(askUnlockAllAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            askUnlockAllAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
     }
     
 }

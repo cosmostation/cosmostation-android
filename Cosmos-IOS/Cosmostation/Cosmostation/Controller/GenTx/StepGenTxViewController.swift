@@ -122,6 +122,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mPoolCoin0: Coin?
     var mPoolCoin1: Coin?
     var mLPCoin: Coin?
+    var mLockupDuration: Int64?
+    var mLockups: Array<Osmosis_Lockup_PeriodLock>?
     
     
     var mHdacKey: HDWalletKit.PrivateKey?
@@ -378,6 +380,24 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepMemoViewController"),
                     StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
                     ExitPool3ViewController(nibName: "ExitPool3ViewController", bundle: nil)]
+            
+        } else if (mType == OSMOSIS_MSG_TYPE_LOCK) {
+            return [StartLock0ViewController(nibName: "StartLock0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                    StartLock3ViewController(nibName: "StartLock3ViewController", bundle: nil)]
+            
+        } else if (mType == OSMOSIS_MSG_TYPE_BEGIN_UNLCOK) {
+            return [StartUnbonding0ViewController(nibName: "StartUnbonding0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                    StartUnbonding3ViewController(nibName: "StartUnbonding3ViewController", bundle: nil)]
+            
+        } else if (mType == OSMOSIS_MSG_TYPE_PERIOD_UNLOCK) {
+            return [StartUnlock0ViewController(nibName: "StartUnlock0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                    StartUnlock3ViewController(nibName: "StartUnlock3ViewController", bundle: nil)]
         }
         
         else if (mType == TASK_RIZON_EVENT_HORIZON) {

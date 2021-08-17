@@ -2845,6 +2845,12 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_JOIN_POOL))
             } else if (type == OSMOSIS_MSG_TYPE_EXIT_POOL) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_EXIT_POOL))
+            } else if (type == OSMOSIS_MSG_TYPE_LOCK) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_LOCK))
+            } else if (type == OSMOSIS_MSG_TYPE_BEGIN_UNLCOK) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_BEGIN_UNBONDING))
+            } else if (type == OSMOSIS_MSG_TYPE_PERIOD_UNLOCK) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_UNLOCK))
             }
         }
         

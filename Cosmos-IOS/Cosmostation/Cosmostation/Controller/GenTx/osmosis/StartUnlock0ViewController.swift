@@ -8,23 +8,47 @@
 
 import UIKit
 
-class StartUnlock0ViewController: UIViewController {
+class StartUnlock0ViewController: BaseViewController {
+    
+    @IBOutlet weak var btnCancel: UIButton!
+    @IBOutlet weak var btnNext: UIButton!
+    @IBOutlet weak var toUnlockIdsLabel: UILabel!
+    @IBOutlet weak var toUnlockAmountLabel: UILabel!
+    @IBOutlet weak var toUnlockDenomLabel: UILabel!
+    
+    var pageHolderVC: StepGenTxViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.pageHolderVC = self.parent as? StepGenTxViewController
+        
+        let toUnlockDenom = String(pageHolderVC.mLockups![0].coins[0].denom)
+        var ids = ""
+        var toUnlockAmount = NSDecimalNumber.zero
+        for lockUp in pageHolderVC.mLockups! {
+            ids = ids + "# " + String(lockUp.id) + "  "
+            toUnlockAmount = toUnlockAmount.adding(NSDecimalNumber.init(string: lockUp.coins[0].amount))
+        }
+        toUnlockIdsLabel.text = ids
+        WUtils.showCoinDp(toUnlockDenom, toUnlockAmount.stringValue, toUnlockDenomLabel, toUnlockAmountLabel, chainType!)
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    override func enableUserInteraction() {
+        self.btnCancel.isUserInteractionEnabled = true
+        self.btnNext.isUserInteractionEnabled = true
     }
-    */
+    
+    @IBAction func onClickCancel(_ sender: UIButton) {
+        self.btnCancel.isUserInteractionEnabled = false
+        self.btnNext.isUserInteractionEnabled = false
+        pageHolderVC.onBeforePage()
+    }
+    
+    @IBAction func onClickNext(_ sender: UIButton) {
+        sender.isUserInteractionEnabled = false
+        pageHolderVC.onNextPage()
+    }
 
 }

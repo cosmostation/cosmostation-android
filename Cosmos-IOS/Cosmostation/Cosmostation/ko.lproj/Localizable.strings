@@ -288,6 +288,9 @@
 "str_apr_help_msg" = "현재 체인의 평균 블럭 시간을 바탕으로 계산한 연간 위임 예상 수익율 입니다.";
 "str_select_coin_swap_in" = "스왑 할 코인을 골라주세요.";
 "str_select_coin_swap_out" = "스왑 할 코인을 골라주세요.";
+"str_select_osmo_lockup_duration_title" = "락업 종류룰 선택하세요.";
+"str_select_osmo_unbonding_all" = "같은 기간의 본딩을 모두 해제하시겠습니까?";
+"str_select_osmo_unlock_all" = "모두 언락 하시겠습니까?";
 
 "current_price_format" = "현재 %@ 가격";
 "liquidation_price_format" = "청산 %@ 가격";
@@ -437,6 +440,20 @@
 "str_osmosis_exit_pool_step_1" = "메모를 입력하세요 (선택사항)";
 "str_osmosis_exit_pool_step_2" = "Tx 수수료를 선택하세요";
 "str_osmosis_exit_pool_step_3" = "입력하신 정보를 확인하세요";
+
+"str_osmosis_lock_token_step_0" = "락업 수량을 입력해주세요";
+"str_osmosis_lock_token_step_1" = "메모를 입력하세요 (선택사항)";
+"str_osmosis_lock_token_step_2" = "Tx 수수료를 선택하세요";
+"str_osmosis_lock_token_step_3" = "입력하신 정보를 확인하세요";
+"str_osmosis_begin_unbonding_step_0" = "언본딩 수량을 입력해주세요";
+"str_osmosis_begin_unbonding_step_1" = "메모를 입력하세요 (선택사항)";
+"str_osmosis_begin_unbonding_step_2" = "Tx 수수료를 선택하세요";
+"str_osmosis_begin_unbonding_step_3" = "입력하신 정보를 확인하세요";
+"str_osmosis_unlock_token_step_0" = "안락 하실 수량을 입력해주세요";
+"str_osmosis_unlock_token_step_1" = "메모를 입력하세요 (선택사항)";
+"str_osmosis_unlock_token_step_2" = "Tx 수수료를 선택하세요";
+"str_osmosis_unlock_token_step_3" = "입력하신 정보를 확인하세요";
+
 "str_rizon_swap_step_0" = "Hdac의 니모닉을 입력하세요";
 "str_rizon_swap_step_1" = "입력하신 정보를 확인하세요";
 
@@ -543,6 +560,9 @@ support@cosmostation.io";
 "title_pool_join_osmosis" = "풀에 자산 넣기";
 "title_pool_exit_osmosis" = "풀에서 자산 빼기";
 "title_farm_detail_osmosis" = "Earning 상세";
+"title_lock_token_osmosis" = "토큰 잠그기";
+"title_begin_unbonding_osmosis" = "토큰 풀기 시작";
+"title_unlock_osmosis" = "토큰 풀기";
 "title_rizon_swap_status" = "스왑 상태 확인";
 "title_rizon_swap" = "이벤트 호라이즌";
 

@@ -309,6 +309,38 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
                                                            privateKey, publicKey,
                                                            BaseData.instance.getChainId(self.chainType))
             
+        } else if (pageHolderVC.mType == OSMOSIS_MSG_TYPE_LOCK) {
+            return Signer.genSimulateLockTokensMsgTxgRPC(auth,
+                                                         self.pageHolderVC.mLPCoin!,
+                                                         self.pageHolderVC.mLockupDuration!,
+                                                         self.pageHolderVC.mFee!,
+                                                         self.pageHolderVC.mMemo!,
+                                                         privateKey, publicKey,
+                                                         BaseData.instance.getChainId(self.chainType))
+            
+        } else if (pageHolderVC.mType == OSMOSIS_MSG_TYPE_BEGIN_UNLCOK) {
+            var ids = Array<UInt64>()
+            for lockup in self.pageHolderVC.mLockups! {
+                ids.append(lockup.id)
+            }
+            return Signer.genSimulateBeginUnlockingsMsgTxgRPC(auth,
+                                                              ids,
+                                                              self.pageHolderVC.mFee!,
+                                                              self.pageHolderVC.mMemo!,
+                                                              privateKey, publicKey,
+                                                              BaseData.instance.getChainId(self.chainType))
+            
+        } else if (pageHolderVC.mType == OSMOSIS_MSG_TYPE_PERIOD_UNLOCK) {
+            var ids = Array<UInt64>()
+            for lockup in self.pageHolderVC.mLockups! {
+                ids.append(lockup.id)
+            }
+            return Signer.genSimulateUnlockPeriodLocksMsgTxgRPC(auth,
+                                                                ids,
+                                                                self.pageHolderVC.mFee!,
+                                                                self.pageHolderVC.mMemo!,
+                                                                privateKey, publicKey,
+                                                                BaseData.instance.getChainId(self.chainType))
         }
         return nil
     }
