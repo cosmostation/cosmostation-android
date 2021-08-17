@@ -184,6 +184,7 @@ class FarmingDetailViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"EarnBondedCell") as? EarnBondedCell
             let lock = mBondedList[indexPath.row]
             cell?.onBindView(lock, mPool, mPoolGauges)
+            cell?.actionUnbonding = { self.onClickUnbonding(lock) }
             return cell!
             
         } else if (indexPath.section == 1) {
@@ -196,11 +197,23 @@ class FarmingDetailViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"EarnUnbondedCell") as? EarnUnbondedCell
             let lock = mUnbondedList[indexPath.row]
             cell?.onBindView(lock, mPool, mPoolGauges)
+            cell?.actionUnlock = { self.onClickUnLock(lock)}
             return cell!
         }
     }
     
     @IBAction func onClickNewFarm(_ sender: UIButton) {
+        print("onClickNewFarm")
+        
+    }
+    
+    func onClickUnbonding(_ lock: Osmosis_Lockup_PeriodLock) {
+        print("onClickUnbonding ", lock.id)
+        
+    }
+    
+    func onClickUnLock(_ lock: Osmosis_Lockup_PeriodLock) {
+        print("onClickUnLock ", lock.id)
         
     }
     
