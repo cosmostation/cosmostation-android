@@ -9,6 +9,7 @@
 import Foundation
 import HDWalletKit
 import secp256k1
+import SwiftProtobuf
 
 class Signer {
     
@@ -943,7 +944,157 @@ class Signer {
         }
     }
     
+    static func genSignedLockTokensMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                             _ lpCoin: Coin, _ duration: Int64,
+                                             _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let lockupCoin = Cosmos_Base_V1beta1_Coin.with { $0.denom = lpCoin.denom; $0.amount = lpCoin.amount }
+        var lockupTokens = Array<Cosmos_Base_V1beta1_Coin>()
+        lockupTokens.append(lockupCoin)
+        
+        let lockTokensMsg = Osmosis_Lockup_MsgLockTokens.with {
+            $0.owner = WUtils.onParseAuthGrpc(auth).0!
+            $0.duration = SwiftProtobuf.Google_Protobuf_Duration.init(seconds: duration, nanos: 0)
+            $0.coins = lockupTokens
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/osmosis.lockup.MsgLockTokens"
+            $0.value = try! lockTokensMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
     
+    static func genSimulateLockTokensMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                               _ lpCoin: Coin, _ duration: Int64,
+                                               _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        let lockupCoin = Cosmos_Base_V1beta1_Coin.with { $0.denom = lpCoin.denom; $0.amount = lpCoin.amount }
+        var lockupTokens = Array<Cosmos_Base_V1beta1_Coin>()
+        lockupTokens.append(lockupCoin)
+        
+        let lockTokensMsg = Osmosis_Lockup_MsgLockTokens.with {
+            $0.owner = WUtils.onParseAuthGrpc(auth).0!
+            $0.duration = SwiftProtobuf.Google_Protobuf_Duration.init(seconds: duration, nanos: 0)
+            $0.coins = lockupTokens
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/osmosis.lockup.MsgLockTokens"
+            $0.value = try! lockTokensMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
+    
+    
+    static func genSignedBeginUnlockingsMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                  _ ids: Array<UInt64>,
+                                                  _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        var anyMsgs = Array<Google_Protobuf2_Any>()
+        for id in ids {
+            let unlockMsg = Osmosis_Lockup_MsgBeginUnlocking.with {
+                $0.owner = WUtils.onParseAuthGrpc(auth).0!
+                $0.id = id
+            }
+            let anyMsg = Google_Protobuf2_Any.with {
+                $0.typeURL = "/osmosis.lockup.MsgBeginUnlocking"
+                $0.value = try! unlockMsg.serializedData()
+            }
+            anyMsgs.append(anyMsg)
+        }
+        let txBody = getGrpcTxBody(anyMsgs, memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSimulateBeginUnlockingsMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                    _ ids: Array<UInt64>,
+                                                    _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        var anyMsgs = Array<Google_Protobuf2_Any>()
+        for id in ids {
+            let unlockMsg = Osmosis_Lockup_MsgBeginUnlocking.with {
+                $0.owner = WUtils.onParseAuthGrpc(auth).0!
+                $0.id = id
+            }
+            let anyMsg = Google_Protobuf2_Any.with {
+                $0.typeURL = "/osmosis.lockup.MsgBeginUnlocking"
+                $0.value = try! unlockMsg.serializedData()
+            }
+            anyMsgs.append(anyMsg)
+        }
+        let txBody = getGrpcTxBody(anyMsgs, memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
+    
+    
+    static func genSignedUnlockPeriodLocksMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                    _ ids: Array<UInt64>,
+                                                    _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        var anyMsgs = Array<Google_Protobuf2_Any>()
+        for id in ids {
+            let unlockMsg = Osmosis_Lockup_MsgUnlockPeriodLock.with {
+                $0.owner = WUtils.onParseAuthGrpc(auth).0!
+                $0.id = id
+            }
+            let anyMsg = Google_Protobuf2_Any.with {
+                $0.typeURL = "/osmosis.lockup.MsgUnlockPeriodLock"
+                $0.value = try! unlockMsg.serializedData()
+            }
+            anyMsgs.append(anyMsg)
+        }
+        let txBody = getGrpcTxBody(anyMsgs, memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSimulateUnlockPeriodLocksMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                      _ ids: Array<UInt64>,
+                                                      _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        var anyMsgs = Array<Google_Protobuf2_Any>()
+        for id in ids {
+            let unlockMsg = Osmosis_Lockup_MsgUnlockPeriodLock.with {
+                $0.owner = WUtils.onParseAuthGrpc(auth).0!
+                $0.id = id
+            }
+            let anyMsg = Google_Protobuf2_Any.with {
+                $0.typeURL = "/osmosis.lockup.MsgUnlockPeriodLock"
+                $0.value = try! unlockMsg.serializedData()
+            }
+            anyMsgs.append(anyMsg)
+        }
+        let txBody = getGrpcTxBody(anyMsgs, memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
+        
     
     
     

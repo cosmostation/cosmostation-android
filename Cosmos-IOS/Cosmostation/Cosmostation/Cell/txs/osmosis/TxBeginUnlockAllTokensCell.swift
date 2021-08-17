@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TxUnlockAllTokensCell: TxCell {
+class TxBeginUnlockAllTokensCell: TxCell {
     @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var txOwenerLabel: UILabel!
     @IBOutlet weak var txUnlockCntLabel: UILabel!

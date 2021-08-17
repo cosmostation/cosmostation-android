@@ -57,8 +57,8 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
         self.txTableView.register(UINib(nibName: "TxExitPoolCell", bundle: nil), forCellReuseIdentifier: "TxExitPoolCell")
         self.txTableView.register(UINib(nibName: "TxTokenSwapCell", bundle: nil), forCellReuseIdentifier: "TxTokenSwapCell")
         self.txTableView.register(UINib(nibName: "TxLockTokenCell", bundle: nil), forCellReuseIdentifier: "TxLockTokenCell")
-        self.txTableView.register(UINib(nibName: "TxUnlockTokenCell", bundle: nil), forCellReuseIdentifier: "TxUnlockTokenCell")
-        self.txTableView.register(UINib(nibName: "TxUnlockAllTokensCell", bundle: nil), forCellReuseIdentifier: "TxUnlockAllTokensCell")
+        self.txTableView.register(UINib(nibName: "TxBeginUnlockTokenCell", bundle: nil), forCellReuseIdentifier: "TxBeginUnlockTokenCell")
+        self.txTableView.register(UINib(nibName: "TxBeginUnlockAllTokensCell", bundle: nil), forCellReuseIdentifier: "TxBeginUnlockAllTokensCell")
         self.txTableView.register(UINib(nibName: "TxUnlockPeriodLockCell", bundle: nil), forCellReuseIdentifier: "TxUnlockPeriodLockCell")
         
         //for ibc msg type
@@ -254,12 +254,12 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
                 return cell!
                 
             } else if (msg.typeURL == ("/" + Osmosis_Lockup_MsgBeginUnlocking.protoMessageName)) {
-                let cell = tableView.dequeueReusableCell(withIdentifier:"TxUnlockTokenCell") as? TxCell
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxBeginUnlockTokenCell") as? TxCell
                 cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
                 return cell!
                 
             } else if (msg.typeURL == ("/" + Osmosis_Lockup_MsgBeginUnlockingAll.protoMessageName)) {
-                let cell = tableView.dequeueReusableCell(withIdentifier:"TxUnlockAllTokensCell") as? TxCell
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxBeginUnlockAllTokensCell") as? TxCell
                 cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
                 return cell!
                 

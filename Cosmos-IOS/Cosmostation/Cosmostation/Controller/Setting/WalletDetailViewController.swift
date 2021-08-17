@@ -290,7 +290,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             
         }
         
-        importDate.text = WUtils.longTimetoString(input:account!.account_import_time)
+        importDate.text = WUtils.longTimetoString(account!.account_import_time)
         
         if (account!.account_has_private)  {
             actionBtn.setTitle(NSLocalizedString("check_mnemonic", comment: ""), for: .normal)

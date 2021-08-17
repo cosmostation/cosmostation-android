@@ -47,7 +47,7 @@ class RegisterDomain3ViewController: BaseViewController, PasswordViewDelegate {
         starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, starnameFeeAmount.font, 6, 6)
         
         let extendTime = WUtils.getStarNameRegisterDomainExpireTime()
-        expireDate.text = WUtils.longTimetoString(input: Date().millisecondsSince1970 + extendTime)
+        expireDate.text = WUtils.longTimetoString(Date().millisecondsSince1970 + extendTime)
         starnameLabel.text = "*" + pageHolderVC.mStarnameDomain!
         domainTypeLabel.text = pageHolderVC.mStarnameDomainType
         memoLabel.text = pageHolderVC.mMemo
