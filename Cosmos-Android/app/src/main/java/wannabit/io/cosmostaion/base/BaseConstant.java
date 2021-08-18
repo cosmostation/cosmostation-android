@@ -761,7 +761,7 @@ public class BaseConstant {
     public final static String EXPLORER_KI_MAIN         = "https://www.mintscan.io/ki-chain/";
     public final static String EXPLORER_OSMOSIS_MAIN    = "https://www.mintscan.io/osmosis/";
     public final static String EXPLORER_MEDI_MAIN       = "https://www.mintscan.io/medibloc/";
-    public final static String EXPLORER_RIZON_MAIN      = "https://explorer.as.hdactech.com/hdac-explorer/";
+    public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
@@ -770,7 +770,8 @@ public class BaseConstant {
     public final static String EXPLORER_KAVA_TEST       = "https://dev.mintscan.io/kava-testnet/";
     public final static String EXPLORER_OKEX_TEST       = "https://www.oklink.com/okexchain-test/";
     public final static String EXPLORER_CERTIK          = "https://explorer.certik.foundation/";
-    public final static String EXPLORER_RIZON_TEST      = "http://test.explorer.hdactech.com/hdac-explorer/";
+    public final static String EXPLORER_RIZON_TEST      = "https://testnet.mintscan.io/rizon/";
+    public final static String EXPLORER_HDAC_TEST       = "http://test.explorer.hdactech.com/hdac-explorer/";
     public final static String EXPLORER_MEDI_TEST       = "https://testnet.mintscan.io/medibloc/";
     public final static String EXPLORER_ALTHEA_TEST     = "https://testnet.mintscan.io/althea/";
 

@@ -80,6 +80,7 @@
                     style="@style/font_ss_12_white"/>
             </RelativeLayout>
             <LinearLayout
+                android:id="@+id/hdacLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -222,6 +223,7 @@
                 android:layout_below="@+id/card_root"
                 app:srcCompat="@drawable/icon_arrow" />
             <LinearLayout
+                android:id="@+id/rizonLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
