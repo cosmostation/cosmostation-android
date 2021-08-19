@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -340,6 +340,9 @@ let IOV_MSG_TYPE_RENEW_ACCOUNT              = "starname/RenewAccount";
 let OSMOSIS_MSG_TYPE_SWAP                   = "osmosis/MsgSwapExactAmountIn";
 let OSMOSIS_MSG_TYPE_JOIN_POOL              = "osmosis/MsgJoinPool";
 let OSMOSIS_MSG_TYPE_EXIT_POOL              = "osmosis/MsgExitPool";
+let OSMOSIS_MSG_TYPE_LOCK                   = "osmosis/MsgLockTokens";
+let OSMOSIS_MSG_TYPE_BEGIN_UNLCOK           = "osmosis/MsgBeginUnlocking";
+let OSMOSIS_MSG_TYPE_PERIOD_UNLOCK          = "osmosis/MsgUnlockPeriodLock";
 
 
 let TASK_RIZON_EVENT_HORIZON                = "rizon_swap";
@@ -465,6 +468,9 @@ let GAS_FEE_AMOUNT_REDELE                   = "240000"
 let GAS_FEE_AMOUNT_OSMOS_SWAP               = "300000"
 let GAS_FEE_AMOUNT_OSMOS_JOIN_POOL          = "600000"
 let GAS_FEE_AMOUNT_OSMOS_EXIT_POOL          = "600000"
+let GAS_FEE_AMOUNT_OSMOS_LOCK               = "20000000"
+let GAS_FEE_AMOUNT_OSMOS_BEGIN_UNBONDING    = "30000000"
+let GAS_FEE_AMOUNT_OSMOS_UNLOCK             = "10000000"
 
 let FEE_BNB_TRANSFER                            = "0.000075"
 

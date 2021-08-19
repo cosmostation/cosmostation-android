@@ -524,7 +524,7 @@ public class WUtils {
     }
     
     
-    static func longTimetoString(input: Int64) -> String {
+    static func longTimetoString(_ input: Int64) -> String {
         let localFormatter = DateFormatter()
         localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
         
@@ -2845,6 +2845,12 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_JOIN_POOL))
             } else if (type == OSMOSIS_MSG_TYPE_EXIT_POOL) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_EXIT_POOL))
+            } else if (type == OSMOSIS_MSG_TYPE_LOCK) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_LOCK))
+            } else if (type == OSMOSIS_MSG_TYPE_BEGIN_UNLCOK) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_BEGIN_UNBONDING))
+            } else if (type == OSMOSIS_MSG_TYPE_PERIOD_UNLOCK) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_UNLOCK))
             }
         }
         
@@ -4847,7 +4853,7 @@ public class WUtils {
         if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.depositPeriod) {
             return "Waiting Deposit"
         } else {
-            return longTimetoString(input: proposal.votingStartTime.seconds * 1000)
+            return longTimetoString(proposal.votingStartTime.seconds * 1000)
         }
     }
     
@@ -4855,7 +4861,7 @@ public class WUtils {
         if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.depositPeriod) {
             return "Waiting Deposit"
         } else {
-            return longTimetoString(input: proposal.votingEndTime.seconds * 1000)
+            return longTimetoString(proposal.votingEndTime.seconds * 1000)
         }
     }
     

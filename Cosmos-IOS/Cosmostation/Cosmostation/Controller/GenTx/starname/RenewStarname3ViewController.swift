@@ -57,8 +57,8 @@ class RenewStarname3ViewController: BaseViewController, PasswordViewDelegate {
             extendTime = WUtils.getRenewPeriod(IOV_MSG_TYPE_RENEW_ACCOUNT)
             starnameFee = WUtils.getStarNameRenewAccountFee(pageHolderVC!.mStarnameDomainType!)
         }
-        expireDate.text = WUtils.longTimetoString(input: pageHolderVC.mStarnameTime! * 1000)
-        renewExpireDate.text = WUtils.longTimetoString(input: (pageHolderVC.mStarnameTime! * 1000) + extendTime)
+        expireDate.text = WUtils.longTimetoString(pageHolderVC.mStarnameTime! * 1000)
+        renewExpireDate.text = WUtils.longTimetoString((pageHolderVC.mStarnameTime! * 1000) + extendTime)
         starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, starnameFeeAmount.font, 6, 6)
         memoLabel.text = pageHolderVC.mMemo
     }

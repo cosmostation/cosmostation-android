@@ -21,11 +21,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="JOm-f5-fUa">
-                                <rect key="frame" x="102.5" y="52" width="209" height="32"/>
+                                <rect key="frame" x="107" y="52" width="200" height="32"/>
                                 <segments>
                                     <segment title="Swap"/>
                                     <segment title="Pool"/>
-                                    <segment title="Farming"/>
+                                    <segment title="Earning"/>
                                 </segments>
                                 <color key="tintColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>

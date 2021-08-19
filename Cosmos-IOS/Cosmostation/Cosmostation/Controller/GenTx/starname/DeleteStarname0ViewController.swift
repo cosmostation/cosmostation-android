@@ -29,7 +29,7 @@ class DeleteStarname0ViewController: BaseViewController {
         } else if (pageHolderVC.mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
             toDeleteStarname.text = pageHolderVC.mStarnameAccount! + "*" + pageHolderVC.mStarnameDomain!
         }
-        expireDate.text = WUtils.longTimetoString(input: pageHolderVC.mStarnameTime! * 1000)
+        expireDate.text = WUtils.longTimetoString(pageHolderVC.mStarnameTime! * 1000)
     }
     
     override func enableUserInteraction() {

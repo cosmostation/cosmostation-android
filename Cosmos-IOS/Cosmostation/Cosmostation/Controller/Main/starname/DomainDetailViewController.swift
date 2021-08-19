@@ -173,7 +173,7 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
                 self.myDomainEmptyView.isHidden = false
                 self.myDomainAddressCntLael.text = "0"
             }
-            myDomainExpireTimeLabel.text = WUtils.longTimetoString(input: mMyDomainInfo_gRPC!.validUntil * 1000)
+            myDomainExpireTimeLabel.text = WUtils.longTimetoString(mMyDomainInfo_gRPC!.validUntil * 1000)
             myDomainType.text = mMyDomainInfo_gRPC?.type.uppercased()
             if (mMyDomainInfo_gRPC?.type == "open") {
                 myDomainType.textColor = COLOR_IOV

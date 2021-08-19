@@ -1389,7 +1389,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    
     func onFetchPriceInfo(_ denoms: String) {
         print("onFetchPriceInfo ", denoms, "   ", BaseNetWork.getPrice(denoms))
         let request = Alamofire.request(BaseNetWork.getPrice(denoms), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])

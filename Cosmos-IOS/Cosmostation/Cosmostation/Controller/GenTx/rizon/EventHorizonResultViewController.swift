@@ -44,7 +44,7 @@ class EventHorizonResultViewController: BaseViewController {
     
     func onUpdateView() {
         blockHeightLabel.text = String(txDetail!.blockheight!)
-        timeLabel.text = WUtils.longTimetoString(input: Int64(txDetail!.time!) * 1000)
+        timeLabel.text = WUtils.longTimetoString(Int64(txDetail!.time!) * 1000)
         blockHashLabel.text = txDetail!.blockhash
         txHashLabel.text = txDetail!.txid
         burnAmountLabel.attributedText = WUtils.displayAmount2(String(txDetail!.valueOut!), burnAmountLabel.font!, 0, 8)
