@@ -116,13 +116,11 @@ public class MainTokensFragment extends BaseFragment {
     public final static int     SECTION_ETC                     = 8;
     public final static int     SECTION_UNKNOWN                 = 9;
 
-    private int                 mSection;                   // section 구분
+    private int                 mSection;                       // section 구분
 
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private RecyclerView        mRecyclerView;
     private LinearLayout        mEmptyToken;
-    private CardView            mCardTotal;
-    private TextView            mTotalValue;
 
     private TokensAdapter       mTokensAdapter;
 
@@ -158,8 +156,6 @@ public class MainTokensFragment extends BaseFragment {
         mSwipeRefreshLayout = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView = rootView.findViewById(R.id.recycler);
         mEmptyToken = rootView.findViewById(R.id.empty_token);
-        mCardTotal = rootView.findViewById(R.id.card_total);
-        mTotalValue = rootView.findViewById(R.id.total_value);
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -279,9 +275,6 @@ public class MainTokensFragment extends BaseFragment {
     }
 
     private void onUpdateView() {
-        mCardTotal.setCardBackgroundColor(WDp.getChainBgColor(getContext(), getMainActivity().mBaseChain));
-        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(getMainActivity().mBaseChain, getBaseDao()));
-
         final String mainDenom = WDp.mainDenom(getMainActivity().mBaseChain);
         mNativeGrpc.clear();
         mIbcAuthedGrpc.clear();

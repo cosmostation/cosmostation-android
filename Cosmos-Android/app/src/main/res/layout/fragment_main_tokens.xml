@@ -6,63 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_total"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/space_12"
-        android:layout_marginRight="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_2"
-        app:cardPreventCornerOverlap="true"
-        app:cardCornerRadius="@dimen/space_6"
-        app:cardElevation="1.5dp"
-        app:cardBackgroundColor="@color/colorTransBgCosmos"
-        app:cardUseCompatPadding="true">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:id="@+id/total_layer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="@dimen/space_16">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total"
-                    style="@style/font_ss_14_gray1"/>
-                <TextView
-                    android:id="@+id/total_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
-                    style="@style/font_ss_26_white"
-                    android:text="-"/>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4">
-                    <TextView
-                        android:id="@+id/total_btc_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="₿"
-                        style="@style/font_ss_17_gray1"/>
-                    <TextView
-                        android:id="@+id/total_btc_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_2"
-                        android:layout_toRightOf="@+id/total_btc_title"
-                        android:text="-"
-                        style="@style/font_ss_17_gray1"/>
-                </RelativeLayout>
-            </LinearLayout>
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/layer_refresher"
         android:layout_width="match_parent"

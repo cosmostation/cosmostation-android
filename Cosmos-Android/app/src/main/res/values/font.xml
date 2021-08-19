@@ -728,6 +728,12 @@
         <item name="android:textSize">@dimen/text_size_21</item>
     </style>
 
+    <style name="font_ss_21_gray1" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorGray1</item>
+        <item name="android:textSize">@dimen/text_size_21</item>
+    </style>
+
     <style name="font_ssm_24_white" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/colorWhite</item>

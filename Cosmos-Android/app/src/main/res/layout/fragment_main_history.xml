@@ -40,7 +40,8 @@
                 android:paddingTop="@dimen/space_4"
                 android:clipToPadding="false"
                 android:overScrollMode="never"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/space_6"/>
 
             <TextView
                 android:id="@+id/text_notyet"
