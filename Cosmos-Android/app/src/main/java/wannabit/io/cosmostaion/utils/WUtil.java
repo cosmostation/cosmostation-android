@@ -1190,7 +1190,7 @@ public class WUtil {
         });
     }
 
-    public static void onSortingTokenByName(ArrayList<Balance> balances, final BaseChain chain) {
+    public static void onSortingToken(ArrayList<Balance> balances, final BaseChain chain) {
         Collections.sort(balances, new Comparator<Balance>() {
             @Override
             public int compare(Balance o1, Balance o2) {

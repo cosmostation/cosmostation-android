@@ -39,7 +39,9 @@ import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.IbcToken;
+import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -47,43 +49,69 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MEDI;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
 
 public class MainTokensFragment extends BaseFragment {
 
-    public final static int     SECTION_NATIVE_GRPC = 0;
-    public final static int     SECTION_IBC_AUTHED_GRPC = 1;
-    public final static int     SECTION_OSMOSIS_POOL_GRPC = 2;
-    public final static int     SECTION_SIF_ETHER_GRPC = 3;
-    public final static int     SECTION_IBC_UNKNOWN_GRPC = 4;
+    public final static int     SECTION_NATIVE_GRPC             = 0;
+    public final static int     SECTION_IBC_AUTHED_GRPC         = 1;
+    public final static int     SECTION_OSMOSIS_POOL_GRPC       = 2;
+    public final static int     SECTION_SIF_ETHER_GRPC          = 3;
+    public final static int     SECTION_IBC_UNKNOWN_GRPC        = 4;
+    public final static int     SECTION_UNKNOWN_GRPC            = 5;
+
+    public final static int     SECTION_NATIVE                  = 6;
+    public final static int     SECTION_KAVA_BEP2               = 7;
+    public final static int     SECTION_ETC                     = 8;
+    public final static int     SECTION_UNKNOWN                 = 9;
 
     private int                 mSection;                   // section 구분
 
@@ -103,6 +131,11 @@ public class MainTokensFragment extends BaseFragment {
     private ArrayList<Coin>     mSifEtherGrpc = new ArrayList<>();
     private ArrayList<Coin>     mIbcUnknownGrpc = new ArrayList<>();
     private ArrayList<Coin>     mUnknownGrpc = new ArrayList<>();
+
+    private ArrayList<Balance>  mNative = new ArrayList<>();
+    private ArrayList<Balance>  mKavaBep2 = new ArrayList<>();
+    private ArrayList<Balance>  mEtc = new ArrayList<>();
+    private ArrayList<Balance>  mUnKnown = new ArrayList<>();
 
     public static MainTokensFragment newInstance(Bundle bundle) {
         MainTokensFragment fragment = new MainTokensFragment();
@@ -137,11 +170,7 @@ public class MainTokensFragment extends BaseFragment {
         mTokensAdapter = new TokensAdapter();
         mRecyclerView.setAdapter(mTokensAdapter);
 
-        if (isGRPC(getMainActivity().mBaseChain)) {
-            mRecyclerViewHeader = new RecyclerViewHeader(getMainActivity(), true, getSectionGrpcCall());
-        } else {
-//            mRecyclerViewHeader = new RecyclerViewHeader(getMainActivity(), true, getSectionCall(getBaseDao().mBalances));
-        }
+        mRecyclerViewHeader = new RecyclerViewHeader(getMainActivity(), true, getSectionGrpcCall());
         mRecyclerView.addItemDecoration(mRecyclerViewHeader);
 
         return rootView;
@@ -168,6 +197,8 @@ public class MainTokensFragment extends BaseFragment {
                         return getMainActivity().getString(R.string.str_ibc_token_title);
                     } else if (section == SECTION_IBC_UNKNOWN_GRPC) {
                         return getMainActivity().getString(R.string.str_unknown_ibc_token_title);
+                    } else if (section == SECTION_UNKNOWN) {
+                        return getMainActivity().getString(R.string.str_unknown_token_title);
                     }
 
                     else if (section == SECTION_OSMOSIS_POOL_GRPC) {
@@ -271,7 +302,43 @@ public class MainTokensFragment extends BaseFragment {
                         mNativeGrpc.add(coin);
                     } else {
                         mUnknownGrpc.add(coin);
+                        WLog.w("SSS : " + mUnknownGrpc.size());
                     }
+                }
+            }
+        }
+
+        mNative.clear();
+        mKavaBep2.clear();
+        mEtc.clear();
+        mUnKnown.clear();
+
+        for (Balance balance : getBaseDao().mBalances) {
+            if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+                if (balance.symbol.equalsIgnoreCase(mainDenom) || balance.symbol.equalsIgnoreCase(TOKEN_HARD) || balance.symbol.equalsIgnoreCase(TOKEN_USDX)) {
+                    mNative.add(balance);
+                } else if (balance.symbol.equalsIgnoreCase("btch")) {
+                    mEtc.add(balance);
+                } else {
+                    mKavaBep2.add(balance);
+                }
+            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
+                if (balance.symbol.equalsIgnoreCase(mainDenom)) {
+                    mNative.add(balance);
+                } else {
+                    mEtc.add(balance);
+                }
+            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)){
+                if (balance.symbol.equalsIgnoreCase(mainDenom)) {
+                    mNative.add(balance);
+                } else {
+                    mEtc.add(balance);
+                }
+            } else {
+                if (balance.symbol.equalsIgnoreCase(mainDenom)) {
+                    mNative.add(balance);
+                } else {
+                    mUnKnown.add(balance);
                 }
             }
         }
@@ -279,7 +346,7 @@ public class MainTokensFragment extends BaseFragment {
         if (isGRPC(getMainActivity().mBaseChain)) {
             WUtil.onSortingTokenV1(mNativeGrpc, getMainActivity().mBaseChain);
         } else {
-            WUtil.onSortingTokenByName(getBaseDao().mBalances, getMainActivity().mBaseChain);
+            WUtil.onSortingToken(mNative, getMainActivity().mBaseChain);
         }
 
         if (isGRPC(getMainActivity().mBaseChain)) {
@@ -318,36 +385,64 @@ public class MainTokensFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(@NonNull AssetHolder viewHolder, int position) {
-            mSection = getItemViewType(position);
             if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
-                if (mSection == SECTION_NATIVE_GRPC) {
+                if (getItemViewType(position) == SECTION_NATIVE_GRPC) {
                     onNativeGrpcItem(viewHolder, position);
-                } else if (mSection == SECTION_IBC_AUTHED_GRPC) {
+                } else if (getItemViewType(position) == SECTION_IBC_AUTHED_GRPC) {
                     onBindIbcAuthToken(viewHolder, position - mNativeGrpc.size());
-                } else if (mSection == SECTION_OSMOSIS_POOL_GRPC) {
+                } else if (getItemViewType(position) == SECTION_OSMOSIS_POOL_GRPC) {
                     onBindOsmoPoolToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
-                } else if (mSection == SECTION_IBC_UNKNOWN_GRPC) {
+                } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
                     onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mOsmosisPoolGrpc.size());
+                } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
+                    onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mOsmosisPoolGrpc.size());
+                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
+                    onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mOsmosisPoolGrpc.size() - mIbcUnknownGrpc.size());
                 }
 
             } else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
-                if (mSection == SECTION_NATIVE_GRPC) {
+                if (getItemViewType(position) == SECTION_NATIVE_GRPC) {
                     onNativeGrpcItem(viewHolder, position);
-                } else if (mSection == SECTION_SIF_ETHER_GRPC) {
+                } else if (getItemViewType(position) == SECTION_SIF_ETHER_GRPC) {
                     onBindSifToken(viewHolder, position - mNativeGrpc.size());
-                } else if (mSection == SECTION_IBC_AUTHED_GRPC) {
+                } else if (getItemViewType(position) == SECTION_IBC_AUTHED_GRPC) {
                     onBindIbcAuthToken(viewHolder, position - mNativeGrpc.size() - mSifEtherGrpc.size());
-                } else if (mSection == SECTION_IBC_UNKNOWN_GRPC) {
+                } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
                     onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mSifEtherGrpc.size() - mIbcAuthedGrpc.size());
+                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
+                    onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mSifEtherGrpc.size() - mIbcAuthedGrpc.size() - mIbcUnknownGrpc.size());
                 }
 
             } else if (isGRPC(getMainActivity().mBaseChain)) {
-                if (mSection == SECTION_NATIVE_GRPC) {
+                if (getItemViewType(position) == SECTION_NATIVE_GRPC) {
                     onNativeGrpcItem(viewHolder, position);
-                } else if (mSection == SECTION_IBC_AUTHED_GRPC) {
+                } else if (getItemViewType(position) == SECTION_IBC_AUTHED_GRPC) {
                     onBindIbcAuthToken(viewHolder, position - mNativeGrpc.size());
-                } else if (mSection == SECTION_IBC_UNKNOWN_GRPC) {
+                } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
                     onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
+                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
+                    onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mIbcUnknownGrpc.size());
+                }
+
+            }
+
+            else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+                if (getItemViewType(position) == SECTION_NATIVE) {
+                    onBindNativeItem(viewHolder, position);
+                } else if (getItemViewType(position) == SECTION_KAVA_BEP2) {
+                    onBindKavaBep2Token(viewHolder, position - mNative.size());
+                } else if (getItemViewType(position) == SECTION_ETC) {
+                    onBindEtcToken(viewHolder, position - mNative.size() - mKavaBep2.size());
+                }
+            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+                if (getItemViewType(position) == SECTION_NATIVE) {
+                    onBindNativeItem(viewHolder, position);
+                } else if (getItemViewType(position) == SECTION_ETC) {
+                    onBindEtcToken(viewHolder, position - mNative.size());
+                }
+            } else {
+                if (getItemViewType(position) == SECTION_NATIVE) {
+                    onBindNativeItem(viewHolder, position);
                 }
             }
         }
@@ -370,7 +465,12 @@ public class MainTokensFragment extends BaseFragment {
                     return SECTION_IBC_AUTHED_GRPC;
                 } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mOsmosisPoolGrpc.size()) {
                     return SECTION_OSMOSIS_POOL_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mOsmosisPoolGrpc.size() + mIbcUnknownGrpc.size()) {
+                    return SECTION_IBC_UNKNOWN_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mOsmosisPoolGrpc.size() + mIbcUnknownGrpc.size() + mUnknownGrpc.size()) {
+                    return SECTION_UNKNOWN_GRPC;
                 }
+
             } else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 if (position < mNativeGrpc.size()) {
                     return SECTION_NATIVE_GRPC;
@@ -380,7 +480,10 @@ public class MainTokensFragment extends BaseFragment {
                     return SECTION_IBC_AUTHED_GRPC;
                 } else if (position < mNativeGrpc.size() + mSifEtherGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size()) {
                     return SECTION_IBC_UNKNOWN_GRPC;
+                } else if (position < mNativeGrpc.size() + mSifEtherGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size() + mUnknownGrpc.size()) {
+                    return SECTION_UNKNOWN_GRPC;
                 }
+
             } else if (isGRPC(getMainActivity().mBaseChain)) {
                 if (position < mNativeGrpc.size()) {
                     return SECTION_NATIVE_GRPC;
@@ -388,9 +491,34 @@ public class MainTokensFragment extends BaseFragment {
                     return SECTION_IBC_AUTHED_GRPC;
                 } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size()) {
                     return SECTION_IBC_UNKNOWN_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size() + mUnknownGrpc.size()) {
+                    return SECTION_UNKNOWN_GRPC;
                 }
             }
-            return SECTION_NATIVE_GRPC;
+
+            else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+                if (position < mNative.size()) {
+                    return SECTION_NATIVE;
+                } else if (position < mNative.size() + mKavaBep2.size()) {
+                    return SECTION_KAVA_BEP2;
+                } else if (position < mNative.size() + mKavaBep2.size() + mEtc.size()) {
+                    return SECTION_ETC;
+                }
+            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+                if (mNative != null) {
+                    if (position < mNative.size()) {
+                        return SECTION_NATIVE;
+                    } else if (position < mNative.size() + mEtc.size()) {
+                        return SECTION_ETC;
+                    }
+                } else {
+                    return SECTION_ETC;
+                }
+
+            } else {
+                return SECTION_NATIVE;
+            }
+            return 0;
         }
 
         public class AssetHolder extends RecyclerView.ViewHolder {
@@ -753,6 +881,228 @@ public class MainTokensFragment extends BaseFragment {
         });
     }
 
+    //with Unknown Token gRPC
+    private void onBindUnKnownToken(TokensAdapter.AssetHolder holder, int position) {
+        final Coin coin = mUnknownGrpc.get(position);
+        holder.itemSymbol.setText(coin.denom.toUpperCase().substring(0, 4));
+        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        holder.itemInnerSymbol.setText("");
+        holder.itemFullName.setText("");
+        holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
+    }
+
+
+    //with native tokens
+    private void onBindNativeItem(TokensAdapter.AssetHolder holder, int position) {
+        final Balance balance = mNative.get(position);
+        if (balance.symbol.equals(TOKEN_KAVA)) {
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KAVA_MAIN));
+            holder.itemSymbol.setText(getString(R.string.str_kava_c));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Kava Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KAVA);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
+        } else if (balance.symbol.equals(TOKEN_HARD)) {
+            Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorHard));
+            holder.itemSymbol.setText(balance.symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("HardPool Gov. Token");
+
+            BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
+            BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), balance.symbol);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", balance.symbol);
+                    startActivity(intent);
+                }
+            });
+
+        } else if (balance.symbol.equals(TOKEN_USDX)) {
+            Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setText(balance.symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("USD Stable Asset");
+
+            BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
+            BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), balance.symbol);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", balance.symbol);
+                    startActivity(intent);
+                }
+            });
+
+        } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+            final OkToken okToken = getBaseDao().okToken(balance.symbol);
+            holder.itemSymbol.setText(okToken.original_symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + okToken.symbol + ")");
+            holder.itemFullName.setText(okToken.description);
+            if (balance.symbol.equals(TOKEN_OK)) {
+                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
+                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));
+
+                BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 0));
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                    }
+                });
+            }
+
+        } else if (balance.symbol.equals(TOKEN_BAND)) {
+            holder.itemSymbol.setText(getString(R.string.str_band_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BAND_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Band Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.band_token_img));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_BAND);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+
+        } else if (balance.symbol.equals(TOKEN_CERTIK)) {
+            holder.itemSymbol.setText(getString(R.string.str_ctk_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CERTIK_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Certik Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_token_img));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_CERTIK);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+
+        } else if (balance.symbol.equals(TOKEN_SECRET)) {
+            holder.itemSymbol.setText(getString(R.string.str_scrt_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SECRET_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Secret Native Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensecret));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SECRET);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+
+        } else if (balance.symbol.equals(TOKEN_FET)) {
+            holder.itemSymbol.setText(getString(R.string.str_fet_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), FETCHAI_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Fetch.ai Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenfetchai));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_FET);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 18));
+
+        } else if (balance.symbol.equals(TOKEN_KI)) {
+            holder.itemSymbol.setText(getString(R.string.str_ki_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KI_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("KiChain Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_kifoundation));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KI);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+        }
+    }
+
+    //with kava bep2 tokens
+    private void onBindKavaBep2Token(TokensAdapter.AssetHolder holder, int position) {
+        final Balance balance = mKavaBep2.get(position);
+        Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        holder.itemSymbol.setText(balance.symbol.toUpperCase());
+        holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+        if (balance.symbol.equals("usdx")) { holder.itemFullName.setText("USD Stable Asset"); }
+        else if (balance.symbol.equals(TOKEN_HARD)) { holder.itemFullName.setText("HardPool Gov. Token"); }
+        else {  holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain"); }
+
+        BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
+        BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), balance.symbol);
+        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                intent.putExtra("denom", balance.symbol);
+                startActivity(intent);
+            }
+        });
+    }
+
+    //with Etc tokens (kava, binance, okex)
+    private void onBindEtcToken(TokensAdapter.AssetHolder holder, int position) {
+        final Balance balance   = getBaseDao().mBalances.get(position);
+        if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+            Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setText(balance.symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain");
+
+            BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
+            BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), balance.symbol);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", balance.symbol);
+                    startActivity(intent);
+                }
+            });
+
+        } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
+            final OkToken okToken   = getBaseDao().okToken(balance.symbol);
+            holder.itemSymbol.setText(okToken.original_symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + okToken.symbol + ")");
+            holder.itemFullName.setText(okToken.description);
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            Picasso.get().load(OKEX_COIN_IMG_URL + okToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.itemImg);
+
+            BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
+            BigDecimal convertAmount = WDp.convertTokenToOkt(getBaseDao(), balance.symbol);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_OK, convertAmount, 0));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", balance.symbol);
+                    startActivity(intent);
+                }
+            });
+        }
+    }
+
     public MainActivity getMainActivity() {
         return (MainActivity) getBaseActivity();
     }
@@ -812,6 +1162,9 @@ public class MainTokensFragment extends BaseFragment {
                     } else if (mSection == SECTION_IBC_UNKNOWN_GRPC) {
                         title = sectionCallback.getSectionHeader(getMainActivity().mBaseChain, mIbcUnknownGrpc, mSection);
                         mItemCnt.setText("" + mIbcUnknownGrpc.size());
+                    } else if (mSection == SECTION_UNKNOWN_GRPC) {
+                        title = sectionCallback.getSectionHeader(getMainActivity().mBaseChain, mUnknownGrpc, mSection);
+                        mItemCnt.setText("" + mUnknownGrpc.size());
                     }
 
                     // osmosis pool token
