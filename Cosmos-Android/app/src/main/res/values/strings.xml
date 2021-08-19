@@ -1444,6 +1444,8 @@
     <string name="str_unknown_ibc_token_title">Unknown IBC Tokens</string>
     <string name="str_pool_token_title">POOL Tokens</string>
     <string name="str_sif_ether_token_title">Ether Bridged Tokens</string>
+    <string name="str_kava_bep2_token_title">BEP2 Tokens</string>
+    <string name="str_etc_token_title">Etc Tokens</string>
     <string name="str_unknown_token_title">Unknown</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
