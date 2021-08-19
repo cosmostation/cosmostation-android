@@ -63,55 +63,6 @@
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/space_16"
-        android:paddingRight="@dimen/space_16"
-        android:paddingTop="@dimen/space_6"
-        android:paddingBottom="@dimen/space_6">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal"
-            android:gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tokens"
-                style="@style/font_ss_12_gray1"/>
-            <TextView
-                android:id="@+id/token_cnt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_4"
-                android:text="0"
-                style="@style/font_ss_12_white"/>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/btn_token_sort"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:clickable="true">
-            <TextView
-                android:id="@+id/token_sort_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Balance"
-                style="@style/font_ss_12_gray1"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_2"
-                android:src="@drawable/sort_btn"/>
-        </LinearLayout>
-    </RelativeLayout>
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/layer_refresher"
         android:layout_width="match_parent"

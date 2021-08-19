@@ -1226,7 +1226,7 @@ public class WUtil {
         });
     }
 
-    public static void onSortingTokenByNameV1(ArrayList<Coin> coin, final BaseChain chain) {
+    public static void onSortingTokenV1(ArrayList<Coin> coin, final BaseChain chain) {
         Collections.sort(coin, new Comparator<Coin>() {
             @Override
             public int compare(Coin o1, Coin o2) {
@@ -1253,8 +1253,6 @@ public class WUtil {
                 } else if (chain.equals(OSMOSIS_MAIN)) {
                     if(o1.denom.equals(TOKEN_OSMOSIS)) return -1;
                     if(o2.denom.equals(TOKEN_OSMOSIS)) return 1;
-                    if(o1.denom.equals(TOKEN_ION)) return -1;
-                    if(o2.denom.equals(TOKEN_ION)) return 1;
 
                 } else if (chain.equals(IOV_MAIN)) {
                     if(o1.denom.equals(TOKEN_IOV)) return -1;

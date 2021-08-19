@@ -1202,6 +1202,12 @@
     <string name="str_rizon_swap_result">트랜잭션 결과</string>
     <string name="str_rizon_swap_block_hash">블록 해쉬</string>
     <string name="str_rizon_swap_mint_recipient_Address">수령 주소</string>
+    <string name="str_native_token_title">Native Tokens</string>
+    <string name="str_ibc_token_title">IBC Tokens</string>
+    <string name="str_unknown_ibc_token_title">Unknown IBC Tokens</string>
+    <string name="str_pool_token_title">POOL Tokens</string>
+    <string name="str_sif_ether_token_title">Ether Bridged Tokens</string>
+    <string name="str_unknown_token_title">Unknown</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>

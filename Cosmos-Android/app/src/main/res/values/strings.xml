@@ -1439,6 +1439,12 @@
     <string name="str_rizon_swap_result">Tx Result</string>
     <string name="str_rizon_swap_block_hash">Block Hash</string>
     <string name="str_rizon_swap_mint_recipient_Address">Mint Recipient Address</string>
+    <string name="str_native_token_title">Native Tokens</string>
+    <string name="str_ibc_token_title">IBC Tokens</string>
+    <string name="str_unknown_ibc_token_title">Unknown IBC Tokens</string>
+    <string name="str_pool_token_title">POOL Tokens</string>
+    <string name="str_sif_ether_token_title">Ether Bridged Tokens</string>
+    <string name="str_unknown_token_title">Unknown</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
