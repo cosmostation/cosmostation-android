@@ -702,6 +702,10 @@
 		28B2E4C426CFC84000ECF960 /* TokenDetailIBCCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B2E4C226CFC84000ECF960 /* TokenDetailIBCCell.xib */; };
 		28B2E4C726CFC85400ECF960 /* TokenDetailIBCInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B2E4C526CFC85400ECF960 /* TokenDetailIBCInfoCell.swift */; };
 		28B2E4C826CFC85400ECF960 /* TokenDetailIBCInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B2E4C626CFC85400ECF960 /* TokenDetailIBCInfoCell.xib */; };
+		28B2E4CB26CFEBD300ECF960 /* PoolTokenGrpcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B2E4C926CFEBD300ECF960 /* PoolTokenGrpcViewController.swift */; };
+		28B2E4CC26CFEBD300ECF960 /* PoolTokenGrpcViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B2E4CA26CFEBD300ECF960 /* PoolTokenGrpcViewController.xib */; };
+		28B2E4CF26CFEF8C00ECF960 /* BridgeTokenGrpcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B2E4CD26CFEF8C00ECF960 /* BridgeTokenGrpcViewController.swift */; };
+		28B2E4D026CFEF8C00ECF960 /* BridgeTokenGrpcViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B2E4CE26CFEF8C00ECF960 /* BridgeTokenGrpcViewController.xib */; };
 		28B3251F2637F80500275AED /* MemoMnemonicPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3251D2637F80500275AED /* MemoMnemonicPopup.swift */; };
 		28B325222637FDDD00275AED /* MemoMnemonicPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B325242637FDDD00275AED /* MemoMnemonicPopup.xib */; };
 		28B4302A24F76AD500BD7BB2 /* OkTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4302924F76AD500BD7BB2 /* OkTransfer.swift */; };
@@ -1790,6 +1794,10 @@
 		28B2E4C226CFC84000ECF960 /* TokenDetailIBCCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailIBCCell.xib; sourceTree = "<group>"; };
 		28B2E4C526CFC85400ECF960 /* TokenDetailIBCInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailIBCInfoCell.swift; sourceTree = "<group>"; };
 		28B2E4C626CFC85400ECF960 /* TokenDetailIBCInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailIBCInfoCell.xib; sourceTree = "<group>"; };
+		28B2E4C926CFEBD300ECF960 /* PoolTokenGrpcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolTokenGrpcViewController.swift; sourceTree = "<group>"; };
+		28B2E4CA26CFEBD300ECF960 /* PoolTokenGrpcViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PoolTokenGrpcViewController.xib; sourceTree = "<group>"; };
+		28B2E4CD26CFEF8C00ECF960 /* BridgeTokenGrpcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeTokenGrpcViewController.swift; sourceTree = "<group>"; };
+		28B2E4CE26CFEF8C00ECF960 /* BridgeTokenGrpcViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BridgeTokenGrpcViewController.xib; sourceTree = "<group>"; };
 		28B3251D2637F80500275AED /* MemoMnemonicPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoMnemonicPopup.swift; sourceTree = "<group>"; };
 		28B325232637FDDD00275AED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MemoMnemonicPopup.xib; sourceTree = "<group>"; };
 		28B325272637FDE400275AED /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MemoMnemonicPopup.strings; sourceTree = "<group>"; };
@@ -2839,6 +2847,10 @@
 				28B2E4BA26CFB94800ECF960 /* NativeTokenGrpcViewController.xib */,
 				28B2E4BD26CFC66100ECF960 /* IBCTokenGrpcViewController.swift */,
 				28B2E4BE26CFC66100ECF960 /* IBCTokenGrpcViewController.xib */,
+				28B2E4C926CFEBD300ECF960 /* PoolTokenGrpcViewController.swift */,
+				28B2E4CA26CFEBD300ECF960 /* PoolTokenGrpcViewController.xib */,
+				28B2E4CD26CFEF8C00ECF960 /* BridgeTokenGrpcViewController.swift */,
+				28B2E4CE26CFEF8C00ECF960 /* BridgeTokenGrpcViewController.xib */,
 			);
 			path = token;
 			sourceTree = "<group>";
@@ -3911,6 +3923,7 @@
 				E126CFA52387A713002A546F /* TokenDetailCosmosCell.xib in Resources */,
 				E1E15FC02253663600A10C7B /* AccountPopupCell.xib in Resources */,
 				28622A55263A850C008355E7 /* TokenDetailSifCell.xib in Resources */,
+				28B2E4CC26CFEBD300ECF960 /* PoolTokenGrpcViewController.xib in Resources */,
 				283E945F254901E7007A9291 /* RegisterDomain3ViewController.xib in Resources */,
 				28D28ACA26CB6BD40074964C /* StartLock0ViewController.xib in Resources */,
 				283E947D25490322007A9291 /* TxRenewStarnameCell.xib in Resources */,
@@ -3958,6 +3971,7 @@
 				282BDFEB24A5BCE000D3A5D4 /* WcTransferPopup.xib in Resources */,
 				28B785B726B7B084009F755F /* SwapStatusCell.xib in Resources */,
 				280E1F03254A9B6B0007BA7D /* RenewStarname0ViewController.xib in Resources */,
+				28B2E4D026CFEF8C00ECF960 /* BridgeTokenGrpcViewController.xib in Resources */,
 				E1FD233D233E1C44009327FE /* WalletGuideCell.xib in Resources */,
 				2845D885246FAEED007CD497 /* VoteTallyTableViewCell.xib in Resources */,
 				283E94782549030C007A9291 /* TxReplaceResourceCell.xib in Resources */,
@@ -4131,6 +4145,7 @@
 				2842AB65242C396700248EEB /* KavaPriceFeedPrice.swift in Sources */,
 				287AC5A425FDF7250070837E /* cosmos_auth_v1beta1_query.grpc.swift in Sources */,
 				2852D7732477E83400D11DC4 /* CdpIncentiveCell.swift in Sources */,
+				28B2E4CF26CFEF8C00ECF960 /* BridgeTokenGrpcViewController.swift in Sources */,
 				2876AD5A240CDC5A005B33F4 /* TokenDetailUnbondingDetailCell.swift in Sources */,
 				28B7859A26B3A7F1009F755F /* sifnode_oracle_v1_types.pb.swift in Sources */,
 				28D3551725386A9300B804CF /* StepHardPoolIncentive0ViewController.swift in Sources */,
@@ -4570,6 +4585,7 @@
 				287AC5A725FDF7250070837E /* akash_market_v1beta1_params.pb.swift in Sources */,
 				280E1EFD254A7AD60007BA7D /* DeleteStarname3ViewController.swift in Sources */,
 				28B7857126B3A7E4009F755F /* panacea_aol_v2_tx.grpc.swift in Sources */,
+				28B2E4CB26CFEBD300ECF960 /* PoolTokenGrpcViewController.swift in Sources */,
 				28B2E4C326CFC84000ECF960 /* TokenDetailIBCCell.swift in Sources */,
 				283E94772549030C007A9291 /* TxReplaceResourceCell.swift in Sources */,
 				E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */,

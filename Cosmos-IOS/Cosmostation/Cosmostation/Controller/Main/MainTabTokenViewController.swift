@@ -96,7 +96,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.updateView()
     }
 
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
@@ -383,27 +382,32 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             }
             
         } else if (indexPath.section == SECTION_IBC_AUTHED_GRPC) {
-            let iTokenDetailVC = IBCTokenGrpcViewController(nibName: "NativeTokenGrpcViewController", bundle: nil)
+            let iTokenDetailVC = IBCTokenGrpcViewController(nibName: "IBCTokenGrpcViewController", bundle: nil)
             iTokenDetailVC.ibcDenom = mIbcAuthed_gRPC[indexPath.row].denom
             iTokenDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(iTokenDetailVC, animated: true)
             
         } else if (indexPath.section == SECTION_IBC_UNKNOWN_GRPC) {
-            let iTokenDetailVC = IBCTokenGrpcViewController(nibName: "NativeTokenGrpcViewController", bundle: nil)
+            let iTokenDetailVC = IBCTokenGrpcViewController(nibName: "IBCTokenGrpcViewController", bundle: nil)
             iTokenDetailVC.ibcDenom = mIbcUnknown_gRPC[indexPath.row].denom
             iTokenDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(iTokenDetailVC, animated: true)
             
         } else if (indexPath.section == SECTION_OSMOSIS_POOL_GRPC) {
+            let pTokenDetailVC = PoolTokenGrpcViewController(nibName: "PoolTokenGrpcViewController", bundle: nil)
+            pTokenDetailVC.poolDenom = mOsmosisPool_gRPC[indexPath.row].denom
+            pTokenDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(pTokenDetailVC, animated: true)
             
         } else if (indexPath.section == SECTION_SIF_ETHER_GRPC) {
-            let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
-            nTokenDetailVC.hidesBottomBarWhenPushed = true
-            nTokenDetailVC.denom = mSifEther_gRPC[indexPath.row].denom
+            let bTokenDetailVC = BridgeTokenGrpcViewController(nibName: "BridgeTokenGrpcViewController", bundle: nil)
+            bTokenDetailVC.hidesBottomBarWhenPushed = true
+            bTokenDetailVC.bridgeDenom = mSifEther_gRPC[indexPath.row].denom
             self.navigationItem.title = ""
-            self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
+            self.navigationController?.pushViewController(bTokenDetailVC, animated: true)
             
         } else if (indexPath.section == SECTION_UNKNOWN_GRPC) {
             

@@ -1,5 +1,5 @@
 //
-//  IBCTokenGrpcViewController.swift
+//  BridgeTokenGrpcViewController.swift
 //  Cosmostation
 //
 //  Created by 정용주 on 2021/08/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IBCTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class BridgeTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var naviTokenImg: UIImageView!
     @IBOutlet weak var naviTokenSymbol: UILabel!
@@ -25,9 +25,9 @@ class IBCTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITab
     @IBOutlet weak var btnIbcSend: UIButton!
     @IBOutlet weak var btnSend: UIButton!
     
-    var ibcDenom = ""
-    var ibcDivideDecimal: Int16 = 6
-    var ibcDisplayDecimal: Int16 = 6
+    var bridgeDenom = ""
+    var bridgeDivideDecimal: Int16 = 6
+    var bridgeDisplayDecimal: Int16 = 6
     var totalAmount = NSDecimalNumber.zero
 
     override func viewDidLoad() {
@@ -38,8 +38,7 @@ class IBCTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITab
         self.tokenTableView.delegate = self
         self.tokenTableView.dataSource = self
         self.tokenTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        self.tokenTableView.register(UINib(nibName: "TokenDetailIBCCell", bundle: nil), forCellReuseIdentifier: "TokenDetailIBCCell")
-        self.tokenTableView.register(UINib(nibName: "TokenDetailIBCInfoCell", bundle: nil), forCellReuseIdentifier: "TokenDetailIBCInfoCell")
+        self.tokenTableView.register(UINib(nibName: "TokenDetailNativeCell", bundle: nil), forCellReuseIdentifier: "TokenDetailNativeCell")
         self.tokenTableView.register(UINib(nibName: "NewHistoryCell", bundle: nil), forCellReuseIdentifier: "NewHistoryCell")
         
         let tapTotalCard = UITapGestureRecognizer(target: self, action: #selector(self.onClickActionShare))
@@ -54,39 +53,23 @@ class IBCTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onInitView() {
-        let ibcHash = ibcDenom.replacingOccurrences(of: "ibc/", with: "")
-        let baseDenom = BaseData.instance.getBaseDenom(ibcDenom)
-        guard let ibcToken = BaseData.instance.getIbcToken(ibcHash) else {
-            self.navigationController?.popViewController(animated: true)
-            return
+        var baseDenom = ""
+        if (chainType == ChainType.SIF_MAIN) {
+            baseDenom = bridgeDenom.substring(from: 1)
+            naviTokenImg.af_setImage(withURL: URL(string: SIF_COIN_IMG_URL + bridgeDenom + ".png")!)
+            naviTokenSymbol.text = baseDenom.uppercased()
+            
+            bridgeDivideDecimal = WUtils.getSifCoinDecimal(bridgeDenom)
+            bridgeDisplayDecimal = WUtils.getSifCoinDecimal(bridgeDenom)
+            totalAmount = BaseData.instance.getAvailableAmount_gRPC(bridgeDenom)
         }
         
-        ibcDivideDecimal = ibcToken.decimal ?? 6
-        ibcDisplayDecimal = ibcToken.decimal ?? 6
-        totalAmount = BaseData.instance.getAvailableAmount_gRPC(ibcDenom)
-        print("ibcToken ", ibcToken)
-        
-        if (ibcToken.auth == true) {
-            naviTokenImg.af_setImage(withURL: URL(string: ibcToken.moniker!)!)
-            naviTokenSymbol.text = ibcToken.display_denom?.uppercased()
-            topValue.attributedText = WUtils.dpUserCurrencyValue(baseDenom, totalAmount, ibcDivideDecimal, topValue.font)
-            
-            self.naviPerPrice.attributedText = WUtils.dpPerUserCurrencyValue(baseDenom, naviPerPrice.font)
-            self.naviUpdownPercent.attributedText = WUtils.dpValueChange(baseDenom, font: naviUpdownPercent.font)
-            let changeValue = WUtils.valueChange(baseDenom)
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) { naviUpdownImg.image = UIImage(named: "priceUp") }
-            else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) { naviUpdownImg.image = UIImage(named: "priceDown") }
-            else { self.naviUpdownImg.image = nil }
-            
-        } else {
-            naviTokenImg.image = UIImage(named: "tokenDefaultIbc")
-            naviTokenSymbol.text = "UnKnown"
-            topValue.attributedText = WUtils.dpUserCurrencyValue(baseDenom, NSDecimalNumber.zero, ibcDivideDecimal, topValue.font)
-            
-            self.naviPerPrice.text = ""
-            self.naviUpdownPercent.text = ""
-            self.naviUpdownImg.image = nil
-        }
+        self.naviPerPrice.attributedText = WUtils.dpPerUserCurrencyValue(baseDenom, naviPerPrice.font)
+        self.naviUpdownPercent.attributedText = WUtils.dpValueChange(baseDenom, font: naviUpdownPercent.font)
+        let changeValue = WUtils.valueChange(baseDenom)
+        if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) { naviUpdownImg.image = UIImage(named: "priceUp") }
+        else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) { naviUpdownImg.image = UIImage(named: "priceDown") }
+        else { naviUpdownImg.image = nil }
         
         self.topCard.backgroundColor = WUtils.getChainBg(chainType)
         if (account?.account_has_private == true) {
@@ -96,17 +79,15 @@ class IBCTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITab
         
         self.topDpAddress.text = account?.dpAddress(chainType)
         self.topDpAddress.adjustsFontSizeToFitWidth = true
-        
+        self.topValue.attributedText = WUtils.dpUserCurrencyValue(baseDenom, totalAmount, bridgeDivideDecimal, topValue.font)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
-            return 1
-        } else if (section == 1) {
             return 1
         }
         return 0
@@ -114,13 +95,8 @@ class IBCTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailIBCCell") as? TokenDetailIBCCell
-            cell?.onBindIBCToken(chainType!, ibcDenom)
-            return cell!
-            
-        } else if (indexPath.section == 1) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailIBCInfoCell") as? TokenDetailIBCInfoCell
-            cell?.onBindIBCTokenInfo(chainType!, ibcDenom)
+            let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailNativeCell") as? TokenDetailNativeCell
+            cell?.onBindBridgeToken(chainType, bridgeDenom)
             return cell!
             
         } else {
@@ -128,8 +104,6 @@ class IBCTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITab
             return cell!
         }
     }
-    
-    
     
     @objc func onClickActionShare() {
         var nickName:String?
@@ -167,7 +141,7 @@ class IBCTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITab
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mToSendDenom = ibcDenom
+        txVC.mToSendDenom = bridgeDenom
         txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""

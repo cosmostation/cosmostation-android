@@ -26,8 +26,8 @@ class TokenDetailNativeCell: TokenDetailCell {
     @IBOutlet weak var vestingLayer: UIView!
     
     
-    var nativeDivideDecimal: Int16 = 6
-    var nativeDisplayDecimal: Int16 = 6
+    var divideDecimal: Int16 = 6
+    var displayDecimal: Int16 = 6
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,12 +48,7 @@ class TokenDetailNativeCell: TokenDetailCell {
         if (WUtils.isGRPC(chainType)) {
             onBindNativeToken_gRPC(chainType, denom)
             
-        }
-//        else if (chainType! == ChainType.SIF_MAIN) {
-//            onBindSifTokens(denom)
-//        }
-        
-        else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
+        } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             onBindBNBTokens(denom)
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
@@ -65,15 +60,39 @@ class TokenDetailNativeCell: TokenDetailCell {
         }
     }
     
+    func onBindPoolToken(_ chainType: ChainType?, _ denom: String?) {
+        if (chainType! == ChainType.OSMOSIS_MAIN) {
+            divideDecimal = 18
+            displayDecimal = 18
+            
+            let total = BaseData.instance.getAvailableAmount_gRPC(denom!)
+            totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, divideDecimal, displayDecimal)
+            availableAmount.attributedText = WUtils.displayAmount2(total.stringValue, availableAmount.font, divideDecimal, displayDecimal)
+        }
+    }
+    
+    func onBindBridgeToken(_ chainType: ChainType?, _ denom: String?) {
+        if (chainType! == ChainType.SIF_MAIN) {
+            divideDecimal = WUtils.getSifCoinDecimal(denom)
+            displayDecimal = WUtils.getSifCoinDecimal(denom)
+            
+            let total = BaseData.instance.getAvailableAmount_gRPC(denom!)
+            totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, divideDecimal, displayDecimal)
+            availableAmount.attributedText = WUtils.displayAmount2(total.stringValue, availableAmount.font, divideDecimal, displayDecimal)
+        }
+        
+    }
+    
+    
     func onBindNativeToken_gRPC(_ chainType: ChainType?, _ denom: String?) {
         if (chainType == ChainType.OSMOSIS_MAIN) {
             if (denom == OSMOSIS_ION_DENOM) {
-                nativeDivideDecimal = 6
-                nativeDisplayDecimal = 6
+                divideDecimal = 6
+                displayDecimal = 6
                 
                 let total = BaseData.instance.getAvailableAmount_gRPC(denom!)
-                totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, nativeDivideDecimal, nativeDisplayDecimal)
-                availableAmount.attributedText = WUtils.displayAmount2(total.stringValue, availableAmount.font, nativeDivideDecimal, nativeDisplayDecimal)
+                totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, divideDecimal, displayDecimal)
+                availableAmount.attributedText = WUtils.displayAmount2(total.stringValue, availableAmount.font, divideDecimal, displayDecimal)
             }
         }
         
