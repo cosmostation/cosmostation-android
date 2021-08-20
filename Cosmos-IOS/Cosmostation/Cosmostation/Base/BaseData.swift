@@ -98,6 +98,28 @@ final class BaseData : NSObject{
         return mIbcTokens.filter { $0.hash == hash }.first
     }
     
+    func getIbcPath(_ channelId: String?) -> Path? {
+        for ibcPath in mIbcPaths {
+            for path in ibcPath.paths {
+                if (path.channel_id == channelId) {
+                    return path
+                }
+            }
+        }
+        return nil
+    }
+    
+//    func getIbcCounterChainId(_ channelId: String?) -> String {
+//        for ibcPath in mIbcPaths {
+//            for path in ibcPath.paths {
+//                if (path.channel_id == channelId) {
+//                    return ibcPath.chain_id ?? ""
+//                }
+//            }
+//        }
+//        return ""
+//    }
+    
     func getBaseDenom(_ denom: String) -> String {
         if (denom.starts(with: "ibc/")) {
             guard let ibcToken = getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")) else {

@@ -10,14 +10,13 @@ import Foundation
 
 public struct IbcPath {
     var chain_id: String?
-    var paths: Array<Path>?
+    var paths: Array<Path> = Array<Path>()
     
     init(_ dictionary: NSDictionary?) {
         self.chain_id = dictionary?["chain_id"] as? String
         if let rawPaths = dictionary?["paths"] as? Array<NSDictionary> {
-            self.paths = Array<Path>()
             for rawPath in rawPaths {
-                self.paths?.append(Path.init(rawPath))
+                self.paths.append(Path.init(rawPath))
             }
         }
     }

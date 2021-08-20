@@ -1,15 +1,15 @@
 //
-//  StakingTokenGrpcViewController.swift
+//  NativeTokenGrpcViewController.swift
 //  Cosmostation
 //
-//  Created by 정용주 on 2021/08/19.
+//  Created by 정용주 on 2021/08/20.
 //  Copyright © 2021 wannabit. All rights reserved.
 //
 
 import UIKit
 
-class StakingTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
-
+class NativeTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet weak var naviTokenImg: UIImageView!
     @IBOutlet weak var naviTokenSymbol: UILabel!
     @IBOutlet weak var naviPerPrice: UILabel!
@@ -24,29 +24,22 @@ class StakingTokenGrpcViewController: BaseViewController, UITableViewDelegate, U
     @IBOutlet weak var tokenTableView: UITableView!
     @IBOutlet weak var btnIbcSend: UIButton!
     @IBOutlet weak var btnSend: UIButton!
-    
-    var stakingDenom = ""
-    var stakingDivideDecimal: Int16 = 6
-    var stakingDisplayDecimal: Int16 = 6
-    var hasVesting = false
-    var hasUnbonding = false
-    
+
+    var nativeDenom = ""
+    var nativeDivideDecimal: Int16 = 6
+    var nativeDisplayDecimal: Int16 = 6
+    var totalAmount = NSDecimalNumber.zero
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
-        self.stakingDenom = WUtils.getMainDenom(chainType)
-        self.stakingDivideDecimal = WUtils.mainDivideDecimal(chainType)
-        self.stakingDisplayDecimal = WUtils.mainDisplayDecimal(chainType)
         
         self.tokenTableView.delegate = self
         self.tokenTableView.dataSource = self
         self.tokenTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        self.tokenTableView.register(UINib(nibName: "TokenDetailStakingCell", bundle: nil), forCellReuseIdentifier: "TokenDetailStakingCell")
-        self.tokenTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
-        self.tokenTableView.register(UINib(nibName: "TokenDetailUnbondingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailUnbondingDetailCell")
+        self.tokenTableView.register(UINib(nibName: "TokenDetailNativeCell", bundle: nil), forCellReuseIdentifier: "TokenDetailNativeCell")
         self.tokenTableView.register(UINib(nibName: "NewHistoryCell", bundle: nil), forCellReuseIdentifier: "NewHistoryCell")
         
         let tapTotalCard = UITapGestureRecognizer(target: self, action: #selector(self.onClickActionShare))
@@ -61,63 +54,50 @@ class StakingTokenGrpcViewController: BaseViewController, UITableViewDelegate, U
     }
     
     func onInitView() {
-        WUtils.setDenomTitle(chainType, naviTokenSymbol)
-        self.naviTokenImg.image = WUtils.getStakingTokenImg(chainType!)
-        self.naviPerPrice.attributedText = WUtils.dpPerUserCurrencyValue(WUtils.getMainDenom(chainType), naviPerPrice.font)
-        self.naviUpdownPercent.attributedText = WUtils.dpValueChange(WUtils.getMainDenom(chainType), font: naviUpdownPercent.font)
-        let changeValue = WUtils.valueChange(WUtils.getMainDenom(chainType))
+        if (chainType == ChainType.OSMOSIS_MAIN) {
+            WUtils.DpOsmosisTokenName(naviTokenSymbol, nativeDenom)
+            WUtils.DpOsmosisTokenImg(naviTokenImg, nativeDenom)
+            if (nativeDenom == OSMOSIS_ION_DENOM) {
+                nativeDivideDecimal = 6
+                nativeDisplayDecimal = 6
+                totalAmount = BaseData.instance.getAvailableAmount_gRPC(nativeDenom)
+            }
+            
+        }
+        
+        self.naviPerPrice.attributedText = WUtils.dpPerUserCurrencyValue(nativeDenom, naviPerPrice.font)
+        self.naviUpdownPercent.attributedText = WUtils.dpValueChange(nativeDenom, font: naviUpdownPercent.font)
+        let changeValue = WUtils.valueChange(nativeDenom)
         if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) { naviUpdownImg.image = UIImage(named: "priceUp") }
         else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) { naviUpdownImg.image = UIImage(named: "priceDown") }
         else { naviUpdownImg.image = nil }
-        
         
         self.topCard.backgroundColor = WUtils.getChainBg(chainType)
         if (account?.account_has_private == true) {
             self.topKeyState.image = topKeyState.image?.withRenderingMode(.alwaysTemplate)
             self.topKeyState.tintColor = WUtils.getChainColor(chainType)
         }
+        
         self.topDpAddress.text = account?.dpAddress(chainType)
         self.topDpAddress.adjustsFontSizeToFitWidth = true
-        let totalToken = WUtils.getAllMainAsset(stakingDenom)
-        self.topValue.attributedText = WUtils.dpUserCurrencyValue(stakingDenom, totalToken, 6, topValue.font)
+        self.topValue.attributedText = WUtils.dpUserCurrencyValue(nativeDenom, totalAmount, nativeDivideDecimal, topValue.font)
     }
-    
-    
-    
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
             return 1
-            
-        } else if (section == 1) {
-            if (BaseData.instance.getVestingAmount_gRPC(stakingDenom).compare(NSDecimalNumber.zero).rawValue > 0) { return 1 }
-            else { return 0 }
-            
-        } else if (section == 2) {
-            if (BaseData.instance.getUnbondingSumAmount_gRPC().compare(NSDecimalNumber.zero).rawValue > 0) { return 1 }
-            else { return 0 }
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailStakingCell") as? TokenDetailStakingCell
-            cell?.onBindStakingToken(chainType!)
-            return cell!
-            
-        } else if (indexPath.section == 1) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailVestingDetailCell") as? TokenDetailVestingDetailCell
-            cell?.onBindVestingToken(chainType!, stakingDenom)
-            return cell!
-            
-        } else if (indexPath.section == 2) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailUnbondingDetailCell") as? TokenDetailUnbondingDetailCell
-            cell?.onBindUnbondingToken(chainType!)
+            let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailNativeCell") as? TokenDetailNativeCell
+            cell?.onBindNativeToken(chainType, nativeDenom)
             return cell!
             
         } else {
@@ -125,6 +105,7 @@ class StakingTokenGrpcViewController: BaseViewController, UITableViewDelegate, U
             return cell!
         }
     }
+    
     
     @objc func onClickActionShare() {
         var nickName:String?
@@ -140,17 +121,11 @@ class StakingTokenGrpcViewController: BaseViewController, UITableViewDelegate, U
         self.shareAddress(address, nickName!)
     }
     
-
     @IBAction func onClickBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func onClickIbcSend(_ sender: UIButton) {
-//        if (!account!.account_has_private) {
-//            self.onShowAddMenomicDialog()
-//            return
-//        }
-        
         self.onShowToast(NSLocalizedString("prepare", comment: ""))
     }
     
@@ -160,6 +135,7 @@ class StakingTokenGrpcViewController: BaseViewController, UITableViewDelegate, U
             return
         }
         
+        let stakingDenom = WUtils.getMainDenom(chainType)
         let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
         if (BaseData.instance.getAvailableAmount_gRPC(stakingDenom).compare(feeAmount).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
@@ -167,7 +143,7 @@ class StakingTokenGrpcViewController: BaseViewController, UITableViewDelegate, U
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mToSendDenom = stakingDenom
+        txVC.mToSendDenom = nativeDenom
         txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""

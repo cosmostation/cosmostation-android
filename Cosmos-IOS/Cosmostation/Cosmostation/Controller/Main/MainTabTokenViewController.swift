@@ -343,9 +343,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (indexPath.section == SECTION_IBC_UNKNOWN_GRPC) {
             onBindIbcToken_gRPC(cell, mIbcUnknown_gRPC[indexPath.row])
             
-        } else if (indexPath.section == SECTION_IBC_UNKNOWN_GRPC) {
-            cell?.tokenSymbol.text = "IBC"
-            
         } else if (indexPath.section == SECTION_UNKNOWN_GRPC) {
             cell?.tokenSymbol.text = mUnKnown_gRPC[indexPath.row].denom.uppercased()
         }
@@ -377,9 +374,27 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 sTokenDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
+            } else {
+                let nTokenDetailVC = NativeTokenGrpcViewController(nibName: "NativeTokenGrpcViewController", bundle: nil)
+                nTokenDetailVC.nativeDenom = mNative_gRPC[indexPath.row].denom
+                nTokenDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
             }
             
         } else if (indexPath.section == SECTION_IBC_AUTHED_GRPC) {
+            let iTokenDetailVC = IBCTokenGrpcViewController(nibName: "NativeTokenGrpcViewController", bundle: nil)
+            iTokenDetailVC.ibcDenom = mIbcAuthed_gRPC[indexPath.row].denom
+            iTokenDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(iTokenDetailVC, animated: true)
+            
+        } else if (indexPath.section == SECTION_IBC_UNKNOWN_GRPC) {
+            let iTokenDetailVC = IBCTokenGrpcViewController(nibName: "NativeTokenGrpcViewController", bundle: nil)
+            iTokenDetailVC.ibcDenom = mIbcUnknown_gRPC[indexPath.row].denom
+            iTokenDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(iTokenDetailVC, animated: true)
             
         } else if (indexPath.section == SECTION_OSMOSIS_POOL_GRPC) {
             
