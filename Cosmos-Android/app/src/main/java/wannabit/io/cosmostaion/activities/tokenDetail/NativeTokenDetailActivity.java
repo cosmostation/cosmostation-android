@@ -13,10 +13,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -49,12 +52,19 @@ import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 
 public class NativeTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar                         mToolbar;
-    private ImageView                       mBtnAddressPopup;
+    private ImageView                       mToolbarSymbolImg;
+    private TextView                        mToolbarSymbol;
+
+    private CardView                        mBtnAddressPopup;
     private ImageView                       mKeyState;
     private TextView                        mAddress;
     private SwipeRefreshLayout              mSwipeRefreshLayout;
@@ -66,8 +76,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
     private NativeTokenAdapter              mAdapter;
     private String                          mDenom;
-    private ArrayList<ResApiTxList.Data>    mApiTxHistory = new ArrayList<>();
-    private ArrayList<ResApiTxListCustom>   mApiTxCustomHistory = new ArrayList<>();
+
     private Boolean                         mHasVesting = false;
     private String                          shareAddress;
 
@@ -77,7 +86,10 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         setContentView(R.layout.activity_token_detail_native);
 
         mToolbar                = findViewById(R.id.tool_bar);
-        mBtnAddressPopup        = findViewById(R.id.address_detail);
+        mToolbarSymbolImg       = findViewById(R.id.toolbar_symbol_img);
+        mToolbarSymbol          = findViewById(R.id.toolbar_symbol);
+
+        mBtnAddressPopup        = findViewById(R.id.card_root);
         mKeyState               = findViewById(R.id.img_account);
         mAddress                = findViewById(R.id.account_Address);
         mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
@@ -138,6 +150,32 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
     }
 
     private void onUpdateView() {
+        if (mBaseChain.equals(KAVA_MAIN)) {
+            Picasso.get().load(KAVA_COIN_IMG_URL + mDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+            if (mDenom.equalsIgnoreCase(TOKEN_HARD)) {
+                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorHard));
+            } else {
+                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            }
+            mToolbarSymbol.setText(mDenom.toUpperCase());
+
+        } else if (mBaseChain.equals(OKEX_MAIN)) {
+            Picasso.get().load(OKEX_COIN_IMG_URL + mDenom + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
+            mToolbarSymbol.setText(mDenom.toUpperCase());
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+
+        } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+            Picasso.get().load(TOKEN_IMG_URL+mDenom+".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
+            mToolbarSymbol.setText(mDenom.toUpperCase());
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+
+        } else if (mBaseChain.equals(SIF_MAIN)) {
+            Picasso.get().load(SIF_COIN_IMG_URL + mDenom + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
+            mToolbarSymbol.setText(mDenom.substring(1).toUpperCase());
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        }
+
+        mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(NativeTokenDetailActivity.this, mBaseChain));
         if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             try {
                 shareAddress = WKey.convertAddressOkexToEth(mAccount.address);

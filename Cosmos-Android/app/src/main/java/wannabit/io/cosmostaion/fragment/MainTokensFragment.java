@@ -1173,9 +1173,7 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         holder.itemSymbol.setText(balance.symbol.toUpperCase());
         holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-        if (balance.symbol.equals("usdx")) { holder.itemFullName.setText("USD Stable Asset"); }
-        else if (balance.symbol.equals(TOKEN_HARD)) { holder.itemFullName.setText("HardPool Gov. Token"); }
-        else {  holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain"); }
+        holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain");
 
         BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
         BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), balance.symbol);
