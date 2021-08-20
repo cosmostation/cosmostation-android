@@ -8,13 +8,13 @@
     android:layout_marginBottom="@dimen/space_4">
     <TextView
         android:id="@+id/header_title"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/space_300"
         android:layout_height="wrap_content"
         android:text="Recently Histories"
         style="@style/font_ss_12_gray1"
         android:layout_marginLeft="@dimen/space_6"/>
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/header_title">
         <TextView

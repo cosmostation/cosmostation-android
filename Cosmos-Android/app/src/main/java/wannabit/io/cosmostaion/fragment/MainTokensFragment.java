@@ -34,6 +34,7 @@ import java.util.Map;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.IBCTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -72,6 +73,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
@@ -109,7 +111,8 @@ public class MainTokensFragment extends BaseFragment {
     public final static int     SECTION_OSMOSIS_POOL_GRPC       = 2;
     public final static int     SECTION_SIF_ETHER_GRPC          = 3;
     public final static int     SECTION_IBC_UNKNOWN_GRPC        = 4;
-    public final static int     SECTION_UNKNOWN_GRPC            = 5;
+    public final static int     SECTION_GRAVICTY_DEX_GRPC       = 5;
+    public final static int     SECTION_UNKNOWN_GRPC            = 6;
 
     public final static int     SECTION_NATIVE                  = 6;
     public final static int     SECTION_KAVA_BEP2               = 7;
@@ -131,6 +134,7 @@ public class MainTokensFragment extends BaseFragment {
     private ArrayList<Coin>     mOsmosisPoolGrpc = new ArrayList<>();
     private ArrayList<Coin>     mSifEtherGrpc = new ArrayList<>();
     private ArrayList<Coin>     mIbcUnknownGrpc = new ArrayList<>();
+    private ArrayList<Coin>     mGravityDexGrpc = new ArrayList<>();
     private ArrayList<Coin>     mUnknownGrpc = new ArrayList<>();
 
     private ArrayList<Balance>  mNative = new ArrayList<>();
@@ -180,10 +184,20 @@ public class MainTokensFragment extends BaseFragment {
             // 헤더 구분 true / false
             @Override
             public boolean isSection(BaseChain baseChain, int position) {
-                if (isGRPC(baseChain)) {
-                    // 조건
+                if (baseChain.equals(OSMOSIS_MAIN)) {
+                    if (mIbcAuthedGrpc != null) {
+                        return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size();
+                    } else if (mOsmosisPoolGrpc != null) {
+                        return position == 0 || position == mNativeGrpc.size();
+                    }
+                } else if (baseChain.equals(COSMOS_MAIN)) {
+                    if (mIbcAuthedGrpc != null) {
+                        return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size();
+                    }
+                } else if (isGRPC(baseChain)){
+                    return position == 0 || position == mNativeGrpc.size();
                 } else {
-                    // 조건
+                    return position == 0 || position == mNative.size();
                 }
                 return position == 0;
             }
@@ -207,6 +221,10 @@ public class MainTokensFragment extends BaseFragment {
 
                 else if (section == SECTION_SIF_ETHER_GRPC) {
                     return getMainActivity().getString(R.string.str_sif_ether_token_title);
+                }
+
+                else if (section == SECTION_GRAVICTY_DEX_GRPC) {
+                    return getMainActivity().getString(R.string.str_gravity_dex_token_title);
                 }
                 return getMainActivity().getString(R.string.str_unknown_token_title);
             }
@@ -307,6 +325,14 @@ public class MainTokensFragment extends BaseFragment {
                     } else {
                         mUnknownGrpc.add(coin);
                     }
+                } else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
+                    if (coin.denom.equalsIgnoreCase(mainDenom)) {
+                        mNativeGrpc.add(coin);
+                    } else if (coin.denom.startsWith("pool")) {
+                        mGravityDexGrpc.add(coin);
+                    } else {
+                        mUnknownGrpc.add(coin);
+                    }
                 } else {
                     if (coin.denom.equalsIgnoreCase(mainDenom)) {
                         mNativeGrpc.add(coin);
@@ -403,8 +429,6 @@ public class MainTokensFragment extends BaseFragment {
                     onBindOsmoPoolToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
                 } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
                     onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mOsmosisPoolGrpc.size());
-                } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
-                    onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mOsmosisPoolGrpc.size());
                 } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
                     onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mOsmosisPoolGrpc.size() - mIbcUnknownGrpc.size());
                 }
@@ -420,6 +444,19 @@ public class MainTokensFragment extends BaseFragment {
                     onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mSifEtherGrpc.size() - mIbcAuthedGrpc.size());
                 } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
                     onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mSifEtherGrpc.size() - mIbcAuthedGrpc.size() - mIbcUnknownGrpc.size());
+                }
+
+            } else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
+                if (getItemViewType(position) == SECTION_NATIVE_GRPC) {
+                    onNativeGrpcItem(viewHolder, position);
+                } else if (getItemViewType(position) == SECTION_IBC_AUTHED_GRPC) {
+                    onBindIbcAuthToken(viewHolder, position - mNativeGrpc.size());
+                } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
+                    onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
+                } else if (getItemViewType(position) == SECTION_GRAVICTY_DEX_GRPC){
+                    onBindGravityDexToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mIbcUnknownGrpc.size());
+                } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
+                    onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mIbcUnknownGrpc.size() - mGravityDexGrpc.size());
                 }
 
             } else if (isGRPC(getMainActivity().mBaseChain)) {
@@ -496,6 +533,19 @@ public class MainTokensFragment extends BaseFragment {
                 } else if (position < mNativeGrpc.size() + mSifEtherGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size()) {
                     return SECTION_IBC_UNKNOWN_GRPC;
                 } else if (position < mNativeGrpc.size() + mSifEtherGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size() + mUnknownGrpc.size()) {
+                    return SECTION_UNKNOWN_GRPC;
+                }
+
+            } else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
+                if (position < mNativeGrpc.size()) {
+                    return SECTION_NATIVE_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size()) {
+                    return SECTION_IBC_AUTHED_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size()) {
+                    return SECTION_IBC_UNKNOWN_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size() + mGravityDexGrpc.size()) {
+                    return SECTION_GRAVICTY_DEX_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size() + mGravityDexGrpc.size() + mUnknownGrpc.size()) {
                     return SECTION_UNKNOWN_GRPC;
                 }
 
@@ -843,9 +893,17 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), ibcToken.base_denom, new BigDecimal(coin.amount), ibcToken.decimal));
             try {
                 Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.itemImg);
-            } catch (Exception e) {
-            }
+            } catch (Exception e) { }
         }
+
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getMainActivity(), IBCTokenDetailActivity.class);
+                intent.putExtra("denom", coin.denom);
+                startActivity(intent);
+            }
+        });
     }
 
     //with Unknown IBC gRPC
@@ -867,6 +925,15 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 6));
         }
+
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getMainActivity(), IBCTokenDetailActivity.class);
+                intent.putExtra("denom", coin.denom);
+                startActivity(intent);
+            }
+        });
     }
 
     //with Osmosis Pool gRPC
@@ -905,10 +972,22 @@ public class MainTokensFragment extends BaseFragment {
         });
     }
 
+    //with Cosmos Gravity Dex gRpc
+    private void onBindGravityDexToken(TokensAdapter.AssetHolder holder, int position) {
+        final Coin coin = mGravityDexGrpc.get(position);
+        Picasso.get().load(COSMOS_COIN_IMG_URL+"gravitydex.png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        holder.itemSymbol.setText(coin.denom.substring(0, 11).toUpperCase() + "...");
+        holder.itemInnerSymbol.setText("");
+        holder.itemFullName.setText("Gravity Token");
+        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
+    }
+
     //with Unknown Token gRPC
     private void onBindUnKnownToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mUnknownGrpc.get(position);
-        holder.itemSymbol.setText(coin.denom.toUpperCase().substring(0, 4));
+        holder.itemSymbol.setText(coin.denom.toUpperCase());
         holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText("");
@@ -1247,6 +1326,12 @@ public class MainTokensFragment extends BaseFragment {
                         mItemCnt.setText("" + mSifEtherGrpc.size());
                     }
 
+                    // cosmos gravity dex token
+                    else if (mSection == SECTION_GRAVICTY_DEX_GRPC) {
+                        title = sectionCallback.getSectionGrpcHeader(getMainActivity().mBaseChain, mGravityDexGrpc, mSection);
+                        mItemCnt.setText("" + mGravityDexGrpc.size());
+                    }
+
                 } else {
                     if (mSection == SECTION_NATIVE) {
                         title = sectionCallback.getSecitonHeader(getMainActivity().mBaseChain, mNative, mSection);
@@ -1263,7 +1348,7 @@ public class MainTokensFragment extends BaseFragment {
                     }
                 }
                 mHeaderTitle.setText(title);
-                if (!previousHeader.equals(title)) {
+                if (!previousHeader.equals(title) || sectionCallback.isSection(getMainActivity().mBaseChain, position)) {
                     drawHeader(c, child, headerView);
                     previousHeader = title;
                 }

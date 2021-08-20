@@ -583,6 +583,7 @@
     <string name="str_collateral_value_title2">가치</string>
     <string name="str_collateral_value_title3">나의 %1$s 담보 가치</string>
     <string name="str_open_cdp">CDP 개설</string>
+    <string name="str_total_amount">전체 수량</string>
     <string name="str_available_amount">사용 가능 수량</string>
     <string name="str_delegable_amount">위임 가능 수량</string>
     <string name="str_self_deposited_amount">나의 담보 수량</string>
@@ -1206,10 +1207,16 @@
     <string name="str_ibc_token_title">IBC Tokens</string>
     <string name="str_unknown_ibc_token_title">Unknown IBC Tokens</string>
     <string name="str_pool_token_title">POOL Tokens</string>
+    <string name="str_gravity_dex_token_title">Gravity Dex Tokens</string>
     <string name="str_sif_ether_token_title">Ether Bridged Tokens</string>
-    <string name="str_kava_bep2_token_title">Kava BEP2 Tokens</string>
+    <string name="str_kava_bep2_token_title">BEP2 Tokens</string>
     <string name="str_etc_token_title">Etc Tokens</string>
     <string name="str_unknown_token_title">Unknown</string>
+    <string name="str_ibc_info_title">IBC information</string>
+    <string name="str_ibc_info_origin_denom_title">Original Denom</string>
+    <string name="str_ibc_chain_id_title">Chain ID</string>
+    <string name="str_ibc_relayer_title">Relayer</string>
+    <string name="str_ibc_denom_title">Denom</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>

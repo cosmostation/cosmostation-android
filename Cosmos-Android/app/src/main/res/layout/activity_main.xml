@@ -159,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="@dimen/space_12"
                     android:layout_marginTop="@dimen/space_2"
-                    style="@style/font_ss_21_gray1"
+                    style="@style/font_ss_21_white"
                     android:singleLine="true"
                     android:text="$1,189,057.01"
                     android:gravity="center_horizontal"/>
