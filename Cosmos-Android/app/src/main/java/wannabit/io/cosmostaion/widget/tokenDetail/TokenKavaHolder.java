@@ -24,13 +24,12 @@ public class TokenKavaHolder extends BaseHolder {
     private LinearLayout    mKavaTransfer;
     private RelativeLayout  mBtnSendKava, mBtnReceiveKava;
     private RelativeLayout  mKavaVestingLayer, mKavaDepositLayer, mKavaIncentiveLayer;
-    private TextView        mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaVesting,
+    private TextView        mTvKavaTotal, mTvKavaAvailable, mTvKavaVesting,
                             mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards, mTvKavaDeposit, mTvKavaIncentive;
 
     public TokenKavaHolder(@NonNull View itemView) {
         super(itemView);
         mTvKavaTotal            = itemView.findViewById(R.id.dash_kava_amount);
-        mTvKavaValue            = itemView.findViewById(R.id.dash_kava_value);
         mTvKavaAvailable        = itemView.findViewById(R.id.dash_kava_undelegate);
         mTvKavaDelegated        = itemView.findViewById(R.id.dash_kava_delegate);
         mTvKavaUnBonding        = itemView.findViewById(R.id.dash_kava_unbonding);
@@ -65,7 +64,6 @@ public class TokenKavaHolder extends BaseHolder {
         mTvKavaUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvKavaRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
         mTvKavaVesting.setText(WDp.getDpAmount2(c, vestingAmount, 6, 6));
-        mTvKavaValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) {
             mKavaVestingLayer.setVisibility(View.VISIBLE);

@@ -12,26 +12,24 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
-import wannabit.io.cosmostaion.network.res.ResApiTxList;
-import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HistoryHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenAkashHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenAltheaHolder;
-import wannabit.io.cosmostaion.widget.tokenDetail.TokenBandHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenBnbHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenCosmosHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenCrytoHolder;
@@ -49,7 +47,6 @@ import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
@@ -74,9 +71,17 @@ import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 public class StakingTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar             mToolbar;
-    private ImageView           mBtnAddressPopup;
+    private ImageView           mToolbarSymbolImg;
+    private TextView            mToolbarSymbol;
+    private TextView            mItemPerPrice;
+    private ImageView           mItemUpDownImg;
+    private TextView            mItemUpDownPrice;
+
+    private CardView            mBtnAddressPopup;
     private ImageView           mKeyState;
     private TextView            mAddress;
+    private TextView            mTotalValue;
+
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private RecyclerView        mRecyclerView;
 
@@ -86,6 +91,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
     private StakingTokenAdapter             mAdapter;
     private Boolean                         mHasVesting = false;
+    private String                          mMainDenom;
     private String                          shareAddress;
 
     @Override
@@ -94,9 +100,16 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         setContentView(R.layout.activity_token_detail_staking);
 
         mToolbar                = findViewById(R.id.tool_bar);
-        mBtnAddressPopup        = findViewById(R.id.address_detail);
+        mToolbarSymbolImg       = findViewById(R.id.toolbar_symbol_img);
+        mToolbarSymbol          = findViewById(R.id.toolbar_symbol);
+        mItemPerPrice           = findViewById(R.id.per_price);
+        mItemUpDownImg          = findViewById(R.id.ic_price_updown);
+        mItemUpDownPrice        = findViewById(R.id.dash_price_updown_tx);
+
+        mBtnAddressPopup        = findViewById(R.id.card_root);
         mKeyState               = findViewById(R.id.img_account);
         mAddress                = findViewById(R.id.account_Address);
+        mTotalValue             = findViewById(R.id.total_value);
         mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
         mRecyclerView           = findViewById(R.id.recycler);
         mBtnIbcSend             = findViewById(R.id.btn_ibc_send);
@@ -109,6 +122,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mMainDenom = WDp.mainDenom(mBaseChain);
 
         if (isGRPC(mBaseChain)) {
             if (getBaseDao().onParseRemainVestingsByDenom(WDp.mainDenom(mBaseChain)).size() > 0) { mHasVesting = true; }
@@ -136,10 +150,79 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         });
 
         onUpdateView();
+        onAccountSwitched();
         mBtnAddressPopup.setOnClickListener(this);
         mBtnIbcSend.setOnClickListener(this);
         mBtnBep3Send.setOnClickListener(this);
         mBtnSend.setOnClickListener(this);
+    }
+
+    private void onAccountSwitched() {
+        if (mBaseChain.equals(COSMOS_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
+            mToolbarSymbol.setText(getString(R.string.str_atom_c));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorAtom));
+
+        } else if (mBaseChain.equals(IRIS_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
+            mToolbarSymbol.setText(getString(R.string.str_iris_c));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorIris));
+
+        } else if (mBaseChain.equals(BNB_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
+            mToolbarSymbol.setText(getString(R.string.str_bnb_c));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorBnb));
+
+        } else if (mBaseChain.equals(KAVA_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
+            mToolbarSymbol.setText(getString(R.string.str_kava_c));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorKava));
+
+        } else if (mBaseChain.equals(IOV_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_token_img));
+            mToolbarSymbol.setText(getString(R.string.str_iov_c));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorIov));
+
+        } else if (mBaseChain.equals(AKASH_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_token_img));
+            mToolbarSymbol.setText(getString(R.string.str_akt_c));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorAkash));
+
+        } else if (mBaseChain.equals(OKEX_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));
+            mToolbarSymbol.setText(getString(R.string.str_ok_c));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorOK));
+
+        } else if (mBaseChain.equals(PERSIS_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenpersistence));
+            mToolbarSymbol.setText(getString(R.string.str_xprt_c));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorPersis));
+
+        } else if (mBaseChain.equals(SENTINEL_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensentinel));
+            mToolbarSymbol.setText(getString(R.string.str_dvpn_c));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorSentinel));
+
+        } else if (mBaseChain.equals(CRYPTO_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.tokencrypto));
+            mToolbarSymbol.setText(getString(R.string.str_cro_c));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorCryto));
+
+        } else if (mBaseChain.equals(SIF_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
+            mToolbarSymbol.setText(getString(R.string.str_sif_c));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorSif));
+
+        } else if (mBaseChain.equals(OSMOSIS_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.token_osmosis));
+            mToolbarSymbol.setText(getString(R.string.str_osmosis_c));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorOsmosis));
+
+        } else if (mBaseChain.equals(MEDI_MAIN)) {
+            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenmedibloc));
+            mToolbarSymbol.setText(getString(R.string.str_medi_c));
+            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorMedi));
+        }
     }
 
     @Override
@@ -154,6 +237,20 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     }
 
     private void onUpdateView() {
+        mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mMainDenom));
+        mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), mMainDenom));
+        final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), mMainDenom);
+        if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
+            mItemUpDownImg.setVisibility(View.VISIBLE);
+            mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
+        } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
+            mItemUpDownImg.setVisibility(View.VISIBLE);
+            mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_down));
+        } else {
+            mItemUpDownImg.setVisibility(View.INVISIBLE);
+        }
+
+        mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(StakingTokenDetailActivity.this, mBaseChain));
         if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             try {
                 shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
@@ -169,6 +266,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         if (mAccount.hasPrivateKey) {
             mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         }
+        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

@@ -14,12 +14,11 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenBnbHolder extends BaseHolder {
 
-    private TextView        mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked, mTvBnbFrozen;
+    private TextView        mTvBnbTotal, mTvBnbBalance, mTvBnbLocked, mTvBnbFrozen;
 
     public TokenBnbHolder(View v) {
         super(v);
         mTvBnbTotal             = itemView.findViewById(R.id.dash_bnb_amount);
-        mTvBnbValue             = itemView.findViewById(R.id.dash_bnb_value);
         mTvBnbBalance           = itemView.findViewById(R.id.dash_bnb_balance);
         mTvBnbLocked            = itemView.findViewById(R.id.dash_bnb_locked);
         mTvBnbFrozen            = itemView.findViewById(R.id.dash_bnb_frozen);
@@ -36,7 +35,6 @@ public class TokenBnbHolder extends BaseHolder {
         mTvBnbBalance.setText(WDp.getDpAmount2(c, availableAmount, 0, 8));
         mTvBnbLocked.setText(WDp.getDpAmount2(c, lockedAmount, 0, 8));
         mTvBnbFrozen.setText(WDp.getDpAmount2(c, frozenAmount, 0, 8));
-        mTvBnbValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 0));
 
     }
 }

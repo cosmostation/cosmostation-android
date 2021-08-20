@@ -22,16 +22,15 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 public class TokenSifHolder extends BaseHolder {
 
 
-    private LinearLayout mSifTransfer;
-    private RelativeLayout mBtnSendSif, mBtnReceiveSif;
+    private LinearLayout    mSifTransfer;
+    private RelativeLayout  mBtnSendSif, mBtnReceiveSif;
     private RelativeLayout  mSifVestingLayer, mSifDepositLayer, mSifIncentiveLayer;
-    private TextView mTvSifTotal, mTvSifValue, mTvSifAvailable, mTvSifVesting,
-            mTvSifDelegated, mTvSifUnBonding, mTvSifRewards, mTvSifDeposit, mTvSifIncentive;
+    private TextView        mTvSifTotal, mTvSifAvailable, mTvSifVesting,
+                            mTvSifDelegated, mTvSifUnBonding, mTvSifRewards, mTvSifDeposit, mTvSifIncentive;
 
     public TokenSifHolder(@NonNull View itemView) {
         super(itemView);
         mTvSifTotal            = itemView.findViewById(R.id.dash_sif_amount);
-        mTvSifValue            = itemView.findViewById(R.id.dash_sif_value);
         mTvSifAvailable        = itemView.findViewById(R.id.dash_sif_undelegate);
         mTvSifDelegated        = itemView.findViewById(R.id.dash_sif_delegate);
         mTvSifUnBonding        = itemView.findViewById(R.id.dash_sif_unbonding);
@@ -66,7 +65,6 @@ public class TokenSifHolder extends BaseHolder {
         mTvSifUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 18, 18));
         mTvSifRewards.setText(WDp.getDpAmount2(c, rewardAmount, 18, 18));
         mTvSifVesting.setText(WDp.getDpAmount2(c, vestingAmount, 18, 18));
-        mTvSifValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 18));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) {
             mSifVestingLayer.setVisibility(View.VISIBLE);

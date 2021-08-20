@@ -16,14 +16,13 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenCrytoHolder extends BaseHolder {
-    public TextView         mTvCroTotal, mTvCroValue, mTvCroAvailable, mTvCroDelegated, mTvCroUnBonding, mTvCroRewards;
+    public TextView         mTvCroTotal, mTvCroAvailable, mTvCroDelegated, mTvCroUnBonding, mTvCroRewards;
     public RelativeLayout   mCroVestingLayer;
     public TextView         mTvCroVesting;
 
     public TokenCrytoHolder(@NonNull View itemView) {
         super(itemView);
         mTvCroTotal         = itemView.findViewById(R.id.cro_amount);
-        mTvCroValue         = itemView.findViewById(R.id.cro_value);
         mTvCroAvailable     = itemView.findViewById(R.id.cro_available);
         mTvCroDelegated     = itemView.findViewById(R.id.cro_delegate);
         mTvCroUnBonding     = itemView.findViewById(R.id.cro_unbonding);
@@ -48,7 +47,6 @@ public class TokenCrytoHolder extends BaseHolder {
         mTvCroDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 8, 8));
         mTvCroUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 8, 8));
         mTvCroRewards.setText(WDp.getDpAmount2(c, rewardAmount, 8, 8));
-        mTvCroValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 8));
         if (!vestingAmount.equals(BigDecimal.ZERO)) { mCroVestingLayer.setVisibility(View.VISIBLE);
         } else { mCroVestingLayer.setVisibility(View.GONE); }
 

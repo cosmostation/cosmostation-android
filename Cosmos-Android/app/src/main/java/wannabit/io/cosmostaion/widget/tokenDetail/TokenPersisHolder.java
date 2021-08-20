@@ -16,14 +16,13 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenPersisHolder extends BaseHolder {
-    public TextView         mTvXprtTotal, mTvXprtValue, mTvXprtAvailable, mTvXprtDelegated, mTvXprtUnBonding, mTvXprtRewards;
+    public TextView         mTvXprtTotal, mTvXprtAvailable, mTvXprtDelegated, mTvXprtUnBonding, mTvXprtRewards;
     public RelativeLayout   mXprtVestingLayer;
     public TextView         mTvXprtVesting;
 
     public TokenPersisHolder(@NonNull View itemView) {
         super(itemView);
         mTvXprtTotal        = itemView.findViewById(R.id.xprt_amount);
-        mTvXprtValue        = itemView.findViewById(R.id.xprt_value);
         mTvXprtAvailable    = itemView.findViewById(R.id.xprt_available);
         mTvXprtDelegated    = itemView.findViewById(R.id.xprt_delegate);
         mTvXprtUnBonding    = itemView.findViewById(R.id.xprt_unbonding);
@@ -48,7 +47,6 @@ public class TokenPersisHolder extends BaseHolder {
         mTvXprtDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvXprtUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvXprtRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvXprtValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
         if (!vestingAmount.equals(BigDecimal.ZERO)) { mXprtVestingLayer.setVisibility(View.VISIBLE);
         } else { mXprtVestingLayer.setVisibility(View.GONE); }
 
