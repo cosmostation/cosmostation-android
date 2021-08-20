@@ -57,6 +57,7 @@ class FarmingDetailViewController: BaseViewController, UITableViewDelegate, UITa
         
         self.farmDetailTableView.delegate = self
         self.farmDetailTableView.dataSource = self
+        self.farmDetailTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.farmDetailTableView.register(UINib(nibName: "EarnBondedCell", bundle: nil), forCellReuseIdentifier: "EarnBondedCell")
         self.farmDetailTableView.register(UINib(nibName: "EarnUnbondingCell", bundle: nil), forCellReuseIdentifier: "EarnUnbondingCell")
         self.farmDetailTableView.register(UINib(nibName: "EarnUnbondedCell", bundle: nil), forCellReuseIdentifier: "EarnUnbondedCell")

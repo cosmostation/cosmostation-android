@@ -532,6 +532,14 @@ public class WUtils {
         return localFormatter.string(from: fullDate)
     }
     
+    static func longTimetoString3(_ input: Int64) -> String {
+        let localFormatter = DateFormatter()
+        localFormatter.dateFormat = NSLocalizedString("date_format3", comment: "")
+        
+        let fullDate = Date.init(milliseconds: Int(input))
+        return localFormatter.string(from: fullDate)
+    }
+    
     static func vestingTimeToString(_ startTime:Int64, _ vesting: KavaAccountInfo.VestingPeriod) -> String {
         let localFormatter = DateFormatter()
         localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
@@ -4140,6 +4148,74 @@ public class WUtils {
             
         }
         return ""
+    }
+    
+    static func getStakingTokenImg(_ chain: ChainType) -> UIImage? {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
+            return UIImage(named: "atom_ic")
+            
+        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
+            return UIImage(named: "irisTokenImg")
+            
+        } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
+            return UIImage(named: "bnbTokenImg")
+            
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
+            return UIImage(named: "okexTokenImg")
+            
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return UIImage(named: "akashTokenImg")
+            
+        } else if (chain == ChainType.KAVA_MAIN) {
+            return UIImage(named: "kavaTokenImg")
+            
+        } else if (chain == ChainType.BAND_MAIN) {
+            return UIImage(named: "bnbTokenImg")
+            
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return UIImage(named: "secretTokenImg")
+            
+        } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
+            return UIImage(named: "certikTokenImg")
+            
+        } else if (chain == ChainType.IOV_MAIN) {
+            return UIImage(named: "iovTokenImg")
+            
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return UIImage(named: "tokenpersistence")
+            
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return UIImage(named: "tokensentinel")
+            
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return UIImage(named: "tokenfetchai")
+            
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return UIImage(named: "tokencrypto")
+            
+        } else if (chain == ChainType.SIF_MAIN) {
+            return UIImage(named: "tokensifchain")
+            
+        } else if (chain == ChainType.KI_MAIN) {
+            return UIImage(named: "tokenKifoundation")
+            
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            return UIImage(named: "tokenOsmosis")
+            
+        } else if (chain == ChainType.MEDI_MAIN || chain == ChainType.MEDI_TEST) {
+            return UIImage(named: "tokenmedibloc")
+            
+        }
+        
+        else if (chain == ChainType.RIZON_TEST) {
+            return UIImage(named: "tokenRizon")
+            
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return UIImage(named: "tokenAlthea")
+            
+        }
+        return UIImage(named: "tokenIc")
+        
     }
     
     static func systemQuorum(_ chain: ChainType?) -> NSDecimalNumber {

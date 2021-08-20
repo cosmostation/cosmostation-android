@@ -373,7 +373,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == SECTION_NATIVE_GRPC) {
             if (mNative_gRPC[indexPath.row].denom == WUtils.getMainDenom(chainType)) {
-                let sTokenDetailVC = StakingTokenDetailViewController(nibName: "StakingTokenDetailViewController", bundle: nil)
+                let sTokenDetailVC = StakingTokenGrpcViewController(nibName: "StakingTokenGrpcViewController", bundle: nil)
                 sTokenDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(sTokenDetailVC, animated: true)

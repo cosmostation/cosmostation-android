@@ -333,14 +333,29 @@ final class BaseData : NSObject{
         }
     }
     
-    func getUnbondingSum_gRPC() -> String {
+    func getUnbondingSumAmount_gRPC() -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for unbonding in mMyUnbondings_gRPC {
             for entry in unbonding.entries {
                 amount = amount.adding(WUtils.plainStringToDecimal(entry.balance))
             }
         }
-        return amount.stringValue;
+        return amount;
+    }
+    
+    func getUnbondingSum_gRPC() -> String {
+        return getUnbondingSumAmount_gRPC().stringValue;
+    }
+    
+    func getUnbondingEntrie_gRPC() -> Array<Cosmos_Staking_V1beta1_UnbondingDelegationEntry> {
+        var result = Array<Cosmos_Staking_V1beta1_UnbondingDelegationEntry>()
+        for unbonding in mMyUnbondings_gRPC {
+            for entry in unbonding.entries {
+                result.append(entry)
+            }
+        }
+        result.sort { return $0.completionTime.seconds < $1.completionTime.seconds }
+        return result
     }
     
     func getUnbonding_gRPC(_ opAddress: String?) -> NSDecimalNumber {

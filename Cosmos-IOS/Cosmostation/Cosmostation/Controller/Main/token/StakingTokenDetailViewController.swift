@@ -74,11 +74,19 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("title_token_detail", comment: "");
-        self.navigationItem.title = NSLocalizedString("title_token_detail", comment: "");
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+//        self.navigationController?.navigationBar.topItem?.title = NSLocalizedString("title_token_detail", comment: "");
+//        self.navigationItem.title = NSLocalizedString("title_token_detail", comment: "");
+//        self.navigationItem.title.co
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+//        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+//        imageView.contentMode = .scaleAspectFit
+//        let image = UIImage(named: "testnetMedibloc")
+//        imageView.image = image
+//        navigationItem.titleView = imageView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
