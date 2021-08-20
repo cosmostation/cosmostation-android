@@ -25,42 +25,39 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
-public class IBCTokenDetailActivity extends BaseActivity implements View.OnClickListener{
+public class POOLTokenDetailActivity extends BaseActivity implements View.OnClickListener{
 
-    private Toolbar                         mToolbar;
-    private ImageView                       mToolbarSymbolImg;
-    private TextView                        mToolbarSymbol;
+    private Toolbar             mToolbar;
+    private ImageView           mToolbarSymbolImg;
+    private TextView            mToolbarSymbol;
 
-    private CardView                        mBtnAddressPopup;
-    private ImageView                       mKeyState;
-    private TextView                        mAddress;
-    private TextView                        mTotalValue;
+    private CardView            mBtnAddressPopup;
+    private ImageView           mKeyState;
+    private TextView            mAddress;
+    private TextView            mTotalValue;
 
-    private SwipeRefreshLayout              mSwipeRefreshLayout;
-    private RecyclerView                    mRecyclerView;
+    private SwipeRefreshLayout  mSwipeRefreshLayout;
+    private RecyclerView        mRecyclerView;
 
-    private RelativeLayout                  mBtnIbcSend;
-    private RelativeLayout                  mBtnSend;
+    private RelativeLayout      mBtnSend;
 
-    private IBCTokenAdapter                 mAdapter;
-    private String                          shareAddress;
-    private String                          mMainDenom;
-    private String                          mCoinDenom;
-    private IbcToken                        mIbcToken;
+    private POOlTokenAdapter    mAdapter;
+    private String              shareAddress;
+    private String              mMainDenom;
+    private String              mCoinDenom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ibc_token_detail);
+        setContentView(R.layout.activity_token_detail_staking);
+
         mToolbar                = findViewById(R.id.tool_bar);
         mToolbarSymbolImg       = findViewById(R.id.toolbar_symbol_img);
         mToolbarSymbol          = findViewById(R.id.toolbar_symbol);
@@ -71,7 +68,6 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         mTotalValue             = findViewById(R.id.total_value);
         mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
         mRecyclerView           = findViewById(R.id.recycler);
-        mBtnIbcSend             = findViewById(R.id.btn_ibc_send);
         mBtnSend                = findViewById(R.id.btn_send);
 
         setSupportActionBar(mToolbar);
@@ -82,11 +78,10 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         mBaseChain  = BaseChain.getChain(mAccount.baseChain);
         mMainDenom  = WDp.mainDenom(mBaseChain);
         mCoinDenom  = getIntent().getStringExtra("denom");
-        mIbcToken   = getBaseDao().getIbcToken(mCoinDenom);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mAdapter = new IBCTokenAdapter();
+        mAdapter = new POOlTokenAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -98,7 +93,6 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
 
         onUpdateView();
         mBtnAddressPopup.setOnClickListener(this);
-        mBtnIbcSend.setOnClickListener(this);
         mBtnSend.setOnClickListener(this);
     }
 
@@ -114,26 +108,12 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
     }
 
     private void onUpdateView() {
-        if (mIbcToken == null) {
-            mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            mToolbarSymbol.setText("Unknown");
-            mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+        mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.token_pool));
+        String [] split = mCoinDenom.split("/");
+        mToolbarSymbol.setText("GAMM-" + split[split.length - 1]);
+        mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
 
-        } else {
-            if (mIbcToken.auth) {
-                try {
-                    Picasso.get().load(mIbcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(mToolbarSymbolImg);
-                } catch (Exception e){}
-                mToolbarSymbol.setText(mIbcToken.display_denom.toUpperCase());
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            } else {
-                mToolbarSymbolImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-                mToolbarSymbol.setText("Unknown");
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            }
-        }
-
-        mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(IBCTokenDetailActivity.this, mBaseChain));
+        mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(POOLTokenDetailActivity.this, mBaseChain));
         if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             try {
                 shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
@@ -164,27 +144,22 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
-        } else if (v.equals(mBtnIbcSend)) {
+        } else if (v.equals(mBtnSend)) {
+//            onStartSendMainDenom();
             Toast.makeText(getBaseContext(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
             return;
-
-        } else if (v.equals(mBtnSend)) {
-            onStartSendMainDenom();
         }
     }
 
-    private class IBCTokenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private class POOlTokenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_AMOUNT                        = 0;
-        private static final int TYPE_IBC_STATUS                    = 1;
         private static final int TYPE_HISTORY                       = 2;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if(viewType == TYPE_AMOUNT) {
-                return new AmountHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
-            } else if(viewType == TYPE_IBC_STATUS) {
-                return new IbcStatusHolder(getLayoutInflater().inflate(R.layout.item_ibc_token_status, viewGroup, false));
+                return new POOlTokenAdapter.AmountHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
             }
             return null;
         }
@@ -193,48 +168,29 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_AMOUNT) {
                 onBindAmount(viewHolder);
-            } else if (getItemViewType(position) == TYPE_IBC_STATUS) {
-                onBindIbcInfo(viewHolder);
             }
         }
 
         @Override
         public int getItemCount() {
-            return 2;
+            return 1;
         }
 
         @Override
         public int getItemViewType(int position) {
             if (position == 0) {
                 return TYPE_AMOUNT;
-            } else if (position == 1) {
-                return TYPE_IBC_STATUS;
             } else {
                 return TYPE_HISTORY;
             }
         }
 
         private void onBindAmount(RecyclerView.ViewHolder viewHolder) {
-            final AmountHolder holder = (IBCTokenAdapter.AmountHolder) viewHolder;
+            final POOlTokenAdapter.AmountHolder holder = (POOlTokenAdapter.AmountHolder) viewHolder;
             final BigDecimal totalAmount = getBaseDao().getAllMainAsset(mMainDenom);
 
-            holder.itemTotal.setText("" + WDp.getDpAmount2(IBCTokenDetailActivity.this, totalAmount, 6, 6));
-            holder.itemAvailable.setText("" + WDp.getDpAmount2(IBCTokenDetailActivity.this, getBaseDao().getAvailable(mCoinDenom), mIbcToken.decimal, mIbcToken.decimal));
-        }
-
-        private void onBindIbcInfo(RecyclerView.ViewHolder viewHolder) {
-            final IbcStatusHolder holder = (IBCTokenAdapter.IbcStatusHolder) viewHolder;
-            if (mIbcToken.auth) {
-                holder.itemIbcInfo.setText("Authed");
-                holder.itemIbcInfo.setTextColor(getResources().getColor(R.color.colorAuth));
-            } else {
-                holder.itemIbcInfo.setText("UnKnown");
-                holder.itemIbcInfo.setTextColor(getResources().getColor(R.color.colorGray5));
-            }
-            holder.itemOriginDenom.setText(mIbcToken.base_denom);
-            holder.itemChainId.setText(mIbcToken.counter_party.chain_id);
-            holder.itemRelayer.setText("");
-            holder.itemDenom.setText("");
+            holder.itemTotal.setText("" + WDp.getDpAmount2(POOLTokenDetailActivity.this, totalAmount, 6, 6));
+            holder.itemAvailable.setText("" + WDp.getDpAmount2(POOLTokenDetailActivity.this, getBaseDao().getAvailable(mCoinDenom), 18, 18));
         }
 
         public class AmountHolder extends RecyclerView.ViewHolder {
@@ -245,23 +201,6 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 super(v);
                 itemTotal               = itemView.findViewById(R.id.ibc_total_amount);
                 itemAvailable           = itemView.findViewById(R.id.ibc_available_amount);
-            }
-        }
-
-        public class IbcStatusHolder extends RecyclerView.ViewHolder {
-            private TextView            itemIbcInfo;
-            private TextView            itemOriginDenom;
-            private TextView            itemChainId;
-            private TextView            itemRelayer;
-            private TextView            itemDenom;
-
-            public IbcStatusHolder(View v) {
-                super(v);
-                itemIbcInfo             = itemView.findViewById(R.id.ibc_info);
-                itemOriginDenom         = itemView.findViewById(R.id.ibc_info_origin_denom);
-                itemChainId             = itemView.findViewById(R.id.ibc_chain_id);
-                itemRelayer             = itemView.findViewById(R.id.ibc_relayer);
-                itemDenom               = itemView.findViewById(R.id.ibc_denom);
             }
         }
     }
