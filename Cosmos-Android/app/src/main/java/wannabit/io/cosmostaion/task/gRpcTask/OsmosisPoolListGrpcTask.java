@@ -20,12 +20,12 @@ import wannabit.io.cosmostaion.utils.WLog;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
-public class OsmosisGrpcPoolListTask extends CommonTask {
+public class OsmosisPoolListGrpcTask extends CommonTask {
     private BaseChain mChain;
     private QueryGrpc.QueryBlockingStub mStub;
     private ArrayList<PoolOuterClass.Pool> mResultData = new ArrayList<>();
 
-    public OsmosisGrpcPoolListTask(BaseApplication app, TaskListener listener, BaseChain chain) {
+    public OsmosisPoolListGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
         this.mChain = chain;
         this.mResult.taskType = TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
@@ -35,14 +35,13 @@ public class OsmosisGrpcPoolListTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setLimit(500).build();
+            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setLimit(1000).build();
             QueryOuterClass.QueryPoolsRequest request = QueryOuterClass.QueryPoolsRequest.newBuilder().setPagination(pageRequest).build();
             QueryOuterClass.QueryPoolsResponse response = mStub.pools(request);
 
             for (Any pool: response.getPoolsList()) {
                 mResultData.add(PoolOuterClass.Pool.parseFrom(pool.getValue()));
             }
-
             mResult.resultData = mResultData;
             mResult.isSuccess = true;
 

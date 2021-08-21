@@ -32,7 +32,7 @@ import wannabit.io.cosmostaion.fragment.chains.osmosis.ListPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListSwapFragment;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolListTask;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -207,7 +207,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         mPoolList.clear();
         mPoolMyList.clear();
         mPoolOtherList.clear();
-        new OsmosisGrpcPoolListTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisPoolListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

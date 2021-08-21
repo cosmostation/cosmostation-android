@@ -28,7 +28,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolInfoTask;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -225,7 +225,7 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
     private int mTaskCount;
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new OsmosisGrpcPoolInfoTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
