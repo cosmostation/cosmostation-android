@@ -27,10 +27,6 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -89,6 +85,10 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
@@ -186,17 +186,23 @@ public class MainTokensFragment extends BaseFragment {
             @Override
             public boolean isSection(BaseChain baseChain, int position) {
                 if (baseChain.equals(OSMOSIS_MAIN)) {
-                    if (mIbcAuthedGrpc != null) {
-                        return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size();
-                    } else if (mOsmosisPoolGrpc != null) {
-                        return position == 0 || position == mNativeGrpc.size();
-                    }
+                    return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size()
+                            || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mOsmosisPoolGrpc.size();
+
                 } else if (baseChain.equals(COSMOS_MAIN)) {
                     if (mIbcAuthedGrpc != null) {
-                        return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size();
+                        return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size()
+                        || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size();
                     }
+                } else if (baseChain.equals(SIF_MAIN)) {
+                    return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mSifEtherGrpc.size();
+
                 } else if (isGRPC(baseChain)){
-                    return position == 0 || position == mNativeGrpc.size();
+                    return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size();
+                }
+
+                else if (baseChain.equals(KAVA_MAIN)) {
+                    return position == 0 || position == mNative.size() || position == mNative.size() + mKavaBep2.size();
                 } else {
                     return position == 0 || position == mNative.size();
                 }
@@ -302,45 +308,25 @@ public class MainTokensFragment extends BaseFragment {
         mIbcUnknownGrpc.clear();
         mUnknownGrpc.clear();
         for (Coin coin : getBaseDao().mGrpcBalance) {
-            if (coin.isIbc()) {
+            if (coin.denom.equalsIgnoreCase(mainDenom)) {
+                mNativeGrpc.add(coin);
+            } else if (coin.isIbc()) {
                 final IbcToken ibcToken = BaseData.getIbcToken(coin.getIbcHash());
                 if (ibcToken.auth == true) {
                     mIbcAuthedGrpc.add(coin);
                 } else {
                     mIbcUnknownGrpc.add(coin);
                 }
+            } else if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) && coin.osmosisAmm()) {
+                mOsmosisPoolGrpc.add(coin);
+            } else if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_ION)) {
+                mNativeGrpc.add(coin);
+            } else if (getMainActivity().mBaseChain.equals(SIF_MAIN) && coin.denom.startsWith("c")) {
+                mSifEtherGrpc.add(coin);
+            } else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) && coin.denom.startsWith("pool")) {
+                mGravityDexGrpc.add(coin);
             } else {
-                if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
-                    if (coin.denom.equalsIgnoreCase(mainDenom) || coin.denom.equalsIgnoreCase(TOKEN_ION)) {
-                        mNativeGrpc.add(coin);
-                    } else if (coin.denom.startsWith("gamm/")) {
-                        mOsmosisPoolGrpc.add(coin);
-                    } else {
-                        mUnknownGrpc.add(coin);
-                    }
-                } else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
-                    if (coin.denom.equalsIgnoreCase(mainDenom)) {
-                        mNativeGrpc.add(coin);
-                    } else if (coin.denom.startsWith("c")){
-                        mSifEtherGrpc.add(coin);
-                    } else {
-                        mUnknownGrpc.add(coin);
-                    }
-                } else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                    if (coin.denom.equalsIgnoreCase(mainDenom)) {
-                        mNativeGrpc.add(coin);
-                    } else if (coin.denom.startsWith("pool")) {
-                        mGravityDexGrpc.add(coin);
-                    } else {
-                        mUnknownGrpc.add(coin);
-                    }
-                } else {
-                    if (coin.denom.equalsIgnoreCase(mainDenom)) {
-                        mNativeGrpc.add(coin);
-                    } else {
-                        mUnknownGrpc.add(coin);
-                    }
-                }
+                mUnknownGrpc.add(coin);
             }
         }
 
@@ -348,41 +334,31 @@ public class MainTokensFragment extends BaseFragment {
         mKavaBep2.clear();
         mEtc.clear();
         mUnKnown.clear();
-
         for (Balance balance : getBaseDao().mBalances) {
-            if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-                if (balance.symbol.equalsIgnoreCase(mainDenom) || balance.symbol.equalsIgnoreCase(TOKEN_HARD) || balance.symbol.equalsIgnoreCase(TOKEN_USDX)) {
+            if (balance.symbol.equalsIgnoreCase(mainDenom)) {
+                mNative.add(balance);
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+                if (balance.symbol.equalsIgnoreCase(TOKEN_HARD) || balance.symbol.equalsIgnoreCase(TOKEN_USDX)) {
                     mNative.add(balance);
+                } else if (balance.symbol.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB) || balance.symbol.equalsIgnoreCase(TOKEN_HTLC_KAVA_BTCB) ||
+                            balance.symbol.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB) || balance.symbol.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
+                    mKavaBep2.add(balance);
                 } else if (balance.symbol.equalsIgnoreCase("btch")) {
                     mEtc.add(balance);
-                } else {
-                    mKavaBep2.add(balance);
                 }
             } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
-                if (balance.symbol.equalsIgnoreCase(mainDenom)) {
-                    mNative.add(balance);
-                } else {
-                    mEtc.add(balance);
-                }
+                mEtc.add(balance);
             } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)){
-                if (balance.symbol.equalsIgnoreCase(mainDenom)) {
-                    mNative.add(balance);
-                } else {
-                    mEtc.add(balance);
-                }
+                mEtc.add(balance);
             } else {
-                if (balance.symbol.equalsIgnoreCase(mainDenom)) {
-                    mNative.add(balance);
-                } else {
-                    mUnKnown.add(balance);
-                }
+                mUnKnown.add(balance);
             }
         }
 
         if (isGRPC(getMainActivity().mBaseChain)) {
-            WUtil.onSortingTokenV1(mNativeGrpc, getMainActivity().mBaseChain);
+            WUtil.onSortingCoins(mNativeGrpc, getMainActivity().mBaseChain);
         } else {
-            WUtil.onSortingToken(mNative, getMainActivity().mBaseChain);
+            WUtil.onSortingNativeCoins(mNative, getMainActivity().mBaseChain);
         }
 
         if (isGRPC(getMainActivity().mBaseChain)) {
