@@ -1358,8 +1358,11 @@
     <string name="str_swap_out">Swap Out</string>
     <string name="str_future_pool_governor">Future Pool Governor</string>
     <string name="str_swap_coin_type">Type</string>
-    <string name="str_osmosis_token_lockup">Lock Token\n(Start Farming)</string>
-    <string name="str_osmosis_token_unlock">Unlock Token\n(End Farming)</string>
+    <string name="str_osmosis_token_lockup">Lockup Token</string>
+    <string name="str_osmosis_begin_unlucking">Begin Unlocking</string>
+    <string name="str_osmosis_begin_unlucking_all">Begin Unlocking All</string>
+    <string name="str_osmosis_token_unlock">Unlock Tokens</string>
+    <string name="str_osmosis_preriodlock_unlock">Preriod Unlock Token</string>
     <string name="str_gravity_create_pool_address">Pool Create Address</string>
     <string name="str_gravity_create_pool_id">Pool Type ID</string>
     <string name="str_gravity_deposit_batch_address">Depositor Address</string>
@@ -1686,10 +1689,10 @@
     <string name="tx_osmosis_join_pool">Join Pool</string>
     <string name="tx_osmosis_exit_pool">Exit Pool</string>
     <string name="tx_osmosis_coin_swap">Swap Coin</string>
-    <string name="tx_osmosis_token_lockup">Lock Token(Start Farming)</string>
-    <string name="tx_osmosis_token_unlock">Unlock Token(End Farming)</string>
-    <string name="tx_osmosis_token_unlock_all">Unlock All Tokens</string>
-    <string name="tx_osmosis_periodlock_unlock">Claim Unlocked Token</string>
+    <string name="tx_osmosis_token_lockup">Lock Token(Start Earning)</string>
+    <string name="tx_osmosis_begin_token_unlock">Begin Unlocking</string>
+    <string name="tx_osmosis_begin_token_unlock_all">Begin Unlocking All</string>
+    <string name="tx_osmosis_periodlock_unlock">Claim Unlocked Token(End Earning)</string>
 
     <string name="tx_gravity_create_pool">Create Pool</string>
     <string name="tx_gravity_swap_batch">Swap Within Batch</string>

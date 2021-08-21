@@ -330,13 +330,13 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.str_osmosis_token_lockup);
 
                 } else if (msgType.equals("/osmosis.lockup.MsgBeginUnlocking")) {
-                    result = c.getString(R.string.str_osmosis_token_unlock);
+                    result = c.getString(R.string.str_osmosis_begin_unlucking);
 
                 } else if (msgType.contains("/osmosis.lockup.MsgBeginUnlockingAll")) {
-                    result = c.getString(R.string.tx_osmosis_token_unlock_all);
+                    result = c.getString(R.string.str_osmosis_begin_unlucking_all);
 
                 } else if (msgType.contains("MsgUnlockPeriodLock")) {
-                    result = c.getString(R.string.tx_osmosis_periodlock_unlock);
+                    result = c.getString(R.string.str_osmosis_preriodlock_unlock);
                 }
 
                 else if (msgType.contains("MsgSwapWithinBatch")) {

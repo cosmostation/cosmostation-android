@@ -1124,8 +1124,11 @@
     <string name="str_swap_out">Swap Out</string>
     <string name="str_future_pool_governor">Future Pool Governor</string>
     <string name="str_swap_coin_type">Type</string>
-    <string name="str_osmosis_token_lockup">토큰 잠그기\n(Start Farming)</string>
-    <string name="str_osmosis_token_unlock">토큰 풀기\n(End Farming)</string>
+    <string name="str_osmosis_token_lockup">토큰 잠그기</string>
+    <string name="str_osmosis_begin_unlucking">토큰 풀기 시작</string>
+    <string name="str_osmosis_begin_unlucking_all">모든 토큰 풀기 시작</string>
+    <string name="str_osmosis_token_unlock">토큰 풀기</string>
+    <string name="str_osmosis_preriodlock_unlock">기간 토큰 풀기</string>
     <string name="str_gravity_create_pool_address">Pool Create Address</string>
     <string name="str_gravity_create_pool_id">Pool Type Id</string>
     <string name="str_gravity_deposit_batch_address">Depositor Address</string>
@@ -1427,10 +1430,10 @@
     <string name="tx_osmosis_join_pool">풀 참가</string>
     <string name="tx_osmosis_exit_pool">풀 나가기</string>
     <string name="tx_osmosis_coin_swap">코인 스왑</string>
-    <string name="tx_osmosis_token_lockup">토큰 잠그기(Start Farming)</string>
-    <string name="tx_osmosis_token_unlock">토큰 풀기</string>
-    <string name="tx_osmosis_token_unlock_all">모든 토큰 풀기</string>
-    <string name="tx_osmosis_periodlock_unlock">풀린 토큰 받기</string>
+    <string name="tx_osmosis_token_lockup">토큰 잠그기(Start Earning)</string>
+    <string name="tx_osmosis_begin_token_unlock">토큰 풀기 시작</string>
+    <string name="tx_osmosis_begin_token_unlock_all">모든 토큰 풀기 시작</string>
+    <string name="tx_osmosis_periodlock_unlock">풀린 토큰 받기(End Earning)</string>
 
     <string name="tx_gravity_create_pool">풀 생성</string>
     <string name="tx_gravity_swap_batch">일괄 스왑</string>
