@@ -54,8 +54,8 @@ public class ListPoolFragment extends BaseFragment {
 
     @Override
     public void onRefreshTab() {
-        mPoolMyList = getSActivity().getBaseDao().mPoolMyList;
-        mPoolOtherList = getSActivity().getBaseDao().mPoolOtherList;
+        mPoolMyList = getSActivity().mPoolMyList;
+        mPoolOtherList = getSActivity().mPoolOtherList;
         mAdapter.notifyDataSetChanged();
     }
 

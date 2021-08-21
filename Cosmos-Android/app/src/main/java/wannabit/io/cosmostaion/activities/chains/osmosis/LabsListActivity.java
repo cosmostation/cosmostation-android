@@ -39,7 +39,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
@@ -49,6 +48,11 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     private ViewPager               mLabPager;
     private TabLayout               mLabTapLayer;
     private OsmoLabPageAdapter      mPageAdapter;
+
+    public ArrayList<PoolOuterClass.Pool>   mPoolList = new ArrayList<>();
+    public ArrayList<String>                mAllDenoms = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>   mPoolMyList = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>   mPoolOtherList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +89,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
         tabItemText2.setTextColor(WDp.getTabColor(this, mBaseChain));
-        tabItemText2.setText(R.string.str_osmosis_farming);
+        tabItemText2.setText(R.string.str_osmosis_earning);
         mLabTapLayer.getTabAt(2).setCustomView(tab2);
 
         mLabPager.setOffscreenPageLimit(2);
@@ -150,7 +154,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         }
 
         PoolOuterClass.Pool tempPool = null;
-        for (PoolOuterClass.Pool pool: getBaseDao().mPoolList) {
+        for (PoolOuterClass.Pool pool: mPoolList) {
             if (pool.getId() == poolId) { tempPool = pool; }
         }
         String coin0denom = tempPool.getPoolAssets(0).getToken().getDenom();
@@ -200,9 +204,9 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     public void onFetchPoolListInfo() {
         onShowWaitDialog();
         mTaskCount = 1;
-        getBaseDao().mPoolList.clear();
-        getBaseDao().mPoolMyList.clear();
-        getBaseDao().mPoolOtherList.clear();
+        mPoolList.clear();
+        mPoolMyList.clear();
+        mPoolOtherList.clear();
         new OsmosisGrpcPoolListTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -215,19 +219,19 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
                 final ArrayList<PoolOuterClass.Pool> tempPoolList = (ArrayList<PoolOuterClass.Pool>)result.resultData;
                 for (PoolOuterClass.Pool pool: tempPoolList) {
                     if (getBaseDao().mChainParam.isPoolEnabled(pool.getId())) {
-                        getBaseDao().mPoolList.add(pool);
-                        for (PoolOuterClass.Pool swap: getBaseDao().mPoolList) {
+                        mPoolList.add(pool);
+                        for (PoolOuterClass.Pool swap: mPoolList) {
                             for (PoolOuterClass.PoolAsset poolAsset: swap.getPoolAssetsList()) {
-                                if (!getBaseDao().mAllDenoms.contains(poolAsset.getToken().getDenom())) {
-                                    getBaseDao().mAllDenoms.add(poolAsset.getToken().getDenom());
+                                if (!mAllDenoms.contains(poolAsset.getToken().getDenom())) {
+                                    mAllDenoms.add(poolAsset.getToken().getDenom());
                                 }
                             }
                         }
 
                         if (getBaseDao().getAvailable("gamm/pool/" + pool.getId()) != BigDecimal.ZERO) {
-                            getBaseDao().mPoolMyList.add(pool);
+                            mPoolMyList.add(pool);
                         } else {
-                            getBaseDao().mPoolOtherList.add(pool);
+                            mPoolOtherList.add(pool);
                         }
                     }
                 }

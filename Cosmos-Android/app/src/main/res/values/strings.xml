@@ -1382,7 +1382,7 @@
     <string name="str_osmosis_lab"><![CDATA[Osmosis Lab]]> </string>
     <string name="str_osmosis_swap">Swap</string>
     <string name="str_osmosis_pool_list">Pool</string>
-    <string name="str_osmosis_farming">Farming</string>
+    <string name="str_osmosis_earning">Earning</string>
     <string name="str_event_horizon_c">Event Horizon</string>
     <string name="str_event_horizon_step_0">Insert mnemonic for Hdac</string>
     <string name="str_event_horizon_step_1">Check Transaction Detail</string>
