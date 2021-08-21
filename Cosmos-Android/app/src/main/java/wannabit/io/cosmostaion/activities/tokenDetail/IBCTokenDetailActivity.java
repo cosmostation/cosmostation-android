@@ -225,11 +225,9 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         private void onBindIbcInfo(RecyclerView.ViewHolder viewHolder) {
             final IbcStatusHolder holder = (IBCTokenAdapter.IbcStatusHolder) viewHolder;
             if (mIbcToken.auth) {
-                holder.itemIbcInfo.setText("Authed");
-                holder.itemIbcInfo.setTextColor(getResources().getColor(R.color.colorAuth));
+                holder.itemIbcInfo.setImageDrawable(getDrawable(R.drawable.authed));
             } else {
-                holder.itemIbcInfo.setText("UnKnown");
-                holder.itemIbcInfo.setTextColor(getResources().getColor(R.color.colorGray5));
+                holder.itemIbcInfo.setVisibility(View.VISIBLE);
             }
             holder.itemOriginDenom.setText(mIbcToken.base_denom);
             holder.itemChainId.setText(mIbcToken.counter_party.chain_id);
@@ -249,7 +247,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         }
 
         public class IbcStatusHolder extends RecyclerView.ViewHolder {
-            private TextView            itemIbcInfo;
+            private ImageView           itemIbcInfo;
             private TextView            itemOriginDenom;
             private TextView            itemChainId;
             private TextView            itemRelayer;

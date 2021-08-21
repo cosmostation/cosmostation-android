@@ -34,14 +34,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/ibc_info_title">
-                    <TextView
+                    <ImageView
                         android:id="@+id/ibc_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text=""
-                        style="@style/font_ss_12_white"/>
+                        android:src="@drawable/unknown" />
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
