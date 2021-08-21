@@ -706,6 +706,8 @@
 		28B2E4CC26CFEBD300ECF960 /* PoolTokenGrpcViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B2E4CA26CFEBD300ECF960 /* PoolTokenGrpcViewController.xib */; };
 		28B2E4CF26CFEF8C00ECF960 /* BridgeTokenGrpcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B2E4CD26CFEF8C00ECF960 /* BridgeTokenGrpcViewController.swift */; };
 		28B2E4D026CFEF8C00ECF960 /* BridgeTokenGrpcViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B2E4CE26CFEF8C00ECF960 /* BridgeTokenGrpcViewController.xib */; };
+		28B2E4D326CFFA9500ECF960 /* TokenStakingOldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B2E4D126CFFA9500ECF960 /* TokenStakingOldCell.swift */; };
+		28B2E4D426CFFA9500ECF960 /* TokenStakingOldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B2E4D226CFFA9500ECF960 /* TokenStakingOldCell.xib */; };
 		28B3251F2637F80500275AED /* MemoMnemonicPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3251D2637F80500275AED /* MemoMnemonicPopup.swift */; };
 		28B325222637FDDD00275AED /* MemoMnemonicPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B325242637FDDD00275AED /* MemoMnemonicPopup.xib */; };
 		28B4302A24F76AD500BD7BB2 /* OkTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4302924F76AD500BD7BB2 /* OkTransfer.swift */; };
@@ -1798,6 +1800,8 @@
 		28B2E4CA26CFEBD300ECF960 /* PoolTokenGrpcViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PoolTokenGrpcViewController.xib; sourceTree = "<group>"; };
 		28B2E4CD26CFEF8C00ECF960 /* BridgeTokenGrpcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeTokenGrpcViewController.swift; sourceTree = "<group>"; };
 		28B2E4CE26CFEF8C00ECF960 /* BridgeTokenGrpcViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BridgeTokenGrpcViewController.xib; sourceTree = "<group>"; };
+		28B2E4D126CFFA9500ECF960 /* TokenStakingOldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStakingOldCell.swift; sourceTree = "<group>"; };
+		28B2E4D226CFFA9500ECF960 /* TokenStakingOldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenStakingOldCell.xib; sourceTree = "<group>"; };
 		28B3251D2637F80500275AED /* MemoMnemonicPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoMnemonicPopup.swift; sourceTree = "<group>"; };
 		28B325232637FDDD00275AED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MemoMnemonicPopup.xib; sourceTree = "<group>"; };
 		28B325272637FDE400275AED /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MemoMnemonicPopup.strings; sourceTree = "<group>"; };
@@ -2721,6 +2725,8 @@
 				2876AD5E240CE4A6005B33F4 /* TokenDetailUnbondingDetailCell.xib */,
 				28A209DD248897F400C2C078 /* TokenDetailVestingDetailCell.swift */,
 				28A209DE248897F400C2C078 /* TokenDetailVestingDetailCell.xib */,
+				28B2E4D126CFFA9500ECF960 /* TokenStakingOldCell.swift */,
+				28B2E4D226CFFA9500ECF960 /* TokenStakingOldCell.xib */,
 			);
 			path = tokendetail;
 			sourceTree = "<group>";
@@ -3838,6 +3844,7 @@
 				285A33EB24486DB60052BD3D /* HtlcResultClaimCell.xib in Resources */,
 				283A80D72451436A008FF813 /* CdpDetailAssetsCell.xib in Resources */,
 				28D809C226A19DBA0030B1BE /* MyPoolCell.xib in Resources */,
+				28B2E4D426CFFA9500ECF960 /* TokenStakingOldCell.xib in Resources */,
 				E17748F02284229B003D8CD1 /* GuideListTableViewCell.xib in Resources */,
 				28DB56FD25FA3B9C00B2F0E5 /* HardPoolWithdraw0ViewController.xib in Resources */,
 				04CFBD5E269301780013150B /* TxBeginUnlockTokenCell.xib in Resources */,
@@ -4515,6 +4522,7 @@
 				287AC58D25FDF7250070837E /* cosmos_params_v1beta1_query.grpc.swift in Sources */,
 				E151B647224850040026B8C0 /* Msg.swift in Sources */,
 				E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */,
+				28B2E4D326CFFA9500ECF960 /* TokenStakingOldCell.swift in Sources */,
 				E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */,
 				284291A1264AA77C00130651 /* BnbTicker.swift in Sources */,
 				2888B7FE246BC83A00B2EB4A /* BnbSwapInfo.swift in Sources */,

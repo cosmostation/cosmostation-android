@@ -208,6 +208,17 @@ final class BaseData : NSObject{
         return amount
     }
     
+    func getUnbondingEntrie() -> Array<UnbondingInfo.Entry> {
+        var result = Array<UnbondingInfo.Entry>()
+        mMyUnbondings.forEach { unbondingInfo in
+            unbondingInfo.entries.forEach { entry in
+                result.append(entry)
+            }
+        }
+        result.sort{ return Int($0.creation_height)! < Int($1.creation_height)! }
+        return result
+    }
+    
     func unbondingAmountByValidator(_ opAddress: String) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for unbonding in mMyUnbondings {
@@ -219,6 +230,7 @@ final class BaseData : NSObject{
         }
         return amount
     }
+    
     
     func rewardAmount(_ symbol: String) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero

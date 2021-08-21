@@ -410,7 +410,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             self.navigationController?.pushViewController(bTokenDetailVC, animated: true)
             
         } else if (indexPath.section == SECTION_UNKNOWN_GRPC) {
-            
+            return
         }
         
         else if (indexPath.section == SECTION_NATIVE) {
@@ -437,15 +437,15 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (indexPath.section == SECTION_ETC) {
             if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BINANCE_MAIN || chainType == ChainType.OKEX_MAIN) {
-                let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
-                nTokenDetailVC.hidesBottomBarWhenPushed = true
-                nTokenDetailVC.denom = mEtc[indexPath.row].balance_denom
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
+//                let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
+//                nTokenDetailVC.hidesBottomBarWhenPushed = true
+//                nTokenDetailVC.denom = mEtc[indexPath.row].balance_denom
+//                self.navigationItem.title = ""
+//                self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
             }
             
         } else if (indexPath.section == SECTION_UNKNOWN) {
-            
+            return
         }
     }
     

@@ -14,6 +14,7 @@ class TokenDetailNativeCell: TokenDetailCell {
 //    @IBOutlet weak var tokenSymbol: UILabel!
 //    @IBOutlet weak var tokenDenom: UILabel!
     
+    @IBOutlet weak var rootCardView: CardView!
     @IBOutlet weak var totalAmount: UILabel!
 //    @IBOutlet weak var totalValue: UILabel!
     @IBOutlet weak var availableAmount: UILabel!
@@ -80,7 +81,6 @@ class TokenDetailNativeCell: TokenDetailCell {
             totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, divideDecimal, displayDecimal)
             availableAmount.attributedText = WUtils.displayAmount2(total.stringValue, availableAmount.font, divideDecimal, displayDecimal)
         }
-        
     }
     
     
@@ -95,7 +95,6 @@ class TokenDetailNativeCell: TokenDetailCell {
                 availableAmount.attributedText = WUtils.displayAmount2(total.stringValue, availableAmount.font, divideDecimal, displayDecimal)
             }
         }
-        
     }
     
     func onBindBNBTokens(_ denom: String?) {
@@ -112,7 +111,7 @@ class TokenDetailNativeCell: TokenDetailCell {
             let locked = BaseData.instance.lockedAmount(denom!)
             let frozen = BaseData.instance.frozenAmount(denom!)
             let total = available.adding(locked).adding(frozen)
-            let convertAmount = WUtils.getBnbConvertAmount(denom!)
+//            let convertAmount = WUtils.getBnbConvertAmount(denom!)
             
             totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 0, 8)
             availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 0, 8)
@@ -129,11 +128,14 @@ class TokenDetailNativeCell: TokenDetailCell {
         
         let dpDecimal = WUtils.getKavaCoinDecimal(denom!)
         let available = BaseData.instance.availableAmount(denom!)
-        let convertedKavaAmount = WUtils.convertTokenToKava(denom!)
+//        let convertedKavaAmount = WUtils.convertTokenToKava(denom!)
         
         totalAmount.attributedText = WUtils.displayAmount2(available.stringValue, totalAmount.font, dpDecimal, dpDecimal)
         availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, dpDecimal, dpDecimal)
 //        totalValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, convertedKavaAmount, 6, totalValue.font)
+        if (denom == KAVA_HARD_DENOM) {
+            rootCardView.backgroundColor = COLOR_BG_COLOR_HARD
+        }
     }
     
     func onBindOKTokens(_ denom: String?) {
@@ -148,7 +150,7 @@ class TokenDetailNativeCell: TokenDetailCell {
             let available = BaseData.instance.availableAmount(denom!)
             let locked = BaseData.instance.lockedAmount(denom!)
             let total = available.adding(locked)
-            let convertedAmount = WUtils.convertTokenToOkt(denom!)
+//            let convertedAmount = WUtils.convertTokenToOkt(denom!)
             
             totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 0, 18)
             availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 0, 18)
@@ -158,15 +160,15 @@ class TokenDetailNativeCell: TokenDetailCell {
         }
     }
     
-    func onBindSifTokens(_ denom: String?) {
-//        tokenImg.af_setImage(withURL: URL(string: SIF_COIN_IMG_URL + denom! + ".png")!)
-//        tokenSymbol.text = denom!.substring(from: 1).uppercased()
-//        tokenDenom.text = "(" + denom! + ")"
-        
-        let dpDecimal = WUtils.getSifCoinDecimal(denom!)
-        let available = BaseData.instance.getAvailableAmount_gRPC(denom!)
-        totalAmount.attributedText = WUtils.displayAmount2(available.stringValue, totalAmount.font, dpDecimal, dpDecimal)
-        availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, dpDecimal, dpDecimal)
-//        totalValue.attributedText = WUtils.dpUserCurrencyValue(denom!.substring(from: 1), available, dpDecimal, totalValue.font)
-    }
+//    func onBindSifTokens(_ denom: String?) {
+////        tokenImg.af_setImage(withURL: URL(string: SIF_COIN_IMG_URL + denom! + ".png")!)
+////        tokenSymbol.text = denom!.substring(from: 1).uppercased()
+////        tokenDenom.text = "(" + denom! + ")"
+//        
+//        let dpDecimal = WUtils.getSifCoinDecimal(denom!)
+//        let available = BaseData.instance.getAvailableAmount_gRPC(denom!)
+//        totalAmount.attributedText = WUtils.displayAmount2(available.stringValue, totalAmount.font, dpDecimal, dpDecimal)
+//        availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, dpDecimal, dpDecimal)
+////        totalValue.attributedText = WUtils.dpUserCurrencyValue(denom!.substring(from: 1), available, dpDecimal, totalValue.font)
+//    }
 }

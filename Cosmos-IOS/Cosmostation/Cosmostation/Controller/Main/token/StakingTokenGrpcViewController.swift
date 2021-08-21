@@ -70,7 +70,6 @@ class StakingTokenGrpcViewController: BaseViewController, UITableViewDelegate, U
         else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) { naviUpdownImg.image = UIImage(named: "priceDown") }
         else { naviUpdownImg.image = nil }
         
-        
         self.topCard.backgroundColor = WUtils.getChainBg(chainType)
         if (account?.account_has_private == true) {
             self.topKeyState.image = topKeyState.image?.withRenderingMode(.alwaysTemplate)

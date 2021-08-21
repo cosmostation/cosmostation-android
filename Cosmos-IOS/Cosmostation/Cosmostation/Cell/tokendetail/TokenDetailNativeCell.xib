@@ -190,6 +190,7 @@
                 <outlet property="frozenLayer" destination="NqO-oK-u5A" id="DxT-3Y-eCp"/>
                 <outlet property="lockedAmount" destination="tL0-LP-4NA" id="TBe-w6-ZX5"/>
                 <outlet property="lockedLayer" destination="5NJ-09-RuO" id="CvJ-Mv-Of7"/>
+                <outlet property="rootCardView" destination="9Ln-uc-QRt" id="ReS-DR-zwr"/>
                 <outlet property="totalAmount" destination="2Uk-pg-b32" id="ioX-qW-oKw"/>
                 <outlet property="vestingAmount" destination="FgR-H4-hhN" id="5Zv-6c-Nbb"/>
                 <outlet property="vestingLayer" destination="UdV-Me-p1w" id="gpG-HI-EYd"/>

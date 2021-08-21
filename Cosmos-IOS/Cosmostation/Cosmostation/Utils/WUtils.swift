@@ -540,6 +540,15 @@ public class WUtils {
         return localFormatter.string(from: fullDate)
     }
     
+    static func nodeTimetoString3(_ input: String) -> String {
+        let nodeFormatter = DateFormatter()
+        nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
+        nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        let date = nodeFormatter.date(from: input) ?? Date.init()
+        return longTimetoString3(date.millisecondsSince1970)
+    }
+    
+    
     static func vestingTimeToString(_ startTime:Int64, _ vesting: KavaAccountInfo.VestingPeriod) -> String {
         let localFormatter = DateFormatter()
         localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
@@ -562,6 +571,28 @@ public class WUtils {
     
     static func getUnbondingTimeleft(_ input: Int64) -> String {
         let secondsLeft = Int(Date().timeIntervalSince(Date.init(milliseconds: Int(input)))) * -1
+        
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        if secondsLeft < minute {
+            return "Soon"
+        } else if secondsLeft < hour {
+            return "(\(secondsLeft / minute) minutes remaining)"
+        } else if secondsLeft < day {
+            return "(\(secondsLeft / hour) hours remaining)"
+        } else {
+            return "(\(secondsLeft / day) days remaining)"
+        }
+    }
+    
+    static func getUnbondingTimeleft2(_ input: String) -> String {
+        let nodeFormatter = DateFormatter()
+        nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
+        nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        let date = nodeFormatter.date(from: input) ?? Date.init()
+        
+        let secondsLeft = Int(Date().timeIntervalSince(date)) * -1
         
         let minute = 60
         let hour = 60 * minute
@@ -1539,7 +1570,7 @@ public class WUtils {
             result = result + ",okb,okt"
             
         } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
-            result = result + ",ukava,hard,usdx"
+            result = result + ",ukava,hard,usdx,btc,bnb,xrp,busd"
             
         } else if (chain == ChainType.BAND_MAIN) {
             result = result + ",uband"
@@ -1618,28 +1649,91 @@ public class WUtils {
         return amount
     }
     
-    static func getKavaTokenDollorValue(_ denom: String, _ amount: NSDecimalNumber) -> NSDecimalNumber {
-        let dpDeciaml = getKavaCoinDecimal(denom)
+    static func getKavaBaseDenom(_ denom: String) -> String {
+        if (denom == KAVA_MAIN_DENOM) {
+            return KAVA_MAIN_DENOM
+        } else if (denom == KAVA_HARD_DENOM) {
+            return KAVA_HARD_DENOM
+        } else if (denom == KAVA_USDX_DENOM) {
+            return KAVA_USDX_DENOM
+        } else if (denom == TOKEN_HTLC_KAVA_BNB) {
+            return "bnb"
+        } else if (denom == TOKEN_HTLC_KAVA_XRPB) {
+            return "xrp"
+        } else if (denom == TOKEN_HTLC_KAVA_BUSD) {
+            return "busd"
+        } else if (denom.contains("btc")) {
+            return "btc"
+        }
+        return ""
+    }
+    
+    static func getKavaTokenDollorPrice(_ denom: String) -> NSDecimalNumber {
         let prices = BaseData.instance.mKavaPrice
         if let price = prices["hard:usd"], denom == "hard" {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            return NSDecimalNumber.init(string: price.result.price)
         }
         if let price = prices["btc:usd"], denom.contains("btc") {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            return NSDecimalNumber.init(string: price.result.price)
         }
         if let price = prices["bnb:usd"], denom.contains("bnb") {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            return NSDecimalNumber.init(string: price.result.price)
         }
         if let price = prices["xrp:usd"], denom.contains("xrp") {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            return NSDecimalNumber.init(string: price.result.price)
         }
         if let price = prices["usdx:usd"], denom.contains("usdx") {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            return NSDecimalNumber.init(string: price.result.price)
         }
         if let price = prices["busd:usd"], denom.contains("busd") {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            return NSDecimalNumber.init(string: price.result.price)
         }
         return NSDecimalNumber.zero
+    }
+    
+    static func getKavaTokenUserCurrencyPrice(_ denom: String) -> NSDecimalNumber {
+        let baseData = BaseData.instance
+        guard let usdtPrice = baseData.getPrice("usdt") else {
+            return NSDecimalNumber.zero.rounding(accordingToBehavior: handler3Down)
+        }
+        if (baseData.getCurrency() == 0) {
+            return getKavaTokenDollorPrice(denom)
+        } else {
+            let priceUSDT = usdtPrice.currencyPrice(baseData.getCurrencyString().lowercased())
+            return getKavaTokenDollorPrice(denom).multiplying(by: priceUSDT, withBehavior: handler3Down)
+        }
+    }
+    
+    static func dpKavaTokenUserCurrencyPrice(_ denom: String, _ font:UIFont) -> NSMutableAttributedString {
+        let nf = getNumberFormatter(3)
+        let formatted = BaseData.instance.getCurrencySymbol() + " " + nf.string(from: getKavaTokenUserCurrencyPrice(denom))!
+        return getDpAttributedString(formatted, 3, font)
+    }
+    
+    static func getKavaTokenDollorValue(_ denom: String, _ amount: NSDecimalNumber) -> NSDecimalNumber {
+        let dpDeciaml = getKavaCoinDecimal(denom)
+//        let prices = BaseData.instance.mKavaPrice
+//        if let price = prices["hard:usd"], denom == "hard" {
+//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+//        }
+//        if let price = prices["btc:usd"], denom.contains("btc") {
+//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+//        }
+//        if let price = prices["bnb:usd"], denom.contains("bnb") {
+//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+//        }
+//        if let price = prices["xrp:usd"], denom.contains("xrp") {
+//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+//        }
+//        if let price = prices["usdx:usd"], denom.contains("usdx") {
+//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+//        }
+//        if let price = prices["busd:usd"], denom.contains("busd") {
+//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+//        }
+//        return NSDecimalNumber.zero
+        
+        return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: getKavaTokenDollorPrice(denom))
     }
     
     static func convertTokenToKava(_ denom: String) -> NSDecimalNumber {

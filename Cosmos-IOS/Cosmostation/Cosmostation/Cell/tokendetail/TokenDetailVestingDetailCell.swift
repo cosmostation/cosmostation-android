@@ -113,6 +113,7 @@ class TokenDetailVestingDetailCell: TokenDetailCell {
         let mKavaAccount = BaseData.instance.mKavaAccountResult
         vestingCntLabel.text = String(mKavaAccount.getCalcurateVestingCntByDenom(denom))
 //        vestingTotalAmount.attributedText = WUtils.displayAmount2(mKavaAccount.getCalcurateVestingAmountSumByDenom(denom).stringValue, vestingTotalAmount.font!, 6, 6)
+        
         if (mKavaAccount.getCalcurateVestingCntByDenom(denom) > 0) {
             vestingTime0.text = WUtils.longTimetoString3(mKavaAccount.getCalcurateTime(denom, 0))
             vestingGap0.text = WUtils.getUnbondingTimeleft(mKavaAccount.getCalcurateTime(denom, 0))

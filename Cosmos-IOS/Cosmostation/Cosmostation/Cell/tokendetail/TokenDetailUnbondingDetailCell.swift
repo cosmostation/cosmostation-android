@@ -61,13 +61,13 @@ class TokenDetailUnbondingDetailCell: UITableViewCell {
     func onBindUnbondingToken(_ chainType: ChainType) {
         unBondingCard.backgroundColor = WUtils.getChainBg(chainType)
         if (WUtils.isGRPC(chainType)) {
-            onBindVesting_gRPC(chainType)
+            onBindUnbonding_gRPC(chainType)
         } else {
-            
+            onBindUnbonding(chainType)
         }
     }
     
-    func onBindVesting_gRPC(_ chainType: ChainType) {
+    func onBindUnbonding_gRPC(_ chainType: ChainType) {
         let stakingDivideDecimal = WUtils.mainDivideDecimal(chainType)
         let stakingDisplayDecimal = WUtils.mainDisplayDecimal(chainType)
         let unbondingEntries = BaseData.instance.getUnbondingEntrie_gRPC()
@@ -99,6 +99,42 @@ class TokenDetailUnbondingDetailCell: UITableViewCell {
             unBondingLayer4.isHidden = false
             unBondingTime4.text = WUtils.longTimetoString3(unbondingEntries[4].completionTime.seconds * 1000)
             unBondingMoniker4.text = WUtils.getUnbondingTimeleft(unbondingEntries[4].completionTime.seconds * 1000)
+            unBondingAmount4.attributedText = WUtils.displayAmount2(unbondingEntries[4].balance, unBondingAmount4.font!, stakingDivideDecimal, stakingDisplayDecimal)
+        }
+    }
+    
+    func onBindUnbonding(_ chainType: ChainType) {
+        let stakingDivideDecimal = WUtils.mainDivideDecimal(chainType)
+        let stakingDisplayDecimal = WUtils.mainDisplayDecimal(chainType)
+        let unbondingEntries = BaseData.instance.getUnbondingEntrie()
+        unBondingCnt.text = String(unbondingEntries.count)
+        
+        unBondingTime0.text = WUtils.nodeTimetoString3(unbondingEntries[0].completion_time)
+        unBondingMoniker0.text = WUtils.getUnbondingTimeleft2(unbondingEntries[0].completion_time)
+        unBondingAmount0.attributedText = WUtils.displayAmount2(unbondingEntries[0].balance, unBondingAmount0.font!, stakingDivideDecimal, stakingDisplayDecimal)
+        
+        if (unbondingEntries.count > 1) {
+            unBondingLayer1.isHidden = false
+            unBondingTime1.text = WUtils.nodeTimetoString3(unbondingEntries[1].completion_time)
+            unBondingMoniker1.text = WUtils.getUnbondingTimeleft2(unbondingEntries[1].completion_time)
+            unBondingAmount1.attributedText = WUtils.displayAmount2(unbondingEntries[1].balance, unBondingAmount1.font!, stakingDivideDecimal, stakingDisplayDecimal)
+        }
+        if (unbondingEntries.count > 2) {
+            unBondingLayer2.isHidden = false
+            unBondingTime2.text = WUtils.nodeTimetoString3(unbondingEntries[2].completion_time)
+            unBondingMoniker2.text = WUtils.getUnbondingTimeleft2(unbondingEntries[2].completion_time)
+            unBondingAmount2.attributedText = WUtils.displayAmount2(unbondingEntries[2].balance, unBondingAmount2.font!, stakingDivideDecimal, stakingDisplayDecimal)
+        }
+        if (unbondingEntries.count > 3) {
+            unBondingLayer3.isHidden = false
+            unBondingTime3.text = WUtils.nodeTimetoString3(unbondingEntries[3].completion_time)
+            unBondingMoniker3.text = WUtils.getUnbondingTimeleft2(unbondingEntries[3].completion_time)
+            unBondingAmount3.attributedText = WUtils.displayAmount2(unbondingEntries[3].balance, unBondingAmount3.font!, stakingDivideDecimal, stakingDisplayDecimal)
+        }
+        if (unbondingEntries.count > 4) {
+            unBondingLayer4.isHidden = false
+            unBondingTime4.text = WUtils.nodeTimetoString3(unbondingEntries[4].completion_time)
+            unBondingMoniker4.text = WUtils.getUnbondingTimeleft2(unbondingEntries[4].completion_time)
             unBondingAmount4.attributedText = WUtils.displayAmount2(unbondingEntries[4].balance, unBondingAmount4.font!, stakingDivideDecimal, stakingDisplayDecimal)
         }
     }
