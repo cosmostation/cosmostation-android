@@ -37,54 +37,6 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.stakingDivideDecimal = WUtils.mainDivideDecimal(chainType)
         self.stakingDisplayDecimal = WUtils.mainDisplayDecimal(chainType)
         
-//        self.tokenDetailTableView.delegate = self
-//        self.tokenDetailTableView.dataSource = self
-//        self.tokenDetailTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailCosmosCell", bundle: nil), forCellReuseIdentifier: "TokenDetailCosmosCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailIrisCell", bundle: nil), forCellReuseIdentifier: "TokenDetailIrisCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailAkashCell", bundle: nil), forCellReuseIdentifier: "TokenDetailAkashCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailPersistenceCell", bundle: nil), forCellReuseIdentifier: "TokenDetailPersistenceCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailKavaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailKavaCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailCrytoCell", bundle: nil), forCellReuseIdentifier: "TokenDetailCrytoCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailSifCell", bundle: nil), forCellReuseIdentifier: "TokenDetailSifCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailExCell", bundle: nil), forCellReuseIdentifier: "TokenDetailExCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailBnbCell", bundle: nil), forCellReuseIdentifier: "TokenDetailBnbCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailSentinelCell", bundle: nil), forCellReuseIdentifier: "TokenDetailSentinelCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailRizonCell", bundle: nil), forCellReuseIdentifier: "TokenDetailRizonCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailAltheaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailAltheaCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailOsmoCell", bundle: nil), forCellReuseIdentifier: "TokenDetailOsmoCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailBandCell", bundle: nil), forCellReuseIdentifier: "TokenDetailBandCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailIovCell", bundle: nil), forCellReuseIdentifier: "TokenDetailIovCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailMediCell", bundle: nil), forCellReuseIdentifier: "TokenDetailMediCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
-//        self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
-//
-//        self.tokenDetailTableView.rowHeight = UITableView.automaticDimension
-//        self.tokenDetailTableView.estimatedRowHeight = UITableView.automaticDimension
-//
-//        var address = account!.account_address
-//        if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
-//            address = WKey.convertAddressOkexToEth(address)
-//        }
-//        dpAddress.text = address
-//        dpAddress.adjustsFontSizeToFitWidth = true
-//
-//        if (account?.account_has_private == true) {
-//            keyState.image = keyState.image?.withRenderingMode(.alwaysTemplate)
-//            keyState.tintColor = WUtils.getChainColor(chainType)
-//        }
-//
-//        if (WUtils.isGRPC(chainType!)) {
-//            if (BaseData.instance.onParseRemainVestingsByDenom_gRPC(WUtils.getMainDenom(chainType)).count > 0) { hasVesting = true }
-//            btnIcbSend.isHidden = false
-//
-//        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-//            if (BaseData.instance.mKavaAccountResult.getCalcurateVestingCntByDenom(KAVA_MAIN_DENOM) > 0) { hasVesting = true }
-//
-//        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
-//            btnBep3Send.isHidden = false
-//        }
-        
         self.tokenDetailTableView.delegate = self
         self.tokenDetailTableView.dataSource = self
         self.tokenDetailTableView.separatorStyle = UITableViewCell.SeparatorStyle.none

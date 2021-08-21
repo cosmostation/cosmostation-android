@@ -1793,6 +1793,27 @@ public class WUtils {
         return NSDecimalNumber.zero
     }
     
+    static func getBnbTokenUserCurrencyPrice(_ symbol: String) -> NSDecimalNumber {
+        if let bnbTicker = getBnbTokenTic(symbol) {
+            if (isBnbMarketToken(symbol)) {
+                let perPrice = (NSDecimalNumber.one).dividing(by: bnbTicker.getLastPrice(), withBehavior: WUtils.handler8)
+                return perPrice.multiplying(by: perUserCurrencyValue(BNB_MAIN_DENOM))
+            } else {
+                let perPrice = (NSDecimalNumber.one).multiplying(by: bnbTicker.getLastPrice(), withBehavior: WUtils.handler8)
+                return perPrice.multiplying(by: perUserCurrencyValue(BNB_MAIN_DENOM))
+            }
+        }
+        return NSDecimalNumber.zero
+    }
+    
+    static func dpBnbTokenUserCurrencyPrice(_ symbol: String, _ font:UIFont) -> NSMutableAttributedString {
+        let nf = getNumberFormatter(3)
+        let formatted = BaseData.instance.getCurrencySymbol() + " " + nf.string(from: getBnbTokenUserCurrencyPrice(symbol))!
+        return getDpAttributedString(formatted, 3, font)
+    }
+    
+    
+    
     static func getBnbMainToken(_ bnbTokens:Array<BnbToken>) -> BnbToken? {
         for bnbToken in bnbTokens {
             if (bnbToken.symbol == BNB_MAIN_DENOM) {
