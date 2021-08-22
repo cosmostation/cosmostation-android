@@ -255,7 +255,11 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
-
+    <style name="font_ss_12_osmo" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorOsmosis</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
 
     <style name="font_ss_12_gray6" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>

@@ -21,6 +21,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.incentives.GaugeOuterClass;
+import osmosis.lockup.Lock;
+import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -32,6 +35,9 @@ import wannabit.io.cosmostaion.fragment.chains.osmosis.ListPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListSwapFragment;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisActiveGaugesGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisIncentivizedPoolsGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisLockupStatusGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -39,6 +45,9 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_INCENTIVIZED;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
@@ -49,10 +58,15 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     private TabLayout               mLabTapLayer;
     private OsmoLabPageAdapter      mPageAdapter;
 
-    public ArrayList<PoolOuterClass.Pool>   mPoolList = new ArrayList<>();
-    public ArrayList<String>                mAllDenoms = new ArrayList<>();
-    public ArrayList<PoolOuterClass.Pool>   mPoolMyList = new ArrayList<>();
-    public ArrayList<PoolOuterClass.Pool>   mPoolOtherList = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>                   mPoolList = new ArrayList<>();
+    public ArrayList<String>                                mAllDenoms = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>                   mPoolMyList = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>                   mPoolOtherList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.IncentivizedPool>      mIncentivizedPool = new ArrayList<>();
+    public ArrayList<GaugeOuterClass.Gauge>                 mActiveGauges = new ArrayList<>();
+    public ArrayList<Lock.PeriodLock>                       mPeriodLockUps = new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,12 +216,19 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
 
     public void onFetchPoolListInfo() {
+        WLog.w("onFetchPoolListInfo ");
         onShowWaitDialog();
-        mTaskCount = 1;
+        mTaskCount = 4;
         mPoolList.clear();
         mPoolMyList.clear();
         mPoolOtherList.clear();
+        mIncentivizedPool.clear();
+        mActiveGauges.clear();
+        mPeriodLockUps.clear();
         new OsmosisPoolListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisIncentivizedPoolsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisActiveGaugesGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisLockupStatusGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -236,13 +257,27 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
                     }
                 }
             }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_INCENTIVIZED) {
+            if (result.isSuccess && result.resultData != null) {
+                mIncentivizedPool = (ArrayList<QueryOuterClass.IncentivizedPool>)result.resultData;
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES) {
+            if (result.isSuccess && result.resultData != null) {
+                mActiveGauges = (ArrayList<GaugeOuterClass.Gauge>)result.resultData;
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS) {
+            if (result.isSuccess && result.resultData != null) {
+                mPeriodLockUps = (ArrayList<Lock.PeriodLock>)result.resultData;
+            }
         }
 
         if (mTaskCount == 0) {
             onHideWaitDialog();
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
-        super.onTaskResponse(result);
     }
 
     private class OsmoLabPageAdapter extends FragmentPagerAdapter {
