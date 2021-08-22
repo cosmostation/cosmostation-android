@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/bonded_amount"
-                    style="@style/font_ss_9_gray1"
+                    style="@style/font_ss_11_gray1"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -146,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/unbonding_amount"
-                    style="@style/font_ss_9_gray1"
+                    style="@style/font_ss_11_gray1"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -182,7 +182,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/unbonded_amount"
-                    style="@style/font_ss_9_gray1"
+                    style="@style/font_ss_11_gray1"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>
@@ -251,7 +251,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/available_amount"
-                    style="@style/font_ss_9_gray1"
+                    style="@style/font_ss_11_gray1"
                     android:gravity="right"
                     android:text="-"/>
             </RelativeLayout>

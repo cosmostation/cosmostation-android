@@ -45,6 +45,10 @@ import cosmos.gov.v1beta1.Gov;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
 import okhttp3.OkHttpClient;
+import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.incentives.GaugeOuterClass;
+import osmosis.lockup.Lock;
+import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -1428,6 +1432,68 @@ public class WUtil {
             } catch (Exception e){}
         }
     }
+
+    public static ArrayList<GaugeOuterClass.Gauge> getGaugesByPoolId(long poolId, ArrayList<QueryOuterClass.IncentivizedPool> incentivizedPools, ArrayList<GaugeOuterClass.Gauge> allGauges) {
+        ArrayList<Long> gaugeIds = new ArrayList<Long>();
+        ArrayList<GaugeOuterClass.Gauge> result = new ArrayList<GaugeOuterClass.Gauge>();
+        for (QueryOuterClass.IncentivizedPool pool: incentivizedPools) {
+            if (pool.getPoolId() == poolId) {
+                gaugeIds.add(pool.getGaugeId());
+            }
+        }
+        for (GaugeOuterClass.Gauge gauge: allGauges) {
+            if (gaugeIds.contains(gauge.getId())) {
+                result.add(gauge);
+            }
+        }
+        return result;
+    }
+
+    public static ArrayList<Lock.PeriodLock> getLockupByPoolId(long poolId, ArrayList<Lock.PeriodLock> lockups) {
+        ArrayList<Lock.PeriodLock> result = new ArrayList<Lock.PeriodLock>();
+        for (Lock.PeriodLock lockup: lockups) {
+            Coin lpCoin = new Coin(lockup.getCoins(0).getDenom(), lockup.getCoins(0).getAmount());
+            if (lpCoin.osmosisAmmPoolId() == poolId) {
+                result.add(lockup);
+            }
+        }
+        return result;
+    }
+
+    public static BigDecimal getOsmoLpTokenPerUsdPrice(BaseData baseData, PoolOuterClass.Pool pool) {
+        BigDecimal totalShare = (new BigDecimal(pool.getTotalShares().getAmount())).movePointLeft(18).setScale(18, RoundingMode.DOWN);
+        return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
+    }
+
+    public static BigDecimal getPoolValue(BaseData baseData, PoolOuterClass.Pool pool) {
+        Coin coin0 = new Coin(pool.getPoolAssets(0).getToken().getDenom(), pool.getPoolAssets(0).getToken().getAmount());
+        Coin coin1 = new Coin(pool.getPoolAssets(1).getToken().getDenom(), pool.getPoolAssets(1).getToken().getAmount());
+        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(coin0.denom));
+        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WUtil.getOsmosisCoinDecimal(coin1.denom));
+        return coin0Value.add(coin1Value);
+    }
+
+    public static BigDecimal getNextIncentiveAmount(ArrayList<GaugeOuterClass.Gauge> gauges, int position) {
+        if (gauges.size() != 3) { return BigDecimal.ZERO; }
+        BigDecimal incentive1Day = (new BigDecimal(gauges.get(0).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
+        BigDecimal incentive7Day = (new BigDecimal(gauges.get(1).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(1).getDistributedCoins(0).getAmount()));
+        BigDecimal incentive14Day = (new BigDecimal(gauges.get(2).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(2).getDistributedCoins(0).getAmount()));
+        if (position == 0) {
+            return incentive1Day;
+        } else if (position == 1) {
+            return incentive1Day.add(incentive7Day);
+        } else {
+            return incentive1Day.add(incentive7Day).add(incentive14Day);
+        }
+    }
+
+    public static BigDecimal getPoolArp(BaseData baseData, PoolOuterClass.Pool pool, ArrayList<GaugeOuterClass.Gauge> gauges, int position) {
+        BigDecimal poolValue = getPoolValue(baseData, pool);
+        BigDecimal incentiveAmount = getNextIncentiveAmount(gauges, position);
+        BigDecimal incentiveValue = WDp.usdValue(baseData, baseData.getBaseDenom(TOKEN_OSMOSIS), incentiveAmount, WUtil.getOsmosisCoinDecimal(TOKEN_OSMOSIS));
+        return incentiveValue.multiply(new BigDecimal("36500")).divide(poolValue, 12, RoundingMode.DOWN);
+    }
+
 
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
         if (all == null) return null;

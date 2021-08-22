@@ -85,8 +85,6 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onRefreshTab() {
-        mPoolList.clear();
-        mAllDenoms.clear();
         mPoolList = getSActivity().mPoolList;
         mAllDenoms = getSActivity().mAllDenoms;
 
