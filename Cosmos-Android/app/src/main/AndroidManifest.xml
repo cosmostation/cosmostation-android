@@ -514,6 +514,13 @@
         </activity>
 
         <activity
+            android:name=".activities.chains.osmosis.EarningDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
             android:name=".activities.chains.osmosis.SwapActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

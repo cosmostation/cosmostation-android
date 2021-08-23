@@ -142,14 +142,16 @@ public class ListFarmingFragment extends BaseFragment {
             if (getItemViewType(position) == TYPE_MY_EARNING) {
                 final EarningMyHolder holder = (EarningMyHolder)viewHolder;
                 final PoolOuterClass.Pool pool = mMyIncentivizedPool.get(position);
-                final ArrayList<GaugeOuterClass.Gauge> gauges =  WUtil.getGaugesByPoolId(pool.getId(), mIncentivizedPool, mActiveGauges);
-                holder.onBindView(getContext(), getSActivity(), getBaseDao(), pool, mPeriodLockUps, gauges);
+                final ArrayList<GaugeOuterClass.Gauge> gauges = WUtil.getGaugesByPoolId(pool.getId(), mIncentivizedPool, mActiveGauges);
+                final ArrayList<Lock.PeriodLock> lockups = WUtil.getLockupByPoolId(pool.getId(), mPeriodLockUps);
+                holder.onBindView(getContext(), getSActivity(), getBaseDao(), pool, lockups, gauges);
 
             } else if (getItemViewType(position) == TYPE_OTHER_EARNING) {
                 final EarningOtherHolder holder = (EarningOtherHolder)viewHolder;
                 final PoolOuterClass.Pool pool = mOtherIncentivizedPool.get(position - mMyIncentivizedPool.size());
                 final ArrayList<GaugeOuterClass.Gauge> gauges =  WUtil.getGaugesByPoolId(pool.getId(), mIncentivizedPool, mActiveGauges);
-                holder.onBindView(getContext(), getSActivity(), getBaseDao(), pool, mPeriodLockUps, gauges);
+                final ArrayList<Lock.PeriodLock> lockups = WUtil.getLockupByPoolId(pool.getId(), mPeriodLockUps);
+                holder.onBindView(getContext(), getSActivity(), getBaseDao(), pool, lockups, gauges);
             }
         }
 

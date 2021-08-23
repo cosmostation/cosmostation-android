@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.widget.osmosis;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,13 +17,14 @@ import java.util.Date;
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
-import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.osmosis.EarningDetailActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.OsmosisGaugeWrapper;
+import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class EarningMyHolder extends RecyclerView.ViewHolder {
@@ -91,30 +93,28 @@ public class EarningMyHolder extends RecyclerView.ViewHolder {
             long day7 = now + 604800000;
             long endTime = lockup.getEndTime().getSeconds() * 1000;
 
-            if (lpCoin.osmosisAmmPoolId() == pool.getId()) {
-                if (endTime == -62135596800000l) {
-                    bondedAmount = bondedAmount.add(new BigDecimal(lpCoin.amount));
-                    if (lockup.getDuration().getSeconds() == 86400) {
-                        myRewards = myRewards.add(myShareRate.multiply(incentive1Day));
-                    } else if (lockup.getDuration().getSeconds() == 604800) {
-                        myRewards = myRewards.add(myShareRate.multiply(incentive7Day));
-                    } else if (lockup.getDuration().getSeconds() == 1209600) {
-                        myRewards = myRewards.add(myShareRate.multiply(incentive14Day));
-                    }
-
-                } else if (endTime > now) {
-                    unbondingAmount = unbondingAmount.add(new BigDecimal(lpCoin.amount));
-                    if (lockup.getEndTime().getSeconds() > day7) {
-                        myRewards = myRewards.add(myShareRate.multiply(incentive7Day));
-                    } else {
-                        myRewards = myRewards.add(myShareRate.multiply(incentive1Day));
-                    }
-
-                } else {
-                    unbondedAmount = unbondedAmount.add(new BigDecimal(lpCoin.amount));
+            if (endTime == -62135596800000l) {
+                bondedAmount = bondedAmount.add(new BigDecimal(lpCoin.amount));
+                if (lockup.getDuration().getSeconds() == 86400) {
                     myRewards = myRewards.add(myShareRate.multiply(incentive1Day));
-
+                } else if (lockup.getDuration().getSeconds() == 604800) {
+                    myRewards = myRewards.add(myShareRate.multiply(incentive7Day));
+                } else if (lockup.getDuration().getSeconds() == 1209600) {
+                    myRewards = myRewards.add(myShareRate.multiply(incentive14Day));
                 }
+
+            } else if (endTime > now) {
+                unbondingAmount = unbondingAmount.add(new BigDecimal(lpCoin.amount));
+                if (lockup.getEndTime().getSeconds() > day7) {
+                    myRewards = myRewards.add(myShareRate.multiply(incentive7Day));
+                } else {
+                    myRewards = myRewards.add(myShareRate.multiply(incentive1Day));
+                }
+
+            } else {
+                unbondedAmount = unbondedAmount.add(new BigDecimal(lpCoin.amount));
+                myRewards = myRewards.add(myShareRate.multiply(incentive1Day));
+
             }
         }
 
@@ -141,5 +141,20 @@ public class EarningMyHolder extends RecyclerView.ViewHolder {
 
         //display reward
         itemRewardAmount.setText(WDp.getDpAmount2(c, myRewards, 6, 6));
+
+
+        itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, EarningDetailActivity.class);
+                intent.putExtra("osmosisPool", pool.toByteArray());
+                OsmosisGaugeWrapper gaugesWrapper = new OsmosisGaugeWrapper(gauges);
+                intent.putExtra("osmosisGauges", gaugesWrapper);
+                OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(lockups);
+                intent.putExtra("osmosislockups", lockupsWrapper);
+                activity.startActivity(intent);
+
+            }
+        });
     }
 }

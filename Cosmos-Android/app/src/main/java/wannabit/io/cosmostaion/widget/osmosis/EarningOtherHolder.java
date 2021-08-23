@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.widget.osmosis;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,9 +17,13 @@ import osmosis.gamm.v1beta1.PoolOuterClass;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.osmosis.EarningDetailActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.OsmosisGaugeWrapper;
+import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
+import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -49,7 +54,7 @@ public class EarningOtherHolder extends RecyclerView.ViewHolder {
         BigDecimal lpCoinPrice = WUtil.getOsmoLpTokenPerUsdPrice(baseData, pool);
         BigDecimal apr = WUtil.getPoolArp(baseData, pool, gauges, 2);
 
-        itemPoolId.setText("MY EARNING #" + pool.getId());
+        itemPoolId.setText("EARNING #" + pool.getId());
         itemPoolCoinPair.setText(WUtil.dpOsmosisTokenName(coin0.denom) + " / " + WUtil.dpOsmosisTokenName(coin1.denom));
         itemPoolApr.setText(WDp.getPercentDp(apr));
 
@@ -60,5 +65,17 @@ public class EarningOtherHolder extends RecyclerView.ViewHolder {
         itemAvailableDenom.setText("GAMM-" + pool.getId());
         itemAvailableValue.setText(WDp.getDpRawDollor(c, availableValue, 2));
 
+        itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, EarningDetailActivity.class);
+                intent.putExtra("osmosisPool", pool.toByteArray());
+                OsmosisGaugeWrapper gaugesWrapper = new OsmosisGaugeWrapper(gauges);
+                intent.putExtra("osmosisGauges", gaugesWrapper);
+                OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(lockups);
+                intent.putExtra("osmosislockups", lockupsWrapper);
+                activity.startActivity(intent);
+            }
+        });
     }
 }
