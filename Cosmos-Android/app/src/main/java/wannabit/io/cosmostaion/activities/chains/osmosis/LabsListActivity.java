@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.activities.chains.osmosis;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -275,8 +277,13 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         }
 
         if (mTaskCount == 0) {
-            onHideWaitDialog();
-            mPageAdapter.mCurrentFragment.onRefreshTab();
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    onHideWaitDialog();
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                }
+            }, 300);
         }
     }
 

@@ -37,8 +37,6 @@
             android:layout_marginLeft="@dimen/space_12"
             android:layout_marginRight="@dimen/space_12"
             android:layout_marginBottom="2dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
             app:cardPreventCornerOverlap="true"
             app:cardCornerRadius="@dimen/space_6"
             app:cardElevation="1.5dp"
@@ -83,14 +81,14 @@
                         style="@style/font_ss_12_gray1"/>
                     <TextView
                         android:id="@+id/aprs14"
-                        style="@style/font_ssl_12_white"
+                        style="@style/font_ss_12_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="140%" />
                     <TextView
                         android:id="@+id/aprs7"
-                        style="@style/font_ssl_12_white"
+                        style="@style/font_ss_12_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/aprs14"
@@ -98,7 +96,7 @@
                         android:text="700%" />
                     <TextView
                         android:id="@+id/aprs1"
-                        style="@style/font_ssl_12_white"
+                        style="@style/font_ss_12_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/aprs7"
@@ -134,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@+id/available_denom"
                         android:layout_marginRight="@dimen/space_2"
-                        style="@style/font_ssl_12_white"
+                        style="@style/font_ss_12_white"
                         android:gravity="right"
                         android:text="-"/>
                     <TextView
@@ -155,7 +153,6 @@
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="@dimen/space_4"
             android:clipToPadding="false"
             android:overScrollMode="never"/>
     </LinearLayout>

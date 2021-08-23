@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.math.BigDecimal;
@@ -22,12 +23,18 @@ import osmosis.lockup.Lock;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.fragment.chains.osmosis.ListFarmingFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.OsmosisGaugeWrapper;
 import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.widget.osmosis.EarningBondedHolder;
+import wannabit.io.cosmostaion.widget.osmosis.EarningMyHolder;
+import wannabit.io.cosmostaion.widget.osmosis.EarningOtherHolder;
+import wannabit.io.cosmostaion.widget.osmosis.EarningUnbondedHolder;
+import wannabit.io.cosmostaion.widget.osmosis.EarningUnbondingHolder;
 
 public class EarningDetailActivity extends BaseActivity implements View.OnClickListener {
     private Toolbar mToolbar;
@@ -37,6 +44,8 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
     private TextView mPoolCoinPairTv;
     private TextView mPoolAprsTv1, mPoolAprsTv7, mPoolAprsTv14;
     private TextView mAvailableAmountTv, mAvailableDenomTv, mAvailableValueTv;
+
+    private EarningDetailsAdapter mAdapter;
 
     private PoolOuterClass.Pool                 mPool;
     private ArrayList<GaugeOuterClass.Gauge>    mGauges;
@@ -87,7 +96,6 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         BigDecimal apr7 = WUtil.getPoolArp(getBaseDao(), mPool, mGauges, 1);
         BigDecimal apr14 = WUtil.getPoolArp(getBaseDao(), mPool, mGauges, 2);
 
-        WLog.w("mLockUps " + mLockUps.size());
         if (mLockUps.size() > 0) {
             mPoolIdTv.setText("MY EARNING #" + mPool.getId());
             mPoolIdTv.setTextColor(getResources().getColor(R.color.colorOsmosis));
@@ -102,7 +110,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
         BigDecimal availableAmount = getBaseDao().getAvailable("gamm/pool/" + mPool.getId());
         BigDecimal availableValue = availableAmount.multiply(lpCoinPrice).movePointLeft(18).setScale(2, RoundingMode.DOWN);
-        mAvailableAmountTv.setText(WDp.getDpAmount2(getBaseContext(), availableAmount, 18, 6));
+        mAvailableAmountTv.setText(WDp.getDpAmount2(getBaseContext(), availableAmount, 18, 18));
         mAvailableDenomTv.setText("GAMM-" + mPool.getId());
         mAvailableValueTv.setText(WDp.getDpRawDollor(getBaseContext(), availableValue, 2));
 
@@ -118,9 +126,10 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
                 mUnbondedList.add(lockup);
             }
         }
-        WLog.w("mBondedList " + mBondedList.size());
-        WLog.w("mUnbondingList " + mUnbondingList.size());
-        WLog.w("mUnbondedList " + mUnbondedList.size());
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setHasFixedSize(true);
+        mAdapter = new EarningDetailsAdapter();
+        mRecyclerView.setAdapter(mAdapter);
 
         mBtnNewEarning.setOnClickListener(this);
     }
@@ -139,8 +148,22 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         if (view.equals(mBtnNewEarning)) {
-
+            onCheckNewEarning();
         }
+    }
+
+    public void onCheckNewEarning() {
+        WLog.w("onCheckNewEarning");
+
+    }
+
+    public void onCheckUnbonding(Lock.PeriodLock lockup) {
+        WLog.w("onCheckUnbonding " + lockup.getID());
+
+    }
+
+    public void onCheckUnlock(Lock.PeriodLock lockup) {
+        WLog.w("onCheckUnlock " + lockup.getID());
 
     }
 
@@ -152,18 +175,52 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
         @NonNull
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+            if (viewType == TYPE_BONDED) {
+                return new EarningBondedHolder(getLayoutInflater().inflate(R.layout.item_osmosis_earning_detail_bonded, viewGroup, false));
+            } else if (viewType == TYPE_UNBONDING) {
+                return new EarningUnbondingHolder(getLayoutInflater().inflate(R.layout.item_osmosis_earning_detail_unbonding, viewGroup, false));
+            } else if (viewType == TYPE_UNBONDED) {
+                return new EarningUnbondedHolder(getLayoutInflater().inflate(R.layout.item_osmosis_earning_detail_unbonded, viewGroup, false));
+            }
             return null;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+            if (getItemViewType(position) == TYPE_BONDED) {
+                final EarningBondedHolder holder = (EarningBondedHolder)viewHolder;
+                final Lock.PeriodLock lockup = mBondedList.get(position);
+                holder.onBindView(getBaseContext(), EarningDetailActivity.this, getBaseDao(), mPool, lockup, mGauges);
+
+            } else if (getItemViewType(position) == TYPE_UNBONDING) {
+                final EarningUnbondingHolder holder = (EarningUnbondingHolder)viewHolder;
+                final Lock.PeriodLock lockup = mUnbondingList.get(position - mBondedList.size());
+                holder.onBindView(getBaseContext(), EarningDetailActivity.this, getBaseDao(), mPool, lockup, mGauges);
+
+            } else if (getItemViewType(position) == TYPE_UNBONDED) {
+                final EarningUnbondedHolder holder = (EarningUnbondedHolder)viewHolder;
+                final Lock.PeriodLock lockup = mUnbondedList.get(position - mBondedList.size() - mUnbondingList.size());
+                holder.onBindView(getBaseContext(), EarningDetailActivity.this, getBaseDao(), mPool, lockup, mGauges);
+
+            }
 
         }
 
         @Override
         public int getItemCount() {
-            return 0;
+            return mBondedList.size() + mUnbondingList.size() + mUnbondedList.size();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if (position < mBondedList.size()) {
+                return TYPE_BONDED;
+            } else if (position < (mBondedList.size() + mUnbondingList.size())) {
+                return TYPE_UNBONDING;
+            } else {
+                return TYPE_UNBONDED;
+            }
         }
     }
 }
