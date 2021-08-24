@@ -810,4 +810,5 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_CRYPTO = new BigDecimal("6.4383");
     public final static BigDecimal BLOCK_TIME_SIF = new BigDecimal("5.6577");
     public final static BigDecimal BLOCK_TIME_KI = new BigDecimal("5.6524");
+    public final static BigDecimal BLOCK_TIME_MEDI = new BigDecimal("1.8923");
 }

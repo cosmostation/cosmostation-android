@@ -1990,6 +1990,9 @@ public class WUtil {
         } else if (chain.equals(KI_MAIN)) {
             return BLOCK_TIME_KI;
 
+        } else if (chain.equals(MEDI_MAIN)) {
+            return BLOCK_TIME_MEDI;
+
         }
         return BigDecimal.ZERO;
     }

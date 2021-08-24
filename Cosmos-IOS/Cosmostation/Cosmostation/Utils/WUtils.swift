@@ -3969,6 +3969,9 @@ public class WUtils {
         } else if (chain == ChainType.KI_MAIN) {
             return BLOCK_TIME_KI
             
+        } else if (chain == ChainType.MEDI_MAIN) {
+            return BLOCK_TIME_MEDI
+            
         }
         return NSDecimalNumber.zero
     }
