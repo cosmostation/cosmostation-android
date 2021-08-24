@@ -29,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_undelegate_status"
-                    style="@style/font_ss_12_gray1"/>
+                    style="@style/font_ss_12_white"/>
                 <TextView
                     android:id="@+id/undelegate_count"
                     android:layout_width="wrap_content"
@@ -52,13 +52,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8">
                 <TextView
-                    android:id="@+id/undelegate_detail_moniker0"
+                    android:id="@+id/undelegate_detail_time0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxWidth="@dimen/space_120"
                     android:singleLine="true"
                     android:ellipsize="end"
-                    android:text="-"
+                    android:text=""
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/undelegate_detail_amount0"
@@ -69,14 +69,13 @@
                     android:text="-"
                     style="@style/font_ssl_12_white"/>
                 <TextView
-                    android:id="@+id/undelegate_detail_time0"
+                    android:id="@+id/undelegate_detail_time0_remain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/undelegate_detail_amount0"
-                    android:layout_alignParentRight="true"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    android:layout_below="@+id/undelegate_detail_time0"
+                    android:text=""
+                    style="@style/font_ss_10_gray1"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/undelegate_detail_layer1"
@@ -85,13 +84,13 @@
                 android:layout_marginTop="@dimen/space_8"
                 android:visibility="gone">
                 <TextView
-                    android:id="@+id/undelegate_detail_moniker1"
+                    android:id="@+id/undelegate_detail_time1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxWidth="@dimen/space_120"
                     android:singleLine="true"
                     android:ellipsize="end"
-                    android:text="-"
+                    android:text=""
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/undelegate_detail_amount1"
@@ -102,14 +101,13 @@
                     android:text="-"
                     style="@style/font_ssl_12_white"/>
                 <TextView
-                    android:id="@+id/undelegate_detail_time1"
+                    android:id="@+id/undelegate_detail_time1_remain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/undelegate_detail_amount1"
-                    android:layout_alignParentRight="true"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    android:layout_below="@+id/undelegate_detail_time1"
+                    android:text=""
+                    style="@style/font_ss_10_gray1"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/undelegate_detail_layer2"
@@ -118,13 +116,13 @@
                 android:layout_marginTop="@dimen/space_8"
                 android:visibility="gone">
                 <TextView
-                    android:id="@+id/undelegate_detail_moniker2"
+                    android:id="@+id/undelegate_detail_time2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxWidth="@dimen/space_120"
                     android:singleLine="true"
                     android:ellipsize="end"
-                    android:text="-"
+                    android:text=""
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/undelegate_detail_amount2"
@@ -135,14 +133,13 @@
                     android:text="-"
                     style="@style/font_ssl_12_white"/>
                 <TextView
-                    android:id="@+id/undelegate_detail_time2"
+                    android:id="@+id/undelegate_detail_time2_remain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/undelegate_detail_amount2"
-                    android:layout_alignParentRight="true"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    android:layout_below="@+id/undelegate_detail_time2"
+                    android:text=""
+                    style="@style/font_ss_10_gray1"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/undelegate_detail_layer3"
@@ -151,13 +148,13 @@
                 android:layout_marginTop="@dimen/space_8"
                 android:visibility="gone">
                 <TextView
-                    android:id="@+id/undelegate_detail_moniker3"
+                    android:id="@+id/undelegate_detail_time3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxWidth="@dimen/space_120"
                     android:singleLine="true"
                     android:ellipsize="end"
-                    android:text="-"
+                    android:text=""
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/undelegate_detail_amount3"
@@ -168,14 +165,13 @@
                     android:text="-"
                     style="@style/font_ssl_12_white"/>
                 <TextView
-                    android:id="@+id/undelegate_detail_time3"
+                    android:id="@+id/undelegate_detail_time3_remain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/undelegate_detail_amount3"
-                    android:layout_alignParentRight="true"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    android:layout_below="@+id/undelegate_detail_time3"
+                    android:text=""
+                    style="@style/font_ss_10_gray1"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/undelegate_detail_layer4"
@@ -184,13 +180,13 @@
                 android:layout_marginTop="@dimen/space_8"
                 android:visibility="gone">
                 <TextView
-                    android:id="@+id/undelegate_detail_moniker4"
+                    android:id="@+id/undelegate_detail_time4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxWidth="@dimen/space_120"
                     android:singleLine="true"
                     android:ellipsize="end"
-                    android:text="-"
+                    android:text=""
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/undelegate_detail_amount4"
@@ -201,14 +197,13 @@
                     android:text="-"
                     style="@style/font_ssl_12_white"/>
                 <TextView
-                    android:id="@+id/undelegate_detail_time4"
+                    android:id="@+id/undelegate_detail_time4_remain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/undelegate_detail_amount4"
-                    android:layout_alignParentRight="true"
                     android:gravity="right"
-                    android:text="-"
-                    style="@style/font_ss_11_gray1"/>
+                    android:layout_below="@+id/undelegate_detail_time4"
+                    android:text=""
+                    style="@style/font_ss_10_gray1"/>
             </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

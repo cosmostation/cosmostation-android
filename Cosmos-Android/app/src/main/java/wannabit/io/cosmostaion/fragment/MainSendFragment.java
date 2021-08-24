@@ -191,7 +191,6 @@ public class MainSendFragment extends BaseFragment {
     }
 
     private class MainWalletAdapter extends RecyclerView.Adapter<BaseHolder> {
-        private static final int TYPE_ADDRESS           = 0;
         private static final int TYPE_COSMOS            = 1;
         private static final int TYPE_IRIS              = 2;
         private static final int TYPE_BINANCE           = 3;
@@ -321,11 +320,7 @@ public class MainSendFragment extends BaseFragment {
                         getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain .equals(OK_TEST)) {
                     return 3;
                 } else {
-                    if (getBaseDao().mMyUnbondings.size() > 0) {
-                        return 5;
-                    } else {
-                        return 4;
-                    }
+                    return 4;
                 }
             }
         }
@@ -386,18 +381,12 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) { return TYPE_FETCH; }
                     else if (getMainActivity().mBaseChain.equals(KI_MAIN)) { return TYPE_KI; }
                 } else if (position == 1) {
-                    if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
-                    else { return TYPE_PRICE; }
+                    return TYPE_PRICE;
 
                 } else if (position == 2) {
-                    if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_PRICE; }
-                    else { return TYPE_MINT; }
+                    return TYPE_MINT;
 
                 } else if (position == 3) {
-                    if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_MINT; }
-                    else { return TYPE_GIUDE; }
-
-                } else if (position == 4) {
                     return TYPE_GIUDE;
 
                 }
