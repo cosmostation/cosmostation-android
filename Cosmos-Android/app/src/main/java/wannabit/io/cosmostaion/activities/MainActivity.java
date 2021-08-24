@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +14,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -36,13 +35,11 @@ import com.google.zxing.integration.android.IntentResult;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
-import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonDetailActivity;
-import wannabit.io.cosmostaion.activities.chains.rizon.RizonSwapStatusActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_Rizon_Event_Horizon;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
@@ -101,6 +98,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private TextView                    mToolbarTitle;
     private TextView                    mToolbarChainName;
 
+    private CardView                    mCardView;
+    private ImageView                   itemKeyStatus;
+    private TextView                    mWalletAddress;
+    private TextView                    mTotalValue;
+
     private StopViewPager               mContentsPager;
     private TabLayout                   mTabLayer;
     private FrameLayout                 mDimLayer;
@@ -128,6 +130,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mToolbarTitle           = findViewById(R.id.toolbar_title);
         mToolbarChainImg        = findViewById(R.id.toolbar_net_image);
         mToolbarChainName       = findViewById(R.id.toolbar_net_name);
+        mCardView               = findViewById(R.id.card_root);
+        itemKeyStatus           = findViewById(R.id.img_account);
+        mWalletAddress          = findViewById(R.id.wallet_address);
+        mTotalValue             = findViewById(R.id.total_value);
         mContentsPager          = findViewById(R.id.view_pager);
         mTabLayer               = findViewById(R.id.bottom_tab);
         mDimLayer               = findViewById(R.id.dim_layer);
@@ -144,6 +150,29 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             @Override
             public void onClick(View v) {
                 onStartSendMainDenom();
+            }
+        });
+
+        mCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Address = "";
+                try {
+                    if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+                        Address = WKey.convertAddressOkexToEth(mAccount.address);
+                    } else {
+                        Address = mAccount.address;
+                    }
+                } catch (Exception e) { }
+                Bundle bundle = new Bundle();
+                bundle.putString("address", Address);
+                if (TextUtils.isEmpty(mAccount.nickName))
+                    bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id);
+                else
+                    bundle.putString("title", mAccount.nickName);
+                Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
+                show.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
             }
         });
 
@@ -218,6 +247,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 }
                 if (position != 0) mFloatBtn.hide();
                 else if (!mFloatBtn.isShown()) mFloatBtn.show();
+                if (position == 3) {
+                    mCardView.setVisibility(View.GONE);
+                } else {
+                    mCardView.setVisibility(View.VISIBLE);
+                    mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
+                }
             }
         });
 
@@ -455,21 +490,23 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mAccountListAdapter.notifyDataSetChanged();
     }
 
-    public void onUpdateAccountListAdapter() {
-        int lastPosition = getBaseDao().getLastChain() - 1;
-        if (lastPosition < 0) {
-            mAccounts = getBaseDao().onSelectAccounts();
-        } else {
-            BaseChain chain = BaseChain.SUPPORT_CHAINS().get(lastPosition);
-            mAccounts = getBaseDao().onSelectAccountsByChain(chain);
-        }
-        WUtil.onSortingAccount(mAccounts);
-        mAccountListAdapter.notifyDataSetChanged();
-    }
-
     private void onUpdateTitle() {
         if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
         else mToolbarTitle.setText(mAccount.nickName);
+
+        mCardView.setBackgroundColor(WDp.getChainBgColor(MainActivity.this, mBaseChain));
+        if (mAccount.hasPrivateKey) {
+            itemKeyStatus.setColorFilter(WDp.getChainColor(MainActivity.this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        } else {
+            itemKeyStatus.setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+        }
+        try {
+            if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+                mWalletAddress.setText(WKey.convertAddressOkexToEth(mAccount.address));
+            } else {
+                mWalletAddress.setText(mAccount.address);
+            }
+        } catch (Exception e) { }
     }
 
     @Override
@@ -506,6 +543,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onFetchAllData() {
         onFetchAccountInfo(this);
+        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
     }
 
     public void onSetKavaWarn() {
@@ -525,6 +563,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         if (!isFinishing()) {
             onHideWaitDialog();
             if (mPageAdapter.mCurrentFragment != null) mPageAdapter.mCurrentFragment.onRefreshTab();
+            mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
         }
     }
 
@@ -537,12 +576,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onClickEventHorizon() {
-//        if (!mAccount.hasPrivateKey) {
-//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//            return;
-//        }
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
 
         Dialog_Rizon_Event_Horizon add = Dialog_Rizon_Event_Horizon.newInstance();
         add.setCancelable(true);

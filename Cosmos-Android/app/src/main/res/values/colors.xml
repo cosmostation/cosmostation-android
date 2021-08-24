@@ -152,4 +152,6 @@
     <color name="colorBnbBuy">#37CC6E</color>
     <color name="colorBnbSell">#FF2745</color>
 
+    <color name="colorAuth">#40F683</color>
+
 </resources>

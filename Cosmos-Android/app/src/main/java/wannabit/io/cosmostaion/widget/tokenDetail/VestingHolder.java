@@ -25,7 +25,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class VestingHolder extends BaseHolder {
     private CardView            mVestingRoot;
-    private TextView            mVestingCnt, mVestingTotalAmount;
+    private TextView            mVestingCnt;
     private RelativeLayout      mVestingLayer0, mVestingLayer1, mVestingLayer2, mVestingLayer3, mVestingLayer4;
     private TextView            mVestingTime0, mVestingTime1, mVestingTime2, mVestingTime3, mVestingTime4;
     private TextView            mVestingGap0, mVestingGap1, mVestingGap2, mVestingGap3, mVestingGap4;
@@ -35,7 +35,6 @@ public class VestingHolder extends BaseHolder {
         super(itemView);
         mVestingRoot            = itemView.findViewById(R.id.card_root);
         mVestingCnt             = itemView.findViewById(R.id.vesting_count);
-        mVestingTotalAmount     = itemView.findViewById(R.id.total_vesting_amount);
         mVestingLayer0          = itemView.findViewById(R.id.vesting_layer0);
         mVestingLayer1          = itemView.findViewById(R.id.vesting_layer1);
         mVestingLayer2          = itemView.findViewById(R.id.vesting_layer2);
@@ -79,7 +78,6 @@ public class VestingHolder extends BaseHolder {
     private void onBindGRPC (Context c, BaseChain chain, BaseData baseData, String denom) {
         ArrayList<Vesting.Period> vps = baseData.onParseRemainVestingsByDenom(denom);
         mVestingCnt.setText("(" + vps.size() + ")");
-        mVestingTotalAmount.setText(WDp.getDpAmount2(c, baseData.onParseRemainVestingsAmountSumByDenom(denom), 6, 6));
 
         mVestingTime0.setText(WDp.getDpTime(c, vps.get(0).getLength()));
         mVestingGap0.setText(WDp.getUnbondingTimeleft(c, vps.get(0).getLength()));
@@ -112,8 +110,7 @@ public class VestingHolder extends BaseHolder {
 
     private void onBindKava (Context c, BaseChain chain, BaseData baseData, String denom) {
         final ResLcdKavaAccountInfo.Value mKavaAccount = baseData.mKavaAccount.value;
-        mVestingCnt.setText("(" + mKavaAccount.getCalcurateVestingCntByDenom(denom) + ")");
-        mVestingTotalAmount.setText(WDp.getDpAmount2(c, mKavaAccount.getCalcurateVestingAmountSumByDenom(denom), 6, 6));
+        mVestingCnt.setText("" + mKavaAccount.getCalcurateVestingCntByDenom(denom));
 
         mVestingTime0.setText(WDp.getDpTime(c, mKavaAccount.getCalcurateTime(denom, 0)));
         mVestingGap0.setText(WDp.getUnbondingTimeleft(c, mKavaAccount.getCalcurateTime(denom, 0)));

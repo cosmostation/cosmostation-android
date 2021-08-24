@@ -15,12 +15,11 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenAltheaHolder extends BaseHolder {
-    public TextView mTvAltheaTotal, mTvAltheaValue, mTvAltheaAvailable, mTvAltheaDelegated, mTvAltheaUnBonding, mTvAltheaRewards;
+    public TextView mTvAltheaTotal, mTvAltheaAvailable, mTvAltheaDelegated, mTvAltheaUnBonding, mTvAltheaRewards;
 
     public TokenAltheaHolder(@NonNull View itemView) {
         super(itemView);
         mTvAltheaTotal       = itemView.findViewById(R.id.althea_amount);
-        mTvAltheaValue       = itemView.findViewById(R.id.althea_value);
         mTvAltheaAvailable   = itemView.findViewById(R.id.althea_available);
         mTvAltheaDelegated   = itemView.findViewById(R.id.althea_delegate);
         mTvAltheaUnBonding   = itemView.findViewById(R.id.althea_unbonding);
@@ -40,7 +39,5 @@ public class TokenAltheaHolder extends BaseHolder {
         mTvAltheaDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvAltheaUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvAltheaRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvAltheaValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
-
     }
 }

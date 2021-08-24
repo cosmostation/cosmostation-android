@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.activities.chains.osmosis;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.incentives.GaugeOuterClass;
+import osmosis.lockup.Lock;
+import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -32,14 +37,19 @@ import wannabit.io.cosmostaion.fragment.chains.osmosis.ListPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListSwapFragment;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.gRpcTask.OsmosisGrpcPoolListTask;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisActiveGaugesGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisIncentivizedPoolsGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisLockupStatusGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_INCENTIVIZED;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
@@ -49,6 +59,16 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     private ViewPager               mLabPager;
     private TabLayout               mLabTapLayer;
     private OsmoLabPageAdapter      mPageAdapter;
+
+    public ArrayList<PoolOuterClass.Pool>                   mPoolList = new ArrayList<>();
+    public ArrayList<String>                                mAllDenoms = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>                   mPoolMyList = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>                   mPoolOtherList = new ArrayList<>();
+    public ArrayList<QueryOuterClass.IncentivizedPool>      mIncentivizedPool = new ArrayList<>();
+    public ArrayList<GaugeOuterClass.Gauge>                 mActiveGauges = new ArrayList<>();
+    public ArrayList<Lock.PeriodLock>                       mPeriodLockUps = new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +105,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
         tabItemText2.setTextColor(WDp.getTabColor(this, mBaseChain));
-        tabItemText2.setText(R.string.str_osmosis_farming);
+        tabItemText2.setText(R.string.str_osmosis_earning);
         mLabTapLayer.getTabAt(2).setCustomView(tab2);
 
         mLabPager.setOffscreenPageLimit(2);
@@ -150,7 +170,7 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         }
 
         PoolOuterClass.Pool tempPool = null;
-        for (PoolOuterClass.Pool pool: getBaseDao().mPoolList) {
+        for (PoolOuterClass.Pool pool: mPoolList) {
             if (pool.getId() == poolId) { tempPool = pool; }
         }
         String coin0denom = tempPool.getPoolAssets(0).getToken().getDenom();
@@ -198,12 +218,19 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
 
     public void onFetchPoolListInfo() {
+        WLog.w("onFetchPoolListInfo ");
         onShowWaitDialog();
-        mTaskCount = 1;
-        getBaseDao().mPoolList.clear();
-        getBaseDao().mPoolMyList.clear();
-        getBaseDao().mPoolOtherList.clear();
-        new OsmosisGrpcPoolListTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        mTaskCount = 4;
+        mPoolList.clear();
+        mPoolMyList.clear();
+        mPoolOtherList.clear();
+        mIncentivizedPool.clear();
+        mActiveGauges.clear();
+        mPeriodLockUps.clear();
+        new OsmosisPoolListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisIncentivizedPoolsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisActiveGaugesGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new OsmosisLockupStatusGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -215,30 +242,49 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
                 final ArrayList<PoolOuterClass.Pool> tempPoolList = (ArrayList<PoolOuterClass.Pool>)result.resultData;
                 for (PoolOuterClass.Pool pool: tempPoolList) {
                     if (getBaseDao().mChainParam.isPoolEnabled(pool.getId())) {
-                        getBaseDao().mPoolList.add(pool);
-                        for (PoolOuterClass.Pool swap: getBaseDao().mPoolList) {
+                        mPoolList.add(pool);
+                        for (PoolOuterClass.Pool swap: mPoolList) {
                             for (PoolOuterClass.PoolAsset poolAsset: swap.getPoolAssetsList()) {
-                                if (!getBaseDao().mAllDenoms.contains(poolAsset.getToken().getDenom())) {
-                                    getBaseDao().mAllDenoms.add(poolAsset.getToken().getDenom());
+                                if (!mAllDenoms.contains(poolAsset.getToken().getDenom())) {
+                                    mAllDenoms.add(poolAsset.getToken().getDenom());
                                 }
                             }
                         }
 
                         if (getBaseDao().getAvailable("gamm/pool/" + pool.getId()) != BigDecimal.ZERO) {
-                            getBaseDao().mPoolMyList.add(pool);
+                            mPoolMyList.add(pool);
                         } else {
-                            getBaseDao().mPoolOtherList.add(pool);
+                            mPoolOtherList.add(pool);
                         }
                     }
                 }
             }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_INCENTIVIZED) {
+            if (result.isSuccess && result.resultData != null) {
+                mIncentivizedPool = (ArrayList<QueryOuterClass.IncentivizedPool>)result.resultData;
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES) {
+            if (result.isSuccess && result.resultData != null) {
+                mActiveGauges = (ArrayList<GaugeOuterClass.Gauge>)result.resultData;
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS) {
+            if (result.isSuccess && result.resultData != null) {
+                mPeriodLockUps = (ArrayList<Lock.PeriodLock>)result.resultData;
+            }
         }
 
         if (mTaskCount == 0) {
-            onHideWaitDialog();
-            mPageAdapter.mCurrentFragment.onRefreshTab();
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    onHideWaitDialog();
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                }
+            }, 300);
         }
-        super.onTaskResponse(result);
     }
 
     private class OsmoLabPageAdapter extends FragmentPagerAdapter {

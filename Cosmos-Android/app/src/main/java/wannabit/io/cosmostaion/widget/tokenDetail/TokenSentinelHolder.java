@@ -16,14 +16,13 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenSentinelHolder extends BaseHolder {
-    private TextView mTvdvpnTotal, mTvdvpnValue, mTvdvpnAvailable, mTvdvpnDelegated, mTvdvpnUnBonding, mTvdvpnRewards;
+    private TextView mTvdvpnTotal, mTvdvpnAvailable, mTvdvpnDelegated, mTvdvpnUnBonding, mTvdvpnRewards;
     public RelativeLayout mdvpnVestingLayer;
     public TextView         mTvdvpnVesting;
 
     public TokenSentinelHolder(@NonNull View itemView) {
         super(itemView);
         mTvdvpnTotal       = itemView.findViewById(R.id.dvpn_amount);
-        mTvdvpnValue       = itemView.findViewById(R.id.dvpn_value);
         mTvdvpnAvailable   = itemView.findViewById(R.id.dvpn_available);
         mTvdvpnDelegated   = itemView.findViewById(R.id.dvpn_delegate);
         mTvdvpnUnBonding   = itemView.findViewById(R.id.dvpn_unbonding);
@@ -49,7 +48,6 @@ public class TokenSentinelHolder extends BaseHolder {
         mTvdvpnDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvdvpnUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvdvpnRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvdvpnValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
         if (!vestingAmount.equals(BigDecimal.ZERO)) { mdvpnVestingLayer.setVisibility(View.VISIBLE);
         } else { mdvpnVestingLayer.setVisibility(View.GONE); }
     }

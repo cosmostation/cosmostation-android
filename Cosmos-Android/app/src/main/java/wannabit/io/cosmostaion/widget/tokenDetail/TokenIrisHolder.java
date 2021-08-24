@@ -17,13 +17,12 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenIrisHolder extends BaseHolder {
-    private TextView        mTvIrisTotal, mTvIrisValue, mTvIrisAvailable,
+    private TextView        mTvIrisTotal, mTvIrisAvailable,
                             mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
 
     public TokenIrisHolder(@NonNull View itemView) {
         super(itemView);
         mTvIrisTotal            = itemView.findViewById(R.id.dash_iris_amount);
-        mTvIrisValue            = itemView.findViewById(R.id.dash_iris_value);
         mTvIrisAvailable        = itemView.findViewById(R.id.dash_iris_undelegate);
         mTvIrisDelegated        = itemView.findViewById(R.id.dash_iris_delegate);
         mTvIrisUnBonding        = itemView.findViewById(R.id.dash_iris_unbonding);
@@ -44,7 +43,6 @@ public class TokenIrisHolder extends BaseHolder {
         mTvIrisDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvIrisUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvIrisRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvIrisValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
 
     }
 }

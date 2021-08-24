@@ -85,8 +85,8 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onRefreshTab() {
-        mPoolList = getBaseDao().mPoolList;
-        mAllDenoms = getBaseDao().mAllDenoms;
+        mPoolList = getSActivity().mPoolList;
+        mAllDenoms = getSActivity().mAllDenoms;
 
         if (mSelectedPool == null || mInputCoinDenom.isEmpty() || mOutputCoinDenom.isEmpty()) {
             mSelectedPool = mPoolList.get(0);

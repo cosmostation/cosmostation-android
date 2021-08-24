@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_cosmos"/>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_bar_height"
+        android:background="@color/colorBlack"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/font_ssm_17_white"
+            android:text="Earning Detail"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/tool_bar"
+        android:layout_above="@+id/bottom_control">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/earning_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_12"
+            android:layout_marginRight="@dimen/space_12"
+            android:layout_marginBottom="2dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardCornerRadius="@dimen/space_6"
+            app:cardElevation="1.5dp"
+            app:cardBackgroundColor="@color/colorTransBgOsmosis"
+            app:cardUseCompatPadding="true" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_18"
+                android:layout_marginRight="@dimen/space_18"
+                android:layout_marginTop="@dimen/space_16"
+                android:layout_marginBottom="@dimen/space_16"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/pool_id"
+                        style="@style/font_ssm_17_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MY EARNING #0"/>
+                    <TextView
+                        android:id="@+id/coin_pair"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/pool_id"
+                        android:layout_marginLeft="@dimen/space_8"
+                        android:text="ATMO / OSMO"
+                        style="@style/font_ss_12_gray1"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_12">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="APR (1, 7, 14 Day)"
+                        style="@style/font_ss_12_gray1"/>
+                    <TextView
+                        android:id="@+id/aprs14"
+                        style="@style/font_ss_12_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="140%" />
+                    <TextView
+                        android:id="@+id/aprs7"
+                        style="@style/font_ss_12_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/aprs14"
+                        android:layout_marginRight="@dimen/space_4"
+                        android:text="700%" />
+                    <TextView
+                        android:id="@+id/aprs1"
+                        style="@style/font_ss_12_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/aprs7"
+                        android:layout_marginRight="@dimen/space_4"
+                        android:text="100%" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGray3"
+                    android:layout_marginTop="@dimen/space_16"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_16">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Available"
+                        style="@style/font_ss_12_gray1"/>
+                    <TextView
+                        android:id="@+id/available_denom"
+                        style="@style/font_ss_12_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="-" />
+                    <TextView
+                        android:id="@+id/available_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/available_denom"
+                        android:layout_marginRight="@dimen/space_2"
+                        style="@style/font_ss_12_white"
+                        android:gravity="right"
+                        android:text="-"/>
+                    <TextView
+                        android:id="@+id/available_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/available_amount"
+                        style="@style/font_ss_11_gray1"
+                        android:gravity="right"
+                        android:text="-"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bottom_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/space_16"
+        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_24">
+        <Button
+            android:id="@+id/btn_start_earning"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_45"
+            android:layout_weight="1"
+            android:minHeight="@dimen/space_45"
+            android:layout_marginLeft="@dimen/space_4"
+            android:background="@drawable/btn_trans_with_border"
+            style="@style/font_ss_14_photon"
+            android:textColor="@color/color_btn_photon"
+            android:textAllCaps="false"
+            android:text="Start New Earning"/>
+    </LinearLayout>
+</RelativeLayout>

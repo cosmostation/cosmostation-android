@@ -6,17 +6,50 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+
+import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.incentives.GaugeOuterClass;
+import osmosis.lockup.Lock;
+import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.AccountListActivity;
+import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.widget.BaseHolder;
+import wannabit.io.cosmostaion.widget.osmosis.EarningMyHolder;
+import wannabit.io.cosmostaion.widget.osmosis.EarningOtherHolder;
+import wannabit.io.cosmostaion.widget.osmosis.PoolMyHolder;
+import wannabit.io.cosmostaion.widget.osmosis.PoolOtherHolder;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
 public class ListFarmingFragment extends BaseFragment {
-    private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
-    private RelativeLayout mProgress;
-    private TextView mNotYet;
+    private EarningListAdapter mAdapter;
+
+    public ArrayList<PoolOuterClass.Pool>               mPoolList = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>               mMyIncentivizedPool = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>               mOtherIncentivizedPool = new ArrayList<>();
+
+    public ArrayList<QueryOuterClass.IncentivizedPool>  mIncentivizedPool = new ArrayList<>();
+    public ArrayList<GaugeOuterClass.Gauge>             mActiveGauges = new ArrayList<>();
+    public ArrayList<Lock.PeriodLock>                   mPeriodLockUps = new ArrayList<>();
+
 
     public static ListFarmingFragment newInstance(Bundle bundle) {
         ListFarmingFragment fragment = new ListFarmingFragment();
@@ -32,18 +65,112 @@ public class ListFarmingFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_farming_list, container, false);
-        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
-        mRecyclerView           = rootView.findViewById(R.id.recycler);
-        mProgress               = rootView.findViewById(R.id.reward_progress);
-        mNotYet                 = rootView.findViewById(R.id.text_not_yet);
+        mRecyclerView = rootView.findViewById(R.id.recycler);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setHasFixedSize(true);
+        mAdapter = new EarningListAdapter();
+        mRecyclerView.setAdapter(mAdapter);
         return rootView;
     }
 
     @Override
     public void onRefreshTab() {
-        mSwipeRefreshLayout.setVisibility(View.GONE);
-        mRecyclerView.setVisibility(View.GONE);
-        mProgress.setVisibility(View.GONE);
-        mNotYet.setVisibility(View.VISIBLE);
+        mMyIncentivizedPool.clear();
+        mOtherIncentivizedPool.clear();
+        mPoolList = getSActivity().mPoolList;
+        mIncentivizedPool = getSActivity().mIncentivizedPool;
+        mActiveGauges = getSActivity().mActiveGauges;
+        mPeriodLockUps = getSActivity().mPeriodLockUps;
+
+        ArrayList<PoolOuterClass.Pool> filteredIncentivizedPool = new ArrayList<>();
+        for (QueryOuterClass.IncentivizedPool incentivizedPool: mIncentivizedPool) {
+            boolean already = false;
+            for (PoolOuterClass.Pool pool: filteredIncentivizedPool) {
+                if (pool.getId() == incentivizedPool.getPoolId()) {
+                    already = true;
+                }
+            }
+            if (!already) {
+                filteredIncentivizedPool.add(getPoolwithID(incentivizedPool.getPoolId()));
+            }
+        }
+
+        for (PoolOuterClass.Pool pool: filteredIncentivizedPool) {
+            boolean isMaine = false;
+            for (Lock.PeriodLock  lockup: mPeriodLockUps) {
+                String tempPoolId = lockup.getCoins(0).getDenom().replaceAll("gamm/pool/", "");
+                if (pool.getId() == Long.parseLong(tempPoolId)) {
+                    isMaine = true;
+                }
+            }
+            if (isMaine) {
+                mMyIncentivizedPool.add(pool);
+            } else {
+                mOtherIncentivizedPool.add(pool);
+            }
+        }
+        mAdapter.notifyDataSetChanged();
     }
+
+    public PoolOuterClass.Pool getPoolwithID(long id){
+        for (PoolOuterClass.Pool pool: mPoolList) {
+            if (pool.getId() == id) {
+                return pool;
+            }
+        }
+        return null;
+    }
+
+
+    private class EarningListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+        private static final int TYPE_MY_EARNING        = 1;
+        private static final int TYPE_OTHER_EARNING     = 2;
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+            if (viewType == TYPE_MY_EARNING) {
+                return new EarningMyHolder(getLayoutInflater().inflate(R.layout.item_osmosis_earning_list_my, viewGroup, false));
+            } else if (viewType == TYPE_OTHER_EARNING) {
+                return new EarningOtherHolder(getLayoutInflater().inflate(R.layout.item_osmosis_earning_list_other, viewGroup, false));
+            }
+            return null;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+            if (getItemViewType(position) == TYPE_MY_EARNING) {
+                final EarningMyHolder holder = (EarningMyHolder)viewHolder;
+                final PoolOuterClass.Pool pool = mMyIncentivizedPool.get(position);
+                final ArrayList<GaugeOuterClass.Gauge> gauges = WUtil.getGaugesByPoolId(pool.getId(), mIncentivizedPool, mActiveGauges);
+                final ArrayList<Lock.PeriodLock> lockups = WUtil.getLockupByPoolId(pool.getId(), mPeriodLockUps);
+                holder.onBindView(getContext(), getSActivity(), getBaseDao(), pool, lockups, gauges);
+
+            } else if (getItemViewType(position) == TYPE_OTHER_EARNING) {
+                final EarningOtherHolder holder = (EarningOtherHolder)viewHolder;
+                final PoolOuterClass.Pool pool = mOtherIncentivizedPool.get(position - mMyIncentivizedPool.size());
+                final ArrayList<GaugeOuterClass.Gauge> gauges =  WUtil.getGaugesByPoolId(pool.getId(), mIncentivizedPool, mActiveGauges);
+                final ArrayList<Lock.PeriodLock> lockups = WUtil.getLockupByPoolId(pool.getId(), mPeriodLockUps);
+                holder.onBindView(getContext(), getSActivity(), getBaseDao(), pool, lockups, gauges);
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return mMyIncentivizedPool.size() + mOtherIncentivizedPool.size();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if (position < mMyIncentivizedPool.size()) {
+                return TYPE_MY_EARNING;
+            } else {
+                return TYPE_OTHER_EARNING;
+            }
+        }
+    }
+
+    private LabsListActivity getSActivity() { return (LabsListActivity)getBaseActivity(); }
+
+
 }

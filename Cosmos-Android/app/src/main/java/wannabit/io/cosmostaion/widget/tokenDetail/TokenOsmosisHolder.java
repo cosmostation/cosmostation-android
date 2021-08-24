@@ -15,12 +15,11 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenOsmosisHolder extends BaseHolder {
-    public TextView mTvOsmosisTotal, mTvOsmosisValue, mTvOsmosisAvailable, mTvOsmosisDelegated, mTvOsmosisUnBonding, mTvOsmosisRewards;
+    public TextView mTvOsmosisTotal, mTvOsmosisAvailable, mTvOsmosisDelegated, mTvOsmosisUnBonding, mTvOsmosisRewards;
 
     public TokenOsmosisHolder(@NonNull View itemView) {
         super(itemView);
         mTvOsmosisTotal       = itemView.findViewById(R.id.osmosis_amount);
-        mTvOsmosisValue       = itemView.findViewById(R.id.osmosis_value);
         mTvOsmosisAvailable   = itemView.findViewById(R.id.osmosis_available);
         mTvOsmosisDelegated   = itemView.findViewById(R.id.osmosis_delegate);
         mTvOsmosisUnBonding   = itemView.findViewById(R.id.osmosis_unbonding);
@@ -40,7 +39,5 @@ public class TokenOsmosisHolder extends BaseHolder {
         mTvOsmosisDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvOsmosisUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvOsmosisRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvOsmosisValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
-
     }
 }

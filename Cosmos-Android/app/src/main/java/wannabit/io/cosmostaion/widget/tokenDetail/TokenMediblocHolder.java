@@ -15,12 +15,11 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenMediblocHolder extends BaseHolder {
-    public TextView mTvMediTotal, mTvMediValue, mTvMediAvailable, mTvMediDelegated, mTvMediUnBonding, mTvMediRewards;
+    public TextView mTvMediTotal, mTvMediAvailable, mTvMediDelegated, mTvMediUnBonding, mTvMediRewards;
 
     public TokenMediblocHolder(@NonNull View itemView) {
         super(itemView);
         mTvMediTotal       = itemView.findViewById(R.id.medi_amount);
-        mTvMediValue       = itemView.findViewById(R.id.medi_value);
         mTvMediAvailable   = itemView.findViewById(R.id.medi_available);
         mTvMediDelegated   = itemView.findViewById(R.id.medi_delegate);
         mTvMediUnBonding   = itemView.findViewById(R.id.medi_unbonding);
@@ -40,6 +39,5 @@ public class TokenMediblocHolder extends BaseHolder {
         mTvMediDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvMediUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvMediRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvMediValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
     }
 }

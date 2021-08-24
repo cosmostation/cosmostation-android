@@ -80,6 +80,7 @@
                     style="@style/font_ss_12_white"/>
             </RelativeLayout>
             <LinearLayout
+                android:id="@+id/hdacLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -107,7 +108,8 @@
                             android:layout_gravity="center_vertical"
                             android:layout_toLeftOf="@+id/rizon_swap_status"
                             android:src="@drawable/icon_pending"
-                            android:visibility="invisible" />
+                            android:visibility="gone"
+                            app:tint="@color/colorHdac" />
                         <TextView
                             android:id="@+id/hdac_status"
                             style="@style/font_ss_12_hdac"
@@ -221,6 +223,7 @@
                 android:layout_below="@+id/card_root"
                 app:srcCompat="@drawable/icon_arrow" />
             <LinearLayout
+                android:id="@+id/rizonLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -241,22 +244,22 @@
                         android:orientation="horizontal"
                         android:layout_toRightOf="@+id/rizon_icon"
                         android:gravity="end">
-                    <ImageView
-                        android:id="@+id/rizon_swap_status_icon"
-                        android:layout_width="@dimen/space_14"
-                        android:layout_height="@dimen/space_14"
-                        android:src="@drawable/icon_pending"
-                        android:layout_gravity="center_vertical"
-                        android:layout_toLeftOf="@+id/rizon_swap_status"
-                        android:visibility="invisible"/>
-                    <TextView
-                        android:id="@id/rizon_swap_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:text=""
-                        android:gravity="end"
-                        style="@style/font_ss_12_rizon"/>
+                        <ImageView
+                            android:id="@+id/rizon_swap_status_icon"
+                            android:layout_width="@dimen/space_14"
+                            android:layout_height="@dimen/space_14"
+                            android:src="@drawable/icon_pending"
+                            android:layout_gravity="center_vertical"
+                            android:layout_toLeftOf="@+id/rizon_swap_status"
+                            android:visibility="invisible"/>
+                        <TextView
+                            android:id="@id/rizon_swap_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_8"
+                            android:text=""
+                            android:gravity="end"
+                            style="@style/font_ss_12_rizon"/>
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -348,7 +351,7 @@
                             android:layout_alignBaseline="@+id/rizon_mint_symbol"
                             android:layout_toLeftOf="@+id/rizon_mint_symbol"
                             android:layout_marginRight="@dimen/space_2"
-                            android:text=""
+                            android:text="--"
                             style="@style/font_ss_10_white"/>
                     </RelativeLayout>
                 </RelativeLayout>

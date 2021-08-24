@@ -13,12 +13,11 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenOKExHolder extends BaseHolder {
-    private TextView        mOkTotalAmount, mOkTotalValue, mOkAvailable, mOkLocked, mOkDeposit, mOkWithdrawing;
+    private TextView        mOkTotalAmount, mOkAvailable, mOkLocked, mOkDeposit, mOkWithdrawing;
 
     public TokenOKExHolder(View v) {
         super(v);
         mOkTotalAmount          = itemView.findViewById(R.id.ok_total_amount);
-        mOkTotalValue           = itemView.findViewById(R.id.ok_total_value);
         mOkAvailable            = itemView.findViewById(R.id.ok_available);
         mOkLocked               = itemView.findViewById(R.id.ok_locked);
         mOkDeposit              = itemView.findViewById(R.id.ok_deposit);
@@ -38,7 +37,6 @@ public class TokenOKExHolder extends BaseHolder {
         mOkLocked.setText(WDp.getDpAmount2(c, lockedAmount, 0, 18));
         mOkDeposit.setText(WDp.getDpAmount2(c, depositAmount, 0, 18));
         mOkWithdrawing.setText(WDp.getDpAmount2(c, withdrawAmount, 0, 18));
-        mOkTotalValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 0));
 
     }
 }

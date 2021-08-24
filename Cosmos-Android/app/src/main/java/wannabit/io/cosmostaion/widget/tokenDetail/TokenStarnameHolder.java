@@ -15,12 +15,11 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenStarnameHolder extends BaseHolder {
-    public TextView mTvIovTotal, mTvIovValue, mTvIovAvailable, mTvIovDelegated, mTvIovUnBonding, mTvIovRewards;
+    public TextView mTvIovTotal, mTvIovAvailable, mTvIovDelegated, mTvIovUnBonding, mTvIovRewards;
 
     public TokenStarnameHolder(@NonNull View itemView) {
         super(itemView);
         mTvIovTotal         = itemView.findViewById(R.id.iov_total_amount);
-        mTvIovValue         = itemView.findViewById(R.id.iov_total_value);
         mTvIovAvailable     = itemView.findViewById(R.id.iov_available);
         mTvIovDelegated     = itemView.findViewById(R.id.iov_delegate);
         mTvIovUnBonding     = itemView.findViewById(R.id.iov_unbonding);
@@ -40,7 +39,5 @@ public class TokenStarnameHolder extends BaseHolder {
         mTvIovDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvIovUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvIovRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvIovValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
-
     }
 }

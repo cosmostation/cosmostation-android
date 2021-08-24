@@ -214,6 +214,9 @@ public class BaseConstant {
 
     public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_LIST           = 4200;
     public final static int TASK_GRPC_FETCH_OSMOSIS_POOL_INFO           = 4201;
+    public final static int TASK_GRPC_FETCH_OSMOSIS_INCENTIVIZED        = 4202;
+    public final static int TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES       = 4203;
+    public final static int TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS       = 4204;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
@@ -471,6 +474,7 @@ public class BaseConstant {
     public final static String TOKEN_BNB            = "BNB";
     public final static String TOKEN_KAVA           = "ukava";
     public final static String TOKEN_HARD           = "hard";
+    public final static String TOKEN_USDX           = "usdx";
     public final static String TOKEN_IOV            = "uiov";
     public final static String TOKEN_CERTIK         = "uctk";
     public final static String TOKEN_BAND           = "uband";
@@ -734,6 +738,7 @@ public class BaseConstant {
     public final static String ALTHEA_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/althea/";
     public final static String OSMOSIS_VAL_URL          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/osmosis/";
 
+    public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
     public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
     public final static String KAVA_HARD_POOL_IMG_URL   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/hard/";
@@ -761,7 +766,7 @@ public class BaseConstant {
     public final static String EXPLORER_KI_MAIN         = "https://www.mintscan.io/ki-chain/";
     public final static String EXPLORER_OSMOSIS_MAIN    = "https://www.mintscan.io/osmosis/";
     public final static String EXPLORER_MEDI_MAIN       = "https://www.mintscan.io/medibloc/";
-    public final static String EXPLORER_RIZON_MAIN      = "https://explorer.as.hdactech.com/hdac-explorer/";
+    public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
@@ -770,7 +775,8 @@ public class BaseConstant {
     public final static String EXPLORER_KAVA_TEST       = "https://dev.mintscan.io/kava-testnet/";
     public final static String EXPLORER_OKEX_TEST       = "https://www.oklink.com/okexchain-test/";
     public final static String EXPLORER_CERTIK          = "https://explorer.certik.foundation/";
-    public final static String EXPLORER_RIZON_TEST      = "http://test.explorer.hdactech.com/hdac-explorer/";
+    public final static String EXPLORER_RIZON_TEST      = "https://testnet.mintscan.io/rizon/";
+    public final static String EXPLORER_HDAC_TEST       = "http://test.explorer.hdactech.com/hdac-explorer/";
     public final static String EXPLORER_MEDI_TEST       = "https://testnet.mintscan.io/medibloc/";
     public final static String EXPLORER_ALTHEA_TEST     = "https://testnet.mintscan.io/althea/";
 

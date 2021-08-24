@@ -58,16 +58,16 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
         mTxMintRecipientAddress     = findViewById(R.id.tx_mint_recipient_address);
 
         mLoadingLayer               = findViewById(R.id.loadingLayer);
-        mCardViewLayer               = findViewById(R.id.card_status_root);
+        mCardViewLayer              = findViewById(R.id.card_status_root);
         mControlLayer               = findViewById(R.id.control_later);
 
-        mExplorerBtn    = findViewById(R.id.btn_explorer);
-        mDoneBtn        = findViewById(R.id.btn_done);
+        mExplorerBtn                = findViewById(R.id.btn_explorer);
+        mDoneBtn                    = findViewById(R.id.btn_done);
 
-        mAccount            = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain          = BaseChain.getChain(mAccount.baseChain);
-        mTxHash             = getIntent().getStringExtra("txHash");
-        mIsSuccess          = getIntent().getBooleanExtra("isSuccess", false);
+        mAccount                    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain                  = BaseChain.getChain(mAccount.baseChain);
+        mTxHash                     = getIntent().getStringExtra("txHash");
+        mIsSuccess                  = getIntent().getBooleanExtra("isSuccess", false);
 
         if (mIsSuccess) {
             onFetchTx(mTxHash);
@@ -158,8 +158,6 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
                 @Override
                 public void onFailure(Call<HdacTxInfo> call, Throwable t) {
                     WLog.w("Hdac onFailure");
-                    if (IS_SHOWLOG) t.printStackTrace();
-                    if (isFinishing()) return;
                 }
             });
 
@@ -193,8 +191,6 @@ public class EventHorizonDetailActivity extends BaseBroadCastActivity implements
                 @Override
                 public void onFailure(Call<HdacTxInfo> call, Throwable t) {
                     WLog.w("Hdac onFailure");
-                    if (IS_SHOWLOG) t.printStackTrace();
-                    if (isFinishing()) return;
                 }
             });
         }

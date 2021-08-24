@@ -24,11 +24,11 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
-public class TxUnlockTokenHolder extends TxHolder {
+public class TxBeginUnlockTokenHolder extends TxHolder {
     ImageView itemUnlockTokenImg;
     TextView itemUnLockTokenOwner, itemUnlockTokenId, itemUnlockTokenCompleteTime;
 
-    public TxUnlockTokenHolder(@NonNull View itemView) {
+    public TxBeginUnlockTokenHolder(@NonNull View itemView) {
         super(itemView);
         itemUnlockTokenImg = itemView.findViewById(R.id.tx_unlock_token_icon);
         itemUnLockTokenOwner = itemView.findViewById(R.id.tx_unlock_token_owner);

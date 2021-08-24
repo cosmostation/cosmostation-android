@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.widget;
+package wannabit.io.cosmostaion.widget.osmosis;
 
 import android.content.Context;
 import android.view.View;
@@ -20,6 +20,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class PoolOtherHolder extends BaseHolder {
     CardView itemRoot;

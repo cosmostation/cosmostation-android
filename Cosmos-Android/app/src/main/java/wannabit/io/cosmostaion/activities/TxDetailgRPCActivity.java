@@ -27,8 +27,6 @@ import akash.market.v1beta1.BidOuterClass;
 import akash.market.v1beta1.LeaseOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
-import gravity.v1.Pool;
-import gravity.v1.Types;
 import ibc.applications.transfer.v1.Tx;
 import io.grpc.stub.StreamObserver;
 import wannabit.io.cosmostaion.R;
@@ -78,9 +76,9 @@ import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxExitPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxJoinPoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxLockTokenHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxTokenSwapHolder;
-import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxUnlockAllTokensHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxBeginUnlockAllTokensHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxUnlockPeriodHolder;
-import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxUnlockTokenHolder;
+import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxBeginUnlockTokenHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
@@ -242,8 +240,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_EXIT_POOL = 42;
         private static final int TYPE_TX_SWAP_COIN = 43;
         private static final int TYPE_TX_LOCK_TOKEN = 44;
-        private static final int TYPE_TX_UNLOCK_TOKEN = 45;
-        private static final int TYPE_TX_UNLOCK_TOKEN_ALL = 46;
+        private static final int TYPE_TX_BEGIN_UNLOCK_TOKEN = 45;
+        private static final int TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL = 46;
         private static final int TYPE_TX_UNLOCK_PERIOD_LOCK = 47;
 
         private static final int TYPE_TX_GRAVITY_CREATE_POOL = 50;
@@ -362,11 +360,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_LOCK_TOKEN) {
                 return new TxLockTokenHolder(getLayoutInflater().inflate(R.layout.item_tx_lock_token, viewGroup, false));
 
-            } else if (viewType == TYPE_TX_UNLOCK_TOKEN) {
-                return new TxUnlockTokenHolder(getLayoutInflater().inflate(R.layout.item_tx_unlock_token, viewGroup, false));
+            } else if (viewType == TYPE_TX_BEGIN_UNLOCK_TOKEN) {
+                return new TxBeginUnlockTokenHolder(getLayoutInflater().inflate(R.layout.item_tx_begin_unlock_token, viewGroup, false));
 
-            } else if (viewType == TYPE_TX_UNLOCK_TOKEN_ALL) {
-                return new TxUnlockAllTokensHolder(getLayoutInflater().inflate(R.layout.item_tx_unlock_all_token, viewGroup, false));
+            } else if (viewType == TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL) {
+                return new TxBeginUnlockAllTokensHolder(getLayoutInflater().inflate(R.layout.item_tx_begin_unlock_all_token, viewGroup, false));
 
             } else if (viewType == TYPE_TX_UNLOCK_PERIOD_LOCK) {
                 return new TxUnlockPeriodHolder(getLayoutInflater().inflate(R.layout.item_tx_unlock_period, viewGroup, false));
@@ -497,9 +495,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                 } else if (msg.getTypeUrl().contains(osmosis.lockup.Tx.MsgLockTokens.getDescriptor().getFullName())) {
                     return TYPE_TX_LOCK_TOKEN;
                 } else if (msg.getTypeUrl().equals("/" + osmosis.lockup.Tx.MsgBeginUnlocking.getDescriptor().getFullName())) {
-                    return TYPE_TX_UNLOCK_TOKEN;
+                    return TYPE_TX_BEGIN_UNLOCK_TOKEN;
                 } else if (msg.getTypeUrl().equals("/" + osmosis.lockup.Tx.MsgBeginUnlockingAll.getDescriptor().getFullName())) {
-                    return TYPE_TX_UNLOCK_TOKEN_ALL;
+                    return TYPE_TX_BEGIN_UNLOCK_TOKEN_ALL;
                 } else if (msg.getTypeUrl().contains(osmosis.lockup.Tx.MsgUnlockPeriodLock.getDescriptor().getFullName())) {
                     return TYPE_TX_UNLOCK_PERIOD_LOCK;
                 }

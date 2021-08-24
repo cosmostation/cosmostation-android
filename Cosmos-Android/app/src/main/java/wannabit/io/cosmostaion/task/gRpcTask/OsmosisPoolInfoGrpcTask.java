@@ -16,12 +16,12 @@ import wannabit.io.cosmostaion.utils.WLog;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
-public class OsmosisGrpcPoolInfoTask extends CommonTask {
+public class OsmosisPoolInfoGrpcTask extends CommonTask {
     private BaseChain mChain;
     private long mPoolId;
     private QueryGrpc.QueryBlockingStub mStub;
 
-    public OsmosisGrpcPoolInfoTask(BaseApplication app, TaskListener listener, BaseChain chain, long mPoolId) {
+    public OsmosisPoolInfoGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, long mPoolId) {
         super(app, listener);
         this.mChain = chain;
         this.mPoolId = mPoolId;

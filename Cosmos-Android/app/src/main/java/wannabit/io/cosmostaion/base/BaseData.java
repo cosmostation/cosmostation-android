@@ -382,12 +382,6 @@ public class BaseData {
     public starnamed.x.configuration.v1beta1.Types.Fees         mGrpcStarNameFee;
     public starnamed.x.configuration.v1beta1.Types.Config       mGrpcStarNameConfig;
 
-    //COMMON DATA FOR OSMOSIS
-    public ArrayList<PoolOuterClass.Pool>                       mPoolList = new ArrayList<>();
-    public ArrayList<String>                                    mAllDenoms = new ArrayList<>();
-    public ArrayList<PoolOuterClass.Pool>                       mPoolMyList = new ArrayList<>();
-    public ArrayList<PoolOuterClass.Pool>                       mPoolOtherList = new ArrayList<>();
-
 
     //gRPC funcs
     public String getChainIdGrpc() {

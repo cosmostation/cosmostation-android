@@ -16,12 +16,11 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenRizonHolder extends BaseHolder {
-    public TextView         mTvRizonTotal, mTvRizonValue, mTvRizonAvailable, mTvRizonDelegated, mTvRizonUnBonding, mTvRizonRewards;
+    public TextView         mTvRizonTotal, mTvRizonAvailable, mTvRizonDelegated, mTvRizonUnBonding, mTvRizonRewards;
 
     public TokenRizonHolder(@NonNull View itemView) {
         super(itemView);
         mTvRizonTotal       = itemView.findViewById(R.id.rizon_amount);
-        mTvRizonValue       = itemView.findViewById(R.id.rizon_value);
         mTvRizonAvailable   = itemView.findViewById(R.id.rizon_available);
         mTvRizonDelegated   = itemView.findViewById(R.id.rizon_delegate);
         mTvRizonUnBonding   = itemView.findViewById(R.id.rizon_unbonding);
@@ -41,7 +40,5 @@ public class TokenRizonHolder extends BaseHolder {
         mTvRizonDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvRizonUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvRizonRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvRizonValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
-
     }
 }

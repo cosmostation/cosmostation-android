@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -131,6 +132,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -144,6 +148,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
@@ -555,6 +560,25 @@ public class WDp {
         BigDecimal aprCommission = apr.multiply(calCommission);
         BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("12"), 0, RoundingMode.DOWN);
         return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDisplayDecimal(chain));
+    }
+
+    public static String getKavaBaseDenom(String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+            return TOKEN_KAVA;
+        } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
+            return TOKEN_HARD;
+        } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
+            return TOKEN_USDX;
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
+            return "bnb";
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
+            return "xrp";
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
+            return "busd";
+        } else if (denom.contains("btc")) {
+            return "btc";
+        }
+        return "";
     }
 
     public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal amount) {
@@ -1924,6 +1948,51 @@ public class WDp {
             return TOKEN_ALTHEA;
         }
         return "";
+    }
+
+    public static void getStakingTokenImg(BaseChain baseChain, ImageView imageView) {
+        Picasso.get().cancelRequest(imageView);
+        if (baseChain.equals(COSMOS_MAIN) || baseChain.equals(COSMOS_TEST)) {
+            imageView.setImageResource(R.drawable.atom_ic);
+        } else if (baseChain.equals(IRIS_MAIN) || baseChain.equals(IRIS_TEST)) {
+            imageView.setImageResource(R.drawable.iris_toket_img);
+        } else if (baseChain.equals(BNB_MAIN) || baseChain.equals(BNB_TEST)) {
+            imageView.setImageResource(R.drawable.bnb_token_img);
+        } else if (baseChain.equals(OKEX_MAIN) || baseChain.equals(OK_TEST)) {
+            imageView.setImageResource(R.drawable.okex_token_img);
+        } else if (baseChain.equals(AKASH_MAIN)) {
+            imageView.setImageResource(R.drawable.akash_token_img);
+        } else if (baseChain.equals(KAVA_MAIN)) {
+            imageView.setImageResource(R.drawable.kava_token_img);
+        } else if (baseChain.equals(BAND_MAIN)) {
+            imageView.setImageResource(R.drawable.band_token_img);
+        } else if (baseChain.equals(SECRET_MAIN)) {
+            imageView.setImageResource(R.drawable.tokensecret);
+        } else if (baseChain.equals(CERTIK_MAIN) || baseChain.equals(CERTIK_TEST)) {
+            imageView.setImageResource(R.drawable.certik_token_img);
+        } else if (baseChain.equals(PERSIS_MAIN)) {
+            imageView.setImageResource(R.drawable.tokenpersistence);
+        } else if (baseChain.equals(SENTINEL_MAIN)) {
+            imageView.setImageResource(R.drawable.tokensentinel);
+        } else if (baseChain.equals(FETCHAI_MAIN)) {
+            imageView.setImageResource(R.drawable.tokenfetchai);
+        } else if (baseChain.equals(CRYPTO_MAIN)) {
+            imageView.setImageResource(R.drawable.tokencrypto);
+        } else if (baseChain.equals(SIF_MAIN)) {
+            imageView.setImageResource(R.drawable.tokensifchain);
+        } else if (baseChain.equals(KI_MAIN)) {
+            imageView.setImageResource(R.drawable.token_kifoundation);
+        } else if (baseChain.equals(OSMOSIS_MAIN)) {
+            imageView.setImageResource(R.drawable.token_osmosis);
+        } else if (baseChain.equals(MEDI_MAIN)) {
+            imageView.setImageResource(R.drawable.tokenmedibloc);
+        }
+
+        else if (baseChain.equals(RIZON_TEST)) {
+            imageView.setImageResource(R.drawable.token_rizon);
+        } else if (baseChain.equals(ALTHEA_TEST)) {
+            imageView.setImageResource(R.drawable.tokenalthea);
+        }
     }
 
     public static int mainDivideDecimal(BaseChain chain) {

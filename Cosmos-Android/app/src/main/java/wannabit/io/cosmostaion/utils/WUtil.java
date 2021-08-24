@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.text.SpannableString;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +46,10 @@ import cosmos.gov.v1beta1.Gov;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
 import okhttp3.OkHttpClient;
+import osmosis.gamm.v1beta1.PoolOuterClass;
+import osmosis.incentives.GaugeOuterClass;
+import osmosis.lockup.Lock;
+import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -101,6 +106,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 public class WUtil {
@@ -1091,301 +1097,22 @@ public class WUtil {
         });
     }
 
-    public static void onSortingTokenByAmount(ArrayList<Balance> balances, final BaseChain chain) {
+    public static void onSortingNativeCoins(ArrayList<Balance> balances, final BaseChain chain) {
         Collections.sort(balances, new Comparator<Balance>() {
             @Override
             public int compare(Balance o1, Balance o2) {
-                if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-                    if(o1.symbol.equals(TOKEN_BNB)) return -1;
-                    if(o2.symbol.equals(TOKEN_BNB)) return 1;
+                if(o1.symbol.equals(WDp.mainDenom(chain))) return -1;
+                if(o2.symbol.equals(WDp.mainDenom(chain))) return 1;
 
-                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-                    if(o1.symbol.equals(TOKEN_KAVA)) return -1;
-                    if(o2.symbol.equals(TOKEN_KAVA)) return 1;
-                    if(o1.symbol.equals(TOKEN_HARD)) return -1;
-                    if(o2.symbol.equals(TOKEN_HARD)) return 1;
-                    return o2.balance.movePointLeft(WUtil.getKavaCoinDecimal(o2.symbol)).compareTo(o1.balance.movePointLeft(WUtil.getKavaCoinDecimal(o1.symbol)));
-
-                } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
-                    if(o1.symbol.equals(TOKEN_OK)) return -1;
-                    if(o2.symbol.equals(TOKEN_OK)) return 1;
-                    if(o1.symbol.equals(TOKEN_OK_OKB)) return -1;
-                    if(o2.symbol.equals(TOKEN_OK_OKB)) return 1;
-                    if(o1.symbol.equals("okb-c4d")) return -1;
-                    if(o2.symbol.equals("okb-c4d")) return 1;
-
-                } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-                    if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
-                    if(o2.symbol.equals(TOKEN_CERTIK)) return 1;
-
-                } else if (chain.equals(KI_MAIN)) {
-                    if(o1.symbol.equals(TOKEN_KI)) return -1;
-                    if(o2.symbol.equals(TOKEN_KI)) return 1;
-
-                }
-                return o2.balance.compareTo(o1.balance);
-            }
-        });
-    }
-
-    public static void onSortingTokenByAmountV1(ArrayList<Coin> coin, final BaseChain chain) {
-        Collections.sort(coin, new Comparator<Coin>() {
-            @Override
-            public int compare(Coin o1, Coin o2) {
-                if (chain.equals(COSMOS_MAIN)) {
-                    if(o1.denom.equals(TOKEN_ATOM)) return -1;
-                    if(o2.denom.equals(TOKEN_ATOM)) return 1;
-
-                } else if (chain.equals(IRIS_MAIN)) {
-                    if(o1.denom.equals(TOKEN_IRIS)) return -1;
-                    if(o2.denom.equals(TOKEN_IRIS)) return 1;
-
-                } else if (chain.equals(AKASH_MAIN)) {
-                    if(o1.denom.equals(TOKEN_AKASH)) return -1;
-                    if(o2.denom.equals(TOKEN_AKASH)) return 1;
-
-                } else if (chain.equals(PERSIS_MAIN)) {
-                    if(o1.denom.equals(TOKEN_XPRT)) return -1;
-                    if(o2.denom.equals(TOKEN_XPRT)) return 1;
-
-                } else if (chain.equals(CRYPTO_MAIN)) {
-                    if(o1.denom.equals(TOKEN_CRO)) return -1;
-                    if(o2.denom.equals(TOKEN_CRO)) return 1;
-
-                } else if (chain.equals(OSMOSIS_MAIN)) {
-                    if(o1.denom.equals(TOKEN_OSMOSIS)) return -1;
-                    if(o2.denom.equals(TOKEN_OSMOSIS)) return 1;
-                    if(o1.denom.equals(TOKEN_ION)) return -1;
-                    if(o2.denom.equals(TOKEN_ION)) return 1;
-
-                } else if (chain.equals(IOV_MAIN)) {
-                    if(o1.denom.equals(TOKEN_IOV)) return -1;
-                    if(o2.denom.equals(TOKEN_IOV)) return 1;
-
-                } else if (chain.equals(IOV_TEST)) {
-                    if(o1.denom.equals(TOKEN_IOV_TEST)) return -1;
-                    if(o2.denom.equals(TOKEN_IOV_TEST)) return 1;
-
-                } else if (chain.equals(SIF_MAIN)) {
-                    if(o1.denom.equals(TOKEN_SIF)) return -1;
-                    if(o2.denom.equals(TOKEN_SIF)) return 1;
-
-                } else if (chain.equals(BAND_MAIN)) {
-                    if(o1.denom.equals(TOKEN_BAND)) return -1;
-                    if(o2.denom.equals(TOKEN_BAND)) return 1;
-
-                }
-
-                else if (chain.equals(COSMOS_TEST)) {
-                    if(o1.denom.equals(TOKEN_COSMOS_TEST)) return -1;
-                    if(o2.denom.equals(TOKEN_COSMOS_TEST)) return 1;
-
-                } else if (chain.equals(IRIS_TEST)) {
-                    if(o1.denom.equals(TOKEN_IRIS_TEST)) return -1;
-                    if(o2.denom.equals(TOKEN_IRIS_TEST)) return 1;
-
-                }
-                return o1.denom.compareTo(o2.denom);
-            }
-        });
-    }
-
-    public static void onSortingTokenByName(ArrayList<Balance> balances, final BaseChain chain) {
-        Collections.sort(balances, new Comparator<Balance>() {
-            @Override
-            public int compare(Balance o1, Balance o2) {
-                if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-                    if(o1.symbol.equals(TOKEN_BNB)) return -1;
-                    if(o2.symbol.equals(TOKEN_BNB)) return 1;
-
-                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-                    if(o1.symbol.equals(TOKEN_KAVA)) return -1;
-                    if(o2.symbol.equals(TOKEN_KAVA)) return 1;
+                if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
                     if(o1.symbol.equals(TOKEN_HARD)) return -1;
                     if(o2.symbol.equals(TOKEN_HARD)) return 1;
 
                 } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
-                    if(o1.symbol.equals(TOKEN_OK)) return -1;
-                    if(o2.symbol.equals(TOKEN_OK)) return 1;
-                    if(o1.symbol.equals(TOKEN_OK_OKB)) return -1;
-                    if(o2.symbol.equals(TOKEN_OK_OKB)) return 1;
-                    if(o1.symbol.equals("okb-c4d")) return -1;
-                    if(o2.symbol.equals("okb-c4d")) return 1;
-
-                } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-                    if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
-                    if(o2.symbol.equals(TOKEN_CERTIK)) return 1;
-
-                } else if (chain.equals(KI_MAIN)) {
-                    if(o1.symbol.equals(TOKEN_KI)) return -1;
-                    if(o2.symbol.equals(TOKEN_KI)) return 1;
-
+                    if (o1.symbol.equals("okb-c4d")) return -1;
+                    if (o2.symbol.equals("okb-c4d")) return 1;
                 }
                 return o1.symbol.compareTo(o2.symbol);
-            }
-        });
-    }
-
-    public static void onSortingTokenByNameV1(ArrayList<Coin> coin, final BaseChain chain) {
-        Collections.sort(coin, new Comparator<Coin>() {
-            @Override
-            public int compare(Coin o1, Coin o2) {
-                if (chain.equals(COSMOS_MAIN)) {
-                    if(o1.denom.equals(TOKEN_ATOM)) return -1;
-                    if(o2.denom.equals(TOKEN_ATOM)) return 1;
-
-                } else if (chain.equals(IRIS_MAIN)) {
-                    if(o1.denom.equals(TOKEN_IRIS)) return -1;
-                    if(o2.denom.equals(TOKEN_IRIS)) return 1;
-
-                } else if (chain.equals(AKASH_MAIN)) {
-                    if(o1.denom.equals(TOKEN_AKASH)) return -1;
-                    if(o2.denom.equals(TOKEN_AKASH)) return 1;
-
-                } else if (chain.equals(PERSIS_MAIN)) {
-                    if(o1.denom.equals(TOKEN_XPRT)) return -1;
-                    if(o2.denom.equals(TOKEN_XPRT)) return 1;
-
-                } else if (chain.equals(CRYPTO_MAIN)) {
-                    if(o1.denom.equals(TOKEN_CRO)) return -1;
-                    if(o2.denom.equals(TOKEN_CRO)) return 1;
-
-                } else if (chain.equals(OSMOSIS_MAIN)) {
-                    if(o1.denom.equals(TOKEN_OSMOSIS)) return -1;
-                    if(o2.denom.equals(TOKEN_OSMOSIS)) return 1;
-                    if(o1.denom.equals(TOKEN_ION)) return -1;
-                    if(o2.denom.equals(TOKEN_ION)) return 1;
-
-                } else if (chain.equals(IOV_MAIN)) {
-                    if(o1.denom.equals(TOKEN_IOV)) return -1;
-                    if(o2.denom.equals(TOKEN_IOV)) return 1;
-
-                } else if (chain.equals(IOV_TEST)) {
-                    if(o1.denom.equals(TOKEN_IOV_TEST)) return -1;
-                    if(o2.denom.equals(TOKEN_IOV_TEST)) return 1;
-
-                } else if (chain.equals(SIF_MAIN)) {
-                    if(o1.denom.equals(TOKEN_SIF)) return -1;
-                    if(o2.denom.equals(TOKEN_SIF)) return 1;
-
-                } else if (chain.equals(BAND_MAIN)) {
-                    if(o1.denom.equals(TOKEN_BAND)) return -1;
-                    if(o2.denom.equals(TOKEN_BAND)) return 1;
-
-                }
-
-                else if (chain.equals(COSMOS_TEST)) {
-                    if(o1.denom.equals(TOKEN_COSMOS_TEST)) return -1;
-                    if(o2.denom.equals(TOKEN_COSMOS_TEST)) return 1;
-
-                } else if (chain.equals(IRIS_TEST)) {
-                    if(o1.denom.equals(TOKEN_IRIS_TEST)) return -1;
-                    if(o2.denom.equals(TOKEN_IRIS_TEST)) return 1;
-
-                }
-                return o1.denom.compareTo(o2.denom);
-            }
-        });
-    }
-
-    public static void onSortingTokenByValue(ArrayList<Balance> balances, final BaseChain chain) {
-        Collections.sort(balances, new Comparator<Balance>() {
-            @Override
-            public int compare(Balance o1, Balance o2) {
-                if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-                    if(o1.symbol.equals(TOKEN_BNB)) return -1;
-                    if(o2.symbol.equals(TOKEN_BNB)) return 1;
-
-                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-                    if(o1.symbol.equals(TOKEN_KAVA)) return -1;
-                    if(o2.symbol.equals(TOKEN_KAVA)) return 1;
-                    if(o1.symbol.equals(TOKEN_HARD)) return -1;
-                    if(o2.symbol.equals(TOKEN_HARD)) return 1;
-
-                } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
-                    if(o1.symbol.equals(TOKEN_OK)) return -1;
-                    if(o2.symbol.equals(TOKEN_OK)) return 1;
-                    if(o1.symbol.equals(TOKEN_OK_OKB)) return -1;
-                    if(o2.symbol.equals(TOKEN_OK_OKB)) return 1;
-                    if(o1.symbol.equals("okb-c4d")) return -1;
-                    if(o2.symbol.equals("okb-c4d")) return 1;
-
-                } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-                    if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
-                    if(o2.symbol.equals(TOKEN_CERTIK)) return 1;
-
-                } else if (chain.equals(KI_MAIN)) {
-                    if(o1.symbol.equals(TOKEN_KI)) return -1;
-                    if(o2.symbol.equals(TOKEN_KI)) return 1;
-
-                }
-                return o1.symbol.compareTo(o2.symbol);
-            }
-        });
-    }
-
-    public static void onSortingTokenByValueV1(ArrayList<Coin> coin, final BaseChain chain) {
-        Collections.sort(coin, new Comparator<Coin>() {
-            @Override
-            public int compare(Coin o1, Coin o2) {
-                if (chain.equals(COSMOS_MAIN)) {
-                    if(o1.denom.equals(TOKEN_ATOM)) return -1;
-                    if(o2.denom.equals(TOKEN_ATOM)) return 1;
-
-                } else if (chain.equals(IRIS_MAIN)) {
-                    if(o1.denom.equals(TOKEN_IRIS)) return -1;
-                    if(o2.denom.equals(TOKEN_IRIS)) return 1;
-
-                } else if (chain.equals(AKASH_MAIN)) {
-                    if(o1.denom.equals(TOKEN_AKASH)) return -1;
-                    if(o2.denom.equals(TOKEN_AKASH)) return 1;
-
-                } else if (chain.equals(SENTINEL_MAIN)) {
-                    if(o1.denom.equals(TOKEN_DVPN)) return -1;
-                    if(o2.denom.equals(TOKEN_DVPN)) return 1;
-
-                } else if (chain.equals(PERSIS_MAIN)) {
-                    if(o1.denom.equals(TOKEN_XPRT)) return -1;
-                    if(o2.denom.equals(TOKEN_XPRT)) return 1;
-
-                } else if (chain.equals(CRYPTO_MAIN)) {
-                    if(o1.denom.equals(TOKEN_CRO)) return -1;
-                    if(o2.denom.equals(TOKEN_CRO)) return 1;
-
-                } else if (chain.equals(OSMOSIS_MAIN)) {
-                    if(o1.denom.equals(TOKEN_OSMOSIS)) return -1;
-                    if(o2.denom.equals(TOKEN_OSMOSIS)) return 1;
-                    if(o1.denom.equals(TOKEN_ION)) return -1;
-                    if(o2.denom.equals(TOKEN_ION)) return 1;
-
-                } else if (chain.equals(IOV_MAIN)) {
-                    if(o1.denom.equals(TOKEN_IOV)) return -1;
-                    if(o2.denom.equals(TOKEN_IOV)) return 1;
-
-                } else if (chain.equals(IOV_TEST)) {
-                    if(o1.denom.equals(TOKEN_IOV_TEST)) return -1;
-                    if(o2.denom.equals(TOKEN_IOV_TEST)) return 1;
-
-                } else if (chain.equals(SIF_MAIN)) {
-                    if(o1.denom.equals(TOKEN_SIF)) return -1;
-                    if(o2.denom.equals(TOKEN_SIF)) return 1;
-
-                } else if (chain.equals(BAND_MAIN)) {
-                    if(o1.denom.equals(TOKEN_BAND)) return -1;
-                    if(o2.denom.equals(TOKEN_BAND)) return 1;
-
-                }
-
-                else if (chain.equals(COSMOS_TEST)) {
-                    if(o1.denom.equals(TOKEN_COSMOS_TEST)) return -1;
-                    if(o2.denom.equals(TOKEN_COSMOS_TEST)) return 1;
-
-                } else if (chain.equals(IRIS_TEST)) {
-                    if(o1.denom.equals(TOKEN_IRIS_TEST)) return -1;
-                    if(o2.denom.equals(TOKEN_IRIS_TEST)) return 1;
-
-                }
-                return o1.denom.compareTo(o2.denom);
             }
         });
     }
@@ -1449,79 +1176,24 @@ public class WUtil {
 
     public static String marketPrice(BaseChain basechain, BaseData basedata) {
         String result = "usdt";
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST)) {
-            result = result + ",uatom";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-        } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
-            result = result + ",uiris";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-        } else if (basechain.equals(AKASH_MAIN)) {
-            result = result + ",uakt";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-        } else if (basechain.equals(SENTINEL_MAIN)) {
-            result = result + ",udvpn";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-        } else if (basechain.equals(PERSIS_MAIN)) {
-            result = result + ",uxprt";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-        } else if (basechain.equals(CRYPTO_MAIN)) {
-            result = result + ",basecro";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-        } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
-            result = result + ",uiov";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-//        } else if (basechain.equals(BAND_MAIN)) {
-//            result = result + ",uband";
-//            for (Coin coin: basedata.mGrpcBalance) {
-//                if (coin.denom != WDp.mainDenom(basechain)) {
-//                }
-//            }
-
-        } else if (basechain.equals(OSMOSIS_MAIN)) {
-            result = result + ",uosmo,uion";
+        if (isGRPC(basechain)) {
+            result = result + "," + WDp.mainDenom(basechain);
             for (IbcToken ibcToken: basedata.mIbcTokens) {
                 if (ibcToken.auth) {
                     result = result + "," + ibcToken.base_denom;
                 }
             }
+
+        }
+
+        if (basechain.equals(OSMOSIS_MAIN)) {
+            result = result + ",uion";
+
         } else if (basechain.equals(SIF_MAIN)) {
             result = result + ",rowan";
             for (Coin coin: basedata.mGrpcBalance) {
                 if (coin.denom != WDp.mainDenom(basechain) && coin.denom.startsWith("c")) {
                     result = result + "," + coin.denom.substring(1);
-                }
-            }
-            for (IbcToken ibcToken: basedata.mIbcTokens) {
-                if (ibcToken.auth) {
-                    result = result + "," + ibcToken.base_denom;
                 }
             }
 
@@ -1535,7 +1207,7 @@ public class WUtil {
             result = result + ",bnb";
 
         } else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
-            result = result + ",ukava,hard";
+            result = result + ",ukava,hard,usdx,bnb,xrp,busd,btc";
 
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
             result = result + ",okb,okt";
@@ -1555,7 +1227,7 @@ public class WUtil {
         } else if (basechain.equals(KI_MAIN)) {
             result = result + ",uxki";
 
-        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
+        } else if (basechain.equals(MEDI_TEST)) {
             result = result + ",umed";
 
         }
@@ -1708,6 +1380,68 @@ public class WUtil {
         }
     }
 
+    public static ArrayList<GaugeOuterClass.Gauge> getGaugesByPoolId(long poolId, ArrayList<QueryOuterClass.IncentivizedPool> incentivizedPools, ArrayList<GaugeOuterClass.Gauge> allGauges) {
+        ArrayList<Long> gaugeIds = new ArrayList<Long>();
+        ArrayList<GaugeOuterClass.Gauge> result = new ArrayList<GaugeOuterClass.Gauge>();
+        for (QueryOuterClass.IncentivizedPool pool: incentivizedPools) {
+            if (pool.getPoolId() == poolId) {
+                gaugeIds.add(pool.getGaugeId());
+            }
+        }
+        for (GaugeOuterClass.Gauge gauge: allGauges) {
+            if (gaugeIds.contains(gauge.getId())) {
+                result.add(gauge);
+            }
+        }
+        return result;
+    }
+
+    public static ArrayList<Lock.PeriodLock> getLockupByPoolId(long poolId, ArrayList<Lock.PeriodLock> lockups) {
+        ArrayList<Lock.PeriodLock> result = new ArrayList<Lock.PeriodLock>();
+        for (Lock.PeriodLock lockup: lockups) {
+            Coin lpCoin = new Coin(lockup.getCoins(0).getDenom(), lockup.getCoins(0).getAmount());
+            if (lpCoin.osmosisAmmPoolId() == poolId) {
+                result.add(lockup);
+            }
+        }
+        return result;
+    }
+
+    public static BigDecimal getOsmoLpTokenPerUsdPrice(BaseData baseData, PoolOuterClass.Pool pool) {
+        BigDecimal totalShare = (new BigDecimal(pool.getTotalShares().getAmount())).movePointLeft(18).setScale(18, RoundingMode.DOWN);
+        return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
+    }
+
+    public static BigDecimal getPoolValue(BaseData baseData, PoolOuterClass.Pool pool) {
+        Coin coin0 = new Coin(pool.getPoolAssets(0).getToken().getDenom(), pool.getPoolAssets(0).getToken().getAmount());
+        Coin coin1 = new Coin(pool.getPoolAssets(1).getToken().getDenom(), pool.getPoolAssets(1).getToken().getAmount());
+        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(coin0.denom));
+        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WUtil.getOsmosisCoinDecimal(coin1.denom));
+        return coin0Value.add(coin1Value);
+    }
+
+    public static BigDecimal getNextIncentiveAmount(ArrayList<GaugeOuterClass.Gauge> gauges, int position) {
+        if (gauges.size() != 3) { return BigDecimal.ZERO; }
+        BigDecimal incentive1Day = (new BigDecimal(gauges.get(0).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
+        BigDecimal incentive7Day = (new BigDecimal(gauges.get(1).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(1).getDistributedCoins(0).getAmount()));
+        BigDecimal incentive14Day = (new BigDecimal(gauges.get(2).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(2).getDistributedCoins(0).getAmount()));
+        if (position == 0) {
+            return incentive1Day;
+        } else if (position == 1) {
+            return incentive1Day.add(incentive7Day);
+        } else {
+            return incentive1Day.add(incentive7Day).add(incentive14Day);
+        }
+    }
+
+    public static BigDecimal getPoolArp(BaseData baseData, PoolOuterClass.Pool pool, ArrayList<GaugeOuterClass.Gauge> gauges, int position) {
+        BigDecimal poolValue = getPoolValue(baseData, pool);
+        BigDecimal incentiveAmount = getNextIncentiveAmount(gauges, position);
+        BigDecimal incentiveValue = WDp.usdValue(baseData, baseData.getBaseDenom(TOKEN_OSMOSIS), incentiveAmount, WUtil.getOsmosisCoinDecimal(TOKEN_OSMOSIS));
+        return incentiveValue.multiply(new BigDecimal("36500")).divide(poolValue, 12, RoundingMode.DOWN);
+    }
+
+
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
         if (all == null) return null;
         for (BnbToken token:all) {
@@ -1716,6 +1450,27 @@ public class WUtil {
             }
         }
         return null;
+    }
+
+    public static BigDecimal getBnbTokenUserCurrencyPrice(BaseData baseData, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (BnbTicker ticker: baseData.mBnbTickers) {
+            if (ticker.symbol.equals(getBnbTicSymbol(denom))) {
+                if (isBnbBaseMarketToken(denom)) {
+                    BigDecimal perPrice = BigDecimal.ONE.divide(new BigDecimal(ticker.lastPrice), 8, RoundingMode.DOWN);
+                    return perPrice.multiply(WDp.perUserCurrencyValue(baseData, TOKEN_BNB));
+                } else {
+                    BigDecimal perPrice = BigDecimal.ONE.multiply(new BigDecimal(ticker.lastPrice)).setScale(8, RoundingMode.DOWN);;
+                    return perPrice.multiply(WDp.perUserCurrencyValue(baseData, TOKEN_BNB));
+                }
+            }
+        }
+        return result;
+    }
+
+    public static SpannableString dpBnbTokenUserCurrencyPrice(BaseData baseData, String denom) {
+        final String formatted = baseData.getCurrencySymbol()  + " " + WDp.getDecimalFormat(3).format(getBnbTokenUserCurrencyPrice(baseData, denom));
+        return WDp.getDpString(formatted, 3);
     }
 
     public static BigDecimal getBnbConvertAmount(BaseData baseData, String denom, BigDecimal amount) {

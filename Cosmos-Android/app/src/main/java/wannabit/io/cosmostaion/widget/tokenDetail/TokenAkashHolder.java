@@ -16,14 +16,13 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenAkashHolder extends BaseHolder {
-    private TextView        mTvAkashTotal, mTvAkashValue, mTvAkashAvailable, mTvAkashDelegated, mTvAkashUnBonding, mTvAkashRewards;
+    private TextView        mTvAkashTotal, mTvAkashAvailable, mTvAkashDelegated, mTvAkashUnBonding, mTvAkashRewards;
     public RelativeLayout   mAkashVestingLayer;
     public TextView         mTvAkashVesting;
 
     public TokenAkashHolder(@NonNull View itemView) {
         super(itemView);
         mTvAkashTotal       = itemView.findViewById(R.id.akash_amount);
-        mTvAkashValue       = itemView.findViewById(R.id.akash_value);
         mTvAkashAvailable   = itemView.findViewById(R.id.akash_available);
         mTvAkashDelegated   = itemView.findViewById(R.id.akash_delegate);
         mTvAkashUnBonding   = itemView.findViewById(R.id.akash_unbonding);
@@ -49,7 +48,6 @@ public class TokenAkashHolder extends BaseHolder {
         mTvAkashDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvAkashUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvAkashRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvAkashValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
         if (!vestingAmount.equals(BigDecimal.ZERO)) { mAkashVestingLayer.setVisibility(View.VISIBLE);
         } else { mAkashVestingLayer.setVisibility(View.GONE); }
     }

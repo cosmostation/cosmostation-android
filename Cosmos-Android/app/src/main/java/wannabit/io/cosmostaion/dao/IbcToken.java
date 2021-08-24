@@ -27,6 +27,9 @@ public class IbcToken {
     @SerializedName("moniker")
     public String moniker;
 
+    @SerializedName("counter_party")
+    public counterParty counter_party;
+
     public class counterParty {
         @SerializedName("chain_id")
         public String chain_id;

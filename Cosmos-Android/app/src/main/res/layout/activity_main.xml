@@ -111,9 +111,64 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
+            android:layout_marginBottom="2dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardCornerRadius="@dimen/space_6"
+            app:cardElevation="1.5dp"
+            app:cardBackgroundColor="@color/colorTransBg"
+            app:cardUseCompatPadding="true"
+            android:layout_below="@+id/tool_bar">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/space_16"
+                android:paddingTop="@dimen/space_12"
+                android:paddingBottom="@dimen/space_12"
+                android:paddingRight="@dimen/space_4">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/img_account"
+                        android:layout_width="@dimen/space_24"
+                        android:layout_height="@dimen/space_24"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/key_off"/>
+                    <TextView
+                        android:id="@+id/wallet_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/img_account"
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:layout_centerVertical="true"
+                        style="@style/font_ss_12_white"
+                        android:singleLine="true"
+                        android:text=""/>
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/total_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/space_12"
+                    android:layout_marginTop="@dimen/space_2"
+                    style="@style/font_ss_21_white"
+                    android:singleLine="true"
+                    android:text="$1,189,057.01"
+                    android:gravity="center_horizontal"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
         <wannabit.io.cosmostaion.widget.StopViewPager
             android:id="@+id/view_pager"
-            android:layout_below="@+id/tool_bar"
+            android:layout_below="@+id/card_root"
             android:layout_above="@+id/bottom_tab"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

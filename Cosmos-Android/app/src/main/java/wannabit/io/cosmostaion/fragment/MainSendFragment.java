@@ -223,10 +223,7 @@ public class MainSendFragment extends BaseFragment {
         @NonNull
         @Override
         public BaseHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if (viewType == TYPE_ADDRESS) {
-                return new WalletAddressHolder(getLayoutInflater().inflate(R.layout.item_wallet_address, viewGroup, false));
-
-            } else if (viewType == TYPE_COSMOS) {
+            if (viewType == TYPE_COSMOS) {
                 return new WalletCosmosHolder(getLayoutInflater().inflate(R.layout.item_wallet_cosmos, viewGroup, false));
 
             } else if (viewType == TYPE_IRIS) {
@@ -318,16 +315,16 @@ public class MainSendFragment extends BaseFragment {
         public int getItemCount() {
             if (getMainActivity().mBaseChain == null) { return 0; }
             if (isGRPC(getMainActivity().mBaseChain )) {
-                return 5;
+                return 4;
             } else {
                 if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain .equals(BNB_TEST) ||
                         getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain .equals(OK_TEST)) {
-                    return 4;
+                    return 3;
                 } else {
                     if (getBaseDao().mMyUnbondings.size() > 0) {
-                        return 6;
-                    } else {
                         return 5;
+                    } else {
+                        return 4;
                     }
                 }
             }
@@ -337,21 +334,17 @@ public class MainSendFragment extends BaseFragment {
         public int getItemViewType(int position) {
             if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 if (position == 0) {
-                    return TYPE_ADDRESS;
-                } else if (position == 1) {
                     return TYPE_SIF;
-                } else if (position == 2) {
+                } else if (position == 1) {
                     return TYPE_SIF_INCENTIVE;
-                } else if (position == 3) {
+                } else if (position == 2) {
                     return TYPE_PRICE;
-                } else if (position == 4) {
+                } else if (position == 3) {
                     return TYPE_GIUDE;
                 }
 
             } else if (isGRPC(getMainActivity().mBaseChain)) {
                 if (position == 0) {
-                    return TYPE_ADDRESS;
-                } else if (position == 1) {
                     if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST)) { return TYPE_COSMOS; }
                     else if (getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) { return TYPE_IRIS; }
                     else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) { return TYPE_AKASH; }
@@ -364,11 +357,11 @@ public class MainSendFragment extends BaseFragment {
 //                    else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
                     else if (getMainActivity().mBaseChain.equals(RIZON_TEST)) { return TYPE_RIZON; }
                     else if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) { return TYPE_ALTHEA; }
-                } else if (position == 2) {
+                } else if (position == 1) {
                     return TYPE_PRICE;
-                } else if (position == 3) {
+                } else if (position == 2) {
                     return TYPE_MINT;
-                } else if (position == 4) {
+                } else if (position == 3) {
                     return TYPE_GIUDE;
                 }
 
@@ -376,44 +369,40 @@ public class MainSendFragment extends BaseFragment {
             } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) ||
                     getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 if (position == 0) {
-                    return TYPE_ADDRESS;
-                } else if (position == 1) {
                     if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) { return TYPE_BINANCE; }
                     else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) { return TYPE_OKEX; }
-                } else if (position == 2) {
+                } else if (position == 1) {
                     return TYPE_PRICE;
-                } else if (position == 3) {
+                } else if (position == 2) {
                     return TYPE_GIUDE;
                 }
 
             } else {
                 if (position == 0) {
-                    return TYPE_ADDRESS;
-                } else if (position == 1) {
                     if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) { return TYPE_KAVA; }
                     else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
                     else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN)) { return TYPE_CERTIK; }
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
                     else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) { return TYPE_FETCH; }
                     else if (getMainActivity().mBaseChain.equals(KI_MAIN)) { return TYPE_KI; }
-                } else if (position == 2) {
+                } else if (position == 1) {
                     if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
                     else { return TYPE_PRICE; }
 
-                } else if (position == 3) {
+                } else if (position == 2) {
                     if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_PRICE; }
                     else { return TYPE_MINT; }
 
-                } else if (position == 4) {
+                } else if (position == 3) {
                     if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_MINT; }
                     else { return TYPE_GIUDE; }
 
-                } else if (position == 5) {
+                } else if (position == 4) {
                     return TYPE_GIUDE;
 
                 }
             }
-            return TYPE_ADDRESS;
+            return 0;
         }
     }
 }

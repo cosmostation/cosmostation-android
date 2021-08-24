@@ -17,12 +17,11 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class TokenCosmosHolder extends BaseHolder {
-    private TextView mTvAtomTotal, mTvAtomValue, mTvAtomAvailable, mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
+    private TextView mTvAtomTotal, mTvAtomAvailable, mTvAtomDelegated, mTvAtomUnBonding, mTvAtomRewards;
 
     public TokenCosmosHolder(@NonNull View itemView) {
         super(itemView);
         mTvAtomTotal            = itemView.findViewById(R.id.dash_atom_amount);
-        mTvAtomValue            = itemView.findViewById(R.id.dash_atom_value);
         mTvAtomAvailable        = itemView.findViewById(R.id.dash_atom_undelegate);
         mTvAtomDelegated        = itemView.findViewById(R.id.dash_atom_delegate);
         mTvAtomUnBonding        = itemView.findViewById(R.id.dash_atom_unbonding);
@@ -43,7 +42,6 @@ public class TokenCosmosHolder extends BaseHolder {
         mTvAtomDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvAtomUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvAtomRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvAtomValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
 
     }
 }
