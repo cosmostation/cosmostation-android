@@ -273,7 +273,11 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                     return 2;
                 }
             } else {
-                return 1;
+                if (getBaseDao().mMyUnbondings.size() > 0) {
+                    return 2;
+                } else {
+                    return 1;
+                }
             }
         }
 
@@ -282,15 +286,20 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             if (position == 0) {
                 return TYPE_STAKE_OLD;
 
-            } else if (position == 1 && mHasVesting) {
-                return TYPE_VESTING;
-
-            } else if (position == 2 && getBaseDao().mMyUnbondings.size() > 0) {
-                return TYPE_UNBONDING;
-
-            } else {
-                return TYPE_HISTORY;
+            } else if (position == 1) {
+                if (mHasVesting) {
+                    return TYPE_VESTING;
+                } else {
+                    if (getBaseDao().mMyUnbondings.size() > 0) {
+                        return TYPE_UNBONDING;
+                    }
+                }
+            } else if (position == 2) {
+                if (getBaseDao().mMyUnbondings.size() > 0) {
+                    return TYPE_UNBONDING;
+                }
             }
+            return -1;
         }
     }
 }

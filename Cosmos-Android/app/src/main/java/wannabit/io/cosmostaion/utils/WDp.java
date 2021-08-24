@@ -1449,7 +1449,7 @@ public class WDp {
             blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             result = blockDateFormat.parse(rawValue).getTime();
         } catch (Exception e) {};
-        return 0;
+        return result;
     }
 
     public static String getDateformat(Context c, String rawValue) {

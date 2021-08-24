@@ -778,7 +778,7 @@ support@cosmostation.io";
 "tx_osmosis_token_unlock" = "토큰 풀기";
 "tx_osmosis_begin_unlucking" = "토큰 풀기 시작";
 "tx_osmosis_begin_unlucking_all" = "모든 토큰 풀기 시작";
-"tx_osmosis_preriodlock_unlock" = "기간 토큰 풀기";
+"tx_osmosis_preriodlock_unlock" = "풀린 토큰 받기";
 
 "tx_rizon_event_horizon" = "스왑 토큰 받기";
 

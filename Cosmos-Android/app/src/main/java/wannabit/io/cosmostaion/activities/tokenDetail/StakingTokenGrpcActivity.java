@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HistoryHolder;
@@ -202,8 +203,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
                 return new VestingHolder(getLayoutInflater().inflate(R.layout.layout_vesting_schedule, viewGroup, false));
             } else if (viewType == TYPE_UNBONDING) {
                 return new UnBondingHolder(getLayoutInflater().inflate(R.layout.item_wallet_undelegation, viewGroup, false));
-            } else if (viewType == TYPE_HISTORY) {
-                return new HistoryHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
             }
             return null;
         }
@@ -220,8 +219,6 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
             } else if (getItemViewType(position) == TYPE_UNBONDING) {
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
-            } else if (getItemViewType(position) == TYPE_HISTORY) {
-
             }
         }
 
@@ -234,7 +231,11 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
                     return 2;
                 }
             } else {
-                return 1;
+                if (getBaseDao().mGrpcUndelegations.size() > 0) {
+                    return 2;
+                } else {
+                    return 1;
+                }
             }
         }
 
@@ -243,15 +244,20 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
             if (position == 0) {
                 return TYPE_STAKE_NEW;
 
-            } else if (position == 1 && mHasVesting) {
-                return TYPE_VESTING;
-
-            } else if (position == 2 && getBaseDao().mGrpcUndelegations.size() > 0) {
-                return TYPE_UNBONDING;
-
-            } else {
-                return TYPE_HISTORY;
+            } else if (position == 1) {
+                if (mHasVesting) {
+                    return TYPE_VESTING;
+                } else {
+                    if (getBaseDao().mGrpcUndelegations.size() > 0) {
+                        return TYPE_UNBONDING;
+                    }
+                }
+            } else if (position == 2) {
+                if (getBaseDao().mGrpcUndelegations.size() > 0) {
+                    return TYPE_UNBONDING;
+                }
             }
+            return -1;
         }
     }
 }

@@ -1145,6 +1145,22 @@ public class WUtil {
         return result;
     }
 
+    public static ArrayList<UnbondingInfo.DpEntry> onSortUnbondingsRecent_Grpc(Context c, ArrayList<Staking.UnbondingDelegation> unbondingGrpcInfos) {
+        ArrayList<UnbondingInfo.DpEntry> result = new ArrayList<>();
+        for (Staking.UnbondingDelegation unbondingGrpcInfo: unbondingGrpcInfos) {
+            for (Staking.UnbondingDelegationEntry entry: unbondingGrpcInfo.getEntriesList()) {
+                result.add(new UnbondingInfo.DpEntry(unbondingGrpcInfo.getValidatorAddress(), String.valueOf(entry.getCompletionTime().getSeconds()), entry.getBalance()));
+            }
+        }
+
+        Collections.sort(result, new Comparator<UnbondingInfo.DpEntry>() {
+            @Override
+            public int compare(UnbondingInfo.DpEntry o1, UnbondingInfo.DpEntry o2) {
+                return Long.parseLong(o1.completion_time) < Long.parseLong(o2.completion_time) ?  -1 : 1;
+            }
+        });
+        return result;
+    }
 
     public static void onSortingAccount(ArrayList<Account> accounts) {
         Collections.sort(accounts, new Comparator<Account>() {
