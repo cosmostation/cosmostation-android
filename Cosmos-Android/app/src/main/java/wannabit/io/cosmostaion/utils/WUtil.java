@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.text.SpannableString;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -105,6 +106,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 public class WUtil {
@@ -1174,79 +1176,24 @@ public class WUtil {
 
     public static String marketPrice(BaseChain basechain, BaseData basedata) {
         String result = "usdt";
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST)) {
-            result = result + ",uatom";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-        } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
-            result = result + ",uiris";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-        } else if (basechain.equals(AKASH_MAIN)) {
-            result = result + ",uakt";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-        } else if (basechain.equals(SENTINEL_MAIN)) {
-            result = result + ",udvpn";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-        } else if (basechain.equals(PERSIS_MAIN)) {
-            result = result + ",uxprt";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-        } else if (basechain.equals(CRYPTO_MAIN)) {
-            result = result + ",basecro";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-        } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
-            result = result + ",uiov";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain)) {
-                }
-            }
-
-//        } else if (basechain.equals(BAND_MAIN)) {
-//            result = result + ",uband";
-//            for (Coin coin: basedata.mGrpcBalance) {
-//                if (coin.denom != WDp.mainDenom(basechain)) {
-//                }
-//            }
-
-        } else if (basechain.equals(OSMOSIS_MAIN)) {
-            result = result + ",uosmo,uion";
+        if (isGRPC(basechain)) {
+            result = result + "," + WDp.mainDenom(basechain);
             for (IbcToken ibcToken: basedata.mIbcTokens) {
                 if (ibcToken.auth) {
                     result = result + "," + ibcToken.base_denom;
                 }
             }
+
+        }
+
+        if (basechain.equals(OSMOSIS_MAIN)) {
+            result = result + ",uion";
+
         } else if (basechain.equals(SIF_MAIN)) {
             result = result + ",rowan";
             for (Coin coin: basedata.mGrpcBalance) {
                 if (coin.denom != WDp.mainDenom(basechain) && coin.denom.startsWith("c")) {
                     result = result + "," + coin.denom.substring(1);
-                }
-            }
-            for (IbcToken ibcToken: basedata.mIbcTokens) {
-                if (ibcToken.auth) {
-                    result = result + "," + ibcToken.base_denom;
                 }
             }
 
@@ -1260,7 +1207,7 @@ public class WUtil {
             result = result + ",bnb";
 
         } else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
-            result = result + ",ukava,hard";
+            result = result + ",ukava,hard,usdx,bnb,xrp,busd,btc";
 
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
             result = result + ",okb,okt";
@@ -1280,7 +1227,7 @@ public class WUtil {
         } else if (basechain.equals(KI_MAIN)) {
             result = result + ",uxki";
 
-        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
+        } else if (basechain.equals(MEDI_TEST)) {
             result = result + ",umed";
 
         }
@@ -1503,6 +1450,27 @@ public class WUtil {
             }
         }
         return null;
+    }
+
+    public static BigDecimal getBnbTokenUserCurrencyPrice(BaseData baseData, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (BnbTicker ticker: baseData.mBnbTickers) {
+            if (ticker.symbol.equals(getBnbTicSymbol(denom))) {
+                if (isBnbBaseMarketToken(denom)) {
+                    BigDecimal perPrice = BigDecimal.ONE.divide(new BigDecimal(ticker.lastPrice), 8, RoundingMode.DOWN);
+                    return perPrice.multiply(WDp.perUserCurrencyValue(baseData, TOKEN_BNB));
+                } else {
+                    BigDecimal perPrice = BigDecimal.ONE.multiply(new BigDecimal(ticker.lastPrice)).setScale(8, RoundingMode.DOWN);;
+                    return perPrice.multiply(WDp.perUserCurrencyValue(baseData, TOKEN_BNB));
+                }
+            }
+        }
+        return result;
+    }
+
+    public static SpannableString dpBnbTokenUserCurrencyPrice(BaseData baseData, String denom) {
+        final String formatted = baseData.getCurrencySymbol()  + " " + WDp.getDecimalFormat(3).format(getBnbTokenUserCurrencyPrice(baseData, denom));
+        return WDp.getDpString(formatted, 3);
     }
 
     public static BigDecimal getBnbConvertAmount(BaseData baseData, String denom, BigDecimal amount) {
