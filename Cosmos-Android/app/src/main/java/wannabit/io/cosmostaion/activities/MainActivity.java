@@ -43,6 +43,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_Rizon_Event_Horizon;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
 import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
@@ -250,6 +251,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     mCardView.setVisibility(View.GONE);
                 } else {
                     mCardView.setVisibility(View.VISIBLE);
+                    mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
                 }
             }
         });
@@ -574,12 +576,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onClickEventHorizon() {
-//        if (!mAccount.hasPrivateKey) {
-//            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-//            return;
-//        }
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
 
         Dialog_Rizon_Event_Horizon add = Dialog_Rizon_Event_Horizon.newInstance();
         add.setCancelable(true);
