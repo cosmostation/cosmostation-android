@@ -13,12 +13,14 @@ public struct BnbTicker {
     var baseAssetName: String?
     var quoteAssetName: String?
     var lastPrice: String?
+    var priceChangePercent: String?
     
     init(_ dictionary: NSDictionary?) {
         self.symbol = dictionary?["symbol"] as? String
         self.baseAssetName = dictionary?["baseAssetName"] as? String
         self.quoteAssetName = dictionary?["quoteAssetName"] as? String
         self.lastPrice = dictionary?["lastPrice"] as? String
+        self.priceChangePercent = dictionary?["priceChangePercent"] as? String
     }
     
     func getLastPrice() -> NSDecimalNumber {

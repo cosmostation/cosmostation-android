@@ -818,3 +818,4 @@ support@cosmostation.io";
 
 "date_format" = "yyyy-MM-dd HH:mm:ss";
 "date_format2" = "yyyy-MM-dd";
+"date_format3" = "yyyy-MM-dd HH:mm";

@@ -1,15 +1,15 @@
 //
-//  StakingTokenDetailViewController.swift
+//  StakingTokenGrpcViewController.swift
 //  Cosmostation
 //
-//  Created by 정용주 on 2021/03/30.
+//  Created by 정용주 on 2021/08/19.
 //  Copyright © 2021 wannabit. All rights reserved.
 //
 
 import UIKit
 
-class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
-    
+class StakingTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+
     @IBOutlet weak var naviTokenImg: UIImageView!
     @IBOutlet weak var naviTokenSymbol: UILabel!
     @IBOutlet weak var naviPerPrice: UILabel!
@@ -21,29 +21,33 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
     @IBOutlet weak var topDpAddress: UILabel!
     @IBOutlet weak var topValue: UILabel!
     
-    @IBOutlet weak var tokenDetailTableView: UITableView!
-    @IBOutlet weak var btnBep3Send: UIButton!
+    @IBOutlet weak var tokenTableView: UITableView!
+    @IBOutlet weak var btnIbcSend: UIButton!
+    @IBOutlet weak var btnSend: UIButton!
     
     var stakingDenom = ""
     var stakingDivideDecimal: Int16 = 6
     var stakingDisplayDecimal: Int16 = 6
-    var totalAmount = NSDecimalNumber.zero
+    var hasVesting = false
+    var hasUnbonding = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
         self.stakingDenom = WUtils.getMainDenom(chainType)
         self.stakingDivideDecimal = WUtils.mainDivideDecimal(chainType)
         self.stakingDisplayDecimal = WUtils.mainDisplayDecimal(chainType)
         
-        self.tokenDetailTableView.delegate = self
-        self.tokenDetailTableView.dataSource = self
-        self.tokenDetailTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        self.tokenDetailTableView.register(UINib(nibName: "TokenStakingOldCell", bundle: nil), forCellReuseIdentifier: "TokenStakingOldCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailUnbondingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailUnbondingDetailCell")
-        self.tokenDetailTableView.register(UINib(nibName: "NewHistoryCell", bundle: nil), forCellReuseIdentifier: "NewHistoryCell")
+        self.tokenTableView.delegate = self
+        self.tokenTableView.dataSource = self
+        self.tokenTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.tokenTableView.register(UINib(nibName: "TokenDetailStakingCell", bundle: nil), forCellReuseIdentifier: "TokenDetailStakingCell")
+        self.tokenTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
+        self.tokenTableView.register(UINib(nibName: "TokenDetailUnbondingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailUnbondingDetailCell")
+        self.tokenTableView.register(UINib(nibName: "NewHistoryCell", bundle: nil), forCellReuseIdentifier: "NewHistoryCell")
         
         let tapTotalCard = UITapGestureRecognizer(target: self, action: #selector(self.onClickActionShare))
         self.topCard.addGestureRecognizer(tapTotalCard)
@@ -73,17 +77,12 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         }
         self.topDpAddress.text = account?.dpAddress(chainType)
         self.topDpAddress.adjustsFontSizeToFitWidth = true
-        
-        if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
-            totalAmount = WUtils.getAllBnbToken(stakingDenom)
-            btnBep3Send.isHidden = false
-        } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
-            totalAmount = WUtils.getAllExToken(stakingDenom)
-        } else {
-            totalAmount = WUtils.getAllMainAssetOld(stakingDenom)
-        }
-        self.topValue.attributedText = WUtils.dpUserCurrencyValue(stakingDenom, totalAmount, stakingDivideDecimal, topValue.font)
+        let totalToken = WUtils.getAllMainAsset(stakingDenom)
+        self.topValue.attributedText = WUtils.dpUserCurrencyValue(stakingDenom, totalToken, 6, topValue.font)
     }
+    
+    
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
@@ -94,21 +93,19 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
             return 1
             
         } else if (section == 1) {
-            if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-                if (BaseData.instance.mKavaAccountResult.getCalcurateVestingCntByDenom(stakingDenom) > 0) { return 1 }
-            }
-            return 0
+            if (BaseData.instance.getVestingAmount_gRPC(stakingDenom).compare(NSDecimalNumber.zero).rawValue > 0) { return 1 }
+            else { return 0 }
             
         } else if (section == 2) {
-            if (BaseData.instance.unbondingSumAmount().compare(NSDecimalNumber.zero).rawValue > 0) { return 1 }
-            return 0
+            if (BaseData.instance.getUnbondingSumAmount_gRPC().compare(NSDecimalNumber.zero).rawValue > 0) { return 1 }
+            else { return 0 }
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"TokenStakingOldCell") as? TokenStakingOldCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailStakingCell") as? TokenDetailStakingCell
             cell?.onBindStakingToken(chainType!)
             return cell!
             
@@ -128,7 +125,6 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         }
     }
     
-    
     @objc func onClickActionShare() {
         var nickName:String?
         if (account?.account_nick_name == "") {
@@ -143,9 +139,18 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.shareAddress(address, nickName!)
     }
     
-    
+
     @IBAction func onClickBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func onClickIbcSend(_ sender: UIButton) {
+//        if (!account!.account_has_private) {
+//            self.onShowAddMenomicDialog()
+//            return
+//        }
+        
+        self.onShowToast(NSLocalizedString("prepare", comment: ""))
     }
     
     @IBAction func onClickSend(_ sender: UIButton) {
@@ -155,7 +160,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         }
         
         let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-        if (BaseData.instance.availableAmount(stakingDenom).compare(feeAmount).rawValue < 0) {
+        if (BaseData.instance.getAvailableAmount_gRPC(stakingDenom).compare(feeAmount).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
             return
         }
@@ -163,31 +168,6 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mToSendDenom = stakingDenom
         txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-        txVC.hidesBottomBarWhenPushed = true
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(txVC, animated: true)
-    }
-    
-    @IBAction func onClickBep3Send(_ sender: UIButton) {
-        if (!SUPPORT_BEP3_SWAP || chainType == ChainType.BINANCE_TEST) {
-            self.onShowToast(NSLocalizedString("error_bep3_swap_temporary_disable", comment: ""))
-            return
-        }
-        
-        if (!account!.account_has_private) {
-            self.onShowAddMenomicDialog()
-            return
-        }
-        
-        let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_HTLC_SWAP, 0)
-        if (BaseData.instance.availableAmount(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
-            self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-            return
-        }
-        
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mType = TASK_TYPE_HTLC_SWAP
-        txVC.mHtlcDenom = stakingDenom
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)

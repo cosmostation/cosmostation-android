@@ -532,6 +532,23 @@ public class WUtils {
         return localFormatter.string(from: fullDate)
     }
     
+    static func longTimetoString3(_ input: Int64) -> String {
+        let localFormatter = DateFormatter()
+        localFormatter.dateFormat = NSLocalizedString("date_format3", comment: "")
+        
+        let fullDate = Date.init(milliseconds: Int(input))
+        return localFormatter.string(from: fullDate)
+    }
+    
+    static func nodeTimetoString3(_ input: String) -> String {
+        let nodeFormatter = DateFormatter()
+        nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
+        nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        let date = nodeFormatter.date(from: input) ?? Date.init()
+        return longTimetoString3(date.millisecondsSince1970)
+    }
+    
+    
     static func vestingTimeToString(_ startTime:Int64, _ vesting: KavaAccountInfo.VestingPeriod) -> String {
         let localFormatter = DateFormatter()
         localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
@@ -554,6 +571,28 @@ public class WUtils {
     
     static func getUnbondingTimeleft(_ input: Int64) -> String {
         let secondsLeft = Int(Date().timeIntervalSince(Date.init(milliseconds: Int(input)))) * -1
+        
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        if secondsLeft < minute {
+            return "Soon"
+        } else if secondsLeft < hour {
+            return "(\(secondsLeft / minute) minutes remaining)"
+        } else if secondsLeft < day {
+            return "(\(secondsLeft / hour) hours remaining)"
+        } else {
+            return "(\(secondsLeft / day) days remaining)"
+        }
+    }
+    
+    static func getUnbondingTimeleft2(_ input: String) -> String {
+        let nodeFormatter = DateFormatter()
+        nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
+        nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        let date = nodeFormatter.date(from: input) ?? Date.init()
+        
+        let secondsLeft = Int(Date().timeIntervalSince(date)) * -1
         
         let minute = 60
         let hour = 60 * minute
@@ -1531,7 +1570,7 @@ public class WUtils {
             result = result + ",okb,okt"
             
         } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
-            result = result + ",ukava,hard,usdx"
+            result = result + ",ukava,hard,usdx,btc,bnb,xrp,busd"
             
         } else if (chain == ChainType.BAND_MAIN) {
             result = result + ",uband"
@@ -1610,28 +1649,91 @@ public class WUtils {
         return amount
     }
     
-    static func getKavaTokenDollorValue(_ denom: String, _ amount: NSDecimalNumber) -> NSDecimalNumber {
-        let dpDeciaml = getKavaCoinDecimal(denom)
+    static func getKavaBaseDenom(_ denom: String) -> String {
+        if (denom == KAVA_MAIN_DENOM) {
+            return KAVA_MAIN_DENOM
+        } else if (denom == KAVA_HARD_DENOM) {
+            return KAVA_HARD_DENOM
+        } else if (denom == KAVA_USDX_DENOM) {
+            return KAVA_USDX_DENOM
+        } else if (denom == TOKEN_HTLC_KAVA_BNB) {
+            return "bnb"
+        } else if (denom == TOKEN_HTLC_KAVA_XRPB) {
+            return "xrp"
+        } else if (denom == TOKEN_HTLC_KAVA_BUSD) {
+            return "busd"
+        } else if (denom.contains("btc")) {
+            return "btc"
+        }
+        return ""
+    }
+    
+    static func getKavaTokenDollorPrice(_ denom: String) -> NSDecimalNumber {
         let prices = BaseData.instance.mKavaPrice
         if let price = prices["hard:usd"], denom == "hard" {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            return NSDecimalNumber.init(string: price.result.price)
         }
         if let price = prices["btc:usd"], denom.contains("btc") {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            return NSDecimalNumber.init(string: price.result.price)
         }
         if let price = prices["bnb:usd"], denom.contains("bnb") {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            return NSDecimalNumber.init(string: price.result.price)
         }
         if let price = prices["xrp:usd"], denom.contains("xrp") {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            return NSDecimalNumber.init(string: price.result.price)
         }
         if let price = prices["usdx:usd"], denom.contains("usdx") {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            return NSDecimalNumber.init(string: price.result.price)
         }
         if let price = prices["busd:usd"], denom.contains("busd") {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            return NSDecimalNumber.init(string: price.result.price)
         }
         return NSDecimalNumber.zero
+    }
+    
+    static func getKavaTokenUserCurrencyPrice(_ denom: String) -> NSDecimalNumber {
+        let baseData = BaseData.instance
+        guard let usdtPrice = baseData.getPrice("usdt") else {
+            return NSDecimalNumber.zero.rounding(accordingToBehavior: handler3Down)
+        }
+        if (baseData.getCurrency() == 0) {
+            return getKavaTokenDollorPrice(denom)
+        } else {
+            let priceUSDT = usdtPrice.currencyPrice(baseData.getCurrencyString().lowercased())
+            return getKavaTokenDollorPrice(denom).multiplying(by: priceUSDT, withBehavior: handler3Down)
+        }
+    }
+    
+    static func dpKavaTokenUserCurrencyPrice(_ denom: String, _ font:UIFont) -> NSMutableAttributedString {
+        let nf = getNumberFormatter(3)
+        let formatted = BaseData.instance.getCurrencySymbol() + " " + nf.string(from: getKavaTokenUserCurrencyPrice(denom))!
+        return getDpAttributedString(formatted, 3, font)
+    }
+    
+    static func getKavaTokenDollorValue(_ denom: String, _ amount: NSDecimalNumber) -> NSDecimalNumber {
+        let dpDeciaml = getKavaCoinDecimal(denom)
+//        let prices = BaseData.instance.mKavaPrice
+//        if let price = prices["hard:usd"], denom == "hard" {
+//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+//        }
+//        if let price = prices["btc:usd"], denom.contains("btc") {
+//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+//        }
+//        if let price = prices["bnb:usd"], denom.contains("bnb") {
+//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+//        }
+//        if let price = prices["xrp:usd"], denom.contains("xrp") {
+//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+//        }
+//        if let price = prices["usdx:usd"], denom.contains("usdx") {
+//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+//        }
+//        if let price = prices["busd:usd"], denom.contains("busd") {
+//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+//        }
+//        return NSDecimalNumber.zero
+        
+        return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: getKavaTokenDollorPrice(denom))
     }
     
     static func convertTokenToKava(_ denom: String) -> NSDecimalNumber {
@@ -1690,6 +1792,27 @@ public class WUtils {
         }
         return NSDecimalNumber.zero
     }
+    
+    static func getBnbTokenUserCurrencyPrice(_ symbol: String) -> NSDecimalNumber {
+        if let bnbTicker = getBnbTokenTic(symbol) {
+            if (isBnbMarketToken(symbol)) {
+                let perPrice = (NSDecimalNumber.one).dividing(by: bnbTicker.getLastPrice(), withBehavior: WUtils.handler8)
+                return perPrice.multiplying(by: perUserCurrencyValue(BNB_MAIN_DENOM))
+            } else {
+                let perPrice = (NSDecimalNumber.one).multiplying(by: bnbTicker.getLastPrice(), withBehavior: WUtils.handler8)
+                return perPrice.multiplying(by: perUserCurrencyValue(BNB_MAIN_DENOM))
+            }
+        }
+        return NSDecimalNumber.zero
+    }
+    
+    static func dpBnbTokenUserCurrencyPrice(_ symbol: String, _ font:UIFont) -> NSMutableAttributedString {
+        let nf = getNumberFormatter(3)
+        let formatted = BaseData.instance.getCurrencySymbol() + " " + nf.string(from: getBnbTokenUserCurrencyPrice(symbol))!
+        return getDpAttributedString(formatted, 3, font)
+    }
+    
+    
     
     static func getBnbMainToken(_ bnbTokens:Array<BnbToken>) -> BnbToken? {
         for bnbToken in bnbTokens {
@@ -4140,6 +4263,74 @@ public class WUtils {
             
         }
         return ""
+    }
+    
+    static func getStakingTokenImg(_ chain: ChainType) -> UIImage? {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
+            return UIImage(named: "atom_ic")
+            
+        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
+            return UIImage(named: "irisTokenImg")
+            
+        } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
+            return UIImage(named: "bnbTokenImg")
+            
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
+            return UIImage(named: "okexTokenImg")
+            
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return UIImage(named: "akashTokenImg")
+            
+        } else if (chain == ChainType.KAVA_MAIN) {
+            return UIImage(named: "kavaTokenImg")
+            
+        } else if (chain == ChainType.BAND_MAIN) {
+            return UIImage(named: "bnbTokenImg")
+            
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return UIImage(named: "secretTokenImg")
+            
+        } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
+            return UIImage(named: "certikTokenImg")
+            
+        } else if (chain == ChainType.IOV_MAIN) {
+            return UIImage(named: "iovTokenImg")
+            
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return UIImage(named: "tokenpersistence")
+            
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return UIImage(named: "tokensentinel")
+            
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return UIImage(named: "tokenfetchai")
+            
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return UIImage(named: "tokencrypto")
+            
+        } else if (chain == ChainType.SIF_MAIN) {
+            return UIImage(named: "tokensifchain")
+            
+        } else if (chain == ChainType.KI_MAIN) {
+            return UIImage(named: "tokenKifoundation")
+            
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            return UIImage(named: "tokenOsmosis")
+            
+        } else if (chain == ChainType.MEDI_MAIN || chain == ChainType.MEDI_TEST) {
+            return UIImage(named: "tokenmedibloc")
+            
+        }
+        
+        else if (chain == ChainType.RIZON_TEST) {
+            return UIImage(named: "tokenRizon")
+            
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return UIImage(named: "tokenAlthea")
+            
+        }
+        return UIImage(named: "tokenIc")
+        
     }
     
     static func systemQuorum(_ chain: ChainType?) -> NSDecimalNumber {

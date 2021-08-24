@@ -20,35 +20,16 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ln-uc-QRt" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                         <rect key="frame" x="12" y="4" width="357" height="188"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tokenIc" translatesAutoresizingMaskIntoConstraints="NO" id="Wv3-Di-w3J">
-                                <rect key="frame" x="12" y="16" width="20" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="cmA-h1-WOg"/>
-                                    <constraint firstAttribute="width" constant="20" id="npk-Up-8hb"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="SYMBOL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="09P-KZ-37y">
-                                <rect key="frame" x="40" y="16" width="50" height="14.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="at7-er-Rcw">
+                                <rect key="frame" x="12" y="16" width="28" height="113.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Origin Denom)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iFG-j2-fsb">
-                                <rect key="frame" x="40" y="32.5" width="80.5" height="13.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
-                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Uk-pg-b32">
-                                <rect key="frame" x="332" y="17.5" width="13" height="17"/>
+                                <rect key="frame" x="332" y="64.5" width="13" height="17"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Icv-iC-gEH">
-                                <rect key="frame" x="333.5" y="40.5" width="11.5" height="89"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="81l-Mg-ZkA">
@@ -161,23 +142,17 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40000000000000002" colorSpace="deviceRGB"/>
                         <constraints>
-                            <constraint firstItem="81l-Mg-ZkA" firstAttribute="top" secondItem="Icv-iC-gEH" secondAttribute="bottom" constant="12" id="31e-RW-31G"/>
-                            <constraint firstItem="09P-KZ-37y" firstAttribute="top" secondItem="9Ln-uc-QRt" secondAttribute="top" constant="16" id="4XQ-ER-z2t"/>
-                            <constraint firstItem="Icv-iC-gEH" firstAttribute="top" secondItem="2Uk-pg-b32" secondAttribute="bottom" constant="6" id="97v-XQ-EWT"/>
-                            <constraint firstAttribute="trailing" secondItem="Icv-iC-gEH" secondAttribute="trailing" constant="12" id="CUf-e5-n3G"/>
+                            <constraint firstItem="at7-er-Rcw" firstAttribute="top" secondItem="9Ln-uc-QRt" secondAttribute="top" constant="16" id="0g1-YO-oNo"/>
+                            <constraint firstItem="2Uk-pg-b32" firstAttribute="centerY" secondItem="at7-er-Rcw" secondAttribute="centerY" id="8aA-Q0-kok"/>
                             <constraint firstItem="vqC-Yq-Mnf" firstAttribute="leading" secondItem="9Ln-uc-QRt" secondAttribute="leading" constant="12" id="Hn3-tv-Okd"/>
-                            <constraint firstItem="09P-KZ-37y" firstAttribute="leading" secondItem="Wv3-Di-w3J" secondAttribute="trailing" constant="8" id="MX9-nx-QD7"/>
+                            <constraint firstItem="81l-Mg-ZkA" firstAttribute="top" secondItem="at7-er-Rcw" secondAttribute="bottom" constant="12" id="K1F-QK-bQs"/>
                             <constraint firstAttribute="trailing" secondItem="vqC-Yq-Mnf" secondAttribute="trailing" constant="12" id="N1r-lI-Moj"/>
-                            <constraint firstItem="2Uk-pg-b32" firstAttribute="centerY" secondItem="Wv3-Di-w3J" secondAttribute="centerY" id="UA7-3J-V7q"/>
-                            <constraint firstItem="Wv3-Di-w3J" firstAttribute="top" secondItem="9Ln-uc-QRt" secondAttribute="top" constant="16" id="W4Y-C7-Yze"/>
-                            <constraint firstAttribute="bottom" secondItem="vqC-Yq-Mnf" secondAttribute="bottom" constant="16" id="YSb-mj-Xoq"/>
+                            <constraint firstAttribute="bottom" secondItem="vqC-Yq-Mnf" secondAttribute="bottom" constant="16" id="NOI-vc-6Af"/>
                             <constraint firstAttribute="trailing" secondItem="81l-Mg-ZkA" secondAttribute="trailing" constant="12" id="YlN-Aw-id0"/>
-                            <constraint firstItem="iFG-j2-fsb" firstAttribute="top" secondItem="09P-KZ-37y" secondAttribute="bottom" constant="2" id="ZA4-2C-dcw"/>
+                            <constraint firstItem="at7-er-Rcw" firstAttribute="leading" secondItem="9Ln-uc-QRt" secondAttribute="leading" constant="12" id="agi-au-H0l"/>
                             <constraint firstAttribute="trailing" secondItem="2Uk-pg-b32" secondAttribute="trailing" constant="12" id="bRH-bF-ewN"/>
-                            <constraint firstItem="Wv3-Di-w3J" firstAttribute="leading" secondItem="9Ln-uc-QRt" secondAttribute="leading" constant="12" id="k7y-Et-m3d"/>
-                            <constraint firstItem="iFG-j2-fsb" firstAttribute="leading" secondItem="09P-KZ-37y" secondAttribute="leading" id="kUE-LX-hBs"/>
                             <constraint firstItem="81l-Mg-ZkA" firstAttribute="leading" secondItem="9Ln-uc-QRt" secondAttribute="leading" constant="12" id="t2f-cg-4UP"/>
                             <constraint firstItem="vqC-Yq-Mnf" firstAttribute="top" secondItem="81l-Mg-ZkA" secondAttribute="bottom" constant="12" id="zuI-AD-4ZZ"/>
                         </constraints>
@@ -215,18 +190,12 @@
                 <outlet property="frozenLayer" destination="NqO-oK-u5A" id="DxT-3Y-eCp"/>
                 <outlet property="lockedAmount" destination="tL0-LP-4NA" id="TBe-w6-ZX5"/>
                 <outlet property="lockedLayer" destination="5NJ-09-RuO" id="CvJ-Mv-Of7"/>
-                <outlet property="tokenDenom" destination="iFG-j2-fsb" id="dZK-Kd-76j"/>
-                <outlet property="tokenImg" destination="Wv3-Di-w3J" id="Wjs-3u-lZZ"/>
-                <outlet property="tokenSymbol" destination="09P-KZ-37y" id="3hg-zE-IVo"/>
+                <outlet property="rootCardView" destination="9Ln-uc-QRt" id="ReS-DR-zwr"/>
                 <outlet property="totalAmount" destination="2Uk-pg-b32" id="ioX-qW-oKw"/>
-                <outlet property="totalValue" destination="Icv-iC-gEH" id="XCC-ec-bR6"/>
                 <outlet property="vestingAmount" destination="FgR-H4-hhN" id="5Zv-6c-Nbb"/>
                 <outlet property="vestingLayer" destination="UdV-Me-p1w" id="gpG-HI-EYd"/>
             </connections>
             <point key="canvasLocation" x="181.8840579710145" y="163.39285714285714"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="tokenIc" width="22" height="22"/>
-    </resources>
 </document>

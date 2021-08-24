@@ -98,6 +98,28 @@ final class BaseData : NSObject{
         return mIbcTokens.filter { $0.hash == hash }.first
     }
     
+    func getIbcPath(_ channelId: String?) -> Path? {
+        for ibcPath in mIbcPaths {
+            for path in ibcPath.paths {
+                if (path.channel_id == channelId) {
+                    return path
+                }
+            }
+        }
+        return nil
+    }
+    
+//    func getIbcCounterChainId(_ channelId: String?) -> String {
+//        for ibcPath in mIbcPaths {
+//            for path in ibcPath.paths {
+//                if (path.channel_id == channelId) {
+//                    return ibcPath.chain_id ?? ""
+//                }
+//            }
+//        }
+//        return ""
+//    }
+    
     func getBaseDenom(_ denom: String) -> String {
         if (denom.starts(with: "ibc/")) {
             guard let ibcToken = getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")) else {
@@ -186,6 +208,17 @@ final class BaseData : NSObject{
         return amount
     }
     
+    func getUnbondingEntrie() -> Array<UnbondingInfo.Entry> {
+        var result = Array<UnbondingInfo.Entry>()
+        mMyUnbondings.forEach { unbondingInfo in
+            unbondingInfo.entries.forEach { entry in
+                result.append(entry)
+            }
+        }
+        result.sort{ return Int($0.creation_height)! < Int($1.creation_height)! }
+        return result
+    }
+    
     func unbondingAmountByValidator(_ opAddress: String) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for unbonding in mMyUnbondings {
@@ -197,6 +230,7 @@ final class BaseData : NSObject{
         }
         return amount
     }
+    
     
     func rewardAmount(_ symbol: String) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
@@ -333,14 +367,29 @@ final class BaseData : NSObject{
         }
     }
     
-    func getUnbondingSum_gRPC() -> String {
+    func getUnbondingSumAmount_gRPC() -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for unbonding in mMyUnbondings_gRPC {
             for entry in unbonding.entries {
                 amount = amount.adding(WUtils.plainStringToDecimal(entry.balance))
             }
         }
-        return amount.stringValue;
+        return amount;
+    }
+    
+    func getUnbondingSum_gRPC() -> String {
+        return getUnbondingSumAmount_gRPC().stringValue;
+    }
+    
+    func getUnbondingEntrie_gRPC() -> Array<Cosmos_Staking_V1beta1_UnbondingDelegationEntry> {
+        var result = Array<Cosmos_Staking_V1beta1_UnbondingDelegationEntry>()
+        for unbonding in mMyUnbondings_gRPC {
+            for entry in unbonding.entries {
+                result.append(entry)
+            }
+        }
+        result.sort { return $0.completionTime.seconds < $1.completionTime.seconds }
+        return result
     }
     
     func getUnbonding_gRPC(_ opAddress: String?) -> NSDecimalNumber {
