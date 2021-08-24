@@ -776,7 +776,7 @@ support@cosmostation.io";
 "tx_osmosis_token_lockup" = "Lockup Token";
 "tx_osmosis_begin_unlucking" = "Begin Unlocking";
 "tx_osmosis_begin_unlucking_all" = "Begin Unlocking All";
-"tx_osmosis_preriodlock_unlock" = "Preriod Unlock Token";
+"tx_osmosis_preriodlock_unlock" = "Claim Unlocked Token";
 "tx_osmosis_token_unlock" = "Unlock Tokens";
 
 "tx_rizon_event_horizon" = "Recieve Swap Token";

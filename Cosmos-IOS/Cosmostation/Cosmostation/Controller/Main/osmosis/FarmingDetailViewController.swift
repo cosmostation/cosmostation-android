@@ -83,7 +83,13 @@ class FarmingDetailViewController: BaseViewController, UITableViewDelegate, UITa
         
         
         //display title
-        topPoolIDLabel.text = "EARNING #" + String(mPool.id)
+        if (mLockUps.count > 0) {
+            topPoolIDLabel.text = "MY EARNING #" + String(mPool.id)
+            topPoolIDLabel.textColor = COLOR_OSMOSIS
+        } else {
+            topPoolIDLabel.text = "EARNING #" + String(mPool.id)
+        }
+        
         topPoolPairLabel.text = coin0Symbol + " / " + coin1Symbol
         
         
