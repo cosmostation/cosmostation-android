@@ -19,47 +19,53 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.squareup.picasso.Picasso;
+
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+
 import wannabit.io.cosmostaion.utils.WDp;
+
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
+
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
+import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
-public class POOLTokenDetailActivity extends BaseActivity implements View.OnClickListener{
+public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClickListener {
 
-    private Toolbar             mToolbar;
-    private ImageView           mToolbarSymbolImg;
-    private TextView            mToolbarSymbol;
-    private TextView            mItemPerPrice;
-    private ImageView           mItemUpDownImg;
-    private TextView            mItemUpDownPrice;
+    private Toolbar                         mToolbar;
+    private ImageView                       mToolbarSymbolImg;
+    private TextView                        mToolbarSymbol;
+    private TextView                        mItemPerPrice;
+    private ImageView                       mItemUpDownImg;
+    private TextView                        mItemUpDownPrice;
 
-    private CardView            mBtnAddressPopup;
-    private ImageView           mKeyState;
-    private TextView            mAddress;
-    private TextView            mTotalValue;
+    private CardView                        mBtnAddressPopup;
+    private ImageView                       mKeyState;
+    private TextView                        mTotalValue;
+    private TextView                        mAddress;
+    private SwipeRefreshLayout              mSwipeRefreshLayout;
+    private RecyclerView                    mRecyclerView;
 
-    private SwipeRefreshLayout  mSwipeRefreshLayout;
-    private RecyclerView        mRecyclerView;
+    private RelativeLayout                  mBtnIbcSend;
+    private RelativeLayout                  mBtnSend;
 
-    private RelativeLayout      mBtnIbcSend;
-    private RelativeLayout      mBtnSend;
+    private BridgeTokenGrpcAdapter          mAdapter;
 
-    private POOlTokenAdapter    mAdapter;
-    private String              mPoolDenom;
-
-    private int                 mDivideDecimal = 18;
-    private int                 mDisplayDecimal = 18;
-    private BigDecimal          mTotalAmount = BigDecimal.ZERO;
+    private String                          mBridgeDenom;
+    private int                             mBridgeDivideDecimal = 6;
+    private int                             mBridgeDisplayDecimal = 6;
+    private BigDecimal                      mTotalAmount = BigDecimal.ZERO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,15 +92,16 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain  = BaseChain.getChain(mAccount.baseChain);
-        mPoolDenom  = getIntent().getStringExtra("denom");
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mBridgeDenom = getIntent().getStringExtra("denom");
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mAdapter = new POOlTokenAdapter();
+        mAdapter = new BridgeTokenGrpcAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
+        //prepare for token history
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -104,8 +111,8 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
 
         onUpdateView();
         mBtnAddressPopup.setOnClickListener(this);
-        mBtnIbcSend.setOnClickListener(this);
         mBtnSend.setOnClickListener(this);
+        mBtnIbcSend.setOnClickListener(this);
     }
 
     @Override
@@ -120,23 +127,22 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
     }
 
     private void onUpdateView() {
-        if (mBaseChain.equals(OSMOSIS_MAIN)) {
-            WUtil.DpOsmosisTokenImg(mToolbarSymbolImg, mPoolDenom);
-            String [] split = mPoolDenom.split("/");
-            mToolbarSymbol.setText("GAMM-" + split[split.length - 1]);
+        String baseDenom = "";
+        mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(BridgeTokenGrpcActivity.this, mBaseChain));
+        if (mBaseChain.equals(SIF_MAIN)) {
+            baseDenom = mBridgeDenom.substring(1);
+            Picasso.get().load(SIF_COIN_IMG_URL + mBridgeDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+            mToolbarSymbol.setText(baseDenom.toUpperCase());
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
 
-            mDivideDecimal = 18;
-            mDisplayDecimal = 18;
-            mTotalAmount = getBaseDao().getAvailable(mPoolDenom);
-            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mPoolDenom, mTotalAmount, mDivideDecimal));
-
-            mBtnIbcSend.setVisibility(View.VISIBLE);
+            mBridgeDivideDecimal = WUtil.getSifCoinDecimal(mBridgeDenom);
+            mBridgeDisplayDecimal = WUtil.getSifCoinDecimal(mBridgeDenom);
+            mTotalAmount = getBaseDao().getAvailable(mBridgeDenom);
         }
 
-        mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mPoolDenom));
-        mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), mPoolDenom));
-        final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), mPoolDenom);
+        mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), baseDenom));
+        mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), baseDenom));
+        final BigDecimal lastUpDown = WDp.valueChange(getBaseDao(), baseDenom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             mItemUpDownImg.setVisibility(View.VISIBLE);
             mItemUpDownImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_price_up));
@@ -147,14 +153,15 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(POOLTokenDetailActivity.this, mBaseChain));
         mAddress.setText(mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
             mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         }
+        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, mTotalAmount, mBridgeDivideDecimal));
         mSwipeRefreshLayout.setRefreshing(false);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -167,6 +174,10 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
             show.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
+        } else if (v.equals(mBtnIbcSend)) {
+            Toast.makeText(getBaseContext(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
+            return;
+
         } else if (v.equals(mBtnSend)) {
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
             BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
@@ -175,14 +186,14 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
-            intent.putExtra("sendTokenDenom", mPoolDenom);
+            intent.putExtra("sendTokenDenom", mBridgeDenom);
             startActivity(intent);
         }
     }
 
-    private class POOlTokenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private class BridgeTokenGrpcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_UNKNOWN               = -1;
-        private static final int TYPE_OSMOSIS               = 0;
+        private static final int TYPE_SIF                   = 0;
 
         private static final int TYPE_HISTORY               = 100;
 
@@ -191,7 +202,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_UNKNOWN) {
 
-            } else if (viewType == TYPE_OSMOSIS) {
+            } else if (viewType == TYPE_SIF) {
                 return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
             }
 
@@ -203,9 +214,9 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            if (getItemViewType(position) == TYPE_OSMOSIS) {
+            if (getItemViewType(position) == TYPE_SIF) {
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                holder.onBindPoolToken(POOLTokenDetailActivity.this, mBaseChain, getBaseDao(), mPoolDenom);
+                holder.onBindBridgeToken(BridgeTokenGrpcActivity.this, mBaseChain, getBaseDao(), mBridgeDenom);
             }
 //
 //            } else if (getItemViewType(position) == TYPE_HISTORY) {
@@ -220,8 +231,8 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
 
         @Override
         public int getItemViewType(int position) {
-            if (mBaseChain.equals(OSMOSIS_MAIN)) {
-                if (position == 0) return TYPE_OSMOSIS;
+            if (mBaseChain.equals(SIF_MAIN)) {
+                if (position == 0) return TYPE_SIF;
                 else return TYPE_HISTORY;
             }
             return TYPE_UNKNOWN;

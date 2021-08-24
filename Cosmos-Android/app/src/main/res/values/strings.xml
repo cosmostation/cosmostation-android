@@ -1453,10 +1453,11 @@
     <string name="str_etc_token_title">Etc Tokens</string>
     <string name="str_unknown_token_title">Unknown</string>
     <string name="str_ibc_info_title">IBC information</string>
-    <string name="str_ibc_info_origin_denom_title">Original Denom</string>
-    <string name="str_ibc_chain_id_title">Chain ID</string>
-    <string name="str_ibc_relayer_title">Relayer</string>
+    <string name="str_ibc_opposite_chain_id_title">Opposite Chain ID</string>
+    <string name="str_ibc_channel_title">Channel</string>
+    <string name="str_ibc_opposite_channel_title">Opposite Channel</string>
     <string name="str_ibc_denom_title">Denom</string>
+    <string name="str_ibc_opposite_denom_title">Opposite Denom</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"
@@ -25,7 +26,7 @@
                 android:orientation="vertical"
                 android:layout_margin="@dimen/space_14">
                 <TextView
-                    android:id="@+id/ibc_total_amount_title"
+                    android:id="@+id/total_amount_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_total_amount"
@@ -33,9 +34,9 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/ibc_total_amount_title">
+                    android:layout_toRightOf="@+id/total_amount_title">
                     <TextView
-                        android:id="@+id/ibc_total_amount"
+                        android:id="@+id/total_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -44,14 +45,18 @@
                         style="@style/font_ss_17_white"/>
                 </RelativeLayout>
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGray3" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_14"
-                android:layout_marginRight="@dimen/space_14"
-                android:layout_marginBottom="@dimen/space_14">
+                android:layout_margin="@dimen/space_14">
                 <TextView
-                    android:id="@+id/ibc_available_title"
+                    android:id="@+id/available_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_available"
@@ -59,9 +64,62 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/ibc_available_title">
+                    android:layout_toRightOf="@+id/available_title">
                     <TextView
-                        android:id="@+id/ibc_available_amount"
+                        android:id="@+id/available_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text="12313123"
+                        android:layout_alignParentRight="true"
+                        style="@style/font_ss_12_white"/>
+                </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/locked_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/locked_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_locked"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/locked_title">
+                    <TextView
+                        android:id="@+id/locked_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text="12313123"
+                        android:layout_alignParentRight="true"
+                        style="@style/font_ss_12_white"/>
+                </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/frozen_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_14"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/frozen_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_frozen"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/frozen_title">
+                    <TextView
+                        android:id="@+id/frozen_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/space_2"

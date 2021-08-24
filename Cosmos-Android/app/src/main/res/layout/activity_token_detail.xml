@@ -22,12 +22,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/toolbar_symbol_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@drawable/token_osmosis"/>
+        <ImageView
+            android:id="@+id/toolbar_symbol_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/token_osmosis"/>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                     android:src="@drawable/key_off"/>
                 <TextView
                     android:id="@+id/account_Address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/img_account"
                     android:layout_marginLeft="@dimen/space_6"
@@ -138,7 +138,7 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/layer_refresher"
         android:layout_below="@+id/card_root"
-        android:layout_above="@+id/control_layer"
+        android:layout_above="@+id/control_later"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout

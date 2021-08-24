@@ -42,6 +42,40 @@
                     style="@style/font_ssm_17_osmosis"
                     android:layout_marginLeft="@dimen/space_6"
                     android:text="OSMO"/>
+                <TextView
+                    android:id="@+id/per_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    style="@style/font_ssl_14_white"
+                    android:text="-"/>
+                <LinearLayout
+                    android:id="@+id/per_change"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/per_price"
+                    android:layout_marginTop="@dimen/space_2"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:id="@+id/ic_price_updown"
+                        android:layout_width="@dimen/space_12"
+                        android:layout_height="@dimen/space_12"
+                        android:layout_marginTop="@dimen/space_2"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:src="@drawable/ic_price_down"
+                        android:visibility="gone"/>
+                    <TextView
+                        android:id="@+id/dash_price_updown_tx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="right"
+                        style="@style/font_ss_10_white"
+                        android:text="-"/>
+                </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>

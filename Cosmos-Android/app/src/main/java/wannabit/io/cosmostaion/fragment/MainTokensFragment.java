@@ -30,10 +30,13 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.BridgeTokenGrpcActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.IBCTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenGrpcActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.POOLTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenGrpcActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -43,7 +46,6 @@ import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -63,6 +65,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
@@ -306,6 +309,7 @@ public class MainTokensFragment extends BaseFragment {
         mOsmosisPoolGrpc.clear();
         mSifEtherGrpc.clear();
         mIbcUnknownGrpc.clear();
+        mGravityDexGrpc.clear();
         mUnknownGrpc.clear();
         for (Coin coin : getBaseDao().mGrpcBalance) {
             if (coin.denom.equalsIgnoreCase(mainDenom)) {
@@ -329,7 +333,6 @@ public class MainTokensFragment extends BaseFragment {
                 mUnknownGrpc.add(coin);
             }
         }
-
         mNative.clear();
         mKavaBep2.clear();
         mEtc.clear();
@@ -357,6 +360,9 @@ public class MainTokensFragment extends BaseFragment {
 
         if (isGRPC(getMainActivity().mBaseChain)) {
             WUtil.onSortingCoins(mNativeGrpc, getMainActivity().mBaseChain);
+        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) ||
+                    getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
+            WUtil.onSortingNativeCoins(mEtc, getMainActivity().mBaseChain);
         } else {
             WUtil.onSortingNativeCoins(mNative, getMainActivity().mBaseChain);
         }
@@ -604,13 +610,6 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_ATOM);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
-                    startActivity(intent);
-                }
-            });
 
         } else if (coin.denom.equals(TOKEN_IRIS)) {
             holder.itemSymbol.setText(getString(R.string.str_iris_c));
@@ -623,13 +622,6 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_IRIS);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
-                    startActivity(intent);
-                }
-            });
 
         } else if (coin.denom.equals(TOKEN_AKASH)) {
             holder.itemSymbol.setText(getString(R.string.str_akt_c));
@@ -642,12 +634,6 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_AKASH);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
 
         } else if (coin.denom.equals(TOKEN_DVPN)) {
             holder.itemSymbol.setText(getString(R.string.str_dvpn_c));
@@ -660,12 +646,6 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_DVPN);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
 
         } else if (coin.denom.equals(TOKEN_XPRT)) {
             holder.itemSymbol.setText(getString(R.string.str_xprt_c));
@@ -681,7 +661,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                    startActivity(new Intent(getMainActivity(), StakingTokenGrpcActivity.class));
                 }
             });
 
@@ -696,12 +676,6 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CRO);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 8, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 8));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
 
         } else if (coin.denom.equals(TOKEN_OSMOSIS)) {
             holder.itemSymbol.setText(getString(R.string.str_osmosis_c));
@@ -714,13 +688,6 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_OSMOSIS);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
 
         } else if (coin.denom.equals(TOKEN_ION)) {
             holder.itemSymbol.setText(getString(R.string.str_uion_c));
@@ -744,12 +711,6 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_IOV);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
 
         } else if (coin.denom.equals(TOKEN_SIF)) {
             holder.itemSymbol.setText(getString(R.string.str_sif_c));
@@ -763,12 +724,6 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 18));
 
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
         } else if (coin.denom.equals(TOKEN_MEDI)) {
             holder.itemSymbol.setText(getString(R.string.str_medi_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), MEDI_MAIN));
@@ -780,12 +735,6 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_MEDI);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
 
         } else if (coin.denom.equals(TOKEN_RIZON)) {
             holder.itemSymbol.setText(getString(R.string.str_rizon_c));
@@ -798,12 +747,6 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_RIZON);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
 
         } else if (coin.denom.equals(TOKEN_ALTHEA)) {
             holder.itemSymbol.setText(getString(R.string.str_althea_c));
@@ -816,12 +759,6 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_ALTHEA);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
 
         } else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
@@ -847,6 +784,21 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
         }
+
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mNativeGrpc.get(position).denom.equalsIgnoreCase(WDp.mainDenom(getMainActivity().mBaseChain))) {
+                    Intent intent = new Intent(getMainActivity(), StakingTokenGrpcActivity.class);
+                    intent.putExtra("denom", coin.denom);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
+                    intent.putExtra("denom", coin.denom);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     //with Authed IBC gRPC
@@ -951,7 +903,7 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                Intent intent = new Intent(getMainActivity(), BridgeTokenGrpcActivity.class);
                 intent.putExtra("denom", coin.denom);
                 startActivity(intent);
             }
@@ -998,14 +950,14 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BNB_MAIN));
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
                 holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_BNB, amount, 0));
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
-                        startActivity(intent);
-                    }
-                });
             }
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
+                    startActivity(intent);
+                }
+            });
 
         } else if (balance.symbol.equals(TOKEN_KAVA)) {
             Picasso.get().cancelRequest(holder.itemImg);
@@ -1021,7 +973,8 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
+                    startActivity(intent);
                 }
             });
 
@@ -1077,13 +1030,14 @@ public class MainTokensFragment extends BaseFragment {
                 BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
                 holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 0));
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                    }
-                });
             }
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
+                    startActivity(intent);
+                }
+            });
 
         } else if (balance.symbol.equals(TOKEN_BAND)) {
             holder.itemSymbol.setText(getString(R.string.str_band_c));
