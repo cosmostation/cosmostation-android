@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.osmosis;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -175,6 +176,10 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
     public void onStartNewEarning(long unbondingDuration) {
         WLog.w("onStartNewEarning " + unbondingDuration);
+        Intent intent = new Intent(this, StartEarningActivity.class);
+        intent.putExtra("osmosisPool", mPool.toByteArray());
+        intent.putExtra("osmosisDuration", unbondingDuration);
+        startActivity(intent);
 
     }
 
@@ -212,7 +217,11 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
     public void onStartUnbonding(ArrayList<Lock.PeriodLock> lockups) {
         WLog.w("onStartUnbonding " + lockups.size());
-
+        Intent intent = new Intent(this, StartUnbondingActivity.class);
+        intent.putExtra("osmosisPool", mPool.toByteArray());
+        OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(lockups);
+        intent.putExtra("osmosislockups", lockupsWrapper);
+        startActivity(intent);
     }
 
     public void onCheckUnlock(Lock.PeriodLock lockup) {
@@ -247,7 +256,11 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
     public void onStartUnlock(ArrayList<Lock.PeriodLock> lockups) {
         WLog.w("onStartUnlock " + lockups.size());
-
+        Intent intent = new Intent(this, StartUnlockActivity.class);
+        intent.putExtra("osmosisPool", mPool.toByteArray());
+        OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(lockups);
+        intent.putExtra("osmosislockups", lockupsWrapper);
+        startActivity(intent);
     }
 
 
