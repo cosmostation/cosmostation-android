@@ -236,6 +236,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_SWAP_IN                    = 4315;
     public final static int TASK_GRPC_GEN_TX_JOIN_POOL                  = 4316;
     public final static int TASK_GRPC_GEN_TX_EXIT_POOL                  = 4317;
+    public final static int TASK_GRPC_GEN_TX_START_LOCK                 = 4318;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -255,6 +256,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_SWAP_IN                  = 4515;
     public final static int TASK_GRPC_SIMULATE_JOIN_POOL                = 4516;
     public final static int TASK_GRPC_SIMULATE_EXIT_POOL                = 4517;
+    public final static int TASK_GRPC_SIMULATE_START_LOCK               = 4518;
 
 
 
@@ -415,6 +417,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_OSMOSIS_JOIN_POOL                   = 5037;
     public final static int CONST_PW_TX_OSMOSIS_EXIT_POOL                   = 5038;
     public final static int CONST_PW_TX_RIZON_SWAP                          = 5039;
+    public final static int CONST_PW_TX_OSMOSIS_EARNING                     = 5040;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
@@ -654,6 +657,7 @@ public class BaseConstant {
     public final static String OSMOSIS_GAS_AMOUNT_LOW                   = "100000";
     public final static String OSMOSIS_GAS_AMOUNT_POOL                  = "600000";
     public final static String OSMOSIS_GAS_AMOUNT_SWAP                  = "300000";
+    public final static String OSMOSIS_GAS_AMOUNT_LOCK                  = "20000000";
 
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";

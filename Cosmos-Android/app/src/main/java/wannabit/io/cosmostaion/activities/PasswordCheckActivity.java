@@ -69,6 +69,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteDomainGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisExitPooGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisJoinPoolGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisStartLockGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisSwapInTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ReInvestGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RedelegateGrpcTask;
@@ -110,6 +111,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EARNING;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
@@ -205,6 +207,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Tx.SwapAmountInRoute        mSwapAmountInRoute;
     private Coin                        mOsmoSwapInCoin;
     private Coin                        mOsmoSwapOutCoin;
+    private long                        mOsmosisLockupDuration;
+
 
     private String                      mHdacBurnRawTx;                 //for hdac burn & swap
 
@@ -292,6 +296,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mLpToken = getIntent().getParcelableExtra("mLpToken");
         mOsmoSwapInCoin = getIntent().getParcelableExtra("osmosisSwapInputCoin");
         mOsmoSwapOutCoin = getIntent().getParcelableExtra("osmosisSwapOutputcoin");
+        mOsmosisLockupDuration = getIntent().getLongExtra("mOsmoDuraion", 0);
         try {
             mSwapAmountInRoute = Tx.SwapAmountInRoute.parseFrom(getIntent().getByteArrayExtra("osmosisSwapRoute"));
         } catch (Exception e) { WLog.w("Passing bundle Error"); }
@@ -594,6 +599,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new OsmosisExitPooGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mOsmoPoolCoin0, mOsmoPoolCoin1, mLpToken.amount,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
+        } else if (mPurpose == CONST_PW_TX_OSMOSIS_EARNING) {
+            new OsmosisStartLockGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mOsmosisLockupDuration, mLpToken,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
         else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {

@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.cosmos;
 
 import com.google.protobuf.ByteString;
+import com.google.protobuf.Duration;
 import com.google.protobuf2.Any;
 
 import org.bitcoinj.core.ECKey;
@@ -856,6 +857,36 @@ public class Signer {
         Any msgExitPoolAny = Any.newBuilder().setTypeUrl("/osmosis.gamm.v1beta1.MsgExitPool").setValue(msgExitPool.toByteString()).build();
 
         TxOuterClass.TxBody txBody          = getGrpcTxBody(msgExitPoolAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcStartLockReq(QueryOuterClass.QueryAccountResponse auth, long duration, Coin lpCoin, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+        CoinOuterClass.Coin lockupCoin = CoinOuterClass.Coin.newBuilder().setDenom(lpCoin.denom).setAmount(lpCoin.amount).build();
+        ArrayList<CoinOuterClass.Coin> lockupTokens = new ArrayList<>();
+        lockupTokens.add(lockupCoin);
+        Duration OsmoDuration = Duration.newBuilder().setSeconds(duration).setNanos(0).build();
+        osmosis.lockup.Tx.MsgLockTokens msgLockTokens = osmosis.lockup.Tx.MsgLockTokens.newBuilder().setOwner(onParseAddress(auth)).setDuration(OsmoDuration).addAllCoins(lockupTokens).build();
+        Any msgStartLockAny = Any.newBuilder().setTypeUrl("/osmosis.lockup.MsgLockTokens").setValue(msgLockTokens.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgStartLockAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcStartLockSimulateReq(QueryOuterClass.QueryAccountResponse auth, long duration, Coin lpCoin, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+        CoinOuterClass.Coin lockupCoin = CoinOuterClass.Coin.newBuilder().setDenom(lpCoin.denom).setAmount(lpCoin.amount).build();
+        ArrayList<CoinOuterClass.Coin> lockupTokens = new ArrayList<>();
+        lockupTokens.add(lockupCoin);
+        Duration OsmoDuration = Duration.newBuilder().setSeconds(duration).setNanos(0).build();
+        osmosis.lockup.Tx.MsgLockTokens msgLockTokens = osmosis.lockup.Tx.MsgLockTokens.newBuilder().setOwner(onParseAddress(auth)).setDuration(OsmoDuration).addAllCoins(lockupTokens).build();
+        Any msgStartLockAny = Any.newBuilder().setTypeUrl("/osmosis.lockup.MsgLockTokens").setValue(msgLockTokens.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgStartLockAny, memo);
         TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
         TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
         TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);

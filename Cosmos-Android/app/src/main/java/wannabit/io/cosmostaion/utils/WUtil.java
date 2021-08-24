@@ -2211,6 +2211,8 @@ public class WUtil {
                 return new BigDecimal(OSMOSIS_GAS_AMOUNT_SWAP);
             } else if (txType == CONST_PW_TX_OSMOSIS_JOIN_POOL || txType == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
                 return new BigDecimal(OSMOSIS_GAS_AMOUNT_POOL);
+            } else if (txType == CONST_PW_TX_OSMOSIS_EARNING) {
+                return new BigDecimal(OSMOSIS_GAS_AMOUNT_LOCK);
             }
         }
 
