@@ -921,6 +921,34 @@ public class Signer {
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcUnLockPeriodReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<Long> ids, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+        ArrayList<Any> msgsAny = new ArrayList<>();
+        for (Long id: ids) {
+            osmosis.lockup.Tx.MsgUnlockPeriodLock msgUnlockPeriodLock = osmosis.lockup.Tx.MsgUnlockPeriodLock.newBuilder().setOwner(onParseAddress(auth)).setID(id).build();
+            Any msgUnLockPeriodAny = Any.newBuilder().setTypeUrl("/osmosis.lockup.MsgUnlockPeriodLock").setValue(msgUnlockPeriodLock.toByteString()).build();
+            msgsAny.add(msgUnLockPeriodAny);
+        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcUnLockPeriodSimulateReq(QueryOuterClass.QueryAccountResponse auth, ArrayList<Long> ids, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+        ArrayList<Any> msgsAny = new ArrayList<>();
+        for (Long id: ids) {
+            osmosis.lockup.Tx.MsgUnlockPeriodLock msgUnlockPeriodLock = osmosis.lockup.Tx.MsgUnlockPeriodLock.newBuilder().setOwner(onParseAddress(auth)).setID(id).build();
+            Any msgUnLockPeriodAny = Any.newBuilder().setTypeUrl("/osmosis.lockup.MsgUnlockPeriodLock").setValue(msgUnlockPeriodLock.toByteString()).build();
+            msgsAny.add(msgUnLockPeriodAny);
+        }
+        TxOuterClass.TxBody txBody          = getGrpcTxBodys(msgsAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    }
+
 
 
     public static TxOuterClass.TxBody getGrpcTxBody(Any msgAny, String memo) {

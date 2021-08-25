@@ -218,7 +218,6 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
     public void onStartUnbonding(ArrayList<Lock.PeriodLock> lockups) {
         WLog.w("onStartUnbonding " + lockups.size());
         Intent intent = new Intent(this, StartUnbondingActivity.class);
-        intent.putExtra("osmosisPool", mPool.toByteArray());
         OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(lockups);
         intent.putExtra("osmosislockups", lockupsWrapper);
         startActivity(intent);
@@ -257,7 +256,6 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
     public void onStartUnlock(ArrayList<Lock.PeriodLock> lockups) {
         WLog.w("onStartUnlock " + lockups.size());
         Intent intent = new Intent(this, StartUnlockActivity.class);
-        intent.putExtra("osmosisPool", mPool.toByteArray());
         OsmosisPeriodLockWrapper lockupsWrapper = new OsmosisPeriodLockWrapper(lockups);
         intent.putExtra("osmosislockups", lockupsWrapper);
         startActivity(intent);
