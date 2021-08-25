@@ -27,6 +27,7 @@ import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
 import oracle.v1.Oracle;
 import osmosis.gamm.v1beta1.PoolOuterClass;
+import tendermint.liquidity.v1beta1.Liquidity;
 import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.crypto.EncResult;
@@ -394,6 +395,9 @@ public class BaseData {
     public starnamed.x.configuration.v1beta1.Types.Fees         mGrpcStarNameFee;
     public starnamed.x.configuration.v1beta1.Types.Config       mGrpcStarNameConfig;
 
+    //Gravity pool list
+    public ArrayList<Liquidity.Pool>                            mGrpcGravityPools = new ArrayList<>();
+
 
     //gRPC funcs
     public String getChainIdGrpc() {
@@ -659,6 +663,15 @@ public class BaseData {
             return currentExpire + mGrpcStarNameConfig.getAccountRenewalPeriod().getSeconds() * 1000;
         }
         return 0;
+    }
+
+    public Liquidity.Pool getGravityPoolByDenom(String denom) {
+        for (Liquidity.Pool pool: mGrpcGravityPools) {
+            if (pool.getPoolCoinDenom().equals(denom)) {
+                return pool;
+            }
+        }
+        return null;
     }
 
 

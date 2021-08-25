@@ -28,6 +28,7 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.BridgeTokenGrpcActivity;
@@ -360,6 +361,8 @@ public class MainTokensFragment extends BaseFragment {
 
         if (isGRPC(getMainActivity().mBaseChain)) {
             WUtil.onSortingCoins(mNativeGrpc, getMainActivity().mBaseChain);
+            WUtil.onSortingGravityPool(mGravityDexGrpc, getBaseDao());
+
         } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) ||
                     getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
             WUtil.onSortingNativeCoins(mEtc, getMainActivity().mBaseChain);
@@ -602,7 +605,7 @@ public class MainTokensFragment extends BaseFragment {
         if (coin.denom.equals(TOKEN_ATOM)) {
             holder.itemSymbol.setText(getString(R.string.str_atom_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Cosmos Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
@@ -614,7 +617,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_IRIS)) {
             holder.itemSymbol.setText(getString(R.string.str_iris_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IRIS_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Iris Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
@@ -626,7 +629,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_AKASH)) {
             holder.itemSymbol.setText(getString(R.string.str_akt_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), AKASH_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Akash Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_token_img));
@@ -638,7 +641,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_DVPN)) {
             holder.itemSymbol.setText(getString(R.string.str_dvpn_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SENTINEL_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Sentinel Native Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensentinel));
@@ -650,7 +653,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_XPRT)) {
             holder.itemSymbol.setText(getString(R.string.str_xprt_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), PERSIS_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Persistence Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenpersistence));
@@ -658,17 +661,17 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_XPRT);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenGrpcActivity.class));
-                }
-            });
+//            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    startActivity(new Intent(getMainActivity(), StakingTokenGrpcActivity.class));
+//                }
+//            });
 
         } else if (coin.denom.equals(TOKEN_CRO)) {
             holder.itemSymbol.setText(getString(R.string.str_cro_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CRYPTO_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Crypto.org Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokencrypto));
@@ -680,7 +683,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_OSMOSIS)) {
             holder.itemSymbol.setText(getString(R.string.str_osmosis_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), OSMOSIS_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Osmosis Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_osmosis));
@@ -692,7 +695,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_ION)) {
             holder.itemSymbol.setText(getString(R.string.str_uion_c));
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorIon));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Ion Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
 
@@ -703,7 +706,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_IOV)) {
             holder.itemSymbol.setText(getString(R.string.str_iov_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IOV_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Starname Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_token_img));
@@ -715,7 +718,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_SIF)) {
             holder.itemSymbol.setText(getString(R.string.str_sif_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SIF_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Sif Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
@@ -727,7 +730,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_MEDI)) {
             holder.itemSymbol.setText(getString(R.string.str_medi_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), MEDI_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Medibloc Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenmedibloc));
@@ -739,7 +742,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_RIZON)) {
             holder.itemSymbol.setText(getString(R.string.str_rizon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), RIZON_TEST));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Rizon Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_rizon));
@@ -751,7 +754,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_ALTHEA)) {
             holder.itemSymbol.setText(getString(R.string.str_althea_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), ALTHEA_TEST));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Althea Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenalthea));
@@ -763,7 +766,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Stargate Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
@@ -775,7 +778,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_IRIS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_bif_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IRIS_TEST));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Bifrost Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
@@ -810,14 +813,14 @@ public class MainTokensFragment extends BaseFragment {
         if (ibcToken == null) {
             holder.itemSymbol.setText("Unknown");
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText(coin.denom);
+            holder.itemFullName.setText("");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
         } else {
             holder.itemSymbol.setText(ibcToken.display_denom.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + ibcToken.base_denom + ")");
-            holder.itemFullName.setText(coin.denom);
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText(ibcToken.channel_id);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), ibcToken.decimal, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), ibcToken.base_denom, new BigDecimal(coin.amount), ibcToken.decimal));
             try {
@@ -842,14 +845,14 @@ public class MainTokensFragment extends BaseFragment {
         if (ibcToken == null) {
             holder.itemSymbol.setText("Unknown");
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText(coin.denom);
+            holder.itemFullName.setText("");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
         } else {
             holder.itemSymbol.setText("Unknown");
-            holder.itemInnerSymbol.setText("(" + ibcToken.base_denom + ")");
-            holder.itemFullName.setText(coin.denom);
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText(ibcToken.channel_id);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 6));
@@ -886,13 +889,28 @@ public class MainTokensFragment extends BaseFragment {
         });
     }
 
+    //with Cosmos Gravity Dex gRpc
+    private void onBindGravityDexToken(TokensAdapter.AssetHolder holder, int position) {
+        final Coin coin = mGravityDexGrpc.get(position);
+        Picasso.get().load(COSMOS_COIN_IMG_URL+"gravitydex.png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
+        holder.itemInnerSymbol.setText("");
+        Liquidity.Pool poolInfo = getBaseDao().getGravityPoolByDenom(coin.denom);
+        if (poolInfo != null) {
+            holder.itemSymbol.setText("GDEX-" + poolInfo.getId());
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemFullName.setText("pool/" + poolInfo.getId());
+        }
+    }
+
     //with Sif Erc gRPC
     private void onBindSifToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mSifEtherGrpc.get(position);
         final int dpDecimal = WUtil.getSifCoinDecimal(coin.denom);
         holder.itemSymbol.setText(coin.denom.substring(1).toUpperCase());
         holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-        holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+        holder.itemInnerSymbol.setText("");
         holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on Sif Chain");
         Picasso.get().load(SIF_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
 
@@ -908,18 +926,6 @@ public class MainTokensFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-    }
-
-    //with Cosmos Gravity Dex gRpc
-    private void onBindGravityDexToken(TokensAdapter.AssetHolder holder, int position) {
-        final Coin coin = mGravityDexGrpc.get(position);
-        Picasso.get().load(COSMOS_COIN_IMG_URL+"gravitydex.png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-        holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-        holder.itemSymbol.setText(coin.denom.substring(0, 11).toUpperCase() + "...");
-        holder.itemInnerSymbol.setText("");
-        holder.itemFullName.setText("Gravity Token");
-        holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
-        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
     }
 
     //with Unknown Token gRPC
