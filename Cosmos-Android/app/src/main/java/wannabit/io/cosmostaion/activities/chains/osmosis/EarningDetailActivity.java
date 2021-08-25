@@ -1,7 +1,12 @@
 package wannabit.io.cosmostaion.activities.chains.osmosis;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,15 +45,22 @@ import wannabit.io.cosmostaion.widget.osmosis.EarningUnbondedHolder;
 import wannabit.io.cosmostaion.widget.osmosis.EarningUnbondingHolder;
 
 public class EarningDetailActivity extends BaseActivity implements View.OnClickListener {
-    private Toolbar mToolbar;
-    private RecyclerView mRecyclerView;
-    private Button mBtnNewEarning;
-    private TextView mPoolIdTv;
-    private TextView mPoolCoinPairTv;
-    private TextView mPoolAprsTv1, mPoolAprsTv7, mPoolAprsTv14;
-    private TextView mAvailableAmountTv, mAvailableDenomTv, mAvailableValueTv;
+    private static final int                    TYPE_BONDED        = 1;
+    private static final int                    TYPE_UNBONDING     = 2;
+    private static final int                    TYPE_UNBONDED      = 3;
 
-    private EarningDetailsAdapter mAdapter;
+    private int                                 mSection;          // section 구분
+
+    private Toolbar                             mToolbar;
+    private RecyclerView                        mRecyclerView;
+    private Button                              mBtnNewEarning;
+    private TextView                            mPoolIdTv;
+    private TextView                            mPoolCoinPairTv;
+    private TextView                            mPoolAprsTv1, mPoolAprsTv7, mPoolAprsTv14;
+    private TextView                            mAvailableAmountTv, mAvailableDenomTv, mAvailableValueTv;
+
+    private EarningDetailsAdapter               mAdapter;
+    private RecyclerViewHeader                  mRecyclerViewHeader;
 
     private PoolOuterClass.Pool                 mPool;
     private ArrayList<GaugeOuterClass.Gauge>    mGauges;
@@ -134,7 +146,31 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         mAdapter = new EarningDetailsAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
+        mRecyclerViewHeader = new RecyclerViewHeader(EarningDetailActivity.this, true, getSectionCall());
+        mRecyclerView.addItemDecoration(mRecyclerViewHeader);
+
         mBtnNewEarning.setOnClickListener(this);
+    }
+
+    private SectionCallback getSectionCall() {
+        return new SectionCallback() {
+            @Override
+            public boolean isSection(int position) {
+                return position == 0 || position == mBondedList.size() || position == mBondedList.size() + mUnbondingList.size();
+            }
+
+            @Override
+            public String SecitonHeader(ArrayList<Lock.PeriodLock> lockArrayList, int section) {
+                if (section == TYPE_BONDED) {
+                    return getString(R.string.str_earing_bonded_header);
+                } else if (section == TYPE_UNBONDING) {
+                    return getString(R.string.str_earing_unbonding_header);
+                } else if (section == TYPE_UNBONDED) {
+                    return getString(R.string.str_earing_unbonded_header);
+                }
+                return getString(R.string.str_unknown_token_title);
+            }
+        };
     }
 
     @Override
@@ -263,9 +299,6 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
 
 
     private class EarningDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_BONDED        = 1;
-        private static final int TYPE_UNBONDING     = 2;
-        private static final int TYPE_UNBONDED      = 3;
 
         @NonNull
         @Override
@@ -316,5 +349,116 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
                 return TYPE_UNBONDED;
             }
         }
+    }
+
+    // Section Header
+    public class RecyclerViewHeader extends RecyclerView.ItemDecoration {
+        private final int topPadding;
+
+        private final boolean sticky;
+        private final SectionCallback sectionCallback;
+
+        private View headerView;
+        private TextView mHeaderTitle;
+        private TextView mItemCnt;
+
+        public RecyclerViewHeader(Context context, boolean sticky, @NonNull SectionCallback sectionCallback) {
+            this.sticky = sticky;
+            this.sectionCallback = sectionCallback;
+
+            topPadding = dpToPx(context, 26);
+        }
+
+        // dp -> pixel 단위로 변경
+        private int dpToPx(Context context, int dp) {
+            return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
+        }
+
+        @Override
+        public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+            super.onDrawOver(c, parent, state);
+
+            if (headerView == null) {
+                headerView = inflateHeaderView(parent);
+                mHeaderTitle = (TextView) headerView.findViewById(R.id.header_title);
+                mItemCnt = (TextView) headerView.findViewById(R.id.recycler_cnt);
+                fixLayoutSize(headerView, parent);
+            }
+
+            String previousHeader = "";
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                View child = parent.getChildAt(i);
+                final int position = parent.getChildAdapterPosition(child);
+                if (position == RecyclerView.NO_POSITION) {
+                    return;
+                }
+
+                String title = "";
+                mSection = parent.getAdapter().getItemViewType(position);
+                if (mSection == TYPE_BONDED) {
+                    title = sectionCallback.SecitonHeader(mBondedList, mSection);
+                    mItemCnt.setText("" + mBondedList.size());
+                } else if (mSection == TYPE_UNBONDING) {
+                    title = sectionCallback.SecitonHeader(mUnbondingList, mSection);
+                    mItemCnt.setText("" + mUnbondingList.size());
+                } else if (mSection == TYPE_UNBONDED) {
+                    title = sectionCallback.SecitonHeader(mUnbondedList, mSection);
+                    mItemCnt.setText("" + mUnbondedList.size());
+                }
+                mHeaderTitle.setText(title);
+                if (!previousHeader.equals(title) || sectionCallback.isSection(position)) {
+                    drawHeader(c, child, headerView);
+                    previousHeader = title;
+                }
+            }
+        }
+
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+            super.getItemOffsets(outRect, view, parent, state);
+
+            int position = parent.getChildAdapterPosition(view);
+            if (sectionCallback.isSection(position)) {
+                outRect.top = topPadding;
+            }
+        }
+
+        private void drawHeader(Canvas c, View child, View headerView) {
+            c.save();
+            if (sticky) {
+                c.translate(0, Math.max(0, child.getTop() - headerView.getHeight()));
+            } else {
+                c.translate(0, child.getTop() - headerView.getHeight());
+            }
+            headerView.draw(c);
+            c.restore();
+        }
+
+        private View inflateHeaderView(RecyclerView parent) {
+            return LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sticky_header, parent, false);
+        }
+
+        private void fixLayoutSize(View view, ViewGroup parent) {
+            int widthSpec = View.MeasureSpec.makeMeasureSpec(parent.getWidth(),
+                    View.MeasureSpec.EXACTLY);
+            int heightSpec = View.MeasureSpec.makeMeasureSpec(parent.getHeight(),
+                    View.MeasureSpec.UNSPECIFIED);
+
+            int childWidth = ViewGroup.getChildMeasureSpec(widthSpec,
+                    parent.getPaddingLeft() + parent.getPaddingRight(),
+                    view.getLayoutParams().width);
+            int childHeight = ViewGroup.getChildMeasureSpec(heightSpec,
+                    parent.getPaddingTop() + parent.getPaddingBottom(),
+                    view.getLayoutParams().height);
+
+            view.measure(childWidth, childHeight);
+
+            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        }
+    }
+
+    public interface SectionCallback {
+        boolean isSection(int position);
+        String SecitonHeader(ArrayList<Lock.PeriodLock> lockArrayList, int section);
     }
 }

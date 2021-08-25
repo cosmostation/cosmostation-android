@@ -1243,6 +1243,9 @@
     <string name="str_osmosis_start_unlock_step_3">입력하신 정보를 확인하세요</string>
     <string name="str_osmosis_to_unlock_id">To UnLock ID</string>
     <string name="str_osmosis_to_unlock_amount">To UnLock Amount</string>
+    <string name="str_earing_bonded_header">Bonded</string>
+    <string name="str_earing_unbonding_header">Unbonding</string>
+    <string name="str_earing_unbonded_header">Unbonded</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
