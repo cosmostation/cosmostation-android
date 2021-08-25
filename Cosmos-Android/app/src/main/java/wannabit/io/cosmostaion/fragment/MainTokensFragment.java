@@ -191,26 +191,31 @@ public class MainTokensFragment extends BaseFragment {
             public boolean isSection(BaseChain baseChain, int position) {
                 if (baseChain.equals(OSMOSIS_MAIN)) {
                     return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size()
-                            || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mOsmosisPoolGrpc.size();
+                            || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mOsmosisPoolGrpc.size()
+                            || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mOsmosisPoolGrpc.size() + mIbcUnknownGrpc.size();
 
                 } else if (baseChain.equals(COSMOS_MAIN)) {
-                    if (mIbcAuthedGrpc != null) {
-                        return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size()
-                        || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size();
-                    }
+                    return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size()
+                            || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mGravityDexGrpc.size()
+                            || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mGravityDexGrpc.size() + mIbcUnknownGrpc.size();
+
                 } else if (baseChain.equals(SIF_MAIN)) {
-                    return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mSifEtherGrpc.size();
+                    return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size()
+                            || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mSifEtherGrpc.size()
+                            || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mSifEtherGrpc.size() + mIbcUnknownGrpc.size();
 
                 } else if (isGRPC(baseChain)){
-                    return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size();
+                    return position == 0 || position == mNativeGrpc.size() || position == mNativeGrpc.size() + mIbcAuthedGrpc.size()
+                            || position == mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size();
+
                 }
 
                 else if (baseChain.equals(KAVA_MAIN)) {
                     return position == 0 || position == mNative.size() || position == mNative.size() + mKavaBep2.size();
+
                 } else {
                     return position == 0 || position == mNative.size();
                 }
-                return position == 0;
             }
 
             // 헤더 제목 조건
@@ -422,14 +427,14 @@ public class MainTokensFragment extends BaseFragment {
             } else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 if (getItemViewType(position) == SECTION_NATIVE_GRPC) {
                     onNativeGrpcItem(viewHolder, position);
-                } else if (getItemViewType(position) == SECTION_SIF_ETHER_GRPC) {
-                    onBindSifToken(viewHolder, position - mNativeGrpc.size());
                 } else if (getItemViewType(position) == SECTION_IBC_AUTHED_GRPC) {
-                    onBindIbcAuthToken(viewHolder, position - mNativeGrpc.size() - mSifEtherGrpc.size());
-                } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
-                    onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mSifEtherGrpc.size() - mIbcAuthedGrpc.size());
+                    onBindIbcAuthToken(viewHolder, position - mNativeGrpc.size());
+                } else if (getItemViewType(position) == SECTION_SIF_ETHER_GRPC) {
+                    onBindSifToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
+                }  else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
+                    onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mSifEtherGrpc.size());
                 } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
-                    onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mSifEtherGrpc.size() - mIbcAuthedGrpc.size() - mIbcUnknownGrpc.size());
+                    onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mSifEtherGrpc.size() - mIbcUnknownGrpc.size());
                 }
 
             } else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
@@ -437,12 +442,12 @@ public class MainTokensFragment extends BaseFragment {
                     onNativeGrpcItem(viewHolder, position);
                 } else if (getItemViewType(position) == SECTION_IBC_AUTHED_GRPC) {
                     onBindIbcAuthToken(viewHolder, position - mNativeGrpc.size());
-                } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
-                    onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
                 } else if (getItemViewType(position) == SECTION_GRAVICTY_DEX_GRPC){
-                    onBindGravityDexToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mIbcUnknownGrpc.size());
+                    onBindGravityDexToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size());
+                } else if (getItemViewType(position) == SECTION_IBC_UNKNOWN_GRPC) {
+                    onBindIbcUnknownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mGravityDexGrpc.size());
                 } else if (getItemViewType(position) == SECTION_UNKNOWN_GRPC){
-                    onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mIbcUnknownGrpc.size() - mGravityDexGrpc.size());
+                    onBindUnKnownToken(viewHolder, position - mNativeGrpc.size() - mIbcAuthedGrpc.size() - mGravityDexGrpc.size() - mIbcUnknownGrpc.size());
                 }
 
             } else if (isGRPC(getMainActivity().mBaseChain)) {
@@ -512,13 +517,13 @@ public class MainTokensFragment extends BaseFragment {
             } else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 if (position < mNativeGrpc.size()) {
                     return SECTION_NATIVE_GRPC;
-                } else if (position < mNativeGrpc.size() + mSifEtherGrpc.size()) {
-                    return SECTION_SIF_ETHER_GRPC;
-                } else if (position < mNativeGrpc.size() + mSifEtherGrpc.size() + mIbcAuthedGrpc.size()) {
+                }  else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size()) {
                     return SECTION_IBC_AUTHED_GRPC;
-                } else if (position < mNativeGrpc.size() + mSifEtherGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size()) {
+                }  else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mSifEtherGrpc.size()) {
+                    return SECTION_SIF_ETHER_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mSifEtherGrpc.size() + mIbcUnknownGrpc.size()) {
                     return SECTION_IBC_UNKNOWN_GRPC;
-                } else if (position < mNativeGrpc.size() + mSifEtherGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size() + mUnknownGrpc.size()) {
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mSifEtherGrpc.size() + mIbcUnknownGrpc.size() + mUnknownGrpc.size()) {
                     return SECTION_UNKNOWN_GRPC;
                 }
 
@@ -527,11 +532,11 @@ public class MainTokensFragment extends BaseFragment {
                     return SECTION_NATIVE_GRPC;
                 } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size()) {
                     return SECTION_IBC_AUTHED_GRPC;
-                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size()) {
-                    return SECTION_IBC_UNKNOWN_GRPC;
-                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size() + mGravityDexGrpc.size()) {
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mGravityDexGrpc.size()) {
                     return SECTION_GRAVICTY_DEX_GRPC;
-                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mIbcUnknownGrpc.size() + mGravityDexGrpc.size() + mUnknownGrpc.size()) {
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mGravityDexGrpc.size() + mIbcUnknownGrpc.size()) {
+                    return SECTION_IBC_UNKNOWN_GRPC;
+                } else if (position < mNativeGrpc.size() + mIbcAuthedGrpc.size() + mGravityDexGrpc.size() + mIbcUnknownGrpc.size() + mUnknownGrpc.size()) {
                     return SECTION_UNKNOWN_GRPC;
                 }
 
@@ -554,6 +559,8 @@ public class MainTokensFragment extends BaseFragment {
                     return SECTION_KAVA_BEP2;
                 } else if (position < mNative.size() + mKavaBep2.size() + mEtc.size()) {
                     return SECTION_ETC;
+                } else if (position < mNative.size() + mKavaBep2.size() + mEtc.size() + mUnKnown.size()) {
+                    return SECTION_UNKNOWN;
                 }
 
             } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
@@ -562,9 +569,15 @@ public class MainTokensFragment extends BaseFragment {
                         return SECTION_NATIVE;
                     } else if (position < mNative.size() + mEtc.size()) {
                         return SECTION_ETC;
+                    } else if (position < mNative.size() + mEtc.size() + mUnKnown.size()) {
+                        return SECTION_UNKNOWN;
                     }
                 } else {
-                    return SECTION_ETC;
+                    if (position < mEtc.size()) {
+                        return SECTION_ETC;
+                    } else if (position < mEtc.size() + mUnKnown.size()) {
+                        return SECTION_UNKNOWN;
+                    }
                 }
 
             } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
@@ -573,6 +586,14 @@ public class MainTokensFragment extends BaseFragment {
                         return SECTION_NATIVE;
                     } else if (position < mNative.size() + mEtc.size()) {
                         return SECTION_ETC;
+                    } else if (position < mNative.size() + mEtc.size() + mUnKnown.size()) {
+                        return SECTION_UNKNOWN;
+                    }
+                } else {
+                    if (position < mEtc.size()) {
+                        return SECTION_ETC;
+                    } else if (position < mEtc.size() + mUnKnown.size()) {
+                        return SECTION_UNKNOWN;
                     }
                 }
             } else {
@@ -661,12 +682,6 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_XPRT);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-//            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    startActivity(new Intent(getMainActivity(), StakingTokenGrpcActivity.class));
-//                }
-//            });
 
         } else if (coin.denom.equals(TOKEN_CRO)) {
             holder.itemSymbol.setText(getString(R.string.str_cro_c));
