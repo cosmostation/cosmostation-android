@@ -320,6 +320,18 @@ public class BaseData {
         return null;
     }
 
+    public BigDecimal getTokenAmount(ArrayList<Balance> balances, String symbol) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (balances != null) {
+            for (Balance balance: balances) {
+                if (balance.symbol.equalsIgnoreCase(symbol)) {
+                    result = balance.balance;
+                }
+            }
+        }
+        return result;
+    }
+
     public BigDecimal okDepositAmount() {
         BigDecimal sum = BigDecimal.ZERO;
         if (mOkStaking != null && !TextUtils.isEmpty(mOkStaking.tokens)) {
@@ -1016,13 +1028,12 @@ public class BaseData {
         ArrayList<Account> AllAccount = onSelectAccounts();
         for (Account account:AllAccount) {
             if (BaseChain.getChain(account.baseChain).equals(chain) && account.hasPrivateKey) {
-                if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-                    result.add(account);
-
-                } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-                    if (availableAmount(TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
+                if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+                    if (getTokenAmount(account.balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
                         result.add(account);
                     }
+                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+                    result.add(account);
                 }
             }
         }

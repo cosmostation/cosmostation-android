@@ -1308,7 +1308,7 @@
     <string name="error_not_enought_principal_asset">USDX가 충분하지 않아 상환할 수 없습니다.</string>
     <string name="error_can_not_repay">지금은 상환할 수 없습니다. USDX가 더 필요합니다.</string>
     <string name="error_can_not_bep3_account_title">수신 가능한 %1$s 지갑 없음</string>
-    <string name="error_can_not_bep3_account_msg">인터체인 수신 받을 수 있는 %1$s의 유효한(개인키 포함) 지갑이 필요합니다. 수신할 지갑은 인터체인 받기용 수수료 0.000375BNB 이상의 발란스를 가지고 있는 지갑이어야 합니다.</string>
+    <string name="error_can_not_bep3_account_msg">인터체인 수신 받을 수 있는 %1$s의 유효한(개인키 포함) 지갑이 필요합니다. 수신할 지갑은 인터체인 받기용 수수료 0.000075BNB 이상의 발란스를 가지고 있는 지갑이어야 합니다.</string>
     <string name="error_can_not_bep3_account_msg2">인터체인 수신 받을 수 있는 %1$s의 유효한(개인키 포함) 지갑이 필요합니다.</string>
     <string name="error_select_account_to_recipient">받을 계정을 선택해 주세요.</string>
     <string name="error_no_more_faucet">이미 충분한 테스트 코인이 있네요.</string>

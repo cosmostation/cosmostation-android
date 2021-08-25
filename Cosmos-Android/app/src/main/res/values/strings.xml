@@ -1545,7 +1545,7 @@
     <string name="error_not_enought_principal_asset">Not enough USDX to repay.</string>
     <string name="error_can_not_repay">Cannot repay now. You need more USDX to Repay.</string>
     <string name="error_can_not_bep3_account_title">No valid account at %1$s</string>
-    <string name="error_can_not_bep3_account_msg">In order to receive interchain transfer,\nyou must create a valid(with private key) %1$s account and deposit at least 0.000375BNB for claim transaction fee.</string>
+    <string name="error_can_not_bep3_account_msg">In order to receive interchain transfer,\nyou must create a valid(with private key) %1$s account and deposit at least 0.000075BNB for claim transaction fee.</string>
     <string name="error_can_not_bep3_account_msg2">In order to receive interchain transfer,\nyou must create a valid(with private key) %1$s account wallet.</string>
     <string name="error_select_account_to_recipient">Please select account to receive</string>
     <string name="error_no_more_faucet">Alreay have enought test coin.</string>
