@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.Tx;
+import osmosis.lockup.Lock;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonDetailActivity;
@@ -67,9 +68,12 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteDomainGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisBeginUnbondingGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisExitPooGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisJoinPoolGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisStartLockGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisSwapInTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisUnLockGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ReInvestGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RedelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RegisterAccountGrpcTask;
@@ -81,6 +85,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.UndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
+import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -110,9 +115,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EARNING;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_UNLOCK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
@@ -205,6 +213,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Tx.SwapAmountInRoute        mSwapAmountInRoute;
     private Coin                        mOsmoSwapInCoin;
     private Coin                        mOsmoSwapOutCoin;
+    private long                        mOsmosisLockupDuration;
+    private ArrayList<Lock.PeriodLock>  mOsmosisLockups = new ArrayList<>();
+
 
     private String                      mHdacBurnRawTx;                 //for hdac burn & swap
 
@@ -292,6 +303,12 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mLpToken = getIntent().getParcelableExtra("mLpToken");
         mOsmoSwapInCoin = getIntent().getParcelableExtra("osmosisSwapInputCoin");
         mOsmoSwapOutCoin = getIntent().getParcelableExtra("osmosisSwapOutputcoin");
+        mOsmosisLockupDuration = getIntent().getLongExtra("mOsmoDuraion", 0);
+        OsmosisPeriodLockWrapper lockupsWrapper = (OsmosisPeriodLockWrapper) getIntent().getSerializableExtra("osmosislockups");
+        if (lockupsWrapper != null) {
+            mOsmosisLockups = lockupsWrapper.array;
+        }
+
         try {
             mSwapAmountInRoute = Tx.SwapAmountInRoute.parseFrom(getIntent().getByteArrayExtra("osmosisSwapRoute"));
         } catch (Exception e) { WLog.w("Passing bundle Error"); }
@@ -594,6 +611,25 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             new OsmosisExitPooGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mOsmoPoolCoin0, mOsmoPoolCoin1, mLpToken.amount,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
+        } else if (mPurpose == CONST_PW_TX_OSMOSIS_EARNING) {
+            new OsmosisStartLockGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mOsmosisLockupDuration, mLpToken,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING) {
+            ArrayList<Long> tempList = new ArrayList<>();
+            for (Lock.PeriodLock lockup: mOsmosisLockups) {
+                tempList.add(lockup.getID());
+            }
+            new OsmosisBeginUnbondingGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, tempList,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_OSMOSIS_UNLOCK) {
+            ArrayList<Long> tempList = new ArrayList<>();
+            for (Lock.PeriodLock lockup: mOsmosisLockups) {
+                tempList.add(lockup.getID());
+            }
+            new OsmosisUnLockGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, tempList,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
         }
 
         else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {

@@ -63,13 +63,6 @@
                 </LinearLayout>
             </RelativeLayout>
 
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorGray3"
-                android:layout_marginTop="@dimen/space_16"/>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -142,12 +135,6 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="@dimen/space_16"
-                android:background="@color/colorGray3"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
