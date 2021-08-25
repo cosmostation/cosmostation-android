@@ -1465,6 +1465,14 @@
     <string name="str_osmosis_start_lock_step_3">Check transaction detail</string>
     <string name="str_osmosis_to_lock_coin">To Lock Coin</string>
     <string name="str_osmosis_unbonding_duraion">Unbonding Duration</string>
+    <string name="str_title_start_unbonding_osmosis">Begin Unbonding</string>
+    <string name="str_osmosis_start_unbonding_step_0">Insert amount to lock</string>
+    <string name="str_osmosis_start_unbonding_step_1">Insert memo (optional)</string>
+    <string name="str_osmosis_start_unbonding_step_2">Select transaction fee</string>
+    <string name="str_osmosis_start_unbonding_step_3">Check transaction detail</string>
+    <string name="str_osmosis_to_unbonding_id">To Unbonding ID</string>
+    <string name="str_osmosis_to_unbonding_amount">To Unbonding Amount</string>
+    <string name="str_osmosis_unbonding_duration">Unbonding Duration</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
