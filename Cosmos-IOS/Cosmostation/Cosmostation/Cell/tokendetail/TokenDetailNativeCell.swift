@@ -69,6 +69,15 @@ class TokenDetailNativeCell: TokenDetailCell {
             let total = BaseData.instance.getAvailableAmount_gRPC(denom!)
             totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, divideDecimal, displayDecimal)
             availableAmount.attributedText = WUtils.displayAmount2(total.stringValue, availableAmount.font, divideDecimal, displayDecimal)
+            
+        } else if (chainType! == ChainType.COSMOS_MAIN) {
+            divideDecimal = 6
+            displayDecimal = 6
+
+            let total = BaseData.instance.getAvailableAmount_gRPC(denom!)
+            totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, divideDecimal, displayDecimal)
+            availableAmount.attributedText = WUtils.displayAmount2(total.stringValue, availableAmount.font, divideDecimal, displayDecimal)
+            
         }
     }
     

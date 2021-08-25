@@ -83,6 +83,8 @@ final class BaseData : NSObject{
     var mStarNameFee_gRPC: Starnamed_X_Configuration_V1beta1_Fees?
     var mStarNameConfig_gRPC: Starnamed_X_Configuration_V1beta1_Config?
     
+    var mGravityPools_gRPC = Array<Tendermint_Liquidity_V1beta1_Pool>()
+    
     public override init() {
         super.init();
         if database == nil {
@@ -427,6 +429,9 @@ final class BaseData : NSObject{
         return NSDecimalNumber.zero
     }
     
+    func getGravityPoolByDenom(_ denom: String) -> Tendermint_Liquidity_V1beta1_Pool?{
+        return mGravityPools_gRPC.filter { $0.poolCoinDenom == denom }.first
+    }
     
     
     func setRecentAccountId(_ id : Int64) {

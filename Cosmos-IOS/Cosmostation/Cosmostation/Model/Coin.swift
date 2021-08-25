@@ -56,4 +56,11 @@ public struct Coin: Codable {
         let id =  denom.replacingOccurrences(of: "gamm/pool/", with: "")
         return Int(id) ?? 0
     }
+    
+    func isGravityAmm() -> Bool {
+        if (denom.starts(with: "pool") && denom.count >= 68) {
+            return true
+        }
+        return false
+    }
 }

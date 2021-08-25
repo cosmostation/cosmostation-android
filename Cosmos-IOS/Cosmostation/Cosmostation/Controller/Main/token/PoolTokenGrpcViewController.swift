@@ -60,6 +60,14 @@ class PoolTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITa
             poolDivideDecimal = 18
             poolDisplayDecimal = 18
             totalAmount = BaseData.instance.getAvailableAmount_gRPC(poolDenom)
+            
+        } else if (chainType == ChainType.COSMOS_MAIN) {
+            guard let poolInfo = BaseData.instance.getGravityPoolByDenom(poolDenom) else {
+                return
+            }
+            naviTokenImg.image = UIImage(named: "tokenGravitydex")
+            naviTokenSymbol.text = "GDEX-" + String(poolInfo.id)
+            
         }
         
         self.naviPerPrice.attributedText = WUtils.dpPerUserCurrencyValue(poolDenom, naviPerPrice.font)
@@ -112,11 +120,7 @@ class PoolTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITa
         } else {
             nickName = account?.account_nick_name
         }
-        var address = account!.account_address
-        if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
-            address = WKey.convertAddressOkexToEth(address)
-        }
-        self.shareAddress(address, nickName!)
+        self.shareAddress(account!.account_address, nickName!)
     }
     
     
@@ -129,23 +133,24 @@ class PoolTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @IBAction func onClickSend(_ sender: UIButton) {
-        if (!account!.account_has_private) {
-            self.onShowAddMenomicDialog()
-            return
-        }
-        
-        let stakingDenom = WUtils.getMainDenom(chainType)
-        let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-        if (BaseData.instance.getAvailableAmount_gRPC(stakingDenom).compare(feeAmount).rawValue <= 0) {
-            self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-            return
-        }
-        
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mToSendDenom = poolDenom
-        txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-        txVC.hidesBottomBarWhenPushed = true
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(txVC, animated: true)
+        self.onShowToast(NSLocalizedString("prepare", comment: ""))
+//        if (!account!.account_has_private) {
+//            self.onShowAddMenomicDialog()
+//            return
+//        }
+//
+//        let stakingDenom = WUtils.getMainDenom(chainType)
+//        let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+//        if (BaseData.instance.getAvailableAmount_gRPC(stakingDenom).compare(feeAmount).rawValue <= 0) {
+//            self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+//            return
+//        }
+//
+//        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+//        txVC.mToSendDenom = poolDenom
+//        txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
+//        txVC.hidesBottomBarWhenPushed = true
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(txVC, animated: true)
     }
 }

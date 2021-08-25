@@ -15,7 +15,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     let SECTION_NATIVE_GRPC             = 0;
     let SECTION_IBC_AUTHED_GRPC         = 1;
-    let SECTION_OSMOSIS_POOL_GRPC       = 2;
+    let SECTION_POOL_TOKEN_GRPC         = 2;
     let SECTION_SIF_ETHER_GRPC          = 3;
     let SECTION_IBC_UNKNOWN_GRPC        = 4;
     let SECTION_UNKNOWN_GRPC            = 5;
@@ -48,7 +48,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     var mNative_gRPC = Array<Coin>()                // section 0
     var mIbcAuthed_gRPC = Array<Coin>()             // section 1
-    var mOsmosisPool_gRPC = Array<Coin>()           // section 2
+    var mPoolToken_gRPC = Array<Coin>()             // section 2
     var mSifEther_gRPC = Array<Coin>()              // section 3
     var mIbcUnknown_gRPC = Array<Coin>()            // section 4
     var mUnKnown_gRPC = Array<Coin>()               // section 5
@@ -281,7 +281,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if (section == SECTION_NATIVE_GRPC && mNative_gRPC.count == 0) { return 0 }
         else if (section == SECTION_IBC_AUTHED_GRPC && mIbcAuthed_gRPC.count == 0) { return 0 }
-        else if (section == SECTION_OSMOSIS_POOL_GRPC && mOsmosisPool_gRPC.count == 0) { return 0 }
+        else if (section == SECTION_POOL_TOKEN_GRPC && mPoolToken_gRPC.count == 0) { return 0 }
         else if (section == SECTION_SIF_ETHER_GRPC && mSifEther_gRPC.count == 0) { return 0 }
         else if (section == SECTION_IBC_UNKNOWN_GRPC && mIbcUnknown_gRPC.count == 0) { return 0 }
         else if (section == SECTION_UNKNOWN_GRPC && mUnKnown_gRPC.count == 0) { return 0 }
@@ -297,7 +297,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         let view = CommonHeader(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         if (section == SECTION_NATIVE_GRPC) { view.headerTitleLabel.text = "Native Tokens"; view.headerCntLabel.text = String(self.mNative_gRPC.count) }
         else if (section == SECTION_IBC_AUTHED_GRPC) { view.headerTitleLabel.text = "IBC Tokens"; view.headerCntLabel.text = String(self.mIbcAuthed_gRPC.count) }
-        else if (section == SECTION_OSMOSIS_POOL_GRPC) { view.headerTitleLabel.text = "POOL Tokens"; view.headerCntLabel.text = String(self.mOsmosisPool_gRPC.count)}
+        else if (section == SECTION_POOL_TOKEN_GRPC) { view.headerTitleLabel.text = "Pool Tokens"; view.headerCntLabel.text = String(self.mPoolToken_gRPC.count)}
         else if (section == SECTION_SIF_ETHER_GRPC) { view.headerTitleLabel.text = "Ether Bridged Tokens"; view.headerCntLabel.text = String(self.mSifEther_gRPC.count) }
         else if (section == SECTION_IBC_UNKNOWN_GRPC) { view.headerTitleLabel.text = "Unknown IBC Tokens"; view.headerCntLabel.text = String(self.mIbcUnknown_gRPC.count) }
         else if (section == SECTION_UNKNOWN_GRPC) { view.headerTitleLabel.text = "Unknown Tokens"; view.headerCntLabel.text = String(self.mUnKnown_gRPC.count) }
@@ -313,7 +313,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == SECTION_NATIVE_GRPC) { return mNative_gRPC.count }
         else if (section == SECTION_IBC_AUTHED_GRPC) { return mIbcAuthed_gRPC.count }
-        else if (section == SECTION_OSMOSIS_POOL_GRPC) { return mOsmosisPool_gRPC.count }
+        else if (section == SECTION_POOL_TOKEN_GRPC) { return mPoolToken_gRPC.count }
         else if (section == SECTION_SIF_ETHER_GRPC) { return mSifEther_gRPC.count }
         else if (section == SECTION_IBC_UNKNOWN_GRPC) { return mIbcUnknown_gRPC.count }
         else if (section == SECTION_UNKNOWN_GRPC) { return mUnKnown_gRPC.count }
@@ -333,8 +333,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (indexPath.section == SECTION_IBC_AUTHED_GRPC) {
             onBindIbcToken_gRPC(cell, mIbcAuthed_gRPC[indexPath.row])
             
-        } else if (indexPath.section == SECTION_OSMOSIS_POOL_GRPC) {
-            onBindOsmoPoolToken_gRPC(cell, mOsmosisPool_gRPC[indexPath.row])
+        } else if (indexPath.section == SECTION_POOL_TOKEN_GRPC) {
+            onBindPoolToken_gRPC(cell, mPoolToken_gRPC[indexPath.row])
             
         } else if (indexPath.section == SECTION_SIF_ETHER_GRPC) {
             onBindSifEtherToken_gRPC(cell, mSifEther_gRPC[indexPath.row])
@@ -395,9 +395,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(iTokenDetailVC, animated: true)
             
-        } else if (indexPath.section == SECTION_OSMOSIS_POOL_GRPC) {
+        } else if (indexPath.section == SECTION_POOL_TOKEN_GRPC) {
             let pTokenDetailVC = PoolTokenGrpcViewController(nibName: "PoolTokenGrpcViewController", bundle: nil)
-            pTokenDetailVC.poolDenom = mOsmosisPool_gRPC[indexPath.row].denom
+            pTokenDetailVC.poolDenom = mPoolToken_gRPC[indexPath.row].denom
             pTokenDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(pTokenDetailVC, animated: true)
@@ -455,7 +455,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "atom_ic")
             cell?.tokenSymbol.text = "ATOM"
             cell?.tokenSymbol.textColor = COLOR_ATOM
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Cosmos Staking Token"
             
             let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
@@ -466,7 +466,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "irisTokenImg")
             cell?.tokenSymbol.text = "IRIS"
             cell?.tokenSymbol.textColor = COLOR_IRIS
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Iris Staking Token"
             
             let allIris = WUtils.getAllMainAsset(IRIS_MAIN_DENOM)
@@ -477,7 +477,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "akashTokenImg")
             cell?.tokenSymbol.text = "AKT"
             cell?.tokenSymbol.textColor = COLOR_AKASH
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Akash Staking Token"
             
             let allAkt = WUtils.getAllMainAsset(AKASH_MAIN_DENOM)
@@ -488,7 +488,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "tokenpersistence")
             cell?.tokenSymbol.text = "XPRT"
             cell?.tokenSymbol.textColor = COLOR_PERSIS
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Persistence Staking Token"
             
             let allPersis = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
@@ -499,7 +499,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "tokencrypto")
             cell?.tokenSymbol.text = "CRO"
             cell?.tokenSymbol.textColor = COLOR_CRYPTO
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Crypto.org Staking Token"
             
             let allCro = WUtils.getAllMainAsset(CRYPTO_MAIN_DENOM)
@@ -510,7 +510,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "tokensentinel")
             cell?.tokenSymbol.text = "DVPN"
             cell?.tokenSymbol.textColor = COLOR_SENTINEL
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Sentinel Staking Token"
             
             let allDvpn = WUtils.getAllMainAsset(SENTINEL_MAIN_DENOM)
@@ -521,7 +521,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "tokenOsmosis")
             cell?.tokenSymbol.text = "OSMO"
             cell?.tokenSymbol.textColor = COLOR_OSMOSIS
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Osmosis Staking Token"
             
             let allOsmos = WUtils.getAllMainAsset(OSMOSIS_MAIN_DENOM)
@@ -532,7 +532,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "tokenIon")
             cell?.tokenSymbol.text = "ION"
             cell?.tokenSymbol.textColor = COLOR_ION
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Ion Token"
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(coin.amount, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(OSMOSIS_ION_DENOM, BaseData.instance.getAvailableAmount_gRPC(OSMOSIS_ION_DENOM), 6, cell!.tokenValue.font)
@@ -541,7 +541,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "iovTokenImg")
             cell?.tokenSymbol.text = "IOV"
             cell?.tokenSymbol.textColor = COLOR_IOV
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Starname Staking Token"
             
             let allIov = WUtils.getAllMainAsset(IOV_MAIN_DENOM)
@@ -552,7 +552,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "tokensifchain")
             cell?.tokenSymbol.text = "ROWAN"
             cell?.tokenSymbol.textColor = COLOR_SIF
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Sifchain Staking Token"
             
             let allSif = WUtils.getAllMainAsset(SIF_MAIN_DENOM)
@@ -563,7 +563,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "tokenRizon")
             cell?.tokenSymbol.text = "ATOLO"
             cell?.tokenSymbol.textColor = COLOR_RIZON
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Rizon Staking Token"
             
             let allCro = WUtils.getAllMainAsset(RIZON_MAIN_DENOM)
@@ -574,7 +574,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "tokenAlthea")
             cell?.tokenSymbol.text = "ALTG"
             cell?.tokenSymbol.textColor = COLOR_ALTHEA
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Althea Staking Token"
             
             let allAlthea = WUtils.getAllMainAsset(ALTHEA_MAIN_DENOM)
@@ -585,7 +585,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "tokenmedibloc")
             cell?.tokenSymbol.text = "MED"
             cell?.tokenSymbol.textColor = COLOR_MEDI
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Mediblock Staking Token"
 
             let allMed = WUtils.getAllMainAsset(MEDI_MAIN_DENOM)
@@ -597,7 +597,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "atom_ic")
             cell?.tokenSymbol.text = "MUON"
             cell?.tokenSymbol.textColor = COLOR_ATOM
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Stargate Staking Token"
             let allAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
             
@@ -608,7 +608,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "irisTokenImg")
             cell?.tokenSymbol.text = "BIF"
             cell?.tokenSymbol.textColor = COLOR_IRIS
-            cell?.tokenTitle.text = "(" + coin.denom + ")"
+            cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = "Bifrost Staking Token"
             
             let allIris = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
@@ -624,7 +624,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
             cell?.tokenSymbol.text = "UnKnown"
             cell?.tokenTitle.text = ""
-            cell?.tokenDescription.text = coin.denom
+            cell?.tokenDescription.text = ""
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(coin.amount, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(coin.denom, NSDecimalNumber.init(string: coin.amount), 6, cell!.tokenValue.font)
             return
@@ -632,30 +632,44 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         if (ibcToken.auth == true) {
             cell?.tokenImg.af_setImage(withURL: URL(string: ibcToken.moniker!)!)
             cell?.tokenSymbol.text = ibcToken.display_denom?.uppercased()
-            cell?.tokenTitle.text = "(" + ibcToken.base_denom! + ")"
-            cell?.tokenDescription.text = coin.denom
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = ibcToken.channel_id
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(coin.amount, cell!.tokenAmount.font, ibcToken.decimal!, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(ibcToken.base_denom!, NSDecimalNumber.init(string: coin.amount), ibcToken.decimal!, cell!.tokenValue.font)
             
         } else {
             cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
             cell?.tokenSymbol.text = "UnKnown"
-            cell?.tokenTitle.text = "(" + ibcToken.base_denom! + ")"
-            cell?.tokenDescription.text = coin.denom
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = ibcToken.channel_id
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(coin.amount, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(coin.denom, NSDecimalNumber.init(string: coin.amount), 6, cell!.tokenValue.font)
         }
     }
     
-    //bind osmosis Pool tokens with grpc
-    func onBindOsmoPoolToken_gRPC(_ cell: TokenCell?, _ coin: Coin) {
-        cell?.tokenImg.image = UIImage(named: "tokenPool")
-        cell?.tokenSymbol.text = coin.isOsmosisAmmDpDenom()
-        cell?.tokenSymbol.textColor = UIColor.white
-        cell?.tokenTitle.text = ""
-        cell?.tokenDescription.text = coin.denom
-        cell?.tokenAmount.attributedText = WUtils.displayAmount2(coin.amount, cell!.tokenAmount.font, 18, 6)
-        cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(coin.denom, NSDecimalNumber.init(string: coin.amount), 18, cell!.tokenValue.font)
+    //bind Pool tokens with grpc
+    func onBindPoolToken_gRPC(_ cell: TokenCell?, _ coin: Coin) {
+        if (chainType == ChainType.OSMOSIS_MAIN) {
+            cell?.tokenImg.image = UIImage(named: "tokenPool")
+            cell?.tokenSymbol.text = coin.isOsmosisAmmDpDenom()
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = coin.denom
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(coin.amount, cell!.tokenAmount.font, 18, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(coin.denom, NSDecimalNumber.init(string: coin.amount), 18, cell!.tokenValue.font)
+            
+        } else if (chainType == ChainType.COSMOS_MAIN) {
+            cell?.tokenImg.image = UIImage(named: "tokenGravitydex")
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(coin.amount, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(coin.denom, NSDecimalNumber.init(string: coin.amount), 6, cell!.tokenValue.font)
+            guard let poolInfo = BaseData.instance.getGravityPoolByDenom(coin.denom) else {
+                return
+            }
+            cell?.tokenSymbol.text = "GDEX-" + String(poolInfo.id)
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = "pool/" + String(poolInfo.id)
+        }
     }
     
     //bind Erc on SifChain with grpc
@@ -856,7 +870,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func onClassifyTokens() {
         mNative_gRPC.removeAll()
         mIbcAuthed_gRPC.removeAll()
-        mOsmosisPool_gRPC.removeAll()
+        mPoolToken_gRPC.removeAll()
         mSifEther_gRPC.removeAll()
         mIbcUnknown_gRPC.removeAll()
         
@@ -873,7 +887,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 else { mIbcUnknown_gRPC.append(balance_gRPC) }
                 
             } else if (chainType == ChainType.OSMOSIS_MAIN && balance_gRPC.isOsmosisAmm()) {
-                mOsmosisPool_gRPC.append(balance_gRPC)
+                mPoolToken_gRPC.append(balance_gRPC)
+                
+            } else if (chainType == ChainType.COSMOS_MAIN && balance_gRPC.isGravityAmm()) {
+                mPoolToken_gRPC.append(balance_gRPC)
                 
             } else if (chainType == ChainType.OSMOSIS_MAIN && balance_gRPC.denom == OSMOSIS_ION_DENOM) {
                 mNative_gRPC.append(balance_gRPC)
@@ -924,8 +941,15 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
             return false
         }
-        mOsmosisPool_gRPC.sort {
-            return $0.osmosisAmmPoolId() < $1.osmosisAmmPoolId()
+        mPoolToken_gRPC.sort {
+            if (chainType == ChainType.OSMOSIS_MAIN) {
+                return $0.osmosisAmmPoolId() < $1.osmosisAmmPoolId()
+            } else if (chainType == ChainType.COSMOS_MAIN) {
+                let id0 = BaseData.instance.getGravityPoolByDenom($0.denom)?.id ?? 0
+                let id1 = BaseData.instance.getGravityPoolByDenom($1.denom)?.id ?? 0
+                return id0 < id1
+            }
+            return false
         }
         mNative.sort {
             if ($0.balance_denom == WUtils.getMainDenom(chainType)) { return true }

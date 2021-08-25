@@ -215,6 +215,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mStarNameFee_gRPC = nil
         BaseData.instance.mStarNameConfig_gRPC = nil
         
+        BaseData.instance.mGravityPools_gRPC.removeAll()
+        
         if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
             self.mFetchCnt = 6
             onFetchNodeInfo()
@@ -294,10 +296,25 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBandOracleStatus()
             
         }
+        
+        else if (mChainType == ChainType.COSMOS_MAIN) {
+            self.mFetchCnt = 10
+            onFetchgRPCNodeInfo()
+            onFetchgRPCAuth(mAccount.account_address)
+            onFetchgRPCBondedValidators(0)
+            onFetchgRPCUnbondedValidators(0)
+            onFetchgRPCUnbondingValidators(0)
 
-
-        else if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.AKASH_MAIN ||
-                    mChainType == ChainType.PERSIS_MAIN || mChainType == ChainType.CRYPTO_MAIN || mChainType == ChainType.SENTINEL_MAIN || mChainType == ChainType.MEDI_MAIN) {
+            onFetchgRPCBalance(mAccount.account_address, 0)
+            onFetchgRPCDelegations(mAccount.account_address, 0)
+            onFetchgRPCUndelegations(mAccount.account_address, 0)
+            onFetchgRPCRewards(mAccount.account_address, 0)
+            
+            onFetchgRPCGravityPools()
+            
+        }
+        else if (mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.PERSIS_MAIN ||
+                    mChainType == ChainType.CRYPTO_MAIN || mChainType == ChainType.SENTINEL_MAIN || mChainType == ChainType.MEDI_MAIN) {
             self.mFetchCnt = 9
             onFetchgRPCNodeInfo()
             onFetchgRPCAuth(mAccount.account_address)
@@ -1385,6 +1402,31 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //                print("mStarNameConfig_gRPC ", BaseData.instance.mStarNameConfig_gRPC)
             } catch {
                 print("onFetchgRPCStarNameConfig failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchgRPCGravityPools() {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let page = Cosmos_Base_Query_V1beta1_PageRequest.with { $0.limit = 1000 }
+                let req = Tendermint_Liquidity_V1beta1_QueryLiquidityPoolsRequest.with { $0.pagination = page }
+                let response = try Tendermint_Liquidity_V1beta1_QueryClient(channel: channel).liquidityPools(req).response.wait()
+                response.pools.forEach { pool in
+                    BaseData.instance.mGravityPools_gRPC.append(pool)
+                }
+                
+            } catch {
+                print("onFetchgRPCGravityPools failed: \(error)")
             }
             DispatchQueue.main.async(execute: {
                 self.onFetchFinished()
