@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NativeTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class NativeTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var naviTokenImg: UIImageView!
     @IBOutlet weak var naviTokenSymbol: UILabel!
@@ -50,7 +50,13 @@ class NativeTokenGrpcViewController: BaseViewController, UITableViewDelegate, UI
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    @objc func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
     func onInitView() {
@@ -147,6 +153,7 @@ class NativeTokenGrpcViewController: BaseViewController, UITableViewDelegate, UI
         txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
         self.navigationController?.pushViewController(txVC, animated: true)
     }
 }
