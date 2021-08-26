@@ -85,7 +85,7 @@ public class WalletCosmosHolder extends BaseHolder {
             public void onClick(View v) {
 //                Intent proposals = new Intent(mainActivity, VoteListActivity.class);
 //                mainActivity.startActivity(proposals);
-                Toast.makeText(mainActivity, "준비중!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mainActivity, mainActivity.getString(R.string.error_prepare), Toast.LENGTH_SHORT).show();
             }
         });
         mBtnWalletConnect.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +93,7 @@ public class WalletCosmosHolder extends BaseHolder {
             public void onClick(View v) {
 //                Intent proposals = new Intent(mainActivity, VoteListActivity.class);
 //                mainActivity.startActivity(proposals);
-                Toast.makeText(mainActivity, "준비중!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mainActivity, mainActivity.getString(R.string.error_prepare), Toast.LENGTH_SHORT).show();
             }
         });
     }
