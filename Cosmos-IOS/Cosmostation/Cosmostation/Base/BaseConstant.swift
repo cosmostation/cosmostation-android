@@ -43,8 +43,10 @@ let BNB_URL                             = "https://dex.binance.org/";
 let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 
 
-let KAVA_URL                            = "https://lcd-kava-app.cosmostation.io/";
-let KAVA_API                            = "https://api-kava.cosmostation.io/";
+//let KAVA_URL                            = "https://lcd-kava-app.cosmostation.io/";
+//let KAVA_API                            = "https://api-kava.cosmostation.io/";
+let KAVA_URL                            = "https://lcd-office.cosmostation.io/kava-testnet-13000/";
+let KAVA_API                            = "https://api-office.cosmostation.io/kava-testnet-13000/";
 
 let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-testnet-12000/";
 let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-testnet-12000/";
