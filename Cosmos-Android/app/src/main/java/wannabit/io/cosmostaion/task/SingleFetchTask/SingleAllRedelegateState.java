@@ -70,30 +70,6 @@ public class SingleAllRedelegateState extends CommonTask {
                     }
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(BaseChain.CERTIK_MAIN)) {
-                Response<ResLcdRedelegate> response = ApiClient.getCertikChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null) {
-                        mResult.resultData = response.body().result;
-                        mResult.isSuccess = true;
-                    } else {
-                        mResult.resultData = new ArrayList<Redelegate>();
-                        mResult.isSuccess = true;
-                    }
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(BaseChain.CERTIK_TEST)) {
-                Response<ResLcdRedelegate> response = ApiClient.getCertikTestChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null) {
-                        mResult.resultData = response.body().result;
-                        mResult.isSuccess = true;
-                    } else {
-                        mResult.resultData = new ArrayList<Redelegate>();
-                        mResult.isSuccess = true;
-                    }
-                }
-
             } else if (getChain(mAccount.baseChain).equals(BaseChain.SECRET_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getSecretChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
                 if(response.isSuccessful()) {

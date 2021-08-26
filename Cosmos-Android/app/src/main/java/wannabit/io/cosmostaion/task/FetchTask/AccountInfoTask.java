@@ -83,13 +83,6 @@ public class AccountInfoTask extends CommonTask {
                     mApp.getBaseDao().mOkAccountInfo = response.body();
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(CERTIK_MAIN)) {
-                Response<ResLcdAccountInfo> response = ApiClient.getCertikChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
-                }
-
             } else if (BaseChain.getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
                 Response<ResLcdAccountInfo> response = ApiClient.getSecretChain(mApp).getAccountInfo(mAccount.address).execute();
                 if (response.isSuccessful()) {
@@ -135,13 +128,6 @@ public class AccountInfoTask extends CommonTask {
                 if (response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromOkLcd(mAccount.id, response.body()));
                     mApp.getBaseDao().mOkAccountInfo = response.body();
-                }
-
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
-                Response<ResLcdAccountInfo> response = ApiClient.getCertikTestChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
                 }
 
             }

@@ -61,19 +61,6 @@ public class SingleMintParamTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(CERTIK_MAIN)) {
-                Response<ResMintParam> response = ApiClient.getCertikChain(mApp).getMintParam().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(SECRET_MAIN)) {
                 Response<ResMintParam> response = ApiClient.getSecretChain(mApp).getMintParam().execute();
                 if(!response.isSuccessful()) {
@@ -123,19 +110,6 @@ public class SingleMintParamTask extends CommonTask {
                 }
 
                 if (response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(CERTIK_TEST)) {
-                Response<ResMintParam> response = ApiClient.getCertikTestChain(mApp).getMintParam().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }

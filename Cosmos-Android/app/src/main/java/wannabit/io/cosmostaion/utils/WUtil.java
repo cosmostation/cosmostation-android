@@ -2489,6 +2489,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
+            BigDecimal gasRate = new BigDecimal(CERTIK_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
 //        } else if (basechain.equals(BAND_MAIN)) {
 //            BigDecimal gasRate = new BigDecimal(BAND_GAS_RATE_TINY);
 //            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
@@ -2525,11 +2530,6 @@ public class WUtil {
 
         } else if (basechain.equals(BAND_MAIN)) {
             return BigDecimal.ZERO;
-
-        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
-            BigDecimal gasRate = new BigDecimal(CERTIK_GAS_RATE_AVERAGE);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(SECRET_MAIN)) {
             BigDecimal gasRate = new BigDecimal(SECRET_GAS_FEE_RATE_AVERAGE);
@@ -2630,6 +2630,14 @@ public class WUtil {
                 return new BigDecimal(MEDI_GAS_RATE_LOW);
             }
             return new BigDecimal(MEDI_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(CERTIK_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(CERTIK_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(CERTIK_GAS_RATE_LOW);
+            }
+            return new BigDecimal(CERTIK_GAS_RATE_AVERAGE);
         }
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
@@ -2648,13 +2656,6 @@ public class WUtil {
             }
             return new BigDecimal(BAND_GAS_RATE_AVERAGE);
 
-        } else if (basechain.equals(BAND_MAIN)) {
-            if (position == 0) {
-                return BigDecimal.ZERO.setScale(3);
-            } else if (position == 1) {
-                return new BigDecimal(BAND_GAS_RATE_LOW);
-            }
-            return new BigDecimal(BAND_GAS_RATE_AVERAGE);
         }
 
         else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {
@@ -2662,9 +2663,6 @@ public class WUtil {
 
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
             return new BigDecimal(OK_GAS_RATE_AVERAGE);
-
-        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
-            return new BigDecimal(CERTIK_GAS_RATE_AVERAGE);
 
         } else if (basechain.equals(SECRET_MAIN)) {
             return new BigDecimal(SECRET_GAS_FEE_RATE_AVERAGE);
@@ -2969,9 +2967,6 @@ public class WUtil {
         } else if (basechain.equals(OK_TEST)) {
             return EXPLORER_OKEX_TEST;
 
-        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
-            return EXPLORER_CERTIK;
-
         } else if (basechain.equals(SECRET_MAIN)) {
             return EXPLORER_SECRET_MAIN;
 
@@ -2980,9 +2975,6 @@ public class WUtil {
 
         } else if (basechain.equals(KI_MAIN)) {
             return EXPLORER_KI_MAIN;
-
-        } else if (basechain.equals(MEDI_MAIN)) {
-            return EXPLORER_MEDI_MAIN;
 
         } else if (basechain.equals(MEDI_TEST)) {
             return EXPLORER_MEDI_TEST;
@@ -3018,6 +3010,12 @@ public class WUtil {
 
         } else if (basechain.equals(BAND_MAIN)) {
             return EXPLORER_BAND_MAIN;
+
+        } else if (basechain.equals(MEDI_MAIN)) {
+            return EXPLORER_MEDI_MAIN;
+
+        } else if (basechain.equals(CERTIK_MAIN)) {
+            return EXPLORER_CERTIK;
 
         }
 
@@ -3055,9 +3053,6 @@ public class WUtil {
 
         } else if (basechain.equals(OK_TEST)) {
             return EXPLORER_OKEX_TEST + "tx/" + hash;
-
-        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
-            return EXPLORER_CERTIK + "Transactions/" + hash;
 
         } else if (basechain.equals(SECRET_MAIN)) {
             return EXPLORER_SECRET_MAIN + "transactions/" + hash;
@@ -3102,6 +3097,9 @@ public class WUtil {
 
         } else if (basechain.equals(MEDI_MAIN)) {
             return EXPLORER_MEDI_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(CERTIK_MAIN)) {
+            return EXPLORER_CERTIK + "Transactions/" + hash;
 
         }
 

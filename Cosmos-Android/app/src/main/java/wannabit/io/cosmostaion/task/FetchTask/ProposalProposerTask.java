@@ -58,19 +58,6 @@ public class ProposalProposerTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(BaseChain.CERTIK_MAIN)) {
-                Response<ResLcdProposer> response = ApiClient.getCertikChain(mApp).getProposer(mProposalId).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if (response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result.proposer;
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(BaseChain.SECRET_MAIN)) {
                 Response<ResLcdProposer> response = ApiClient.getSecretChain(mApp).getProposer(mProposalId).execute();
                 if (!response.isSuccessful()) {
@@ -99,21 +86,6 @@ public class ProposalProposerTask extends CommonTask {
 
             } else if (mChain.equals(KI_MAIN)) {
                 Response<ResLcdProposer> response = ApiClient.getKiChain(mApp).getProposer(mProposalId).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if (response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result.proposer;
-                    mResult.isSuccess = true;
-                }
-
-            }
-
-            else if (mChain.equals(BaseChain.CERTIK_TEST)) {
-                Response<ResLcdProposer> response = ApiClient.getCertikTestChain(mApp).getProposer(mProposalId).execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

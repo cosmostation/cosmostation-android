@@ -255,24 +255,6 @@ public class ApiClient {
         return service_ok_test;
     }
 
-
-
-
-    //Services for Certik mainnet
-    private static CertikChain service_certik = null;
-    public static CertikChain getCertikChain(Context c) {
-        if (service_certik == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_certik))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_certik = retrofit.create(CertikChain.class);
-            }
-        }
-        return service_certik;
-    }
-
     //Services for Certik mainnet api
     private static HistoryApi api_certik = null;
     public static HistoryApi getCertikApi(Context c) {
@@ -286,21 +268,6 @@ public class ApiClient {
             }
         }
         return api_certik;
-    }
-
-    //Services for Certik test chain
-    private static CertikChain service_certik_test = null;
-    public static CertikChain getCertikTestChain(Context c) {
-        if (service_certik_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_certik_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_certik_test = retrofit.create(CertikChain.class);
-            }
-        }
-        return service_certik_test;
     }
 
     //Services for Certik test api

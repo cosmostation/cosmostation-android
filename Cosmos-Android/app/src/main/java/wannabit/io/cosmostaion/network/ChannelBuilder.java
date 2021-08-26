@@ -7,6 +7,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
@@ -51,7 +52,7 @@ public class ChannelBuilder {
     private final static String GRPC_MEDI_MAIN = "lcd-medibloc-app.cosmostation.io";
     private final static int PORT_MEDI_MAIN = 9090;
 
-    private final static String GRPC_CERTIK_MAIN = "lcd-office.cosmostation.io/yulei-2";
+    private final static String GRPC_CERTIK_MAIN = "lcd-office.cosmostation.io";
     private final static int PORT_CERTIK_MAIN = 21800;
 
 //    private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
@@ -97,11 +98,13 @@ public class ChannelBuilder {
             return getSifMain();
         } else if (chain.equals(MEDI_MAIN)) {
             return getMediMain();
+        } else if (chain.equals(CERTIK_MAIN)) {
+            return getCertikMain();
+
 //        } else if (chain.equals(BAND_MAIN)) {
 //            return getBandMain();
-        }
 
-        else if (chain.equals(COSMOS_TEST)) {
+        } else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
         } else if (chain.equals(IRIS_TEST)) {
             return getIrisTest();
@@ -243,6 +246,19 @@ public class ChannelBuilder {
             }
         }
         return channel_medi_main;
+    }
+
+    //Channel for certik main
+    private static ManagedChannel channel_certik_main = null;
+    public static ManagedChannel getCertikMain() {
+        if (channel_certik_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_certik_main = ManagedChannelBuilder.forAddress(GRPC_CERTIK_MAIN, PORT_CERTIK_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_certik_main;
     }
 
 //    //Channel for band main

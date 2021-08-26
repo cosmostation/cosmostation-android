@@ -328,6 +328,8 @@ public enum BaseChain {
             return true;
         } else if (baseChain.equals(MEDI_MAIN)) {
             return true;
+        } else if (baseChain.equals(CERTIK_MAIN)) {
+            return true;
         }
 //        } else if (baseChain.equals(BAND_MAIN)) {
 //            return true;

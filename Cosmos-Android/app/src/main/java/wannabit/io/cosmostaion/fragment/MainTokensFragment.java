@@ -755,6 +755,18 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
+        } else if (coin.denom.equals(TOKEN_CERTIK)) {
+            holder.itemSymbol.setText(getString(R.string.str_ctk_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CERTIK_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Certik Staking Token");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_token_img));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_MEDI);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
         } else if (coin.denom.equals(TOKEN_RIZON)) {
             holder.itemSymbol.setText(getString(R.string.str_rizon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), RIZON_TEST));
@@ -1069,17 +1081,6 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.band_token_img));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_BAND);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
-
-        } else if (balance.symbol.equals(TOKEN_CERTIK)) {
-            holder.itemSymbol.setText(getString(R.string.str_ctk_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CERTIK_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Certik Staking Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_token_img));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_CERTIK);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
 

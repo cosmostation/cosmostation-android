@@ -59,19 +59,6 @@ public class SingleInflationTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(CERTIK_MAIN)) {
-                Response<ResLcdInflation> response = ApiClient.getCertikChain(mApp).getInflation().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(SECRET_MAIN)) {
                 Response<ResLcdInflation> response = ApiClient.getSecretChain(mApp).getInflation().execute();
                 if(!response.isSuccessful()) {
@@ -115,19 +102,6 @@ public class SingleInflationTask extends CommonTask {
 
             else if (mChain.equals(KAVA_TEST)) {
                 Response<ResLcdInflation> response = ApiClient.getKavaTestChain(mApp).getInflation().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(CERTIK_TEST)) {
-                Response<ResLcdInflation> response = ApiClient.getCertikTestChain(mApp).getInflation().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

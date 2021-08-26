@@ -61,16 +61,6 @@ public class NodeInfoTask extends CommonTask {
                     WLog.w("NodeInfoTask : NOk");
                 }
 
-            } else if (mChain.equals(CERTIK_MAIN)) {
-                Response<ResNodeInfo> response =  ApiClient.getCertikChain(mApp).getNodeInfo().execute();
-                if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
-                    mResult.resultData = response.body().node_info;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("NodeInfoTask : NOk");
-                }
-
             } else if (mChain.equals(SECRET_MAIN)) {
                 Response<ResNodeInfo> response =  ApiClient.getSecretChain(mApp).getNodeInfo().execute();
                 if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
@@ -125,16 +115,6 @@ public class NodeInfoTask extends CommonTask {
 
             else if (mChain.equals(KAVA_TEST)) {
                 Response<ResNodeInfo> response = ApiClient.getKavaTestChain(mApp).getNodeInfo().execute();
-                if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
-                    mResult.resultData = response.body().node_info;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("NodeInfoTask : NOk");
-                }
-
-            } else if (mChain.equals(CERTIK_TEST)) {
-                Response<ResNodeInfo> response =  ApiClient.getCertikTestChain(mApp).getNodeInfo().execute();
                 if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
                     mResult.resultData = response.body().node_info;
                     mResult.isSuccess = true;

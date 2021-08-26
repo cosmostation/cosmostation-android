@@ -56,13 +56,6 @@ public class SingleSelfBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(CERTIK_MAIN)) {
-                Response<ResLcdSingleBonding> response = ApiClient.getCertikChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(SECRET_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getSecretChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
@@ -92,13 +85,6 @@ public class SingleSelfBondingStateTask extends CommonTask {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
-            } else if (mChain.equals(CERTIK_TEST)) {
-                Response<ResLcdSingleBonding> response = ApiClient.getCertikTestChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             }
         } catch (Exception e) {
             WLog.w("SingleBondingStateTask Error " + e.getMessage());

@@ -2334,6 +2334,10 @@ public class WDp {
             return IOV_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(SIF_MAIN)) {
             return SIF_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(CERTIK_MAIN)) {
+            return CERTIK_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
+            return MEDI_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(BAND_MAIN)) {
             return BAND_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(RIZON_TEST)) {
@@ -2344,8 +2348,6 @@ public class WDp {
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
             return KAVA_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
-            return CERTIK_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(SECRET_MAIN)) {
             return SECRET_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
@@ -2354,8 +2356,6 @@ public class WDp {
             return FETCH_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(KI_MAIN)) {
             return KI_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
-            return MEDI_VAL_URL + opAddress + ".png";
         }
         return "";
     }
