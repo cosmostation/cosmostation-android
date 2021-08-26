@@ -28,6 +28,7 @@ public class PoolOtherHolder extends BaseHolder {
     TextView itemPoolType;
     TextView itemTotalLiquidityValue;
     TextView itemTotalLiquidityAmount1, itemTotalLiquiditySymbol1, itemTotalLiquidityAmount2, itemTotalLiquiditySymbol2;
+    TextView itemMyAvailableAmount1, itemMyAvailableSymbol1, itemMyAvailableAmount2, itemMyAvailableSymbol2;
 
     public PoolOtherHolder(@NonNull View itemView) {
         super(itemView);
@@ -39,6 +40,11 @@ public class PoolOtherHolder extends BaseHolder {
         itemTotalLiquiditySymbol1 = itemView.findViewById(R.id.pool_total_liquidity_symbol1);
         itemTotalLiquidityAmount2 = itemView.findViewById(R.id.pool_total_liquidity_amount2);
         itemTotalLiquiditySymbol2 = itemView.findViewById(R.id.pool_total_liquidity_symbol2);
+
+        itemMyAvailableAmount1  = itemView.findViewById(R.id.mypool_amount1);
+        itemMyAvailableSymbol1  = itemView.findViewById(R.id.mypool_symbol1);
+        itemMyAvailableAmount2  = itemView.findViewById(R.id.mypool_amount2);
+        itemMyAvailableSymbol2  = itemView.findViewById(R.id.mypool_symbol2);
     }
 
     @Override
@@ -58,6 +64,14 @@ public class PoolOtherHolder extends BaseHolder {
 
         WDp.showCoinDp(context, coin0, itemTotalLiquiditySymbol1, itemTotalLiquidityAmount1, BaseChain.OSMOSIS_MAIN);
         WDp.showCoinDp(context, coin1, itemTotalLiquiditySymbol2, itemTotalLiquidityAmount2, BaseChain.OSMOSIS_MAIN);
+
+        BigDecimal availableCoin0 = baseData.getAvailable(coin0.denom);
+        Coin Coin0 = new Coin(otherPool.getPoolAssets(0).getToken().getDenom(), availableCoin0.toPlainString());
+        BigDecimal availableCoin1 = baseData.getAvailable(coin1.denom);
+        Coin Coin1 = new Coin(otherPool.getPoolAssets(1).getToken().getDenom(), availableCoin1.toPlainString());
+
+        WDp.showCoinDp(context, Coin0, itemMyAvailableSymbol1, itemMyAvailableAmount1, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(context, Coin1, itemMyAvailableSymbol2, itemMyAvailableAmount2, BaseChain.OSMOSIS_MAIN);
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override

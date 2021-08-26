@@ -1128,7 +1128,7 @@
     <string name="str_osmosis_begin_unlucking">토큰 풀기 시작</string>
     <string name="str_osmosis_begin_unlucking_all">모든 토큰 풀기 시작</string>
     <string name="str_osmosis_token_unlock">토큰 풀기</string>
-    <string name="str_osmosis_preriodlock_unlock">기간 토큰 풀기</string>
+    <string name="str_osmosis_preriodlock_unlock">풀린 토큰 받기</string>
     <string name="str_gravity_create_pool_address">Pool Create Address</string>
     <string name="str_gravity_create_pool_id">Pool Type Id</string>
     <string name="str_gravity_deposit_batch_address">Depositor Address</string>
@@ -1165,8 +1165,7 @@
     <string name="str_select_coin_swap_out">스왑 할 코인을 골라주세요</string>
     <string name="str_pool_total_liquidity_value">풀 총 가치</string>
     <string name="str_pool_total_liquidity_amount">풀 총 양</string>
-    <string name="str_pool_my_liquidity_available_amount">My LP Available Amount</string>
-    <string name="str_pool_my_liquidity_withdrawable_amount">My Withdrawable Amount</string>
+    <string name="str_pool_my_liquidity_available_amount">Availables</string>
     <string name="str_title_pool_join_osmosis">풀에 자산 넣기</string>
     <string name="str_osmosis_join_pool_step_0">입금 수량을 입력해주세요</string>
     <string name="str_osmosis_join_pool_step_1">메모를 입력하세요 (선택사항)</string>
