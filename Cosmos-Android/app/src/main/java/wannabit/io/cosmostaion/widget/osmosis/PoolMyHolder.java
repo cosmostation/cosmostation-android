@@ -30,7 +30,8 @@ public class PoolMyHolder extends BaseHolder {
     TextView itemMyTotalLiquidityValue;
     TextView itemMyTotalLiquidityAmount1, itemMyTotalLiquiditySymbol1, itemMyTotalLiquidityAmount2, itemMyTotalLiquiditySymbol2;
     TextView itemMyLpAvailableAmount, itemMyLpAvailableSymbol;
-    TextView itemMyWithdrawableAmount1, itemMyWithdrawableSymbol1, itemMyWithdrawableAmount2, itemMyWithdrawableSymbol2;
+    TextView itemMyAvailableAmount1, itemMyAvailableSymbol1, itemMyAvailableAmount2, itemMyAvailableSymbol2;
+    TextView itemMypoolLpValue;
 
     public PoolMyHolder(@NonNull View itemView) {
         super(itemView);
@@ -43,12 +44,13 @@ public class PoolMyHolder extends BaseHolder {
         itemMyTotalLiquidityAmount2 = itemView.findViewById(R.id.mypool_total_liquidity_amount2);
         itemMyTotalLiquiditySymbol2 = itemView.findViewById(R.id.mypool_total_liquidity_symbol2);
 
+        itemMyAvailableAmount1  = itemView.findViewById(R.id.mypool_amount1);
+        itemMyAvailableSymbol1  = itemView.findViewById(R.id.mypool_symbol1);
+        itemMyAvailableAmount2  = itemView.findViewById(R.id.mypool_amount2);
+        itemMyAvailableSymbol2  = itemView.findViewById(R.id.mypool_symbol2);
         itemMyLpAvailableAmount = itemView.findViewById(R.id.mypool_lp_available_amount);
         itemMyLpAvailableSymbol = itemView.findViewById(R.id.mypool_lp_available_symbol);
-        itemMyWithdrawableAmount1 = itemView.findViewById(R.id.mypool_withdrawable_liquidity_amount1);
-        itemMyWithdrawableSymbol1 = itemView.findViewById(R.id.mypool_withdrawable_liquidity_symbol1);
-        itemMyWithdrawableAmount2 = itemView.findViewById(R.id.mypool_withdrawable_liquidity_amount2);
-        itemMyWithdrawableSymbol2 = itemView.findViewById(R.id.mypool_withdrawable_liquidity_symbol2);
+        itemMypoolLpValue       = itemView.findViewById(R.id.mypool_lp_value);
     }
 
     @Override
@@ -67,22 +69,22 @@ public class PoolMyHolder extends BaseHolder {
         WDp.showCoinDp(context, coin0, itemMyTotalLiquiditySymbol1, itemMyTotalLiquidityAmount1, BaseChain.OSMOSIS_MAIN);
         WDp.showCoinDp(context, coin1, itemMyTotalLiquiditySymbol2, itemMyTotalLiquidityAmount2, BaseChain.OSMOSIS_MAIN);
 
-        itemMyLpAvailableAmount.setText(WDp.getDpAmount2(context, baseData.getAvailable("gamm/pool/" + myPool.getId()), 18, 6));
+        BigDecimal availableCoin0 = baseData.getAvailable(coin0.denom);
+        Coin Coin0 = new Coin(myPool.getPoolAssets(0).getToken().getDenom(), availableCoin0.toPlainString());
+        BigDecimal availableCoin1 = baseData.getAvailable(coin1.denom);
+        Coin Coin1 = new Coin(myPool.getPoolAssets(1).getToken().getDenom(), availableCoin1.toPlainString());
+        BigDecimal lpCoin = baseData.getAvailable("gamm/pool/" + myPool.getId());
+
+        WDp.showCoinDp(context, Coin0, itemMyAvailableSymbol1, itemMyAvailableAmount1, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(context, Coin1, itemMyAvailableSymbol2, itemMyAvailableAmount2, BaseChain.OSMOSIS_MAIN);
+
+        itemMyLpAvailableAmount.setText(WDp.getDpAmount2(context, lpCoin, 18, 6));
         itemMyLpAvailableSymbol.setText("GAMM-" + myPool.getId());
 
-        BigDecimal padding = new BigDecimal("0.97");
-        BigDecimal totalShares = new BigDecimal(myPool.getTotalShares().getAmount());
-        BigDecimal myShare = baseData.getAvailable("gamm/pool/" + myPool.getId());
-        BigDecimal poolAmount0 = new BigDecimal(myPool.getPoolAssets(0).getToken().getAmount());
-        BigDecimal poolAmount1 = new BigDecimal(myPool.getPoolAssets(1).getToken().getAmount());
-
-        BigDecimal withdrawableAmount0 = poolAmount0.multiply(myShare).multiply(padding).divide(totalShares, 0, RoundingMode.DOWN);
-        Coin withdrawableCoin0 = new Coin(myPool.getPoolAssets(0).getToken().getDenom(), withdrawableAmount0.toString());
-        BigDecimal withdrawableAmount1 = poolAmount1.multiply(myShare).multiply(padding).divide(totalShares, 0, RoundingMode.DOWN);
-        Coin withdrawableCoin1 = new Coin(myPool.getPoolAssets(1).getToken().getDenom(), withdrawableAmount1.toString());
-
-        WDp.showCoinDp(context, withdrawableCoin0, itemMyWithdrawableSymbol1, itemMyWithdrawableAmount1, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(context, withdrawableCoin1, itemMyWithdrawableSymbol2, itemMyWithdrawableAmount2, BaseChain.OSMOSIS_MAIN);
+        BigDecimal lpCoinPrice = WUtil.getOsmoLpTokenPerUsdPrice(baseData, myPool);
+        BigDecimal lpCoinValue = new BigDecimal(lpCoin.toPlainString()).multiply(lpCoinPrice).movePointLeft(18).setScale(2,RoundingMode.DOWN);
+        String formatted = "$ " + lpCoinValue.toPlainString();
+        itemMypoolLpValue.setText(formatted);
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
