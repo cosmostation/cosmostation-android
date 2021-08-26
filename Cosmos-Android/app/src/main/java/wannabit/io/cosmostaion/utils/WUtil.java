@@ -1128,6 +1128,17 @@ public class WUtil {
         });
     }
 
+    public static void onSortingOsmosisPool(ArrayList<Coin> coins) {
+        Collections.sort(coins, new Comparator<Coin>() {
+            @Override
+            public int compare(Coin o1, Coin o2) {
+                if (o1.osmosisAmmPoolId() < o2.osmosisAmmPoolId()) return -1;
+                else if (o1.osmosisAmmPoolId() > o2.osmosisAmmPoolId()) return 1;
+                return 0;
+            }
+        });
+    }
+
     public static void onSortingGravityPool(ArrayList<Coin> coins, BaseData baseData) {
         Collections.sort(coins, new Comparator<Coin>() {
             @Override

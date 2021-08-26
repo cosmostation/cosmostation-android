@@ -1397,10 +1397,9 @@
     <string name="str_token_swap_start">START SWAP</string>
     <string name="str_select_coin_swap_in">Select Coin to Swap In</string>
     <string name="str_select_coin_swap_out">Select Coin to Swap Out</string>
-    <string name="str_pool_total_liquidity_value">Total Liquidity Value</string>
-    <string name="str_pool_total_liquidity_amount">Total Liquidity Amount</string>
-    <string name="str_pool_my_liquidity_available_amount">My LP Available Amount</string>
-    <string name="str_pool_my_liquidity_withdrawable_amount">My Withdrawable Amount</string>
+    <string name="str_pool_total_liquidity_value">Total Locked Value (TVL)</string>
+    <string name="str_pool_total_liquidity_amount">Total Locked Coins</string>
+    <string name="str_pool_my_liquidity_available_amount">Availables</string>
     <string name="str_title_pool_join_osmosis">Deposit to Pool</string>
     <string name="str_osmosis_join_pool_step_0">Insert amount to deposit</string>
     <string name="str_osmosis_join_pool_step_1">Insert memo (optional)</string>
