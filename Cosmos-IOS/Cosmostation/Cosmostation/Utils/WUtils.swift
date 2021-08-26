@@ -4288,7 +4288,7 @@ public class WUtils {
             return UIImage(named: "kavaTokenImg")
             
         } else if (chain == ChainType.BAND_MAIN) {
-            return UIImage(named: "bnbTokenImg")
+            return UIImage(named: "tokenBand")
             
         } else if (chain == ChainType.SECRET_MAIN) {
             return UIImage(named: "secretTokenImg")
