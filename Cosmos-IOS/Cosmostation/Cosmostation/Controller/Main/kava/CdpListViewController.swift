@@ -23,11 +23,10 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
-        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
         
         self.cdpTableView.delegate = self
         self.cdpTableView.dataSource = self
-        self.cdpTableView.register(UINib(nibName: "CdpIncentiveCell", bundle: nil), forCellReuseIdentifier: "CdpIncentiveCell")
         self.cdpTableView.register(UINib(nibName: "CdpListAllCell", bundle: nil), forCellReuseIdentifier: "CdpListAllCell")
         self.cdpTableView.register(UINib(nibName: "CdpLisyMyCell", bundle: nil), forCellReuseIdentifier: "CdpLisyMyCell")
         self.cdpTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -48,12 +47,11 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
             self.refresher.endRefreshing()
             return
         }
-        self.mFetchCnt = 3
+        self.mFetchCnt = 2
         self.myCdps?.removeAll()
         self.otherCdps?.removeAll()
         
         self.onFetchCdpParam()
-        self.onFetchIncentiveReward(account!.account_address)
         self.onFetchOwenCdp(account!.account_address)
     }
     
@@ -90,52 +88,26 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
-            if let rewardAmount = incentiveRewards?.getMintingRewardAmount(), rewardAmount.compare(NSDecimalNumber.zero).rawValue > 0 {
-                return 1
-            }
-            return 0
-            
-        } else if (section == 1) {
             return myCdps?.count ?? 0
-            
         } else {
             return otherCdps?.count ?? 0
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
-            return onBindTop(tableView, indexPath.row)
-            
-        } else if (indexPath.section == 1) {
             return onBindMyCdp(tableView, indexPath.row)
-            
         } else {
             return onBindOtherCdp(tableView, indexPath.row)
         }
     }
     
-    func onBindTop(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
-        let cell:CdpIncentiveCell? = tableView.dequeueReusableCell(withIdentifier:"CdpIncentiveCell") as? CdpIncentiveCell
-        var incentiveAmount = NSDecimalNumber.zero
-        if let incentiveSum = incentiveRewards?.getMintingRewardAmount() {
-            incentiveAmount = incentiveSum
-        }
-        cell?.incentiveSumAmount.attributedText = WUtils.displayAmount2(incentiveAmount.stringValue, cell!.incentiveSumAmount.font, 6, 6)
-        cell?.actionClaim = {
-            self.onMintingIncentiveClaim()
-        }
-        return cell!
-    }
-    
     func onBindMyCdp(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:CdpLisyMyCell? = tableView.dequeueReusableCell(withIdentifier:"CdpLisyMyCell") as? CdpLisyMyCell
-        
-        
         
         let myCdp = myCdps![position]
         let mCollateralParam = cdpParam!.getCollateralParamByType(myCdp.cdp!.type!)
@@ -207,31 +179,12 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func onMintingIncentiveClaim() {
-        if (!account!.account_has_private) {
-            self.onShowAddMenomicDialog()
-            return
-        }
-        
-        if (cdpParam?.circuit_breaker == true) {
-            self.onShowToast(NSLocalizedString("error_circuit_breaker", comment: ""))
-            return
-        }
-        
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-//        txVC.mType = KAVA_MSG_TYPE_INCENTIVE_REWARD
-        txVC.mType = KAVA_MSG_TYPE_USDX_MINT_INCENTIVE
-        txVC.hidesBottomBarWhenPushed = true
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(txVC, animated: true)
-    }
-    
-    
     func onFetchCdpParam() {
         let request = Alamofire.request(BaseNetWork.paramCdpUrl(chainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+//                print("onFetchCdpParam ", res)
                 guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
                     self.onFetchFinished()
                     return
@@ -250,7 +203,6 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
             }
             self.onFetchFinished()
         }
-        
     }
     
     func onFetchPriceFeedPrice(_ market: String) {
@@ -258,6 +210,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+//                print("onFetchPriceFeedPrice ", res)
                 guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
                     self.onFetchFinished()
                     return
@@ -266,27 +219,8 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
                 BaseData.instance.mKavaPrice[priceParam.result.market_id] = priceParam
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchKavaPrice ", market , " ", error) }
+                print("onFetchKavaPrice ", market , " ", error)
             }
-            self.onFetchFinished()
-        }
-    }
-    
-    func onFetchIncentiveReward(_ address: String) {
-        let request = Alamofire.request(BaseNetWork.incentiveUrl(chainType), method: .get, parameters: ["owner":address], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
-                        self.onFetchFinished()
-                        return
-                    }
-                    let kavaIncentiveReward = KavaIncentiveReward.init(responseData)
-                    BaseData.instance.mIncentiveRewards = kavaIncentiveReward.result
-                    
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchIncentiveReward ", error) }
-                }
             self.onFetchFinished()
         }
     }
@@ -304,7 +238,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
                     self.myCdps = kavaMyCdps.result
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchOwenCdp ", error) }
+                    print("onFetchOwenCdp ", error)
                 }
             self.onFetchFinished()
         }
