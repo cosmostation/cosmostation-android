@@ -36,7 +36,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CTk-16-pqj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="434.78260869565219" y="5216.8526785714284"/>
+            <point key="canvasLocation" x="2107" y="5191"/>
         </scene>
         <!--Hard List View Controller-->
         <scene sceneID="h2v-ZZ-obZ">
@@ -66,12 +66,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xlc-Fg-nk6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1631.8840579710147" y="5216.8526785714284"/>
+            <point key="canvasLocation" x="2958" y="5192"/>
         </scene>
-        <!--View Controller-->
+        <!--Pool List View Controller-->
         <scene sceneID="VXs-Ju-CM3">
             <objects>
-                <viewController id="YTz-Kt-HZY" sceneMemberID="viewController">
+                <viewController id="YTz-Kt-HZY" customClass="PoolListViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YfO-nU-zqm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -93,7 +93,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Ds-u2-5vI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2622" y="5217"/>
+            <point key="canvasLocation" x="1252" y="5191"/>
         </scene>
         <!--Apps List View Controller-->
         <scene sceneID="Roa-fS-S0U">
@@ -107,11 +107,12 @@
                                 <rect key="frame" x="0.0" y="5" width="414" height="896"/>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dsW-2h-aBR">
-                                <rect key="frame" x="87.5" y="52" width="239" height="32"/>
+                                <rect key="frame" x="101.5" y="52" width="211" height="32"/>
                                 <segments>
-                                    <segment title="CDP"/>
-                                    <segment title="Hard Pool"/>
-                                    <segment title="Auction"/>
+                                    <segment title="Swap"/>
+                                    <segment title="Pool"/>
+                                    <segment title="Mint"/>
+                                    <segment title="Loan"/>
                                 </segments>
                                 <color key="tintColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
@@ -136,6 +137,12 @@
                                     <segue destination="YTz-Kt-HZY" kind="embed" id="snD-Jc-sUY"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Tp-YR-Whi">
+                                <rect key="frame" x="0.0" y="91" width="414" height="805"/>
+                                <connections>
+                                    <segue destination="K0e-rE-Dxc" kind="embed" id="RmN-th-Qvp"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6fv-wW-2fz"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -143,6 +150,8 @@
                             <constraint firstItem="G5g-pJ-7ho" firstAttribute="bottom" secondItem="nCX-dd-vve" secondAttribute="bottom" id="1MJ-A8-GPM"/>
                             <constraint firstItem="G5g-pJ-7ho" firstAttribute="centerX" secondItem="6fv-wW-2fz" secondAttribute="centerX" id="340-sG-ejT"/>
                             <constraint firstItem="WYD-a5-QMG" firstAttribute="width" secondItem="G5g-pJ-7ho" secondAttribute="width" id="Bym-L6-NUq"/>
+                            <constraint firstItem="1Tp-YR-Whi" firstAttribute="leading" secondItem="G5g-pJ-7ho" secondAttribute="leading" id="FiY-BZ-Btc"/>
+                            <constraint firstItem="1Tp-YR-Whi" firstAttribute="top" secondItem="G5g-pJ-7ho" secondAttribute="top" id="Ib5-yo-bBw"/>
                             <constraint firstItem="WYD-a5-QMG" firstAttribute="centerX" secondItem="G5g-pJ-7ho" secondAttribute="centerX" id="IgV-lg-kUQ"/>
                             <constraint firstItem="dsW-2h-aBR" firstAttribute="centerX" secondItem="6fv-wW-2fz" secondAttribute="centerX" id="JUR-sw-Ubu"/>
                             <constraint firstItem="7L0-eL-ewh" firstAttribute="top" secondItem="G5g-pJ-7ho" secondAttribute="top" id="PXN-UV-Ceh"/>
@@ -151,9 +160,11 @@
                             <constraint firstItem="7L0-eL-ewh" firstAttribute="height" secondItem="G5g-pJ-7ho" secondAttribute="height" id="bT7-Fu-6jk"/>
                             <constraint firstItem="dc0-V5-C80" firstAttribute="width" secondItem="nCX-dd-vve" secondAttribute="width" id="cKG-iU-Q23"/>
                             <constraint firstItem="dc0-V5-C80" firstAttribute="centerY" secondItem="6fv-wW-2fz" secondAttribute="centerY" id="cWM-Fo-9NP"/>
+                            <constraint firstItem="1Tp-YR-Whi" firstAttribute="bottom" secondItem="G5g-pJ-7ho" secondAttribute="bottom" id="fqe-Ty-TGi"/>
                             <constraint firstItem="WYD-a5-QMG" firstAttribute="height" secondItem="G5g-pJ-7ho" secondAttribute="height" id="h2a-NY-yQv"/>
                             <constraint firstItem="7L0-eL-ewh" firstAttribute="leading" secondItem="G5g-pJ-7ho" secondAttribute="leading" id="iYf-Gr-zOM"/>
                             <constraint firstItem="G5g-pJ-7ho" firstAttribute="width" secondItem="nCX-dd-vve" secondAttribute="width" id="kOG-wG-kqN"/>
+                            <constraint firstItem="1Tp-YR-Whi" firstAttribute="trailing" secondItem="G5g-pJ-7ho" secondAttribute="trailing" id="lyL-G6-tFJ"/>
                             <constraint firstItem="WYD-a5-QMG" firstAttribute="centerY" secondItem="G5g-pJ-7ho" secondAttribute="centerY" id="qUd-gh-rTT"/>
                             <constraint firstItem="dc0-V5-C80" firstAttribute="height" secondItem="nCX-dd-vve" secondAttribute="height" id="t3i-XJ-Hkj"/>
                             <constraint firstItem="7L0-eL-ewh" firstAttribute="width" secondItem="G5g-pJ-7ho" secondAttribute="width" id="tGw-R4-Ejp"/>
@@ -161,15 +172,30 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="auctionView" destination="WYD-a5-QMG" id="Hfh-wY-y0N"/>
                         <outlet property="cdpView" destination="G5g-pJ-7ho" id="YYF-pS-CRj"/>
                         <outlet property="dAppsSegment" destination="dsW-2h-aBR" id="OOn-AS-pNx"/>
                         <outlet property="havestView" destination="7L0-eL-ewh" id="Ydw-jl-Ea0"/>
+                        <outlet property="poolView" destination="WYD-a5-QMG" id="FM2-lR-Kw3"/>
+                        <outlet property="swapView" destination="1Tp-YR-Whi" id="nWG-ZG-TtU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xa9-9P-EDS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1250.7246376811595" y="4225.4464285714284"/>
+        </scene>
+        <!--Kava Swap View Controller-->
+        <scene sceneID="dnb-PM-ZM7">
+            <objects>
+                <viewController id="K0e-rE-Dxc" customClass="KavaSwapViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ERC-J4-Lhn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ki-bC-iDs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="332" y="5191"/>
         </scene>
     </scenes>
     <resources>

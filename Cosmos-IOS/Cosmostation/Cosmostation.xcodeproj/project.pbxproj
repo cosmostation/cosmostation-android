@@ -690,6 +690,8 @@
 		28B2E4D426CFFA9500ECF960 /* TokenStakingOldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B2E4D226CFFA9500ECF960 /* TokenStakingOldCell.xib */; };
 		28B3251F2637F80500275AED /* MemoMnemonicPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3251D2637F80500275AED /* MemoMnemonicPopup.swift */; };
 		28B325222637FDDD00275AED /* MemoMnemonicPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B325242637FDDD00275AED /* MemoMnemonicPopup.xib */; };
+		28B37D2A26D8EAFE008AACD2 /* PoolListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B37D2926D8EAFE008AACD2 /* PoolListViewController.swift */; };
+		28B37D2C26D8EB42008AACD2 /* KavaSwapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B37D2B26D8EB42008AACD2 /* KavaSwapViewController.swift */; };
 		28B4302A24F76AD500BD7BB2 /* OkTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4302924F76AD500BD7BB2 /* OkTransfer.swift */; };
 		28B4303524F7766200BD7BB2 /* TxOkDirectVoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4303324F7766200BD7BB2 /* TxOkDirectVoteCell.swift */; };
 		28B4303624F7766200BD7BB2 /* TxOkDirectVoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B4303424F7766200BD7BB2 /* TxOkDirectVoteCell.xib */; };
@@ -805,7 +807,6 @@
 		28D372AB254BFCE70071B136 /* RegisterAccount4ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28D372A9254BFCE70071B136 /* RegisterAccount4ViewController.xib */; };
 		28D372B0254C07470071B136 /* RegistAccountCheckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D372AE254C07470071B136 /* RegistAccountCheckCell.swift */; };
 		28D372B1254C07470071B136 /* RegistAccountCheckCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28D372AF254C07470071B136 /* RegistAccountCheckCell.xib */; };
-		28D7BD9D25F0B18F006EECD7 /* AuctionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D7BD9C25F0B18F006EECD7 /* AuctionListViewController.swift */; };
 		28D7BDA125F0B707006EECD7 /* KavaIncentiveParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D7BDA025F0B707006EECD7 /* KavaIncentiveParam.swift */; };
 		28D7BDA425F0B75F006EECD7 /* IncentiveParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D7BDA325F0B75F006EECD7 /* IncentiveParam.swift */; };
 		28D7BDA825F0B792006EECD7 /* ClaimMultiplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D7BDA725F0B792006EECD7 /* ClaimMultiplier.swift */; };
@@ -1753,6 +1754,8 @@
 		28B3251D2637F80500275AED /* MemoMnemonicPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoMnemonicPopup.swift; sourceTree = "<group>"; };
 		28B325232637FDDD00275AED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MemoMnemonicPopup.xib; sourceTree = "<group>"; };
 		28B325272637FDE400275AED /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MemoMnemonicPopup.strings; sourceTree = "<group>"; };
+		28B37D2926D8EAFE008AACD2 /* PoolListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolListViewController.swift; sourceTree = "<group>"; };
+		28B37D2B26D8EB42008AACD2 /* KavaSwapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapViewController.swift; sourceTree = "<group>"; };
 		28B4302924F76AD500BD7BB2 /* OkTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkTransfer.swift; sourceTree = "<group>"; };
 		28B4303324F7766200BD7BB2 /* TxOkDirectVoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxOkDirectVoteCell.swift; sourceTree = "<group>"; };
 		28B4303424F7766200BD7BB2 /* TxOkDirectVoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxOkDirectVoteCell.xib; sourceTree = "<group>"; };
@@ -1868,7 +1871,6 @@
 		28D372A9254BFCE70071B136 /* RegisterAccount4ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterAccount4ViewController.xib; sourceTree = "<group>"; };
 		28D372AE254C07470071B136 /* RegistAccountCheckCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistAccountCheckCell.swift; sourceTree = "<group>"; };
 		28D372AF254C07470071B136 /* RegistAccountCheckCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegistAccountCheckCell.xib; sourceTree = "<group>"; };
-		28D7BD9C25F0B18F006EECD7 /* AuctionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuctionListViewController.swift; sourceTree = "<group>"; };
 		28D7BDA025F0B707006EECD7 /* KavaIncentiveParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveParam.swift; sourceTree = "<group>"; };
 		28D7BDA325F0B75F006EECD7 /* IncentiveParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncentiveParam.swift; sourceTree = "<group>"; };
 		28D7BDA725F0B792006EECD7 /* ClaimMultiplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimMultiplier.swift; sourceTree = "<group>"; };
@@ -2766,10 +2768,11 @@
 			isa = PBXGroup;
 			children = (
 				284D179F2535558A00C364F9 /* Kava.storyboard */,
+				28B37D2B26D8EB42008AACD2 /* KavaSwapViewController.swift */,
 				284D17D82535572300C364F9 /* DAppsListViewController.swift */,
 				284D17DB2535573100C364F9 /* CdpListViewController.swift */,
 				284D17DE2535573D00C364F9 /* HardListViewController.swift */,
-				28D7BD9C25F0B18F006EECD7 /* AuctionListViewController.swift */,
+				28B37D2926D8EAFE008AACD2 /* PoolListViewController.swift */,
 				289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */,
 				283A80E324514BD0008FF813 /* CdpDetailViewController.xib */,
 				28156EA22536DE53006FF06C /* HardDetailViewController.swift */,
@@ -4104,7 +4107,6 @@
 				28617A8524333BA1006D66EA /* StepWithdrawCdpCheckViewController.swift in Sources */,
 				E1A82DD3224222E00097CAEE /* Password.swift in Sources */,
 				285A33DA244763290052BD3D /* SelectChainCell.swift in Sources */,
-				28D7BD9D25F0B18F006EECD7 /* AuctionListViewController.swift in Sources */,
 				28B7858726B3A7E4009F755F /* panacea_aol_v2_topic.pb.swift in Sources */,
 				287AC5D625FDF7250070837E /* cosmos_distribution_v1beta1_query.grpc.swift in Sources */,
 				E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */,
@@ -4187,6 +4189,7 @@
 				28B785A926B3A7F1009F755F /* sifnode_clp_v1_querier.grpc.swift in Sources */,
 				E1FD2320233E1B8E009327FE /* WalletAddressCell.swift in Sources */,
 				289EF83926824E4700F90AC1 /* osmosis_pool-incentives_v1beta1_genesis.pb.swift in Sources */,
+				28B37D2A26D8EAFE008AACD2 /* PoolListViewController.swift in Sources */,
 				28D372A0254BFCCA0071B136 /* RegisterAccount0ViewController.swift in Sources */,
 				28A37021269DA20600990696 /* gravity_v1_types.pb.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
@@ -4709,6 +4712,7 @@
 				287AC60525FDF7260070837E /* ibc_core_channel_v1_tx.grpc.swift in Sources */,
 				287AC5FA25FDF7260070837E /* guardian_tx.pb.swift in Sources */,
 				287AC5AD25FDF7250070837E /* cosmos_params_v1beta1_query.pb.swift in Sources */,
+				28B37D2C26D8EB42008AACD2 /* KavaSwapViewController.swift in Sources */,
 				283E9463254902BA007A9291 /* TxRegisterDomainCell.swift in Sources */,
 				283F3AF6265FA21800DF1D93 /* WalletMediCell.swift in Sources */,
 				E16D9B222249EA0C0019B7BB /* PasswordViewController.swift in Sources */,

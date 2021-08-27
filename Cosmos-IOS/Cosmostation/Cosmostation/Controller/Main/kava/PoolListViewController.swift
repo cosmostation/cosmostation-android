@@ -1,14 +1,14 @@
 //
-//  AuctionListViewController.swift
+//  KavaPoolViewController.swift
 //  Cosmostation
 //
-//  Created by 정용주 on 2021/03/04.
+//  Created by 정용주 on 2021/08/27.
 //  Copyright © 2021 wannabit. All rights reserved.
 //
 
 import UIKit
 
-class AuctionListViewController: BaseViewController {
+class PoolListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

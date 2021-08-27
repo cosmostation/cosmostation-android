@@ -11,15 +11,17 @@ import UIKit
 class DAppsListViewController: BaseViewController {
     
     @IBOutlet weak var dAppsSegment: UISegmentedControl!
+    @IBOutlet weak var swapView: UIView!
+    @IBOutlet weak var poolView: UIView!
     @IBOutlet weak var cdpView: UIView!
     @IBOutlet weak var havestView: UIView!
-    @IBOutlet weak var auctionView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        cdpView.alpha = 1
+        swapView.alpha = 1
+        poolView.alpha = 0
+        cdpView.alpha = 0
         havestView.alpha = 0
-        auctionView.alpha = 0
     
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
@@ -28,7 +30,6 @@ class DAppsListViewController: BaseViewController {
             dAppsSegment.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
             dAppsSegment.setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal)
             dAppsSegment.selectedSegmentTintColor = TRANS_BG_COLOR_KAVA2
-            
         } else {
             dAppsSegment.tintColor = COLOR_KAVA
         }
@@ -36,17 +37,25 @@ class DAppsListViewController: BaseViewController {
     
     @IBAction func switchView(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
+            swapView.alpha = 1
+            poolView.alpha = 0
+            cdpView.alpha = 0
+            havestView.alpha = 0
+        } else if sender.selectedSegmentIndex == 1 {
+            swapView.alpha = 0
+            poolView.alpha = 1
+            cdpView.alpha = 0
+            havestView.alpha = 0
+        } else if sender.selectedSegmentIndex == 2 {
+            swapView.alpha = 0
+            poolView.alpha = 0
             cdpView.alpha = 1
             havestView.alpha = 0
-            auctionView.alpha = 0
-        } else if sender.selectedSegmentIndex == 1 {
+        } else if sender.selectedSegmentIndex == 3 {
+            swapView.alpha = 0
+            poolView.alpha = 0
             cdpView.alpha = 0
             havestView.alpha = 1
-            auctionView.alpha = 0
-        } else if sender.selectedSegmentIndex == 2 {
-            cdpView.alpha = 0
-            havestView.alpha = 0
-            auctionView.alpha = 1
         }
     }
     
