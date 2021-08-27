@@ -154,9 +154,9 @@ let ALTHEA_VAL_URL                      = "https://raw.githubusercontent.com/cos
 let OSMOSIS_VAL_URL                     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/osmosis/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
-let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
 let KAVA_CDP_IMG_URL                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
 let KAVA_HARD_POOL_IMG_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/hard/";
+let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
 let OKEX_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
 let SIF_COIN_IMG_URL                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/sif/";
 
@@ -638,6 +638,10 @@ let COLOR_KAVA                              = UIColor.init(hexString: "FF564F")
 let COLOR_KAVA_DARK                         = UIColor.init(hexString: "631D1B")
 let COLOR_BG_COLOR_HARD                     = UIColor.init(hexString: "8626E1", alpha: 0.15)
 let COLOR_HARD                              = UIColor.init(hexString: "8626E1")
+let COLOR_BG_COLOR_USDX                     = UIColor.init(hexString: "06D6A0", alpha: 0.15)
+let COLOR_USDX                              = UIColor.init(hexString: "06D6A0")
+let COLOR_BG_COLOR_SWP                      = UIColor.init(hexString: "5A42FF", alpha: 0.15)
+let COLOR_SWP                               = UIColor.init(hexString: "5A42FF")
 
 let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "6e7cde", alpha: 0.15)
 let TRANS_BG_COLOR_IOV2                     = UIColor.init(hexString: "6e7cde", alpha: 0.4)
@@ -929,6 +933,7 @@ let IRIS_TEST_DENOM = "ubif"
 let IOV_TEST_DENOM = "uvoi"
 let KAVA_HARD_DENOM = "hard"
 let KAVA_USDX_DENOM = "usdx"
+let KAVA_SWAP_DENOM = "swp"
 let OSMOSIS_ION_DENOM = "uion"
 
 

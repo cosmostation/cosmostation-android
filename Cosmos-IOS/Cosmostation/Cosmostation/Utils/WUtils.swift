@@ -1179,14 +1179,18 @@ public class WUtils {
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             baseData.mBalances.forEach { coin in
-                var allKava = NSDecimalNumber.zero
                 if (coin.balance_denom == getMainDenom(chainType)) {
-                    allKava = allKava.adding(getAllMainAssetOld(getMainDenom(chainType)))
+                    let amount = WUtils.getAllMainAssetOld(KAVA_MAIN_DENOM)
+                    let assetValue = userCurrencyValue(coin.balance_denom, amount, 6)
+                    totalValue = totalValue.adding(assetValue)
+                    
                 } else {
-                    allKava = allKava.adding(convertTokenToKava(coin.balance_denom))
+                    let baseDenom = WUtils.getKavaBaseDenom(coin.balance_denom)
+                    let decimal = WUtils.getKavaCoinDecimal(coin.balance_denom)
+                    let amount = WUtils.getKavaTokenAll(coin.balance_denom)
+                    let assetValue = userCurrencyValue(baseDenom, amount, decimal)
+                    totalValue = totalValue.adding(assetValue)
                 }
-                let assetValue = userCurrencyValue(getMainDenom(chainType), allKava, 6)
-                totalValue = totalValue.adding(assetValue)
             }
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
@@ -1638,9 +1642,9 @@ public class WUtils {
         return amount
     }
     
-    static func getKavaTokenAll(_ denom: String, _ balances: Array<Balance>) -> NSDecimalNumber {
+    static func getKavaTokenAll(_ denom: String) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
-        for balance in balances {
+        for balance in BaseData.instance.mBalances {
             if (balance.balance_denom == denom) {
                 amount = localeStringToDecimal(balance.balance_amount)
                 amount = amount.adding(localeStringToDecimal(balance.balance_locked))
@@ -1656,6 +1660,8 @@ public class WUtils {
             return KAVA_HARD_DENOM
         } else if (denom == KAVA_USDX_DENOM) {
             return KAVA_USDX_DENOM
+        } else if (denom == KAVA_SWAP_DENOM) {
+            return KAVA_SWAP_DENOM
         } else if (denom == TOKEN_HTLC_KAVA_BNB) {
             return "bnb"
         } else if (denom == TOKEN_HTLC_KAVA_XRPB) {
@@ -2663,6 +2669,8 @@ public class WUtils {
         } else if (denom?.caseInsensitiveCompare("xrpb") == .orderedSame || denom?.caseInsensitiveCompare("xrbp") == .orderedSame) {
             return 8;
         } else if (denom?.caseInsensitiveCompare("hard") == .orderedSame) {
+            return 6;
+        } else if (denom?.caseInsensitiveCompare("swp") == .orderedSame) {
             return 6;
         }
         return 100;

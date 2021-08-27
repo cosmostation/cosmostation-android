@@ -42,14 +42,14 @@ class StepHardPoolIncentive3ViewController: BaseViewController, PasswordViewDele
     }
     
     func onUpdateView() {
-        let fAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
-        feeAmount.attributedText = WUtils.displayAmount2(fAmount.stringValue, feeAmount.font, 6, 6)
-        WUtils.showCoinDp(KAVA_MAIN_DENOM, pageHolderVC.mIncentiveKavaReceivable.stringValue, receivableKDenom, receivableKAmount, chainType!)
-        WUtils.showCoinDp(KAVA_HARD_DENOM, pageHolderVC.mIncentiveHardReceivable.stringValue, receivableHDenom, receivableHAmount, chainType!)
-
-        lockupTime.text = pageHolderVC.mIncentiveMultiplier!.months_lockup! + " Month"
-        type.text = pageHolderVC.mIncentiveMultiplier!.name!.uppercased()
-        memoLabel.text = pageHolderVC.mMemo
+//        let fAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
+//        feeAmount.attributedText = WUtils.displayAmount2(fAmount.stringValue, feeAmount.font, 6, 6)
+//        WUtils.showCoinDp(KAVA_MAIN_DENOM, pageHolderVC.mIncentiveKavaReceivable.stringValue, receivableKDenom, receivableKAmount, chainType!)
+//        WUtils.showCoinDp(KAVA_HARD_DENOM, pageHolderVC.mIncentiveHardReceivable.stringValue, receivableHDenom, receivableHAmount, chainType!)
+//
+//        lockupTime.text = pageHolderVC.mIncentiveMultiplier!.months_lockup! + " Month"
+//        type.text = pageHolderVC.mIncentiveMultiplier!.name!.uppercased()
+//        memoLabel.text = pageHolderVC.mMemo
     }
     
     @IBAction func onClickBack(_ sender: UIButton) {
@@ -100,68 +100,68 @@ class StepHardPoolIncentive3ViewController: BaseViewController, PasswordViewDele
     }
     
     func onGenHarvestRewardTx() {
-        DispatchQueue.global().async {
-            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
-                return
-            }
-            var msg: Msg?
-            if (self.pageHolderVC.mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
-                msg = MsgGenerator.genClaimHardLiquidityProviderMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mIncentiveMultiplier!.name!)
-            } else if (self.pageHolderVC.mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV) {
-                msg = MsgGenerator.genClaimHardLiquidityProviderVVMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mIncentiveMultiplier!.name!, self.pageHolderVC.mToSendRecipientAddress!)
-            }
-            var msgList = Array<Msg>()
-            msgList.append(msg!)
-            
-            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
-                                                   String(self.pageHolderVC.mAccount!.account_account_numner),
-                                                   String(self.pageHolderVC.mAccount!.account_sequence_number),
-                                                   msgList,
-                                                   self.pageHolderVC.mFee!,
-                                                   self.pageHolderVC.mMemo!)
-            
-            let stdTx = KeyFac.getStdTx(words, msgList, stdMsg, self.pageHolderVC.mAccount!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
- 
-            DispatchQueue.main.async(execute: {
-                let postTx = PostTx.init("sync", stdTx.value)
-                let encoder = JSONEncoder()
-                encoder.outputFormatting = .sortedKeys
-                let data = try? encoder.encode(postTx)
-                do {
-                    let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-//                    print("params ", params)
-                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
-                    request.validate().responseJSON { response in
-                        var txResult = [String:Any]()
-                        switch response.result {
-                        case .success(let res):
-                            if(SHOW_LOG) { print("IncentiveReward ", res) }
-                            if let result = res as? [String : Any]  {
-                                txResult = result
-                            }
-                        case .failure(let error):
-                            if(SHOW_LOG) {
-                                print("IncentiveReward error ", error)
-                            }
-                            if (response.response?.statusCode == 500) {
-                                txResult["net_error"] = 500
-                            }
-                        }
-
-                        if (self.waitAlert != nil) {
-                            self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
-                                    txResult["type"] = COSMOS_MSG_TYPE_DELEGATE
-                                    self.onStartTxDetail(txResult)
-                                }
-                            })
-                        }
-                    }
-
-                } catch {
-                    if (SHOW_LOG) { print(error) }
-                }
-            });
-        }
+//        DispatchQueue.global().async {
+//            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
+//                return
+//            }
+//            var msg: Msg?
+//            if (self.pageHolderVC.mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
+//                msg = MsgGenerator.genClaimHardLiquidityProviderMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mIncentiveMultiplier!.name!)
+//            } else if (self.pageHolderVC.mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV) {
+//                msg = MsgGenerator.genClaimHardLiquidityProviderVVMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mIncentiveMultiplier!.name!, self.pageHolderVC.mToSendRecipientAddress!)
+//            }
+//            var msgList = Array<Msg>()
+//            msgList.append(msg!)
+//            
+//            let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(self.chainType),
+//                                                   String(self.pageHolderVC.mAccount!.account_account_numner),
+//                                                   String(self.pageHolderVC.mAccount!.account_sequence_number),
+//                                                   msgList,
+//                                                   self.pageHolderVC.mFee!,
+//                                                   self.pageHolderVC.mMemo!)
+//            
+//            let stdTx = KeyFac.getStdTx(words, msgList, stdMsg, self.pageHolderVC.mAccount!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!)
+// 
+//            DispatchQueue.main.async(execute: {
+//                let postTx = PostTx.init("sync", stdTx.value)
+//                let encoder = JSONEncoder()
+//                encoder.outputFormatting = .sortedKeys
+//                let data = try? encoder.encode(postTx)
+//                do {
+//                    let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
+////                    print("params ", params)
+//                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+//                    request.validate().responseJSON { response in
+//                        var txResult = [String:Any]()
+//                        switch response.result {
+//                        case .success(let res):
+//                            if(SHOW_LOG) { print("IncentiveReward ", res) }
+//                            if let result = res as? [String : Any]  {
+//                                txResult = result
+//                            }
+//                        case .failure(let error):
+//                            if(SHOW_LOG) {
+//                                print("IncentiveReward error ", error)
+//                            }
+//                            if (response.response?.statusCode == 500) {
+//                                txResult["net_error"] = 500
+//                            }
+//                        }
+//
+//                        if (self.waitAlert != nil) {
+//                            self.waitAlert?.dismiss(animated: true, completion: {
+//                                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
+//                                    txResult["type"] = COSMOS_MSG_TYPE_DELEGATE
+//                                    self.onStartTxDetail(txResult)
+//                                }
+//                            })
+//                        }
+//                    }
+//
+//                } catch {
+//                    if (SHOW_LOG) { print(error) }
+//                }
+//            });
+//        }
     }
 }

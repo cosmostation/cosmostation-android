@@ -42,21 +42,21 @@ class StepHardPoolIncentive0ViewController: BaseViewController {
         
         WUtils.showCoinDp(KAVA_MAIN_DENOM, mKavaIncentiveAmount.stringValue, kRewardDenom, kRewardAmount, chainType!)
         WUtils.showCoinDp(KAVA_HARD_DENOM, mHardIncentiveAmount.stringValue, hRewardDenom, hRewardAmount, chainType!)
-        if let multipliers = BaseData.instance.mIncentiveParam?.claim_multipliers {
-            mClaimMultiplier = multipliers
-            if (mClaimMultiplier.count > 0) {
-                option1Btn.isHidden = false
-                option1Btn.setTitle(multipliers[0].name!.uppercased(), for: .normal)
-            }
-            if (mClaimMultiplier.count > 1) {
-                option2Btn.isHidden = false
-                option2Btn.setTitle(multipliers[1].name!.uppercased(), for: .normal)
-            }
-            if (mClaimMultiplier.count > 2) {
-                option3Btn.isHidden = false
-                option3Btn.setTitle(multipliers[2].name!.uppercased(), for: .normal)
-            }
-        }
+//        if let multipliers = BaseData.instance.mIncentiveParam?.claim_multipliers {
+//            mClaimMultiplier = multipliers
+//            if (mClaimMultiplier.count > 0) {
+//                option1Btn.isHidden = false
+//                option1Btn.setTitle(multipliers[0].name!.uppercased(), for: .normal)
+//            }
+//            if (mClaimMultiplier.count > 1) {
+//                option2Btn.isHidden = false
+//                option2Btn.setTitle(multipliers[1].name!.uppercased(), for: .normal)
+//            }
+//            if (mClaimMultiplier.count > 2) {
+//                option3Btn.isHidden = false
+//                option3Btn.setTitle(multipliers[2].name!.uppercased(), for: .normal)
+//            }
+//        }
         
     }
     
@@ -68,42 +68,42 @@ class StepHardPoolIncentive0ViewController: BaseViewController {
     }
     
     @IBAction func onClickOption1(_ sender: UIButton) {
-        initBtns()
-        sender.borderColor = UIColor.white
-        lockup.text = mClaimMultiplier[0].months_lockup! + " month"
-        let kavaReceiveAmount = mKavaIncentiveAmount.multiplying(by: NSDecimalNumber.init(string: mClaimMultiplier[0].factor), withBehavior: WUtils.handler0)
-        let hardReceiveAmount = mHardIncentiveAmount.multiplying(by: NSDecimalNumber.init(string: mClaimMultiplier[0].factor), withBehavior: WUtils.handler0)
-        WUtils.showCoinDp(KAVA_MAIN_DENOM, kavaReceiveAmount.stringValue, receivablekDenom, receivablekAmount, chainType!)
-        WUtils.showCoinDp(KAVA_HARD_DENOM, hardReceiveAmount.stringValue, receivablehDenom, receivablehAmount, chainType!)
-        pageHolderVC.mIncentiveMultiplier = mClaimMultiplier[0]
-        pageHolderVC.mIncentiveKavaReceivable = kavaReceiveAmount
-        pageHolderVC.mIncentiveHardReceivable = hardReceiveAmount
+//        initBtns()
+//        sender.borderColor = UIColor.white
+//        lockup.text = mClaimMultiplier[0].months_lockup! + " month"
+//        let kavaReceiveAmount = mKavaIncentiveAmount.multiplying(by: NSDecimalNumber.init(string: mClaimMultiplier[0].factor), withBehavior: WUtils.handler0)
+//        let hardReceiveAmount = mHardIncentiveAmount.multiplying(by: NSDecimalNumber.init(string: mClaimMultiplier[0].factor), withBehavior: WUtils.handler0)
+//        WUtils.showCoinDp(KAVA_MAIN_DENOM, kavaReceiveAmount.stringValue, receivablekDenom, receivablekAmount, chainType!)
+//        WUtils.showCoinDp(KAVA_HARD_DENOM, hardReceiveAmount.stringValue, receivablehDenom, receivablehAmount, chainType!)
+//        pageHolderVC.mIncentiveMultiplier = mClaimMultiplier[0]
+//        pageHolderVC.mIncentiveKavaReceivable = kavaReceiveAmount
+//        pageHolderVC.mIncentiveHardReceivable = hardReceiveAmount
     }
     
     @IBAction func onClickOption2(_ sender: UIButton) {
-        initBtns()
-        sender.borderColor = UIColor.white
-        lockup.text = mClaimMultiplier[1].months_lockup! + " Month"
-        let kavaReceiveAmount = mKavaIncentiveAmount.multiplying(by: NSDecimalNumber.init(string: mClaimMultiplier[1].factor), withBehavior: WUtils.handler0)
-        let hardReceiveAmount = mHardIncentiveAmount.multiplying(by: NSDecimalNumber.init(string: mClaimMultiplier[1].factor), withBehavior: WUtils.handler0)
-        WUtils.showCoinDp(KAVA_MAIN_DENOM, kavaReceiveAmount.stringValue, receivablekDenom, receivablekAmount, chainType!)
-        WUtils.showCoinDp(KAVA_HARD_DENOM, hardReceiveAmount.stringValue, receivablehDenom, receivablehAmount, chainType!)
-        pageHolderVC.mIncentiveMultiplier = mClaimMultiplier[1]
-        pageHolderVC.mIncentiveKavaReceivable = kavaReceiveAmount
-        pageHolderVC.mIncentiveHardReceivable = hardReceiveAmount
+//        initBtns()
+//        sender.borderColor = UIColor.white
+//        lockup.text = mClaimMultiplier[1].months_lockup! + " Month"
+//        let kavaReceiveAmount = mKavaIncentiveAmount.multiplying(by: NSDecimalNumber.init(string: mClaimMultiplier[1].factor), withBehavior: WUtils.handler0)
+//        let hardReceiveAmount = mHardIncentiveAmount.multiplying(by: NSDecimalNumber.init(string: mClaimMultiplier[1].factor), withBehavior: WUtils.handler0)
+//        WUtils.showCoinDp(KAVA_MAIN_DENOM, kavaReceiveAmount.stringValue, receivablekDenom, receivablekAmount, chainType!)
+//        WUtils.showCoinDp(KAVA_HARD_DENOM, hardReceiveAmount.stringValue, receivablehDenom, receivablehAmount, chainType!)
+//        pageHolderVC.mIncentiveMultiplier = mClaimMultiplier[1]
+//        pageHolderVC.mIncentiveKavaReceivable = kavaReceiveAmount
+//        pageHolderVC.mIncentiveHardReceivable = hardReceiveAmount
     }
     
     @IBAction func onClickOption3(_ sender: UIButton) {
-        initBtns()
-        sender.borderColor = UIColor.white
-        lockup.text = mClaimMultiplier[2].months_lockup! + " Month"
-        let kavaReceiveAmount = mKavaIncentiveAmount.multiplying(by: NSDecimalNumber.init(string: mClaimMultiplier[2].factor), withBehavior: WUtils.handler0)
-        let hardReceiveAmount = mHardIncentiveAmount.multiplying(by: NSDecimalNumber.init(string: mClaimMultiplier[2].factor), withBehavior: WUtils.handler0)
-        WUtils.showCoinDp(KAVA_MAIN_DENOM, kavaReceiveAmount.stringValue, receivablekDenom, receivablekAmount, chainType!)
-        WUtils.showCoinDp(KAVA_HARD_DENOM, hardReceiveAmount.stringValue, receivablehDenom, receivablehAmount, chainType!)
-        pageHolderVC.mIncentiveMultiplier = mClaimMultiplier[2]
-        pageHolderVC.mIncentiveKavaReceivable = kavaReceiveAmount
-        pageHolderVC.mIncentiveHardReceivable = hardReceiveAmount
+//        initBtns()
+//        sender.borderColor = UIColor.white
+//        lockup.text = mClaimMultiplier[2].months_lockup! + " Month"
+//        let kavaReceiveAmount = mKavaIncentiveAmount.multiplying(by: NSDecimalNumber.init(string: mClaimMultiplier[2].factor), withBehavior: WUtils.handler0)
+//        let hardReceiveAmount = mHardIncentiveAmount.multiplying(by: NSDecimalNumber.init(string: mClaimMultiplier[2].factor), withBehavior: WUtils.handler0)
+//        WUtils.showCoinDp(KAVA_MAIN_DENOM, kavaReceiveAmount.stringValue, receivablekDenom, receivablekAmount, chainType!)
+//        WUtils.showCoinDp(KAVA_HARD_DENOM, hardReceiveAmount.stringValue, receivablehDenom, receivablehAmount, chainType!)
+//        pageHolderVC.mIncentiveMultiplier = mClaimMultiplier[2]
+//        pageHolderVC.mIncentiveKavaReceivable = kavaReceiveAmount
+//        pageHolderVC.mIncentiveHardReceivable = hardReceiveAmount
     }
     
     @IBAction func onClickCancel(_ sender: UIButton) {

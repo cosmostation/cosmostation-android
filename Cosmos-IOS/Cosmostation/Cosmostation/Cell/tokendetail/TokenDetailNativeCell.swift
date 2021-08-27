@@ -144,6 +144,10 @@ class TokenDetailNativeCell: TokenDetailCell {
 //        totalValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, convertedKavaAmount, 6, totalValue.font)
         if (denom == KAVA_HARD_DENOM) {
             rootCardView.backgroundColor = COLOR_BG_COLOR_HARD
+        } else if (denom == KAVA_USDX_DENOM) {
+            rootCardView.backgroundColor = COLOR_BG_COLOR_USDX
+        } else if (denom == KAVA_SWAP_DENOM) {
+            rootCardView.backgroundColor = COLOR_BG_COLOR_SWP
         }
     }
     
