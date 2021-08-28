@@ -38,6 +38,7 @@ final class BaseData : NSObject{
     //kava-7
     var mKavaAccountResult = KavaAccountInfo.KavaAccountResult.init()
     var mKavaPrice = [String:KavaPriceFeedPrice]()
+    var mKavaPriceMarkets: Array<KavaPriceMarket> = Array<KavaPriceMarket>()
     var mCdpParam: CdpParam?
     var mHardParam: HardParam?
     var mIncentiveParam: IncentiveParam?

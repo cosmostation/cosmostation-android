@@ -69,3 +69,103 @@ class DAppsListViewController: BaseViewController {
     }
 
 }
+
+extension WUtils {
+    static func getKavaCoinDecimal(_ denom:String?) -> Int16 {
+        if (denom?.caseInsensitiveCompare(KAVA_MAIN_DENOM) == .orderedSame) {
+            return 6;
+        } else if (denom?.caseInsensitiveCompare("btc") == .orderedSame) {
+            return 8;
+        } else if (denom?.caseInsensitiveCompare("usdx") == .orderedSame) {
+            return 6;
+        } else if (denom?.caseInsensitiveCompare("bnb") == .orderedSame) {
+            return 8;
+        } else if (denom?.caseInsensitiveCompare("btcb") == .orderedSame || denom?.caseInsensitiveCompare("hbtc") == .orderedSame) {
+            return 8;
+        } else if (denom?.caseInsensitiveCompare("busd") == .orderedSame) {
+            return 8;
+        } else if (denom?.caseInsensitiveCompare("xrpb") == .orderedSame || denom?.caseInsensitiveCompare("xrbp") == .orderedSame) {
+            return 8;
+        } else if (denom?.caseInsensitiveCompare("hard") == .orderedSame) {
+            return 6;
+        } else if (denom?.caseInsensitiveCompare("swp") == .orderedSame) {
+            return 6;
+        }
+        return 100;
+    }
+    
+    static func getKavaTokenName(_ denom: String) -> String {
+        if (denom == KAVA_MAIN_DENOM) {
+            return "KAVA"
+            
+        } else if (denom == KAVA_HARD_DENOM) {
+            return "HARD"
+            
+        } else if (denom == KAVA_USDX_DENOM) {
+            return "USDX"
+            
+        } else if (denom == KAVA_SWAP_DENOM) {
+            return "SWP"
+            
+        } else if (denom == TOKEN_HTLC_KAVA_BNB) {
+            return "BNB"
+            
+        } else if (denom == TOKEN_HTLC_KAVA_XRPB) {
+            return "XRP"
+            
+        } else if (denom == TOKEN_HTLC_KAVA_BUSD) {
+            return "BUSD"
+            
+        } else if (denom.contains("btc")) {
+            return "BTC"
+            
+        }
+        return denom.uppercased()
+    }
+    
+    static func DpKavaTokenName(_ label: UILabel, _ denom: String) {
+        label.text = getKavaTokenName(denom)
+        if (denom == KAVA_MAIN_DENOM) {
+            label.textColor = COLOR_KAVA
+            
+        } else if (denom == KAVA_HARD_DENOM) {
+            label.textColor = COLOR_HARD
+            
+        } else if (denom == KAVA_USDX_DENOM) {
+            label.textColor = COLOR_USDX
+            
+        } else if (denom == KAVA_SWAP_DENOM) {
+            label.textColor = COLOR_SWP
+            
+        } else {
+            label.textColor = .white
+        }
+    }
+    
+    
+    static func getKavaPriceFeedSymbol(_ denom: String) -> String {
+        if (denom == KAVA_MAIN_DENOM) {
+            return "kava:usd"
+        } else if (denom == KAVA_HARD_DENOM) {
+            return "hard:usd"
+        } else if (denom == KAVA_USDX_DENOM) {
+            return "usdx:usd"
+        } else if (denom == KAVA_SWAP_DENOM) {
+            return "swp:usd"
+        } else if (denom == TOKEN_HTLC_KAVA_BNB) {
+            return "bnb:usd"
+        } else if (denom == TOKEN_HTLC_KAVA_XRPB) {
+            return "xrp:usd"
+        } else if (denom == TOKEN_HTLC_KAVA_BUSD) {
+            return "busd:usd"
+        } else if (denom.contains("btc")) {
+            return "btc:usd"
+        }
+        return ""
+    }
+    
+    static func getKavaPriceFeed(_ denom: String) -> NSDecimalNumber {
+        let feedSymbol = getKavaPriceFeedSymbol(denom)
+        return NSDecimalNumber.init(string: BaseData.instance.mKavaPrice[feedSymbol]?.result.price)
+    }
+}

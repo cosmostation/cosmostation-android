@@ -235,12 +235,12 @@ class TransactionViewController: UIViewController {
         } else if (mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
             stepDescription.text = NSLocalizedString("str_osmosis_join_pool_step_0", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
-            self.titleLabel.text =  NSLocalizedString("title_pool_join_osmosis", comment: "")
+            self.titleLabel.text =  NSLocalizedString("title_pool_join", comment: "")
             
         } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
             stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_0", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
-            self.titleLabel.text =  NSLocalizedString("title_pool_exit_osmosis", comment: "")
+            self.titleLabel.text =  NSLocalizedString("title_pool_exit", comment: "")
             
         } else if (mType == OSMOSIS_MSG_TYPE_LOCK) {
             stepDescription.text = NSLocalizedString("str_osmosis_lock_token_step_0", comment: "")

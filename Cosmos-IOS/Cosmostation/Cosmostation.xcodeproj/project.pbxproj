@@ -869,6 +869,13 @@
 		28E667072699483E00BA2C68 /* OsmosisDAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E667062699483E00BA2C68 /* OsmosisDAppViewController.swift */; };
 		28E746B725AD76ED004B2C64 /* OkPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E746B525AD76ED004B2C64 /* OkPromotionCell.swift */; };
 		28E746B825AD76ED004B2C64 /* OkPromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E746B625AD76ED004B2C64 /* OkPromotionCell.xib */; };
+		28EEEC8926DA548C002DDC4A /* KavaSwapPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EEEC8826DA548C002DDC4A /* KavaSwapPool.swift */; };
+		28EEEC8B26DA55E7002DDC4A /* KavaSwapParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EEEC8A26DA55E7002DDC4A /* KavaSwapParam.swift */; };
+		28EEEC8D26DA5747002DDC4A /* KavaSwapDeposit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EEEC8C26DA5747002DDC4A /* KavaSwapDeposit.swift */; };
+		28EEEC9426DA5FB8002DDC4A /* SwapPoolListMyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EEEC9226DA5FB8002DDC4A /* SwapPoolListMyCell.swift */; };
+		28EEEC9526DA5FB8002DDC4A /* SwapPoolListMyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28EEEC9326DA5FB8002DDC4A /* SwapPoolListMyCell.xib */; };
+		28EEEC9826DA5FC8002DDC4A /* SwapPoolListOtherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EEEC9626DA5FC8002DDC4A /* SwapPoolListOtherCell.swift */; };
+		28EEEC9926DA5FC8002DDC4A /* SwapPoolListOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28EEEC9726DA5FC8002DDC4A /* SwapPoolListOtherCell.xib */; };
 		28F553492641790100590056 /* WalletKiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F553472641790100590056 /* WalletKiCell.swift */; };
 		28F5534A2641790200590056 /* WalletKiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F553482641790100590056 /* WalletKiCell.xib */; };
 		28FA685026D8A53E00CF4C57 /* WalletKavaIncentiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FA684E26D8A53E00CF4C57 /* WalletKavaIncentiveCell.swift */; };
@@ -1931,6 +1938,13 @@
 		28E667062699483E00BA2C68 /* OsmosisDAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OsmosisDAppViewController.swift; sourceTree = "<group>"; };
 		28E746B525AD76ED004B2C64 /* OkPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkPromotionCell.swift; sourceTree = "<group>"; };
 		28E746B625AD76ED004B2C64 /* OkPromotionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OkPromotionCell.xib; sourceTree = "<group>"; };
+		28EEEC8826DA548C002DDC4A /* KavaSwapPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapPool.swift; sourceTree = "<group>"; };
+		28EEEC8A26DA55E7002DDC4A /* KavaSwapParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapParam.swift; sourceTree = "<group>"; };
+		28EEEC8C26DA5747002DDC4A /* KavaSwapDeposit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapDeposit.swift; sourceTree = "<group>"; };
+		28EEEC9226DA5FB8002DDC4A /* SwapPoolListMyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapPoolListMyCell.swift; sourceTree = "<group>"; };
+		28EEEC9326DA5FB8002DDC4A /* SwapPoolListMyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwapPoolListMyCell.xib; sourceTree = "<group>"; };
+		28EEEC9626DA5FC8002DDC4A /* SwapPoolListOtherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapPoolListOtherCell.swift; sourceTree = "<group>"; };
+		28EEEC9726DA5FC8002DDC4A /* SwapPoolListOtherCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwapPoolListOtherCell.xib; sourceTree = "<group>"; };
 		28F553472641790100590056 /* WalletKiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKiCell.swift; sourceTree = "<group>"; };
 		28F553482641790100590056 /* WalletKiCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletKiCell.xib; sourceTree = "<group>"; };
 		28FA684E26D8A53E00CF4C57 /* WalletKavaIncentiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKavaIncentiveCell.swift; sourceTree = "<group>"; };
@@ -2805,6 +2819,10 @@
 				28156E9E2536DE29006FF06C /* HarvestDetailMyActionCell.xib */,
 				28DB56E925F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift */,
 				28DB56EA25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib */,
+				28EEEC9226DA5FB8002DDC4A /* SwapPoolListMyCell.swift */,
+				28EEEC9326DA5FB8002DDC4A /* SwapPoolListMyCell.xib */,
+				28EEEC9626DA5FC8002DDC4A /* SwapPoolListOtherCell.swift */,
+				28EEEC9726DA5FC8002DDC4A /* SwapPoolListOtherCell.xib */,
 			);
 			path = kava;
 			sourceTree = "<group>";
@@ -3047,6 +3065,9 @@
 				2877013925F78E4500E9663F /* CdpDeposit.swift */,
 				28AABEC725F8CBBA0019091F /* HardModuleAccount.swift */,
 				28AABECA25F8CBDB0019091F /* HardAccountValue.swift */,
+				28EEEC8826DA548C002DDC4A /* KavaSwapPool.swift */,
+				28EEEC8A26DA55E7002DDC4A /* KavaSwapParam.swift */,
+				28EEEC8C26DA5747002DDC4A /* KavaSwapDeposit.swift */,
 			);
 			path = KavaModel;
 			sourceTree = "<group>";
@@ -3719,6 +3740,7 @@
 				28DB56F825FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.xib in Resources */,
 				28B785B226B79C70009F755F /* RizonSwapStatusViewController.xib in Resources */,
 				28474ED3241E06AF00AF5A81 /* TxCdpCreateCell.xib in Resources */,
+				28EEEC9926DA5FC8002DDC4A /* SwapPoolListOtherCell.xib in Resources */,
 				28156EA02536DE29006FF06C /* HarvestDetailMyActionCell.xib in Resources */,
 				28C3F502269DC4FB00F4A58C /* TxGravityCreatePoolCell.xib in Resources */,
 				283E949025494896007A9291 /* ResourceCell.xib in Resources */,
@@ -3850,6 +3872,7 @@
 				28474ECC241E06AF00AF5A81 /* TxCdpBorrowCell.xib in Resources */,
 				283E750426CE36E40097CC04 /* TokenDetailStakingCell.xib in Resources */,
 				E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */,
+				28EEEC9526DA5FB8002DDC4A /* SwapPoolListMyCell.xib in Resources */,
 				28B785C026B808DC009F755F /* StepEventHorizon1ViewController.xib in Resources */,
 				282FF35623F518E00028CC66 /* TxMultiTransferCell.xib in Resources */,
 				28E667052699448F00BA2C68 /* Osmosis.storyboard in Resources */,
@@ -4169,6 +4192,7 @@
 				283E9458254901D9007A9291 /* RegisterDomain0ViewController.swift in Sources */,
 				2800CF9624719EC4003C3EF1 /* Tally.swift in Sources */,
 				E183EF1F22A75DFC003B3580 /* ReInvestAmountViewController.swift in Sources */,
+				28EEEC8B26DA55E7002DDC4A /* KavaSwapParam.swift in Sources */,
 				287AC5D125FDF7250070837E /* ibc_applications_transfer_v1_query.pb.swift in Sources */,
 				287AC5AC25FDF7250070837E /* cosmos_bank_v1beta1_genesis.pb.swift in Sources */,
 				289652612624715E0006FC2E /* WalletFetchCell.swift in Sources */,
@@ -4311,6 +4335,7 @@
 				289EF82B26824E4700F90AC1 /* osmosis_claim_v1beta1_query.grpc.swift in Sources */,
 				287AC62A25FDF7260070837E /* cosmos_proto_cosmos.pb.swift in Sources */,
 				285A33D32446CDB80052BD3D /* StepHtlcSend3ViewController.swift in Sources */,
+				28EEEC9426DA5FB8002DDC4A /* SwapPoolListMyCell.swift in Sources */,
 				289EF82F26824E4700F90AC1 /* osmosis_incentives_query.grpc.swift in Sources */,
 				28A3701C269DA20600990696 /* gravity_v1_batch.pb.swift in Sources */,
 				28B7857D26B3A7E4009F755F /* panacea_did_v2_query.pb.swift in Sources */,
@@ -4417,6 +4442,7 @@
 				2889FD6D2603378900CA9896 /* TxHardWithdrawCell.swift in Sources */,
 				282FF35923F52FD40028CC66 /* TxRewardCell.swift in Sources */,
 				049758832685AA270039872C /* iov_starname_v1beta1_genesis.pb.swift in Sources */,
+				28EEEC8D26DA5747002DDC4A /* KavaSwapDeposit.swift in Sources */,
 				28592E772580616D00C31460 /* BaseNetWork.swift in Sources */,
 				2889FD872603485200CA9896 /* TxIncentiveMintingCell.swift in Sources */,
 				2868559724989AB80099D18F /* CdpWarnPopup.swift in Sources */,
@@ -4483,6 +4509,7 @@
 				E1FD233C233E1C44009327FE /* WalletGuideCell.swift in Sources */,
 				28E3E3802671BE8D00BA89C2 /* Param.swift in Sources */,
 				28B7859F26B3A7F1009F755F /* sifnode_clp_v1_tx.grpc.swift in Sources */,
+				28EEEC9826DA5FC8002DDC4A /* SwapPoolListOtherCell.swift in Sources */,
 				287AC62825FDF7260070837E /* random_genesis.pb.swift in Sources */,
 				28B7857326B3A7E4009F755F /* panacea_did_v2_genesis.pb.swift in Sources */,
 				287AC5D025FDF7250070837E /* random_tx.grpc.swift in Sources */,
@@ -4653,6 +4680,7 @@
 				287AC59425FDF7250070837E /* ibc_core_connection_v1_tx.pb.swift in Sources */,
 				287AC65A25FDF7260070837E /* akash_market_v1beta1_service.grpc.swift in Sources */,
 				E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */,
+				28EEEC8926DA548C002DDC4A /* KavaSwapPool.swift in Sources */,
 				287AC64125FDF7260070837E /* ibc_core_connection_v1_tx.grpc.swift in Sources */,
 				28663BEF248A4FB000080311 /* WalletBandCell.swift in Sources */,
 				287AC5C525FDF7250070837E /* htlc_genesis.pb.swift in Sources */,

@@ -181,7 +181,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mBnbTokenList.removeAll()
         BaseData.instance.mBnbTokenTicker.removeAll()
         
-        BaseData.instance.mKavaPrice.removeAll()
+        BaseData.instance.mKavaPriceMarkets.removeAll()
         BaseData.instance.mIncentiveParam = nil
         
         BaseData.instance.mOkStaking = nil
@@ -227,7 +227,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBnbMiniTokenTickers()
             
         } else if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
-            self.mFetchCnt = 10
+            self.mFetchCnt = 11
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -238,7 +238,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchUnbondingInfo(mAccount)
             onFetchAllReward(mAccount)
             
-//            onFetchPriceFeedParam()
+            onFetchPriceFeedParam()
             onFetchKavaIncentiveParam()
             onFetchKavaIncentiveReward(mAccount.account_address)
             
@@ -858,13 +858,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.onFetchFinished()
                     return
                 }
-                let priceParam = KavaPriceFeedParam.init(responseData)
-                for market in priceParam.result.markets {
-                    if (!market.market_id.contains(":30")) {
-                        self.mFetchCnt = self.mFetchCnt + 1
-                        self.onFetchPriceFeedPrice(market.market_id)
-                    }
-                }
+                BaseData.instance.mKavaPriceMarkets = KavaPriceFeedParam.init(responseData).result.markets
+                print("BaseData.instance.mKavaPriceMarkets ", BaseData.instance.mKavaPriceMarkets.count)
             
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchPriceFeedParam ", error) }

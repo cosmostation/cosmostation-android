@@ -2653,29 +2653,6 @@ public class WUtils {
         }
     }
     
-    static func getKavaCoinDecimal(_ denom:String?) -> Int16 {
-        if (denom?.caseInsensitiveCompare(KAVA_MAIN_DENOM) == .orderedSame) {
-            return 6;
-        } else if (denom?.caseInsensitiveCompare("btc") == .orderedSame) {
-            return 8;
-        } else if (denom?.caseInsensitiveCompare("usdx") == .orderedSame) {
-            return 6;
-        } else if (denom?.caseInsensitiveCompare("bnb") == .orderedSame) {
-            return 8;
-        } else if (denom?.caseInsensitiveCompare("btcb") == .orderedSame || denom?.caseInsensitiveCompare("hbtc") == .orderedSame) {
-            return 8;
-        } else if (denom?.caseInsensitiveCompare("busd") == .orderedSame) {
-            return 8;
-        } else if (denom?.caseInsensitiveCompare("xrpb") == .orderedSame || denom?.caseInsensitiveCompare("xrbp") == .orderedSame) {
-            return 8;
-        } else if (denom?.caseInsensitiveCompare("hard") == .orderedSame) {
-            return 6;
-        } else if (denom?.caseInsensitiveCompare("swp") == .orderedSame) {
-            return 6;
-        }
-        return 100;
-    }
-    
     static func getSifCoinDecimal(_ denom:String?) -> Int16 {
         if (denom?.caseInsensitiveCompare(SIF_MAIN_DENOM) == .orderedSame) { return 18; }
         else if (denom?.caseInsensitiveCompare("cusdt") == .orderedSame) { return 6; }
