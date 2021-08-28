@@ -319,6 +319,9 @@ let KAVA_MSG_TYPE_WITHDRAW_HARD             = "hard/MsgWithdraw";
 let KAVA_MSG_TYPE_BORROW_HARD               = "hard/MsgBorrow";
 let KAVA_MSG_TYPE_REPAY_HARD                = "hard/MsgRepay";
 let KAVA_MSG_TYPE_LIQUIDATE_HARD            = "hard/MsgLiquidate";
+let KAVA_MSG_TYPE_SWAP_TOKEN                = "swap/MsgSwapExactForTokens";
+let KAVA_MSG_TYPE_SWAP_DEPOSIT              = "swap/MsgDeposit";
+let KAVA_MSG_TYPE_SWAP_WITHDRAW             = "swap/MsgWithdraw";
 
 
 let CERTIK_MSG_TYPE_TRANSFER                = "bank/MsgSend";
@@ -486,6 +489,9 @@ let KAVA_GAS_AMOUNT_VOTE                        = "300000";
 let KAVA_GAS_AMOUNT_CLAIM_INCENTIVE             = "800000";
 let KAVA_GAS_AMOUNT_CDP                         = "2000000";
 let KAVA_GAS_AMOUNT_HARD_POOL                   = "800000";
+let KAVA_GAS_AMOUNT_SWAP_TOKEN                  = "800000";
+let KAVA_GAS_AMOUNT_SWAP_DEPOSIT                = "800000";
+let KAVA_GAS_AMOUNT_SWAP_WITHDRAW               = "800000";
 let KAVA_GAS_AMOUNT_BEP3                        = "500000";
 
 

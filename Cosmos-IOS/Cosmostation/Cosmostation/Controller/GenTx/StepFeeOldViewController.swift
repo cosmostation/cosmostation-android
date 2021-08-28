@@ -205,6 +205,16 @@ class StepFeeOldViewController: BaseViewController {
                     self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                     return false
                 }
+                
+            } else if (pageHolderVC.mType == KAVA_MSG_TYPE_SWAP_TOKEN) {
+                let available = BaseData.instance.availableAmount(mainDenom)
+                if (pageHolderVC.mSwapInDenom == mainDenom) {
+                    let spend = pageHolderVC.mSwapInAmount!.adding(mFee)
+                    if (available.compare(spend).rawValue < 0) {
+                        self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                        return false
+                    }
+                }
             }
         }
         return true

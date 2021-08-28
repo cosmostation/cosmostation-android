@@ -752,6 +752,15 @@ class BaseNetWork {
         return ""
     }
     
+    static func swapPoolUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "swap/pool"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "swap/pool"
+        }
+        return ""
+    }
+    
     static func depositSwapPoolUrl(_ chain: ChainType?) -> String {
         if (chain == ChainType.KAVA_MAIN ) {
             return KAVA_URL + "swap/deposits"

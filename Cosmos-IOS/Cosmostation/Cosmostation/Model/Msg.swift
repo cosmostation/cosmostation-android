@@ -133,6 +133,12 @@ public struct Msg: Codable {
         var height_span: String?
         var cross_chain: Bool?
         var denom: String?
+        var requester: String?
+        var exact_token_a: Coin?
+        var token_b: Coin?
+        var slippage: String?
+        var deadline: String?
+        
         
         var transfers: Array<OkTransfer>?
         var quantity: Coin?
@@ -202,6 +208,11 @@ public struct Msg: Codable {
             case height_span
             case cross_chain
             case denom
+            case requester
+            case exact_token_a
+            case token_b
+            case slippage
+            case deadline
             
             case transfers
             case quantity
@@ -482,6 +493,22 @@ public struct Msg: Codable {
             }
             if let denom =  dictionary["denom"] as? String {
                 self.denom = denom
+            }
+            
+            if let requester =  dictionary["requester"] as? String {
+                self.requester = requester
+            }
+            if let rawExact_token_a = dictionary["exact_token_a"] as? [String : Any] {
+                self.exact_token_a = Coin(rawExact_token_a)
+            }
+            if let rawToken_b = dictionary["token_b"] as? [String : Any] {
+                self.token_b = Coin(rawToken_b)
+            }
+            if let slippage =  dictionary["slippage"] as? String {
+                self.slippage = slippage
+            }
+            if let deadline =  dictionary["deadline"] as? String {
+                self.deadline = deadline
             }
             
             

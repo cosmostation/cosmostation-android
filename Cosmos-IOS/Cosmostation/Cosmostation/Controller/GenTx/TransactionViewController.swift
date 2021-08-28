@@ -33,6 +33,7 @@ class TransactionViewController: UIViewController {
     var mCDenom: String?
     var mMarketID: String?
     var mHardPoolDenom: String?
+    var mKavaPool: SwapPool?
     
     var mHtlcDenom: String = BNB_MAIN_DENOM     //now only support bnb bep3
     var mHtlcRefundSwapId: String?
@@ -177,7 +178,22 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_repay_hardpool", comment: "")
             
-        } else if (mType == OK_MSG_TYPE_DEPOSIT) {
+        } else if (mType == KAVA_MSG_TYPE_SWAP_TOKEN) {
+            stepDescription.text = NSLocalizedString("str_swap_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_swap_token", comment: "")
+            
+        } else if (mType == KAVA_MSG_TYPE_SWAP_DEPOSIT) {
+            stepDescription.text = NSLocalizedString("str_join_pool_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_pool_join", comment: "")
+            
+        } else if (mType == KAVA_MSG_TYPE_SWAP_WITHDRAW) {
+            stepDescription.text = NSLocalizedString("str_exit_pool_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_pool_exit", comment: "")
+            
+        }  else if (mType == OK_MSG_TYPE_DEPOSIT) {
             stepDescription.text = NSLocalizedString("str_ok_stake_deposit_step_0", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_ok_deposit", comment: "")
@@ -228,17 +244,17 @@ class TransactionViewController: UIViewController {
             self.titleLabel.text =  NSLocalizedString("title_starname_update_resource", comment: "")
             
         } else if (mType == OSMOSIS_MSG_TYPE_SWAP) {
-            stepDescription.text = NSLocalizedString("str_osmosis_swap_step_0", comment: "")
+            stepDescription.text = NSLocalizedString("str_swap_step_0", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
-            self.titleLabel.text =  NSLocalizedString("title_swap_osmosis", comment: "")
+            self.titleLabel.text =  NSLocalizedString("title_swap_token", comment: "")
             
         } else if (mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
-            stepDescription.text = NSLocalizedString("str_osmosis_join_pool_step_0", comment: "")
+            stepDescription.text = NSLocalizedString("str_join_pool_step_0", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_pool_join", comment: "")
             
         } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
-            stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_0", comment: "")
+            stepDescription.text = NSLocalizedString("str_exit_pool_step_0", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_pool_exit", comment: "")
             
@@ -309,6 +325,7 @@ class TransactionViewController: UIViewController {
             StepVc.mHtlcRefundSwapId = self.mHtlcRefundSwapId
             StepVc.mHardPoolDenom = self.mHardPoolDenom
             StepVc.mCollateralParamType = self.mCollateralParamType
+            StepVc.mKavaPool = self.mKavaPool
             
             StepVc.mStarnameDomain = self.mStarnameDomain
             StepVc.mStarnameAccount = self.mStarnameAccount
@@ -413,6 +430,18 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("repay_hardpool_step_0", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     
+                } else if (mType == KAVA_MSG_TYPE_SWAP_TOKEN) {
+                    stepDescription.text = NSLocalizedString("str_swap_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == KAVA_MSG_TYPE_SWAP_DEPOSIT) {
+                    stepDescription.text = NSLocalizedString("str_join_pool_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == KAVA_MSG_TYPE_SWAP_WITHDRAW) {
+                    stepDescription.text = NSLocalizedString("str_exit_pool_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
                 } else if (mType == TASK_TYPE_HTLC_SWAP) {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("htlc_swap_step_0", comment: "")
@@ -458,15 +487,15 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_SWAP) {
-                    stepDescription.text = NSLocalizedString("str_osmosis_swap_step_0", comment: "")
+                    stepDescription.text = NSLocalizedString("str_swap_step_0", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
-                    stepDescription.text = NSLocalizedString("str_osmosis_join_pool_step_0", comment: "")
+                    stepDescription.text = NSLocalizedString("str_join_pool_step_0", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
-                    stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_0", comment: "")
+                    stepDescription.text = NSLocalizedString("str_exit_pool_step_0", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_LOCK) {
@@ -575,6 +604,18 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("repay_hardpool_step_1", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     
+                } else if (mType == KAVA_MSG_TYPE_SWAP_TOKEN) {
+                    stepDescription.text = NSLocalizedString("str_swap_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == KAVA_MSG_TYPE_SWAP_DEPOSIT) {
+                    stepDescription.text = NSLocalizedString("str_join_pool_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == KAVA_MSG_TYPE_SWAP_WITHDRAW) {
+                    stepDescription.text = NSLocalizedString("str_exit_pool_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
                 } else if (mType == TASK_TYPE_HTLC_SWAP) {
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     stepDescription.text = NSLocalizedString("htlc_swap_step_1", comment: "")
@@ -620,15 +661,15 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_SWAP) {
-                    stepDescription.text = NSLocalizedString("str_osmosis_swap_step_1", comment: "")
+                    stepDescription.text = NSLocalizedString("str_swap_step_1", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
-                    stepDescription.text = NSLocalizedString("str_osmosis_join_pool_step_1", comment: "")
+                    stepDescription.text = NSLocalizedString("str_join_pool_step_1", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
-                    stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_1", comment: "")
+                    stepDescription.text = NSLocalizedString("str_exit_pool_step_1", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_LOCK) {
@@ -737,6 +778,18 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("repay_hardpool_step_2", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     
+                } else if (mType == KAVA_MSG_TYPE_SWAP_TOKEN) {
+                    stepDescription.text = NSLocalizedString("str_swap_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == KAVA_MSG_TYPE_SWAP_DEPOSIT) {
+                    stepDescription.text = NSLocalizedString("str_join_pool_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == KAVA_MSG_TYPE_SWAP_WITHDRAW) {
+                    stepDescription.text = NSLocalizedString("str_exit_pool_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
                 } else if (mType == TASK_TYPE_HTLC_SWAP) {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("htlc_swap_step_2", comment: "")
@@ -782,15 +835,15 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_SWAP) {
-                    stepDescription.text = NSLocalizedString("str_osmosis_swap_step_2", comment: "")
+                    stepDescription.text = NSLocalizedString("str_swap_step_2", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
-                    stepDescription.text = NSLocalizedString("str_osmosis_join_pool_step_2", comment: "")
+                    stepDescription.text = NSLocalizedString("str_join_pool_step_2", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
-                    stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_2", comment: "")
+                    stepDescription.text = NSLocalizedString("str_exit_pool_step_2", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_LOCK) {
@@ -893,6 +946,18 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("repay_hardpool_step_3", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     
+                } else if (mType == KAVA_MSG_TYPE_SWAP_TOKEN) {
+                    stepDescription.text = NSLocalizedString("str_swap_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == KAVA_MSG_TYPE_SWAP_DEPOSIT) {
+                    stepDescription.text = NSLocalizedString("str_join_pool_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == KAVA_MSG_TYPE_SWAP_WITHDRAW) {
+                    stepDescription.text = NSLocalizedString("str_exit_pool_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
                 } else if (mType == TASK_TYPE_HTLC_SWAP) {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("htlc_swap_step_3", comment: "")
@@ -938,15 +1003,15 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_SWAP) {
-                    stepDescription.text = NSLocalizedString("str_osmosis_swap_step_3", comment: "")
+                    stepDescription.text = NSLocalizedString("str_swap_step_3", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_JOIN_POOL) {
-                    stepDescription.text = NSLocalizedString("str_osmosis_join_pool_step_3", comment: "")
+                    stepDescription.text = NSLocalizedString("str_join_pool_step_3", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_EXIT_POOL) {
-                    stepDescription.text = NSLocalizedString("str_osmosis_exit_pool_step_3", comment: "")
+                    stepDescription.text = NSLocalizedString("str_exit_pool_step_3", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     
                 } else if (mType == OSMOSIS_MSG_TYPE_LOCK) {

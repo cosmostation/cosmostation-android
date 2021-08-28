@@ -47,6 +47,7 @@ final class BaseData : NSObject{
     var mMyHardBorrow: Array<HardMyBorrow>?
     var mModuleCoins: Array<Coin>?
     var mReserveCoins: Array<Coin>?
+    var mKavaSwapParam: SwapParam!
     
     var mBnbTokenList = Array<BnbToken>()
     var mBnbTokenTicker = Array<BnbTicker>()

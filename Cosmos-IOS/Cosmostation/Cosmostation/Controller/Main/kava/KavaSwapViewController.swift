@@ -33,6 +33,8 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
     var mSelectedPool: SwapPool!
     var mInputCoinDenom: String!
     var mOutputCoinDenom: String!
+    var mInputCoinAmount = NSDecimalNumber.zero
+    var mOutputCoinAmount = NSDecimalNumber.zero
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,9 +51,15 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
     func updateView() {
         let inputCoinDecimal = WUtils.getKavaCoinDecimal(mInputCoinDenom)
         let outputCoinDecimal = WUtils.getKavaCoinDecimal(mOutputCoinDenom)
-        let inputCoinPrice = WUtils.getKavaPriceFeed((mInputCoinDenom))
-        let outputCoinPrice = WUtils.getKavaPriceFeed(mOutputCoinDenom)
-        let swapRate = inputCoinPrice.dividing(by: outputCoinPrice, withBehavior: WUtils.handler6)
+        
+        if (mSelectedPool.coins[0].denom == self.mInputCoinDenom) {
+            mInputCoinAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[0].amount)
+            mOutputCoinAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[1].amount)
+        } else {
+            mInputCoinAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[1].amount)
+            mOutputCoinAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[0].amount)
+        }
+        let swapRate = mOutputCoinAmount.dividing(by: mInputCoinAmount, withBehavior: WUtils.handler6)
         
         WUtils.DpKavaTokenName(inputCoinName, mInputCoinDenom)
         WUtils.DpKavaTokenName(outputCoinName, mOutputCoinDenom)
@@ -104,6 +112,18 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
     
     @IBAction func onClickSwap(_ sender: UIButton) {
         print("onClickSwap")
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_SWAP_TOKEN
+        txVC.mKavaPool = mSelectedPool
+        txVC.mSwapInDenom = mInputCoinDenom
+        txVC.mSwapOutDenom = mOutputCoinDenom
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     
@@ -168,6 +188,7 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
                     return
                 }
                 self.mSwapParam = KavaSwapParam.init(responseData).result
+                BaseData.instance.mKavaSwapParam = self.mSwapParam
             
                 var market_ids = Array<String>()
                 BaseData.instance.mKavaPriceMarkets.forEach { priceMarket in
@@ -238,7 +259,7 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchSwapPoolParam ", error) }
+                if (SHOW_LOG) { print("onFetchSwapPoolList ", error) }
             }
             self.onFetchFinished()
         }

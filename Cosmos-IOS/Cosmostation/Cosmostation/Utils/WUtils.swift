@@ -2985,6 +2985,12 @@ public class WUtils {
             } else if (type == KAVA_MSG_TYPE_DEPOSIT_HARD || type == KAVA_MSG_TYPE_WITHDRAW_HARD || type == KAVA_MSG_TYPE_BORROW_HARD ||
                         type == KAVA_MSG_TYPE_REPAY_HARD) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_HARD_POOL))
+            } else if (type == KAVA_MSG_TYPE_SWAP_TOKEN) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_SWAP_TOKEN))
+            } else if (type == KAVA_MSG_TYPE_SWAP_DEPOSIT) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_SWAP_DEPOSIT))
+            } else if (type == KAVA_MSG_TYPE_SWAP_WITHDRAW) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_SWAP_WITHDRAW))
             } else if (type == TASK_TYPE_HTLC_SWAP) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_BEP3))
             }

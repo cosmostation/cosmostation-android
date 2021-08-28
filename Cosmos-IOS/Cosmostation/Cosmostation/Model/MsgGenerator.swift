@@ -538,6 +538,19 @@ class MsgGenerator {
         return msg
     }
     
+    static func genSwapTokenMsg(_ chainType: ChainType, _ requester: String, _ swapIn: Coin, _ swapOut: Coin, _ slippage: String, _ deadline: String) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.requester = requester
+        value.exact_token_a = swapIn;
+        value.token_b = swapOut;
+        value.slippage = slippage;
+        value.deadline = deadline;
+        msg.type = KAVA_MSG_TYPE_SWAP_TOKEN;
+        msg.value = value;
+        return msg
+    }
+    
     
     static func genOkDepositMsg(_ delegator: String, _ coin: Coin) -> Msg {
         var msg = Msg.init()

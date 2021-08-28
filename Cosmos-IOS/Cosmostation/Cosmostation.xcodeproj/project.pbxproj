@@ -876,6 +876,10 @@
 		28EEEC9526DA5FB8002DDC4A /* SwapPoolListMyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28EEEC9326DA5FB8002DDC4A /* SwapPoolListMyCell.xib */; };
 		28EEEC9826DA5FC8002DDC4A /* SwapPoolListOtherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EEEC9626DA5FC8002DDC4A /* SwapPoolListOtherCell.swift */; };
 		28EEEC9926DA5FC8002DDC4A /* SwapPoolListOtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28EEEC9726DA5FC8002DDC4A /* SwapPoolListOtherCell.xib */; };
+		28EEEC9C26DABA74002DDC4A /* KavaSwap0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EEEC9A26DABA74002DDC4A /* KavaSwap0ViewController.swift */; };
+		28EEEC9D26DABA74002DDC4A /* KavaSwap0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28EEEC9B26DABA74002DDC4A /* KavaSwap0ViewController.xib */; };
+		28EEECA026DABA83002DDC4A /* KavaSwap3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EEEC9E26DABA83002DDC4A /* KavaSwap3ViewController.swift */; };
+		28EEECA126DABA83002DDC4A /* KavaSwap3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28EEEC9F26DABA83002DDC4A /* KavaSwap3ViewController.xib */; };
 		28F553492641790100590056 /* WalletKiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F553472641790100590056 /* WalletKiCell.swift */; };
 		28F5534A2641790200590056 /* WalletKiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F553482641790100590056 /* WalletKiCell.xib */; };
 		28FA685026D8A53E00CF4C57 /* WalletKavaIncentiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FA684E26D8A53E00CF4C57 /* WalletKavaIncentiveCell.swift */; };
@@ -1945,6 +1949,10 @@
 		28EEEC9326DA5FB8002DDC4A /* SwapPoolListMyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwapPoolListMyCell.xib; sourceTree = "<group>"; };
 		28EEEC9626DA5FC8002DDC4A /* SwapPoolListOtherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapPoolListOtherCell.swift; sourceTree = "<group>"; };
 		28EEEC9726DA5FC8002DDC4A /* SwapPoolListOtherCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwapPoolListOtherCell.xib; sourceTree = "<group>"; };
+		28EEEC9A26DABA74002DDC4A /* KavaSwap0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwap0ViewController.swift; sourceTree = "<group>"; };
+		28EEEC9B26DABA74002DDC4A /* KavaSwap0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KavaSwap0ViewController.xib; sourceTree = "<group>"; };
+		28EEEC9E26DABA83002DDC4A /* KavaSwap3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwap3ViewController.swift; sourceTree = "<group>"; };
+		28EEEC9F26DABA83002DDC4A /* KavaSwap3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KavaSwap3ViewController.xib; sourceTree = "<group>"; };
 		28F553472641790100590056 /* WalletKiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKiCell.swift; sourceTree = "<group>"; };
 		28F553482641790100590056 /* WalletKiCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletKiCell.xib; sourceTree = "<group>"; };
 		28FA684E26D8A53E00CF4C57 /* WalletKavaIncentiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKavaIncentiveCell.swift; sourceTree = "<group>"; };
@@ -3114,6 +3122,10 @@
 				28DB570F25FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.xib */,
 				28DB571325FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.swift */,
 				28DB571425FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib */,
+				28EEEC9A26DABA74002DDC4A /* KavaSwap0ViewController.swift */,
+				28EEEC9B26DABA74002DDC4A /* KavaSwap0ViewController.xib */,
+				28EEEC9E26DABA83002DDC4A /* KavaSwap3ViewController.swift */,
+				28EEEC9F26DABA83002DDC4A /* KavaSwap3ViewController.xib */,
 			);
 			path = kava;
 			sourceTree = "<group>";
@@ -3722,6 +3734,7 @@
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
 				28E3E37A2670A27A00BA89C2 /* WalletAltheaCell.xib in Resources */,
+				28EEEC9D26DABA74002DDC4A /* KavaSwap0ViewController.xib in Resources */,
 				282FF34E23F50E010028CC66 /* TxRedelegateCell.xib in Resources */,
 				28474ED1241E06AF00AF5A81 /* TxPostPriceCell.xib in Resources */,
 				2876AD5C240CE4A6005B33F4 /* TokenDetailUnbondingDetailCell.xib in Resources */,
@@ -3870,6 +3883,7 @@
 				283E9459254901D9007A9291 /* RegisterDomain0ViewController.xib in Resources */,
 				280E1F17254ABB080007BA7D /* ResourceAddCell.xib in Resources */,
 				28474ECC241E06AF00AF5A81 /* TxCdpBorrowCell.xib in Resources */,
+				28EEECA126DABA83002DDC4A /* KavaSwap3ViewController.xib in Resources */,
 				283E750426CE36E40097CC04 /* TokenDetailStakingCell.xib in Resources */,
 				E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */,
 				28EEEC9526DA5FB8002DDC4A /* SwapPoolListMyCell.xib in Resources */,
@@ -4225,6 +4239,7 @@
 				287AC64625FDF7260070837E /* ibc_core_types_v1_genesis.pb.swift in Sources */,
 				2842AB5D242C2D4D00248EEB /* Cdp.swift in Sources */,
 				28A3701B269DA20600990696 /* gravity_v1_genesis.pb.swift in Sources */,
+				28EEECA026DABA83002DDC4A /* KavaSwap3ViewController.swift in Sources */,
 				0497585B26856DE30039872C /* oracle_v1_tx.pb.swift in Sources */,
 				288D2500268326060093121A /* NewHistoryCell.swift in Sources */,
 				287AC5BC25FDF7250070837E /* tendermint_crypto_proof.pb.swift in Sources */,
@@ -4286,6 +4301,7 @@
 				E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */,
 				289EF82026824E4700F90AC1 /* osmosis_mint_v1beta1_mint.pb.swift in Sources */,
 				28D7BDA825F0B792006EECD7 /* ClaimMultiplier.swift in Sources */,
+				28EEEC9C26DABA74002DDC4A /* KavaSwap0ViewController.swift in Sources */,
 				E1827E2F225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift in Sources */,
 				285A33E624486DA20052BD3D /* HtlcResultSentCell.swift in Sources */,
 				28BB2A912533DA2D00CFF097 /* AccountCell.swift in Sources */,

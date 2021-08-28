@@ -84,6 +84,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mHardPoolCoins: Array<Coin>?
     var mIncentiveMultiplier: ClaimMultiplier?
     var mHardPoolCoin = Coin.init()
+    var mKavaPool: SwapPool?
     
     
     var mHtlcDenom: String?
@@ -312,7 +313,21 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     HardPoolRepay3ViewController(nibName: "HardPoolRepay3ViewController", bundle: nil)]
             
-        } else if (mType == OK_MSG_TYPE_DEPOSIT) {
+        } else if (mType == KAVA_MSG_TYPE_SWAP_TOKEN) {
+            return [KavaSwap0ViewController(nibName: "KavaSwap0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
+                    KavaSwap3ViewController(nibName: "KavaSwap3ViewController", bundle: nil)]
+            
+        }
+        
+//        else if (mType == KAVA_MSG_TYPE_SWAP_DEPOSIT) {
+//            
+//        } else if (mType == KAVA_MSG_TYPE_SWAP_WITHDRAW) {
+//            
+//        }
+        
+        else if (mType == OK_MSG_TYPE_DEPOSIT) {
             return [self.newVc(viewController: "StepOkDepositAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),

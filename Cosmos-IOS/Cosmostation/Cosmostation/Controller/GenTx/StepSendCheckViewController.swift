@@ -297,7 +297,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 let data = try? encoder.encode(postTx)
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-//                    print("params ", params)
+                    print("params ", params)
                     let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
