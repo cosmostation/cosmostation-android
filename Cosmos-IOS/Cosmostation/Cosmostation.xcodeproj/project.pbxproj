@@ -2764,11 +2764,11 @@
 			isa = PBXGroup;
 			children = (
 				284D179F2535558A00C364F9 /* Kava.storyboard */,
-				28B37D2B26D8EB42008AACD2 /* KavaSwapViewController.swift */,
 				284D17D82535572300C364F9 /* DAppsListViewController.swift */,
+				28B37D2B26D8EB42008AACD2 /* KavaSwapViewController.swift */,
+				28B37D2926D8EAFE008AACD2 /* PoolListViewController.swift */,
 				284D17DB2535573100C364F9 /* CdpListViewController.swift */,
 				284D17DE2535573D00C364F9 /* HardListViewController.swift */,
-				28B37D2926D8EAFE008AACD2 /* PoolListViewController.swift */,
 				289DF16E242DD90300433CF4 /* CdpDetailViewController.swift */,
 				283A80E324514BD0008FF813 /* CdpDetailViewController.xib */,
 				28156EA22536DE53006FF06C /* HardDetailViewController.swift */,

@@ -20,17 +20,14 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
     var totalBorrow: Array<Coin>?
     var myDeposit: Array<HardMyDeposit>?
     var myBorrow: Array<HardMyBorrow>?
-    var incentiveRewards: IncentiveReward?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
         
         self.hardTableView.delegate = self
         self.hardTableView.dataSource = self
-        self.hardTableView.register(UINib(nibName: "HarvestListRewardCell", bundle: nil), forCellReuseIdentifier: "HarvestListRewardCell")
         self.hardTableView.register(UINib(nibName: "HardListMyStatusCell", bundle: nil), forCellReuseIdentifier: "HardListMyStatusCell")
         self.hardTableView.register(UINib(nibName: "HarvestListAllCell", bundle: nil), forCellReuseIdentifier: "HarvestListAllCell")
         
@@ -52,7 +49,7 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.refresher.endRefreshing()
             return
         }
-        self.mFetchCnt = 7
+        self.mFetchCnt = 6
         self.interestRates?.removeAll()
         self.totalDeposit?.removeAll()
         self.totalBorrow?.removeAll()
@@ -65,7 +62,6 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.onFetchHardTotalBorrow()
         self.onFetchHardMyDeposit(account!.account_address)
         self.onFetchHardMyBorrow(account!.account_address)
-        self.onFetchIncentiveReward(account!.account_address)
     }
     
     func onFetchFinished() {
@@ -77,22 +73,12 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
-            if let hardRewardAmount = incentiveRewards?.getHardPoolHardRewardAmount(), hardRewardAmount.compare(NSDecimalNumber.zero).rawValue > 0 {
-                return 1
-            }
-            if let kavaRewardAmount = incentiveRewards?.getHardPoolKavaRewardAmount(), kavaRewardAmount.compare(NSDecimalNumber.zero).rawValue > 0  {
-                return 1
-            }
-            return 0
-            
-        } else if (section == 1) {
             return 1
-            
         } else {
             return hardParam?.money_markets?.count ?? 0
         }
@@ -100,167 +86,24 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
-            return onBindIncentiveCell(tableView, indexPath.row)
-
-        } else if (indexPath.section == 1) {
-            return onBindStatusCell(tableView, indexPath.row)
-
+            let cell:HardListMyStatusCell? = tableView.dequeueReusableCell(withIdentifier:"HardListMyStatusCell") as? HardListMyStatusCell
+            cell?.onBindView(self.hardParam, self.myDeposit, self.myBorrow)
+            return cell!
         } else {
-            return onBindHardPoolCell(tableView, indexPath.row)
+            let cell:HarvestListAllCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestListAllCell") as? HarvestListAllCell
+            cell?.onBindView(indexPath.row, self.hardParam, self.myDeposit, self.myBorrow, self.interestRates)
+            return cell!
         }
-
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.section == 2) {
+        if (indexPath.section == 1) {
             let hardDetailVC = HardDetailViewController(nibName: "HardDetailViewController", bundle: nil)
             hardDetailVC.mHardMoneyMarketDenom = hardParam!.money_markets![indexPath.row].denom
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(hardDetailVC, animated: true)
         }
     }
-    
-    func onBindIncentiveCell(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
-        let cell:HarvestListRewardCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestListRewardCell") as? HarvestListRewardCell
-        var kavaIncentive = NSDecimalNumber.zero
-        if let incentiveSum = incentiveRewards?.getHardPoolKavaRewardAmount() {
-            kavaIncentive = incentiveSum
-        }
-        var hardIncentive = NSDecimalNumber.zero
-        if let incentiveSum = incentiveRewards?.getHardPoolHardRewardAmount() {
-            hardIncentive = incentiveSum
-        }
-        cell?.kavaIncentiveAmount.attributedText = WUtils.displayAmount2(kavaIncentive.stringValue, cell!.kavaIncentiveAmount.font, 6, 6)
-        cell?.hardIncentiveAmount.attributedText = WUtils.displayAmount2(hardIncentive.stringValue, cell!.hardIncentiveAmount.font, 6, 6)
-        cell?.actionClaim = {
-            self.onHardPoolIncentiveClaim()
-        }
-        return cell!
-    }
-    
-    func onBindStatusCell(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
-        let cell:HardListMyStatusCell? = tableView.dequeueReusableCell(withIdentifier:"HardListMyStatusCell") as? HardListMyStatusCell
-        
-        var totalDepositValue = NSDecimalNumber.zero
-        var totalLTVValue = NSDecimalNumber.zero
-        if let myDposits = self.myDeposit, let coins = myDposits[0].amount {
-            for coin in coins {
-                let decimal         = WUtils.getKavaCoinDecimal(coin.denom)
-                let LTV             = self.hardParam!.getLTV(coin.denom)
-                var depositValue    = NSDecimalNumber.zero
-                var ltvValue        = NSDecimalNumber.zero
-                if (coin.denom == "usdx" || coin.denom == "busd") {
-                    depositValue = NSDecimalNumber.init(string: coin.amount).multiplying(byPowerOf10: -decimal, withBehavior: WUtils.handler12Down)
-                } else {
-                    if let price = BaseData.instance.mKavaPrice[self.hardParam!.getSpotMarketId(coin.denom)!] {
-                        depositValue = NSDecimalNumber.init(string: coin.amount).multiplying(byPowerOf10: -decimal).multiplying(by: NSDecimalNumber.init(string: price.result.price), withBehavior: WUtils.handler12Down)
-                    }
-                }
-                ltvValue = depositValue.multiplying(by: LTV)
-                totalLTVValue = totalLTVValue.adding(ltvValue)
-                totalDepositValue = totalDepositValue.adding(depositValue)
-            }
-        }
-        cell?.totalDepositedValue.attributedText = WUtils.getDPRawDollor(totalDepositValue.stringValue, 2, cell!.totalDepositedValue.font)
-        cell?.maxBorrowableValue.attributedText = WUtils.getDPRawDollor(totalLTVValue.stringValue, 2, cell!.maxBorrowableValue.font)
-        
-        var totalBorrowedValue = NSDecimalNumber.zero
-        if let myBorrows = self.myBorrow, let coins = myBorrows[0].amount {
-            for coin in coins {
-                let decimal         = WUtils.getKavaCoinDecimal(coin.denom)
-                var borrowValue    = NSDecimalNumber.zero
-                if (coin.denom == "usdx" || coin.denom == "busd") {
-                    borrowValue = NSDecimalNumber.init(string: coin.amount).multiplying(byPowerOf10: -decimal, withBehavior: WUtils.handler12Down)
-                } else {
-                    if let price = BaseData.instance.mKavaPrice[self.hardParam!.getSpotMarketId(coin.denom)!] {
-                        borrowValue = NSDecimalNumber.init(string: coin.amount).multiplying(byPowerOf10: -decimal).multiplying(by: NSDecimalNumber.init(string: price.result.price), withBehavior: WUtils.handler12Down)
-                    }
-                }
-                totalBorrowedValue = totalBorrowedValue.adding(borrowValue)
-            }
-        }
-        cell?.totalBorrowedValue.attributedText = WUtils.getDPRawDollor(totalBorrowedValue.stringValue, 2, cell!.totalBorrowedValue.font)
-        let remainBorrowable = (totalLTVValue.subtracting(totalBorrowedValue).compare(NSDecimalNumber.zero).rawValue > 0) ? totalLTVValue.subtracting(totalBorrowedValue) : NSDecimalNumber.zero
-        cell?.remainingBorrowableValue.attributedText = WUtils.getDPRawDollor(remainBorrowable.stringValue, 2, cell!.remainingBorrowableValue.font)
-        return cell!
-    }
-    
-    func onBindHardPoolCell(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
-        let cell:HarvestListAllCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestListAllCell") as? HarvestListAllCell
-        guard let hardMoneyMarket = hardParam?.money_markets?[position] else {
-            return cell!
-        }
-        let decimal = WUtils.getKavaCoinDecimal(hardMoneyMarket.denom!);
-        let url = KAVA_HARD_POOL_IMG_URL + "lp" + hardMoneyMarket.denom! + ".png"
-        let title = (hardMoneyMarket.denom! == KAVA_MAIN_DENOM) ? "kava" : hardMoneyMarket.denom!
-        cell?.harvestImg.af_setImage(withURL: URL(string: url)!)
-        cell?.harvestTitle.text = title.uppercased() + " POOL"
-        
-        //Display API
-        var supplyApy = NSDecimalNumber.zero
-        var borrowApy = NSDecimalNumber.zero
-        if let interestRate = interestRates?.filter({ $0.denom == hardMoneyMarket.denom}).first {
-            supplyApy = NSDecimalNumber.init(string: interestRate.supply_interest_rate)
-            borrowApy = NSDecimalNumber.init(string: interestRate.borrow_interest_rate)
-        }
-        cell?.supplyAPILabel.attributedText = WUtils.displayPercent(supplyApy.multiplying(byPowerOf10: 2), cell!.supplyAPILabel.font)
-        cell?.borrowAPILabel.attributedText = WUtils.displayPercent(borrowApy.multiplying(byPowerOf10: 2), cell!.borrowAPILabel.font)
-        
-        //Display supplied amounts
-        var myDepositAmount = NSDecimalNumber.zero
-        var myDepositValue = NSDecimalNumber.zero
-        if let deposits = self.myDeposit, deposits.count > 0, let coins = deposits[0].amount {
-            for coin in coins {
-                if (coin.denom == hardMoneyMarket.denom) {
-                    myDepositAmount = NSDecimalNumber.init(string: coin.amount)
-                }
-            }
-        }
-        if let price = BaseData.instance.mKavaPrice[self.hardParam!.getSpotMarketId(hardMoneyMarket.denom!)!] {
-            myDepositValue = myDepositAmount.multiplying(byPowerOf10: -decimal).multiplying(by: NSDecimalNumber.init(string: price.result.price), withBehavior: WUtils.handler12Down)
-        }
-        WUtils.showCoinDp(hardMoneyMarket.denom!, myDepositAmount.stringValue, cell!.mySuppliedDenom, cell!.mySuppliedAmount, chainType!)
-        cell?.mySuppliedValue.attributedText = WUtils.getDPRawDollor(myDepositValue.stringValue, 2, cell!.mySuppliedValue.font)
-        
-        
-        //Display borrowed amounts
-        var myBorrowedAmount = NSDecimalNumber.zero
-        var myBorrowedValue = NSDecimalNumber.zero
-        if let borrows = self.myBorrow, let coins = borrows[0].amount {
-            for coin in coins {
-                if (coin.denom == hardMoneyMarket.denom) {
-                    myBorrowedAmount = NSDecimalNumber.init(string: coin.amount)
-                }
-            }
-        }
-        if let price = BaseData.instance.mKavaPrice[self.hardParam!.getSpotMarketId(hardMoneyMarket.denom!)!] {
-            myBorrowedValue = myBorrowedAmount.multiplying(byPowerOf10: -decimal).multiplying(by: NSDecimalNumber.init(string: price.result.price), withBehavior: WUtils.handler12Down)
-        }
-        WUtils.showCoinDp(hardMoneyMarket.denom!, myBorrowedAmount.stringValue, cell!.myBorrowedDenom, cell!.myBorrowedAmount, chainType!)
-        cell?.myBorrowedValue.attributedText = WUtils.getDPRawDollor(myBorrowedValue.stringValue, 2, cell!.myBorrowedValue.font)
-        return cell!
-    }
-    
-    func onHardPoolIncentiveClaim() {
-        if (!account!.account_has_private) {
-            self.onShowAddMenomicDialog()
-            return
-        }
-//        if (BaseData.instance.mKavaAccountResult.type == COSMOS_AUTH_TYPE_V_VESTING_ACCOUNT) {
-//            let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-//            txVC.mType = KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV
-//            self.navigationItem.title = ""
-//            self.navigationController?.pushViewController(txVC, animated: true)
-//
-//
-//        } else {
-            let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-            txVC.mType = KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(txVC, animated: true)
-//        }
-    }
-    
     
     func onFetchHardParam() {
         let request = Alamofire.request(BaseNetWork.paramHardPoolUrl(chainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
@@ -275,9 +118,36 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
                     self.hardParam = kavaHardParam.result
                     BaseData.instance.mHardParam = kavaHardParam.result
                     
+                    if let moneyMarkets = kavaHardParam.result?.money_markets {
+                        self.mFetchCnt = self.mFetchCnt + moneyMarkets.count
+                        moneyMarkets.forEach { moneyMarket in
+                            self.onFetchPriceFeedPrice(moneyMarket.spot_market_id!)
+                        }
+                    }
+                    
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHardInterestRate ", error) }
+                    print("onFetchHardInterestRate ", error)
                 }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchPriceFeedPrice(_ market: String) {
+        let request = Alamofire.request(BaseNetWork.priceFeedUrl(chainType, market), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//                print("onFetchPriceFeedPrice ", res)
+                guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
+                    self.onFetchFinished()
+                    return
+                }
+                let priceParam = KavaPriceFeedPrice.init(responseData)
+                BaseData.instance.mKavaPrice[priceParam.result.market_id] = priceParam
+                
+            case .failure(let error):
+                print("onFetchKavaPrice ", market , " ", error)
+            }
             self.onFetchFinished()
         }
     }
@@ -295,7 +165,7 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
                     self.interestRates = kavaHardInterestRate.result
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHardInterestRate ", error) }
+                    print("onFetchHardInterestRate ", error)
                 }
             self.onFetchFinished()
         }
@@ -314,7 +184,7 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
                     self.totalDeposit = kavaHardTotalDeposit.result
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHardTotalDeposit ", error) }
+                    print("onFetchHardTotalDeposit ", error)
                 }
             self.onFetchFinished()
         }
@@ -333,7 +203,7 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
                     self.totalBorrow = kavaHardTotalBorrow.result
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHardTotalBorrow ", error) }
+                    print("onFetchHardTotalBorrow ", error)
                 }
             self.onFetchFinished()
         }
@@ -344,6 +214,7 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
         request.responseJSON { (response) in
             switch response.result {
                 case .success(let res):
+//                    print("onFetchHardMyDeposit ", res)
                     guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
                         self.onFetchFinished()
                         return
@@ -351,9 +222,10 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
                     let kavaHardMyDeposit = KavaHardMyDeposit.init(responseData)
                     self.myDeposit = kavaHardMyDeposit.result
                     BaseData.instance.mMyHardDeposit = kavaHardMyDeposit.result
+//                    print("mMyHardDeposit ", BaseData.instance.mMyHardDeposit?.count)
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHardMyDeposit ", error) }
+                    print("onFetchHardMyDeposit ", error)
                 }
             self.onFetchFinished()
         }
@@ -364,6 +236,7 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
         request.responseJSON { (response) in
             switch response.result {
                 case .success(let res):
+//                    print("onFetchHardMyBorrow ", res)
                     guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
                         self.onFetchFinished()
                         return
@@ -371,29 +244,10 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
                     let kavaHardMyBorrow = KavaHardMyBorrow.init(responseData)
                     self.myBorrow = kavaHardMyBorrow.result
                     BaseData.instance.mMyHardBorrow = kavaHardMyBorrow.result
+//                    print("mMyHardBorrow ", BaseData.instance.mMyHardBorrow?.count)
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHardMyBorrow ", error) }
-                }
-            self.onFetchFinished()
-        }
-    }
-    
-    func onFetchIncentiveReward(_ address: String) {
-        let request = Alamofire.request(BaseNetWork.incentiveUrl(chainType), method: .get, parameters: ["owner":address], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
-                        self.onFetchFinished()
-                        return
-                    }
-                    let kavaIncentiveReward = KavaIncentiveReward.init(responseData)
-                    self.incentiveRewards = kavaIncentiveReward.result
-                    BaseData.instance.mIncentiveRewards = kavaIncentiveReward.result
-                    
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchIncentiveReward ", error) }
+                    print("onFetchHardMyBorrow ", error)
                 }
             self.onFetchFinished()
         }

@@ -23,7 +23,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
-        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
         
         self.cdpTableView.delegate = self
         self.cdpTableView.dataSource = self
