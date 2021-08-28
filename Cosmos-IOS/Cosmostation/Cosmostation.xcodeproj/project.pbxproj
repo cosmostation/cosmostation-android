@@ -111,8 +111,8 @@
 		2812BE15261170810050AE7C /* WalletSentinelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812BE13261170810050AE7C /* WalletSentinelCell.swift */; };
 		2812BE16261170810050AE7C /* WalletSentinelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2812BE14261170810050AE7C /* WalletSentinelCell.xib */; };
 		2812BE1A2611E9F50050AE7C /* VestingAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812BE192611E9F50050AE7C /* VestingAccountInfo.swift */; };
-		28156E7F25360B70006FF06C /* HarvestListAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28156E7D25360B70006FF06C /* HarvestListAllCell.swift */; };
-		28156E8025360B70006FF06C /* HarvestListAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28156E7E25360B70006FF06C /* HarvestListAllCell.xib */; };
+		28156E7F25360B70006FF06C /* HardListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28156E7D25360B70006FF06C /* HardListCell.swift */; };
+		28156E8025360B70006FF06C /* HardListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28156E7E25360B70006FF06C /* HardListCell.xib */; };
 		28156E892536912C006FF06C /* HarvestListRewardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28156E872536912C006FF06C /* HarvestListRewardCell.swift */; };
 		28156E8A2536912C006FF06C /* HarvestListRewardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28156E882536912C006FF06C /* HarvestListRewardCell.xib */; };
 		28156E922536982A006FF06C /* HarvestListHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28156E912536982A006FF06C /* HarvestListHeader.swift */; };
@@ -1161,8 +1161,8 @@
 		2812BE13261170810050AE7C /* WalletSentinelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSentinelCell.swift; sourceTree = "<group>"; };
 		2812BE14261170810050AE7C /* WalletSentinelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSentinelCell.xib; sourceTree = "<group>"; };
 		2812BE192611E9F50050AE7C /* VestingAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VestingAccountInfo.swift; sourceTree = "<group>"; };
-		28156E7D25360B70006FF06C /* HarvestListAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarvestListAllCell.swift; sourceTree = "<group>"; };
-		28156E7E25360B70006FF06C /* HarvestListAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HarvestListAllCell.xib; sourceTree = "<group>"; };
+		28156E7D25360B70006FF06C /* HardListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardListCell.swift; sourceTree = "<group>"; };
+		28156E7E25360B70006FF06C /* HardListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardListCell.xib; sourceTree = "<group>"; };
 		28156E872536912C006FF06C /* HarvestListRewardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarvestListRewardCell.swift; sourceTree = "<group>"; };
 		28156E882536912C006FF06C /* HarvestListRewardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HarvestListRewardCell.xib; sourceTree = "<group>"; };
 		28156E912536982A006FF06C /* HarvestListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarvestListHeader.swift; sourceTree = "<group>"; };
@@ -2792,8 +2792,10 @@
 				283A80D4245141EB008FF813 /* CdpDetailMyActionCell.xib */,
 				289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */,
 				283A80D92451436A008FF813 /* CdpDetailAssetsCell.xib */,
-				28156E7D25360B70006FF06C /* HarvestListAllCell.swift */,
-				28156E7E25360B70006FF06C /* HarvestListAllCell.xib */,
+				28D7BE7B25F10636006EECD7 /* HardListMyStatusCell.swift */,
+				28D7BE7C25F10636006EECD7 /* HardListMyStatusCell.xib */,
+				28156E7D25360B70006FF06C /* HardListCell.swift */,
+				28156E7E25360B70006FF06C /* HardListCell.xib */,
 				28156E872536912C006FF06C /* HarvestListRewardCell.swift */,
 				28156E882536912C006FF06C /* HarvestListRewardCell.xib */,
 				28156E912536982A006FF06C /* HarvestListHeader.swift */,
@@ -2803,8 +2805,6 @@
 				28156E9E2536DE29006FF06C /* HarvestDetailMyActionCell.xib */,
 				28DB56E925F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift */,
 				28DB56EA25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib */,
-				28D7BE7B25F10636006EECD7 /* HardListMyStatusCell.swift */,
-				28D7BE7C25F10636006EECD7 /* HardListMyStatusCell.xib */,
 			);
 			path = kava;
 			sourceTree = "<group>";
@@ -3756,7 +3756,7 @@
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				280E6CDE2605D78900B3BCBB /* WalletPersisCell.xib in Resources */,
 				283850252448A6C600E5DEF2 /* TxHtlcRefundCell.xib in Resources */,
-				28156E8025360B70006FF06C /* HarvestListAllCell.xib in Resources */,
+				28156E8025360B70006FF06C /* HardListCell.xib in Resources */,
 				2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */,
 				28D372A1254BFCCA0071B136 /* RegisterAccount0ViewController.xib in Resources */,
 				28BB2A822533D9FB00CFF097 /* DomainPromotionCell.xib in Resources */,
@@ -4040,7 +4040,7 @@
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
 				28B785BB26B808CE009F755F /* StepEventHorizon0ViewController.swift in Sources */,
 				287AC62725FDF7260070837E /* cosmos_tx_v1beta1_service.grpc.swift in Sources */,
-				28156E7F25360B70006FF06C /* HarvestListAllCell.swift in Sources */,
+				28156E7F25360B70006FF06C /* HardListCell.swift in Sources */,
 				28B7858326B3A7E4009F755F /* panacea_aol_v2_owner.pb.swift in Sources */,
 				28AABEC825F8CBBA0019091F /* HardModuleAccount.swift in Sources */,
 				283D2EAC24F56AFF00247424 /* OkUnbonding.swift in Sources */,

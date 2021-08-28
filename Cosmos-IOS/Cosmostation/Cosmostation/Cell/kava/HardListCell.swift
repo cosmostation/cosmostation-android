@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HarvestListAllCell: UITableViewCell {
+class HardListCell: UITableViewCell {
     
     @IBOutlet weak var harvestImg: UIImageView!
     @IBOutlet weak var harvestTitle: UILabel!

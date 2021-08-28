@@ -29,7 +29,7 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.hardTableView.delegate = self
         self.hardTableView.dataSource = self
         self.hardTableView.register(UINib(nibName: "HardListMyStatusCell", bundle: nil), forCellReuseIdentifier: "HardListMyStatusCell")
-        self.hardTableView.register(UINib(nibName: "HarvestListAllCell", bundle: nil), forCellReuseIdentifier: "HarvestListAllCell")
+        self.hardTableView.register(UINib(nibName: "HardListCell", bundle: nil), forCellReuseIdentifier: "HardListCell")
         
         self.hardTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.hardTableView.rowHeight = UITableView.automaticDimension
@@ -86,11 +86,11 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
-            let cell:HardListMyStatusCell? = tableView.dequeueReusableCell(withIdentifier:"HardListMyStatusCell") as? HardListMyStatusCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"HardListMyStatusCell") as? HardListMyStatusCell
             cell?.onBindView(self.hardParam, self.myDeposit, self.myBorrow)
             return cell!
         } else {
-            let cell:HarvestListAllCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestListAllCell") as? HarvestListAllCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"HardListCell") as? HardListCell
             cell?.onBindView(indexPath.row, self.hardParam, self.myDeposit, self.myBorrow, self.interestRates)
             return cell!
         }
