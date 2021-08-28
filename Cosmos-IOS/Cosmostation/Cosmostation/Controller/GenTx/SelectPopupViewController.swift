@@ -54,10 +54,10 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             self.popupTitle.text = NSLocalizedString("select_account", comment: "")
             self.toAccountList = BaseData.instance.selectAllAccountsByChain(toChain!)
             
-        } else if (type == SELECT_POPUP_OSMOSIS_COIN_IN) {
+        } else if (type == SELECT_POPUP_OSMOSIS_COIN_IN || type == SELECT_POPUP_KAVA_SWAP_IN) {
             self.popupTitle.text = NSLocalizedString("str_select_coin_swap_in", comment: "")
             
-        } else if (type == SELECT_POPUP_OSMOSIS_COIN_OUT) {
+        } else if (type == SELECT_POPUP_OSMOSIS_COIN_OUT || type == SELECT_POPUP_KAVA_SWAP_OUT) {
             self.popupTitle.text = NSLocalizedString("str_select_coin_swap_out", comment: "")
             
         }
@@ -89,9 +89,9 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             return toAccountList.count
         } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
             return toAccountList.count
-        } else if (type == SELECT_POPUP_OSMOSIS_COIN_IN) {
+        } else if (type == SELECT_POPUP_OSMOSIS_COIN_IN || type == SELECT_POPUP_KAVA_SWAP_IN) {
             return toCoinList.count
-        } else if (type == SELECT_POPUP_OSMOSIS_COIN_OUT) {
+        } else if (type == SELECT_POPUP_OSMOSIS_COIN_OUT || type == SELECT_POPUP_KAVA_SWAP_OUT) {
             return toCoinList.count
         }
         return 0
@@ -200,6 +200,20 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             let swapOutDenom = toCoinList[indexPath.row]
             WUtils.DpOsmosisTokenImg(cell!.coinImg, swapOutDenom)
             cell!.coinTitle.text = WUtils.getOsmosisTokenName(swapOutDenom)
+            return cell!
+            
+        } else if (type == SELECT_POPUP_KAVA_SWAP_IN) {
+            let cell:SelectCoinCell? = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
+            let swapInDenom = toCoinList[indexPath.row]
+            cell!.coinImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + swapInDenom + ".png")!)
+            cell!.coinTitle.text = WUtils.getKavaTokenName(swapInDenom)
+            return cell!
+            
+        } else if (type == SELECT_POPUP_KAVA_SWAP_OUT) {
+            let cell:SelectCoinCell? = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
+            let swapOutDenom = toCoinList[indexPath.row]
+            cell!.coinImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + swapOutDenom + ".png")!)
+            cell!.coinTitle.text = WUtils.getKavaTokenName(swapOutDenom)
             return cell!
             
         } else {

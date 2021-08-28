@@ -111,13 +111,16 @@ extension WUtils {
             return "BNB"
             
         } else if (denom == TOKEN_HTLC_KAVA_XRPB) {
-            return "XRP"
+            return "XRPB"
             
         } else if (denom == TOKEN_HTLC_KAVA_BUSD) {
             return "BUSD"
             
-        } else if (denom.contains("btc")) {
-            return "BTC"
+        } else if (denom == TOKEN_HTLC_KAVA_BTCB) {
+            return "BTCB"
+            
+        } else if (denom == "btch") {
+            return "BTCH"
             
         }
         return denom.uppercased()

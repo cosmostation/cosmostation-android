@@ -38,39 +38,6 @@ class PoolListViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.onFetchSwapPoolData()
     }
     
-    var mFetchCnt = 0
-    @objc func onFetchSwapPoolData() {
-        if (self.mFetchCnt > 0)  {
-            self.refresher.endRefreshing()
-            return
-        }
-        self.mSwapPools.removeAll()
-        self.mMySwapPools.removeAll()
-        self.mOtherSwapPools.removeAll()
-        self.mFetchCnt = 3
-        
-        self.onFetchSwapPoolParam()
-        self.onFetchSwapPoolList()
-        self.onFetchSwapPoolDeposit(account!.account_address)
-    }
-    
-    func onFetchFinished() {
-        self.mFetchCnt = self.mFetchCnt - 1
-        if (mFetchCnt <= 0) {
-            mSwapPools.forEach { pool in
-                var myPool = false
-                if (mMySwapPoolDeposits.filter { $0.pool_id == pool.name }.first != nil) {
-                    myPool = true
-                }
-                
-                if (myPool) { mMySwapPools.append(pool) }
-                else { mOtherSwapPools.append(pool) }
-            }
-            self.swapPoolTableView.reloadData()
-            self.refresher.endRefreshing()
-        }
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -125,6 +92,38 @@ class PoolListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     
+    var mFetchCnt = 0
+    @objc func onFetchSwapPoolData() {
+        if (self.mFetchCnt > 0)  {
+            self.refresher.endRefreshing()
+            return
+        }
+        self.mSwapPools.removeAll()
+        self.mMySwapPools.removeAll()
+        self.mOtherSwapPools.removeAll()
+        self.mFetchCnt = 3
+        
+        self.onFetchSwapPoolParam()
+        self.onFetchSwapPoolList()
+        self.onFetchSwapPoolDeposit(account!.account_address)
+    }
+    
+    func onFetchFinished() {
+        self.mFetchCnt = self.mFetchCnt - 1
+        if (mFetchCnt <= 0) {
+            mSwapPools.forEach { pool in
+                var myPool = false
+                if (mMySwapPoolDeposits.filter { $0.pool_id == pool.name }.first != nil) {
+                    myPool = true
+                }
+                
+                if (myPool) { mMySwapPools.append(pool) }
+                else { mOtherSwapPools.append(pool) }
+            }
+            self.swapPoolTableView.reloadData()
+            self.refresher.endRefreshing()
+        }
+    }
     
     func onFetchSwapPoolParam() {
         let request = Alamofire.request(BaseNetWork.paramSwapPoolUrl(chainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
@@ -168,7 +167,7 @@ class PoolListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 }
                 let priceParam = KavaPriceFeedPrice.init(responseData)
                 BaseData.instance.mKavaPrice[priceParam.result.market_id] = priceParam
-                
+
             case .failure(let error):
                 print("onFetchKavaPrice ", market , " ", error)
             }
