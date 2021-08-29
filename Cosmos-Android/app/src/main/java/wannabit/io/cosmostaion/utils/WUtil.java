@@ -1308,6 +1308,8 @@ public class WUtil {
             return 8;
         } else if (coin.denom.equalsIgnoreCase("busd")) {
             return 8;
+        } else if (coin.denom.equalsIgnoreCase("swp")) {
+            return 6;
         }
         return 0;
 
@@ -1330,6 +1332,8 @@ public class WUtil {
             return 8;
         } else if (denom.equalsIgnoreCase("busd")) {
             return 8;
+        } else if (denom.equalsIgnoreCase("swp")) {
+            return 6;
         }
         return 100;
     }

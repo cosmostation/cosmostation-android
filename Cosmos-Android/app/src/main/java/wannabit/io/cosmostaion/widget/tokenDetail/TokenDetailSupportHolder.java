@@ -21,6 +21,8 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
 public class TokenDetailSupportHolder extends BaseHolder {
     private CardView            mAmountView;
@@ -73,7 +75,12 @@ public class TokenDetailSupportHolder extends BaseHolder {
         mAvailableAmount = baseData.availableAmount(denom);
         if (denom.equalsIgnoreCase(TOKEN_HARD)) {
             mAmountView.setBackgroundColor(c.getResources().getColor(R.color.colorTransBghard));
+        } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
+            mAmountView.setBackgroundColor(c.getResources().getColor(R.color.colorTransBgusdx));
+        } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
+            mAmountView.setBackgroundColor(c.getResources().getColor(R.color.colorTransBgswp));
         }
+
         mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
         mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
     }

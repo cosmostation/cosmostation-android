@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 
 public class VestingHolder extends BaseHolder {
     private CardView            mVestingRoot;
@@ -62,6 +63,8 @@ public class VestingHolder extends BaseHolder {
         mVestingRoot.setCardBackgroundColor(WDp.getChainBgColor(c, chain));
         if (denom.equals(TOKEN_HARD)) {
             mVestingRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBghard));
+        } else if (denom.equals(TOKEN_SWP)) {
+            mVestingRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgswp));
         }
 
         if (isGRPC(chain)) {

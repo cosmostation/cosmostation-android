@@ -23,6 +23,8 @@
     <color name="colorTransBgAkash">#24C71E10</color>
     <color name="colorTransBgSecret">#32C4C4C4</color>
     <color name="colorTransBghard">#328626E1</color>
+    <color name="colorTransBgusdx">#3206D6A0</color>
+    <color name="colorTransBgswp">#325A42FF</color>
     <color name="colorTransBgPersis">#24EDEDED</color>
     <color name="colorTransBgSentinel">#245b8ed7</color>
     <color name="colorTransBgFetch">#2457b5a8</color>
@@ -67,6 +69,8 @@
     <color name="colorKava">#FF564F</color>
     <color name="colorKava2">#631D1B</color>
     <color name="colorHard">#8626E1</color>
+    <color name="colorSwp">#5A42FF</color>
+    <color name="colorUsdx">#06D6A0</color>
 
     <color name="colorBand">#516FFA</color>
     <color name="colorBand2">#2A3C8B</color>

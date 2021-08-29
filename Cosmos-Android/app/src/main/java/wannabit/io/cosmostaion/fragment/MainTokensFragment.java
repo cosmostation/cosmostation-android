@@ -106,6 +106,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
 
@@ -347,7 +348,7 @@ public class MainTokensFragment extends BaseFragment {
             if (balance.symbol.equalsIgnoreCase(mainDenom)) {
                 mNative.add(balance);
             } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-                if (balance.symbol.equalsIgnoreCase(TOKEN_HARD) || balance.symbol.equalsIgnoreCase(TOKEN_USDX)) {
+                if (balance.symbol.equalsIgnoreCase(TOKEN_HARD) || balance.symbol.equalsIgnoreCase(TOKEN_USDX) || balance.symbol.equalsIgnoreCase(TOKEN_SWP)) {
                     mNative.add(balance);
                 } else if (balance.symbol.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB) || balance.symbol.equalsIgnoreCase(TOKEN_HTLC_KAVA_BTCB) ||
                             balance.symbol.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB) || balance.symbol.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
@@ -987,7 +988,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_kava_c));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText("Kava Staking Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
+            Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
 
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KAVA);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
@@ -1008,9 +1009,8 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemFullName.setText("HardPool Gov. Token");
 
             BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
-            BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), balance.symbol);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, tokenTotalAmount, 6));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1022,15 +1022,33 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (balance.symbol.equals(TOKEN_USDX)) {
             Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorUsdx));
             holder.itemSymbol.setText(balance.symbol.toUpperCase());
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText("USD Stable Asset");
 
             BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
-            BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), balance.symbol);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, tokenTotalAmount, 6));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", balance.symbol);
+                    startActivity(intent);
+                }
+            });
+
+        } else if (balance.symbol.equals(TOKEN_SWP)) {
+            Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
+            holder.itemSymbol.setText(balance.symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Kava Swap Token");
+
+            BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_SWP, tokenTotalAmount, 6));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1128,9 +1146,10 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain");
 
         BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
-        BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), balance.symbol);
+        String baseDenom = WDp.getKavaBaseDenom(balance.symbol);
+        int bep2decimal = WUtil.getKavaCoinDecimal(balance.symbol);
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, tokenTotalAmount, bep2decimal));
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

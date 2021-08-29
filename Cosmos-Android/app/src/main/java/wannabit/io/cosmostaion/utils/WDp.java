@@ -148,6 +148,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
@@ -569,9 +570,11 @@ public class WDp {
             return TOKEN_HARD;
         } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
             return TOKEN_USDX;
+        } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
+            return TOKEN_SWP;
         } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
             return "bnb";
-        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB) || denom.equalsIgnoreCase("xrbp")) {
             return "xrp";
         } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
             return "busd";
@@ -786,8 +789,10 @@ public class WDp {
                     BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_KAVA, amount, mainDivideDecimal(baseChain));
                     totalValue = totalValue.add(assetValue);
                 } else {
-                    BigDecimal convertAmount = convertTokenToKava(baseData, balance.symbol);
-                    BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_KAVA, convertAmount, mainDivideDecimal(baseChain));
+                    BigDecimal amount = baseData.availableAmount(balance.symbol);
+                    String kavaDenom = WDp.getKavaBaseDenom(balance.symbol);
+                    int kavaDecimal = WUtil.getKavaCoinDecimal(balance.symbol);
+                    BigDecimal assetValue = userCurrencyValue(baseData, kavaDenom, amount, kavaDecimal);
                     totalValue = totalValue.add(assetValue);
                 }
             }
