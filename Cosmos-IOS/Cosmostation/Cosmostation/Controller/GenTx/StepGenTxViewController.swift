@@ -333,6 +333,11 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     KavaSwapExit3ViewController(nibName: "KavaSwapExit3ViewController", bundle: nil)]
 
+        } else if (mType == KAVA_MSG_TYPE_INCENTIVE_ALL) {
+            return [KavaIncentiveClaim0ViewController(nibName: "KavaIncentiveClaim0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
+                    KavaIncentiveClaim3ViewController(nibName: "KavaIncentiveClaim3ViewController", bundle: nil)]
         }
         
         else if (mType == OK_MSG_TYPE_DEPOSIT) {

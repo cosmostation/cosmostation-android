@@ -390,6 +390,10 @@
 "repay_hardpool_step_1" = "메모를 입력하세요 (선택사항)";
 "repay_hardpool_step_2" = "Tx 수수료를 선택하세요";
 "repay_hardpool_step_3" = "입력하신 정보를 확인하세요";
+"claim_incentive_step_0" = "인센티브 받기 모드를 설정하세요";
+"claim_incentive_step_0" = "메모를 입력하세요 (선택사항)";
+"claim_incentive_step_0" = "Tx 수수료를 선택하세요";
+"claim_incentive_step_0" = "입력하신 정보를 확인하세요";
 
 
 
@@ -534,6 +538,7 @@ support@cosmostation.io";
 "title_deposit_harvest" = "하베스트 디파짓";
 "title_withdraw_harvest" = "하베스트 출금";
 "title_reward_harvest" = "하드 인센티브 받기";
+"title_claim_incentive" = "인센티브 받기";
 "title_interchain_swap" = "BEP3 보내기 & 받기";
 "title_interchain_refund" = "BEP3 환불하기";
 "title_participate_incentive" = "USDX 발행 인센티브 받기";

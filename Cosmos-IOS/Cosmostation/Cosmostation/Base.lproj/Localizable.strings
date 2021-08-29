@@ -388,6 +388,10 @@
 "repay_hardpool_step_1" = "Insert memo (optional)";
 "repay_hardpool_step_2" = "Select transaction fee";
 "repay_hardpool_step_3" = "Check transaction detail";
+"claim_incentive_step_0" = "Select incentive claim option";
+"claim_incentive_step_0" = "Insert memo (optional)";
+"claim_incentive_step_0" = "Select transaction fee";
+"claim_incentive_step_0" = "Check transaction detail";
 
 "str_ok_stake_deposit_step_0" = "Insert amount to staking";
 "str_ok_stake_deposit_step_1" = "Insert memo (optional)";
@@ -533,6 +537,7 @@ support@cosmostation.io";
 "title_deposit_harvest" = "Deposit Harvest";
 "title_withdraw_harvest" = "Withdraw Harvest";
 "title_reward_harvest" = "Claim Hard Incentive";
+"title_claim_incentive" = "Claim Incentive";
 "title_interchain_swap" = "BEP3 Send & Claim";
 "title_interchain_refund" = "BEP3 Refund";
 "title_participate_incentive" = "USDX Minting Incentive Claim";

@@ -1181,6 +1181,19 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onClickKavaIncentive() {
         print("onClickKavaIncentive")
+        if (account?.account_has_private == false) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        if (BaseData.instance.mIncentiveRewards?.getAllIncentives().count ?? 0 <= 0) {
+            self.onShowToast(NSLocalizedString("error_no_incentive_to_claim", comment: ""))
+            return
+        }
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_INCENTIVE_ALL
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     func onClickOkDeposit() {
@@ -1194,7 +1207,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 return
             }
         }
-        
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = OK_MSG_TYPE_DEPOSIT
         txVC.hidesBottomBarWhenPushed = true

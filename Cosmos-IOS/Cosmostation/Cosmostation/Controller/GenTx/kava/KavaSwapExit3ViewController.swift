@@ -13,7 +13,6 @@ import SwiftKeychainWrapper
 
 class KavaSwapExit3ViewController: BaseViewController, PasswordViewDelegate {
     
-    
     @IBOutlet weak var txFeeAmountLabel: UILabel!
     @IBOutlet weak var txFeeDenomLabel: UILabel!
     @IBOutlet weak var shareAmountLabel: UILabel!
