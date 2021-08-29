@@ -53,7 +53,8 @@ class PoolListViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (indexPath.section == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"SwapPoolListMyCell") as? SwapPoolListMyCell
             let pool = mMySwapPools[indexPath.row]
-            cell?.onBindView(pool, mMySwapPoolDeposits)
+            let myDeposit = mMySwapPoolDeposits.filter { $0.pool_id == pool.name }.first!
+            cell?.onBindView(pool, myDeposit)
             return cell!
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier:"SwapPoolListOtherCell") as? SwapPoolListOtherCell
@@ -84,11 +85,33 @@ class PoolListViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func onCheckPoolJoin(_ pool: SwapPool) {
         print("onCheckPoolJoin ", pool.name)
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_SWAP_DEPOSIT
+        txVC.mKavaPool = pool
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
         
     }
     
     func onCheckExitJoin(_ pool: SwapPool) {
         print("onCheckExitJoin ", pool.name)
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        let myDeposit = mMySwapPoolDeposits.filter { $0.pool_id == pool.name }.first!
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_SWAP_WITHDRAW
+        txVC.mKavaPool = pool
+        txVC.mKavaDeposit = myDeposit
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     

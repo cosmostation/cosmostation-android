@@ -215,6 +215,23 @@ class StepFeeOldViewController: BaseViewController {
                         return false
                     }
                 }
+                
+            } else if (pageHolderVC.mType == KAVA_MSG_TYPE_SWAP_DEPOSIT) {
+                let available = BaseData.instance.availableAmount(mainDenom)
+                if (pageHolderVC.mPoolCoin0?.denom == mainDenom) {
+                    let spend = NSDecimalNumber.init(string: pageHolderVC.mPoolCoin0?.amount).adding(mFee)
+                    if (available.compare(spend).rawValue < 0) {
+                        self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                        return false
+                    }
+                }
+                if (pageHolderVC.mPoolCoin1?.denom == mainDenom) {
+                    let spend = NSDecimalNumber.init(string: pageHolderVC.mPoolCoin1?.amount).adding(mFee)
+                    if (available.compare(spend).rawValue < 0) {
+                        self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                        return false
+                    }
+                }
             }
         }
         return true

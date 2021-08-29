@@ -135,7 +135,10 @@ public struct Msg: Codable {
         var denom: String?
         var requester: String?
         var exact_token_a: Coin?
+        var token_a: Coin?
         var token_b: Coin?
+        var min_token_a: Coin?
+        var min_token_b: Coin?
         var slippage: String?
         var deadline: String?
         
@@ -210,7 +213,10 @@ public struct Msg: Codable {
             case denom
             case requester
             case exact_token_a
+            case token_a
             case token_b
+            case min_token_a
+            case min_token_b
             case slippage
             case deadline
             
@@ -501,8 +507,17 @@ public struct Msg: Codable {
             if let rawExact_token_a = dictionary["exact_token_a"] as? [String : Any] {
                 self.exact_token_a = Coin(rawExact_token_a)
             }
+            if let rawToken_a = dictionary["token_a"] as? [String : Any] {
+                self.token_a = Coin(rawToken_a)
+            }
             if let rawToken_b = dictionary["token_b"] as? [String : Any] {
                 self.token_b = Coin(rawToken_b)
+            }
+            if let min_token_a = dictionary["min_token_a"] as? [String : Any] {
+                self.min_token_a = Coin(min_token_a)
+            }
+            if let min_token_b = dictionary["min_token_b"] as? [String : Any] {
+                self.min_token_b = Coin(min_token_b)
             }
             if let slippage =  dictionary["slippage"] as? String {
                 self.slippage = slippage

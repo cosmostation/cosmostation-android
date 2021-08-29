@@ -1,5 +1,5 @@
 //
-//  KavaSwap3ViewController.swift
+//  KavaSwapExit3ViewController.swift
 //  Cosmostation
 //
 //  Created by 정용주 on 2021/08/29.
@@ -11,27 +11,37 @@ import Alamofire
 import HDWalletKit
 import SwiftKeychainWrapper
 
-class KavaSwap3ViewController: BaseViewController, PasswordViewDelegate {
+class KavaSwapExit3ViewController: BaseViewController, PasswordViewDelegate {
+    
     
     @IBOutlet weak var txFeeAmountLabel: UILabel!
     @IBOutlet weak var txFeeDenomLabel: UILabel!
-    @IBOutlet weak var swapFeeLabel: UILabel!
-    @IBOutlet weak var swapInAmountLabel: UILabel!
-    @IBOutlet weak var swapInDenomLabel: UILabel!
-    @IBOutlet weak var swapOutAmountLabel: UILabel!
-    @IBOutlet weak var swapOutDenomLabel: UILabel!
-    @IBOutlet weak var mSlippageLabel: UILabel!
-    @IBOutlet weak var mMemoLabel: UILabel!
+    @IBOutlet weak var shareAmountLabel: UILabel!
+    @IBOutlet weak var withdraw0AmountLabel: UILabel!
+    @IBOutlet weak var withdraw0DenomLabel: UILabel!
+    @IBOutlet weak var withdraw1AmountLabel: UILabel!
+    @IBOutlet weak var withdraw1DenomLabel: UILabel!
+    @IBOutlet weak var memoLabel: UILabel!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnConfirm: UIButton!
     
     var pageHolderVC: StepGenTxViewController!
+    var mKavaPool: SwapPool!
+    var mKavaDeposit: SwapDeposit!
+    var coin0Decimal:Int16 = 6
+    var coin1Decimal:Int16 = 6
+    var coin0: Coin?
+    var coin1: Coin?
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
         self.pageHolderVC = self.parent as? StepGenTxViewController
+        
+        self.mKavaPool = pageHolderVC.mKavaPool
+        self.mKavaDeposit = pageHolderVC.mKavaDeposit
     }
     
     override func enableUserInteraction() {
@@ -42,13 +52,21 @@ class KavaSwap3ViewController: BaseViewController, PasswordViewDelegate {
     
     func onUpdateView() {
         WUtils.showCoinDp(pageHolderVC.mFee!.amount[0].denom, pageHolderVC.mFee!.amount[0].amount, txFeeDenomLabel, txFeeAmountLabel, chainType!)
-        WUtils.showCoinDp(pageHolderVC.mSwapInDenom!, pageHolderVC.mSwapInAmount!.stringValue, swapInDenomLabel, swapInAmountLabel, chainType!)
-        WUtils.showCoinDp(pageHolderVC.mSwapOutDenom!, pageHolderVC.mSwapOutAmount!.stringValue, swapOutDenomLabel, swapOutAmountLabel, chainType!)
-        swapFeeLabel.attributedText = WUtils.displayPercent(BaseData.instance.mKavaSwapParam.swap_fee.multiplying(byPowerOf10: 2), swapFeeLabel.font)
-        mSlippageLabel.attributedText = WUtils.displayPercent(NSDecimalNumber.init(string: "3"), mSlippageLabel.font)
-        mMemoLabel.text = pageHolderVC.mMemo
+        
+        shareAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mKavaShareAmount.stringValue, shareAmountLabel.font!, 6, 6)
+        
+        let depositRate = (pageHolderVC.mKavaShareAmount).dividing(by: mKavaDeposit.shares_owned, withBehavior: WUtils.handler18)
+        let padding = NSDecimalNumber(string: "0.97")
+        let coin0Amount = NSDecimalNumber.init(string: mKavaDeposit.shares_value[0].amount).multiplying(by: padding).multiplying(by: depositRate, withBehavior: WUtils.handler0)
+        let coin1Amount = NSDecimalNumber.init(string: mKavaDeposit.shares_value[1].amount).multiplying(by: padding).multiplying(by: depositRate, withBehavior: WUtils.handler0)
+        coin0 = Coin.init(mKavaDeposit.shares_value[0].denom, coin0Amount.stringValue)
+        coin1 = Coin.init(mKavaDeposit.shares_value[1].denom, coin1Amount.stringValue)
+        
+        WUtils.showCoinDp(coin0!, withdraw0DenomLabel, withdraw0AmountLabel, chainType!)
+        WUtils.showCoinDp(coin1!, withdraw1DenomLabel, withdraw1AmountLabel, chainType!)
+        memoLabel.text = pageHolderVC.mMemo
     }
-    
+
     @IBAction func onClickBack(_ sender: UIButton) {
         self.btnBack.isUserInteractionEnabled = false
         self.btnConfirm.isUserInteractionEnabled = false
@@ -85,7 +103,7 @@ class KavaSwap3ViewController: BaseViewController, PasswordViewDelegate {
                 let accountInfo = KavaAccountInfo.init(info)
                 _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
                 BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
-                self.onGenTokenSwapTx()
+                self.onGenWithdrawTx()
                 
             case .failure( _):
                 self.hideWaittingAlert()
@@ -93,23 +111,20 @@ class KavaSwap3ViewController: BaseViewController, PasswordViewDelegate {
             }
         }
     }
-
     
-    func onGenTokenSwapTx() {
+    func onGenWithdrawTx() {
         DispatchQueue.global().async {
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
-            let inCoin = Coin.init(self.pageHolderVC.mSwapInDenom!, self.pageHolderVC.mSwapInAmount!.stringValue)
-            let outCoin = Coin.init(self.pageHolderVC.mSwapOutDenom!, self.pageHolderVC.mSwapOutAmount!.stringValue)
-            let slippage = "0.300000000000000000"
+            
             let deadline = (Date().millisecondsSince1970 / 1000) + 300
-            let msg = MsgGenerator.genSwapTokenMsg(self.chainType!,
-                                                   self.pageHolderVC.mAccount!.account_address,
-                                                   inCoin,
-                                                   outCoin,
-                                                   slippage,
-                                                   String(deadline))
+            let msg = MsgGenerator.genSwapWithdrawMsg(self.chainType!,
+                                                     self.pageHolderVC.mAccount!.account_address,
+                                                     self.pageHolderVC.mKavaShareAmount.stringValue,
+                                                     self.coin0!,
+                                                     self.coin1!,
+                                                     String(deadline))
             
             var msgList = Array<Msg>()
             msgList.append(msg)
@@ -136,12 +151,12 @@ class KavaSwap3ViewController: BaseViewController, PasswordViewDelegate {
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            print("onGenTokenSwapTx ", res)
+                            print("onGenWithdrawTx ", res)
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
-                            print("onGenTokenSwapTx error ", error)
+                            print("onGenWithdrawTx error ", error)
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500
                             }
@@ -161,5 +176,4 @@ class KavaSwap3ViewController: BaseViewController, PasswordViewDelegate {
             });
         }
     }
-
 }

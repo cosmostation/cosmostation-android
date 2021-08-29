@@ -36,7 +36,7 @@ class SwapPoolListMyCell: UITableViewCell {
         myDepositCoin1AmountLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
     
-    func onBindView(_ pool: SwapPool, _ myDeposits: Array<SwapDeposit>) {
+    func onBindView(_ pool: SwapPool, _ myDeposit: SwapDeposit) {
         let nf = WUtils.getNumberFormatter(2)
         let coin0 = pool.coins[0]
         let coin1 = pool.coins[1]
@@ -58,9 +58,7 @@ class SwapPoolListMyCell: UITableViewCell {
         WUtils.DpKavaTokenName(liquidity2DenomLabel, coin1.denom)
         liquidity1AmountLabel.attributedText = WUtils.displayAmount2(coin0.amount, liquidity1AmountLabel.font, coin0Decimal, 6)
         liquidity2AmountLabel.attributedText = WUtils.displayAmount2(coin1.amount, liquidity2AmountLabel.font, coin1Decimal, 6)
-        
-        let myDeposit = myDeposits.filter { $0.pool_id == pool.name }.first!
-        
+                
         let my0 = myDeposit.shares_value[0]
         let my1 = myDeposit.shares_value[1]
         let my0Value = NSDecimalNumber.init(string: my0.amount).multiplying(by: coin0price).multiplying(byPowerOf10: -coin0Decimal, withBehavior: WUtils.handler2)

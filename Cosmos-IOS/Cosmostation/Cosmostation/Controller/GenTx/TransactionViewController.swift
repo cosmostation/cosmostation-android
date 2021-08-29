@@ -34,6 +34,7 @@ class TransactionViewController: UIViewController {
     var mMarketID: String?
     var mHardPoolDenom: String?
     var mKavaPool: SwapPool?
+    var mKavaDeposit: SwapDeposit?
     
     var mHtlcDenom: String = BNB_MAIN_DENOM     //now only support bnb bep3
     var mHtlcRefundSwapId: String?
@@ -326,6 +327,7 @@ class TransactionViewController: UIViewController {
             StepVc.mHardPoolDenom = self.mHardPoolDenom
             StepVc.mCollateralParamType = self.mCollateralParamType
             StepVc.mKavaPool = self.mKavaPool
+            StepVc.mKavaDeposit = self.mKavaDeposit
             
             StepVc.mStarnameDomain = self.mStarnameDomain
             StepVc.mStarnameAccount = self.mStarnameAccount

@@ -551,6 +551,32 @@ class MsgGenerator {
         return msg
     }
     
+    static func genSwapDepositMsg(_ chainType: ChainType, _ depositor: String, _ token_a: Coin, _ token_b: Coin, _ slippage: String, _ deadline: String) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.depositor = depositor
+        value.token_a = token_a;
+        value.token_b = token_b;
+        value.slippage = slippage;
+        value.deadline = deadline;
+        msg.type = KAVA_MSG_TYPE_SWAP_DEPOSIT;
+        msg.value = value;
+        return msg
+    }
+    
+    static func genSwapWithdrawMsg(_ chainType: ChainType, _ from: String, _ shares: String, _ min_token_a: Coin, _ min_token_b: Coin, _ deadline: String) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.from = from
+        value.shares = shares;
+        value.min_token_a = min_token_a;
+        value.min_token_b = min_token_b;
+        value.deadline = deadline;
+        msg.type = KAVA_MSG_TYPE_SWAP_WITHDRAW;
+        msg.value = value;
+        return msg
+    }
+    
     
     static func genOkDepositMsg(_ delegator: String, _ coin: Coin) -> Msg {
         var msg = Msg.init()
