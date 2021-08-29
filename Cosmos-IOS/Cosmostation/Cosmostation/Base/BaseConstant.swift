@@ -323,6 +323,7 @@ let KAVA_MSG_TYPE_BORROW_HARD               = "hard/MsgBorrow";
 let KAVA_MSG_TYPE_REPAY_HARD                = "hard/MsgRepay";
 let KAVA_MSG_TYPE_LIQUIDATE_HARD            = "hard/MsgLiquidate";
 let KAVA_MSG_TYPE_SWAP_TOKEN                = "swap/MsgSwapExactForTokens";
+let KAVA_MSG_TYPE_SWAP_TOKEN2               = "swap/MsgSwapForExactTokens";
 let KAVA_MSG_TYPE_SWAP_DEPOSIT              = "swap/MsgDeposit";
 let KAVA_MSG_TYPE_SWAP_WITHDRAW             = "swap/MsgWithdraw";
 

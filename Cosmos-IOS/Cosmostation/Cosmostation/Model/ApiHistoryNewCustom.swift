@@ -86,6 +86,7 @@ public struct ApiHistoryNewCustom {
             if let rawMsgType = getMsgs()?[0].object(forKey: "type") as? String {
                 msgType = rawMsgType
             }
+            print("msgType ", msgType)
             
             if (msgType.contains("MsgDelegate")) {
                 result = NSLocalizedString("tx_delegate", comment: "")
@@ -126,18 +127,6 @@ public struct ApiHistoryNewCustom {
                 
             } else if (msgType.contains("MsgUnjail")) {
                 result = NSLocalizedString("tx_unjail_validator", comment: "")
-                
-            } else if (msgType.contains("MsgSubmitProposal")) {
-                result = NSLocalizedString("tx_submit_proposal", comment: "")
-                
-            } else if (msgType.contains("MsgVote")) {
-                result = NSLocalizedString("tx_vote", comment: "")
-                
-            } else if (msgType.contains("MsgDeposit")) {
-                result = NSLocalizedString("tx_deposit", comment: "")
-                
-            } else if (msgType.contains("MsgWithdrawValidatorCommission")) {
-                result = NSLocalizedString("tx_get_commission", comment: "")
                 
             }
             
@@ -250,6 +239,20 @@ public struct ApiHistoryNewCustom {
             } else if (msgType.contains(KAVA_MSG_TYPE_INCENTIVE_REWARD) || msgType.contains(KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
                 result = NSLocalizedString("tx_kava_hard_mint_incentive", comment: "")
 
+            } else if (msgType.contains(KAVA_MSG_TYPE_DELEGATOR_INCENTIVE)) {
+                result = NSLocalizedString("tx_kava_hard_delegator_incentive", comment: "")
+                
+            } else if (msgType.contains(KAVA_MSG_TYPE_SWAP_INCENTIVE)) {
+                result = NSLocalizedString("tx_kava_hard_swap_incentive", comment: "")
+                
+            } else if (msgType.contains(KAVA_MSG_TYPE_SWAP_TOKEN) || msgType.contains(KAVA_MSG_TYPE_SWAP_TOKEN2)) {
+                result = NSLocalizedString("tx_kava_swap_token", comment: "")
+                
+            } else if (msgType.contains(KAVA_MSG_TYPE_SWAP_DEPOSIT)) {
+                result = NSLocalizedString("tx_kava_swap_deposit", comment: "")
+                
+            } else if (msgType.contains(KAVA_MSG_TYPE_SWAP_WITHDRAW)) {
+                result = NSLocalizedString("tx_kava_swap_withdraw", comment: "")
             }
             
             // osmosis msg type
@@ -310,6 +313,21 @@ public struct ApiHistoryNewCustom {
                 
             } else if (msgType.contains("MsgCreateTokenswapRequest")) {
                 result = NSLocalizedString("tx_med_create_did", comment: "")
+                
+            }
+            
+            //common type
+            else if (msgType.contains("MsgSubmitProposal")) {
+                result = NSLocalizedString("tx_submit_proposal", comment: "")
+                
+            } else if (msgType.contains("MsgVote")) {
+                result = NSLocalizedString("tx_vote", comment: "")
+                
+            } else if (msgType.contains("MsgDeposit")) {
+                result = NSLocalizedString("tx_deposit", comment: "")
+                
+            } else if (msgType.contains("MsgWithdrawValidatorCommission")) {
+                result = NSLocalizedString("tx_get_commission", comment: "")
                 
             }
             
