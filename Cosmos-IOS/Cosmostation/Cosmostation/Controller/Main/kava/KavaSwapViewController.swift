@@ -51,6 +51,9 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
     func updateView() {
         let inputCoinDecimal = WUtils.getKavaCoinDecimal(mInputCoinDenom)
         let outputCoinDecimal = WUtils.getKavaCoinDecimal(mOutputCoinDenom)
+        print("mSelectedPool ", mSelectedPool.name)
+        print("inputCoinDecimal ", inputCoinDecimal)
+        print("outputCoinDecimal ", outputCoinDecimal)
         
         if (mSelectedPool.coins[0].denom == self.mInputCoinDenom) {
             mInputCoinAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[0].amount)
@@ -60,6 +63,7 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
             mOutputCoinAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[0].amount)
         }
         let swapRate = mOutputCoinAmount.dividing(by: mInputCoinAmount, withBehavior: WUtils.handler6)
+        print("swapRate ", swapRate)
         
         WUtils.DpKavaTokenName(inputCoinName, mInputCoinDenom)
         WUtils.DpKavaTokenName(outputCoinName, mOutputCoinDenom)
@@ -146,7 +150,7 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
         } else if (type == SELECT_POPUP_KAVA_SWAP_OUT) {
             self.mOutputCoinDenom = self.mSwapableDenoms[result]
             for pool in self.mSwapPools {
-                if (pool.name?.contains(self.mInputCoinDenom) == true || pool.name?.contains(self.mOutputCoinDenom) == true) {
+                if (pool.name?.contains(self.mInputCoinDenom) == true && pool.name?.contains(self.mOutputCoinDenom) == true) {
                     self.mSelectedPool = pool
                     break
                 }
