@@ -1717,7 +1717,8 @@
     <string name="tx_osmosis_token_lockup">Lock Token(Start Earning)</string>
     <string name="tx_osmosis_begin_token_unlock">Begin Unlocking</string>
     <string name="tx_osmosis_begin_token_unlock_all">Begin Unlocking All</string>
-    <string name="tx_osmosis_periodlock_unlock">Claim Unlocked Token(End Earning)</string>
+    <string name="tx_osmosis_periodlock_unlock">Unlock Period Token(End Earning)</string>
+
 
     <string name="tx_gravity_create_pool">Create Pool</string>
     <string name="tx_gravity_swap_batch">Swap Within Batch</string>

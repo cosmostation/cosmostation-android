@@ -39,9 +39,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    style="@style/font_ssm_17_osmosis"
+                    style="@style/font_ssm_17_white"
                     android:layout_marginLeft="@dimen/space_6"
-                    android:text="OSMO"/>
+                    android:text="-"/>
                 <TextView
                     android:id="@+id/per_price"
                     android:layout_width="wrap_content"
