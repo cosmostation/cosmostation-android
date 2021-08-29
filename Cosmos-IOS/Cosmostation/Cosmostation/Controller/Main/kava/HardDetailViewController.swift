@@ -82,7 +82,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
         cell?.harvestImg.af_setImage(withURL: URL(string: KAVA_HARD_POOL_IMG_URL + "lp" + mHardMoneyMarketDenom! + ".png")!)
         
         let marketTitle = mHardMoneyMarketDenom == KAVA_MAIN_DENOM ? "kava" : mHardMoneyMarketDenom
-        cell?.harvestTitle.text = marketTitle!.uppercased() + " POOL"
+        cell?.harvestTitle.text = marketTitle!.uppercased() + " LOAN"
         
         var supplyApy = NSDecimalNumber.zero
         var borrowApy = NSDecimalNumber.zero
