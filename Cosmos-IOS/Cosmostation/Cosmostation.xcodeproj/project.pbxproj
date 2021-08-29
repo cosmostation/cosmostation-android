@@ -2856,6 +2856,8 @@
 		284D17F32535D69000C364F9 /* txs */ = {
 			isa = PBXGroup;
 			children = (
+				284FBC7626DBCBC900403FE2 /* starname */,
+				284FBC7526DBCBA400403FE2 /* kava */,
 				2808FEDE26BBFC2600DE5E9A /* medi */,
 				2816E11726BAADAD00408F8E /* rizon */,
 				28C3F4FE269DC4C700F4A58C /* gravity */,
@@ -2886,6 +2888,19 @@
 				282FF36023F532360028CC66 /* TxVoteCell.xib */,
 				282FF36323F533AF0028CC66 /* TxUnknownCell.swift */,
 				282FF36423F533AF0028CC66 /* TxUnknownCell.xib */,
+				2838501A2448A69D00E5DEF2 /* TxHtlcCreateCell.swift */,
+				2838501B2448A69D00E5DEF2 /* TxHtlcCreateCell.xib */,
+				2838501E2448A6B000E5DEF2 /* TxHtlcClaimCell.swift */,
+				2838501F2448A6B000E5DEF2 /* TxHtlcClaimCell.xib */,
+				283850222448A6C600E5DEF2 /* TxHtlcRefundCell.swift */,
+				283850232448A6C600E5DEF2 /* TxHtlcRefundCell.xib */,
+			);
+			path = txs;
+			sourceTree = "<group>";
+		};
+		284FBC7526DBCBA400403FE2 /* kava */ = {
+			isa = PBXGroup;
+			children = (
 				28474EC8241E06AF00AF5A81 /* TxCdpCreateCell.swift */,
 				28474EC7241E06AF00AF5A81 /* TxCdpCreateCell.xib */,
 				28474EC1241E06AF00AF5A81 /* TxCdpDepositCell.swift */,
@@ -2914,12 +2929,13 @@
 				2889FD862603485200CA9896 /* TxIncentiveMintingCell.xib */,
 				28474EC6241E06AF00AF5A81 /* TxPostPriceCell.swift */,
 				28474EC5241E06AF00AF5A81 /* TxPostPriceCell.xib */,
-				2838501A2448A69D00E5DEF2 /* TxHtlcCreateCell.swift */,
-				2838501B2448A69D00E5DEF2 /* TxHtlcCreateCell.xib */,
-				2838501E2448A6B000E5DEF2 /* TxHtlcClaimCell.swift */,
-				2838501F2448A6B000E5DEF2 /* TxHtlcClaimCell.xib */,
-				283850222448A6C600E5DEF2 /* TxHtlcRefundCell.swift */,
-				283850232448A6C600E5DEF2 /* TxHtlcRefundCell.xib */,
+			);
+			path = kava;
+			sourceTree = "<group>";
+		};
+		284FBC7626DBCBC900403FE2 /* starname */ = {
+			isa = PBXGroup;
+			children = (
 				283E9461254902BA007A9291 /* TxRegisterDomainCell.swift */,
 				283E9462254902BA007A9291 /* TxRegisterDomainCell.xib */,
 				283E9466254902D4007A9291 /* TxRegisterAccountCell.swift */,
@@ -2933,7 +2949,7 @@
 				283E947A25490322007A9291 /* TxRenewStarnameCell.swift */,
 				283E947B25490322007A9291 /* TxRenewStarnameCell.xib */,
 			);
-			path = txs;
+			path = starname;
 			sourceTree = "<group>";
 		};
 		284FF3EF25A6EDF900505E7A /* okex */ = {
