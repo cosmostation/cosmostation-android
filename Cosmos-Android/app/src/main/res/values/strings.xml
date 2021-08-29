@@ -1482,6 +1482,7 @@
     <string name="str_earing_bonded_header">Bonded</string>
     <string name="str_earing_unbonding_header">Unbonding</string>
     <string name="str_earing_unbonded_header">Unbonded</string>
+    <string name="str_kava_incentive_info_title">Incentive Info</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

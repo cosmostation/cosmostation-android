@@ -17,6 +17,12 @@ public class IncentiveReward {
     @SerializedName("usdx_minting_claims")
     public ArrayList<UsdxMintingClaim> usdx_minting_claims;
 
+    @SerializedName("delegator_claims")
+    public ArrayList<DelegatorClaim> delegator_claims;
+
+    @SerializedName("swap_claims")
+    public ArrayList<SwapClaim> swap_claims;
+
     public BigDecimal getSupplyRewardFactor(String denom) {
         BigDecimal result = BigDecimal.ZERO;
         if (hard_claims != null && hard_claims.size() > 0 && hard_claims.get(0).supply_reward_indexes != null) {
@@ -54,6 +60,14 @@ public class IncentiveReward {
         return result;
     }
 
+    public int getMintingRewardCnt() {
+        int result = 0;
+        if (usdx_minting_claims != null) {
+            result = usdx_minting_claims.size();
+        }
+        return result;
+    }
+
     public BigDecimal getHardPoolHardRewardAmount() {
         BigDecimal result = BigDecimal.ZERO;
         for (HardClaim reward : hard_claims) {
@@ -82,23 +96,68 @@ public class IncentiveReward {
         return result;
     }
 
-
-    public int getMintingRewardCnt() {
-        int result = 0;
-        if (usdx_minting_claims != null) {
-            result = usdx_minting_claims.size();
+    public BigDecimal getHardPoolRewardAmount(String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (hard_claims != null) {
+            for (HardClaim reward : hard_claims) {
+                if (reward.base_claim.reward != null) {
+                    for (Coin coin : reward.base_claim.reward) {
+                        if (coin.denom.equalsIgnoreCase(denom)) {
+                            result = result.add(new BigDecimal(coin.amount));
+                        }
+                    }
+                }
+            }
         }
         return result;
     }
 
     public BigDecimal getMintingRewardAmount() {
         BigDecimal result = BigDecimal.ZERO;
-        for (UsdxMintingClaim reward : usdx_minting_claims) {
-            if (reward.base_claim.reward != null) {
-                result = result.add(new BigDecimal(reward.base_claim.reward.amount));
+        if (usdx_minting_claims != null) {
+            for (UsdxMintingClaim reward : usdx_minting_claims) {
+                if (reward.base_claim.reward != null) {
+                    result = result.add(new BigDecimal(reward.base_claim.reward.amount));
+                }
             }
         }
         return result;
+    }
+
+    public BigDecimal getDelegatorKavaRewardAmount(String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (delegator_claims != null) {
+            for (DelegatorClaim reward : delegator_claims) {
+                if (reward.base_claim.reward != null) {
+                    for (Coin coin : reward.base_claim.reward) {
+                        if (coin.denom.equalsIgnoreCase(denom)) {
+                            result = result.add(new BigDecimal(coin.amount));
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal getSwapKavaRewardAmount(String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (swap_claims != null) {
+            for (SwapClaim reward : swap_claims) {
+                if (reward.base_claim.reward != null) {
+                    for (Coin coin : reward.base_claim.reward) {
+                        if (coin.denom.equalsIgnoreCase(denom)) {
+                            result = result.add(new BigDecimal(coin.amount));
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal getRewardSum(String denom) {
+        return getHardPoolRewardAmount(denom).add(getMintingRewardAmount()).add(getDelegatorKavaRewardAmount(denom)).add(getSwapKavaRewardAmount(denom));
     }
 
 
@@ -168,5 +227,32 @@ public class IncentiveReward {
         @SerializedName("reward")
         public Coin reward;
 
+    }
+
+    public class DelegatorClaim {
+        @SerializedName("base_claim")
+        public DelegatorBaseClaim base_claim;
+    }
+
+    public class DelegatorBaseClaim {
+        @SerializedName("owner")
+        public String owner;
+
+        @SerializedName("reward")
+        public ArrayList<Coin> reward;
+
+    }
+
+    public class SwapClaim {
+        @SerializedName("base_claim")
+        public SwapBaseClaim base_claim;
+    }
+
+    public class SwapBaseClaim {
+        @SerializedName("owner")
+        public String owner;
+
+        @SerializedName("reward")
+        public ArrayList<Coin> reward;
     }
 }

@@ -123,7 +123,7 @@ public class ApiClient {
         if (service_kava == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_kava_main))
+                        .baseUrl(c.getString(R.string.url_lcd_kava_test))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 service_kava = retrofit.create(KavaChain.class);
@@ -138,7 +138,7 @@ public class ApiClient {
         if (api_kava == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_kava_main))
+                        .baseUrl(c.getString(R.string.url_api_kava_test))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_kava = retrofit.create(HistoryApi.class);

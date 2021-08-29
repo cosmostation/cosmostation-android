@@ -485,6 +485,7 @@ public class BaseConstant {
     public final static String TOKEN_KAVA           = "ukava";
     public final static String TOKEN_HARD           = "hard";
     public final static String TOKEN_USDX           = "usdx";
+    public final static String TOKEN_SWP            = "swp";
     public final static String TOKEN_IOV            = "uiov";
     public final static String TOKEN_CERTIK         = "uctk";
     public final static String TOKEN_BAND           = "uband";
