@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.chains.osmosis;
+package wannabit.io.cosmostaion.fragment.chains.kava;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,12 +12,12 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.osmosis.SwapActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.StartSwapActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickListener{
+public class KavaSwapStep3Fragment extends BaseFragment implements View.OnClickListener{
 
     private TextView        mFeeAmount;
     private TextView        mFeeAmountSymbol;
@@ -29,8 +29,8 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
 
     private Button          mBeforeBtn, mConfirmBtn;
 
-    public static CoinSwapStep3Fragment newInstance(Bundle bundle) {
-        CoinSwapStep3Fragment fragment = new CoinSwapStep3Fragment();
+    public static KavaSwapStep3Fragment newInstance(Bundle bundle) {
+        KavaSwapStep3Fragment fragment = new KavaSwapStep3Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -65,16 +65,15 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOutputDenom);
+        mInputCoinDecimal = WUtil.getKavaCoinDecimal(getSActivity().mInputDenom);
+        mOutputCoinDecimal = WUtil.getKavaCoinDecimal(getSActivity().mOutputDenom);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        BigDecimal swapFee = new BigDecimal(getSActivity().mOsmosisPool.getPoolParams().getSwapFee());
+        BigDecimal swapFee = new BigDecimal(getBaseDao().mSwapParam.swap_fee);
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
+        mSwapFee.setText(WDp.getPercentDp(swapFee.movePointRight(2)));
         WDp.showCoinDp(getContext(), getSActivity().mSwapInCoin, mSwapInAmountSymbol, mSwapInAmount, getSActivity().mBaseChain);
         WDp.showCoinDp(getContext(), getSActivity().mSwapOutCoin, mSwapOutAmountSymbol, mSwapOutAmount, getSActivity().mBaseChain);
-
 
         mMemo.setText(getSActivity().mTxMemo);
     }
@@ -89,7 +88,7 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
         }
     }
 
-    private SwapActivity getSActivity() {
-        return (SwapActivity)getBaseActivity();
+    private StartSwapActivity getSActivity() {
+        return (StartSwapActivity)getBaseActivity();
     }
 }

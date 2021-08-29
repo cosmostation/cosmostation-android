@@ -56,6 +56,7 @@ import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
+import wannabit.io.cosmostaion.model.kava.SwapParam;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
@@ -160,7 +161,7 @@ public class BaseData {
     public ArrayList<UnbondingInfo>     mMyUnbondings = new ArrayList<>();
     public ArrayList<RewardInfo>        mMyRewards = new ArrayList<>();
 
-    //COMMON DATA FOR KAVA-7
+    //COMMON DATA FOR KAVA-8
     public ResLcdKavaAccountInfo.Result     mKavaAccount;
     public CdpParam                         mCdpParam;
     public IncentiveParam                   mIncentiveParam5;
@@ -172,6 +173,7 @@ public class BaseData {
     public ArrayList<Coin>                  mModuleCoins = new ArrayList<>();
     public ArrayList<Coin>                  mReserveCoins = new ArrayList<>();
     public HashMap<String, MarketPrice>     mKavaTokenPrices = new HashMap<>();
+    public SwapParam                        mSwapParam;
 
     //COMMON DATA FOR BINANCE
     public ArrayList<BnbToken>      mBnbTokens = new ArrayList<>();

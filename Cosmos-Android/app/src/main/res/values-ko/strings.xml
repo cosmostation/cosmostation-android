@@ -506,6 +506,8 @@
     <string name="str_kava_auction_details">옥션 상세</string>
     <string name="str_kava_harvest_list">하드 풀</string>
     <string name="str_kava_harvest_details">하드 풀 상세</string>
+    <string name="str_kava_swap_list">Swap</string>
+    <string name="str_kava_pool_list">Swap Pool</string>
     <string name="str_my_cdps">내 CDP</string>
     <string name="str_all_cdps">모든 상품</string>
     <string name="str_press_select_recipient_account">수신 계정 선택</string>
@@ -1183,11 +1185,11 @@
     <string name="str_create_did">DID</string>
     <string name="str_create_did_verification_method_id">Verification Method ID</string>
     <string name="str_create_did_from_address">From Address</string>
-    <string name="str_title_swap_osmosis">코인 스왑</string>
-    <string name="str_osmosis_swap_step_0">스왑 수량을 입력해주세요</string>
-    <string name="str_osmosis_swap_step_1">메모를 입력하세요 (선택사항)</string>
-    <string name="str_osmosis_swap_step_2">Tx 수수료를 선택하세요</string>
-    <string name="str_osmosis_swap_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_title_swap">코인 스왑</string>
+    <string name="str_swap_step_0">스왑 수량을 입력해주세요</string>
+    <string name="str_swap_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_swap_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_swap_step_3">입력하신 정보를 확인하세요</string>
     <string name="str_osmosis_swap_tx_fee">Tx Fee</string>
     <string name="str_osmosis_swap_fee">Swap Fee</string>
     <string name="str_osmosis_swap_in">Swap In</string>

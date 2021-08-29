@@ -224,6 +224,12 @@ public class WDp {
             } else if (coin.denom.equals(TOKEN_HARD)) {
                 denomTv.setText(coin.denom.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorHard));
+            } else if (coin.denom.equals(TOKEN_USDX)) {
+                denomTv.setText(coin.denom.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorUsdx));
+            } else if (coin.denom.equals(TOKEN_SWP)) {
+                denomTv.setText(coin.denom.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorSwp));
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
@@ -397,6 +403,12 @@ public class WDp {
             } else if (symbol.equals(TOKEN_HARD)) {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorHard));
+            } else if (symbol.equals(TOKEN_USDX)) {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorUsdx));
+            } else if (symbol.equals(TOKEN_SWP)) {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorSwp));
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));

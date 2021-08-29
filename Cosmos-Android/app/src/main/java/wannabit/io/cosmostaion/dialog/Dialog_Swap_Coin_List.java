@@ -25,9 +25,12 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dao.IbcToken;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
 public class Dialog_Swap_Coin_List extends DialogFragment {
@@ -76,21 +79,38 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
         @Override
         public void onBindViewHolder(@NonNull SwapChainListAdapter.SwapChainHolder holder, int position) {
             final String inputCoin = mSwapCoinList.get(position);
-            final IbcToken ibcToken = getSActivity().getBaseDao().getIbcToken(inputCoin);
-            if (inputCoin.startsWith("ibc/")) {
-                holder.chainName.setText(ibcToken.display_denom.toUpperCase());
-                try {
-                    Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.chainImg);
-                } catch (Exception e){}
-            } else if (inputCoin.equals(TOKEN_OSMOSIS)) {
-                holder.chainName.setText(getString(R.string.str_osmosis_c));
-                Picasso.get().cancelRequest(holder.chainImg);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_osmosis));
+            if (isGRPC(getSActivity().mBaseChain)) {
+                final IbcToken ibcToken = getSActivity().getBaseDao().getIbcToken(inputCoin);
+                if (inputCoin.startsWith("ibc/")) {
+                    holder.chainName.setText(ibcToken.display_denom.toUpperCase());
+                    try {
+                        Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.chainImg);
+                    } catch (Exception e) {
+                    }
+                } else if (inputCoin.equals(TOKEN_OSMOSIS)) {
+                    holder.chainName.setText(getString(R.string.str_osmosis_c));
+                    Picasso.get().cancelRequest(holder.chainImg);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_osmosis));
+                } else {
+                    holder.chainName.setText(getString(R.string.str_uion_c));
+                    Picasso.get().cancelRequest(holder.chainImg);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
+                }
+
             } else {
-                holder.chainName.setText(getString(R.string.str_uion_c));
-                Picasso.get().cancelRequest(holder.chainImg);
-                holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
+                try {
+                    Picasso.get().load(KAVA_COIN_IMG_URL + mSwapCoinList.get(position) + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
+                    String baseDenom = WDp.getKavaBaseDenom(mSwapCoinList.get(position));
+                    if (baseDenom.equalsIgnoreCase(TOKEN_KAVA)) {
+                        holder.chainName.setText(getString(R.string.str_kava_c));
+                    } else if (baseDenom.contains("btc")) {
+                        holder.chainName.setText("BTC");
+                    } else {
+                        holder.chainName.setText(mSwapCoinList.get(position).toUpperCase());
+                    }
+                } catch (Exception e) { }
             }
+
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

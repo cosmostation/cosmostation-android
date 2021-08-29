@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities.chains.osmosis;
+package wannabit.io.cosmostaion.activities.chains.kava;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,14 +22,14 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep3Fragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.KavaSwapStep0Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.KavaSwapStep1Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.KavaSwapStep3Fragment;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
 
-public class SwapActivity extends BaseBroadCastActivity {
+public class StartSwapActivity extends BaseBroadCastActivity {
 
     private RelativeLayout                  mRootView;
     private Toolbar                         mToolbar;
@@ -54,8 +54,8 @@ public class SwapActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_swap));
 
-        mTxType = CONST_PW_TX_OSMOSIS_SWAP;
-        mOsmosisPoolId = getIntent().getLongExtra("mPoolId", 0);
+        mTxType = CONST_PW_TX_KAVA_SWAP;
+        mKavaSwapPool = getIntent().getParcelableExtra("KavaPool");
         mInputDenom = getIntent().getStringExtra("inputDenom");
         mOutputDenom = getIntent().getStringExtra("outputDenom");
 
@@ -149,9 +149,8 @@ public class SwapActivity extends BaseBroadCastActivity {
     }
 
     public void onStartSwap() {
-        Intent intent = new Intent(SwapActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_SWAP);
-        intent.putExtra("osmosisSwapRoute", mOsmosisSwapAmountInRoute.toByteArray());
+        Intent intent = new Intent(StartSwapActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_KAVA_SWAP);
         intent.putExtra("SwapInputCoin", mSwapInCoin);
         intent.putExtra("SwapOutputcoin", mSwapOutCoin);
         intent.putExtra("memo", mTxMemo);
@@ -168,10 +167,10 @@ public class SwapActivity extends BaseBroadCastActivity {
         public CoinSwapPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(CoinSwapStep0Fragment.newInstance(null));
-            mFragments.add(CoinSwapStep1Fragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(CoinSwapStep3Fragment.newInstance(null));
+            mFragments.add(KavaSwapStep0Fragment.newInstance(null));
+            mFragments.add(KavaSwapStep1Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment .newInstance(null));
+            mFragments.add(KavaSwapStep3Fragment.newInstance(null));
         }
 
         @Override

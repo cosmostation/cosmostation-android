@@ -26,9 +26,12 @@ import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaMyCdps;
+import wannabit.io.cosmostaion.network.res.ResKavaPoolInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaPriceFeedParam;
 import wannabit.io.cosmostaion.network.res.ResKavaSupply;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
+import wannabit.io.cosmostaion.network.res.ResKavaSwapParam;
+import wannabit.io.cosmostaion.network.res.ResKavaSwapPool;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.network.res.ResLcdAllRewards;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
@@ -206,6 +209,16 @@ public interface KavaChain {
 
     @GET("hard/accounts")
     Call<ResKavaHardModuleAccount> getHardModuleAccount();
+
+
+    @GET("swap/parameters")
+    Call<ResKavaSwapParam> getSwapParam();
+
+    @GET("swap/pools")
+    Call<ResKavaSwapPool> getSwapPool();
+
+    @GET("swap/pool")
+    Call<ResKavaPoolInfo> getSwapPoolById(@Query("pool") String poolId);
 
 
 

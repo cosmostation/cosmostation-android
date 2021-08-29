@@ -8,6 +8,7 @@ import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
+import wannabit.io.cosmostaion.model.kava.SwapPool;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -41,12 +42,14 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mOsmosisPoolCoin0;
     public Coin                         mOsmosisPoolCoin1;
     public Coin                         mOsmosisLpToken;
-    public Coin                         mOsmosisSwapInCoin;
-    public Coin                         mOsmosisSwapOutCoin;
+    public Coin                         mSwapInCoin;
+    public Coin                         mSwapOutCoin;
     public long                         mOsmosisLockupDuration;
     public ArrayList<Lock.PeriodLock>   mOsmosisLockups = new ArrayList<>();
 
-    public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap;
+    public SwapPool                     mKavaSwapPool;                              //kava swap
+
+    public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap
     public BigDecimal                   mHdacBalance;                               //rizon swap amount
     public ArrayList<String>            mHdacWords;                                 //rizon swap Hdac Mnemonic words
 

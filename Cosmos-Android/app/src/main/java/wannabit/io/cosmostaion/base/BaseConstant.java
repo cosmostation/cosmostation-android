@@ -159,6 +159,10 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_KAVA_REPAY_HARD                 = 2125;
     public final static int TASK_FETCH_NODE_INFO                        = 2126;
     public final static int TASK_FETCH_OKEX_ALL_VALIDATORS              = 2127;
+    public final static int TASK_FETCH_KAVA_SWAP_PARAM                  = 2128;
+    public final static int TASK_FETCH_KAVA_SWAP_POOL                   = 2129;
+    public final static int TASK_FETCH_KAVA_SWAP_POOL_INFO              = 2130;
+    public final static int TASK_GEN_TX_KAVA_SWAP                       = 2131;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_STAKE_HISTORY                = 2301;
@@ -343,6 +347,7 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_BORROW_HARD                    = "hard/MsgBorrow";
     public final static String KAVA_MSG_TYPE_REPAY_HARD                     = "hard/MsgRepay";
     public final static String KAVA_MSG_TYPE_LIQUIDATE_HARD                 = "hard/MsgLiquidate";
+    public final static String KAVA_MSG_TYPE_SWAP_TOKEN                     = "swap/MsgSwapExactForTokens";
 
 
     public final static String BNB_MSG_TYPE_HTLC                            = "tokens/HTLTMsg";
@@ -425,6 +430,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_OSMOSIS_EARNING                     = 5040;
     public final static int CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING             = 5041;
     public final static int CONST_PW_TX_OSMOSIS_UNLOCK                      = 5042;
+    public final static int CONST_PW_TX_KAVA_SWAP                           = 5043;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
@@ -579,6 +585,7 @@ public class BaseConstant {
     public final static String KAVA_GAS_AMOUNT_CDP                      = "2000000";
     public final static String KAVA_GAS_AMOUNT_HARD_POOL                = "800000";
     public final static String KAVA_GAS_AMOUNT_BEP3                     = "500000";
+    public final static String KAVA_GAS_AMOUNT_SWAP                     = "800000";
 
     public final static String BAND_GAS_AMOUNT_SEND                     = "100000";
     public final static String BAND_GAS_AMOUNT_STAKE                    = "200000";

@@ -1097,6 +1097,23 @@ public class WUtil {
         });
     }
 
+    public static void onSortingDenom(ArrayList<String> denom, BaseChain chain) {
+        Collections.sort(denom, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                if(o1.equals(WDp.mainDenom(chain))) return -1;
+                if(o2.equals(WDp.mainDenom(chain))) return 1;
+
+                if (chain.equals(KAVA_MAIN)) {
+                    if(o1.equals(TOKEN_HARD)) return -1;
+                    if(o2.equals(TOKEN_HARD)) return 1;
+
+                }
+                return 0;
+            }
+        });
+    }
+
     public static void onSortingNativeCoins(ArrayList<Balance> balances, final BaseChain chain) {
         Collections.sort(balances, new Comparator<Balance>() {
             @Override
@@ -1347,6 +1364,35 @@ public class WUtil {
         else if (denom.equalsIgnoreCase("ccro")) { return 8; }
         else if (denom.equalsIgnoreCase("cwbtc")) { return 8; }
         return 18;
+    }
+
+    public static String dpKavaTokenName(Context c, TextView textView, String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorKava));
+            textView.setText(R.string.str_kava_c);
+        } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorHard));
+            textView.setText("HARD");
+        } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorUsdx));
+            textView.setText("USDX");
+        } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorSwp));
+            textView.setText("SWP");
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setText("BNB");
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB) || denom.equalsIgnoreCase("xrbp")) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setText("XRPB");
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setText("BUSD");
+        } else if (denom.contains("btc")) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setText("BTC");
+        }
+        return denom;
     }
 
     public static String dpOsmosisTokenName(String denom) {
@@ -2272,6 +2318,8 @@ public class WUtil {
                 return new BigDecimal(KAVA_GAS_AMOUNT_HARD_POOL);
             } else if (txType == CONST_PW_TX_HTLS_REFUND) {
                 return new BigDecimal(KAVA_GAS_AMOUNT_BEP3);
+            } else if (txType == CONST_PW_TX_KAVA_SWAP) {
+                return new BigDecimal(KAVA_GAS_AMOUNT_SWAP);
             }
 
         } else if (basechain.equals(BAND_MAIN)) {

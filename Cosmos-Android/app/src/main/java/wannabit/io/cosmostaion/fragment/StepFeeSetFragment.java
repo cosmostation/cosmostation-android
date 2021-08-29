@@ -373,7 +373,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
             else if (getSActivity().mTxType == CONST_PW_TX_OSMOSIS_SWAP) {
                 new SimulOsmosisSwaplnGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
-                        getSActivity().mOsmosisSwapAmountInRoute, getSActivity().mOsmosisSwapInCoin, getSActivity().mOsmosisSwapOutCoin,
+                        getSActivity().mOsmosisSwapAmountInRoute, getSActivity().mSwapInCoin, getSActivity().mSwapOutCoin,
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 

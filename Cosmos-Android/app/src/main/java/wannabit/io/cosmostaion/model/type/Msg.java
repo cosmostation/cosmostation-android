@@ -224,6 +224,26 @@ public class Msg {
         @SerializedName("borrower")
         public String borrower;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("requester")
+        public String requester;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("exact_token_a")
+        public Coin exact_token_a;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("token_b")
+        public Coin token_b;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("slippage")
+        public String slippage;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("deadline")
+        public String deadline;
+
 
 
         @JsonInclude(JsonInclude.Include.NON_NULL)

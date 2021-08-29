@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.chains.osmosis;
+package wannabit.io.cosmostaion.fragment.chains.kava;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,26 +17,26 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.squareup.picasso.Picasso;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
-import osmosis.gamm.v1beta1.Tx;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.osmosis.SwapActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.StartSwapActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.kava.SwapPool;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.task.FetchTask.KavaSwapPoolInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.gRpcTask.OsmosisPoolInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_OSMOSIS_POOL_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_SWAP_POOL_INFO;
 
-public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
+public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
     private RelativeLayout      mProgress;
     private Button              mCancelBtn, mNextBtn;
@@ -60,8 +60,12 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
     private String              mInDecimalChecker, mInDecimalSetter;
 
-    public static CoinSwapStep0Fragment newInstance(Bundle bundle) {
-        CoinSwapStep0Fragment fragment = new CoinSwapStep0Fragment();
+    private SwapPool            mSwapPool;
+    private BigDecimal          mInputCoinAmount = BigDecimal.ZERO;
+    private BigDecimal          mOutputCoinAmount = BigDecimal.ZERO;
+
+    public static KavaSwapStep0Fragment newInstance(Bundle bundle) {
+        KavaSwapStep0Fragment fragment = new KavaSwapStep0Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -110,38 +114,28 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOutputDenom);
+        if (mSwapPool.coins.get(0).denom.equalsIgnoreCase(getSActivity().mInputDenom)) {
+            mInputCoinAmount = new BigDecimal(mSwapPool.coins.get(0).amount);
+            mOutputCoinAmount = new BigDecimal(mSwapPool.coins.get(1).amount);
+        } else {
+            mInputCoinAmount = new BigDecimal(mSwapPool.coins.get(1).amount);
+            mOutputCoinAmount = new BigDecimal(mSwapPool.coins.get(0).amount);
+        }
+
+        mInputCoinDecimal = WUtil.getKavaCoinDecimal(getSActivity().mInputDenom);
+        mOutputCoinDecimal = WUtil.getKavaCoinDecimal(getSActivity().mOutputDenom);
         setDpDecimals(mInputCoinDecimal);
-        mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_OSMOSIS_SWAP, 0);
-        if (getSActivity().mInputDenom.equals(TOKEN_OSMOSIS)) {
-            mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
-        }
+
+        mAvailableMaxAmount = getBaseDao().availableAmount(getSActivity().mInputDenom);
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
-        WUtil.dpOsmosisTokenName(getContext(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
+        WUtil.dpKavaTokenName(getSActivity(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
 
-        WUtil.dpOsmosisTokenName(getContext(), mSwapInputSymbol, getSActivity().mInputDenom);
-        WUtil.DpOsmosisTokenImg(mSwapInputImg, getSActivity().mInputDenom);
-        WUtil.dpOsmosisTokenName(getContext(), mSwapOutputSymbol, getSActivity().mOutputDenom);
-        WUtil.DpOsmosisTokenImg(mSwapOutputImg, getSActivity().mOutputDenom);
+        mSwapRate = mOutputCoinAmount.divide(mInputCoinAmount, 18, RoundingMode.DOWN);
 
-        BigDecimal inputAssetAmount = BigDecimal.ZERO;
-        BigDecimal inputAssetWeight = BigDecimal.ZERO;
-        BigDecimal outputAssetAmount = BigDecimal.ZERO;
-        BigDecimal outputAssetWeight = BigDecimal.ZERO;
-
-        for (PoolOuterClass.PoolAsset asset: getSActivity().mOsmosisPool.getPoolAssetsList()) {
-            if (asset.getToken().getDenom().equals(getSActivity().mInputDenom)) {
-                inputAssetAmount = new BigDecimal(asset.getToken().getAmount());
-                inputAssetWeight = new BigDecimal(asset.getWeight());
-            }
-            if (asset.getToken().getDenom().equals(getSActivity().mOutputDenom)) {
-                outputAssetAmount = new BigDecimal(asset.getToken().getAmount());
-                outputAssetWeight = new BigDecimal(asset.getWeight());
-            }
-        }
-        mSwapRate = outputAssetAmount.multiply(inputAssetWeight).divide(inputAssetAmount, 18, RoundingMode.DOWN).divide(outputAssetWeight, 18, RoundingMode.DOWN);
+        WUtil.dpKavaTokenName(getSActivity(), mSwapInputSymbol, getSActivity().mInputDenom);
+        WUtil.dpKavaTokenName(getSActivity(), mSwapOutputSymbol, getSActivity().mOutputDenom);
+        Picasso.get().load(KAVA_COIN_IMG_URL+getSActivity().mInputDenom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(mSwapInputImg);
+        Picasso.get().load(KAVA_COIN_IMG_URL+getSActivity().mOutputDenom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(mSwapOutputImg);
     }
 
     private void onAddAmountWatcher(){
@@ -249,9 +243,9 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         try {
             BigDecimal InputAmountTemp = new BigDecimal(mSwapInputAmount.getText().toString().trim());
 
-            BigDecimal padding = new BigDecimal("0.97");
+            BigDecimal padding = BigDecimal.ONE.subtract(new BigDecimal(getBaseDao().mSwapParam.swap_fee)).subtract(new BigDecimal("0.03"));
             BigDecimal OutputAmount = InputAmountTemp.movePointRight(mInputCoinDecimal).multiply(padding).multiply(mSwapRate).setScale(0, RoundingMode.DOWN);
-            
+
             mSwapOutputAmount.setText(OutputAmount.movePointLeft(mOutputCoinDecimal).toPlainString());
         } catch (Exception e) { }
     }
@@ -265,30 +259,27 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
             getSActivity().mSwapInCoin = new Coin(getSActivity().mInputDenom, InputAmountTemp.movePointRight(mInputCoinDecimal).setScale(0).toPlainString());
             getSActivity().mSwapOutCoin = new Coin(getSActivity().mOutputDenom, OutAmountTemp.movePointRight(mOutputCoinDecimal).setScale(0).toPlainString());
-            getSActivity().mOsmosisSwapAmountInRoute = Tx.SwapAmountInRoute.newBuilder().setPoolId(getSActivity().mOsmosisPool.getId()).setTokenOutDenom(getSActivity().mOutputDenom).build();
             return true;
 
         } catch (Exception e) {
             getSActivity().mSwapInCoin = null;
             getSActivity().mSwapOutCoin = null;
-            getSActivity().mOsmosisSwapAmountInRoute = null;
             return false;
         }
     }
 
-
     private int mTaskCount;
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new OsmosisPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOsmosisPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaSwapPoolInfoTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mKavaSwapPool.name).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
-        if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_INFO) {
+        if (result.taskType == TASK_FETCH_KAVA_SWAP_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getSActivity().mOsmosisPool = (PoolOuterClass.Pool)result.resultData;
+                mSwapPool = (SwapPool) result.resultData;
             }
         }
         if (mTaskCount == 0) {
@@ -307,7 +298,7 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
         }
     }
 
-    private SwapActivity getSActivity() {
-        return (SwapActivity)getBaseActivity();
+    private StartSwapActivity getSActivity() {
+        return (StartSwapActivity)getBaseActivity();
     }
 }

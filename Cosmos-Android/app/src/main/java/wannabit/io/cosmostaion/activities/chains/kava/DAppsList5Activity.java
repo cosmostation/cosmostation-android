@@ -1,7 +1,10 @@
 package wannabit.io.cosmostaion.activities.chains.kava;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,9 +24,11 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.ListAuctionFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListHardFragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.ListKavaPoolFragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.ListKavaSwapFragment;
 import wannabit.io.cosmostaion.model.kava.AuctionParam;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
@@ -31,30 +36,40 @@ import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
-import wannabit.io.cosmostaion.task.FetchTask.KavaAuctionParamTask;
+import wannabit.io.cosmostaion.model.kava.SwapParam;
+import wannabit.io.cosmostaion.model.kava.SwapPool;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaHardParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaPriceFeedParamTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaSwapParamTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaSwapPoolTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_AUCTION_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_SWAP_PARAM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_SWAP_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
 public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
-    private Toolbar mToolbar;
-    private ViewPager mDappPager;
-    private TabLayout mDappTapLayer;
-    private KavaDApp5PageAdapter mPageAdapter;
+    private Toolbar                 mToolbar;
+    private ViewPager               mDappPager;
+    private TabLayout               mDappTapLayer;
+    private KavaDApp5PageAdapter    mPageAdapter;
+
+    public ArrayList<SwapPool>      mSwapPoolList = new ArrayList<>();
+    public ArrayList<String>        mAllDenoms = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,23 +93,29 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
-        tabItemText0.setText(R.string.str_kava_cdp_list);
+        tabItemText0.setText(R.string.str_kava_swap_list);
         tabItemText0.setTextColor(WDp.getTabColor(this, mBaseChain));
         mDappTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
         tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
-        tabItemText1.setText(R.string.str_kava_harvest_list);
+        tabItemText1.setText(R.string.str_kava_pool_list);
         mDappTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
         tabItemText2.setTextColor(WDp.getTabColor(this, mBaseChain));
-        tabItemText2.setText(R.string.str_kava_auction_list);
+        tabItemText2.setText(R.string.str_kava_cdp_list);
         mDappTapLayer.getTabAt(2).setCustomView(tab2);
 
-        mDappPager.setOffscreenPageLimit(2);
+        View tab3 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
+        TextView tabItemText3 = tab3.findViewById(R.id.tabItemText);
+        tabItemText3.setTextColor(WDp.getTabColor(this, mBaseChain));
+        tabItemText3.setText(R.string.str_kava_harvest_list);
+        mDappTapLayer.getTabAt(3).setCustomView(tab3);
+
+        mDappPager.setOffscreenPageLimit(3);
         mDappPager.setCurrentItem(0, false);
 
         mDappPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -113,6 +134,20 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
     }
 
+    public void onCheckStartSwap(String inputCoinDenom, String outCoinDenom, SwapPool swapPool) {
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+        Intent intent = new Intent(DAppsList5Activity.this, StartSwapActivity.class);
+        intent.putExtra("inputDenom", inputCoinDenom);
+        intent.putExtra("outputDenom", outCoinDenom);
+        intent.putExtra("KavaPool", swapPool);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -126,14 +161,14 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
     private int mTaskCount = 0;
     public void onFetchData() {
-        mTaskCount = 5;
+        mTaskCount = 6;
+        onShowWaitDialog();
         new KavaCdpParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaHardParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaAuctionParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaSwapParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaSwapPoolTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaIncentiveParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaIncentiveRewardTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-
     }
 
     @Override
@@ -158,6 +193,25 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
                 getBaseDao().mAuctionParam = (AuctionParam)result.resultData;
             }
 
+        } else if (result.taskType == TASK_FETCH_KAVA_SWAP_PARAM) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mSwapParam = (SwapParam) result.resultData;
+            }
+
+        } else if (result.taskType == TASK_FETCH_KAVA_SWAP_POOL) {
+            if (result.isSuccess && result.resultData != null) {
+                mSwapPoolList = (ArrayList<SwapPool>) result.resultData;
+                for (SwapPool swapPool : mSwapPoolList) {
+                    for (Coin coin : swapPool.coins) {
+                        if (!mAllDenoms.contains(coin.denom)) {
+                            mAllDenoms.add(coin.denom);
+                            WUtil.onSortingDenom(mAllDenoms, mBaseChain);
+                        }
+                    }
+                }
+                WLog.w("mAllDenoms : " + mAllDenoms.size());
+            }
+
         } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_PARAM) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mIncentiveParam5 = (IncentiveParam)result.resultData;
@@ -176,9 +230,14 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
         }
         if (mTaskCount == 0) {
-            mPageAdapter.mCurrentFragment.onRefreshTab();
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    onHideWaitDialog();
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                }
+            }, 300);
         }
-
     }
 
 
@@ -190,9 +249,10 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         public KavaDApp5PageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
+            mFragments.add(ListKavaSwapFragment.newInstance(null));
+            mFragments.add(ListKavaPoolFragment.newInstance(null));
             mFragments.add(ListCdpFragment.newInstance(null));
             mFragments.add(ListHardFragment.newInstance(null));
-            mFragments.add(ListAuctionFragment.newInstance(null));
         }
 
         @Override

@@ -518,6 +518,19 @@ public class MsgGenerator {
         return result;
     }
 
+    public static Msg getSwapTokenMsg(String requester, Coin swapIn, Coin swapOut, String slippage, String deadline, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.requester = requester;
+        value.exact_token_a = swapIn;
+        value.token_b = swapOut;
+        value.slippage = slippage;
+        value.deadline = deadline;
+        result.type = BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN;
+        result.value = value;
+        return result;
+    }
+
 
     public static Msg genOkDeposit(String delegator, Coin coin, BaseChain chain) {
         Msg result  = new Msg();
