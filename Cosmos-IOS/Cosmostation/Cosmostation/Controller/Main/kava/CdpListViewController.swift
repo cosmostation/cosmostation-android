@@ -162,7 +162,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.section == 1) {
+        if (indexPath.section == 0) {
             let myCdp = myCdps![indexPath.row]
             let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
             cdpDetailVC.hidesBottomBarWhenPushed = true
@@ -170,7 +170,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(cdpDetailVC, animated: true)
             
-        } else if (indexPath.section == 2) {
+        } else if (indexPath.section == 1) {
             let mCollateralParam = otherCdps![indexPath.row]
             let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
             cdpDetailVC.mCollateralParamType = mCollateralParam.type

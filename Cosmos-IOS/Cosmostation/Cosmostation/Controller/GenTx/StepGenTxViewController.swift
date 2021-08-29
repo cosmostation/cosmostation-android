@@ -272,26 +272,28 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     self.newVc(viewController: "StepHtlcRefund3ViewController")]
             
-        } else if (mType == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
-            return [self.newVc(viewController: "StepIncentive0ViewController"),
-                    self.newVc(viewController: "StepMemoViewController"),
-                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
-                    self.newVc(viewController: "StepIncentive3ViewController")]
-            
-        } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
-            return [self.newVc(viewController: "StepHarvestReward0ViewController"),
-                    self.newVc(viewController: "StepMemoViewController"),
-                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
-                    self.newVc(viewController: "StepHarvestReward3ViewController")]
-            
-        } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV) {
-            return [self.newVc(viewController: "StepSendAddressViewController"),
-                    self.newVc(viewController: "StepHarvestReward0ViewController"),
-                    self.newVc(viewController: "StepMemoViewController"),
-                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
-                    self.newVc(viewController: "StepHarvestReward3ViewController")]
-            
-        } else if (mType == KAVA_MSG_TYPE_DEPOSIT_HARD) {
+        }
+//        else if (mType == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
+//            return [self.newVc(viewController: "StepIncentive0ViewController"),
+//                    self.newVc(viewController: "StepMemoViewController"),
+//                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
+//                    self.newVc(viewController: "StepIncentive3ViewController")]
+//
+//        } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
+//            return [self.newVc(viewController: "StepHarvestReward0ViewController"),
+//                    self.newVc(viewController: "StepMemoViewController"),
+//                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
+//                    self.newVc(viewController: "StepHarvestReward3ViewController")]
+//
+//        } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV) {
+//            return [self.newVc(viewController: "StepSendAddressViewController"),
+//                    self.newVc(viewController: "StepHarvestReward0ViewController"),
+//                    self.newVc(viewController: "StepMemoViewController"),
+//                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
+//                    self.newVc(viewController: "StepHarvestReward3ViewController")]
+//
+//        }
+        else if (mType == KAVA_MSG_TYPE_DEPOSIT_HARD) {
             return [HardPoolDeposit0ViewController(nibName: "HardPoolDeposit0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
                     StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
