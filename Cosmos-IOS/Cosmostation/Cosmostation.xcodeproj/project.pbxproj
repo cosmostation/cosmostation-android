@@ -293,6 +293,7 @@
 		284D17D92535572300C364F9 /* DAppsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284D17D82535572300C364F9 /* DAppsListViewController.swift */; };
 		284D17DC2535573100C364F9 /* CdpListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284D17DB2535573100C364F9 /* CdpListViewController.swift */; };
 		284D17DF2535573D00C364F9 /* HardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284D17DE2535573D00C364F9 /* HardListViewController.swift */; };
+		284FBC7426DB961A00403FE2 /* DenomsToClaim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284FBC7326DB961A00403FE2 /* DenomsToClaim.swift */; };
 		284FF3C225A6C13E00505E7A /* OkAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284FF3C125A6C13E00505E7A /* OkAccountInfo.swift */; };
 		2852EAF02681A4CC003A5E74 /* WalletOsmoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852EAEE2681A4CC003A5E74 /* WalletOsmoCell.swift */; };
 		2852EAF12681A4CC003A5E74 /* WalletOsmoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2852EAEF2681A4CC003A5E74 /* WalletOsmoCell.xib */; };
@@ -1373,6 +1374,7 @@
 		284D17D82535572300C364F9 /* DAppsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAppsListViewController.swift; sourceTree = "<group>"; };
 		284D17DB2535573100C364F9 /* CdpListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpListViewController.swift; sourceTree = "<group>"; };
 		284D17DE2535573D00C364F9 /* HardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardListViewController.swift; sourceTree = "<group>"; };
+		284FBC7326DB961A00403FE2 /* DenomsToClaim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DenomsToClaim.swift; sourceTree = "<group>"; };
 		284FD92E2695BC8F003F1A1E /* BitcoinKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BitcoinKit.framework; path = Carthage/Build/iOS/BitcoinKit.framework; sourceTree = "<group>"; };
 		284FF3C125A6C13E00505E7A /* OkAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkAccountInfo.swift; sourceTree = "<group>"; };
 		2852EAEE2681A4CC003A5E74 /* WalletOsmoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletOsmoCell.swift; sourceTree = "<group>"; };
@@ -3100,6 +3102,7 @@
 				28EEEC8826DA548C002DDC4A /* KavaSwapPool.swift */,
 				28EEEC8A26DA55E7002DDC4A /* KavaSwapParam.swift */,
 				28EEEC8C26DA5747002DDC4A /* KavaSwapDeposit.swift */,
+				284FBC7326DB961A00403FE2 /* DenomsToClaim.swift */,
 			);
 			path = KavaModel;
 			sourceTree = "<group>";
@@ -4094,6 +4097,7 @@
 				E1069B12229698BA007517DC /* StepChangeAddressViewController.swift in Sources */,
 				28EEECAC26DAE9B4002DDC4A /* KavaSwapExit0ViewController.swift in Sources */,
 				E1406FC02260643200D9440C /* BlockInfo.swift in Sources */,
+				284FBC7426DB961A00403FE2 /* DenomsToClaim.swift in Sources */,
 				0497586C2685AA0E0039872C /* cosmwasm_wasm_v1beta1_proposal.pb.swift in Sources */,
 				283F3AE6265E283800DF1D93 /* tokenswap_genesis.pb.swift in Sources */,
 				28D7BE5325F0FAD0006EECD7 /* KavaHardInterestRate.swift in Sources */,

@@ -9,14 +9,22 @@
 import Foundation
 
 public struct IncentiveParam {
-    var claim_multipliers: Array<ClaimMultiplier>?
+    var claim_multipliers: Array<ClaimMultiplier> = Array<ClaimMultiplier>()
     
     init(_ dictionary: NSDictionary?) {
         if let rawClaimMultipliers = dictionary?["claim_multipliers"] as? Array<NSDictionary>  {
-            self.claim_multipliers = Array<ClaimMultiplier>()
             for rawClaimMultiplier in rawClaimMultipliers {
-                self.claim_multipliers!.append(ClaimMultiplier(rawClaimMultiplier))
+                self.claim_multipliers.append(ClaimMultiplier(rawClaimMultiplier))
             }
         }
+    }
+    
+    public func getFactor(_ denom: String, _ position: Int) -> NSDecimalNumber{
+        for claim_multipliers in claim_multipliers {
+            if (claim_multipliers.denom == denom) {
+                return claim_multipliers.multipliers[position].factor
+            }
+        }
+        return NSDecimalNumber.zero
     }
 }

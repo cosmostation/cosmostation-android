@@ -17,7 +17,6 @@
                 <outlet property="lockupLabel" destination="HY2-PM-Uj2" id="EYS-Kb-rCd"/>
                 <outlet property="option1Btn" destination="YO2-Yo-Lyd" id="lEU-M0-8Kd"/>
                 <outlet property="option2Btn" destination="4Du-ae-m56" id="0Oh-uo-BeV"/>
-                <outlet property="option3Btn" destination="8BZ-9u-COe" id="5hW-Nf-xIz"/>
                 <outlet property="swpIncentiveAmountLabel" destination="z82-cP-O3e" id="dWV-Pa-OJ9"/>
                 <outlet property="usdxIncentiveAmountLabel" destination="bHl-TC-Gr0" id="qYK-6H-UOo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -82,16 +81,16 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Lof-YK-ZrJ">
-                    <rect key="frame" x="12" y="776" width="390" height="0.0"/>
+                    <rect key="frame" x="12" y="682" width="390" height="94"/>
                     <subviews>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YO2-Yo-Lyd">
-                            <rect key="frame" x="0.0" y="0.0" width="51" height="45"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YO2-Yo-Lyd">
+                            <rect key="frame" x="0.0" y="0.0" width="390" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="fSv-rK-MBB"/>
                             </constraints>
                             <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="100" maxY="0.0"/>
-                            <state key="normal" title="Type1">
+                            <state key="normal" title="SMALL">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -109,14 +108,14 @@
                                 <action selector="onClickOption1:" destination="-1" eventType="touchUpInside" id="Abz-lW-xY4"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Du-ae-m56">
-                            <rect key="frame" x="0.0" y="0.0" width="51" height="45"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Du-ae-m56">
+                            <rect key="frame" x="0.0" y="49" width="390" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="vHd-P9-Kzh"/>
                             </constraints>
                             <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="100" maxY="0.0"/>
-                            <state key="normal" title="Type2">
+                            <state key="normal" title="LARGE">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -132,31 +131,6 @@
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="onClickOption2:" destination="-1" eventType="touchUpInside" id="5Qy-0S-OST"/>
-                            </connections>
-                        </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8BZ-9u-COe">
-                            <rect key="frame" x="0.0" y="0.0" width="51" height="45"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="45" id="4Jv-3z-h8Y"/>
-                            </constraints>
-                            <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="100" maxY="0.0"/>
-                            <state key="normal" title="Type3">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                    <real key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="8"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                    <color key="value" red="0.29411764709999999" green="0.30980392159999998" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="onClickOption3:" destination="-1" eventType="touchUpInside" id="1xI-Yi-TLY"/>
                             </connections>
                         </button>
                     </subviews>

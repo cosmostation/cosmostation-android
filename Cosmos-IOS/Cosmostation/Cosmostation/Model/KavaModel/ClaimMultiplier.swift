@@ -25,12 +25,13 @@ public struct ClaimMultiplier {
 public struct Multiplier {
     var name: String?
     var months_lockup: String?
-    var factor: String?
+    var factor: NSDecimalNumber = NSDecimalNumber.zero
     
     init(_ dictionary: NSDictionary?) {
         self.name = dictionary?["name"] as? String
         self.months_lockup = dictionary?["months_lockup"] as? String
-        self.factor = dictionary?["factor"] as? String
+        if let rawFactor = dictionary?["factor"] as? String {
+            self.factor = NSDecimalNumber.init(string: rawFactor)
+        }
     }
-    
 }

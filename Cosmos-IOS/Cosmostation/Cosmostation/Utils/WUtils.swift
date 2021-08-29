@@ -2991,6 +2991,8 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_SWAP_DEPOSIT))
             } else if (type == KAVA_MSG_TYPE_SWAP_WITHDRAW) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_SWAP_WITHDRAW))
+            } else if (type == KAVA_MSG_TYPE_INCENTIVE_ALL) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_CLAIM_INCENTIVE_ALL))
             } else if (type == TASK_TYPE_HTLC_SWAP) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_BEP3))
             }

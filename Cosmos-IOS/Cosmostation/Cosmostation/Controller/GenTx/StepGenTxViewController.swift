@@ -82,7 +82,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mIncentiveHardReceivable = NSDecimalNumber.zero
     var mHardPoolDenom: String?
     var mHardPoolCoins: Array<Coin>?
-    var mIncentiveMultiplier: ClaimMultiplier?
+    var mIncentiveMultiplier: String?
     var mHardPoolCoin = Coin.init()
     var mKavaPool: SwapPool?
     var mKavaDeposit: SwapDeposit?

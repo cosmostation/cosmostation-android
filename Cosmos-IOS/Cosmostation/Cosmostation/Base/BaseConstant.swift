@@ -495,6 +495,7 @@ let KAVA_GAS_AMOUNT_HARD_POOL                   = "800000";
 let KAVA_GAS_AMOUNT_SWAP_TOKEN                  = "800000";
 let KAVA_GAS_AMOUNT_SWAP_DEPOSIT                = "800000";
 let KAVA_GAS_AMOUNT_SWAP_WITHDRAW               = "800000";
+let KAVA_GAS_AMOUNT_CLAIM_INCENTIVE_ALL         = "2000000";
 let KAVA_GAS_AMOUNT_BEP3                        = "500000";
 
 

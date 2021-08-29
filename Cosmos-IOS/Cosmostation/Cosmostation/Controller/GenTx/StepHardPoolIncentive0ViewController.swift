@@ -37,8 +37,8 @@ class StepHardPoolIncentive0ViewController: BaseViewController {
         self.chainType = WUtils.getChainType(account!.account_base_chain)
         self.pageHolderVC = self.parent as? StepGenTxViewController
         
-        mKavaIncentiveAmount = BaseData.instance.mIncentiveRewards!.getHardPoolKavaRewardAmount()
-        mHardIncentiveAmount = BaseData.instance.mIncentiveRewards!.getHardPoolHardRewardAmount()
+//        mKavaIncentiveAmount = BaseData.instance.mIncentiveRewards!.getHardPoolKavaRewardAmount()
+//        mHardIncentiveAmount = BaseData.instance.mIncentiveRewards!.getHardPoolHardRewardAmount()
         
         WUtils.showCoinDp(KAVA_MAIN_DENOM, mKavaIncentiveAmount.stringValue, kRewardDenom, kRewardAmount, chainType!)
         WUtils.showCoinDp(KAVA_HARD_DENOM, mHardIncentiveAmount.stringValue, hRewardDenom, hRewardAmount, chainType!)

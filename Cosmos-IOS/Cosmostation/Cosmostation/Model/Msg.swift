@@ -141,6 +141,7 @@ public struct Msg: Codable {
         var min_token_b: Coin?
         var slippage: String?
         var deadline: String?
+        var denoms_to_claim: Array<DenomsToClaim>?
         
         
         var transfers: Array<OkTransfer>?
@@ -219,6 +220,7 @@ public struct Msg: Codable {
             case min_token_b
             case slippage
             case deadline
+            case denoms_to_claim
             
             case transfers
             case quantity
@@ -525,7 +527,12 @@ public struct Msg: Codable {
             if let deadline =  dictionary["deadline"] as? String {
                 self.deadline = deadline
             }
-            
+            if let rawDenomsToClaims = dictionary["denoms_to_claim"] as? Array<NSDictionary> {
+                self.denoms_to_claim = Array<DenomsToClaim>()
+                for rawDenomsToClaim in rawDenomsToClaims {
+                    self.denoms_to_claim?.append(DenomsToClaim.init(rawDenomsToClaim))
+                }
+            }
             
             
             if let rawTransfers = dictionary["transfers"] as? Array<NSDictionary> {

@@ -577,6 +577,49 @@ class MsgGenerator {
         return msg
     }
     
+    static func genClaimUSDXMintingRewardMsg(_ chainType: ChainType, _ sender: String, _ multiplier_name: String) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+        value.multiplier_name = multiplier_name;
+        msg.type = KAVA_MSG_TYPE_USDX_MINT_INCENTIVE;
+        msg.value = value;
+        return msg
+    }
+    
+    static func genClaimHardRewardMsg(_ chainType: ChainType, _ sender: String, _ multiplier_name: String, _ denoms_to_claims: Array<DenomsToClaim>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+//        value.multiplier_name = multiplier_name;
+        value.denoms_to_claim = denoms_to_claims;
+        msg.type = KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE;
+        msg.value = value;
+        return msg
+    }
+    
+    static func genClaimDelegatorRewardMsg(_ chainType: ChainType, _ sender: String, _ multiplier_name: String, _ denoms_to_claims: Array<DenomsToClaim>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+//        value.multiplier_name = multiplier_name;
+        value.denoms_to_claim = denoms_to_claims;
+        msg.type = KAVA_MSG_TYPE_DELEGATOR_INCENTIVE;
+        msg.value = value;
+        return msg
+    }
+    
+    static func genClaimSwapRewardMsg(_ chainType: ChainType, _ sender: String, _ multiplier_name: String, _ denoms_to_claims: Array<DenomsToClaim>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+//        value.multiplier_name = multiplier_name;
+        value.denoms_to_claim = denoms_to_claims;
+        msg.type = KAVA_MSG_TYPE_SWAP_INCENTIVE;
+        msg.value = value;
+        return msg
+    }
+    
     
     static func genOkDepositMsg(_ delegator: String, _ coin: Coin) -> Msg {
         var msg = Msg.init()
