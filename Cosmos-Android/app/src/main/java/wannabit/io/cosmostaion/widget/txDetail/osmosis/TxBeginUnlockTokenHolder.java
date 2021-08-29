@@ -58,12 +58,9 @@ public class TxBeginUnlockTokenHolder extends TxHolder {
             }
 
             if (duraion != 0) {
-                long timeStampSeconds = new SimpleDateFormat(c.getString(R.string.str_tx_time_format)).parse(response.getTxResponse().getTimestamp()).getTime();
+                long timeStampSeconds = WDp.dateToLong2(c, response.getTxResponse().getTimestamp());
                 long completeTime = timeStampSeconds + duraion;
-                Date date = new Date(completeTime);
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                format.setTimeZone(TimeZone.getTimeZone("UTC"));
-                itemUnlockTokenCompleteTime.setText(format.format(date));
+                itemUnlockTokenCompleteTime.setText(WDp.getDpTime(c, completeTime));
             } else {
                 itemUnlockTokenCompleteTime.setText("--");
             }

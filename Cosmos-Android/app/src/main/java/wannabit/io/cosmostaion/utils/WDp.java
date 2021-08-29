@@ -1457,6 +1457,16 @@ public class WDp {
         return result;
     }
 
+    public static long dateToLong2(Context c, String rawValue) {
+        long result = 0;
+        try {
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_tx_time_format));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            result = blockDateFormat.parse(rawValue).getTime();
+        } catch (Exception e) {};
+        return result;
+    }
+
     public static String getDateformat(Context c, String rawValue) {
         String result = "??";
         try {
