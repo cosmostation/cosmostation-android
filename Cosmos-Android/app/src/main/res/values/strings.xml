@@ -1802,22 +1802,22 @@
     </string-array>
 
     <string-array name="gas_multi_reward_kava" translatable="false">
-        <item>200000</item>
-        <item>280000</item>
-        <item>360000</item>
-        <item>440000</item>
-        <item>520000</item>
-        <item>600000</item>
+        <item>300000</item>
+        <item>380000</item>
+        <item>460000</item>
+        <item>540000</item>
+        <item>620000</item>
         <item>700000</item>
-        <item>780000</item>
-        <item>860000</item>
-        <item>940000</item>
-        <item>1020000</item>
-        <item>1100000</item>
+        <item>800000</item>
+        <item>880000</item>
+        <item>960000</item>
+        <item>1040000</item>
+        <item>1120000</item>
         <item>1200000</item>
-        <item>1280000</item>
-        <item>1360000</item>
-        <item>1440000</item>
+        <item>1300000</item>
+        <item>1380000</item>
+        <item>1460000</item>
+        <item>1540000</item>
     </string-array>
 
 </resources>
