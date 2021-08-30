@@ -78,7 +78,7 @@ public class SimpleClaimIncentiveTask extends CommonTask {
             if (mApp.getBaseDao().mIncentiveRewards.getHardRewardDenoms().size() > 0) {
                 ArrayList<DenomsToClaim> denoms_to_claims = new ArrayList<>();
                 for (String denom: mApp.getBaseDao().mIncentiveRewards.getHardRewardDenoms()) {
-                    denoms_to_claims.add(new DenomsToClaim(denom, mApp.getBaseDao().mIncentiveMultiplier));
+                    denoms_to_claims.add(new DenomsToClaim(denom, mMultiplierName));
                 }
                 Msg msg = MsgGenerator.genClaimHardRewardMsg(mAccount.address, mMultiplierName, denoms_to_claims, BaseChain.getChain(mAccount.baseChain));
                 msgList.add(msg);
@@ -86,7 +86,7 @@ public class SimpleClaimIncentiveTask extends CommonTask {
             if (mApp.getBaseDao().mIncentiveRewards.getDelegatorRewardDenoms().size() > 0) {
                 ArrayList<DenomsToClaim> denoms_to_claims = new ArrayList<>();
                 for (String denom: mApp.getBaseDao().mIncentiveRewards.getDelegatorRewardDenoms()) {
-                    denoms_to_claims.add(new DenomsToClaim(denom, mApp.getBaseDao().mIncentiveMultiplier));
+                    denoms_to_claims.add(new DenomsToClaim(denom, mMultiplierName));
                 }
                 Msg msg = MsgGenerator.genClaimDelegatorRewardMsg(mAccount.address, mMultiplierName, denoms_to_claims, BaseChain.getChain(mAccount.baseChain));
                 msgList.add(msg);
@@ -94,7 +94,7 @@ public class SimpleClaimIncentiveTask extends CommonTask {
             if (mApp.getBaseDao().mIncentiveRewards.getSwapRewardDenoms().size() > 0) {
                 ArrayList<DenomsToClaim> denoms_to_claims = new ArrayList<>();
                 for (String denom: mApp.getBaseDao().mIncentiveRewards.getDelegatorRewardDenoms()) {
-                    denoms_to_claims.add(new DenomsToClaim(denom, mApp.getBaseDao().mIncentiveMultiplier));
+                    denoms_to_claims.add(new DenomsToClaim(denom, mMultiplierName));
                 }
                 Msg msg = MsgGenerator.genClaimSwapRewardMsg(mAccount.address, mMultiplierName, denoms_to_claims, BaseChain.getChain(mAccount.baseChain));
                 msgList.add(msg);

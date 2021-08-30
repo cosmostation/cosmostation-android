@@ -163,7 +163,7 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
     public void onStartIncentiveClaim() {
         Intent intent = new Intent(ClaimIncentiveActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_CLAIM_INCENTIVE);
-//        intent.putExtra("multiplierName", mIncentiveMultiplier);
+        intent.putExtra("multiplierName", mIncentiveMultiplier);
         intent.putExtra("fee", mTxFee);
         intent.putExtra("memo", mTxMemo);
         startActivity(intent);

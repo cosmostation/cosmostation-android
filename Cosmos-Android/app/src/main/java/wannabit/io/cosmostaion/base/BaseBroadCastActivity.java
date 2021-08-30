@@ -51,6 +51,7 @@ public class BaseBroadCastActivity extends BaseActivity {
     public SwapPool                     mKavaSwapPool;                              //kava swap
     public SwapDeposit                  mKavaSwapDeposit;
     public BigDecimal                   mKavaShareAmount = BigDecimal.ZERO;
+    public String                       mIncentiveMultiplier;
 
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap
     public BigDecimal                   mHdacBalance;                               //rizon swap amount

@@ -77,7 +77,7 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
         BigDecimal swpIncentiveAmount  = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_SWP);
         BigDecimal usdxIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_USDX);
 
-        if (getBaseDao().mIncentiveMultiplier.equalsIgnoreCase("small")) {
+        if (getSActivity().mIncentiveMultiplier.equalsIgnoreCase("small")) {
             mLockTime.setText("1 Month");
             kavaIncentiveAmount = kavaIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_KAVA, 0)).setScale(0, RoundingMode.DOWN);
             hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_HARD, 0)).setScale(0, RoundingMode.DOWN);
