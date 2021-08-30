@@ -74,7 +74,7 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
         mExitMyShare.setText(WDp.getDpAmount2(getSActivity(), getSActivity().mKavaShareAmount, 6, 6));
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         WLog.w("mKavaSwapDeposit : " + getSActivity().mKavaSwapDeposit.shares_owned);
-        BigDecimal depositRate = getSActivity().mKavaShareAmount.divide(new BigDecimal(getSActivity().mKavaSwapDeposit.shares_owned).setScale(18, RoundingMode.DOWN));
+        BigDecimal depositRate = (getSActivity().mKavaShareAmount).divide(new BigDecimal(getSActivity().mKavaSwapDeposit.shares_owned), 18, RoundingMode.DOWN);
         BigDecimal padding = new BigDecimal("0.97");
         BigDecimal coin0Amount = new BigDecimal(getSActivity().mKavaSwapDeposit.shares_value.get(0).amount).multiply(padding).multiply(depositRate).setScale(0, RoundingMode.DOWN);
         BigDecimal coin1Amount = new BigDecimal(getSActivity().mKavaSwapDeposit.shares_value.get(1).amount).multiply(padding).multiply(depositRate).setScale(0, RoundingMode.DOWN);
