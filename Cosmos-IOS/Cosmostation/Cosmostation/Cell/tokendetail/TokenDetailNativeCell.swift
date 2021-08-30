@@ -134,7 +134,7 @@ class TokenDetailNativeCell: TokenDetailCell {
         let available = BaseData.instance.availableAmount(denom!)
         let vesting = BaseData.instance.lockedAmount(denom!)
         
-        totalAmount.attributedText = WUtils.displayAmount2(available.stringValue, totalAmount.font, dpDecimal, dpDecimal)
+        totalAmount.attributedText = WUtils.displayAmount2(available.adding(vesting).stringValue, totalAmount.font, dpDecimal, dpDecimal)
         availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, dpDecimal, dpDecimal)
         if (vesting.compare(NSDecimalNumber.zero).rawValue > 0) {
             vestingLayer.isHidden = false
