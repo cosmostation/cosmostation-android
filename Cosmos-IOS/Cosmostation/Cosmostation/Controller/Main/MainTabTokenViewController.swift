@@ -591,6 +591,18 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allMed = WUtils.getAllMainAsset(MEDI_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allMed.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(MEDI_MAIN_DENOM, allMed, 6, cell!.tokenValue.font)
+            
+        } else if (coin.denom == CERTIK_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "certikTokenImg")
+            cell?.tokenSymbol.text = "CTK"
+            cell?.tokenSymbol.textColor = COLOR_CERTIK
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = "Certik Staking Token"
+
+            let allCtk = WUtils.getAllMainAsset(CERTIK_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(CERTIK_MAIN_DENOM, allCtk, 6, cell!.tokenValue.font)
+            
         }
         
         else if (coin.denom == COSMOS_TEST_DENOM) {
@@ -760,17 +772,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allSecret = WUtils.getAllMainAssetOld(SECRET_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allSecret.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(SECRET_MAIN_DENOM, allSecret, 6, cell!.tokenValue.font)
-            
-        } else if (balance.balance_denom == CERTIK_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "certikTokenImg")
-            cell?.tokenSymbol.text = "CTK"
-            cell?.tokenSymbol.textColor = COLOR_CERTIK
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = "Certik Staking Token"
-            
-            let allCtk = WUtils.getAllMainAssetOld(CERTIK_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(CERTIK_MAIN_DENOM, allCtk, 6, cell!.tokenValue.font)
             
         } else if (balance.balance_denom == FETCH_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokenfetchai")
