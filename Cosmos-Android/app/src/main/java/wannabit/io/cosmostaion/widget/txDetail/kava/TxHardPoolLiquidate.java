@@ -30,6 +30,5 @@ public class TxHardPoolLiquidate extends TxHolder {
         itemMsgImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         itemKeeper.setText(msg.value.keeper);
         itemBorrower.setText(msg.value.borrower);
-
     }
 }

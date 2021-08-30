@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -17,6 +20,7 @@ import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 
 public class TxHardPoolIncentive extends TxHolder {
     ImageView itemMsgImg;
@@ -35,23 +39,22 @@ public class TxHardPoolIncentive extends TxHolder {
         itemHardAmount = itemView.findViewById(R.id.hard_amount);
     }
 
-    public void onBind(Context c, BaseChain baseChain, ResTxInfo res, Msg msg) {
+    public void onBind(Context c, BaseChain baseChain, ResTxInfo res, Msg msg, int position) {
         itemMsgImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        itemKavaAmount.setText(WDp.getDpAmount2(c, new BigDecimal("0"), 6, 6));
+        itemHardAmount.setText(WDp.getDpAmount2(c, new BigDecimal("0"), 6, 6));
         itemSender.setText(msg.value.sender);
-        itemMultiplier.setText(msg.value.multiplier_name);
+        itemMultiplier.setText(msg.value.denoms_to_claim.get(0).multiplier_name);
 
-        Coin kavaCoin = res.simpleHardPoolReward(TOKEN_KAVA);
-        if (kavaCoin != null) {
-            WDp.showCoinDp(c, kavaCoin, itemKavaDenom, itemKavaAmount, baseChain);
-        } else {
-            WDp.showCoinDp(c, TOKEN_KAVA, "0", itemKavaDenom, itemKavaAmount, baseChain);
+        ArrayList<Coin> incentiveCoins = res.simpleIncentives(position);
 
-        }
-        Coin hardCoin = res.simpleHardPoolReward(TOKEN_HARD);
-        if (hardCoin != null) {
-            WDp.showCoinDp(c, hardCoin, itemHardDenom, itemHardAmount, baseChain);
-        } else {
-            WDp.showCoinDp(c, TOKEN_HARD, "0", itemHardDenom, itemHardAmount, baseChain);
+        for (Coin coin: incentiveCoins) {
+            if (coin.denom.equalsIgnoreCase(TOKEN_KAVA)) {
+                itemKavaAmount.setText(WDp.getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+            }
+            if (coin.denom.equalsIgnoreCase(TOKEN_HARD)) {
+                itemHardAmount.setText(WDp.getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+            }
         }
     }
 }

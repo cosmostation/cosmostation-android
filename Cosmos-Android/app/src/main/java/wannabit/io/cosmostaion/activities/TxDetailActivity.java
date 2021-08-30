@@ -1181,22 +1181,32 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         private void onBindIncentiveHard(RecyclerView.ViewHolder viewHolder, int position) {
             final TxHardPoolIncentive holder = (TxHardPoolIncentive) viewHolder;
-            holder.onBind(getBaseContext(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1));
+            holder.onBind(getBaseContext(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1), position - 1);
         }
 
         private void onBindIncentiveSwap(RecyclerView.ViewHolder viewHolder, int position) {
+            final TxSwapIncentive holder = (TxSwapIncentive) viewHolder;
+            holder.onBind(getBaseContext(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1), position - 1);
         }
 
         private void onBindIncentiveDelegator(RecyclerView.ViewHolder viewHolder, int position) {
+            final TxDelegatorIncentive holder = (TxDelegatorIncentive) viewHolder;
+            holder.onBind(getBaseContext(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1), position - 1);
         }
 
         private void onBindSwapToken(RecyclerView.ViewHolder viewHolder, int position) {
+            final TxSwapToken holder = (TxSwapToken) viewHolder;
+            holder.onBind(getBaseContext(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1));
         }
 
         private void onBindSwapDeposit(RecyclerView.ViewHolder viewHolder, int position) {
+            final TxSwapDeposit holder = (TxSwapDeposit) viewHolder;
+            holder.onBind(getBaseContext(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1));
         }
 
         private void onBindSwapWithdraw(RecyclerView.ViewHolder viewHolder, int position) {
+            final TxSwapWithdraw holder = (TxSwapWithdraw) viewHolder;
+            holder.onBind(getBaseContext(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1));
         }
 
         private void onBindCreateHTLC(RecyclerView.ViewHolder viewHolder, int position) {
