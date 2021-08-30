@@ -1687,9 +1687,9 @@
     <string name="tx_kava_hard_liquidate">Loan\nLiquidate</string>
     <string name="tx_kava_incentive_hard">Loan\nIncentive</string>
     <string name="tx_kava_swap_token">Swap Token</string>
-    <string name="tx_kava_swap_deposit">Swap\nDeposit</string>
-    <string name="tx_kava_swap_withdraw">Swap\nWithdraw</string>
-    <string name="tx_kava_swap_incentive">Swap\nIncentive</string>
+    <string name="tx_kava_swap_deposit">Swap Pool\nDeposit</string>
+    <string name="tx_kava_swap_withdraw">Swap Pool\nWithdraw</string>
+    <string name="tx_kava_swap_incentive">Swap Pool\nIncentive</string>
     <string name="tx_kava_delegator_incentive">Delegator\nIncentive</string>
 
     <string name="tx_kava_create_cdp2">CDP Open</string>
