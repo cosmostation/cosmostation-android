@@ -1457,6 +1457,10 @@
     <string name="tx_kava_hard_repay2">하드 풀 상환</string>
     <string name="tx_kava_hard_liquidate2">하드 풀 청산</string>
     <string name="tx_kava_harvest_claim2">하드 풀 인센티브</string>
+    <string name="tx_kava_swap_incentive2">스왑풀 인센티브</string>
+    <string name="tx_kava_delegator_incentive2">위임자 인센티브</string>
+    <string name="tx_kava_swap_deposit2">스왑풀 예치</string>
+    <string name="tx_kava_swap_withdraw2">스왑풀 출금</string>
 
 
     <string name="tx_starname_registe_domain">Domain 등록</string>

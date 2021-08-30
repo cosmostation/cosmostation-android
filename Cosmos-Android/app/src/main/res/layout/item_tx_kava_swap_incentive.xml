@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:text="@string/tx_kava_incentive_hard2"
+                    android:text="@string/tx_kava_swap_incentive2"
                     style="@style/font_ss_17_white"/>
             </LinearLayout>
 

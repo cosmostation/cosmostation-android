@@ -1715,6 +1715,10 @@
     <string name="tx_kava_hard_repay2">Loan Repay</string>
     <string name="tx_kava_hard_liquidate2">Loan Liquidate</string>
     <string name="tx_kava_harvest_claim2">Loan Incentive</string>
+    <string name="tx_kava_swap_incentive2">Swap Pool Incentive</string>
+    <string name="tx_kava_delegator_incentive2">Delegator Incentive</string>
+    <string name="tx_kava_swap_deposit2">Swap Pool Deposit</string>
+    <string name="tx_kava_swap_withdraw2">Swap Pool Withdraw</string>
 
 
     <string name="tx_starname_registe_domain">Register Domain</string>
