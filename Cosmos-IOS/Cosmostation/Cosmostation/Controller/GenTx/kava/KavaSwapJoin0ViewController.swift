@@ -207,7 +207,7 @@ class KavaSwapJoin0ViewController: BaseViewController, UITextFieldDelegate {
         }
         input1TextFiled.layer.borderColor = UIColor.white.cgColor
         
-        let outputAmount = userInput.multiplying(byPowerOf10: coin0Decimal).dividing(by: depositRate, withBehavior: WUtils.handler0)
+        let outputAmount = userInput.multiplying(byPowerOf10: coin1Decimal).dividing(by: depositRate, withBehavior: WUtils.handler0)
         input0TextFiled.text = outputAmount.multiplying(byPowerOf10: -coin0Decimal).stringValue
         if (outputAmount.compare(available0MaxAmount).rawValue > 0) {
             input0TextFiled.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
