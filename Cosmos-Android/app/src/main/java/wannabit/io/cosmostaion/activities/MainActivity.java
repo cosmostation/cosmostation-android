@@ -494,7 +494,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
         else mToolbarTitle.setText(mAccount.nickName);
 
-        mCardView.setBackgroundColor(WDp.getChainBgColor(MainActivity.this, mBaseChain));
+        mCardView.setCardBackgroundColor(WDp.getChainBgColor(MainActivity.this, mBaseChain));
         if (mAccount.hasPrivateKey) {
             itemKeyStatus.setColorFilter(WDp.getChainColor(MainActivity.this, mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         } else {

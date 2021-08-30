@@ -318,9 +318,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             mOsmosisLockups = lockupsWrapper.array;
         }
 
-        try {
-            mSwapAmountInRoute = Tx.SwapAmountInRoute.parseFrom(getIntent().getByteArrayExtra("osmosisSwapRoute"));
-        } catch (Exception e) { WLog.w("Passing bundle Error"); }
+        if (getIntent().getByteArrayExtra("osmosisSwapRoute") != null) {
+            try {
+                mSwapAmountInRoute = Tx.SwapAmountInRoute.parseFrom(getIntent().getByteArrayExtra("osmosisSwapRoute"));
+            } catch (Exception e) { WLog.w("Passing bundle Error"); }
+        }
 
         mHdacBurnRawTx = getIntent().getStringExtra("hdacBurnRawTx");
 
