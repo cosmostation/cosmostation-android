@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -112,12 +113,14 @@ public class IncentiveReward {
         return result;
     }
 
-    public BigDecimal getMintingRewardAmount() {
+    public BigDecimal getMintingRewardAmount(String denom) {
         BigDecimal result = BigDecimal.ZERO;
         if (usdx_minting_claims != null) {
             for (UsdxMintingClaim reward : usdx_minting_claims) {
                 if (reward.base_claim.reward != null) {
-                    result = result.add(new BigDecimal(reward.base_claim.reward.amount));
+                    if (reward.base_claim.reward.denom.equals(denom)) {
+                        result = result.add(new BigDecimal(reward.base_claim.reward.amount));
+                    }
                 }
             }
         }
@@ -193,7 +196,11 @@ public class IncentiveReward {
     }
 
     public BigDecimal getRewardSum(String denom) {
-        return getHardPoolRewardAmount(denom).add(getMintingRewardAmount()).add(getDelegatorKavaRewardAmount(denom)).add(getSwapKavaRewardAmount(denom));
+        WLog.w("getRewardSum " +  denom + " " + getHardPoolRewardAmount(denom));
+        WLog.w("getRewardSum " +  denom + " " + getMintingRewardAmount(denom));
+        WLog.w("getRewardSum " +  denom + " " + getDelegatorKavaRewardAmount(denom));
+        WLog.w("getRewardSum " +  denom + " " + getSwapKavaRewardAmount(denom));
+        return getHardPoolRewardAmount(denom).add(getMintingRewardAmount(denom)).add(getDelegatorKavaRewardAmount(denom)).add(getSwapKavaRewardAmount(denom));
     }
 
 
