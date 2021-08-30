@@ -457,6 +457,10 @@ let GAS_FEE_RATE_TINY_MEDI                  = "5";
 let GAS_FEE_RATE_LOW_MEDI                   = "5";
 let GAS_FEE_RATE_AVERAGE_MEDI               = "5";
 
+let GAS_FEE_RATE_TINY_CERTIK                = "0.05";
+let GAS_FEE_RATE_LOW_CERTIK                 = "0.05";
+let GAS_FEE_RATE_AVERAGE_CERTIK             = "0.05";
+
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
 let GAS_FEE_AMOUNT_HIGH                     = "300000"
@@ -512,7 +516,7 @@ let OK_GAS_AMOUNT_STAKE_MUX                     = "20000";
 let OK_GAS_AMOUNT_VOTE                          = "200000";
 let OK_GAS_AMOUNT_VOTE_MUX                      = "50000";
 
-let CERTIK_GAS_RATE_AVERAGE                     = "0.05";
+//let CERTIK_GAS_RATE_AVERAGE                     = "0.05";
 let CERTIK_GAS_AMOUNT_SEND                      = "100000";
 let CERTIK_GAS_AMOUNT_STAKE                     = "200000";
 let CERTIK_GAS_AMOUNT_REDELEGATE                = "300000";
