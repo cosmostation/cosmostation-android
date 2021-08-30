@@ -650,6 +650,9 @@ public class WDp {
 
     public static BigDecimal getKavaPriceFeed(BaseData baseData, String denom) {
         String feedSymbol = getKavaPriceFeedSymbol(denom);
+        if (baseData.mKavaTokenPrices.get(feedSymbol) == null){
+            return BigDecimal.ZERO;
+        }
         return new BigDecimal(baseData.mKavaTokenPrices.get(feedSymbol).price);
     }
 
