@@ -506,7 +506,7 @@
     <string name="str_kava_auction_details">옥션 상세</string>
     <string name="str_kava_harvest_list">Loan</string>
     <string name="str_kava_harvest_details">하드 풀 상세</string>
-    <string name="str_kava_swap_list">Swap4</string>
+    <string name="str_kava_swap_list">Swap</string>
     <string name="str_kava_pool_list">Pool</string>
     <string name="str_my_cdps">내 CDP</string>
     <string name="str_all_cdps">모든 상품</string>
