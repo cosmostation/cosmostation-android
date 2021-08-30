@@ -39,13 +39,13 @@ public class SimpleKavaWithdrawTask extends CommonTask {
     private String          mMemo;
     private Fee             mFees;
 
-    public SimpleKavaWithdrawTask(BaseApplication app, TaskListener listener, Account account, String shareAmount, Coin coin0, Coin coin1, long mDeadline, String memo, Fee fees) {
+    public SimpleKavaWithdrawTask(BaseApplication app, TaskListener listener, Account account, String shareAmount, Coin coin0, Coin coin1, String memo, Fee fees) {
         super(app, listener);
         this.mAccount = account;
         this.mShareAmount = shareAmount;
         this.mCoin0 = coin0;
         this.mCoin1 = coin1;
-        this.mDeadline = mDeadline;
+        this.mDeadline = (System.currentTimeMillis() / 1000) + 300;
         this.mMemo = memo;
         this.mFees = fees;
         this.mResult.taskType = TASK_GEN_TX_KAVA_EXIT_POOL;

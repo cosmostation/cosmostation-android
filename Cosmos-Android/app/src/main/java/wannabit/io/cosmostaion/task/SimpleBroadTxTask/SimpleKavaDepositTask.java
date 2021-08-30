@@ -38,13 +38,13 @@ public class SimpleKavaDepositTask extends CommonTask {
     private String          mMemo;
     private Fee             mFees;
 
-    public SimpleKavaDepositTask(BaseApplication app, TaskListener listener, Account account, Coin mTokenA, Coin mTokenB, String mSlippage, long mDeadline, String memo, Fee fees) {
+    public SimpleKavaDepositTask(BaseApplication app, TaskListener listener, Account account, Coin mTokenA, Coin mTokenB, String memo, Fee fees) {
         super(app, listener);
         this.mAccount = account;
         this.mTokenA = mTokenA;
         this.mTokenB = mTokenB;
-        this.mSlippage = mSlippage;
-        this.mDeadline = mDeadline;
+        this.mSlippage = "0.300000000000000000";
+        this.mDeadline = (System.currentTimeMillis() / 1000) + 300;
         this.mMemo = memo;
         this.mFees = fees;
         this.mResult.taskType = TASK_GEN_TX_KAVA_JOIN_POOL;
