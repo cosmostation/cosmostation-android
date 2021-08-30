@@ -285,23 +285,6 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         } else if (result.taskType == TASK_FETCH_KAVA_SWAP_POOL) {
             if (result.isSuccess && result.resultData != null) {
                 mSwapPoolList = (ArrayList<SwapPool>) result.resultData;
-                for (SwapPool swapPool : mSwapPoolList) {
-                    for (Coin coin : swapPool.coins) {
-                        if (!mAllDenoms.contains(coin.denom)) {
-                            mAllDenoms.add(coin.denom);
-                            WUtil.onSortingDenom(mAllDenoms, mBaseChain);
-                        }
-                    }
-                    boolean myPool = false;
-                    WLog.w("swapPool : " + swapPool.name);
-                    WLog.w("mMySwapDepositList : " + mMySwapDepositList.get(0).pool_id);
-                    if (mMySwapDepositList.get(0).pool_id.equalsIgnoreCase(swapPool.name)) {
-                        myPool = true;
-                    }
-                    if (myPool) { mMySwapPoolList.add(swapPool); }
-                    else { mOtherSwapPoolList.add(swapPool); }
-                    WLog.w("mMySwapDepositList : " + mMySwapDepositList.size());
-                }
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_PARAM) {
@@ -322,6 +305,24 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
         }
         if (mTaskCount == 0) {
+            for (SwapPool swapPool : mSwapPoolList) {
+                for (Coin coin : swapPool.coins) {
+                    if (!mAllDenoms.contains(coin.denom)) {
+                        mAllDenoms.add(coin.denom);
+                        WUtil.onSortingDenom(mAllDenoms, mBaseChain);
+                    }
+                }
+                boolean myPool = false;
+                WLog.w("swapPool : " + swapPool.name);
+                WLog.w("mMySwapDepositList : " + mMySwapDepositList.get(0).pool_id);
+                if (mMySwapDepositList.get(0).pool_id.equalsIgnoreCase(swapPool.name)) {
+                    myPool = true;
+                }
+                if (myPool) { mMySwapPoolList.add(swapPool); }
+                else { mOtherSwapPoolList.add(swapPool); }
+                WLog.w("mMySwapDepositList : " + mMySwapDepositList.size());
+            }
+
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
