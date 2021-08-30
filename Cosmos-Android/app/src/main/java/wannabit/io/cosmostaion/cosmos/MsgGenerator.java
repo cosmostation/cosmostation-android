@@ -513,7 +513,7 @@ public class MsgGenerator {
         value.exact_token_a = swapIn;
         value.token_b = swapOut;
         value.slippage = slippage;
-        value.deadline = deadline;
+        value.deadline = ""+deadline;
         result.type = BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN;
         result.value = value;
         return result;
@@ -526,7 +526,7 @@ public class MsgGenerator {
         value.token_a = token_a;
         value.token_b = token_b;
         value.slippage = slippage;
-        value.deadline = deadline;
+        value.deadline = ""+deadline;
         result.type = BaseConstant.KAVA_MSG_TYPE_DEPOSIT;
         result.value = value;
         return result;
@@ -539,7 +539,7 @@ public class MsgGenerator {
         value.shares = shares;
         value.min_token_a = min_token_a;
         value.min_token_b = min_token_b;
-        value.deadline = deadline;
+        value.deadline = ""+deadline;
         result.type = BaseConstant.KAVA_MSG_TYPE_WITHDRAW;
         result.value = value;
         return result;

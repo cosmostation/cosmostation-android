@@ -252,7 +252,7 @@ public class Msg {
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("deadline")
-        public Long deadline;
+        public String deadline;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("min_token_a")
