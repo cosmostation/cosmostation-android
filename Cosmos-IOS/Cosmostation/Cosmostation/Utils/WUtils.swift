@@ -1080,7 +1080,7 @@ public class WUtils {
     
     static func perUsdValue(_ denom: String) -> NSDecimalNumber? {
         if let coinPrice = BaseData.instance.getPrice(denom) {
-            return coinPrice.currencyPrice("usd").rounding(accordingToBehavior: handler3Down)
+            return coinPrice.currencyPrice("usd").rounding(accordingToBehavior: handler18)
         }
         return nil
     }
