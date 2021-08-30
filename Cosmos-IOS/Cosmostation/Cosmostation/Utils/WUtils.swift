@@ -225,6 +225,28 @@ public class WUtils {
                     
                     result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, "0", remainVesting.stringValue))
                     
+                } else if (coin.denom == KAVA_SWAP_DENOM) {
+                    dpBalance = NSDecimalNumber.zero
+                    dpVesting = NSDecimalNumber.zero
+                    originalVesting = NSDecimalNumber.zero
+                    remainVesting = NSDecimalNumber.zero
+                    delegatedVesting = NSDecimalNumber.zero
+                    dpBalance = NSDecimalNumber.init(string: coin.amount)
+                    
+                    accountInfo.result.value.original_vesting.forEach({ (coin) in
+                        if (coin.denom == KAVA_SWAP_DENOM) {
+                            originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                        }
+                    })
+                    
+                    remainVesting = accountInfo.result.getCalcurateVestingAmountSumByDenom(KAVA_SWAP_DENOM)
+                    print("KAVA_SWAP_DENOM remainVesting   ", remainVesting)
+                    
+                    dpBalance = dpBalance.subtracting(remainVesting)
+                    print("KAVA_SWAP_DENOM dpBalance      ", dpBalance)
+                    
+                    result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, "0", remainVesting.stringValue))
+                    
                 } else {
                     result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
                 }

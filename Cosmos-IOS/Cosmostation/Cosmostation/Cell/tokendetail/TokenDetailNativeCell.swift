@@ -130,18 +130,17 @@ class TokenDetailNativeCell: TokenDetailCell {
         }
     }
     
-    func onBindKavaTokens(_ denom: String?) {
-//        tokenImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + denom! + ".png")!)
-//        tokenSymbol.text = denom!.uppercased()
-//        tokenDenom.text = "(" + denom! + ")"
-        
-        let dpDecimal = WUtils.getKavaCoinDecimal(denom!)
+    func onBindKavaTokens(_ denom: String?) {        let dpDecimal = WUtils.getKavaCoinDecimal(denom!)
         let available = BaseData.instance.availableAmount(denom!)
-//        let convertedKavaAmount = WUtils.convertTokenToKava(denom!)
+        let vesting = BaseData.instance.lockedAmount(denom!)
         
         totalAmount.attributedText = WUtils.displayAmount2(available.stringValue, totalAmount.font, dpDecimal, dpDecimal)
         availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, dpDecimal, dpDecimal)
-//        totalValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, convertedKavaAmount, 6, totalValue.font)
+        if (vesting.compare(NSDecimalNumber.zero).rawValue > 0) {
+            vestingLayer.isHidden = false
+            vestingAmount.attributedText = WUtils.displayAmount2(vesting.stringValue, vestingAmount.font!, dpDecimal, dpDecimal)
+        }
+        
         if (denom == KAVA_HARD_DENOM) {
             rootCardView.backgroundColor = COLOR_BG_COLOR_HARD
         } else if (denom == KAVA_USDX_DENOM) {

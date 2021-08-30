@@ -51,6 +51,7 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
     func updateView() {
         let inputCoinDecimal = WUtils.getKavaCoinDecimal(mInputCoinDenom)
         let outputCoinDecimal = WUtils.getKavaCoinDecimal(mOutputCoinDenom)
+        print("mSelectedPool ", mSelectedPool)
         
         if (mSelectedPool.coins[0].denom == self.mInputCoinDenom) {
             mInputCoinAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[0].amount)
