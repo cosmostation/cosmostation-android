@@ -1491,6 +1491,7 @@
     <string name="str_kava_deposit_my_share_title">My Share</string>
     <string name="str_kava_deposit_my_title">My Deposited Coins</string>
     <string name="str_to_withdraw_coin_title">To Withdraw Coins (MG)</string>
+    <string name="str_incentive_amount_title">Incentive Amounts</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

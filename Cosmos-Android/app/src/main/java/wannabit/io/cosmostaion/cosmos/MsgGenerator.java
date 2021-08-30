@@ -518,7 +518,7 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg getSwapTokenMsg(String requester, Coin swapIn, Coin swapOut, String slippage, long deadline, BaseChain chain) {
+    public static Msg getSwapTokenMsg(String requester, Coin swapIn, Coin swapOut, String slippage, Long deadline, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         value.requester = requester;
@@ -531,7 +531,7 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genSwapDepositMsg(String depositor, Coin token_a, Coin token_b, String slippage, long deadline, BaseChain chain) {
+    public static Msg genSwapDepositMsg(String depositor, Coin token_a, Coin token_b, String slippage, Long deadline, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         value.depositor = depositor;
@@ -544,7 +544,7 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genSwapWithDrawMsg(String from, String shares, Coin min_token_a, Coin min_token_b, long deadline, BaseChain chain) {
+    public static Msg genSwapWithDrawMsg(String from, String shares, Coin min_token_a, Coin min_token_b, Long deadline, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         value.from = from;

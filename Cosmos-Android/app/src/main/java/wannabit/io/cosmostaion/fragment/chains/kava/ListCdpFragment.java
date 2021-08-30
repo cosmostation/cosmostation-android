@@ -18,7 +18,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimMintIncentiveActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -147,9 +146,6 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
             Toast.makeText(getContext(), R.string.error_circuit_breaker, Toast.LENGTH_SHORT).show();
             return;
         }
-
-        Intent intent = new Intent(getContext(), ClaimMintIncentiveActivity.class);
-        startActivity(intent);
     }
 
 
@@ -181,7 +177,6 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
                 otherCdp = mOtherCdps.get(position - mMyCdps.size() );
                 viewHolder.onBindOtherCdp(getContext(), otherCdp);
             }
-
         }
 
         @Override

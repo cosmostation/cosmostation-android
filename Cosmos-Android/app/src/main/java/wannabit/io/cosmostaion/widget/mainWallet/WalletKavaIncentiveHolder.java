@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -48,7 +50,7 @@ public class WalletKavaIncentiveHolder extends BaseHolder {
         if (baseData.mIncentiveRewards != null) {
             mKavaIncetiveAmount = baseData.mIncentiveRewards.getRewardSum(TOKEN_KAVA);
             mHardIncetiveAmount = baseData.mIncentiveRewards.getRewardSum(TOKEN_HARD);
-            mSwpIncetiveAmount = baseData.mIncentiveRewards.getRewardSum(TOKEN_SWP);
+            mSwpIncetiveAmount  = baseData.mIncentiveRewards.getRewardSum(TOKEN_SWP);
             mUsdxIncetiveAmount = baseData.mIncentiveRewards.getRewardSum(TOKEN_USDX);
         }
 
@@ -60,7 +62,8 @@ public class WalletKavaIncentiveHolder extends BaseHolder {
         mBtnIncentive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(mainActivity, ClaimIncentiveActivity.class);
+                mainActivity.startActivity(intent);
             }
         });
     }

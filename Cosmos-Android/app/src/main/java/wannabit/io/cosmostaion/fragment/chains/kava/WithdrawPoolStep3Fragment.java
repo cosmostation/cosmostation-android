@@ -79,11 +79,11 @@ public class WithdrawPoolStep3Fragment extends BaseFragment implements View.OnCl
         BigDecimal coin0Amount = new BigDecimal(getSActivity().mKavaSwapDeposit.shares_value.get(0).amount).multiply(padding).multiply(depositRate).setScale(0, RoundingMode.DOWN);
         BigDecimal coin1Amount = new BigDecimal(getSActivity().mKavaSwapDeposit.shares_value.get(1).amount).multiply(padding).multiply(depositRate).setScale(0, RoundingMode.DOWN);
 
-        Coin coin0 = new Coin(getSActivity().mKavaSwapDeposit.shares_value.get(0).denom, coin0Amount.toPlainString());
-        Coin coin1 = new Coin(getSActivity().mKavaSwapDeposit.shares_value.get(1).denom, coin1Amount.toPlainString());
+        mCoin0 = new Coin(getSActivity().mKavaSwapDeposit.shares_value.get(0).denom, coin0Amount.toPlainString());
+        mCoin1 = new Coin(getSActivity().mKavaSwapDeposit.shares_value.get(1).denom, coin1Amount.toPlainString());
 
-        WDp.showCoinDp(getSActivity(), coin0, mExitOutput0AmountSymbol, mExitOutput0Amount, BaseChain.KAVA_MAIN);
-        WDp.showCoinDp(getSActivity(), coin1, mExitOutput1AmountSymbol, mExitOutput1Amount, BaseChain.KAVA_MAIN);
+        WDp.showCoinDp(getSActivity(), mCoin0, mExitOutput0AmountSymbol, mExitOutput0Amount, BaseChain.KAVA_MAIN);
+        WDp.showCoinDp(getSActivity(), mCoin1, mExitOutput1AmountSymbol, mExitOutput1Amount, BaseChain.KAVA_MAIN);
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mMemo.setText(getSActivity().mTxMemo);

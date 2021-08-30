@@ -10,19 +10,29 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimMintIncentiveActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.kava.IncentiveParam;
+import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
 public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button mBackBtn, mConfirmBtn;
     private TextView mFee, mFeeDenom;
-    private TextView mReceivableAmount, mReceivableAmountDenom, mLockTime, mClaimType, mMemo;
+    private TextView mKavaAmount, mHardAmount, mSwpAmount, mUsdxAmount;
+    private TextView mLockTime, mMemo;
+
+    private IncentiveParam  mIncentiveParam;
+    private IncentiveReward mIncentiveReward;
 
 
     public static ClaimIncentiveStep3Fragment newInstance(Bundle bundle) {
@@ -43,10 +53,11 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
         mFee                    = rootView.findViewById(R.id.fee_amount);
         mFeeDenom               = rootView.findViewById(R.id.fee_denom);
-        mReceivableAmount       = rootView.findViewById(R.id.receivable_amount);
-        mReceivableAmountDenom  = rootView.findViewById(R.id.receivable_denom);
+        mKavaAmount             = rootView.findViewById(R.id.tx_incentive_kava_amount);
+        mHardAmount             = rootView.findViewById(R.id.tx_incentive_hard_amount);
+        mSwpAmount              = rootView.findViewById(R.id.tx_incentive_swp_amount);
+        mUsdxAmount             = rootView.findViewById(R.id.tx_incentive_usdx_amount);
         mLockTime               = rootView.findViewById(R.id.lockup_time);
-        mClaimType              = rootView.findViewById(R.id.claim_type);
         mMemo                   = rootView.findViewById(R.id.memo);
 
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mFeeDenom);
@@ -58,11 +69,35 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
 
     @Override
     public void onRefreshTab() {
+        mIncentiveParam = getBaseDao().mIncentiveParam5;
+        mIncentiveReward = getBaseDao().mIncentiveRewards;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         mFee.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-        WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mReceivableAmount.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
-        mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
-        mClaimType.setText(getSActivity().mSelectedMultiplier.name.toUpperCase());
+
+        BigDecimal kavaIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_KAVA);
+        BigDecimal hardIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_HARD);
+        BigDecimal swpIncentiveAmount  = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_SWP);
+        BigDecimal usdxIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_USDX);
+
+        if (getSActivity().mIncentiveMultiplier.equalsIgnoreCase("small")) {
+            mLockTime.setText("1 Month");
+            kavaIncentiveAmount = kavaIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_KAVA, 0)).setScale(0, RoundingMode.DOWN);
+            hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_HARD, 0)).setScale(0, RoundingMode.DOWN);
+            swpIncentiveAmount = swpIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_SWP, 0)).setScale(0, RoundingMode.DOWN);
+            usdxIncentiveAmount = usdxIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_USDX, 0)).setScale(0, RoundingMode.DOWN);
+
+        } else {
+            mLockTime.setText("12 Month");
+            kavaIncentiveAmount = kavaIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_KAVA, 1)).setScale(0, RoundingMode.DOWN);
+            hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_HARD, 1)).setScale(0, RoundingMode.DOWN);
+            swpIncentiveAmount = swpIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_SWP, 1)).setScale(0, RoundingMode.DOWN);
+            usdxIncentiveAmount = usdxIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_USDX, 1)).setScale(0, RoundingMode.DOWN);
+        }
+
+        mKavaAmount.setText(WDp.getDpAmount2(getSActivity(), kavaIncentiveAmount, 6, 6));
+        mHardAmount.setText(WDp.getDpAmount2(getSActivity(), hardIncentiveAmount, 6, 6));
+        mSwpAmount.setText(WDp.getDpAmount2(getSActivity(), swpIncentiveAmount, 6, 6));
+        mUsdxAmount.setText(WDp.getDpAmount2(getSActivity(), usdxIncentiveAmount, 6, 6));
         mMemo.setText(getSActivity().mTxMemo);
     }
 
@@ -73,12 +108,11 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
 
         } else if (v.equals(mConfirmBtn)) {
             getSActivity().onStartIncentiveClaim();
-
         }
 
     }
 
-    private ClaimMintIncentiveActivity getSActivity() {
-        return (ClaimMintIncentiveActivity)getBaseActivity();
+    private ClaimIncentiveActivity getSActivity() {
+        return (ClaimIncentiveActivity)getBaseActivity();
     }
 }

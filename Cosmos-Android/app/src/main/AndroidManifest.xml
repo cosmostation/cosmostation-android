@@ -365,7 +365,7 @@
         </activity>
 
         <activity
-            android:name=".activities.chains.kava.ClaimMintIncentiveActivity"
+            android:name=".activities.chains.kava.ClaimIncentiveActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -394,13 +394,6 @@
 
         <activity
             android:name=".activities.chains.kava.RepayHardActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden">
-        </activity>
-
-        <activity
-            android:name=".activities.chains.kava.ClaimHardIncentiveActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">

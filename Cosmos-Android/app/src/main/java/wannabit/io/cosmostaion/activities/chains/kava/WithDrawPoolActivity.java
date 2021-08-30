@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawPoolStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawPoolStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawPoolStep3Fragment;
@@ -168,7 +169,7 @@ public class WithDrawPoolActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(WithdrawPoolStep0Fragment.newInstance(null));
             mFragments.add(WithdrawPoolStep1Fragment.newInstance(null));
-            mFragments.add(StepFeeSetFragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(WithdrawPoolStep3Fragment.newInstance(null));
         }
 

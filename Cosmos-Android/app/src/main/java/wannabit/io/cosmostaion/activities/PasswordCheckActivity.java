@@ -556,7 +556,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_KAVA_EXIT_POOL) {
-            new SimpleKavaWithdrawTask(getBaseApplication(),this, mAccount, mKavaShareAmount, mSwapInCoin, mSwapOutCoin,
+            new SimpleKavaWithdrawTask(getBaseApplication(),this, mAccount, mKavaShareAmount, mPoolCoin0, mPoolCoin1,
                     mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OK_DEPOSIT) {

@@ -21,63 +21,67 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHardIncentiveStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHardIncentiveStep1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHardIncentiveStep3Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep0Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep1Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
-import wannabit.io.cosmostaion.model.type.Fee;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_HARVEST_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
 
-public class ClaimHardIncentiveActivity extends BaseBroadCastActivity {
+public class ClaimIncentiveActivity extends BaseBroadCastActivity {
 
-    private RelativeLayout                  mRootView;
-    private Toolbar                         mToolbar;
-    private TextView                        mTitle;
-    private ImageView                       mIvStep;
-    private TextView                        mTvStep;
-    private ViewPager                       mViewPager;
-    private ClaimHarvestRewardPageAdapter   mPageAdapter;
-
-    public ArrayList<ClaimMultiplier>               mClaimMultipliers;
-    public ClaimMultiplier                          mSelectedMultiplier = null;
+    private RelativeLayout              mRootView;
+    private ImageView                   mChainBg;
+    private Toolbar                     mToolbar;
+    private TextView                    mTitle;
+    private ImageView                   mIvStep;
+    private TextView                    mTvStep;
+    private ViewPager                   mViewPager;
+    private ClaimIncentivePageAdapter   mPageAdapter;
 
     //KAVA-5
-    public IncentiveReward                          mIncentiveReward5;
-    public BigDecimal                               mKReceivableAmount;
-    public BigDecimal                               mHReceivableAmount;
+    public IncentiveReward              mIncentiveReward5;
+    public BigDecimal                   mReceivableAmount;
+    public ArrayList<ClaimMultiplier>   mClaimMultipliers;
+    public String                       mIncentiveMultiplier = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step);
         mRootView = findViewById(R.id.root_view);
+        mChainBg = findViewById(R.id.chain_bg);
         mToolbar = findViewById(R.id.tool_bar);
         mTitle = findViewById(R.id.toolbar_title);
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_claim_harvest_reward));
+        mTitle.setText(getString(R.string.str_participate_incentive));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_harvest_reward_step_0));
+        mTvStep.setText(getString(R.string.str_incentive_participate_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mTxType = CONST_PW_TX_CLAIM_HARVEST_REWARD;
+        mTxType = CONST_PW_TX_CLAIM_INCENTIVE;
 
         mIncentiveReward5 = getBaseDao().mIncentiveRewards;
         mClaimMultipliers = getBaseDao().mIncentiveParam5.claim_multipliers;
 
-        mPageAdapter = new ClaimHarvestRewardPageAdapter(getSupportFragmentManager());
+//        WLog.w("mCollateralParamType " + mCollateralParamType);
+//        WLog.w("mIncentiveReward " + mIncentiveReward.collateral_type);
+//        WLog.w("mAllIncentiveAmount " + mAllIncentiveAmount);
+//        WLog.w("mClaimMultipliers " + mClaimMultipliers.size());
+
+        mPageAdapter = new ClaimIncentivePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
@@ -89,18 +93,18 @@ public class ClaimHardIncentiveActivity extends BaseBroadCastActivity {
             public void onPageSelected(int i) {
                 if(i == 0) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_harvest_reward_step_0));
+                    mTvStep.setText(getString(R.string.str_incentive_participate_step_0));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 1 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_harvest_reward_step_1));
+                    mTvStep.setText(getString(R.string.str_incentive_participate_step_1));
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_harvest_reward_step_2));
+                    mTvStep.setText(getString(R.string.str_incentive_participate_step_2));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_harvest_reward_step_3));
+                    mTvStep.setText(getString(R.string.str_incentive_participate_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
@@ -156,29 +160,30 @@ public class ClaimHardIncentiveActivity extends BaseBroadCastActivity {
         }
     }
 
-
-    public void onStartHarvestRewardClaim() {
-        Intent intent = new Intent(ClaimHardIncentiveActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_CLAIM_HARVEST_REWARD);
-        intent.putExtra("multiplierName", mSelectedMultiplier.name);
+    public void onStartIncentiveClaim() {
+        Intent intent = new Intent(ClaimIncentiveActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_CLAIM_INCENTIVE);
+        intent.putExtra("multiplierName", mIncentiveMultiplier);
         intent.putExtra("fee", mTxFee);
         intent.putExtra("memo", mTxMemo);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
-    private class ClaimHarvestRewardPageAdapter extends FragmentPagerAdapter {
+
+
+    private class ClaimIncentivePageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
-        public ClaimHarvestRewardPageAdapter(FragmentManager fm) {
+        public ClaimIncentivePageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(ClaimHardIncentiveStep0Fragment.newInstance(null));
-            mFragments.add(ClaimHardIncentiveStep1Fragment.newInstance(null));
+            mFragments.add(ClaimIncentiveStep0Fragment.newInstance(null));
+            mFragments.add(ClaimIncentiveStep1Fragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
-            mFragments.add(ClaimHardIncentiveStep3Fragment.newInstance(null));
+            mFragments.add(ClaimIncentiveStep3Fragment.newInstance(null));
         }
 
         @Override

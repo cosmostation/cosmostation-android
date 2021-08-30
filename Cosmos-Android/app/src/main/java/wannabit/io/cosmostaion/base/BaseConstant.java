@@ -591,7 +591,7 @@ public class BaseConstant {
     public final static String KAVA_GAS_AMOUNT_REINVEST                 = "800000";
     public final static String KAVA_GAS_AMOUNT_REDELEGATE               = "800000";
     public final static String KAVA_GAS_AMOUNT_VOTE                     = "300000";
-    public final static String KAVA_GAS_AMOUNT_CLAIM_INCENTIVE          = "800000";
+    public final static String KAVA_GAS_AMOUNT_CLAIM_INCENTIVE          = "2000000";
     public final static String KAVA_GAS_AMOUNT_CDP                      = "2000000";
     public final static String KAVA_GAS_AMOUNT_HARD_POOL                = "800000";
     public final static String KAVA_GAS_AMOUNT_BEP3                     = "500000";

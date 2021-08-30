@@ -15,21 +15,33 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimMintIncentiveActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.kava.IncentiveParam;
+import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
 public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.OnClickListener {
 
-    private Button mCancelBtn, mNextBtn;
-    private TextView mIncentiveAmount, mIncentiveAmountDenom;
-    private TextView mLockTime, mReceivableAmount, mReceivableAmountDenom;
+    private Button      mCancelBtn, mNextBtn;
+    private TextView    mIncentiveKavaAmount, mIncentiveHardAmount, mIncentiveSwpAmount, mIncentiveUsdxAmount;
+    private TextView    mLockTime;
 
-    private RelativeLayout BtnOption1, BtnOption2, BtnOption3;
-    private TextView OptionTitle1, OptionTitle2, OptionTitle3;
+    private RelativeLayout BtnOption1, BtnOption2;
+
+    private BigDecimal mKavaIncetiveAmount  = BigDecimal.ZERO;
+    private BigDecimal mHardIncetiveAmount  = BigDecimal.ZERO;
+    private BigDecimal mSwpIncetiveAmount   = BigDecimal.ZERO;
+    private BigDecimal mUsdxIncetiveAmount  = BigDecimal.ZERO;
+
+    private IncentiveParam  mIncentiveParam;
+    private IncentiveReward mIncentiveReward;
 
     public static ClaimIncentiveStep0Fragment newInstance(Bundle bundle) {
         ClaimIncentiveStep0Fragment fragment = new ClaimIncentiveStep0Fragment();
@@ -47,46 +59,39 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
         View rootView = inflater.inflate(R.layout.fragment_claim_incentive_0, container, false);
         mCancelBtn              = rootView.findViewById(R.id.btn_cancel);
         mNextBtn                = rootView.findViewById(R.id.btn_next);
-        mIncentiveAmount        = rootView.findViewById(R.id.incentive_amount);
-        mIncentiveAmountDenom   = rootView.findViewById(R.id.incentive_denom);
+
+        mIncentiveKavaAmount    = rootView.findViewById(R.id.tx_incentive_kava_amount);
+        mIncentiveHardAmount    = rootView.findViewById(R.id.tx_incentive_hard_amount);
+        mIncentiveSwpAmount     = rootView.findViewById(R.id.tx_incentive_swp_amount);
+        mIncentiveUsdxAmount    = rootView.findViewById(R.id.tx_incentive_usdx_amount);
         mLockTime               = rootView.findViewById(R.id.lockup_time);
-        mReceivableAmount       = rootView.findViewById(R.id.receivable_amount);
-        mReceivableAmountDenom  = rootView.findViewById(R.id.receivable_denom);
         BtnOption1              = rootView.findViewById(R.id.btn_option1);
         BtnOption2              = rootView.findViewById(R.id.btn_option2);
-        BtnOption3              = rootView.findViewById(R.id.btn_option3);
-        OptionTitle1            = rootView.findViewById(R.id.btn_option1_text);
-        OptionTitle2            = rootView.findViewById(R.id.btn_option2_text);
-        OptionTitle3            = rootView.findViewById(R.id.btn_option3_text);
+
         mCancelBtn.setOnClickListener(this);
         mNextBtn.setOnClickListener(this);
         BtnOption1.setOnClickListener(this);
         BtnOption2.setOnClickListener(this);
-        BtnOption3.setOnClickListener(this);
 
-        if (getSActivity().mClaimMultipliers.size() > 0) {
-            BtnOption1.setVisibility(View.VISIBLE);
-            OptionTitle1.setText(getSActivity().mClaimMultipliers.get(0).name.toUpperCase());
-        }
-        if (getSActivity().mClaimMultipliers.size() > 1) {
-            BtnOption2.setVisibility(View.VISIBLE);
-            OptionTitle2.setText(getSActivity().mClaimMultipliers.get(1).name.toUpperCase());
-        }
-        if (getSActivity().mClaimMultipliers.size() > 2) {
-            BtnOption3.setVisibility(View.VISIBLE);
-            OptionTitle3.setText(getSActivity().mClaimMultipliers.get(2).name.toUpperCase());
-        }
-        WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mIncentiveReward5.getMintingRewardAmount().toPlainString(), mIncentiveAmountDenom, mIncentiveAmount, getSActivity().mBaseChain);
-
-
+        onUpdateView();
         return rootView;
     }
 
     private void onUpdateView() {
-        BigDecimal receivable = getSActivity().mIncentiveReward5.getMintingRewardAmount().multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
-        WDp.showCoinDp(getContext(), TOKEN_KAVA, receivable.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
-        getSActivity().mReceivableAmount = receivable;
-        mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
+        mIncentiveParam = getBaseDao().mIncentiveParam5;
+        mIncentiveReward = getBaseDao().mIncentiveRewards;
+
+        if (getBaseDao().mIncentiveRewards != null) {
+            mKavaIncetiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_KAVA);
+            mHardIncetiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_HARD);
+            mSwpIncetiveAmount  = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_SWP);
+            mUsdxIncetiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_USDX);
+        }
+
+        mIncentiveKavaAmount.setText(WDp.getDpAmount2(getSActivity(), mKavaIncetiveAmount, 6, 6));
+        mIncentiveHardAmount.setText(WDp.getDpAmount2(getSActivity(), mHardIncetiveAmount, 6, 6));
+        mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), mSwpIncetiveAmount, 6, 6));
+        mIncentiveUsdxAmount.setText(WDp.getDpAmount2(getSActivity(), mUsdxIncetiveAmount, 6, 6));
     }
 
     @Override
@@ -95,7 +100,7 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (getSActivity().mSelectedMultiplier != null) {
+            if (getSActivity().mIncentiveMultiplier != null) {
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_no_incentive_claim_option, Toast.LENGTH_SHORT).show();
@@ -104,20 +109,32 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
         } else if (v.equals(BtnOption1)) {
             onInitBtnBg();
             BtnOption1.setBackground(getResources().getDrawable(R.drawable.box_round_selected));
-            getSActivity().mSelectedMultiplier = getSActivity().mClaimMultipliers.get(0);
-            onUpdateView();
+            BigDecimal kavaIncentiveCal = mKavaIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_KAVA, 0)).setScale(0, RoundingMode.DOWN);
+            BigDecimal hardIncentiveCal = mHardIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_HARD, 0)).setScale(0, RoundingMode.DOWN);
+            BigDecimal swpIncentiveCal  = mSwpIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_SWP, 0)).setScale(0, RoundingMode.DOWN);
+            BigDecimal usdxIncentiveCal = mUsdxIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_USDX, 0)).setScale(0, RoundingMode.DOWN);
+            mIncentiveKavaAmount.setText(WDp.getDpAmount2(getSActivity(), kavaIncentiveCal, 6, 6));
+            mIncentiveHardAmount.setText(WDp.getDpAmount2(getSActivity(), hardIncentiveCal, 6, 6));
+            mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), swpIncentiveCal, 6, 6));
+            mIncentiveUsdxAmount.setText(WDp.getDpAmount2(getSActivity(), usdxIncentiveCal, 6, 6));
+
+            mLockTime.setText("1 Month");
+            getSActivity().mIncentiveMultiplier = "small";
 
         } else if (v.equals(BtnOption2)) {
             onInitBtnBg();
             BtnOption2.setBackground(getResources().getDrawable(R.drawable.box_round_selected));
-            getSActivity().mSelectedMultiplier = getSActivity().mClaimMultipliers.get(1);
-            onUpdateView();
+            BigDecimal kavaIncentiveCal = mKavaIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_KAVA, 1)).setScale(0, RoundingMode.DOWN);
+            BigDecimal hardIncentiveCal = mHardIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_HARD, 1)).setScale(0, RoundingMode.DOWN);
+            BigDecimal swpIncentiveCal  = mSwpIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_SWP, 1)).setScale(0, RoundingMode.DOWN);
+            BigDecimal usdxIncentiveCal = mUsdxIncetiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_USDX, 1)).setScale(0, RoundingMode.DOWN);
+            mIncentiveKavaAmount.setText(WDp.getDpAmount2(getSActivity(), kavaIncentiveCal, 6, 6));
+            mIncentiveHardAmount.setText(WDp.getDpAmount2(getSActivity(), hardIncentiveCal, 6, 6));
+            mIncentiveSwpAmount.setText(WDp.getDpAmount2(getSActivity(), swpIncentiveCal, 6, 6));
+            mIncentiveUsdxAmount.setText(WDp.getDpAmount2(getSActivity(), usdxIncentiveCal, 6, 6));
 
-        } else if (v.equals(BtnOption3)) {
-            onInitBtnBg();
-            BtnOption3.setBackground(getResources().getDrawable(R.drawable.box_round_selected));
-            getSActivity().mSelectedMultiplier = getSActivity().mClaimMultipliers.get(2);
-            onUpdateView();
+            mLockTime.setText("12 Month");
+            getSActivity().mIncentiveMultiplier = "large";
 
         }
     }
@@ -125,10 +142,9 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
     private void onInitBtnBg() {
         BtnOption1.setBackground(getResources().getDrawable(R.drawable.box_round_unselected));
         BtnOption2.setBackground(getResources().getDrawable(R.drawable.box_round_unselected));
-        BtnOption3.setBackground(getResources().getDrawable(R.drawable.box_round_unselected));
     }
 
-    private ClaimMintIncentiveActivity getSActivity() {
-        return (ClaimMintIncentiveActivity)getBaseActivity();
+    private ClaimIncentiveActivity getSActivity() {
+        return (ClaimIncentiveActivity)getBaseActivity();
     }
 }
