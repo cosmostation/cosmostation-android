@@ -805,7 +805,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onBindIncentiveSwap(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier:"TxIncentiveSwapCell") as? TxIncentiveSwapCell
         if let msg = mTxInfo?.getMsg(position - 1) {
-            cell?.onBind(chainType!, msg)
+            cell?.onBind(chainType!, msg, mTxInfo!)
         }
         return cell!
     }
@@ -813,7 +813,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onBindSwapToken(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier:"TxSwapTokenCell") as? TxSwapTokenCell
         if let msg = mTxInfo?.getMsg(position - 1) {
-            cell?.onBind(chainType!, msg)
+            cell?.onBind(chainType!, msg, mTxInfo!)
         }
         return cell!
     }
@@ -821,7 +821,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onBindSwapDeposit(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier:"TxSwapDepositCell") as? TxSwapDepositCell
         if let msg = mTxInfo?.getMsg(position - 1) {
-            cell?.onBind(chainType!, msg)
+            cell?.onBind(chainType!, msg, mTxInfo!)
         }
         return cell!
     }
@@ -829,7 +829,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onBindSwapWithdraw(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier:"TxSwapWithdrawCell") as? TxSwapWithdrawCell
         if let msg = mTxInfo?.getMsg(position - 1) {
-            cell?.onBind(chainType!, msg)
+            cell?.onBind(chainType!, msg, mTxInfo!)
         }
         return cell!
     }

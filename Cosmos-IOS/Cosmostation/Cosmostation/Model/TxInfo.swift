@@ -235,6 +235,95 @@ public struct TxInfo {
         return coin
     }
     
+    public func simpleIncentives() -> Array<Coin> {
+        var result = Array<Coin>()
+        self.logs?[0].events?.forEach({ (event) in
+            if (event.type == "claim_reward") {
+                event.attributes?.forEach({ (eventAttribute) in
+                    if (eventAttribute.key == "claim_amount") {
+                        if let value = eventAttribute.value {
+                            let incenCoin = Coin.init(value.filter{ $0.isLetter }, value.filter{ $0.isNumber })
+                            result.append(incenCoin)
+                        }
+                    }
+                })
+            }
+        })
+        return result
+    }
+    
+    public func simpleSwapInCoin() -> Coin? {
+        var result: Coin?
+        self.logs?[0].events?.forEach({ (event) in
+            if (event.type == "swap_trade") {
+                event.attributes?.forEach({ (eventAttribute) in
+                    if (eventAttribute.key == "input") {
+                        if let value = eventAttribute.value {
+                            result  = Coin.init(value.filter{ $0.isLetter }, value.filter{ $0.isNumber })
+                        }
+                    }
+                })
+            }
+        })
+        return result
+    }
+    
+    public func simpleSwapOutCoin() -> Coin? {
+        var result: Coin?
+        self.logs?[0].events?.forEach({ (event) in
+            if (event.type == "swap_trade") {
+                event.attributes?.forEach({ (eventAttribute) in
+                    if (eventAttribute.key == "output") {
+                        if let value = eventAttribute.value {
+                            result  = Coin.init(value.filter{ $0.isLetter }, value.filter{ $0.isNumber })
+                        }
+                    }
+                })
+            }
+        })
+        return result
+    }
+    
+    public func simpleDeposits() -> Array<Coin> {
+        var result = Array<Coin>()
+        self.logs?[0].events?.forEach({ (event) in
+            if (event.type == "swap_deposit") {
+                event.attributes?.forEach({ (eventAttribute) in
+                    if (eventAttribute.key == "amount") {
+                        if let value = eventAttribute.value {
+                            let coins = value.split(separator: ",")
+                            coins.forEach { rawCoin in
+                                let depositCoin = Coin.init(String(rawCoin).filter{ $0.isLetter }, String(rawCoin).filter{ $0.isNumber })
+                                result.append(depositCoin)
+                            }
+                        }
+                    }
+                })
+            }
+        })
+        return result
+    }
+    
+    public func simpleWithdraws() -> Array<Coin> {
+        var result = Array<Coin>()
+        self.logs?[0].events?.forEach({ (event) in
+            if (event.type == "swap_withdraw") {
+                event.attributes?.forEach({ (eventAttribute) in
+                    if (eventAttribute.key == "amount") {
+                        if let value = eventAttribute.value {
+                            let coins = value.split(separator: ",")
+                            coins.forEach { rawCoin in
+                                let depositCoin = Coin.init(String(rawCoin).filter{ $0.isLetter }, String(rawCoin).filter{ $0.isNumber })
+                                result.append(depositCoin)
+                            }
+                        }
+                    }
+                })
+            }
+        })
+        return result
+    }
+    
     public func simpleRefund() -> Coin? {
         var coin = Coin.init()
         self.logs?[0].events?.forEach({ (event) in

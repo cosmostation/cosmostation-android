@@ -22,7 +22,18 @@ class TxSwapWithdrawCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
-    func onBind(_ chaintype: ChainType, _ msg: Msg) {
+    func onBind(_ chaintype: ChainType, _ msg: Msg, _ tx: TxInfo) {
+        txIcon.image = txIcon.image?.withRenderingMode(.alwaysTemplate)
+        txIcon.tintColor = WUtils.getChainColor(chaintype)
+        
+        txSenderLabel.text = msg.value.from
+        let withdrawCoins = tx.simpleWithdraws()
+        if (withdrawCoins.count > 0) {
+            WUtils.showCoinDp(withdrawCoins[0], txPoolAsset1DenomLabel, txPoolAsset1AmountLabel, chaintype)
+        }
+        if (withdrawCoins.count > 1) {
+            WUtils.showCoinDp(withdrawCoins[1], txPoolAsset2DenomLabel, txPoolAsset2AmountLabel, chaintype)
+        }
     }
     
 }

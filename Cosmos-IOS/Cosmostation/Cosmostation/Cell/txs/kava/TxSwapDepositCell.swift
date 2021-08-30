@@ -22,7 +22,18 @@ class TxSwapDepositCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
-    func onBind(_ chaintype: ChainType, _ msg: Msg) {
+    func onBind(_ chaintype: ChainType, _ msg: Msg, _ tx: TxInfo) {
+        txIcon.image = txIcon.image?.withRenderingMode(.alwaysTemplate)
+        txIcon.tintColor = WUtils.getChainColor(chaintype)
+        
+        txSenderLabel.text = msg.value.depositor
+        let depositCoins = tx.simpleDeposits()
+        if (depositCoins.count > 0) {
+            WUtils.showCoinDp(depositCoins[0], txPoolAsset1DenomLabel, txPoolAsset1AmountLabel, chaintype)
+        }
+        if (depositCoins.count > 1) {
+            WUtils.showCoinDp(depositCoins[1], txPoolAsset2DenomLabel, txPoolAsset2AmountLabel, chaintype)
+        }
     }
     
 }

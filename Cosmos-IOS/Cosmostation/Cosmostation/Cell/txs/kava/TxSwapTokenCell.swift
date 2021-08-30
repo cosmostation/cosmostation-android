@@ -23,7 +23,19 @@ class TxSwapTokenCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
-    func onBind(_ chaintype: ChainType, _ msg: Msg) {
+    func onBind(_ chaintype: ChainType, _ msg: Msg, _ tx: TxInfo) {
+        txIcon.image = txIcon.image?.withRenderingMode(.alwaysTemplate)
+        txIcon.tintColor = WUtils.getChainColor(chaintype)
+        
+        txTypeLabel.text = msg.value.type
+        txSenderLabel.text = msg.value.requester
+        
+        if let inCoin = tx.simpleSwapInCoin() {
+            WUtils.showCoinDp(inCoin, txPoolInDenomLabel, txPoolInAmountLabel, chaintype)
+        }
+        if let outCoin = tx.simpleSwapOutCoin() {
+            WUtils.showCoinDp(outCoin, txPoolOutDenomLabel, txPoolOutAmountLabel, chaintype)
+        }
     }
     
 }
