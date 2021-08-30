@@ -1491,7 +1491,10 @@ public class WUtils {
         let selfDecimal = plainStringToDecimal(selfShare)
         let totalDecimal = plainStringToDecimal(totalShare)
         
-        let formatted   = nf.string(from: selfDecimal.multiplying(by: 100).dividing(by: totalDecimal, withBehavior: handler2Down))! + "%"
+        var formatted = "0.00%"
+        if (selfDecimal != NSDecimalNumber.zero && totalDecimal != NSDecimalNumber.zero) {
+            formatted   = nf.string(from: selfDecimal.multiplying(by: 100).dividing(by: totalDecimal, withBehavior: handler2Down))! + "%"
+        }
         let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
         
         let preString   = formatted[..<endIndex]
