@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.widget.txDetail;
+package wannabit.io.cosmostaion.widget.txDetail.kava;
 
 import android.content.Context;
 import android.view.View;
@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;

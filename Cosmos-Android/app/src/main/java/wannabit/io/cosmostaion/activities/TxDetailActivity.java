@@ -45,8 +45,13 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.txDetail.TxCdpLiquidate;
-import wannabit.io.cosmostaion.widget.txDetail.TxHardPoolIncentive;
-import wannabit.io.cosmostaion.widget.txDetail.TxHardPoolLiquidate;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxDelegatorIncentive;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolIncentive;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxHardPoolLiquidate;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapDeposit;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapIncentive;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapToken;
+import wannabit.io.cosmostaion.widget.txDetail.kava.TxSwapWithdraw;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
@@ -57,12 +62,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_MSG_TYPE_HTLC;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_MSG_TYPE_HTLC_CLIAM;
@@ -99,6 +101,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BORROW_HAR
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DELEGATOR_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST;
@@ -109,7 +113,11 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_POST_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAY_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_SWAP_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN2;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST;
@@ -346,6 +354,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private static final int TYPE_TX_HARD_LIQUIDATE = 216;
         private static final int TYPE_TX_INCENTIVE_MINT = 217;
         private static final int TYPE_TX_INCENTIVE_HARD = 218;
+        private static final int TYPE_TX_INCENTIVE_SWAP = 219;
+        private static final int TYPE_TX_INCENTIVE_DELEGATOR = 220;
+        private static final int TYPE_TX_SWAP_TOKEN = 221;
+        private static final int TYPE_TX_SWAP_DEPOSIT = 222;
+        private static final int TYPE_TX_SWAP_WITHDRAW = 223;
 
 
         private static final int TYPE_TX_REWARD_ALL = 21;
@@ -410,6 +423,16 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxMintingIncentiveHolder(getLayoutInflater().inflate(R.layout.item_tx_incentive_reward, viewGroup, false));
             } else if (viewType == TYPE_TX_INCENTIVE_HARD) {
                 return new TxHardPoolIncentive(getLayoutInflater().inflate(R.layout.item_tx_incentive_hard, viewGroup, false));
+            } else if (viewType == TYPE_TX_INCENTIVE_SWAP) {
+                return new TxSwapIncentive(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_incentive, viewGroup, false));
+            } else if (viewType == TYPE_TX_INCENTIVE_DELEGATOR) {
+                return new TxDelegatorIncentive(getLayoutInflater().inflate(R.layout.item_tx_kava_delegator_incentive, viewGroup, false));
+            } else if (viewType == TYPE_TX_SWAP_TOKEN) {
+                return new TxSwapToken(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_token, viewGroup, false));
+            } else if (viewType == TYPE_TX_SWAP_DEPOSIT) {
+                return new TxSwapDeposit(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_deposit, viewGroup, false));
+            } else if (viewType == TYPE_TX_SWAP_WITHDRAW) {
+                return new TxSwapWithdraw(getLayoutInflater().inflate(R.layout.item_tx_kava_swap_withdraw, viewGroup, false));
             } else if (viewType == TYPE_TX_HTLC_CREATE) {
                 return new TxCreateHtlcHolder(getLayoutInflater().inflate(R.layout.item_tx_htlc_create, viewGroup, false));
             } else if (viewType == TYPE_TX_HTLC_CLAIM) {
@@ -485,6 +508,16 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindIncentiveMint(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_INCENTIVE_HARD) {
                 onBindIncentiveHard(viewHolder, position);
+            } else if (getItemViewType(position) == TYPE_TX_INCENTIVE_SWAP) {
+                onBindIncentiveSwap(viewHolder, position);
+            } else if (getItemViewType(position) == TYPE_TX_INCENTIVE_DELEGATOR) {
+                onBindIncentiveDelegator(viewHolder, position);
+            } else if (getItemViewType(position) == TYPE_TX_SWAP_TOKEN) {
+                onBindSwapToken(viewHolder, position);
+            } else if (getItemViewType(position) == TYPE_TX_SWAP_DEPOSIT) {
+                onBindSwapDeposit(viewHolder, position);
+            } else if (getItemViewType(position) == TYPE_TX_SWAP_WITHDRAW) {
+                onBindSwapWithdraw(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_OK_STAKE) {
                 onBindOkStake(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_OK_DIRECT_VOTE) {
@@ -617,6 +650,21 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                     } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_CLAIM_HAVEST) || mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE)) {
                         return TYPE_TX_INCENTIVE_HARD;
+
+                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_SWAP_INCENTIVE)) {
+                        return TYPE_TX_INCENTIVE_SWAP;
+
+                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_DELEGATOR_INCENTIVE)) {
+                        return TYPE_TX_INCENTIVE_DELEGATOR;
+
+                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_SWAP_TOKEN) || mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_SWAP_TOKEN2)) {
+                        return TYPE_TX_SWAP_TOKEN;
+
+                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_DEPOSIT)) {
+                        return TYPE_TX_SWAP_DEPOSIT;
+
+                    } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_WITHDRAW)) {
+                        return TYPE_TX_SWAP_WITHDRAW;
 
                     } else if (mResTxInfo.getMsgType(position - 1).equals(KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
                         return TYPE_TX_HTLC_CREATE;
@@ -1134,6 +1182,21 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindIncentiveHard(RecyclerView.ViewHolder viewHolder, int position) {
             final TxHardPoolIncentive holder = (TxHardPoolIncentive) viewHolder;
             holder.onBind(getBaseContext(), mBaseChain, mResTxInfo, mResTxInfo.getMsg(position - 1));
+        }
+
+        private void onBindIncentiveSwap(RecyclerView.ViewHolder viewHolder, int position) {
+        }
+
+        private void onBindIncentiveDelegator(RecyclerView.ViewHolder viewHolder, int position) {
+        }
+
+        private void onBindSwapToken(RecyclerView.ViewHolder viewHolder, int position) {
+        }
+
+        private void onBindSwapDeposit(RecyclerView.ViewHolder viewHolder, int position) {
+        }
+
+        private void onBindSwapWithdraw(RecyclerView.ViewHolder viewHolder, int position) {
         }
 
         private void onBindCreateHTLC(RecyclerView.ViewHolder viewHolder, int position) {

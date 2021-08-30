@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.widget.txDetail;
+package wannabit.io.cosmostaion.widget.txDetail.kava;
 
 import android.content.Context;
 import android.view.View;
@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
 
 public class TxHardPoolLiquidate extends TxHolder {
     ImageView itemMsgImg;
