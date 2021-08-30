@@ -1680,12 +1680,17 @@
     <string name="tx_kava_bep3_claim">BEP3\nClaim</string>
     <string name="tx_kava_bep3_refund">BEP3\nRefund</string>
     <string name="tx_kava_incentive_reward">USDX Minting\nIncentive</string>
-    <string name="tx_kava_hard_deposit">Hard Pool\nDeposit</string>
-    <string name="tx_kava_hard_withdraw">Hard Pool\nWithdraw</string>
-    <string name="tx_kava_hard_borrow">Hard Pool\nBorrow</string>
-    <string name="tx_kava_hard_repay">Hard Pool\nRepay</string>
-    <string name="tx_kava_hard_liquidate">Hard Pool\nLiquidate</string>
-    <string name="tx_kava_incentive_hard">Hard Pool\nIncentive</string>
+    <string name="tx_kava_hard_deposit">Loan\nDeposit</string>
+    <string name="tx_kava_hard_withdraw">Loan\nWithdraw</string>
+    <string name="tx_kava_hard_borrow">Loan\nBorrow</string>
+    <string name="tx_kava_hard_repay">Loan\nRepay</string>
+    <string name="tx_kava_hard_liquidate">Loan\nLiquidate</string>
+    <string name="tx_kava_incentive_hard">Loan\nIncentive</string>
+    <string name="tx_kava_swap_token">Swap Token</string>
+    <string name="tx_kava_swap_deposit">Swap\nDeposit</string>
+    <string name="tx_kava_swap_withdraw">Swap\nWithdraw</string>
+    <string name="tx_kava_swap_incentive">Swap\nIncentive</string>
+    <string name="tx_kava_delegator_incentive">Delegator\nIncentive</string>
 
     <string name="tx_kava_create_cdp2">CDP Open</string>
     <string name="tx_kava_deposit_cdp2">CDP Deposit</string>
@@ -1702,13 +1707,13 @@
     <string name="tx_kava_bep3_claim2">BEP3 Claim</string>
     <string name="tx_kava_bep3_refund2">BEP3 Refund</string>
     <string name="tx_kava_incentive_reward2">USDX Minting Incentive</string>
-    <string name="tx_kava_incentive_hard2">Hard Pool Incentive</string>
-    <string name="tx_kava_hard_deposit2">Hard Pool Deposit</string>
-    <string name="tx_kava_hard_withdraw2">Hard Pool Withdraw</string>
-    <string name="tx_kava_hard_borrow2">Hard Pool Borrow</string>
-    <string name="tx_kava_hard_repay2">Hard Pool Repay</string>
-    <string name="tx_kava_hard_liquidate2">Hard Pool Liquidate</string>
-    <string name="tx_kava_harvest_claim2">Hard Pool Incentive</string>
+    <string name="tx_kava_incentive_hard2">Loan Incentive</string>
+    <string name="tx_kava_hard_deposit2">Loan Deposit</string>
+    <string name="tx_kava_hard_withdraw2">Loan Withdraw</string>
+    <string name="tx_kava_hard_borrow2">Loan Borrow</string>
+    <string name="tx_kava_hard_repay2">Loan Repay</string>
+    <string name="tx_kava_hard_liquidate2">Loan Liquidate</string>
+    <string name="tx_kava_harvest_claim2">Loan Incentive</string>
 
 
     <string name="tx_starname_registe_domain">Register Domain</string>

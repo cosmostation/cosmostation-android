@@ -341,6 +341,8 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_INCENTIVE_REWARD               = "incentive/MsgClaimReward";
     public final static String KAVA_MSG_TYPE_USDX_MINT_INCENTIVE            = "incentive/MsgClaimUSDXMintingReward";
     public final static String KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE           = "incentive/MsgClaimHardReward";
+    public final static String KAVA_MSG_TYPE_DELEGATOR_INCENTIVE            = "incentive/MsgClaimDelegatorReward";
+    public final static String KAVA_MSG_TYPE_SWAP_INCENTIVE                 = "incentive/MsgClaimSwapReward";
     public final static String KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV        = "incentive/MsgClaimHardRewardVVesting";
     public final static String KAVA_MSG_TYPE_DEPOSIT_HAVEST                 = "harvest/MsgDeposit";
     public final static String KAVA_MSG_TYPE_WITHDRAW_HAVEST                = "harvest/MsgWithdraw";
@@ -351,6 +353,7 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_REPAY_HARD                     = "hard/MsgRepay";
     public final static String KAVA_MSG_TYPE_LIQUIDATE_HARD                 = "hard/MsgLiquidate";
     public final static String KAVA_MSG_TYPE_SWAP_TOKEN                     = "swap/MsgSwapExactForTokens";
+    public final static String KAVA_MSG_TYPE_SWAP_TOKEN2                    = "swap/MsgSwapForExactTokens";
     public final static String KAVA_MSG_TYPE_DEPOSIT                        = "swap/MsgDeposit";
     public final static String KAVA_MSG_TYPE_WITHDRAW                       = "swap/MsgWithdraw";
 

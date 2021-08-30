@@ -1428,6 +1428,11 @@
     <string name="tx_kava_hard_repay">하드 풀\n상환</string>
     <string name="tx_kava_hard_liquidate">하드 풀\n청산</string>
     <string name="tx_kava_incentive_hard">하드 풀\n인센티브</string>
+    <string name="tx_kava_swap_token">토큰 스왑</string>
+    <string name="tx_kava_swap_deposit">스왑풀\n예치</string>
+    <string name="tx_kava_swap_withdraw">스왑풀\n출금</string>
+    <string name="tx_kava_swap_incentive">스왑풀\n인센티브</string>
+    <string name="tx_kava_delegator_incentive">위임자\n인센티브</string>
 
     <string name="tx_kava_create_cdp2">CDP 개설</string>
     <string name="tx_kava_deposit_cdp2">CDP 예치</string>
