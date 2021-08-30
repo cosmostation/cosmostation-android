@@ -420,6 +420,20 @@
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
+        <activity
+            android:name=".activities.chains.kava.DepositPoolActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.kava.WithDrawPoolActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
 
 
 

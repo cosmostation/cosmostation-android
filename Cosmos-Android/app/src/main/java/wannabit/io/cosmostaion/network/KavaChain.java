@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.network.res.ResKavaMyCdps;
 import wannabit.io.cosmostaion.network.res.ResKavaPoolInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaPriceFeedParam;
 import wannabit.io.cosmostaion.network.res.ResKavaSupply;
+import wannabit.io.cosmostaion.network.res.ResKavaSwapDeposit;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapParam;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapPool;
@@ -219,6 +220,9 @@ public interface KavaChain {
 
     @GET("swap/pool")
     Call<ResKavaPoolInfo> getSwapPoolById(@Query("pool") String poolId);
+
+    @GET("swap/deposits")
+    Call<ResKavaSwapDeposit> getMySwapDeposit(@Query("owner") String owner);
 
 
 

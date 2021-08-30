@@ -29,10 +29,10 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.fragment.AlphabetKeyBoardFragment;
 import wannabit.io.cosmostaion.fragment.KeyboardFragment;
 import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
-import wannabit.io.cosmostaion.model.kava.SwapPool;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HdacBurnTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbHtlcRefundTask;
@@ -47,6 +47,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleHtlcRefundTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaSwapTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
@@ -114,6 +115,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
@@ -210,8 +213,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
 
     private String                      mPoolId;
-    private Coin                        mOsmoPoolCoin0;
-    private Coin                        mOsmoPoolCoin1;
+    private Coin                        mPoolCoin0;
+    private Coin                        mPoolCoin1;
     private Coin                        mLpToken;
     private Tx.SwapAmountInRoute        mSwapAmountInRoute;
     private Coin                        mSwapInCoin;
@@ -219,7 +222,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private long                        mOsmosisLockupDuration;
     private ArrayList<Lock.PeriodLock>  mOsmosisLockups = new ArrayList<>();
 
-    private SwapPool                    mSwapPool;
+    private String                      mKavaShareAmount;
 
 
     private String                      mHdacBurnRawTx;                 //for hdac burn & swap
@@ -303,8 +306,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         }
 
         mPoolId = String.valueOf(getIntent().getLongExtra("mPoolId", 0));
-        mOsmoPoolCoin0 = getIntent().getParcelableExtra("mOsmoPoolCoin0");
-        mOsmoPoolCoin1 = getIntent().getParcelableExtra("mOsmoPoolCoin1");
+        mPoolCoin0 = getIntent().getParcelableExtra("mPoolCoin0");
+        mPoolCoin1 = getIntent().getParcelableExtra("mPoolCoin1");
+        mKavaShareAmount = getIntent().getStringExtra("mKavaShare");
         mLpToken = getIntent().getParcelableExtra("mLpToken");
         mSwapInCoin = getIntent().getParcelableExtra("SwapInputCoin");
         mSwapOutCoin = getIntent().getParcelableExtra("SwapOutputcoin");
@@ -323,7 +327,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdToCheck  = getIntent().getLongExtra("checkid", -1);
-
 
         mValOpAddresses_V1 = getIntent().getStringArrayListExtra("valOpAddresses");
 
@@ -544,9 +547,20 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_KAVA_SWAP) {
             String slippage = "0.300000000000000000";
-            String deadline = "";
+            long deadline = (System.currentTimeMillis() / 1000) + 300;
             new SimpleKavaSwapTask(getBaseApplication(),this, mAccount, mSwapInCoin, mSwapOutCoin,
                     slippage, deadline, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_KAVA_JOIN_POOL) {
+            String slippage = "0.300000000000000000";
+            long deadline = (System.currentTimeMillis() / 1000) + 300;
+            new SimpleKavaDepositTask(getBaseApplication(),this, mAccount, mPoolCoin0, mPoolCoin1,
+                    slippage, deadline, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_KAVA_EXIT_POOL) {
+            long deadline = (System.currentTimeMillis() / 1000) + 300;
+            new SimpleKavaWithdrawTask(getBaseApplication(),this, mAccount, mKavaShareAmount, mSwapInCoin, mSwapOutCoin,
+                    deadline, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OK_DEPOSIT) {
             new SimpleOkDepositTask(getBaseApplication(), this, mAccount, mBaseChain,
@@ -615,11 +629,11 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
-            new OsmosisJoinPoolGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mOsmoPoolCoin0, mOsmoPoolCoin1, mLpToken.amount,
+            new OsmosisJoinPoolGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1, mLpToken.amount,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
-            new OsmosisExitPooGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mOsmoPoolCoin0, mOsmoPoolCoin1, mLpToken.amount,
+            new OsmosisExitPooGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1, mLpToken.amount,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_EARNING) {

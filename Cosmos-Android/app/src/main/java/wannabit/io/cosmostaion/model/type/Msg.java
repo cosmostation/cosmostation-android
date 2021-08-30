@@ -233,6 +233,10 @@ public class Msg {
         public Coin exact_token_a;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("token_a")
+        public Coin token_a;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("token_b")
         public Coin token_b;
 
@@ -242,7 +246,15 @@ public class Msg {
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("deadline")
-        public String deadline;
+        public long deadline;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("min_token_a")
+        public Coin min_token_a;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("min_token_b")
+        public Coin min_token_b;
 
 
 

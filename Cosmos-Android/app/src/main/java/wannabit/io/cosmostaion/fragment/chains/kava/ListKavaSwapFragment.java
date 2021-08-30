@@ -115,13 +115,13 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         WUtil.dpKavaTokenName(getSActivity(), mOutputCoin, mOutputCoinDenom);
 
         if (mInputCoinDenom.equalsIgnoreCase(TOKEN_USDX) || mInputCoinDenom.equalsIgnoreCase("xrpb")) {
-            mSwapPoolId.setText(mSelectedPool.coins.get(1).denom + ":" + mSelectedPool.coins.get(0).denom);
+            mSwapPoolId.setText(mSelectedPool.coins.get(1).denom.toUpperCase() + ":" + mSelectedPool.coins.get(0).denom.toUpperCase());
         } else {
-            mSwapPoolId.setText(mSelectedPool.name);
+            mSwapPoolId.setText(mSelectedPool.name.toUpperCase());
         }
 
         BigDecimal swapFee = new BigDecimal(mSwapParam.swap_fee);
-        mSwapFee.setText(WDp.getPercentDp(swapFee.movePointRight(2)));
+        mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
 
         final int inputCoinDecimal = WUtil.getKavaCoinDecimal(mInputCoinDenom);
         final int outCoinDecimal = WUtil.getKavaCoinDecimal(mOutputCoinDenom);

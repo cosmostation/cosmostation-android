@@ -627,6 +627,32 @@ public class WDp {
 
     }
 
+    public static String getKavaPriceFeedSymbol(String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+            return "kava:usd";
+        } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
+            return "hard:usd";
+        } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
+            return "usdx:usd";
+        } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
+            return "swp:usd";
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
+            return "bnb:usd";
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
+            return "xrp:usd";
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
+            return "busd:usd";
+        } else if (denom.contains("btc")) {
+            return "btc:usd";
+        }
+        return "";
+    }
+
+    public static BigDecimal getKavaPriceFeed(BaseData baseData, String denom) {
+        String feedSymbol = getKavaPriceFeedSymbol(denom);
+        return new BigDecimal(baseData.mKavaTokenPrices.get(feedSymbol).price);
+    }
+
     public static BigDecimal convertTokenToKava(BaseData baseData, String denom) {
         BigDecimal tokenAmount = baseData.availableAmount(denom).add(baseData.lockedAmount(denom));
         BigDecimal totalTokenValue = kavaTokenDollorValue(baseData, denom, tokenAmount);

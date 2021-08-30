@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_KAVA_SWAP;
@@ -34,11 +35,11 @@ public class SimpleKavaSwapTask extends CommonTask {
     private Coin            mSwapInCoin;
     private Coin            mSwapOutCoin;
     private String          mSlippage;
-    private String          mDeadline;
+    private long            mDeadline;
     private String          mMemo;
     private Fee             mFees;
 
-    public SimpleKavaSwapTask(BaseApplication app, TaskListener listener, Account account, Coin mSwapInCoin, Coin mSwapOutCoin, String mSlippage, String mDeadline, String memo, Fee fees) {
+    public SimpleKavaSwapTask(BaseApplication app, TaskListener listener, Account account, Coin mSwapInCoin, Coin mSwapOutCoin, String mSlippage, long mDeadline, String memo, Fee fees) {
         super(app, listener);
         this.mAccount = account;
         this.mSwapInCoin = mSwapInCoin;
@@ -75,10 +76,10 @@ public class SimpleKavaSwapTask extends CommonTask {
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
             ArrayList<Msg> msgs= new ArrayList<>();
-            Msg incentiveMsg = MsgGenerator.getSwapTokenMsg(mAccount.address, mSwapInCoin, mSwapOutCoin, mSlippage, mDeadline, BaseChain.getChain(mAccount.baseChain));
-            msgs.add(incentiveMsg);
+            Msg swapTokenMsg = MsgGenerator.getSwapTokenMsg(mAccount.address, mSwapInCoin, mSwapOutCoin, mSlippage, mDeadline, BaseChain.getChain(mAccount.baseChain));
+            msgs.add(swapTokenMsg);
 
-
+            WLog.w("SimpleKavaSwapTask : " +  WUtil.prettyPrinter(swapTokenMsg));
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey, mApp.getBaseDao().getChainId());
             Response<ResBroadTx> response = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();

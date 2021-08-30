@@ -518,7 +518,7 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg getSwapTokenMsg(String requester, Coin swapIn, Coin swapOut, String slippage, String deadline, BaseChain chain) {
+    public static Msg getSwapTokenMsg(String requester, Coin swapIn, Coin swapOut, String slippage, long deadline, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
         value.requester = requester;
@@ -527,6 +527,32 @@ public class MsgGenerator {
         value.slippage = slippage;
         value.deadline = deadline;
         result.type = BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN;
+        result.value = value;
+        return result;
+    }
+
+    public static Msg genSwapDepositMsg(String depositor, Coin token_a, Coin token_b, String slippage, long deadline, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.depositor = depositor;
+        value.token_a = token_a;
+        value.token_b = token_b;
+        value.slippage = slippage;
+        value.deadline = deadline;
+        result.type = BaseConstant.KAVA_MSG_TYPE_DEPOSIT;
+        result.value = value;
+        return result;
+    }
+
+    public static Msg genSwapWithDrawMsg(String from, String shares, Coin min_token_a, Coin min_token_b, long deadline, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.from = from;
+        value.shares = shares;
+        value.min_token_a = min_token_a;
+        value.min_token_b = min_token_b;
+        value.deadline = deadline;
+        result.type = BaseConstant.KAVA_MSG_TYPE_WITHDRAW;
         result.value = value;
         return result;
     }

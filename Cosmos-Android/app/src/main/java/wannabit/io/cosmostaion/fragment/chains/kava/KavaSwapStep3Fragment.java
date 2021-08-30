@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -24,6 +25,8 @@ public class KavaSwapStep3Fragment extends BaseFragment implements View.OnClickL
     private TextView        mSwapFee;
     private TextView        mSwapInAmount, mSwapInAmountSymbol;
     private TextView        mSwapOutAmount, mSwapOutAmountSymbol;
+    private RelativeLayout  mSlippageLayer;
+    private TextView        mSlippage;
     private TextView        mMemo;
     private int             mDpDecimal = 6, mInputCoinDecimal = 6, mOutputCoinDecimal =6;
 
@@ -50,6 +53,8 @@ public class KavaSwapStep3Fragment extends BaseFragment implements View.OnClickL
         mSwapInAmountSymbol     = rootView.findViewById(R.id.swap_in_amount_symbol);
         mSwapOutAmount          = rootView.findViewById(R.id.swap_out_amount);
         mSwapOutAmountSymbol    = rootView.findViewById(R.id.swap_out_amount_symbol);
+        mSlippageLayer          = rootView.findViewById(R.id.slippage_layer);
+        mSlippage               = rootView.findViewById(R.id.swap_slippage);
         mMemo                   = rootView.findViewById(R.id.memo);
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
@@ -64,6 +69,7 @@ public class KavaSwapStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
+        mSlippageLayer.setVisibility(View.VISIBLE);
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         mInputCoinDecimal = WUtil.getKavaCoinDecimal(getSActivity().mInputDenom);
         mOutputCoinDecimal = WUtil.getKavaCoinDecimal(getSActivity().mOutputDenom);
@@ -74,7 +80,7 @@ public class KavaSwapStep3Fragment extends BaseFragment implements View.OnClickL
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointRight(2)));
         WDp.showCoinDp(getContext(), getSActivity().mSwapInCoin, mSwapInAmountSymbol, mSwapInAmount, getSActivity().mBaseChain);
         WDp.showCoinDp(getContext(), getSActivity().mSwapOutCoin, mSwapOutAmountSymbol, mSwapOutAmount, getSActivity().mBaseChain);
-
+        mSlippage.setText(WDp.getPercentDp(new BigDecimal(3)));
         mMemo.setText(getSActivity().mTxMemo);
     }
 
