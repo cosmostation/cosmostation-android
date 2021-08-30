@@ -32,7 +32,6 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     private TextView mLockTime, mMemo;
 
     private IncentiveParam  mIncentiveParam;
-    private IncentiveReward mIncentiveReward;
 
 
     public static ClaimIncentiveStep3Fragment newInstance(Bundle bundle) {
@@ -70,7 +69,6 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     @Override
     public void onRefreshTab() {
         mIncentiveParam = getBaseDao().mIncentiveParam5;
-        mIncentiveReward = getBaseDao().mIncentiveRewards;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         mFee.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
 
@@ -79,7 +77,7 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
         BigDecimal swpIncentiveAmount  = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_SWP);
         BigDecimal usdxIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_USDX);
 
-        if (getSActivity().mIncentiveMultiplier.equalsIgnoreCase("small")) {
+        if (getBaseDao().mIncentiveMultiplier.equalsIgnoreCase("small")) {
             mLockTime.setText("1 Month");
             kavaIncentiveAmount = kavaIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_KAVA, 0)).setScale(0, RoundingMode.DOWN);
             hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_HARD, 0)).setScale(0, RoundingMode.DOWN);

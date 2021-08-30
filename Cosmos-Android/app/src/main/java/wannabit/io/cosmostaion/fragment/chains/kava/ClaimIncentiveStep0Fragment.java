@@ -100,7 +100,7 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (getSActivity().mIncentiveMultiplier != null) {
+            if (getBaseDao().mIncentiveMultiplier != null) {
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_no_incentive_claim_option, Toast.LENGTH_SHORT).show();
@@ -119,7 +119,7 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
             mIncentiveUsdxAmount.setText(WDp.getDpAmount2(getSActivity(), usdxIncentiveCal, 6, 6));
 
             mLockTime.setText("1 Month");
-            getSActivity().mIncentiveMultiplier = "small";
+            getBaseDao().mIncentiveMultiplier = "small";
 
         } else if (v.equals(BtnOption2)) {
             onInitBtnBg();
@@ -134,7 +134,7 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
             mIncentiveUsdxAmount.setText(WDp.getDpAmount2(getSActivity(), usdxIncentiveCal, 6, 6));
 
             mLockTime.setText("12 Month");
-            getSActivity().mIncentiveMultiplier = "large";
+            getBaseDao().mIncentiveMultiplier = "large";
 
         }
     }

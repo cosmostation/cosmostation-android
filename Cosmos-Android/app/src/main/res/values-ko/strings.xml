@@ -61,7 +61,7 @@
     <string name="str_send_c">보내기</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3 보내기 & 받기]]></string>
     <string name="str_htlc_refund_c">BEP3 환불</string>
-    <string name="str_participate_incentive">USDX 발행 인센티브 받기</string>
+    <string name="str_participate_incentive">인센티브 받기</string>
     <string name="str_receive_c">받기</string>
     <string name="str_send">보내기</string>
     <string name="str_receive">받기</string>

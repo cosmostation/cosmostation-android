@@ -544,8 +544,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
 
         } else if (mPurpose == CONST_PW_TX_CLAIM_INCENTIVE) {
-            new SimpleClaimIncentiveTask(getBaseApplication(),this, mAccount,
-                    mCollateralType, mMultiplierName, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleClaimIncentiveTask(getBaseApplication(),this, mAccount, mMultiplierName,
+                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_KAVA_SWAP) {
             new SimpleKavaSwapTask(getBaseApplication(),this, mAccount, mSwapInCoin, mSwapOutCoin,

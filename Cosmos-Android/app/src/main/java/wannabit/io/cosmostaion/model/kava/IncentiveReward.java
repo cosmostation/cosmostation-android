@@ -52,18 +52,18 @@ public class IncentiveReward {
     }
 
 
-    public int getHardPoolRewardCnt() {
-        int result = 0;
+    public BigDecimal getHardPoolRewardCnt() {
+        BigDecimal result = BigDecimal.ZERO;
         if (hard_claims != null) {
-            result = hard_claims.size();
+            result = new BigDecimal(hard_claims.size());
         }
         return result;
     }
 
-    public int getMintingRewardCnt() {
-        int result = 0;
+    public BigDecimal getMintingRewardCnt() {
+        BigDecimal result = BigDecimal.ZERO;
         if (usdx_minting_claims != null) {
-            result = usdx_minting_claims.size();
+            result = new BigDecimal(usdx_minting_claims.size());
         }
         return result;
     }
@@ -124,6 +124,18 @@ public class IncentiveReward {
         return result;
     }
 
+    public ArrayList<String> getHardRewardDenoms(){
+        ArrayList<String> result = new ArrayList<>();
+        for (HardClaim hardClaim: hard_claims) {
+            for (Coin coin: hardClaim.base_claim.reward) {
+                if (!result.contains(coin.denom)) {
+                    result.add(coin.denom);
+                }
+            }
+        }
+        return result;
+    }
+
     public BigDecimal getDelegatorKavaRewardAmount(String denom) {
         BigDecimal result = BigDecimal.ZERO;
         if (delegator_claims != null) {
@@ -140,6 +152,18 @@ public class IncentiveReward {
         return result;
     }
 
+    public ArrayList<String> getDelegatorRewardDenoms(){
+        ArrayList<String> result = new ArrayList<>();
+        for (DelegatorClaim delegatorClaim: delegator_claims) {
+            for (Coin coin: delegatorClaim.base_claim.reward) {
+                if (!result.contains(coin.denom)) {
+                    result.add(coin.denom);
+                }
+            }
+        }
+        return result;
+    }
+
     public BigDecimal getSwapKavaRewardAmount(String denom) {
         BigDecimal result = BigDecimal.ZERO;
         if (swap_claims != null) {
@@ -150,6 +174,18 @@ public class IncentiveReward {
                             result = result.add(new BigDecimal(coin.amount));
                         }
                     }
+                }
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<String> getSwapRewardDenoms(){
+        ArrayList<String> result = new ArrayList<>();
+        for (SwapClaim swapClaim: swap_claims) {
+            for (Coin coin: swapClaim.base_claim.reward) {
+                if (!result.contains(coin.denom)) {
+                    result.add(coin.denom);
                 }
             }
         }

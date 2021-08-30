@@ -207,7 +207,7 @@
     <string name="str_send_c">SEND</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3 Send & Claim]]></string>
     <string name="str_htlc_refund_c">BEP3 Refund</string>
-    <string name="str_participate_incentive">USDX Minting Incentive Claim</string>
+    <string name="str_participate_incentive">Incentive Claim</string>
     <string name="str_receive_c">RECEIVE</string>
     <string name="str_send">Send</string>
     <string name="str_receive">Receive</string>

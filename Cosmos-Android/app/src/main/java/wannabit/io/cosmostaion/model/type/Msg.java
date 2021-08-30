@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wannabit.io.cosmostaion.model.StarNameResource;
+import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
+import wannabit.io.cosmostaion.model.kava.DenomsToClaim;
 
 public class Msg {
 
@@ -219,6 +221,10 @@ public class Msg {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("multiplier_name")
         public String multiplier_name;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("denoms_to_claim")
+        public ArrayList<DenomsToClaim> denoms_to_claim;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("borrower")

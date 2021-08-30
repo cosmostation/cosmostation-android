@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdTx;
+import wannabit.io.cosmostaion.model.kava.DenomsToClaim;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -419,19 +420,6 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genClaimUSDXMintingReward(String from, String multiplierName, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-            value.sender = from;
-            value.multiplier_name = multiplierName;
-            result.type = BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE;
-            result.value = value;
-
-        }
-        return result;
-    }
-
     public static Msg genDepositHarvestMsg(String depositor, Coin depositCoin, String depositType, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
@@ -554,6 +542,61 @@ public class MsgGenerator {
         value.deadline = deadline;
         result.type = BaseConstant.KAVA_MSG_TYPE_WITHDRAW;
         result.value = value;
+        return result;
+    }
+
+    public static Msg genClaimUSDXMintingRewardMsg(String from, String multiplierName, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            value.sender = from;
+            value.multiplier_name = multiplierName;
+            result.type = BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE;
+            result.value = value;
+
+        }
+        return result;
+    }
+
+    public static Msg genClaimHardRewardMsg(String from, String multiplierName, ArrayList<DenomsToClaim> denoms_to_claims, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            value.sender = from;
+//            value.multiplier_name = multiplierName;
+            value.denoms_to_claim = denoms_to_claims;
+            result.type = BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE;
+            result.value = value;
+
+        }
+        return result;
+    }
+
+    public static Msg genClaimDelegatorRewardMsg(String from, String multiplierName, ArrayList<DenomsToClaim> denoms_to_claims, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            value.sender = from;
+//            value.multiplier_name = multiplierName;
+            value.denoms_to_claim = denoms_to_claims;
+            result.type = BaseConstant.KAVA_MSG_TYPE_DELEGATOR_INCENTIVE;
+            result.value = value;
+
+        }
+        return result;
+    }
+
+    public static Msg genClaimSwapRewardMsg(String from, String multiplierName, ArrayList<DenomsToClaim> denoms_to_claims, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            value.sender = from;
+//            value.multiplier_name = multiplierName;
+            value.denoms_to_claim = denoms_to_claims;
+            result.type = BaseConstant.KAVA_MSG_TYPE_SWAP_INCENTIVE;
+            result.value = value;
+
+        }
         return result;
     }
 
