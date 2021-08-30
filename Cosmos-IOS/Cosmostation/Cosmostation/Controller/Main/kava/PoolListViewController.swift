@@ -122,8 +122,6 @@ class PoolListViewController: BaseViewController, UITableViewDelegate, UITableVi
             return
         }
         self.mSwapPools.removeAll()
-        self.mMySwapPools.removeAll()
-        self.mOtherSwapPools.removeAll()
         self.mFetchCnt = 3
         
         self.onFetchSwapPoolParam()
@@ -134,6 +132,8 @@ class PoolListViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt <= 0) {
+            self.mMySwapPools.removeAll()
+            self.mOtherSwapPools.removeAll()
             mSwapPools.forEach { pool in
                 var myPool = false
                 if (mMySwapPoolDeposits.filter { $0.pool_id == pool.name }.first != nil) {

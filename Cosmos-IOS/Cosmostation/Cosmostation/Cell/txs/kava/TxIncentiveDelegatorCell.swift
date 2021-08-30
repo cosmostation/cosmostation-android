@@ -1,14 +1,14 @@
 //
-//  TxIncentiveSwapCell.swift
+//  TxIncentiveDelegatorCell.swift
 //  Cosmostation
 //
-//  Created by 정용주 on 2021/08/30.
+//  Created by 정용주 on 2021/08/31.
 //  Copyright © 2021 wannabit. All rights reserved.
 //
 
 import UIKit
 
-class TxIncentiveSwapCell: UITableViewCell {
+class TxIncentiveDelegatorCell: UITableViewCell {
     @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var sender: UILabel!
     @IBOutlet weak var multiplier: UILabel!
@@ -21,7 +21,7 @@ class TxIncentiveSwapCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
     }
-
+    
     func onBind(_ chaintype: ChainType, _ msg: Msg, _ tx: TxInfo, _ position: Int) {
         txIcon.image = txIcon.image?.withRenderingMode(.alwaysTemplate)
         txIcon.tintColor = WUtils.getChainColor(chaintype)

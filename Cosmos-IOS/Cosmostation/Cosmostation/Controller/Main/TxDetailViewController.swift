@@ -70,6 +70,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.txTableView.register(UINib(nibName: "TxIncentiveMintingCell", bundle: nil), forCellReuseIdentifier: "TxIncentiveMintingCell")
         self.txTableView.register(UINib(nibName: "TxIncentiveHardCell", bundle: nil), forCellReuseIdentifier: "TxIncentiveHardCell")
         self.txTableView.register(UINib(nibName: "TxIncentiveSwapCell", bundle: nil), forCellReuseIdentifier: "TxIncentiveSwapCell")
+        self.txTableView.register(UINib(nibName: "TxIncentiveDelegatorCell", bundle: nil), forCellReuseIdentifier: "TxIncentiveDelegatorCell")
         self.txTableView.register(UINib(nibName: "TxSwapTokenCell", bundle: nil), forCellReuseIdentifier: "TxSwapTokenCell")
         self.txTableView.register(UINib(nibName: "TxSwapDepositCell", bundle: nil), forCellReuseIdentifier: "TxSwapDepositCell")
         self.txTableView.register(UINib(nibName: "TxSwapWithdrawCell", bundle: nil), forCellReuseIdentifier: "TxSwapWithdrawCell")
@@ -234,6 +235,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 
             } else if (msg?.type == KAVA_MSG_TYPE_SWAP_INCENTIVE) {
                 return onBindIncentiveSwap(tableView, indexPath.row)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_DELEGATOR_INCENTIVE) {
+                return onBindIncentiveDelegator(tableView, indexPath.row)
                 
             } else if (msg?.type == KAVA_MSG_TYPE_SWAP_TOKEN || msg?.type == KAVA_MSG_TYPE_SWAP_TOKEN2) {
                 return onBindSwapToken(tableView, indexPath.row)
@@ -789,7 +793,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onBindIncentiveMinting(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier:"TxIncentiveMintingCell") as? TxIncentiveMintingCell
         if let msg = mTxInfo?.getMsg(position - 1) {
-            cell?.onBind(chainType!, msg, mTxInfo!)
+            cell?.onBind(chainType!, msg, mTxInfo!, position - 1)
         }
         return cell!
     }
@@ -797,7 +801,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onBindIncentiveHard(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier:"TxIncentiveHardCell") as? TxIncentiveHardCell
         if let msg = mTxInfo?.getMsg(position - 1) {
-            cell?.onBind(chainType!, msg, mTxInfo!)
+            cell?.onBind(chainType!, msg, mTxInfo!, position - 1)
         }
         return cell!
     }
@@ -805,7 +809,15 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onBindIncentiveSwap(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier:"TxIncentiveSwapCell") as? TxIncentiveSwapCell
         if let msg = mTxInfo?.getMsg(position - 1) {
-            cell?.onBind(chainType!, msg, mTxInfo!)
+            cell?.onBind(chainType!, msg, mTxInfo!, position - 1)
+        }
+        return cell!
+    }
+    
+    func onBindIncentiveDelegator(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxIncentiveDelegatorCell") as? TxIncentiveDelegatorCell
+        if let msg = mTxInfo?.getMsg(position - 1) {
+            cell?.onBind(chainType!, msg, mTxInfo!, position - 1)
         }
         return cell!
     }

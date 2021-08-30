@@ -10,14 +10,13 @@ import Foundation
 
 public struct KavaMyCdps {
     var height: String?
-    var result: Array<MyCdp>?
+    var result: Array<MyCdp> = Array<MyCdp>()
     
     init(_ dictionary: NSDictionary?) {
         self.height = dictionary?["height"] as? String
         if let rawMyCdps = dictionary?["result"] as? Array<NSDictionary> {
-            self.result = Array<MyCdp>()
             for rawMyCdp in rawMyCdps {
-                self.result?.append(MyCdp.init(rawMyCdp))
+                self.result.append(MyCdp.init(rawMyCdp))
             }
         }
     }

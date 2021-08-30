@@ -111,6 +111,8 @@
 		2812BE15261170810050AE7C /* WalletSentinelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812BE13261170810050AE7C /* WalletSentinelCell.swift */; };
 		2812BE16261170810050AE7C /* WalletSentinelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2812BE14261170810050AE7C /* WalletSentinelCell.xib */; };
 		2812BE1A2611E9F50050AE7C /* VestingAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812BE192611E9F50050AE7C /* VestingAccountInfo.swift */; };
+		2812CA3E26DD4E160095C6AF /* TxIncentiveDelegatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812CA3C26DD4E160095C6AF /* TxIncentiveDelegatorCell.swift */; };
+		2812CA3F26DD4E160095C6AF /* TxIncentiveDelegatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2812CA3D26DD4E160095C6AF /* TxIncentiveDelegatorCell.xib */; };
 		28156E7F25360B70006FF06C /* HardListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28156E7D25360B70006FF06C /* HardListCell.swift */; };
 		28156E8025360B70006FF06C /* HardListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28156E7E25360B70006FF06C /* HardListCell.xib */; };
 		28156E892536912C006FF06C /* HarvestListRewardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28156E872536912C006FF06C /* HarvestListRewardCell.swift */; };
@@ -1189,6 +1191,8 @@
 		2812BE13261170810050AE7C /* WalletSentinelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSentinelCell.swift; sourceTree = "<group>"; };
 		2812BE14261170810050AE7C /* WalletSentinelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSentinelCell.xib; sourceTree = "<group>"; };
 		2812BE192611E9F50050AE7C /* VestingAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VestingAccountInfo.swift; sourceTree = "<group>"; };
+		2812CA3C26DD4E160095C6AF /* TxIncentiveDelegatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxIncentiveDelegatorCell.swift; sourceTree = "<group>"; };
+		2812CA3D26DD4E160095C6AF /* TxIncentiveDelegatorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxIncentiveDelegatorCell.xib; sourceTree = "<group>"; };
 		28156E7D25360B70006FF06C /* HardListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardListCell.swift; sourceTree = "<group>"; };
 		28156E7E25360B70006FF06C /* HardListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardListCell.xib; sourceTree = "<group>"; };
 		28156E872536912C006FF06C /* HarvestListRewardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarvestListRewardCell.swift; sourceTree = "<group>"; };
@@ -2945,6 +2949,8 @@
 				2889FD862603485200CA9896 /* TxIncentiveMintingCell.xib */,
 				284FBC8326DBE9A100403FE2 /* TxIncentiveSwapCell.swift */,
 				284FBC8426DBE9A100403FE2 /* TxIncentiveSwapCell.xib */,
+				2812CA3C26DD4E160095C6AF /* TxIncentiveDelegatorCell.swift */,
+				2812CA3D26DD4E160095C6AF /* TxIncentiveDelegatorCell.xib */,
 				28474EC6241E06AF00AF5A81 /* TxPostPriceCell.swift */,
 				28474EC5241E06AF00AF5A81 /* TxPostPriceCell.xib */,
 				284FBC7726DBE96000403FE2 /* TxSwapTokenCell.swift */,
@@ -4014,6 +4020,7 @@
 				28429197264A45FB00130651 /* NativeTokenDetailViewController.xib in Resources */,
 				E103DADE22814802006C2146 /* Init.storyboard in Resources */,
 				28DB570C25FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.xib in Resources */,
+				2812CA3F26DD4E160095C6AF /* TxIncentiveDelegatorCell.xib in Resources */,
 				28DB571625FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib in Resources */,
 				E126CF962387A5C9002A546F /* WalletIovCell.xib in Resources */,
 				E103DAE322814DFC006C2146 /* GenTx.storyboard in Resources */,
@@ -4378,6 +4385,7 @@
 				287AC5A125FDF7250070837E /* akash_escrow_v1beta1_query.pb.swift in Sources */,
 				E171A06F225B08B100C5756C /* StepMemoViewController.swift in Sources */,
 				E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */,
+				2812CA3E26DD4E160095C6AF /* TxIncentiveDelegatorCell.swift in Sources */,
 				289EF82026824E4700F90AC1 /* osmosis_mint_v1beta1_mint.pb.swift in Sources */,
 				28D7BDA825F0B792006EECD7 /* ClaimMultiplier.swift in Sources */,
 				28EEEC9C26DABA74002DDC4A /* KavaSwap0ViewController.swift in Sources */,

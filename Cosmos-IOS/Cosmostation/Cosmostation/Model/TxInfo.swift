@@ -214,10 +214,10 @@ public struct TxInfo {
         return swapId
     }
     
-    public func simpleIncentive() -> Coin? {
+    public func simpleIncentive(_ position: Int) -> Coin? {
         var coin = Coin.init()
         var rewardSum = NSDecimalNumber.zero
-        self.logs?[0].events?.forEach({ (event) in
+        self.logs?[position].events?.forEach({ (event) in
             if (event.type == "claim_reward") {
                 event.attributes?.forEach({ (eventAttribute) in
                     if (eventAttribute.key == "claim_amount") {
@@ -235,9 +235,9 @@ public struct TxInfo {
         return coin
     }
     
-    public func simpleIncentives() -> Array<Coin> {
+    public func simpleIncentives(_ position: Int) -> Array<Coin> {
         var result = Array<Coin>()
-        self.logs?[0].events?.forEach({ (event) in
+        self.logs?[position].events?.forEach({ (event) in
             if (event.type == "claim_reward") {
                 event.attributes?.forEach({ (eventAttribute) in
                     if (eventAttribute.key == "claim_amount") {

@@ -15,8 +15,8 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     var refresher: UIRefreshControl!
     
     var cdpParam: CdpParam?
-    var myCdps: Array<MyCdp>?
-    var otherCdps: Array<CollateralParam>?
+    var myCdps: Array<MyCdp> = Array<MyCdp>()
+    var otherCdps: Array<CollateralParam> = Array<CollateralParam>()
     var incentiveRewards : IncentiveReward?
     
     override func viewDidLoad() {
@@ -48,8 +48,6 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
             return
         }
         self.mFetchCnt = 2
-        self.myCdps?.removeAll()
-        self.otherCdps?.removeAll()
         
         self.onFetchCdpParam()
         self.onFetchOwenCdp(account!.account_address)
@@ -61,19 +59,17 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
             self.cdpParam = BaseData.instance.mCdpParam
             self.incentiveRewards = BaseData.instance.mIncentiveRewards
             
-            otherCdps = Array<CollateralParam>()
+            self.otherCdps.removeAll()
             if let collateralparams = cdpParam?.collateral_params  {
                 for collateralparam in collateralparams {
                     var has = false
-                    if let mycdps = myCdps {
-                        for mycdp in mycdps {
-                            if (mycdp.cdp?.type == collateralparam.type) {
-                                has = true
-                            }
+                    for mycdp in myCdps {
+                        if (mycdp.cdp?.type == collateralparam.type) {
+                            has = true
                         }
                     }
                     if (!has) {
-                        self.otherCdps!.append(collateralparam)
+                        self.otherCdps.append(collateralparam)
                     }
                 }
             }
@@ -88,9 +84,9 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
-            return myCdps?.count ?? 0
+            return myCdps.count
         } else {
-            return otherCdps?.count ?? 0
+            return otherCdps.count
         }
     }
     
@@ -109,7 +105,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     func onBindMyCdp(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:CdpLisyMyCell? = tableView.dequeueReusableCell(withIdentifier:"CdpLisyMyCell") as? CdpLisyMyCell
         
-        let myCdp = myCdps![position]
+        let myCdp = myCdps[position]
         let mCollateralParam = cdpParam!.getCollateralParamByType(myCdp.cdp!.type!)
         let mCDenom = myCdp.cdp!.getcDenom()
         let mPDenom = myCdp.cdp!.getpDenom()
@@ -150,7 +146,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     func onBindOtherCdp(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:CdpListAllCell? = tableView.dequeueReusableCell(withIdentifier:"CdpListAllCell") as? CdpListAllCell
-        let mCollateralParam = otherCdps![position]
+        let mCollateralParam = otherCdps[position]
         cell?.marketType.text = mCollateralParam.type!.uppercased()
         cell?.marketTitle.text = mCollateralParam.getDpMarketId()
         cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationRatio(), cell!.minCollateralRate.font)
@@ -163,7 +159,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 0) {
-            let myCdp = myCdps![indexPath.row]
+            let myCdp = myCdps[indexPath.row]
             let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
             cdpDetailVC.hidesBottomBarWhenPushed = true
             cdpDetailVC.mCollateralParamType = myCdp.cdp!.type!
@@ -171,7 +167,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
             self.navigationController?.pushViewController(cdpDetailVC, animated: true)
             
         } else if (indexPath.section == 1) {
-            let mCollateralParam = otherCdps![indexPath.row]
+            let mCollateralParam = otherCdps[indexPath.row]
             let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
             cdpDetailVC.mCollateralParamType = mCollateralParam.type
             self.navigationItem.title = ""
