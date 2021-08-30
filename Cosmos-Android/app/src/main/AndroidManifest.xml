@@ -365,7 +365,7 @@
         </activity>
 
         <activity
-            android:name=".activities.chains.kava.ClaimMintIncentiveActivity"
+            android:name=".activities.chains.kava.ClaimIncentiveActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -400,14 +400,28 @@
         </activity>
 
         <activity
-            android:name=".activities.chains.kava.ClaimHardIncentiveActivity"
+            android:name=".activities.chains.kava.DAppsList5Activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
         <activity
-            android:name=".activities.chains.kava.DAppsList5Activity"
+            android:name=".activities.chains.kava.StartSwapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.kava.DepositPoolActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.kava.WithDrawPoolActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">

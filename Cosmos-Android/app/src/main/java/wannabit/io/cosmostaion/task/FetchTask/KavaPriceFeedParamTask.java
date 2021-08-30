@@ -26,9 +26,10 @@ public class KavaPriceFeedParamTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
+                WLog.w("KavaPriceFeedParamTask : " + ApiClient.getKavaChain(mApp).getPriceParam().request().url());
                 Response<ResKavaPriceFeedParam> response = ApiClient.getKavaChain(mApp).getPriceParam().execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
+                    mResult.resultData = response.body().result.markets;
                     mResult.isSuccess = true;
 
                 } else {
@@ -38,7 +39,7 @@ public class KavaPriceFeedParamTask extends CommonTask {
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
                 Response<ResKavaPriceFeedParam> response = ApiClient.getKavaTestChain(mApp).getPriceParam().execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
+                    mResult.resultData = response.body().result.markets;
                     mResult.isSuccess = true;
 
                 } else {

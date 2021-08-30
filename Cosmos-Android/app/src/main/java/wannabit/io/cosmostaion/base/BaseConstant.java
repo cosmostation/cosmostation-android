@@ -159,6 +159,13 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_KAVA_REPAY_HARD                 = 2125;
     public final static int TASK_FETCH_NODE_INFO                        = 2126;
     public final static int TASK_FETCH_OKEX_ALL_VALIDATORS              = 2127;
+    public final static int TASK_FETCH_KAVA_SWAP_PARAM                  = 2128;
+    public final static int TASK_FETCH_KAVA_SWAP_POOL                   = 2129;
+    public final static int TASK_FETCH_KAVA_SWAP_POOL_INFO              = 2130;
+    public final static int TASK_FETCH_KAVA_SWAP_DEPOSIT                = 2131;
+    public final static int TASK_GEN_TX_KAVA_SWAP                       = 2132;
+    public final static int TASK_GEN_TX_KAVA_JOIN_POOL                  = 2133;
+    public final static int TASK_GEN_TX_KAVA_EXIT_POOL                  = 2134;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_STAKE_HISTORY                = 2301;
@@ -334,6 +341,8 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_INCENTIVE_REWARD               = "incentive/MsgClaimReward";
     public final static String KAVA_MSG_TYPE_USDX_MINT_INCENTIVE            = "incentive/MsgClaimUSDXMintingReward";
     public final static String KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE           = "incentive/MsgClaimHardReward";
+    public final static String KAVA_MSG_TYPE_DELEGATOR_INCENTIVE            = "incentive/MsgClaimDelegatorReward";
+    public final static String KAVA_MSG_TYPE_SWAP_INCENTIVE                 = "incentive/MsgClaimSwapReward";
     public final static String KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV        = "incentive/MsgClaimHardRewardVVesting";
     public final static String KAVA_MSG_TYPE_DEPOSIT_HAVEST                 = "harvest/MsgDeposit";
     public final static String KAVA_MSG_TYPE_WITHDRAW_HAVEST                = "harvest/MsgWithdraw";
@@ -343,6 +352,10 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_BORROW_HARD                    = "hard/MsgBorrow";
     public final static String KAVA_MSG_TYPE_REPAY_HARD                     = "hard/MsgRepay";
     public final static String KAVA_MSG_TYPE_LIQUIDATE_HARD                 = "hard/MsgLiquidate";
+    public final static String KAVA_MSG_TYPE_SWAP_TOKEN                     = "swap/MsgSwapExactForTokens";
+    public final static String KAVA_MSG_TYPE_SWAP_TOKEN2                    = "swap/MsgSwapForExactTokens";
+    public final static String KAVA_MSG_TYPE_DEPOSIT                        = "swap/MsgDeposit";
+    public final static String KAVA_MSG_TYPE_WITHDRAW                       = "swap/MsgWithdraw";
 
 
     public final static String BNB_MSG_TYPE_HTLC                            = "tokens/HTLTMsg";
@@ -425,6 +438,9 @@ public class BaseConstant {
     public final static int CONST_PW_TX_OSMOSIS_EARNING                     = 5040;
     public final static int CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING             = 5041;
     public final static int CONST_PW_TX_OSMOSIS_UNLOCK                      = 5042;
+    public final static int CONST_PW_TX_KAVA_SWAP                           = 5043;
+    public final static int CONST_PW_TX_KAVA_JOIN_POOL                      = 5044;
+    public final static int CONST_PW_TX_KAVA_EXIT_POOL                      = 5045;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
@@ -485,6 +501,7 @@ public class BaseConstant {
     public final static String TOKEN_KAVA           = "ukava";
     public final static String TOKEN_HARD           = "hard";
     public final static String TOKEN_USDX           = "usdx";
+    public final static String TOKEN_SWP            = "swp";
     public final static String TOKEN_IOV            = "uiov";
     public final static String TOKEN_CERTIK         = "uctk";
     public final static String TOKEN_BAND           = "uband";
@@ -574,10 +591,13 @@ public class BaseConstant {
     public final static String KAVA_GAS_AMOUNT_REINVEST                 = "800000";
     public final static String KAVA_GAS_AMOUNT_REDELEGATE               = "800000";
     public final static String KAVA_GAS_AMOUNT_VOTE                     = "300000";
-    public final static String KAVA_GAS_AMOUNT_CLAIM_INCENTIVE          = "800000";
+    public final static String KAVA_GAS_AMOUNT_CLAIM_INCENTIVE          = "2000000";
     public final static String KAVA_GAS_AMOUNT_CDP                      = "2000000";
     public final static String KAVA_GAS_AMOUNT_HARD_POOL                = "800000";
     public final static String KAVA_GAS_AMOUNT_BEP3                     = "500000";
+    public final static String KAVA_GAS_AMOUNT_SWAP                     = "800000";
+    public final static String KAVA_GAS_AMOUNT_JOIN_POOL                = "800000";
+    public final static String KAVA_GAS_AMOUNT_EXIT_POOL                = "800000";
 
     public final static String BAND_GAS_AMOUNT_SEND                     = "100000";
     public final static String BAND_GAS_AMOUNT_STAKE                    = "200000";
@@ -752,7 +772,7 @@ public class BaseConstant {
     public final static String OSMOSIS_VAL_URL          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/osmosis/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
-    public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
+    public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
     public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
     public final static String KAVA_HARD_POOL_IMG_URL   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/hard/";
     public final static String TOKEN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";

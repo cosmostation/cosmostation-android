@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -24,6 +25,7 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
     private TextView        mSwapFee;
     private TextView        mSwapInAmount, mSwapInAmountSymbol;
     private TextView        mSwapOutAmount, mSwapOutAmountSymbol;
+    private RelativeLayout  mSlippageLayer;
     private TextView        mMemo;
     private int             mDpDecimal = 6, mInputCoinDecimal = 6, mOutputCoinDecimal =6;
 
@@ -50,6 +52,7 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
         mSwapInAmountSymbol     = rootView.findViewById(R.id.swap_in_amount_symbol);
         mSwapOutAmount          = rootView.findViewById(R.id.swap_out_amount);
         mSwapOutAmountSymbol    = rootView.findViewById(R.id.swap_out_amount_symbol);
+        mSlippageLayer          = rootView.findViewById(R.id.slippage_layer);
         mMemo                   = rootView.findViewById(R.id.memo);
         mBeforeBtn              = rootView.findViewById(R.id.btn_before);
         mConfirmBtn             = rootView.findViewById(R.id.btn_confirm);
@@ -64,6 +67,7 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
+        mSlippageLayer.setVisibility(View.VISIBLE);
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mInputDenom);
         mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOutputDenom);
@@ -72,8 +76,8 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
-        WDp.showCoinDp(getContext(), getSActivity().mOsmosisSwapInCoin, mSwapInAmountSymbol, mSwapInAmount, getSActivity().mBaseChain);
-        WDp.showCoinDp(getContext(), getSActivity().mOsmosisSwapOutCoin, mSwapOutAmountSymbol, mSwapOutAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getSActivity().mSwapInCoin, mSwapInAmountSymbol, mSwapInAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getSActivity().mSwapOutCoin, mSwapOutAmountSymbol, mSwapOutAmount, getSActivity().mBaseChain);
 
 
         mMemo.setText(getSActivity().mTxMemo);

@@ -163,9 +163,9 @@ class ExitPool0ViewController: BaseViewController, UITextFieldDelegate {
             pageHolderVC.mPoolCoin0 = Coin.init(coin0Denom, coin0PaybackAmount.stringValue)
             pageHolderVC.mPoolCoin1 = Coin.init(coin1Denom, coin1PaybackAmount.stringValue)
             
-            
             sender.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
+            
         } else {
             self.onShowToast(NSLocalizedString("error_amount", comment: ""))
         }

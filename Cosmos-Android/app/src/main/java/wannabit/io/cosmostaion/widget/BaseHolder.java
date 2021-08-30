@@ -26,6 +26,8 @@ import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
+import wannabit.io.cosmostaion.model.kava.SwapDeposit;
+import wannabit.io.cosmostaion.model.kava.SwapPool;
 import wannabit.io.cosmostaion.model.type.Coin;
 
 public class BaseHolder extends RecyclerView.ViewHolder {
@@ -83,5 +85,11 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBindOtherPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool otherPool) {
+    }
+
+    public void onBindMyPool(Context context, BaseActivity activity, BaseData baseData, SwapPool myPool, SwapDeposit mySwapDeposit) {
+    }
+
+    public void onBindOtherPool(Context context, BaseActivity activity, BaseData baseData, SwapPool otherPool) {
     }
 }

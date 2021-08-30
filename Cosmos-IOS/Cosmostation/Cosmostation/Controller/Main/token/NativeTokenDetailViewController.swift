@@ -66,15 +66,22 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
         self.topCard.backgroundColor = WUtils.getChainBg(chainType)
         if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             let baseDenom = WUtils.getKavaBaseDenom(denom)
+            let decimal = WUtils.getKavaCoinDecimal(denom)
             if (denom == KAVA_HARD_DENOM) {
                 naviTokenSymbol.textColor = COLOR_HARD
                 topCard.backgroundColor = COLOR_BG_COLOR_HARD
+            } else if (denom == KAVA_USDX_DENOM) {
+                naviTokenSymbol.textColor = COLOR_USDX
+                topCard.backgroundColor = COLOR_BG_COLOR_USDX
+            } else if (denom == KAVA_SWAP_DENOM) {
+                naviTokenSymbol.textColor = COLOR_SWP
+                topCard.backgroundColor = COLOR_BG_COLOR_SWP
             }
             naviTokenImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + denom + ".png")!)
             naviTokenSymbol.text = denom.uppercased()
             
-            let convertedKavaAmount = WUtils.convertTokenToKava(denom!)
-            topValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, convertedKavaAmount, 6, topValue.font)
+            let totalTokenAmount = WUtils.getKavaTokenAll(denom)
+            topValue.attributedText = WUtils.dpUserCurrencyValue(baseDenom, totalTokenAmount, decimal, topValue.font)
             
             self.naviPerPrice.attributedText = WUtils.dpPerUserCurrencyValue(baseDenom, naviPerPrice.font)
             self.naviUpdownPercent.attributedText = WUtils.dpValueChange(baseDenom, font: naviUpdownPercent.font)

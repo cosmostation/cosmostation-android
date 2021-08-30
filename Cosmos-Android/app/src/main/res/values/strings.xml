@@ -2,7 +2,7 @@
     <string name="app_name">Cosmostation</string>
     <string name="db_password" translatable="false">wannabit</string>
 
-<!--    <string name="url_coingecko" translatable="false">https://api.coingecko.com/</string>-->
+    <!--    <string name="url_coingecko" translatable="false">https://api.coingecko.com/</string>-->
     <string name="url_moon_pay" translatable="false">https://buy.moonpay.io</string>
     <string name="url_station_old" translatable="false">https://api-wallet.cosmostation.io/</string>
     <string name="url_station" translatable="false">https://api-utility.cosmostation.io/</string>
@@ -27,11 +27,11 @@
     <string name="url_test_bnb_faucet" translatable="false">https://faucet-binance.cosmostation.io</string>
 
 
-    <string name="url_lcd_kava_main" translatable="false">https://lcd-kava-app.cosmostation.io/</string>
-    <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>
+        <string name="url_lcd_kava_main" translatable="false">https://lcd-kava-app.cosmostation.io/</string>
+        <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>
 
-    <string name="url_lcd_kava_test" translatable="false">https://lcd-office.cosmostation.io/kava-testnet-12000/</string>
-    <string name="url_api_kava_test" translatable="false">https://api-office.cosmostation.io/kava-testnet-12000/</string>
+    <string name="url_lcd_kava_test" translatable="false">https://lcd-office.cosmostation.io/kava-testnet-13000/</string>
+    <string name="url_api_kava_test" translatable="false">https://api-office.cosmostation.io/kava-testnet-13000/</string>
     <string name="url_test_kava_faucet" translatable="false"></string>
 
 
@@ -58,7 +58,7 @@
     <string name="url_api_certik_test" translatable="false">https://api-certik-testnet3.cosmostation.io/</string>
 
 
-<!--    <string name="url_lcd_secret" translatable="false">https://api.secretnodes.org/</string>-->
+    <!--    <string name="url_lcd_secret" translatable="false">https://api.secretnodes.org/</string>-->
     <string name="url_lcd_secret" translatable="false">https://secret-2--lcd--full.datahub.figment.io/apikey/290520481df876316ee7664924c0a1df/</string>
     <string name="url_api_secret" translatable="false"></string>
 
@@ -86,7 +86,7 @@
     <string name="url_lcd_ki" translatable="false">https://lcd-kichain.cosmostation.io/</string>
     <string name="url_api_ki" translatable="false">https://api-kichain.cosmostation.io/</string>
 
-<!--    <string name="url_lcd_medi" translatable="false">https://api.gopanacea.org/</string>-->
+    <!--    <string name="url_lcd_medi" translatable="false">https://api.gopanacea.org/</string>-->
     <string name="url_api_medibloc" translatable="false">https://api-medibloc.cosmostation.io/</string>
 
 
@@ -207,7 +207,7 @@
     <string name="str_send_c">SEND</string>
     <string name="str_htlc_send_c"><![CDATA[BEP3 Send & Claim]]></string>
     <string name="str_htlc_refund_c">BEP3 Refund</string>
-    <string name="str_participate_incentive">USDX Minting Incentive Claim</string>
+    <string name="str_participate_incentive">Incentive Claim</string>
     <string name="str_receive_c">RECEIVE</string>
     <string name="str_send">Send</string>
     <string name="str_receive">Receive</string>
@@ -729,12 +729,14 @@
     <string name="str_okex_newpath_msg">OKex Chain support 2 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\n\nIf you mistakenly selected the wrong type, it will not affect your original Secret wallet. Simply press [Import Mnemonics] to re-select your type.</string>
     <string name="str_okex_old_type"><![CDATA[Tendermint Type Key]]></string>
     <string name="str_okex_new_type"><![CDATA[Ethermint(Default) Type Key]]></string>
-    <string name="str_kava_cdp_list">CDP</string>
+    <string name="str_kava_cdp_list">Mint</string>
     <string name="str_kava_cdp_details">CDP Status</string>
     <string name="str_kava_auction_list">Auction</string>
     <string name="str_kava_auction_details">Auction Status</string>
-    <string name="str_kava_harvest_list">Hard Pool</string>
+    <string name="str_kava_harvest_list">Loan</string>
     <string name="str_kava_harvest_details">Hard Pool Status</string>
+    <string name="str_kava_swap_list">Swap</string>
+    <string name="str_kava_pool_list">Pool</string>
     <string name="str_my_cdps">My CDP</string>
     <string name="str_all_cdps">All Products</string>
     <string name="str_press_select_recipient_account">Select Recipient Account</string>
@@ -888,7 +890,7 @@
     <string name="str_withdraw_cdp_c">WITHDRAW COLLATERAL</string>
     <string name="str_depositable_amount"><![CDATA[Depositable : ]]></string>
     <string name="str_deposit_value"><![CDATA[Deposit Value : ]]></string>
-<!--    <string name="str_loanable_amount"><![CDATA[Loanable : ]]></string>-->
+    <!--    <string name="str_loanable_amount"><![CDATA[Loanable : ]]></string>-->
     <string name="str_loanable_amount"><![CDATA[Max : ]]></string>
     <string name="str_approximate_value"><![CDATA[Approximate Value : ]]></string>
     <string name="str_max_paymentable_amount"><![CDATA[Max : ]]></string>
@@ -896,9 +898,9 @@
     <string name="str_cannot_particaly">Cannot repay partially</string>
     <string name="str_repay_all"><![CDATA[Repay All : ]]></string>
     <string name="str_cannot_repay_all">Insufficient USDX to repay all</string>
-<!--    <string name="str_max_depositable_amount"><![CDATA[Max Depositable : ]]></string>-->
+    <!--    <string name="str_max_depositable_amount"><![CDATA[Max Depositable : ]]></string>-->
     <string name="str_max_depositable_amount"><![CDATA[Max : ]]></string>
-<!--    <string name="str_max_withdrawable_amount"><![CDATA[Max Withdrawable : ]]></string>-->
+    <!--    <string name="str_max_withdrawable_amount"><![CDATA[Max Withdrawable : ]]></string>-->
     <string name="str_max_withdrawable_amount"><![CDATA[Max : ]]></string>
     <string name="str_add_min">Min</string>
     <string name="str_add_20"><![CDATA[≈ 20]]></string>
@@ -1400,16 +1402,16 @@
     <string name="str_pool_total_liquidity_value">Total Locked Value (TVL)</string>
     <string name="str_pool_total_liquidity_amount">Total Locked Coins</string>
     <string name="str_pool_my_liquidity_available_amount">Availables</string>
-    <string name="str_title_pool_join_osmosis">Deposit to Pool</string>
-    <string name="str_osmosis_join_pool_step_0">Insert amount to deposit</string>
-    <string name="str_osmosis_join_pool_step_1">Insert memo (optional)</string>
-    <string name="str_osmosis_join_pool_step_2">Select transaction fee</string>
-    <string name="str_osmosis_join_pool_step_3">Check transaction detail</string>
-    <string name="str_title_pool_exit_osmosis">Withdraw from Pool</string>
-    <string name="str_osmosis_exit_pool_step_0">Insert amount to withdraw</string>
-    <string name="str_osmosis_exit_pool_step_1">Insert memo (optional)</string>
-    <string name="str_osmosis_exit_pool_step_2">Select transaction fee</string>
-    <string name="str_osmosis_exit_pool_step_3">Check transaction detail</string>
+    <string name="str_title_pool_join">Deposit to Pool</string>
+    <string name="str_join_pool_step_0">Insert amount to deposit</string>
+    <string name="str_join_pool_step_1">Insert memo (optional)</string>
+    <string name="str_join_pool_step_2">Select transaction fee</string>
+    <string name="str_join_pool_step_3">Check transaction detail</string>
+    <string name="str_title_pool_exit">Withdraw from Pool</string>
+    <string name="str_exit_pool_step_0">Insert amount to withdraw</string>
+    <string name="str_exit_pool_step_1">Insert memo (optional)</string>
+    <string name="str_exit_pool_step_2">Select transaction fee</string>
+    <string name="str_exit_pool_step_3">Check transaction detail</string>
     <string name="str_add_record_topic_name">Topic Name</string>
     <string name="str_add_record_writer_address">Writer Address</string>
     <string name="str_add_record_owner_address">Owner Address</string>
@@ -1417,11 +1419,11 @@
     <string name="str_create_did">DID</string>
     <string name="str_create_did_verification_method_id">Verification Method ID</string>
     <string name="str_create_did_from_address">From Address</string>
-    <string name="str_title_swap_osmosis">Coin Swap</string>
-    <string name="str_osmosis_swap_step_0">Insert amount to swap</string>
-    <string name="str_osmosis_swap_step_1">Insert memo (optional)</string>
-    <string name="str_osmosis_swap_step_2">Select transaction fee</string>
-    <string name="str_osmosis_swap_step_3">Check transaction detail</string>
+    <string name="str_title_swap">Coin Swap</string>
+    <string name="str_swap_step_0">Insert amount to swap</string>
+    <string name="str_swap_step_1">Insert memo (optional)</string>
+    <string name="str_swap_step_2">Select transaction fee</string>
+    <string name="str_swap_step_3">Check transaction detail</string>
     <string name="str_osmosis_swap_tx_fee">Tx Fee</string>
     <string name="str_osmosis_swap_fee">Swap Fee</string>
     <string name="str_osmosis_swap_in">Swap In</string>
@@ -1482,6 +1484,14 @@
     <string name="str_earing_bonded_header">Bonded</string>
     <string name="str_earing_unbonding_header">Unbonding</string>
     <string name="str_earing_unbonded_header">Unbonded</string>
+    <string name="str_kava_incentive_info_title">Incentive Info</string>
+    <string name="str_to_deposit_coin_title">To Deposit Coin (Max)</string>
+    <string name="str_kava_slippage_title">Slippage</string>
+    <string name="str_kava_total_share_title">Total Share</string>
+    <string name="str_kava_deposit_my_share_title">My Share</string>
+    <string name="str_kava_deposit_my_title">My Deposited Coins</string>
+    <string name="str_to_withdraw_coin_title">To Withdraw Coins (MG)</string>
+    <string name="str_incentive_amount_title">Incentive Amounts</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1671,12 +1681,17 @@
     <string name="tx_kava_bep3_claim">BEP3\nClaim</string>
     <string name="tx_kava_bep3_refund">BEP3\nRefund</string>
     <string name="tx_kava_incentive_reward">USDX Minting\nIncentive</string>
-    <string name="tx_kava_hard_deposit">Hard Pool\nDeposit</string>
-    <string name="tx_kava_hard_withdraw">Hard Pool\nWithdraw</string>
-    <string name="tx_kava_hard_borrow">Hard Pool\nBorrow</string>
-    <string name="tx_kava_hard_repay">Hard Pool\nRepay</string>
-    <string name="tx_kava_hard_liquidate">Hard Pool\nLiquidate</string>
-    <string name="tx_kava_incentive_hard">Hard Pool\nIncentive</string>
+    <string name="tx_kava_hard_deposit">Loan\nDeposit</string>
+    <string name="tx_kava_hard_withdraw">Loan\nWithdraw</string>
+    <string name="tx_kava_hard_borrow">Loan\nBorrow</string>
+    <string name="tx_kava_hard_repay">Loan\nRepay</string>
+    <string name="tx_kava_hard_liquidate">Loan\nLiquidate</string>
+    <string name="tx_kava_incentive_hard">Loan\nIncentive</string>
+    <string name="tx_kava_swap_token">Swap Token</string>
+    <string name="tx_kava_swap_deposit">Swap Pool\nDeposit</string>
+    <string name="tx_kava_swap_withdraw">Swap Pool\nWithdraw</string>
+    <string name="tx_kava_swap_incentive">Swap Pool\nIncentive</string>
+    <string name="tx_kava_delegator_incentive">Delegator\nIncentive</string>
 
     <string name="tx_kava_create_cdp2">CDP Open</string>
     <string name="tx_kava_deposit_cdp2">CDP Deposit</string>
@@ -1693,13 +1708,17 @@
     <string name="tx_kava_bep3_claim2">BEP3 Claim</string>
     <string name="tx_kava_bep3_refund2">BEP3 Refund</string>
     <string name="tx_kava_incentive_reward2">USDX Minting Incentive</string>
-    <string name="tx_kava_incentive_hard2">Hard Pool Incentive</string>
-    <string name="tx_kava_hard_deposit2">Hard Pool Deposit</string>
-    <string name="tx_kava_hard_withdraw2">Hard Pool Withdraw</string>
-    <string name="tx_kava_hard_borrow2">Hard Pool Borrow</string>
-    <string name="tx_kava_hard_repay2">Hard Pool Repay</string>
-    <string name="tx_kava_hard_liquidate2">Hard Pool Liquidate</string>
-    <string name="tx_kava_harvest_claim2">Hard Pool Incentive</string>
+    <string name="tx_kava_incentive_hard2">Loan Incentive</string>
+    <string name="tx_kava_hard_deposit2">Loan Deposit</string>
+    <string name="tx_kava_hard_withdraw2">Loan Withdraw</string>
+    <string name="tx_kava_hard_borrow2">Loan Borrow</string>
+    <string name="tx_kava_hard_repay2">Loan Repay</string>
+    <string name="tx_kava_hard_liquidate2">Loan Liquidate</string>
+    <string name="tx_kava_harvest_claim2">Loan Incentive</string>
+    <string name="tx_kava_swap_incentive2">Swap Pool Incentive</string>
+    <string name="tx_kava_delegator_incentive2">Delegator Incentive</string>
+    <string name="tx_kava_swap_deposit2">Swap Pool Deposit</string>
+    <string name="tx_kava_swap_withdraw2">Swap Pool Withdraw</string>
 
 
     <string name="tx_starname_registe_domain">Register Domain</string>
@@ -1717,7 +1736,8 @@
     <string name="tx_osmosis_token_lockup">Lock Token(Start Earning)</string>
     <string name="tx_osmosis_begin_token_unlock">Begin Unlocking</string>
     <string name="tx_osmosis_begin_token_unlock_all">Begin Unlocking All</string>
-    <string name="tx_osmosis_periodlock_unlock">Claim Unlocked Token(End Earning)</string>
+    <string name="tx_osmosis_periodlock_unlock">Unlock Period Token(End Earning)</string>
+
 
     <string name="tx_gravity_create_pool">Create Pool</string>
     <string name="tx_gravity_swap_batch">Swap Within Batch</string>

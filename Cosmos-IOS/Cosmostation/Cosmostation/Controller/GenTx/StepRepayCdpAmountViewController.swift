@@ -391,7 +391,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
                         return
                     }
                     let myCdps = KavaMyCdps.init(responseData)
-                    self.myCdp = myCdps.result?.filter { $0.cdp?.type == self.mCollateralParamType}.first
+                    self.myCdp = myCdps.result.filter { $0.cdp?.type == self.mCollateralParamType}.first
 //                    print("myCdp ", self.myCdp)
                     
                 case .failure(let error):

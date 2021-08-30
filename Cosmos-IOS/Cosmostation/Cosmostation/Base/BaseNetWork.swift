@@ -734,6 +734,42 @@ class BaseNetWork {
         return ""
     }
     
+    static func paramSwapPoolUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "swap/parameters"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "swap/parameters"
+        }
+        return ""
+    }
+    
+    static func listSwapPoolUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "swap/pools"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "swap/pools"
+        }
+        return ""
+    }
+    
+    static func swapPoolUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "swap/pool"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "swap/pool"
+        }
+        return ""
+    }
+    
+    static func depositSwapPoolUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "swap/deposits"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "swap/deposits"
+        }
+        return ""
+    }
+    
     static func paramBep3Url(_ chain: ChainType?) -> String {
         if (chain == ChainType.KAVA_MAIN || chain == ChainType.BINANCE_MAIN) {
             return KAVA_URL + "bep3/parameters"

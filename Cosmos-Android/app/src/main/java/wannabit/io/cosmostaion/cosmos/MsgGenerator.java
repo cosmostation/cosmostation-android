@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdTx;
+import wannabit.io.cosmostaion.model.kava.DenomsToClaim;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
@@ -419,19 +420,6 @@ public class MsgGenerator {
         return result;
     }
 
-    public static Msg genClaimUSDXMintingReward(String from, String multiplierName, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-            value.sender = from;
-            value.multiplier_name = multiplierName;
-            result.type = BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE;
-            result.value = value;
-
-        }
-        return result;
-    }
-
     public static Msg genDepositHarvestMsg(String depositor, Coin depositCoin, String depositType, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
@@ -515,6 +503,100 @@ public class MsgGenerator {
         value.amount = coins;
         result.type = BaseConstant.KAVA_MSG_TYPE_REPAY_HARD;
         result.value = value;
+        return result;
+    }
+
+    public static Msg getSwapTokenMsg(String requester, Coin swapIn, Coin swapOut, String slippage, Long deadline, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.requester = requester;
+        value.exact_token_a = swapIn;
+        value.token_b = swapOut;
+        value.slippage = slippage;
+        value.deadline = ""+deadline;
+        result.type = BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN;
+        result.value = value;
+        return result;
+    }
+
+    public static Msg genSwapDepositMsg(String depositor, Coin token_a, Coin token_b, String slippage, Long deadline, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.depositor = depositor;
+        value.token_a = token_a;
+        value.token_b = token_b;
+        value.slippage = slippage;
+        value.deadline = ""+deadline;
+        result.type = BaseConstant.KAVA_MSG_TYPE_DEPOSIT;
+        result.value = value;
+        return result;
+    }
+
+    public static Msg genSwapWithDrawMsg(String from, String shares, Coin min_token_a, Coin min_token_b, Long deadline, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.from = from;
+        value.shares = shares;
+        value.min_token_a = min_token_a;
+        value.min_token_b = min_token_b;
+        value.deadline = ""+deadline;
+        result.type = BaseConstant.KAVA_MSG_TYPE_WITHDRAW;
+        result.value = value;
+        return result;
+    }
+
+    public static Msg genClaimUSDXMintingRewardMsg(String from, String multiplierName, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            value.sender = from;
+            value.multiplier_name = multiplierName;
+            result.type = BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE;
+            result.value = value;
+
+        }
+        return result;
+    }
+
+    public static Msg genClaimHardRewardMsg(String from, String multiplierName, ArrayList<DenomsToClaim> denoms_to_claims, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            value.sender = from;
+//            value.multiplier_name = multiplierName;
+            value.denoms_to_claim = denoms_to_claims;
+            result.type = BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE;
+            result.value = value;
+
+        }
+        return result;
+    }
+
+    public static Msg genClaimDelegatorRewardMsg(String from, String multiplierName, ArrayList<DenomsToClaim> denoms_to_claims, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            value.sender = from;
+//            value.multiplier_name = multiplierName;
+            value.denoms_to_claim = denoms_to_claims;
+            result.type = BaseConstant.KAVA_MSG_TYPE_DELEGATOR_INCENTIVE;
+            result.value = value;
+
+        }
+        return result;
+    }
+
+    public static Msg genClaimSwapRewardMsg(String from, String multiplierName, ArrayList<DenomsToClaim> denoms_to_claims, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            value.sender = from;
+//            value.multiplier_name = multiplierName;
+            value.denoms_to_claim = denoms_to_claims;
+            result.type = BaseConstant.KAVA_MSG_TYPE_SWAP_INCENTIVE;
+            result.value = value;
+
+        }
         return result;
     }
 

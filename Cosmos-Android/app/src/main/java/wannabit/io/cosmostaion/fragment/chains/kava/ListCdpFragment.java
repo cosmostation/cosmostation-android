@@ -15,25 +15,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimMintIncentiveActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
+import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-import wannabit.io.cosmostaion.widget.CdpIncentiveHolder;
 import wannabit.io.cosmostaion.widget.CdpMyHolder;
 import wannabit.io.cosmostaion.widget.CdpOtherHolder;
 
@@ -149,23 +146,17 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
             Toast.makeText(getContext(), R.string.error_circuit_breaker, Toast.LENGTH_SHORT).show();
             return;
         }
-
-        Intent intent = new Intent(getContext(), ClaimMintIncentiveActivity.class);
-        startActivity(intent);
     }
 
 
     private class CdpMarketAdapter extends RecyclerView.Adapter<BaseHolder> {
-        private static final int TYPE_INCENTIVE         = 0;
         private static final int TYPE_MY_CDP            = 1;
         private static final int TYPE_OTHER_CDP         = 2;
 
         @NonNull
         @Override
         public BaseHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if (viewType == TYPE_INCENTIVE) {
-                return new CdpIncentiveHolder(getLayoutInflater().inflate(R.layout.item_cdp_list_incentive, viewGroup, false));
-            } else if (viewType == TYPE_MY_CDP) {
+            if (viewType == TYPE_MY_CDP) {
                 return new CdpMyHolder(getLayoutInflater().inflate(R.layout.item_cdp_list_my, viewGroup, false));
             } else if (viewType == TYPE_OTHER_CDP) {
                 return new CdpOtherHolder(getLayoutInflater().inflate(R.layout.item_cdp_list_all, viewGroup, false));
@@ -175,57 +166,30 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull BaseHolder viewHolder, int position) {
-            if (getItemViewType(position) == TYPE_INCENTIVE) {
-                viewHolder.onBindUsdxIncentive(getContext(), ListCdpFragment.this, mIncentiveRewards);
-
-            } else if (getItemViewType(position) == TYPE_MY_CDP) {
+            if (getItemViewType(position) == TYPE_MY_CDP) {
                 final MyCdp myCdp;
-                if (mIncentiveRewards != null && (mIncentiveRewards.getMintingRewardCnt() > 0) && (mIncentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO)) > 0) {
-                    myCdp = mMyCdps.get(position - 1);
-                } else {
-                    myCdp = mMyCdps.get(position);
-                }
+                myCdp = mMyCdps.get(position);
                 viewHolder.onBindMyCdp(getContext(), getBaseDao(), myCdp);
 
 
             } else if (getItemViewType(position) == TYPE_OTHER_CDP) {
                 final CollateralParam otherCdp;
-                if (mIncentiveRewards != null && (mIncentiveRewards.getMintingRewardCnt() > 0) && (mIncentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO)) > 0) {
-                    otherCdp = mOtherCdps.get(position  - mMyCdps.size() - 1);
-                } else {
-                    otherCdp = mOtherCdps.get(position - mMyCdps.size() );
-                }
+                otherCdp = mOtherCdps.get(position - mMyCdps.size() );
                 viewHolder.onBindOtherCdp(getContext(), otherCdp);
             }
-
         }
 
         @Override
         public int getItemCount() {
-            if (mIncentiveRewards != null && (mIncentiveRewards.getMintingRewardCnt() > 0) && (mIncentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO)) > 0) {
-                return mMyCdps.size() + mOtherCdps.size() + 1;
-            } else {
-                return mMyCdps.size() + mOtherCdps.size();
-            }
+            return mMyCdps.size() + mOtherCdps.size();
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (mIncentiveRewards != null && (mIncentiveRewards.getMintingRewardCnt() > 0) && (mIncentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO)) > 0) {
-                if (position == 0) {
-                    return TYPE_INCENTIVE;
-                } else if (position < (mMyCdps.size() + 1)) {
-                    return TYPE_MY_CDP;
-                } else {
-                    return TYPE_OTHER_CDP;
-                }
-
+            if (position < mMyCdps.size()) {
+                return TYPE_MY_CDP;
             } else {
-                if (position < mMyCdps.size()) {
-                    return TYPE_MY_CDP;
-                } else {
-                    return TYPE_OTHER_CDP;
-                }
+                return TYPE_OTHER_CDP;
             }
         }
     }

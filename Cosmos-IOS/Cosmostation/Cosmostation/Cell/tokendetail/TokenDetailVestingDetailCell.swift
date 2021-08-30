@@ -67,6 +67,8 @@ class TokenDetailVestingDetailCell: TokenDetailCell {
                 rootCardView.backgroundColor = TRANS_BG_COLOR_KAVA
             } else if (denom == KAVA_HARD_DENOM) {
                 rootCardView.backgroundColor = COLOR_BG_COLOR_HARD
+            } else if (denom == KAVA_SWAP_DENOM) {
+                rootCardView.backgroundColor = COLOR_BG_COLOR_SWP
             }
             onBindVesting(chainType, denom)
         }

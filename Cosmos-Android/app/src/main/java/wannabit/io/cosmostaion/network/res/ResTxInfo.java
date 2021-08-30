@@ -220,6 +220,27 @@ public class ResTxInfo {
         return coin;
     }
 
+    public ArrayList<Coin> simpleIncentives(int position) {
+        ArrayList<Coin> coins  = new ArrayList<>();
+        if (logs != null && logs.get(position) != null) {
+            for (Event event:logs.get(position).events) {
+                if (event.type.equals("claim_reward")) {
+                    for (EventAttribute attr:event.attributes) {
+                        if (attr.key.equals("claim_amount")) {
+                            String value = attr.value;
+                            String[] splits = value.split(",");
+                            for (String split: splits) {
+                                Coin incenCoin  = new Coin(split.replaceAll("[0-9]", ""), split.replaceAll("[^0-9]", ""));
+                                coins.add(incenCoin);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return coins;
+    }
+
     public Coin simpleRefund() {
         Coin coin  = new Coin();
         if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
@@ -239,6 +260,90 @@ public class ResTxInfo {
         }
         return coin;
     }
+
+    public Coin simpleSwapInCoin() {
+        Coin coin  = new Coin();
+        if (logs.get(0).events != null) {
+            for (Event event: logs.get(0).events) {
+                if (event.type.equals("swap_trade")) {
+                    for (EventAttribute attr: event.attributes) {
+                        if (attr.key.equalsIgnoreCase("input")) {
+                            String value = attr.value;
+                            String denom = value.replaceAll("[0-9]", "");
+                            String amount = value.replaceAll("[^0-9]", "");
+                            coin.denom = denom;
+                            coin.amount = amount;
+                        }
+                    }
+                }
+            }
+        }
+        return coin;
+    }
+
+    public Coin simpleSwapOutCoin() {
+        Coin coin  = new Coin();
+        if (logs.get(0).events != null) {
+            for (Event event: logs.get(0).events) {
+                if (event.type.equals("swap_trade")) {
+                    for (EventAttribute attr: event.attributes) {
+                        if (attr.key.equalsIgnoreCase("output")) {
+                            String value = attr.value;
+                            String denom = value.replaceAll("[0-9]", "");
+                            String amount = value.replaceAll("[^0-9]", "");
+                            coin.denom = denom;
+                            coin.amount = amount;
+                        }
+                    }
+                }
+            }
+        }
+        return coin;
+    }
+
+    public ArrayList<Coin> simpleDeposits() {
+        ArrayList<Coin> result = new ArrayList<>();
+        if (logs.get(0).events != null) {
+            for (Event event: logs.get(0).events) {
+                if (event.type.equals("swap_deposit")) {
+                    for (EventAttribute attr: event.attributes) {
+                        if (attr.key.equalsIgnoreCase("amount")) {
+                            String value = attr.value;
+                            String[] splits = value.split(",");
+                            for (String split: splits) {
+                                Coin depositCoin  = new Coin(split.replaceAll("[0-9]", ""), split.replaceAll("[^0-9]", ""));
+                                result.add(depositCoin);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<Coin> simpleWithdraws() {
+        ArrayList<Coin> result = new ArrayList<>();
+        if (logs.get(0).events != null) {
+            for (Event event: logs.get(0).events) {
+                if (event.type.equals("swap_withdraw")) {
+                    for (EventAttribute attr: event.attributes) {
+                        if (attr.key.equalsIgnoreCase("amount")) {
+                            String value = attr.value;
+                            String[] splits = value.split(",");
+                            for (String split: splits) {
+                                Coin depositCoin  = new Coin(split.replaceAll("[0-9]", ""), split.replaceAll("[^0-9]", ""));
+                                result.add(depositCoin);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+
 
     public Coin simpleHardPoolReward(String denom) {
         if (logs != null && logs.get(0) != null && logs.get(0).events != null) {

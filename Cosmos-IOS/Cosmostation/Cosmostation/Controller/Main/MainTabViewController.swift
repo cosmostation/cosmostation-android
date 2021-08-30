@@ -181,7 +181,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mBnbTokenList.removeAll()
         BaseData.instance.mBnbTokenTicker.removeAll()
         
-        BaseData.instance.mKavaPrice.removeAll()
+        BaseData.instance.mKavaPriceMarkets.removeAll()
         BaseData.instance.mIncentiveParam = nil
         
         BaseData.instance.mOkStaking = nil
@@ -227,7 +227,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBnbMiniTokenTickers()
             
         } else if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
-            self.mFetchCnt = 10
+            self.mFetchCnt = 11
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -239,7 +239,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchAllReward(mAccount)
             
             onFetchPriceFeedParam()
-            onFetchIncentiveParam()
+            onFetchKavaIncentiveParam()
+            onFetchKavaIncentiveReward(mAccount.account_address)
             
         } else if (mChainType == ChainType.SECRET_MAIN) {
             self.mFetchCnt = 8
@@ -857,13 +858,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.onFetchFinished()
                     return
                 }
-                let priceParam = KavaPriceFeedParam.init(responseData)
-                for market in priceParam.result.markets {
-                    if (!market.market_id.contains(":30")) {
-                        self.mFetchCnt = self.mFetchCnt + 1
-                        self.onFetchPriceFeedPrice(market.market_id)
-                    }
-                }
+                BaseData.instance.mKavaPriceMarkets = KavaPriceFeedParam.init(responseData).result.markets
+                print("BaseData.instance.mKavaPriceMarkets ", BaseData.instance.mKavaPriceMarkets.count)
             
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchPriceFeedParam ", error) }
@@ -893,7 +889,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func onFetchIncentiveParam() {
+    func onFetchKavaIncentiveParam() {
         let request = Alamofire.request(BaseNetWork.paramIncentiveUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -910,6 +906,26 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     
                 case .failure(let error):
                     if (SHOW_LOG) { print("onFetchIncentiveParam ", error) }
+                }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchKavaIncentiveReward(_ address: String) {
+        let request = Alamofire.request(BaseNetWork.incentiveUrl(mChainType), method: .get, parameters: ["owner":address], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
+                        self.onFetchFinished()
+                        return
+                    }
+                    let kavaIncentiveReward = KavaIncentiveReward.init(responseData)
+                    BaseData.instance.mIncentiveRewards = kavaIncentiveReward.result
+//                    print("mIncentiveRewards ", BaseData.instance.mIncentiveRewards?.getAllIncentives().count)
+
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchKavaIncentiveReward ", error) }
                 }
             self.onFetchFinished()
         }

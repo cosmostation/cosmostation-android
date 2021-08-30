@@ -173,10 +173,10 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Jdk-Sh-1Mf">
-                    <rect key="frame" x="0.0" y="801" width="414" height="45"/>
+                    <rect key="frame" x="16" y="801" width="382" height="45"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xF8-I5-qU0">
-                            <rect key="frame" x="0.0" y="0.0" width="204" height="45"/>
+                            <rect key="frame" x="0.0" y="0.0" width="188" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="W2R-oa-ctT"/>
                             </constraints>
@@ -199,7 +199,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FrK-Wt-FbS">
-                            <rect key="frame" x="210" y="0.0" width="204" height="45"/>
+                            <rect key="frame" x="194" y="0.0" width="188" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="3m8-x3-9dz"/>
                             </constraints>
@@ -228,9 +228,9 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="egh-pW-waj" secondAttribute="trailing" id="4ck-06-Nou"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Jdk-Sh-1Mf" secondAttribute="trailing" id="6B7-pl-9cJ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Jdk-Sh-1Mf" secondAttribute="trailing" constant="16" id="6B7-pl-9cJ"/>
                 <constraint firstAttribute="top" secondItem="IMq-Py-cEe" secondAttribute="top" id="7Ss-T4-wUK"/>
-                <constraint firstItem="Jdk-Sh-1Mf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Aqy-AX-fJX"/>
+                <constraint firstItem="Jdk-Sh-1Mf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Aqy-AX-fJX"/>
                 <constraint firstItem="IMq-Py-cEe" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="FOl-aE-sNF"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="leading" secondItem="IMq-Py-cEe" secondAttribute="leading" id="KQi-0Y-0d4"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Jdk-Sh-1Mf" secondAttribute="bottom" constant="16" id="NIU-99-ZRq"/>

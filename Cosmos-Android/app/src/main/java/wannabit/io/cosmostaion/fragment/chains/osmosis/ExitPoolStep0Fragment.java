@@ -211,8 +211,8 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
             BigDecimal coin0PaybackAmount = coin0Amount.multiply(amountTemp.movePointRight(mCoinDecimal)).divide(poolTotalShare, 0, RoundingMode.DOWN).multiply(new BigDecimal("0.975")).setScale(0, RoundingMode.DOWN);
             BigDecimal coin1PaybackAmount = coin1Amount.multiply(amountTemp.movePointRight(mCoinDecimal)).divide(poolTotalShare, 0, RoundingMode.DOWN).multiply(new BigDecimal("0.975")).setScale(0, RoundingMode.DOWN);
 
-            getSActivity().mOsmosisPoolCoin0 = new Coin(coin0Denom, coin0PaybackAmount.toPlainString());
-            getSActivity().mOsmosisPoolCoin1 = new Coin(coin1Denom, coin1PaybackAmount.toPlainString());
+            getSActivity().mPoolCoin0 = new Coin(coin0Denom, coin0PaybackAmount.toPlainString());
+            getSActivity().mPoolCoin1 = new Coin(coin1Denom, coin1PaybackAmount.toPlainString());
             return true;
 
         } catch (Exception e) {

@@ -148,6 +148,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
@@ -223,6 +224,12 @@ public class WDp {
             } else if (coin.denom.equals(TOKEN_HARD)) {
                 denomTv.setText(coin.denom.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorHard));
+            } else if (coin.denom.equals(TOKEN_USDX)) {
+                denomTv.setText(coin.denom.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorUsdx));
+            } else if (coin.denom.equals(TOKEN_SWP)) {
+                denomTv.setText(coin.denom.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorSwp));
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
@@ -396,6 +403,12 @@ public class WDp {
             } else if (symbol.equals(TOKEN_HARD)) {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorHard));
+            } else if (symbol.equals(TOKEN_USDX)) {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorUsdx));
+            } else if (symbol.equals(TOKEN_SWP)) {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorSwp));
             } else {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
@@ -569,9 +582,11 @@ public class WDp {
             return TOKEN_HARD;
         } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
             return TOKEN_USDX;
+        } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
+            return TOKEN_SWP;
         } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
             return "bnb";
-        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB) || denom.equalsIgnoreCase("xrbp")) {
             return "xrp";
         } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
             return "busd";
@@ -610,6 +625,35 @@ public class WDp {
         }
         return BigDecimal.ZERO;
 
+    }
+
+    public static String getKavaPriceFeedSymbol(String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_KAVA)) {
+            return "kava:usd";
+        } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
+            return "hard:usd";
+        } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
+            return "usdx:usd";
+        } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
+            return "swp:usd";
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BNB)) {
+            return "bnb:usd";
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_XRPB)) {
+            return "xrp:usd";
+        } else if (denom.equalsIgnoreCase(TOKEN_HTLC_KAVA_BUSD)) {
+            return "busd:usd";
+        } else if (denom.contains("btc")) {
+            return "btc:usd";
+        }
+        return "";
+    }
+
+    public static BigDecimal getKavaPriceFeed(BaseData baseData, String denom) {
+        String feedSymbol = getKavaPriceFeedSymbol(denom);
+        if (baseData.mKavaTokenPrices.get(feedSymbol) == null){
+            return BigDecimal.ZERO;
+        }
+        return new BigDecimal(baseData.mKavaTokenPrices.get(feedSymbol).price);
     }
 
     public static BigDecimal convertTokenToKava(BaseData baseData, String denom) {
@@ -786,8 +830,11 @@ public class WDp {
                     BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_KAVA, amount, mainDivideDecimal(baseChain));
                     totalValue = totalValue.add(assetValue);
                 } else {
-                    BigDecimal convertAmount = convertTokenToKava(baseData, balance.symbol);
-                    BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_KAVA, convertAmount, mainDivideDecimal(baseChain));
+                    BigDecimal amount = baseData.availableAmount(balance.symbol);
+                    amount = amount.add(baseData.lockedAmount(balance.symbol));
+                    String kavaDenom = WDp.getKavaBaseDenom(balance.symbol);
+                    int kavaDecimal = WUtil.getKavaCoinDecimal(balance.symbol);
+                    BigDecimal assetValue = userCurrencyValue(baseData, kavaDenom, amount, kavaDecimal);
                     totalValue = totalValue.add(assetValue);
                 }
             }
@@ -1446,6 +1493,16 @@ public class WDp {
         long result = 0;
         try {
             SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            result = blockDateFormat.parse(rawValue).getTime();
+        } catch (Exception e) {};
+        return result;
+    }
+
+    public static long dateToLong2(Context c, String rawValue) {
+        long result = 0;
+        try {
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_tx_time_format));
             blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             result = blockDateFormat.parse(rawValue).getTime();
         } catch (Exception e) {};
