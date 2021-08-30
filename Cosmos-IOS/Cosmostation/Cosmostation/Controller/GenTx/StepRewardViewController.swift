@@ -201,7 +201,7 @@ class StepRewardViewController: BaseViewController {
             }
             do {
                 let response = try Cosmos_Distribution_V1beta1_QueryClient(channel: channel).delegationTotalRewards(req).response.wait()
-//            print("onFetchgRPCRewards: \(response.rewards.count)")
+                BaseData.instance.mMyReward_gRPC.removeAll()
                 response.rewards.forEach { reward in
                     BaseData.instance.mMyReward_gRPC.append(reward)
                 }
