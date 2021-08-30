@@ -386,6 +386,36 @@ public class WUtil {
                             temp.fetchTime = time;
                             result.add(temp);
 
+                        } else if (coin.denom.equals(TOKEN_SWP)) {
+                            dpBalance = BigDecimal.ZERO;
+                            dpVesting = BigDecimal.ZERO;
+                            originalVesting = BigDecimal.ZERO;
+                            remainVesting = BigDecimal.ZERO;
+                            delegatedVesting = BigDecimal.ZERO;
+                            dpBalance = new BigDecimal(coin.amount);
+
+                            if (lcd.result.value.original_vesting != null && lcd.result.value.original_vesting.size() > 0) {
+                                for (Coin vesting : lcd.result.value.original_vesting) {
+                                    if (vesting.denom.equals(TOKEN_SWP)) {
+                                        originalVesting = originalVesting.add(new BigDecimal(vesting.amount));
+                                    }
+                                }
+                            }
+                            WLog.w("TOKEN_SWP dpBalance " +  dpBalance);
+                            WLog.w("TOKEN_SWP originalVesting " +  originalVesting);
+                            remainVesting = lcd.result.value.getCalcurateVestingAmountSumByDenom(TOKEN_SWP);
+
+                            dpBalance = dpBalance.subtract(remainVesting);
+                            WLog.w("TOKEN_SWP dpBalancee " +  dpBalance);
+
+                            Balance temp = new Balance();
+                            temp.accountId = accountId;
+                            temp.symbol = coin.denom;
+                            temp.balance = dpBalance;
+                            temp.locked = remainVesting;
+                            temp.fetchTime = time;
+                            result.add(temp);
+
                         } else {
                             Balance temp = new Balance();
                             temp.accountId = accountId;

@@ -32,6 +32,8 @@ public class TokenDetailSupportHolder extends BaseHolder {
     private TextView            mTvLocked;
     private RelativeLayout      mFrozenLayout;
     private TextView            mTvFrozen;
+    private RelativeLayout      mVestingLayout;
+    private TextView            mTvVesting;
 
     private int                 dpDecimal = 6;
     private BigDecimal          mTotalAmount = BigDecimal.ZERO;
@@ -46,6 +48,8 @@ public class TokenDetailSupportHolder extends BaseHolder {
         mTvLocked           = itemView.findViewById(R.id.locked_amount);
         mFrozenLayout       = itemView.findViewById(R.id.frozen_layout);
         mTvFrozen           = itemView.findViewById(R.id.frozen_amount);
+        mVestingLayout      = itemView.findViewById(R.id.vesting_layout);
+        mTvVesting          = itemView.findViewById(R.id.vesrting_amount);
     }
 
     public void onBindNativeTokengRPC(Context c, BaseChain baseChain, BaseData baseData, String denom) {
@@ -81,8 +85,14 @@ public class TokenDetailSupportHolder extends BaseHolder {
             mAmountView.setBackgroundColor(c.getResources().getColor(R.color.colorTransBgswp));
         }
 
-        mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+        BigDecimal vestingAmount = baseData.lockedAmount(denom);
+        mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount.add(vestingAmount), dpDecimal, dpDecimal));
         mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+        if (vestingAmount.compareTo(BigDecimal.ZERO) > 0){
+            mVestingLayout.setVisibility(View.VISIBLE);
+            mTvVesting.setText(WDp.getDpAmount2(c, vestingAmount, dpDecimal, dpDecimal));
+        }
+
     }
 
     public void onBindBNBTokens(Context c, BaseData baseData, String denom) {

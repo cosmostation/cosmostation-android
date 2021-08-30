@@ -831,6 +831,7 @@ public class WDp {
                     totalValue = totalValue.add(assetValue);
                 } else {
                     BigDecimal amount = baseData.availableAmount(balance.symbol);
+                    amount = amount.add(baseData.lockedAmount(balance.symbol));
                     String kavaDenom = WDp.getKavaBaseDenom(balance.symbol);
                     int kavaDecimal = WUtil.getKavaCoinDecimal(balance.symbol);
                     BigDecimal assetValue = userCurrencyValue(baseData, kavaDenom, amount, kavaDecimal);

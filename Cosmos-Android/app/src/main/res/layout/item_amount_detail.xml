@@ -19,6 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/space_14"
             android:orientation="vertical">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -54,7 +55,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_14">
+                android:layout_marginLeft="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_14">
                 <TextView
                     android:id="@+id/available_title"
                     android:layout_width="wrap_content"
@@ -81,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/space_14"
                 android:layout_marginRight="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_14"
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/locked_title"
@@ -106,7 +110,9 @@
                 android:id="@+id/frozen_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_14"
+                android:layout_marginLeft="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_14"
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/frozen_title"
@@ -120,6 +126,34 @@
                     android:layout_toRightOf="@+id/frozen_title">
                     <TextView
                         android:id="@+id/frozen_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text="12313123"
+                        android:layout_alignParentRight="true"
+                        style="@style/font_ss_12_white"/>
+                </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/vesting_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_14"
+                android:layout_marginRight="@dimen/space_14"
+                android:layout_marginTop="@dimen/space_14"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/vesting_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_vesting"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/vesting_title">
+                    <TextView
+                        android:id="@+id/vesrting_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/space_2"

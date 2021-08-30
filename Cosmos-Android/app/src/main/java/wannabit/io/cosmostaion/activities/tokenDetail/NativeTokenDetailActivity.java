@@ -158,6 +158,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(NativeTokenDetailActivity.this, mBaseChain));
         if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
             BigDecimal totalAmount = getBaseDao().availableAmount(mDenom);
+            totalAmount = totalAmount.add(getBaseDao().lockedAmount(mDenom));
             String baseDenom = WDp.getKavaBaseDenom(mDenom);
             int kavaDecimal = WUtil.getKavaCoinDecimal(mDenom);
             Picasso.get().load(KAVA_COIN_IMG_URL + mDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
