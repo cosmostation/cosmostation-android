@@ -169,6 +169,9 @@ extension WUtils {
     
     static func getKavaPriceFeed(_ denom: String) -> NSDecimalNumber {
         let feedSymbol = getKavaPriceFeedSymbol(denom)
-        return NSDecimalNumber.init(string: BaseData.instance.mKavaPrice[feedSymbol]?.result.price)
+        if let price = BaseData.instance.mKavaPrice[feedSymbol]?.result.price {
+            return NSDecimalNumber.init(string: price)
+        }
+        return NSDecimalNumber.zero
     }
 }

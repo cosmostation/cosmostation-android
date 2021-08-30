@@ -45,7 +45,7 @@ class SwapPoolListMyCell: UITableViewCell {
         let coin0price = WUtils.getKavaPriceFeed(coin0.denom)
         let coin1price = WUtils.getKavaPriceFeed(coin1.denom)
         let coin0Value = NSDecimalNumber.init(string: coin0.amount).multiplying(by: coin0price).multiplying(byPowerOf10: -coin0Decimal, withBehavior: WUtils.handler2)
-        let coin1Value = NSDecimalNumber.init(string: coin1.amount).multiplying(by: coin1price).multiplying(byPowerOf10: -coin0Decimal, withBehavior: WUtils.handler2)
+        let coin1Value = NSDecimalNumber.init(string: coin1.amount).multiplying(by: coin1price).multiplying(byPowerOf10: -coin1Decimal, withBehavior: WUtils.handler2)
         
         poolPairLabel.text = pool.name?.uppercased()
         

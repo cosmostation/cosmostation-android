@@ -35,15 +35,15 @@ class SwapPoolListOtherCell: UITableViewCell {
         let coin0price = WUtils.getKavaPriceFeed(coin0.denom)
         let coin1price = WUtils.getKavaPriceFeed(coin1.denom)
         let coin0Value = NSDecimalNumber.init(string: coin0.amount).multiplying(by: coin0price).multiplying(byPowerOf10: -coin0Decimal, withBehavior: WUtils.handler2)
-        let coin1Value = NSDecimalNumber.init(string: coin1.amount).multiplying(by: coin1price).multiplying(byPowerOf10: -coin0Decimal, withBehavior: WUtils.handler2)
-        
+        let coin1Value = NSDecimalNumber.init(string: coin1.amount).multiplying(by: coin1price).multiplying(byPowerOf10: -coin1Decimal, withBehavior: WUtils.handler2)
+
         poolPairLabel.text = pool.name?.uppercased()
-        
+
         let poolValue = coin0Value.adding(coin1Value)
         let poolValueFormatted = "$ " + nf.string(from: poolValue)!
         totalShareAmountLabel.attributedText = WUtils.displayAmount2(pool.total_shares.stringValue, totalShareAmountLabel.font, 6, 6)
         totalShareValueLabel.attributedText = WUtils.getDpAttributedString(poolValueFormatted, 2, totalShareValueLabel.font)
-        
+
         WUtils.DpKavaTokenName(liquidity1DenomLabel, coin0.denom)
         WUtils.DpKavaTokenName(liquidity2DenomLabel, coin1.denom)
         liquidity1AmountLabel.attributedText = WUtils.displayAmount2(coin0.amount, liquidity1AmountLabel.font, coin0Decimal, 6)
