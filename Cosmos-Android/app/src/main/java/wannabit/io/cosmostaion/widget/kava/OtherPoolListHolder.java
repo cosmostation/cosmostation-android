@@ -47,7 +47,7 @@ public class OtherPoolListHolder extends BaseHolder {
         BigDecimal coin0price = WDp.getKavaPriceFeed(baseData, coin0.denom);
         BigDecimal coin1price = WDp.getKavaPriceFeed(baseData, coin1.denom);
         BigDecimal coin0value = new BigDecimal(coin0.amount).multiply(coin0price).movePointLeft(coin0Decimal).setScale(2, RoundingMode.DOWN);
-        BigDecimal coin1value = new BigDecimal(coin1.amount).multiply(coin1price).movePointLeft(coin0Decimal).setScale(2, RoundingMode.DOWN);
+        BigDecimal coin1value = new BigDecimal(coin1.amount).multiply(coin1price).movePointLeft(coin1Decimal).setScale(2, RoundingMode.DOWN);
 
         itemPoolType.setText(otherPool.name.toUpperCase());
 

@@ -313,14 +313,13 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
                     }
                 }
                 boolean myPool = false;
-                WLog.w("swapPool : " + swapPool.name);
-                WLog.w("mMySwapDepositList : " + mMySwapDepositList.get(0).pool_id);
-                if (mMySwapDepositList.get(0).pool_id.equalsIgnoreCase(swapPool.name)) {
-                    myPool = true;
+                for (SwapDeposit deposit: mMySwapDepositList) {
+                    if (deposit.pool_id.equalsIgnoreCase(swapPool.name)) {
+                        myPool = true;
+                    }
                 }
                 if (myPool) { mMySwapPoolList.add(swapPool); }
                 else { mOtherSwapPoolList.add(swapPool); }
-                WLog.w("mMySwapDepositList : " + mMySwapDepositList.size());
             }
 
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
