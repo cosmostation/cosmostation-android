@@ -178,18 +178,39 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">
                 <TextView
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_kava_deposit_my_share_title"
-                    style="@style/font_ss_12_gray1"/>
-                <TextView
-                    android:id="@+id/mypool_share_liquidity_value"
-                    android:layout_width="wrap_content"
+                    android:text="@string/str_kava_deposit_my_share_title" />
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    style="@style/font_ssl_12_white"
-                    android:gravity="right"
-                    android:text="-"/>
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="right">
+                        <TextView
+                            android:id="@+id/mypool_share_liquidity_amount"
+                            style="@style/font_ssl_12_white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="right">
+                        <TextView
+                            android:id="@+id/mypool_share_liquidity_value"
+                            style="@style/font_ss_9_gray1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="" />
+                    </LinearLayout>
+                </LinearLayout>
             </RelativeLayout>
 
             <LinearLayout

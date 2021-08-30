@@ -26,7 +26,7 @@ public class MyPoolListHolder extends BaseHolder {
     TextView itemMyPoolType;
     TextView itemMyTotalLiquidityAmount, itemMyTotalLiquidityValue;
     TextView itemMyTotalLiquidityAmount1, itemMyTotalLiquiditySymbol1, itemMyTotalLiquidityAmount2, itemMyTotalLiquiditySymbol2;
-    TextView itemMyShareValue;
+    TextView itemMyShareAmount, itemMyShareValue;
     TextView itemMyAvailableAmount0, itemMyAvailableSymbol0, itemMyAvailableAmount1, itemMyAvailableSymbol1;
 
     public MyPoolListHolder(@NonNull View itemView) {
@@ -40,6 +40,7 @@ public class MyPoolListHolder extends BaseHolder {
         itemMyTotalLiquidityAmount2 = itemView.findViewById(R.id.mypool_total_liquidity_amount2);
         itemMyTotalLiquiditySymbol2 = itemView.findViewById(R.id.mypool_total_liquidity_symbol2);
 
+        itemMyShareAmount           = itemView.findViewById(R.id.mypool_share_liquidity_amount);
         itemMyShareValue            = itemView.findViewById(R.id.mypool_share_liquidity_value);
         itemMyAvailableAmount0      = itemView.findViewById(R.id.mypool_deposit_amount0);
         itemMyAvailableSymbol0      = itemView.findViewById(R.id.mypool_deposit_symbol0);
@@ -71,10 +72,11 @@ public class MyPoolListHolder extends BaseHolder {
 
         Coin my0 = myDeposit.shares_value.get(0);
         Coin my1 = myDeposit.shares_value.get(1);
-        BigDecimal my0Value = new BigDecimal(my0.amount).multiply(coin0price).movePointLeft(-coin0Decimal).setScale(2, RoundingMode.DOWN);
-        BigDecimal my1Value = new BigDecimal(my1.amount).multiply(coin1price).movePointLeft(-coin0Decimal).setScale(2, RoundingMode.DOWN);
-
+        BigDecimal my0Value = new BigDecimal(my0.amount).multiply(coin0price).movePointLeft(coin0Decimal).setScale(2, RoundingMode.DOWN);
+        BigDecimal my1Value = new BigDecimal(my1.amount).multiply(coin1price).movePointLeft(coin1Decimal).setScale(2, RoundingMode.DOWN);
         BigDecimal myShareValue = my0Value.add(my1Value);
+
+        itemMyShareAmount.setText(WDp.getDpAmount2(context, new BigDecimal(myDeposit.shares_owned), 6, 6));
         itemMyShareValue.setText(WDp.getDpRawDollor(context, myShareValue, 2));
 
         WUtil.dpKavaTokenName(context, itemMyAvailableSymbol0, my0.denom);
