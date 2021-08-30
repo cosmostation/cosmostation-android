@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = true;
+let SHOW_LOG                            = false;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -151,9 +151,9 @@ let ALTHEA_VAL_URL                      = "https://raw.githubusercontent.com/cos
 let OSMOSIS_VAL_URL                     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/osmosis/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
-let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
 let KAVA_CDP_IMG_URL                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
 let KAVA_HARD_POOL_IMG_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/hard/";
+let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
 let OKEX_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
 let SIF_COIN_IMG_URL                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/sif/";
 
@@ -310,12 +310,19 @@ let KAVA_MSG_TYPE_WITHDRAW_HAVEST           = "harvest/MsgWithdraw";
 let KAVA_MSG_TYPE_CLAIM_HAVEST              = "harvest/MsgClaimReward";
 let KAVA_MSG_TYPE_USDX_MINT_INCENTIVE       = "incentive/MsgClaimUSDXMintingReward";
 let KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE      = "incentive/MsgClaimHardReward";
+let KAVA_MSG_TYPE_DELEGATOR_INCENTIVE       = "incentive/MsgClaimDelegatorReward";
+let KAVA_MSG_TYPE_SWAP_INCENTIVE            = "incentive/MsgClaimSwapReward";
 let KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV   = "incentive/MsgClaimHardRewardVVesting";
+let KAVA_MSG_TYPE_INCENTIVE_ALL             = "incentiveAll";
 let KAVA_MSG_TYPE_DEPOSIT_HARD              = "hard/MsgDeposit";
 let KAVA_MSG_TYPE_WITHDRAW_HARD             = "hard/MsgWithdraw";
 let KAVA_MSG_TYPE_BORROW_HARD               = "hard/MsgBorrow";
 let KAVA_MSG_TYPE_REPAY_HARD                = "hard/MsgRepay";
 let KAVA_MSG_TYPE_LIQUIDATE_HARD            = "hard/MsgLiquidate";
+let KAVA_MSG_TYPE_SWAP_TOKEN                = "swap/MsgSwapExactForTokens";
+let KAVA_MSG_TYPE_SWAP_TOKEN2               = "swap/MsgSwapForExactTokens";
+let KAVA_MSG_TYPE_SWAP_DEPOSIT              = "swap/MsgDeposit";
+let KAVA_MSG_TYPE_SWAP_WITHDRAW             = "swap/MsgWithdraw";
 
 
 let CERTIK_MSG_TYPE_TRANSFER                = "bank/MsgSend";
@@ -487,6 +494,10 @@ let KAVA_GAS_AMOUNT_VOTE                        = "300000";
 let KAVA_GAS_AMOUNT_CLAIM_INCENTIVE             = "800000";
 let KAVA_GAS_AMOUNT_CDP                         = "2000000";
 let KAVA_GAS_AMOUNT_HARD_POOL                   = "800000";
+let KAVA_GAS_AMOUNT_SWAP_TOKEN                  = "800000";
+let KAVA_GAS_AMOUNT_SWAP_DEPOSIT                = "800000";
+let KAVA_GAS_AMOUNT_SWAP_WITHDRAW               = "800000";
+let KAVA_GAS_AMOUNT_CLAIM_INCENTIVE_ALL         = "2000000";
 let KAVA_GAS_AMOUNT_BEP3                        = "500000";
 
 
@@ -639,6 +650,10 @@ let COLOR_KAVA                              = UIColor.init(hexString: "FF564F")
 let COLOR_KAVA_DARK                         = UIColor.init(hexString: "631D1B")
 let COLOR_BG_COLOR_HARD                     = UIColor.init(hexString: "8626E1", alpha: 0.15)
 let COLOR_HARD                              = UIColor.init(hexString: "8626E1")
+let COLOR_BG_COLOR_USDX                     = UIColor.init(hexString: "06D6A0", alpha: 0.15)
+let COLOR_USDX                              = UIColor.init(hexString: "06D6A0")
+let COLOR_BG_COLOR_SWP                      = UIColor.init(hexString: "5A42FF", alpha: 0.15)
+let COLOR_SWP                               = UIColor.init(hexString: "5A42FF")
 
 let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "6e7cde", alpha: 0.15)
 let TRANS_BG_COLOR_IOV2                     = UIColor.init(hexString: "6e7cde", alpha: 0.4)
@@ -930,6 +945,7 @@ let IRIS_TEST_DENOM = "ubif"
 let IOV_TEST_DENOM = "uvoi"
 let KAVA_HARD_DENOM = "hard"
 let KAVA_USDX_DENOM = "usdx"
+let KAVA_SWAP_DENOM = "swp"
 let OSMOSIS_ION_DENOM = "uion"
 
 
@@ -962,6 +978,8 @@ let SELECT_POPUP_HTLC_TO_ACCOUNT = 2
 let SELECT_POPUP_STARNAME_ACCOUNT = 3
 let SELECT_POPUP_OSMOSIS_COIN_IN = 4
 let SELECT_POPUP_OSMOSIS_COIN_OUT = 5
+let SELECT_POPUP_KAVA_SWAP_IN = 6
+let SELECT_POPUP_KAVA_SWAP_OUT = 7
 
 
 let EXPLORER_COSMOS_MAIN    = "https://www.mintscan.io/cosmos/";

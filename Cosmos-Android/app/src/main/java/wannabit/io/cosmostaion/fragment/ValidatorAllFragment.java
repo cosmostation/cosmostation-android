@@ -34,8 +34,8 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
@@ -163,7 +163,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 //                    }
 //                }
 
-                if (getMainActivity().mBaseChain.equals(SIF_MAIN) || getMainActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
+                if (getMainActivity().mBaseChain.equals(SIF_MAIN) || getMainActivity().mBaseChain.equals(ALTHEA_TEST)) {
                     holder.itemTvCommission.setText("--");
                 }
 

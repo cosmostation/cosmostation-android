@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -143,7 +144,7 @@ public class ValidatorOtherFragment extends BaseFragment {
                     }
                 });
 
-                if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
+                if (getMainActivity().mBaseChain.equals(SIF_MAIN) || getMainActivity().mBaseChain.equals(ALTHEA_TEST)) {
                     holder.itemTvCommission.setText("--");
                 }
 
@@ -191,10 +192,6 @@ public class ValidatorOtherFragment extends BaseFragment {
                     } else {
                         holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
                     }
-                }
-
-                if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
-                    holder.itemTvCommission.setText("--");
                 }
             }
         }

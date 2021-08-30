@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HdacBurnTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbHtlcRefundTask;
@@ -46,6 +47,8 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleHtlcRefundTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaDepositTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaSwapTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
@@ -112,6 +115,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
@@ -207,14 +213,16 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
 
     private String                      mPoolId;
-    private Coin                        mOsmoPoolCoin0;
-    private Coin                        mOsmoPoolCoin1;
+    private Coin                        mPoolCoin0;
+    private Coin                        mPoolCoin1;
     private Coin                        mLpToken;
     private Tx.SwapAmountInRoute        mSwapAmountInRoute;
-    private Coin                        mOsmoSwapInCoin;
-    private Coin                        mOsmoSwapOutCoin;
+    private Coin                        mSwapInCoin;
+    private Coin                        mSwapOutCoin;
     private long                        mOsmosisLockupDuration;
     private ArrayList<Lock.PeriodLock>  mOsmosisLockups = new ArrayList<>();
+
+    private String                      mKavaShareAmount;
 
 
     private String                      mHdacBurnRawTx;                 //for hdac burn & swap
@@ -298,27 +306,29 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         }
 
         mPoolId = String.valueOf(getIntent().getLongExtra("mPoolId", 0));
-        mOsmoPoolCoin0 = getIntent().getParcelableExtra("mOsmoPoolCoin0");
-        mOsmoPoolCoin1 = getIntent().getParcelableExtra("mOsmoPoolCoin1");
+        mPoolCoin0 = getIntent().getParcelableExtra("mPoolCoin0");
+        mPoolCoin1 = getIntent().getParcelableExtra("mPoolCoin1");
+        mKavaShareAmount = getIntent().getStringExtra("mKavaShare");
         mLpToken = getIntent().getParcelableExtra("mLpToken");
-        mOsmoSwapInCoin = getIntent().getParcelableExtra("osmosisSwapInputCoin");
-        mOsmoSwapOutCoin = getIntent().getParcelableExtra("osmosisSwapOutputcoin");
+        mSwapInCoin = getIntent().getParcelableExtra("SwapInputCoin");
+        mSwapOutCoin = getIntent().getParcelableExtra("SwapOutputcoin");
         mOsmosisLockupDuration = getIntent().getLongExtra("mOsmoDuraion", 0);
         OsmosisPeriodLockWrapper lockupsWrapper = (OsmosisPeriodLockWrapper) getIntent().getSerializableExtra("osmosislockups");
         if (lockupsWrapper != null) {
             mOsmosisLockups = lockupsWrapper.array;
         }
 
-        try {
-            mSwapAmountInRoute = Tx.SwapAmountInRoute.parseFrom(getIntent().getByteArrayExtra("osmosisSwapRoute"));
-        } catch (Exception e) { WLog.w("Passing bundle Error"); }
+        if (getIntent().getByteArrayExtra("osmosisSwapRoute") != null) {
+            try {
+                mSwapAmountInRoute = Tx.SwapAmountInRoute.parseFrom(getIntent().getByteArrayExtra("osmosisSwapRoute"));
+            } catch (Exception e) { WLog.w("Passing bundle Error"); }
+        }
 
         mHdacBurnRawTx = getIntent().getStringExtra("hdacBurnRawTx");
 
 
         mIdToDelete = getIntent().getLongExtra("id", -1);
         mIdToCheck  = getIntent().getLongExtra("checkid", -1);
-
 
         mValOpAddresses_V1 = getIntent().getStringArrayListExtra("valOpAddresses");
 
@@ -534,8 +544,20 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
 
         } else if (mPurpose == CONST_PW_TX_CLAIM_INCENTIVE) {
-            new SimpleClaimIncentiveTask(getBaseApplication(),this, mAccount,
-                    mCollateralType, mMultiplierName, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleClaimIncentiveTask(getBaseApplication(),this, mAccount, mMultiplierName,
+                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_KAVA_SWAP) {
+            new SimpleKavaSwapTask(getBaseApplication(),this, mAccount, mSwapInCoin, mSwapOutCoin,
+                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_KAVA_JOIN_POOL) {
+            new SimpleKavaDepositTask(getBaseApplication(),this, mAccount, mPoolCoin0, mPoolCoin1,
+                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_KAVA_EXIT_POOL) {
+            new SimpleKavaWithdrawTask(getBaseApplication(),this, mAccount, mKavaShareAmount, mPoolCoin0, mPoolCoin1,
+                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OK_DEPOSIT) {
             new SimpleOkDepositTask(getBaseApplication(), this, mAccount, mBaseChain,
@@ -600,15 +622,15 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         }
 
         else if (mPurpose == CONST_PW_TX_OSMOSIS_SWAP) {
-            new OsmosisSwapInTask(getBaseApplication(), this, mAccount, mBaseChain, mSwapAmountInRoute, mOsmoSwapInCoin, mOsmoSwapOutCoin,
+            new OsmosisSwapInTask(getBaseApplication(), this, mAccount, mBaseChain, mSwapAmountInRoute, mSwapInCoin, mSwapOutCoin,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_JOIN_POOL) {
-            new OsmosisJoinPoolGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mOsmoPoolCoin0, mOsmoPoolCoin1, mLpToken.amount,
+            new OsmosisJoinPoolGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1, mLpToken.amount,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_EXIT_POOL) {
-            new OsmosisExitPooGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mOsmoPoolCoin0, mOsmoPoolCoin1, mLpToken.amount,
+            new OsmosisExitPooGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1, mLpToken.amount,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OSMOSIS_EARNING) {

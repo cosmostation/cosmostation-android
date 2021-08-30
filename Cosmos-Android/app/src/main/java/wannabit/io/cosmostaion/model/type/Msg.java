@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wannabit.io.cosmostaion.model.StarNameResource;
+import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
+import wannabit.io.cosmostaion.model.kava.DenomsToClaim;
 
 public class Msg {
 
@@ -221,8 +223,44 @@ public class Msg {
         public String multiplier_name;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("denoms_to_claim")
+        public ArrayList<DenomsToClaim> denoms_to_claim;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("borrower")
         public String borrower;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("requester")
+        public String requester;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("exact_token_a")
+        public Coin exact_token_a;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("token_a")
+        public Coin token_a;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("token_b")
+        public Coin token_b;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("slippage")
+        public String slippage;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("deadline")
+        public String deadline;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("min_token_a")
+        public Coin min_token_a;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("min_token_b")
+        public Coin min_token_b;
 
 
 

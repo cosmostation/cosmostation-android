@@ -25,12 +25,12 @@ public class CdpIncentiveHolder extends BaseHolder {
 
     @Override
     public void onBindUsdxIncentive(Context c, ListCdpFragment fragment, IncentiveReward incentiveReward) {
-        itemIncentiveAmount.setText(WDp.getDpAmount2(c, incentiveReward.getMintingRewardAmount(), 6, 6));
-        itemBtnClaim.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragment.onCheckStartClaimIncentive();
-            }
-        });
+//        itemIncentiveAmount.setText(WDp.getDpAmount2(c, incentiveReward.getMintingRewardAmount(), 6, 6));
+//        itemBtnClaim.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                fragment.onCheckStartClaimIncentive();
+//            }
+//        });
     }
 }

@@ -69,16 +69,15 @@ import wannabit.io.cosmostaion.task.gRpcTask.ValidatorInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_BONDED;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -886,10 +885,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                 holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
             }
-            if (mBaseChain.equals(SIF_MAIN)) {
-                holder.itemDailyReturn.setText("--");
-                holder.itemMonthlyReturn.setText("--");
-            }
 
             holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -1062,7 +1057,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e){}
 
-            if (mBaseChain.equals(SIF_MAIN) || mBaseChain.equals(OSMOSIS_MAIN)) {
+            if (mBaseChain.equals(SIF_MAIN) || mBaseChain.equals(ALTHEA_TEST)) {
                 holder.itemTvYieldRate.setText("--");
             }
 
@@ -1127,7 +1122,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e){}
 
-            if (mBaseChain.equals(SIF_MAIN) || mBaseChain.equals(OSMOSIS_MAIN)) {
+            if (mBaseChain.equals(SIF_MAIN) || mBaseChain.equals(ALTHEA_TEST)) {
                 holder.itemTvYieldRate.setText("--");
             }
         }
@@ -1153,7 +1148,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             }
 
-            if (mBaseChain.equals(SIF_MAIN) || mBaseChain.equals(OSMOSIS_MAIN)) {
+            if (mBaseChain.equals(SIF_MAIN) || mBaseChain.equals(ALTHEA_TEST)) {
                 holder.itemDailyReturn.setText("--");
                 holder.itemMonthlyReturn.setText("--");
             }

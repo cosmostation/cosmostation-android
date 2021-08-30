@@ -64,10 +64,10 @@ class PoolViewController: BaseViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 0) {
             let noticeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-            noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("title_pool_join_osmosis", comment: ""), style: .default, handler: { _ in
+            noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("title_pool_join", comment: ""), style: .default, handler: { _ in
                 self.onCheckPoolJoin(self.mMyPoolList[indexPath.row])
             }))
-            noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("title_pool_exit_osmosis", comment: ""), style: .default, handler: { _ in
+            noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("title_pool_exit", comment: ""), style: .default, handler: { _ in
                 self.onCheckExitJoin(self.mMyPoolList[indexPath.row])
             }))
             self.present(noticeAlert, animated: true) {

@@ -225,6 +225,28 @@ public class WUtils {
                     
                     result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, "0", remainVesting.stringValue))
                     
+                } else if (coin.denom == KAVA_SWAP_DENOM) {
+                    dpBalance = NSDecimalNumber.zero
+                    dpVesting = NSDecimalNumber.zero
+                    originalVesting = NSDecimalNumber.zero
+                    remainVesting = NSDecimalNumber.zero
+                    delegatedVesting = NSDecimalNumber.zero
+                    dpBalance = NSDecimalNumber.init(string: coin.amount)
+                    
+                    accountInfo.result.value.original_vesting.forEach({ (coin) in
+                        if (coin.denom == KAVA_SWAP_DENOM) {
+                            originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                        }
+                    })
+                    
+                    remainVesting = accountInfo.result.getCalcurateVestingAmountSumByDenom(KAVA_SWAP_DENOM)
+                    print("KAVA_SWAP_DENOM remainVesting   ", remainVesting)
+                    
+                    dpBalance = dpBalance.subtracting(remainVesting)
+                    print("KAVA_SWAP_DENOM dpBalance      ", dpBalance)
+                    
+                    result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, "0", remainVesting.stringValue))
+                    
                 } else {
                     result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
                 }
@@ -1058,7 +1080,7 @@ public class WUtils {
     
     static func perUsdValue(_ denom: String) -> NSDecimalNumber? {
         if let coinPrice = BaseData.instance.getPrice(denom) {
-            return coinPrice.currencyPrice("usd").rounding(accordingToBehavior: handler3Down)
+            return coinPrice.currencyPrice("usd").rounding(accordingToBehavior: handler18)
         }
         return nil
     }
@@ -1179,14 +1201,18 @@ public class WUtils {
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             baseData.mBalances.forEach { coin in
-                var allKava = NSDecimalNumber.zero
                 if (coin.balance_denom == getMainDenom(chainType)) {
-                    allKava = allKava.adding(getAllMainAssetOld(getMainDenom(chainType)))
+                    let amount = WUtils.getAllMainAssetOld(KAVA_MAIN_DENOM)
+                    let assetValue = userCurrencyValue(coin.balance_denom, amount, 6)
+                    totalValue = totalValue.adding(assetValue)
+                    
                 } else {
-                    allKava = allKava.adding(convertTokenToKava(coin.balance_denom))
+                    let baseDenom = WUtils.getKavaBaseDenom(coin.balance_denom)
+                    let decimal = WUtils.getKavaCoinDecimal(coin.balance_denom)
+                    let amount = WUtils.getKavaTokenAll(coin.balance_denom)
+                    let assetValue = userCurrencyValue(baseDenom, amount, decimal)
+                    totalValue = totalValue.adding(assetValue)
                 }
-                let assetValue = userCurrencyValue(getMainDenom(chainType), allKava, 6)
-                totalValue = totalValue.adding(assetValue)
             }
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
@@ -1638,9 +1664,9 @@ public class WUtils {
         return amount
     }
     
-    static func getKavaTokenAll(_ denom: String, _ balances: Array<Balance>) -> NSDecimalNumber {
+    static func getKavaTokenAll(_ denom: String) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
-        for balance in balances {
+        for balance in BaseData.instance.mBalances {
             if (balance.balance_denom == denom) {
                 amount = localeStringToDecimal(balance.balance_amount)
                 amount = amount.adding(localeStringToDecimal(balance.balance_locked))
@@ -1656,6 +1682,8 @@ public class WUtils {
             return KAVA_HARD_DENOM
         } else if (denom == KAVA_USDX_DENOM) {
             return KAVA_USDX_DENOM
+        } else if (denom == KAVA_SWAP_DENOM) {
+            return KAVA_SWAP_DENOM
         } else if (denom == TOKEN_HTLC_KAVA_BNB) {
             return "bnb"
         } else if (denom == TOKEN_HTLC_KAVA_XRPB) {
@@ -2647,27 +2675,6 @@ public class WUtils {
         }
     }
     
-    static func getKavaCoinDecimal(_ denom:String?) -> Int16 {
-        if (denom?.caseInsensitiveCompare(KAVA_MAIN_DENOM) == .orderedSame) {
-            return 6;
-        } else if (denom?.caseInsensitiveCompare("btc") == .orderedSame) {
-            return 8;
-        } else if (denom?.caseInsensitiveCompare("usdx") == .orderedSame) {
-            return 6;
-        } else if (denom?.caseInsensitiveCompare("bnb") == .orderedSame) {
-            return 8;
-        } else if (denom?.caseInsensitiveCompare("btcb") == .orderedSame || denom?.caseInsensitiveCompare("hbtc") == .orderedSame) {
-            return 8;
-        } else if (denom?.caseInsensitiveCompare("busd") == .orderedSame) {
-            return 8;
-        } else if (denom?.caseInsensitiveCompare("xrpb") == .orderedSame || denom?.caseInsensitiveCompare("xrbp") == .orderedSame) {
-            return 8;
-        } else if (denom?.caseInsensitiveCompare("hard") == .orderedSame) {
-            return 6;
-        }
-        return 100;
-    }
-    
     static func getSifCoinDecimal(_ denom:String?) -> Int16 {
         if (denom?.caseInsensitiveCompare(SIF_MAIN_DENOM) == .orderedSame) { return 18; }
         else if (denom?.caseInsensitiveCompare("cusdt") == .orderedSame) { return 6; }
@@ -3000,6 +3007,14 @@ public class WUtils {
             } else if (type == KAVA_MSG_TYPE_DEPOSIT_HARD || type == KAVA_MSG_TYPE_WITHDRAW_HARD || type == KAVA_MSG_TYPE_BORROW_HARD ||
                         type == KAVA_MSG_TYPE_REPAY_HARD) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_HARD_POOL))
+            } else if (type == KAVA_MSG_TYPE_SWAP_TOKEN) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_SWAP_TOKEN))
+            } else if (type == KAVA_MSG_TYPE_SWAP_DEPOSIT) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_SWAP_DEPOSIT))
+            } else if (type == KAVA_MSG_TYPE_SWAP_WITHDRAW) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_SWAP_WITHDRAW))
+            } else if (type == KAVA_MSG_TYPE_INCENTIVE_ALL) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_CLAIM_INCENTIVE_ALL))
             } else if (type == TASK_TYPE_HTLC_SWAP) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_BEP3))
             }

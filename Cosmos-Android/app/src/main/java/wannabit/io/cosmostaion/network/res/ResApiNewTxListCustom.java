@@ -285,11 +285,26 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_HARD)) {
                     result = c.getString(R.string.tx_kava_hard_liquidate);
 
-                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_SWAP_TOKEN2)) {
+                    result = c.getString(R.string.tx_kava_swap_token);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT)) {
+                    result = c.getString(R.string.tx_kava_swap_deposit);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW)) {
+                    result = c.getString(R.string.tx_kava_swap_withdraw);
+
+                }  else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
                     result = c.getString(R.string.tx_kava_incentive_reward);
 
                 } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST) || msgType.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE)) {
                     result = c.getString(R.string.tx_kava_incentive_hard);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_DELEGATOR_INCENTIVE)) {
+                    result = c.getString(R.string.tx_kava_delegator_incentive);
+
+                } else if (msgType.equals(BaseConstant.KAVA_MSG_TYPE_SWAP_INCENTIVE)) {
+                    result = c.getString(R.string.tx_kava_swap_incentive);
 
                 }
 

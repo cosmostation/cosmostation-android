@@ -51,6 +51,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 
 public class NativeTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -155,18 +157,23 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
     private void onUpdateView() {
         mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(NativeTokenDetailActivity.this, mBaseChain));
         if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+            BigDecimal totalAmount = getBaseDao().availableAmount(mDenom);
+            totalAmount = totalAmount.add(getBaseDao().lockedAmount(mDenom));
             String baseDenom = WDp.getKavaBaseDenom(mDenom);
+            int kavaDecimal = WUtil.getKavaCoinDecimal(mDenom);
             Picasso.get().load(KAVA_COIN_IMG_URL + mDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
             if (mDenom.equalsIgnoreCase(TOKEN_HARD)) {
                 mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorHard));
                 mBtnAddressPopup.setBackgroundColor(getResources().getColor(R.color.colorTransBghard));
-            } else {
-                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            } else if (mDenom.equalsIgnoreCase(TOKEN_USDX)) {
+                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorUsdx));
+                mBtnAddressPopup.setBackgroundColor(getResources().getColor(R.color.colorTransBgusdx));
+            } else if (mDenom.equalsIgnoreCase(TOKEN_SWP)) {
+                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorSwp));
+                mBtnAddressPopup.setBackgroundColor(getResources().getColor(R.color.colorTransBgswp));
             }
             mToolbarSymbol.setText(mDenom.toUpperCase());
-
-            BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), mDenom);
-            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));
+            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), baseDenom, totalAmount, kavaDecimal));
 
             mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), baseDenom));
             mItemUpDownPrice.setText(WDp.dpValueChange(getBaseDao(), baseDenom));
@@ -357,7 +364,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         @Override
         public int getItemViewType(int position) {
             if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-                if (mDenom.equalsIgnoreCase(TOKEN_HARD)) {
+                if (mDenom.equalsIgnoreCase(TOKEN_HARD) || mDenom.equalsIgnoreCase(TOKEN_SWP)) {
                     if (mHasVesting) {
                         if (position == 0) return TYPE_KAVA;
                         if (position == 1) return TYPE_VESTING;

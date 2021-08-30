@@ -31,31 +31,31 @@ class KavaPriceFeedParam {
             }
         }
     }
+}
+
+public struct KavaPriceMarket {
+    var market_id: String = ""
+    var base_asset: String = ""
+    var quote_asset: String = ""
+    var active: Bool = false
     
-    public class KavaPriceMarket {
-        var market_id: String = ""
-        var base_asset: String = ""
-        var quote_asset: String = ""
-        var active: Bool = false
+    init() {}
+    
+    init(_ dictionary: [String: Any]) {
+        if let market_id =  dictionary["market_id"] as? String {
+            self.market_id = market_id
+        }
         
-        init() {}
+        if let base_asset =  dictionary["base_asset"] as? String {
+            self.base_asset = base_asset
+        }
         
-        init(_ dictionary: [String: Any]) {
-            if let market_id =  dictionary["market_id"] as? String {
-                self.market_id = market_id
-            }
-            
-            if let base_asset =  dictionary["base_asset"] as? String {
-                self.base_asset = base_asset
-            }
-            
-            if let quote_asset =  dictionary["quote_asset"] as? String {
-                self.quote_asset = quote_asset
-            }
-            
-            if let active =  dictionary["active"] as? Bool {
-                self.active = active
-            }
+        if let quote_asset =  dictionary["quote_asset"] as? String {
+            self.quote_asset = quote_asset
+        }
+        
+        if let active =  dictionary["active"] as? Bool {
+            self.active = active
         }
     }
 }

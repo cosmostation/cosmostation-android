@@ -49,7 +49,7 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_title_pool_exit_osmosis));
+        mTitle.setText(getString(R.string.str_title_pool_exit));
 
         mTxType = CONST_PW_TX_OSMOSIS_EXIT_POOL;
         mOsmosisPoolId = getIntent().getLongExtra("mPoolId", 0);
@@ -59,7 +59,7 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_osmosis_exit_pool_step_0));
+        mTvStep.setText(getString(R.string.str_exit_pool_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
@@ -76,18 +76,18 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
             public void onPageSelected(int i) {
                 if(i == 0) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_osmosis_exit_pool_step_0));
+                    mTvStep.setText(getString(R.string.str_exit_pool_step_0));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 1 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_osmosis_exit_pool_step_1));
+                    mTvStep.setText(getString(R.string.str_exit_pool_step_1));
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_osmosis_exit_pool_step_2));
+                    mTvStep.setText(getString(R.string.str_exit_pool_step_2));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_osmosis_exit_pool_step_3));
+                    mTvStep.setText(getString(R.string.str_exit_pool_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
@@ -147,8 +147,8 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
         Intent intent = new Intent(ExitPoolActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_EXIT_POOL);
         intent.putExtra("mPoolId", mOsmosisPoolId);
-        intent.putExtra("mOsmoPoolCoin0", mOsmosisPoolCoin0);
-        intent.putExtra("mOsmoPoolCoin1", mOsmosisPoolCoin1);
+        intent.putExtra("mPoolCoin0", mPoolCoin0);
+        intent.putExtra("mPoolCoin1", mPoolCoin1);
         intent.putExtra("mLpToken", mOsmosisLpToken);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);

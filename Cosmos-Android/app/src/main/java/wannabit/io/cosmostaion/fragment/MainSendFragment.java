@@ -17,7 +17,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-import wannabit.io.cosmostaion.widget.mainWallet.WalletAddressHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletAkashHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletAltheaHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBandHolder;
@@ -29,6 +28,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletFetchHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletGuideHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletIrisHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletKavaHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletKavaIncentiveHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletKiHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletMediHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletMintHolder;
@@ -42,7 +42,6 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletSentinelHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSifHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSifIncentiveHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletStarnameHolder;
-import wannabit.io.cosmostaion.widget.mainWallet.WalletUndelegationHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
@@ -58,7 +57,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
@@ -213,7 +211,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_OSMOSIS           = 20;
 
         private static final int TYPE_STAKE_DROP        = 30;
-        private static final int TYPE_UNDELEGATIONS     = 40;
+        private static final int TYPE_KAVA_INCENTIVE    = 40;
         private static final int TYPE_SIF_INCENTIVE     = 50;
         private static final int TYPE_PRICE             = 80;
         private static final int TYPE_MINT              = 81;
@@ -294,8 +292,8 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_GIUDE) {
                 return new WalletGuideHolder(getLayoutInflater().inflate(R.layout.item_wallet_guide, viewGroup, false));
 
-            } else if (viewType == TYPE_UNDELEGATIONS) {
-                return new WalletUndelegationHolder(getLayoutInflater().inflate(R.layout.item_wallet_undelegation, viewGroup, false));
+            } else if (viewType == TYPE_KAVA_INCENTIVE) {
+                return new WalletKavaIncentiveHolder(getLayoutInflater().inflate(R.layout.item_wallet_kavaincentive, viewGroup, false));
 
             } else if (viewType == TYPE_SIF_INCENTIVE) {
                 return new WalletSifIncentiveHolder(getLayoutInflater().inflate(R.layout.item_wallet_sifincentive, viewGroup, false));
@@ -373,10 +371,22 @@ public class MainSendFragment extends BaseFragment {
                     return TYPE_GIUDE;
                 }
 
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+                if (position == 0) {
+                    return TYPE_KAVA;
+                } else if (position == 1) {
+                    return TYPE_KAVA_INCENTIVE;
+                } else if (position == 2) {
+                    return TYPE_PRICE;
+                } else if (position == 3) {
+                    return TYPE_MINT;
+                } else if (position == 4) {
+                    return TYPE_GIUDE;
+                }
+
             } else {
                 if (position == 0) {
-                    if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) { return TYPE_KAVA; }
-                    else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
+                    if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
                     else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) { return TYPE_FETCH; }
                     else if (getMainActivity().mBaseChain.equals(KI_MAIN)) { return TYPE_KI; }

@@ -28,6 +28,7 @@ public class KavaMarketPriceTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
+                WLog.w("KavaMarketPriceTask : " + ApiClient.getKavaChain(mApp).getPrice(mMarket).request().url());
                 Response<ResKavaMarketPrice> response = ApiClient.getKavaChain(mApp).getPrice(mMarket).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;

@@ -263,14 +263,14 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
             if (InputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (InputAmountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).setScale(mInputCoinDecimal, RoundingMode.CEILING)) > 0) return false;
 
-            getSActivity().mOsmosisSwapInCoin = new Coin(getSActivity().mInputDenom, InputAmountTemp.movePointRight(mInputCoinDecimal).setScale(0).toPlainString());
-            getSActivity().mOsmosisSwapOutCoin = new Coin(getSActivity().mOutputDenom, OutAmountTemp.movePointRight(mOutputCoinDecimal).setScale(0).toPlainString());
+            getSActivity().mSwapInCoin = new Coin(getSActivity().mInputDenom, InputAmountTemp.movePointRight(mInputCoinDecimal).setScale(0).toPlainString());
+            getSActivity().mSwapOutCoin = new Coin(getSActivity().mOutputDenom, OutAmountTemp.movePointRight(mOutputCoinDecimal).setScale(0).toPlainString());
             getSActivity().mOsmosisSwapAmountInRoute = Tx.SwapAmountInRoute.newBuilder().setPoolId(getSActivity().mOsmosisPool.getId()).setTokenOutDenom(getSActivity().mOutputDenom).build();
             return true;
 
         } catch (Exception e) {
-            getSActivity().mOsmosisSwapInCoin = null;
-            getSActivity().mOsmosisSwapOutCoin = null;
+            getSActivity().mSwapInCoin = null;
+            getSActivity().mSwapOutCoin = null;
             getSActivity().mOsmosisSwapAmountInRoute = null;
             return false;
         }

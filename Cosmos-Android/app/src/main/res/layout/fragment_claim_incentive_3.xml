@@ -66,72 +66,117 @@
                         android:layout_marginTop="@dimen/space_16"
                         android:background="@color/colorGray3"/>
 
-
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_16">
+                        <TextView
+                            style="@style/font_ss_12_gray1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/str_incentive_amount_title" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="right">
+                                <TextView
+                                    android:id="@+id/tx_incentive_kava_amount"
+                                    style="@style/font_ssl_12_white"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="" />
+                                <TextView
+                                    style="@style/font_ss_12_white"
+                                    android:layout_width="@dimen/space_40"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/space_2"
+                                    android:gravity="end"
+                                    android:text="KAVA" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="right">
+                                <TextView
+                                    android:id="@+id/tx_incentive_hard_amount"
+                                    style="@style/font_ssl_12_white"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="" />
+                                <TextView
+                                    style="@style/font_ss_12_white"
+                                    android:layout_width="@dimen/space_40"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/space_2"
+                                    android:gravity="end"
+                                    android:text="HARD" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="right">
+                                <TextView
+                                    android:id="@+id/tx_incentive_swp_amount"
+                                    style="@style/font_ssl_12_white"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="-" />
+                                <TextView
+                                    style="@style/font_ss_12_white"
+                                    android:layout_width="@dimen/space_40"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/space_2"
+                                    android:gravity="end"
+                                    android:text="SWP" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="right">
+                                <TextView
+                                    android:id="@+id/tx_incentive_usdx_amount"
+                                    style="@style/font_ssl_12_white"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="-" />
+                                <TextView
+                                    style="@style/font_ss_12_white"
+                                    android:layout_width="@dimen/space_40"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/space_2"
+                                    android:gravity="end"
+                                    android:text="USDX" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_20">
                         <TextView
-                            android:id="@+id/receivable_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/str_receivable"
+                            android:layout_centerVertical="true"
+                            android:text="@string/str_lock_up"
                             style="@style/font_ss_12_gray1"/>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/lockup_time"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@+id/receivable_title">
-                            <TextView
-                                android:id="@+id/receivable_denom"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:text="KAVA"
-                                style="@style/font_ss_12_kava"/>
-                            <TextView
-                                android:id="@+id/receivable_amount"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignBaseline="@+id/receivable_denom"
-                                android:layout_toLeftOf="@+id/receivable_denom"
-                                android:layout_marginRight="@dimen/space_2"
-                                android:text="-"
-                                style="@style/font_ss_12_white"/>
-                        </RelativeLayout>
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:text=""
+                            style="@style/font_ss_12_white"/>
                     </RelativeLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_16"
-                        android:text="@string/str_lock_up"
-                        style="@style/font_ss_12_gray1"/>
-                    <TextView
-                        android:id="@+id/lockup_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_8"
-                        android:singleLine="true"
-                        android:ellipsize="middle"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_16"
-                        android:text="@string/str_claim_type"
-                        style="@style/font_ss_12_gray1"/>
-                    <TextView
-                        android:id="@+id/claim_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_8"
-                        android:singleLine="true"
-                        android:ellipsize="middle"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
 
                     <TextView
                         android:layout_width="wrap_content"

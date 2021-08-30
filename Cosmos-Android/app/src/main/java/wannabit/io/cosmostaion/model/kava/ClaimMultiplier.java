@@ -2,14 +2,23 @@ package wannabit.io.cosmostaion.model.kava;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class ClaimMultiplier {
+    @SerializedName("denom")
+    public String denom;
 
-    @SerializedName("name")
-    public String name;
+    @SerializedName("multipliers")
+    public ArrayList<Multiplier> multipliers;
 
-    @SerializedName("months_lockup")
-    public String months_lockup;
+    public class Multiplier {
+        @SerializedName("name")
+        public String name;
 
-    @SerializedName("factor")
-    public String factor;
+        @SerializedName("months_lockup")
+        public String months_lockup;
+
+        @SerializedName("factor")
+        public String factor;
+    }
 }
