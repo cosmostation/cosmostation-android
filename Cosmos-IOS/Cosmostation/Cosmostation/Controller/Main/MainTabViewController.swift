@@ -269,8 +269,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchOkUnbondingInfo(mAccount)
             
             
-        } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.FETCH_MAIN || mChainType == ChainType.KI_MAIN ||
-                    mChainType == ChainType.CERTIK_TEST || mChainType == ChainType.MEDI_TEST) {
+        } else if (mChainType == ChainType.FETCH_MAIN || mChainType == ChainType.KI_MAIN || mChainType == ChainType.MEDI_TEST) {
             self.mFetchCnt = 8
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
@@ -314,7 +313,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         }
         else if (mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.PERSIS_MAIN ||
-                    mChainType == ChainType.CRYPTO_MAIN || mChainType == ChainType.SENTINEL_MAIN || mChainType == ChainType.MEDI_MAIN) {
+                    mChainType == ChainType.CRYPTO_MAIN || mChainType == ChainType.SENTINEL_MAIN || mChainType == ChainType.MEDI_MAIN ||
+                    mChainType == ChainType.CERTIK_MAIN) {
             self.mFetchCnt = 9
             onFetchgRPCNodeInfo()
             onFetchgRPCAuth(mAccount.account_address)
@@ -389,7 +389,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchSifVsIncentive(mAccount.account_address)
             onFetchSifLmIncentive(mAccount.account_address)
             
-        } else if (mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.RIZON_TEST || mChainType == ChainType.ALTHEA_TEST || mChainType == ChainType.IRIS_TEST) {
+        } else if (mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.RIZON_TEST || mChainType == ChainType.ALTHEA_TEST ||
+                    mChainType == ChainType.IRIS_TEST || mChainType == ChainType.CERTIK_TEST) {
             self.mFetchCnt = 9
             onFetchgRPCNodeInfo()
             onFetchgRPCAuth(mAccount.account_address)
