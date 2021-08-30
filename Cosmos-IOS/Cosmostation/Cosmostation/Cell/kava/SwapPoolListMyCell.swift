@@ -62,7 +62,7 @@ class SwapPoolListMyCell: UITableViewCell {
         let my0 = myDeposit.shares_value[0]
         let my1 = myDeposit.shares_value[1]
         let my0Value = NSDecimalNumber.init(string: my0.amount).multiplying(by: coin0price).multiplying(byPowerOf10: -coin0Decimal, withBehavior: WUtils.handler2)
-        let my1Value = NSDecimalNumber.init(string: my1.amount).multiplying(by: coin1price).multiplying(byPowerOf10: -coin0Decimal, withBehavior: WUtils.handler2)
+        let my1Value = NSDecimalNumber.init(string: my1.amount).multiplying(by: coin1price).multiplying(byPowerOf10: -coin1Decimal, withBehavior: WUtils.handler2)
         
         let myShareValue = my0Value.adding(my1Value)
         let myShareValueFormatted = "$ " + nf.string(from: myShareValue)!
