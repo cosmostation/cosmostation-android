@@ -270,23 +270,6 @@ public class ApiClient {
         return api_certik;
     }
 
-    //Services for Certik test api
-    private static HistoryApi api_certik_test = null;
-    public static HistoryApi getCertikTestApi(Context c) {
-        if (api_certik_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_certik_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_certik_test = retrofit.create(HistoryApi.class);
-            }
-        }
-        return api_certik_test;
-    }
-
-
-
 
     //Services for Secret mainnet
     private static SecretChain service_secret = null;
