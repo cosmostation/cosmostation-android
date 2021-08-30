@@ -528,7 +528,7 @@ support@cosmostation.io";
 "title_dapp_market" = "KAVA DeFi";
 "title_cdp_list" = "CDP Market";
 "title_cdp_detail" = "CDP Status";
-"title_harvest_detail" = "Hard Pool Status";
+"title_harvest_detail" = "Loan Status";
 "title_create_cdp" = "Open CDP";
 "title_deposit_cdp" = "DEPOSIT COLLATERAL";
 "title_withdraw_cdp" = "WITHDRAW COLLATERAL";

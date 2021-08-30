@@ -86,7 +86,7 @@ public struct ApiHistoryNewCustom {
             if let rawMsgType = getMsgs()?[0].object(forKey: "type") as? String {
                 msgType = rawMsgType
             }
-            print("msgType ", msgType)
+//            print("msgType ", msgType)
             
             if (msgType.contains("MsgDelegate")) {
                 result = NSLocalizedString("tx_delegate", comment: "")
