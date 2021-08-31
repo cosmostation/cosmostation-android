@@ -47,6 +47,7 @@ import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -764,7 +765,7 @@ public class MainTokensFragment extends BaseFragment {
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_token_img));
 
-            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_MEDI);
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CERTIK);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
