@@ -93,7 +93,7 @@ public class SimpleClaimIncentiveTask extends CommonTask {
             }
             if (mApp.getBaseDao().mIncentiveRewards.getSwapRewardDenoms().size() > 0) {
                 ArrayList<DenomsToClaim> denoms_to_claims = new ArrayList<>();
-                for (String denom: mApp.getBaseDao().mIncentiveRewards.getDelegatorRewardDenoms()) {
+                for (String denom: mApp.getBaseDao().mIncentiveRewards.getSwapRewardDenoms()) {
                     denoms_to_claims.add(new DenomsToClaim(denom, mMultiplierName));
                 }
                 Msg msg = MsgGenerator.genClaimSwapRewardMsg(mAccount.address, mMultiplierName, denoms_to_claims, BaseChain.getChain(mAccount.baseChain));
