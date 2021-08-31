@@ -1302,9 +1302,6 @@ public class WUtil {
         } else if (basechain.equals(BAND_MAIN)) {
             result = result + ",uband";
 
-        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
-            result = result + ",uctk";
-
         } else if (basechain.equals(SECRET_MAIN)) {
             result = result + ",uscrt";
 
