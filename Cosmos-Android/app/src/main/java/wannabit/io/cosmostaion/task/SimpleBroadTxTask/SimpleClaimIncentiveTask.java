@@ -71,7 +71,7 @@ public class SimpleClaimIncentiveTask extends CommonTask {
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
             ArrayList<Msg> msgList= new ArrayList<>();
-            if (mApp.getBaseDao().mIncentiveRewards.getMintingRewardCnt().compareTo(BigDecimal.ZERO) > 0) {
+            if (mApp.getBaseDao().mIncentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO) > 0) {
                 Msg msg = MsgGenerator.genClaimUSDXMintingRewardMsg(mAccount.address, mMultiplierName, BaseChain.getChain(mAccount.baseChain));
                 msgList.add(msg);
             }
