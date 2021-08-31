@@ -113,12 +113,12 @@ public class IncentiveReward {
         return result;
     }
 
-    public BigDecimal getMintingRewardAmount(String denom) {
+    public BigDecimal getMintingRewardAmount() {
         BigDecimal result = BigDecimal.ZERO;
         if (usdx_minting_claims != null) {
             for (UsdxMintingClaim reward : usdx_minting_claims) {
                 if (reward.base_claim.reward != null) {
-                    if (reward.base_claim.reward.denom.equals(denom)) {
+                    if (reward.base_claim.reward.denom.equals(TOKEN_KAVA)) {
                         result = result.add(new BigDecimal(reward.base_claim.reward.amount));
                     }
                 }
@@ -129,6 +129,7 @@ public class IncentiveReward {
 
     public ArrayList<String> getHardRewardDenoms(){
         ArrayList<String> result = new ArrayList<>();
+        if (hard_claims == null ) { return result; }
         for (HardClaim hardClaim: hard_claims) {
             for (Coin coin: hardClaim.base_claim.reward) {
                 if (!result.contains(coin.denom)) {
@@ -157,6 +158,7 @@ public class IncentiveReward {
 
     public ArrayList<String> getDelegatorRewardDenoms(){
         ArrayList<String> result = new ArrayList<>();
+        if (delegator_claims == null ) { return result; }
         for (DelegatorClaim delegatorClaim: delegator_claims) {
             for (Coin coin: delegatorClaim.base_claim.reward) {
                 if (!result.contains(coin.denom)) {
@@ -185,6 +187,7 @@ public class IncentiveReward {
 
     public ArrayList<String> getSwapRewardDenoms(){
         ArrayList<String> result = new ArrayList<>();
+        if (swap_claims == null) { return result; }
         for (SwapClaim swapClaim: swap_claims) {
             for (Coin coin: swapClaim.base_claim.reward) {
                 if (!result.contains(coin.denom)) {
@@ -196,11 +199,11 @@ public class IncentiveReward {
     }
 
     public BigDecimal getRewardSum(String denom) {
-        WLog.w("getRewardSum " +  denom + " " + getHardPoolRewardAmount(denom));
-        WLog.w("getRewardSum " +  denom + " " + getMintingRewardAmount(denom));
-        WLog.w("getRewardSum " +  denom + " " + getDelegatorKavaRewardAmount(denom));
-        WLog.w("getRewardSum " +  denom + " " + getSwapKavaRewardAmount(denom));
-        return getHardPoolRewardAmount(denom).add(getMintingRewardAmount(denom)).add(getDelegatorKavaRewardAmount(denom)).add(getSwapKavaRewardAmount(denom));
+        if (denom.equals(TOKEN_KAVA)) {
+            return getHardPoolRewardAmount(denom).add(getMintingRewardAmount()).add(getDelegatorKavaRewardAmount(denom)).add(getSwapKavaRewardAmount(denom));
+        } else {
+            return getHardPoolRewardAmount(denom).add(getDelegatorKavaRewardAmount(denom)).add(getSwapKavaRewardAmount(denom));
+        }
     }
 
 

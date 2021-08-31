@@ -472,29 +472,29 @@ public class ResApiNewTxListCustom {
                 denom = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONArray("amount").getJSONObject(0).getString("amount");
                 return new Coin(denom, amount);
-            } catch (JSONException e) { e.printStackTrace(); }
+            } catch (JSONException e) {  }
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("value").getJSONArray("amount").getJSONObject(0).getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONObject("value").getJSONArray("amount").getJSONObject(0).getString("amount");
-            } catch (JSONException e) { e.printStackTrace(); }
+            } catch (JSONException e) {  }
             return new Coin(denom, amount);
 
         } else if (msgType.contains("MsgDelegate") || msgType.contains("MsgUndelegate") || msgType.contains("MsgBeginRedelegate")) {
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("amount").getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONObject("amount").getString("amount");
-            } catch (JSONException e) { e.printStackTrace(); }
+            } catch (JSONException e) {   }
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("value").getJSONObject("amount").getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONObject("value").getJSONObject("amount").getString("amount");
-            } catch (JSONException e) { e.printStackTrace(); }
+            } catch (JSONException e) {  }
             return new Coin(denom, amount);
 
         } else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
             try {
                 denom = getMsgs().getJSONObject(0).getJSONObject("token").getString("denom");
                 amount = getMsgs().getJSONObject(0).getJSONObject("token").getString("amount");
-            } catch (JSONException e) { e.printStackTrace(); }
+            } catch (JSONException e) {   }
             return new Coin(denom, amount);
         }
         return null;
