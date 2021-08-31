@@ -3185,7 +3185,7 @@ public class WUtil {
             return EXPLORER_MEDI_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(CERTIK_MAIN)) {
-            return EXPLORER_CERTIK + "Transactions/" + hash;
+            return EXPLORER_CERTIK + "txs/" + hash;
 
         }
 
