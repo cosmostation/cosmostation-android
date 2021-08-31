@@ -65,7 +65,7 @@ let OKEX_URL                            = "https://www.okex.com/okexchain/v1/";
 let OKEX_TEST_URL                       = "https://www.okex.com/okexchain-test/v1/";
 
 
-let CERTIK_API                          = "https://api-office.cosmostation.io/yulei-2/";
+let CERTIK_API                          = "https://api-certik.cosmostation.io/v1/";
 
 let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostation.io/";
 let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostation.io/";

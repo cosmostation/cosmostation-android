@@ -1043,7 +1043,7 @@ class BaseNetWork {
             return ClientConnection.insecure(group: group).connect(host: "lcd-medibloc-app.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.CERTIK_MAIN) {
-            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 21800)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-certik.cosmostation.io", port: 9090)
             
         }
         
