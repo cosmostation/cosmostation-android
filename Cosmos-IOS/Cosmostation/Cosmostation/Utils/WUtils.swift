@@ -4109,7 +4109,7 @@ public class WUtils {
             return EXPLORER_OKEX_MAIN + "tx/" + hash
             
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
-            return EXPLORER_CERTIK + "tx/" + hash
+            return EXPLORER_CERTIK + "txs/" + hash
             
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return EXPLORER_SENTINEL_MAIN + "txs/" + hash
