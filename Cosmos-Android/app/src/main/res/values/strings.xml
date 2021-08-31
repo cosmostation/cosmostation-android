@@ -27,8 +27,8 @@
     <string name="url_test_bnb_faucet" translatable="false">https://faucet-binance.cosmostation.io</string>
 
 
-        <string name="url_lcd_kava_main" translatable="false">https://lcd-kava-app.cosmostation.io/</string>
-        <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>
+    <string name="url_lcd_kava_main" translatable="false">https://lcd-kava-app.cosmostation.io/</string>
+    <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>
 
     <string name="url_lcd_kava_test" translatable="false">https://lcd-office.cosmostation.io/kava-testnet-13000/</string>
     <string name="url_api_kava_test" translatable="false">https://api-office.cosmostation.io/kava-testnet-13000/</string>
@@ -51,7 +51,7 @@
     <string name="url_api_ok_test" translatable="false"></string>
 
 
-    <string name="url_api_certik" translatable="false">https://api-certik.cosmostation.io/</string>
+    <string name="url_api_certik" translatable="false">https://api-office.cosmostation.io/yulei-2/</string>
 
 
     <!--    <string name="url_lcd_secret" translatable="false">https://api.secretnodes.org/</string>-->
