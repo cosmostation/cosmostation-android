@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -65,7 +65,7 @@ let OKEX_URL                            = "https://www.okex.com/okexchain/v1/";
 let OKEX_TEST_URL                       = "https://www.okex.com/okexchain-test/v1/";
 
 
-let CERTIK_API                          = "https://api-certik.cosmostation.io/v1/";
+let CERTIK_API                          = "https://api-certik.cosmostation.io/";
 
 let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostation.io/";
 let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostation.io/";
@@ -999,6 +999,7 @@ let EXPLORER_SIF_MAIN       = "https://www.mintscan.io/sifchain/";
 let EXPLORER_KI_MAIN        = "https://www.mintscan.io/ki-chain/";
 let EXPLORER_OSMOSIS_MAIN   = "https://www.mintscan.io/osmosis/";
 let EXPLORER_MEDI_MAIN      = "https://www.mintscan.io/medibloc/";
+let EXPLORER_CERTIK         = "https://www.mintscan.io/certik/";
 let EXPLORER_HDAC_MAIN      = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
@@ -1006,7 +1007,6 @@ let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";
 let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
 let EXPLORER_KAVA_TEST      = "https://dev.mintscan.io/kava-testnet/";
 let EXPLORER_OKEX_TEST      = "https://www.oklink.com/okexchain-test/";
-let EXPLORER_CERTIK         = "https://explorer.certik.foundation/";
 let EXPLORER_MEDI_TEST      = "https://testnet.mintscan.io/medibloc/";
 let EXPLORER_RIZON_TEST     = "https://testnet.mintscan.io/rizon/";
 let EXPLORER_ALTHEA_TEST    = "https://testnet.mintscan.io/althea/";

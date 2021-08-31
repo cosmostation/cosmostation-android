@@ -4109,7 +4109,7 @@ public class WUtils {
             return EXPLORER_OKEX_MAIN + "tx/" + hash
             
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
-            return EXPLORER_CERTIK + "Transactions/" + hash + "?net=" + BaseData.instance.getChainId(chain)
+            return EXPLORER_CERTIK + "tx/" + hash
             
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return EXPLORER_SENTINEL_MAIN + "txs/" + hash
@@ -4148,7 +4148,7 @@ public class WUtils {
             return EXPLORER_SECRET_MAIN + "accounts/" + address
             
         } else if (chain == ChainType.CERTIK_MAIN) {
-            return EXPLORER_CERTIK + "accounts/" + address + "?net=" + BaseData.instance.getChainId(chain)
+            return EXPLORER_CERTIK + "account/" + address
             
         } else if (chain == ChainType.IOV_MAIN) {
             return EXPLORER_IOV_MAIN + "account/" + address
@@ -4192,7 +4192,7 @@ public class WUtils {
             return EXPLORER_IRIS_TEST + "address/" + address
             
         } else if (chain == ChainType.CERTIK_TEST) {
-            return EXPLORER_CERTIK + "address/" + address + "?net=" + BaseData.instance.getChainId(chain)
+            return EXPLORER_CERTIK + "account/" + address
             
         } else if (chain == ChainType.BINANCE_TEST) {
             return EXPLORER_BINANCE_TEST + "accounts/" + address
@@ -4236,7 +4236,7 @@ public class WUtils {
             return EXPLORER_SECRET_MAIN + "governance/proposals/" + proposalId
             
         } else if (chain == ChainType.CERTIK_MAIN) {
-            return EXPLORER_CERTIK + "governance/proposals/" + proposalId + "?net=" + BaseData.instance.getChainId(chain)
+            return EXPLORER_CERTIK + "proposals/" + proposalId
             
         } else if (chain == ChainType.IOV_MAIN) {
             return EXPLORER_IOV_MAIN + "proposals/" + proposalId
@@ -4274,7 +4274,7 @@ public class WUtils {
             return EXPLORER_IRIS_TEST + "proposals/" + proposalId
             
         } else if (chain == ChainType.CERTIK_TEST) {
-            return EXPLORER_CERTIK + "governance/proposals/" + proposalId + "?net=" + BaseData.instance.getChainId(chain)
+            return EXPLORER_CERTIK + "proposals/" + proposalId
             
         } else if (chain == ChainType.MEDI_TEST) {
             return EXPLORER_MEDI_TEST + "proposals/" + proposalId
