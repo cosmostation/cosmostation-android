@@ -677,6 +677,10 @@
 		28A37020269DA20600990696 /* gravity_v1_attestation.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37016269DA20500990696 /* gravity_v1_attestation.pb.swift */; };
 		28A37021269DA20600990696 /* gravity_v1_types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A37017269DA20600990696 /* gravity_v1_types.pb.swift */; };
 		28A8401F2605A3D8008C2D61 /* NodeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A8401E2605A3D8008C2D61 /* NodeInfo.swift */; };
+		28A97CAC26DE45480085FD0E /* Gravity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A97CAB26DE45480085FD0E /* Gravity.storyboard */; };
+		28A97CAE26DE46E30085FD0E /* GravityDAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A97CAD26DE46E30085FD0E /* GravityDAppViewController.swift */; };
+		28A97CB026DE46FD0085FD0E /* GravityPoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A97CAF26DE46FD0085FD0E /* GravityPoolViewController.swift */; };
+		28A97CB226DE470E0085FD0E /* GravitySwapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A97CB126DE470E0085FD0E /* GravitySwapViewController.swift */; };
 		28AABEC525F8CB860019091F /* KavaHardModuleAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AABEC425F8CB860019091F /* KavaHardModuleAccount.swift */; };
 		28AABEC825F8CBBA0019091F /* HardModuleAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AABEC725F8CBBA0019091F /* HardModuleAccount.swift */; };
 		28AABECB25F8CBDB0019091F /* HardAccountValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AABECA25F8CBDB0019091F /* HardAccountValue.swift */; };
@@ -1768,6 +1772,10 @@
 		28A37016269DA20500990696 /* gravity_v1_attestation.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gravity_v1_attestation.pb.swift; sourceTree = "<group>"; };
 		28A37017269DA20600990696 /* gravity_v1_types.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gravity_v1_types.pb.swift; sourceTree = "<group>"; };
 		28A8401E2605A3D8008C2D61 /* NodeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeInfo.swift; sourceTree = "<group>"; };
+		28A97CAB26DE45480085FD0E /* Gravity.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Gravity.storyboard; sourceTree = "<group>"; };
+		28A97CAD26DE46E30085FD0E /* GravityDAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityDAppViewController.swift; sourceTree = "<group>"; };
+		28A97CAF26DE46FD0085FD0E /* GravityPoolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravityPoolViewController.swift; sourceTree = "<group>"; };
+		28A97CB126DE470E0085FD0E /* GravitySwapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GravitySwapViewController.swift; sourceTree = "<group>"; };
 		28AABEC425F8CB860019091F /* KavaHardModuleAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHardModuleAccount.swift; sourceTree = "<group>"; };
 		28AABEC725F8CBBA0019091F /* HardModuleAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardModuleAccount.swift; sourceTree = "<group>"; };
 		28AABECA25F8CBDB0019091F /* HardAccountValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardAccountValue.swift; sourceTree = "<group>"; };
@@ -3031,6 +3039,17 @@
 			path = okex;
 			sourceTree = "<group>";
 		};
+		28A97CAA26DE452F0085FD0E /* gravity */ = {
+			isa = PBXGroup;
+			children = (
+				28A97CAB26DE45480085FD0E /* Gravity.storyboard */,
+				28A97CAD26DE46E30085FD0E /* GravityDAppViewController.swift */,
+				28A97CB126DE470E0085FD0E /* GravitySwapViewController.swift */,
+				28A97CAF26DE46FD0085FD0E /* GravityPoolViewController.swift */,
+			);
+			path = gravity;
+			sourceTree = "<group>";
+		};
 		28B785AE26B79B16009F755F /* rizon */ = {
 			isa = PBXGroup;
 			children = (
@@ -3469,6 +3488,7 @@
 		E1945E40222E7FB000A1436F /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				28A97CAA26DE452F0085FD0E /* gravity */,
 				284291A6264BC2FF00130651 /* token */,
 				28B785AE26B79B16009F755F /* rizon */,
 				28E66703269940DA00BA2C68 /* osmosis */,
@@ -3781,6 +3801,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28D28ADA26CB6C1E0074964C /* StartUnlock0ViewController.xib in Resources */,
+				28A97CAC26DE45480085FD0E /* Gravity.storyboard in Resources */,
 				28D809BE26A177A30030B1BE /* PoolCell.xib in Resources */,
 				283E9473254902F4007A9291 /* TxDeleteAccountCell.xib in Resources */,
 				28663BF0248A4FB000080311 /* WalletBandCell.xib in Resources */,
@@ -4570,6 +4591,7 @@
 				28429196264A45FB00130651 /* NativeTokenDetailViewController.swift in Sources */,
 				287AC5D925FDF7260070837E /* oracle_oracle.pb.swift in Sources */,
 				04CFBD552692278C0013150B /* TxIbcUpdateClientCell.swift in Sources */,
+				28A97CB026DE46FD0085FD0E /* GravityPoolViewController.swift in Sources */,
 				E1F1CF08239F5737004EF8A2 /* Vote.swift in Sources */,
 				289EF81C26824E4700F90AC1 /* osmosis_incentives_tx.pb.swift in Sources */,
 				2889FD822603484000CA9896 /* TxIncentiveHardCell.swift in Sources */,
@@ -4825,6 +4847,7 @@
 				2845D887246FB96E007CD497 /* CosmosVote.swift in Sources */,
 				28DB570625FA3BBC00B2F0E5 /* HardPoolBorrow0ViewController.swift in Sources */,
 				287AC61925FDF7260070837E /* akash_provider_v1beta1_query.pb.swift in Sources */,
+				28A97CAE26DE46E30085FD0E /* GravityDAppViewController.swift in Sources */,
 				287AC5B825FDF7250070837E /* google_protobuf2_any.pb.swift in Sources */,
 				287AC65C25FDF7260070837E /* tendermint_abci_types.grpc.swift in Sources */,
 				28B7857226B3A7E4009F755F /* panacea_aol_v2_query.pb.swift in Sources */,
@@ -4863,6 +4886,7 @@
 				0497587F2685AA270039872C /* iov_configuration_v1beta1_query.grpc.swift in Sources */,
 				28EEECB026DAE9C2002DDC4A /* KavaSwapExit3ViewController.swift in Sources */,
 				2836E19B2680B3F300119FD2 /* HdacAddress.swift in Sources */,
+				28A97CB226DE470E0085FD0E /* GravitySwapViewController.swift in Sources */,
 				049758812685AA270039872C /* iov_configuration_v1beta1_types.pb.swift in Sources */,
 				287AC5D825FDF7260070837E /* cosmos_mint_v1beta1_query.pb.swift in Sources */,
 				04D138532691E23200D6AF9F /* TxCreatePoolCell.swift in Sources */,

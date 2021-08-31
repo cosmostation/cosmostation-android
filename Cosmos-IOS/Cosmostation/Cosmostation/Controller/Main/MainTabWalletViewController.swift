@@ -369,8 +369,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             cell?.actionGravity = {
-                self.onShowToast(NSLocalizedString("prepare", comment: ""))
-//                self.onClickGravityDex()
+                self.onClickGravityDex()
                 
             }
             cell?.actionWalletConnect = {
@@ -1326,6 +1325,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func onClickGravityDex() {
         print("onClickGravityDex")
         self.onShowToast(NSLocalizedString("prepare", comment: ""))
+//        let gravityDappVC = UIStoryboard(name: "Gravity", bundle: nil).instantiateViewController(withIdentifier: "GravityDAppViewController") as! GravityDAppViewController
+//        gravityDappVC.hidesBottomBarWhenPushed = true
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(gravityDappVC, animated: true)
     }
     
     func onClickAprHelp() {
