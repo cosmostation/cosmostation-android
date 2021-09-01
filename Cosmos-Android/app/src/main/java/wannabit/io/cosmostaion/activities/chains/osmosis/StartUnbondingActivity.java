@@ -14,11 +14,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
@@ -26,8 +23,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.StartUnbondingStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.StartUnbondingStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.StartUnbondingStep3Fragment;
 import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
 
@@ -173,7 +170,7 @@ public class StartUnbondingActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(StartUnbondingStep0Fragment.newInstance(null));
-            mFragments.add(StartUnbondingStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(StartUnbondingStep3Fragment.newInstance(null));
         }

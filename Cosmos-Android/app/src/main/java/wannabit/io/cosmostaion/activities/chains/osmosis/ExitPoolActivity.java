@@ -23,8 +23,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep3Fragment;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
@@ -165,7 +165,7 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(ExitPoolStep0Fragment.newInstance(null));
-            mFragments.add(ExitPoolStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(ExitPoolStep3Fragment.newInstance(null));
         }

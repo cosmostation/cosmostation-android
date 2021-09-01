@@ -26,8 +26,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.RepayCdpStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.RepayCdpStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.RepayCdpStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.CdpDeposit;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
@@ -208,7 +208,7 @@ public class RepayCdpActivity extends BaseBroadCastActivity implements TaskListe
             super(fm);
             mFragments.clear();
             mFragments.add(RepayCdpStep0Fragment.newInstance(null));
-            mFragments.add(RepayCdpStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(RepayCdpStep3Fragment.newInstance(null));
         }

@@ -23,8 +23,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.ok.DirectVoteFragment0;
-import wannabit.io.cosmostaion.fragment.chains.ok.DirectVoteFragment1;
 import wannabit.io.cosmostaion.fragment.chains.ok.DirectVoteFragment3;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -168,7 +168,7 @@ public class OKVoteDirectActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(DirectVoteFragment0.newInstance(null));
-            mFragments.add(DirectVoteFragment1.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(DirectVoteFragment3.newInstance(null));
         }

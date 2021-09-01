@@ -23,8 +23,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.KavaSwapStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.KavaSwapStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.KavaSwapStep3Fragment;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
@@ -168,7 +168,7 @@ public class StartSwapActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(KavaSwapStep0Fragment.newInstance(null));
-            mFragments.add(KavaSwapStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment .newInstance(null));
             mFragments.add(KavaSwapStep3Fragment.newInstance(null));
         }

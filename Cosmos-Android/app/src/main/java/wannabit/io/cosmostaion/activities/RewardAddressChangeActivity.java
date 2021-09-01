@@ -22,10 +22,10 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep0Fragment;
-import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep3Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
@@ -172,7 +172,7 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(RewardAddressChangeStep0Fragment.newInstance(null));
-            mFragments.add(RewardAddressChangeStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
             else { mFragments.add(StepFeeSetOldFragment.newInstance(null)); }
             mFragments.add(RewardAddressChangeStep3Fragment.newInstance(null));
