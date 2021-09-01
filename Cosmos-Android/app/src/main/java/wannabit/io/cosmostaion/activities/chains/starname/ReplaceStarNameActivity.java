@@ -25,12 +25,12 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName3Fragment;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcDomainInfoTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcResolveTask;
-import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
@@ -214,7 +214,7 @@ public class ReplaceStarNameActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(ReplaceStarName0Fragment.newInstance(null));
-            mFragments.add(ReplaceStarName1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(ReplaceStarName3Fragment.newInstance(null));
         }

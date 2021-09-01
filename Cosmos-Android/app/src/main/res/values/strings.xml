@@ -1378,8 +1378,8 @@
     <string name="str_gravity_withdraw_pool_id">Pool ID</string>
     <string name="str_osmosis_defi_lab"><![CDATA[DeFi Lab]]> </string>
     <string name="str_osmosis_lab"><![CDATA[Osmosis Lab]]> </string>
-    <string name="str_osmosis_swap">Swap</string>
-    <string name="str_osmosis_pool_list">Pool</string>
+    <string name="str_swap">Swap</string>
+    <string name="str_pool">Pool</string>
     <string name="str_osmosis_earning">Earning</string>
     <string name="str_event_horizon_c">Event Horizon</string>
     <string name="str_event_horizon_step_0">Insert mnemonic for Hdac</string>

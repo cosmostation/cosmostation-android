@@ -22,8 +22,8 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.VoteStep0Fragment;
-import wannabit.io.cosmostaion.fragment.VoteStep1Fragment;
 import wannabit.io.cosmostaion.fragment.VoteStep3Fragment;
 
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -170,7 +170,7 @@ public class VoteActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(VoteStep0Fragment.newInstance(null));
-            mFragments.add(VoteStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
             else { mFragments.add(StepFeeSetOldFragment.newInstance(null)); }
             mFragments.add(VoteStep3Fragment.newInstance(null));

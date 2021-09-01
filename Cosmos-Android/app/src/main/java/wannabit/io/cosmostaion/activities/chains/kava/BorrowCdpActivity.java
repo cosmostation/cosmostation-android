@@ -26,8 +26,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DrawDebtCdpStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.DrawDebtCdpStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DrawDebtCdpStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.CdpDeposit;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
@@ -35,7 +35,6 @@ import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
@@ -202,7 +201,7 @@ public class BorrowCdpActivity extends BaseBroadCastActivity implements TaskList
             super(fm);
             mFragments.clear();
             mFragments.add(DrawDebtCdpStep0Fragment.newInstance(null));
-            mFragments.add(DrawDebtCdpStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(DrawDebtCdpStep3Fragment.newInstance(null));
         }

@@ -26,8 +26,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.CdpDeposit;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
@@ -209,7 +209,7 @@ public class DepositCdpActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(DepositCdpStep0Fragment.newInstance(null));
-            mFragments.add(DepositCdpStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(DepositCdpStep3Fragment.newInstance(null));
         }

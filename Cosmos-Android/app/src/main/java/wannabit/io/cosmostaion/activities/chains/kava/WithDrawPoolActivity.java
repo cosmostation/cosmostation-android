@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -23,10 +22,9 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawPoolStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawPoolStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawPoolStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 
@@ -168,7 +166,7 @@ public class WithDrawPoolActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(WithdrawPoolStep0Fragment.newInstance(null));
-            mFragments.add(WithdrawPoolStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(WithdrawPoolStep3Fragment.newInstance(null));
         }

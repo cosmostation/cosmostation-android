@@ -24,8 +24,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
@@ -181,7 +181,7 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(ClaimIncentiveStep0Fragment.newInstance(null));
-            mFragments.add(ClaimIncentiveStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(ClaimIncentiveStep3Fragment.newInstance(null));
         }

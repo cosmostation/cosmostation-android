@@ -23,14 +23,12 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.ok.OKStakingFragmentStep0;
-import wannabit.io.cosmostaion.fragment.chains.ok.OKStakingFragmentStep1;
 import wannabit.io.cosmostaion.fragment.chains.ok.OKStakingFragmentStep3;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
 
 public class OKStakingActivity extends BaseBroadCastActivity {
     private RelativeLayout          mRootView;
@@ -156,7 +154,7 @@ public class OKStakingActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(OKStakingFragmentStep0.newInstance(null));
-            mFragments.add(OKStakingFragmentStep1.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(OKStakingFragmentStep3.newInstance(null));
         }

@@ -22,9 +22,9 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount4Fragment;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
@@ -178,7 +178,7 @@ public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(RegisterAccount0Fragment.newInstance(null));
             mFragments.add(RegisterAccount1Fragment.newInstance(null));
-            mFragments.add(RegisterAccount2Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(RegisterAccount4Fragment.newInstance(null));
         }

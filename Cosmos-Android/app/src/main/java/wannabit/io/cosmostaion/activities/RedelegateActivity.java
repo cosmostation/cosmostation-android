@@ -24,10 +24,10 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep1Fragment;
-import wannabit.io.cosmostaion.fragment.RedelegateStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep4Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -255,7 +255,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
             mFragments.clear();
             mFragments.add(RedelegateStep0Fragment.newInstance(null));
             mFragments.add(RedelegateStep1Fragment.newInstance(null));
-            mFragments.add(RedelegateStep2Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
             else { mFragments.add(StepFeeSetOldFragment.newInstance(null)); }
             mFragments.add(RedelegateStep4Fragment.newInstance(null));

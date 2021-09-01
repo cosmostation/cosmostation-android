@@ -26,8 +26,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.StartLockStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.StartLockStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.StartLockStep3Fragment;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EARNING;
@@ -173,7 +173,7 @@ public class StartEarningActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(StartLockStep0Fragment.newInstance(null));
-            mFragments.add(StartLockStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(StartLockStep3Fragment.newInstance(null));
         }
