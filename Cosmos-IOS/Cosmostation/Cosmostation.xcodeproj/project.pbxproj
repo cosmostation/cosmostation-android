@@ -589,6 +589,7 @@
 		287D746A26A52BB800532E01 /* ExitPool0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 287D746826A52BB800532E01 /* ExitPool0ViewController.xib */; };
 		287D746D26A52BC500532E01 /* ExitPool3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D746B26A52BC500532E01 /* ExitPool3ViewController.swift */; };
 		287D746E26A52BC500532E01 /* ExitPool3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 287D746C26A52BC500532E01 /* ExitPool3ViewController.xib */; };
+		288243E026E0E74D000B6C37 /* GDexManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288243DF26E0E74D000B6C37 /* GDexManager.swift */; };
 		2887BA0C26DE276C00CDA415 /* burrow_crypto.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887BA0526DE276B00CDA415 /* burrow_crypto.pb.swift */; };
 		2887BA0D26DE276C00CDA415 /* burrow_registry.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887BA0626DE276B00CDA415 /* burrow_registry.pb.swift */; };
 		2887BA0E26DE276C00CDA415 /* burrow_balance.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887BA0726DE276B00CDA415 /* burrow_balance.pb.swift */; };
@@ -1724,6 +1725,7 @@
 		287D746826A52BB800532E01 /* ExitPool0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExitPool0ViewController.xib; sourceTree = "<group>"; };
 		287D746B26A52BC500532E01 /* ExitPool3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitPool3ViewController.swift; sourceTree = "<group>"; };
 		287D746C26A52BC500532E01 /* ExitPool3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExitPool3ViewController.xib; sourceTree = "<group>"; };
+		288243DF26E0E74D000B6C37 /* GDexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GDexManager.swift; sourceTree = "<group>"; };
 		2887BA0526DE276B00CDA415 /* burrow_crypto.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = burrow_crypto.pb.swift; sourceTree = "<group>"; };
 		2887BA0626DE276B00CDA415 /* burrow_registry.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = burrow_registry.pb.swift; sourceTree = "<group>"; };
 		2887BA0726DE276B00CDA415 /* burrow_balance.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = burrow_balance.pb.swift; sourceTree = "<group>"; };
@@ -3740,6 +3742,7 @@
 				2852EAF826821084003A5E74 /* SifIncentive.swift */,
 				0428ACFD268AD31700EB438F /* BandOracleStatus.swift */,
 				28B785AC26B3E7CA009F755F /* RizonSwapStatus.swift */,
+				288243DF26E0E74D000B6C37 /* GDexManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4402,6 +4405,7 @@
 				28D28ACD26CB6BE00074964C /* StartLock3ViewController.swift in Sources */,
 				287AC61A25FDF7260070837E /* ibc_applications_transfer_v1_query.grpc.swift in Sources */,
 				28A37018269DA20600990696 /* gravity_v1_ethereum_signer.pb.swift in Sources */,
+				288243E026E0E74D000B6C37 /* GDexManager.swift in Sources */,
 				283D2EA424F52FE700247424 /* OkToken.swift in Sources */,
 				2887BA3C26DE278700CDA415 /* shentu_gov_v1alpha1_tx.pb.swift in Sources */,
 				046E9049268C7C2B002CFFE1 /* BinanceHexEncoding.swift in Sources */,

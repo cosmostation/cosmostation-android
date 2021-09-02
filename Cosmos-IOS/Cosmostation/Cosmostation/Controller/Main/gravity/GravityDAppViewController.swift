@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import GRPC
+import NIO
+import SwiftProtobuf
 
 class GravityDAppViewController: BaseViewController {
     
@@ -29,6 +32,8 @@ class GravityDAppViewController: BaseViewController {
         } else {
             dAppsSegment.tintColor = COLOR_ATOM
         }
+        
+        self.onFetchGdexData()
     }
     
     @IBAction func switchView(_ sender: UISegmentedControl) {
@@ -48,6 +53,99 @@ class GravityDAppViewController: BaseViewController {
         self.navigationItem.title = NSLocalizedString("title_dapp_gravity", comment: "");
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
+    
+    var mFetchCnt = 0
+    @objc func onFetchGdexData() -> Bool {
+        if (self.mFetchCnt > 0)  {
+            return false
+        }
+        self.mFetchCnt = 2
+        BaseData.instance.mGravityPools_gRPC.removeAll()
+        BaseData.instance.mGravityManager_gRPC.removeAll()
+        
+        self.onFetchGdexParam()
+        self.onFetchGdexPools()
+        return true
+    }
+    
+    func onFetchFinished() {
+        self.mFetchCnt = self.mFetchCnt - 1
+        if (mFetchCnt > 0) { return }
+        NotificationCenter.default.post(name: Notification.Name("GdexFetchDone"), object: nil, userInfo: nil)
+    }
+    
+    func onFetchGdexParam() {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let req = Tendermint_Liquidity_V1beta1_QueryParamsRequest.init()
+                let response = try Tendermint_Liquidity_V1beta1_QueryClient(channel: channel).params(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
+                BaseData.instance.mGravityParam_gRPC = response.params
+                
+            } catch {
+                print("onFetchGdexParam failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchGdexPools() {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+
+            do {
+                let page = Cosmos_Base_Query_V1beta1_PageRequest.with { $0.limit = 1000 }
+                let req = Tendermint_Liquidity_V1beta1_QueryLiquidityPoolsRequest.with { $0.pagination = page }
+                let response = try Tendermint_Liquidity_V1beta1_QueryClient(channel: channel).liquidityPools(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
+                
+                self.mFetchCnt = self.mFetchCnt + response.pools.count
+                response.pools.forEach { pool in
+                    self.onFetchGdexPoolManager(pool.reserveAccountAddress)
+                    BaseData.instance.mGravityPools_gRPC.append(pool)
+                }
+
+            } catch {
+                print("onFetchgRPCGravityPools failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchGdexPoolManager(_ address: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let req = Cosmos_Bank_V1beta1_QueryAllBalancesRequest.with { $0.address = address }
+                let response = try Cosmos_Bank_V1beta1_QueryClient(channel: channel).allBalances(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
+                BaseData.instance.mGravityManager_gRPC.append(GDexManager.init(address, response.balances))
+                
+            } catch {
+                print("onFetchGdexPoolManager failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
     }
 
 }

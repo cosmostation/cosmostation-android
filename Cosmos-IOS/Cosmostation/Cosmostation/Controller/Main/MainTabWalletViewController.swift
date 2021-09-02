@@ -1324,11 +1324,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onClickGravityDex() {
         print("onClickGravityDex")
-        self.onShowToast(NSLocalizedString("prepare", comment: ""))
-//        let gravityDappVC = UIStoryboard(name: "Gravity", bundle: nil).instantiateViewController(withIdentifier: "GravityDAppViewController") as! GravityDAppViewController
-//        gravityDappVC.hidesBottomBarWhenPushed = true
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(gravityDappVC, animated: true)
+//        self.onShowToast(NSLocalizedString("prepare", comment: ""))
+        let gravityDappVC = UIStoryboard(name: "Gravity", bundle: nil).instantiateViewController(withIdentifier: "GravityDAppViewController") as! GravityDAppViewController
+        gravityDappVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(gravityDappVC, animated: true)
     }
     
     func onClickAprHelp() {
