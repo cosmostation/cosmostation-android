@@ -92,14 +92,14 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
 
         View tab0 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText0 = tab0.findViewById(R.id.tabItemText);
-        tabItemText0.setText(R.string.str_osmosis_swap);
+        tabItemText0.setText(R.string.str_swap);
         tabItemText0.setTextColor(WDp.getTabColor(this, mBaseChain));
         mLabTapLayer.getTabAt(0).setCustomView(tab0);
 
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
         tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
-        tabItemText1.setText(R.string.str_osmosis_pool_list);
+        tabItemText1.setText(R.string.str_pool);
         mLabTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);

@@ -22,8 +22,8 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RenewStarName0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.starname.RenewStarName1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RenewStarName3Fragment;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
@@ -187,7 +187,7 @@ public class ReNewStarNameActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(RenewStarName0Fragment.newInstance(null));
-            mFragments.add(RenewStarName1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(RenewStarName3Fragment.newInstance(null));
         }

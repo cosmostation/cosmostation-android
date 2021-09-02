@@ -25,10 +25,10 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep0Fragment;
-import wannabit.io.cosmostaion.fragment.ReInvestStep1Fragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep3Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
@@ -226,7 +226,7 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
             super(fm);
             mFragments.clear();
             mFragments.add(ReInvestStep0Fragment.newInstance(null));
-            mFragments.add(ReInvestStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
             else { mFragments.add(StepFeeSetOldFragment.newInstance(null)); }
             mFragments.add(ReInvestStep3Fragment.newInstance(null));

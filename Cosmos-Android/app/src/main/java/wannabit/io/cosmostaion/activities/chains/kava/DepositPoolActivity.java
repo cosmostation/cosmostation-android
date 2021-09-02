@@ -23,8 +23,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositPoolStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.DepositPoolStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositPoolStep3Fragment;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
@@ -163,7 +163,7 @@ public class DepositPoolActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(DepositPoolStep0Fragment.newInstance(null));
-            mFragments.add(DepositPoolStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(DepositPoolStep3Fragment.newInstance(null));
         }

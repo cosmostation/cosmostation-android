@@ -25,10 +25,9 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.HtlcRefundStep0Fragment;
-import wannabit.io.cosmostaion.fragment.HtlcRefundStep1Fragment;
 import wannabit.io.cosmostaion.fragment.HtlcRefundStep3Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
-import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
@@ -179,7 +178,7 @@ public class HtlcRefundActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(HtlcRefundStep0Fragment.newInstance(null));
-            mFragments.add(HtlcRefundStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(HtlcRefundStep3Fragment.newInstance(null));
         }

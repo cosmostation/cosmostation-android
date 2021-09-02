@@ -26,8 +26,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
@@ -207,7 +207,7 @@ public class CreateCdpActivity extends BaseBroadCastActivity implements TaskList
             super(fm);
             mFragments.clear();
             mFragments.add(CreateCdpStep0Fragment.newInstance(null));
-            mFragments.add(CreateCdpStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(CreateCdpStep3Fragment.newInstance(null));
         }

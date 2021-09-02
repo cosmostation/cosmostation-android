@@ -22,11 +22,10 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
@@ -167,7 +166,7 @@ public class DepositHardActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(DepositHardStep0Fragment.newInstance(null));
-            mFragments.add(DepositHardStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(DepositHardStep3Fragment.newInstance(null));
         }

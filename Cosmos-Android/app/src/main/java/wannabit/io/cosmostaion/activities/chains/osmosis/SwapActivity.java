@@ -23,8 +23,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep3Fragment;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
@@ -169,7 +169,7 @@ public class SwapActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(CoinSwapStep0Fragment.newInstance(null));
-            mFragments.add(CoinSwapStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(CoinSwapStep3Fragment.newInstance(null));
         }

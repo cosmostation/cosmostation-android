@@ -23,12 +23,11 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.StartUnLockStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.StartUnLockStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.StartUnLockStep3Fragment;
 import wannabit.io.cosmostaion.utils.OsmosisPeriodLockWrapper;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_UNLOCK;
 
 public class StartUnlockActivity extends BaseBroadCastActivity {
@@ -170,7 +169,7 @@ public class StartUnlockActivity extends BaseBroadCastActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(StartUnLockStep0Fragment.newInstance(null));
-            mFragments.add(StartUnLockStep1Fragment.newInstance(null));
+            mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
             mFragments.add(StartUnLockStep3Fragment.newInstance(null));
         }
