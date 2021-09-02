@@ -1255,7 +1255,7 @@
     <string name="str_kava_deposit_my_title">My Deposited Coins</string>
     <string name="str_to_withdraw_coin_title">To Withdraw Coins (MG)</string>
     <string name="str_incentive_amount_title">Incentive Amounts</string>
-
+    <string name="str_gravity_dex">Gravity Dex</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
