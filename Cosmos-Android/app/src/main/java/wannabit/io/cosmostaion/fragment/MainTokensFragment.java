@@ -1251,7 +1251,7 @@ public class MainTokensFragment extends BaseFragment {
             this.sticky = sticky;
             this.sectionCallback = sectionCallback;
 
-            topPadding = dpToPx(context, 26);
+            topPadding = dpToPx(context, 30);
         }
 
         // dp -> pixel 단위로 변경

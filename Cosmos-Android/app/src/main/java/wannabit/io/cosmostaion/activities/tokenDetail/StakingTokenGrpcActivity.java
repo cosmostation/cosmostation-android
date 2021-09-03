@@ -146,7 +146,7 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(StakingTokenGrpcActivity.this, mBaseChain));
+        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(StakingTokenGrpcActivity.this, mBaseChain));
         mAddress.setText(mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {

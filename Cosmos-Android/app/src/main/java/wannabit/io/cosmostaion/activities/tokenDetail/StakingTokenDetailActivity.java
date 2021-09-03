@@ -165,7 +165,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(StakingTokenDetailActivity.this, mBaseChain));
+        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(StakingTokenDetailActivity.this, mBaseChain));
         if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             try {
                 shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
