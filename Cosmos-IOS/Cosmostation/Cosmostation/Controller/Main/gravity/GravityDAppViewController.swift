@@ -137,14 +137,15 @@ class GravityDAppViewController: BaseViewController {
             do {
                 let req = Cosmos_Bank_V1beta1_QueryAllBalancesRequest.with { $0.address = address }
                 let response = try Cosmos_Bank_V1beta1_QueryClient(channel: channel).allBalances(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
-                BaseData.instance.mGravityManager_gRPC.append(GDexManager.init(address, response.balances))
+                DispatchQueue.main.async(execute: {
+                    BaseData.instance.mGravityManager_gRPC.append(GDexManager.init(address, response.balances))
+                    self.onFetchFinished()
+                });
                 
             } catch {
                 print("onFetchGdexPoolManager failed: \(error)")
             }
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
+            
         }
     }
 

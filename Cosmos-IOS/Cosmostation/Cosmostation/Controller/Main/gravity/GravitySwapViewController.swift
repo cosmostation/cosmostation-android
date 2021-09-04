@@ -108,6 +108,10 @@ class GravitySwapViewController: BaseViewController, SBCardPopupDelegate {
     
     
     @objc func onGdexFetchDone(_ notification: NSNotification) {
+        if (BaseData.instance.mGravityPools_gRPC.count <= 0 ) {
+            self.onShowToast(NSLocalizedString("error_network", comment: ""))
+            self.navigationController?.popViewController(animated: true)
+        }
         mAllDenoms.append(COSMOS_MAIN_DENOM)
         BaseData.instance.mGravityPools_gRPC.forEach { pool in
             pool.reserveCoinDenoms.forEach { lpCoin in
