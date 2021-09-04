@@ -12,24 +12,27 @@ class GravitySwapViewController: BaseViewController {
     
     @IBOutlet weak var loadingImg: LoadingImageView!
     
-    @IBOutlet weak var poolIdLabel: UILabel!
-    @IBOutlet weak var swapFeeLabel: UILabel!
-    @IBOutlet weak var inputCoinRateAmount: UILabel!
-    @IBOutlet weak var inputCoinRateDenom: UILabel!
-    @IBOutlet weak var outputCoinRateAmount: UILabel!
-    @IBOutlet weak var outputCoinRateDenom: UILabel!
-    
     @IBOutlet weak var inputCoinLayer: CardView!
     @IBOutlet weak var inputCoinImg: UIImageView!
     @IBOutlet weak var inputCoinName: UILabel!
     @IBOutlet weak var inputCoinAvailableAmountLabel: UILabel!
-    @IBOutlet weak var inputCoinAvailableDenomLabel: UILabel!
+    
+    @IBOutlet weak var toggleBtn: UIButton!
+    @IBOutlet weak var swapFeeLabel: UILabel!
+    @IBOutlet weak var slippageLabel: UILabel!
     
     @IBOutlet weak var outputCoinLayer: CardView!
     @IBOutlet weak var outputCoinImg: UIImageView!
     @IBOutlet weak var outputCoinName: UILabel!
-    @IBOutlet weak var outputCoinAvailableAmountLabel: UILabel!
-    @IBOutlet weak var outputCoinAvailableDenomLabel: UILabel!
+    
+    @IBOutlet weak var inputCoinRateAmount: UILabel!
+    @IBOutlet weak var inputCoinRateDenom: UILabel!
+    @IBOutlet weak var outputCoinRateAmount: UILabel!
+    @IBOutlet weak var outputCoinRateDenom: UILabel!
+    @IBOutlet weak var inputCoinExRateAmount: UILabel!
+    @IBOutlet weak var inputCoinExRateDenom: UILabel!
+    @IBOutlet weak var outputCoinExRateAmount: UILabel!
+    @IBOutlet weak var outputCoinExRateDenom: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,4 +55,12 @@ class GravitySwapViewController: BaseViewController {
         print("mGravityManager_gRPC ", BaseData.instance.mGravityManager_gRPC.count)
     }
 
+    @IBAction func onClickToggle(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func onClickStarSwap(_ sender: UIButton) {
+        
+    }
+    
 }
