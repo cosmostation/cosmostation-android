@@ -149,3 +149,125 @@ class GravityDAppViewController: BaseViewController {
     }
 
 }
+
+extension WUtils {
+    static func getCosmosTokenName(_ denom: String) -> String {
+        if (denom == COSMOS_MAIN_DENOM) {
+            return "ATOM"
+            
+        } else if (denom.starts(with: "pool")) {
+            if let poolInfo = BaseData.instance.getGravityPoolByDenom(denom)  {
+                return "GDEX-" + String(poolInfo.id)
+            } else {
+                return"UnKnown"
+            }
+            
+        } else if (denom.starts(with: "ibc/")) {
+            if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")), let dpDenom = ibcToken.display_denom {
+                return dpDenom.uppercased()
+            } else {
+                return"UnKnown"
+            }
+        }
+        return denom
+    }
+    
+    static func getCosmosTokenImg(_ denom: String) -> UIImage? {
+        if (denom == COSMOS_MAIN_DENOM) {
+            return UIImage(named: "atom_ic")
+            
+        } else if (denom.starts(with: "pool")) {
+            if let poolInfo = BaseData.instance.getGravityPoolByDenom(denom)  {
+                return UIImage(named: "tokenGravitydex")
+            }
+            
+        } else if (denom.starts(with: "ibc/")) {
+            if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")), let url = URL(string: ibcToken.moniker ?? ""), let data = try? Data(contentsOf: url) {
+                return UIImage(data: data)?.resized(to: CGSize(width: 20, height: 20))
+            } else {
+                return UIImage(named: "tokenDefaultIbc")
+            }
+        }
+        return UIImage(named: "tokenIc")
+    }
+    
+    
+    static func getCosmosCoinDecimal(_ denom: String) -> Int16 {
+        if (denom == COSMOS_MAIN_DENOM) {
+            return 6;
+            
+        } else if (denom.starts(with: "pool")) {
+            if let poolInfo = BaseData.instance.getGravityPoolByDenom(denom)  {
+                return 6;
+            }
+            
+        } else if (denom.starts(with: "ibc/")) {
+            if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")), let decimal = ibcToken.decimal  {
+                return decimal
+            }
+        }
+        return 6;
+    }
+    
+    static func DpCosmosTokenName(_ label: UILabel, _ denom: String) {
+        if (denom == COSMOS_MAIN_DENOM) {
+            label.textColor = COLOR_ATOM
+            label.text = "ATOM"
+            
+        } else if (denom.starts(with: "pool")) {
+            label.textColor = .white
+            if let poolInfo = BaseData.instance.getGravityPoolByDenom(denom)  {
+                label.text = "GDEX-" + String(poolInfo.id)
+            } else {
+                label.text = "UnKnown"
+            }
+            
+        } else if (denom.starts(with: "ibc/")) {
+            label.textColor = .white
+            if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")), let dpDenom = ibcToken.display_denom {
+                label.text = dpDenom.uppercased()
+            } else {
+                label.text = "UnKnown"
+            }
+            
+        } else {
+            label.textColor = .white
+            label.text = "UnKnown"
+        }
+    }
+    
+    static func DpCosmosTokenImg(_ imgView: UIImageView, _ denom: String) {
+        if (denom == COSMOS_MAIN_DENOM) {
+            imgView.image = UIImage(named: "atom_ic")
+            
+        } else if (denom.starts(with: "pool")) {
+            if let poolInfo = BaseData.instance.getGravityPoolByDenom(denom)  {
+                imgView.image = UIImage(named: "tokenGravitydex")
+            }
+            
+        } else if (denom.starts(with: "ibc/")) {
+            if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")), let url = URL(string: ibcToken.moniker ?? "") {
+                imgView.af_setImage(withURL: url)
+            } else {
+                imgView.image = UIImage(named: "tokenDefaultIbc")
+            }
+            
+        } else {
+            imgView.image = UIImage(named: "tokenIc")
+            
+        }
+    }
+    
+    static func getGDexManager(_ address: String?) -> GDexManager? {
+        return BaseData.instance.mGravityManager_gRPC.filter {$0.address == address }.first
+    }
+    
+    static func getLpCoinAmount(_ address: String?, _ denom: String?) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        if let gDexManager = getGDexManager(address) {
+            return NSDecimalNumber.init(string: gDexManager.reserve.filter{ $0.denom == denom }.first?.amount)
+        }
+        return result
+    }
+    
+}
