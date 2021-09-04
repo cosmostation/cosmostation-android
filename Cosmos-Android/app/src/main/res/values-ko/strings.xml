@@ -1256,6 +1256,17 @@
     <string name="str_to_withdraw_coin_title">To Withdraw Coins (MG)</string>
     <string name="str_incentive_amount_title">Incentive Amounts</string>
     <string name="str_gravity_dex">Gravity Dex</string>
+    <string name="str_add_liquidity_external_symbol">External Symbol</string>
+    <string name="str_add_liquidity_native_asset">Native Asset</string>
+    <string name="str_add_liquidity_external_asset">External Asset</string>
+    <string name="str_swap_send_asset">Send Asset</string>
+    <string name="str_swap_receive_asset">Received Asset</string>
+    <string name="str_bridge_claim_type">Claim Type</string>
+    <string name="str_bridge_contract_address">Bridge Contract Address</string>
+    <string name="str_token_contract_address">Token Contract Address</string>
+    <string name="str_ethereum_sender">Ethereum Sender</string>
+    <string name="str_cosmos_receiver">Cosmos Receiver</string>
+    <string name="str_asset">Asset</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -1407,6 +1418,7 @@
     <string name="str_rizon_create_token_swap_recipient">Recipient</string>
     <string name="str_rizon_create_token_swap_amount">Amount</string>
 
+
     <string name="tx_kava_post_price">가격 정보 갱신</string>
     <string name="tx_kava_create_cdp">CDP\n개설</string>
     <string name="tx_kava_deposit_cdp">CDP\n예치</string>
@@ -1487,6 +1499,10 @@
 
     <string name="tx_add_record">Add Record</string>
     <string name="tx_create_did">Create Did</string>
+
+    <string name="tx_add_liquidity">Add Liquidity</string>
+    <string name="tx_swap">Swap</string>
+    <string name="tx_create_ethereum_bridge">Create Ethereum Bridge</string>
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>
