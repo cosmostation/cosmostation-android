@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/font_ssm_17_white"
-            android:text="@string/str_gravity_dex"/>
+            android:text="@string/str_osmosis_lab"/>
     </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
         android:layout_width="match_parent"

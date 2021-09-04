@@ -1,6 +1,9 @@
 package wannabit.io.cosmostaion.activities.chains.cosmos;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,28 +19,45 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
+import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.chains.cosmos.GravitySwapFragment;
 import wannabit.io.cosmostaion.fragment.chains.cosmos.GravityPoolListFragment;
+import wannabit.io.cosmostaion.fragment.chains.cosmos.GravitySwapFragment;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.GravityDexParamGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.GravityDexPoolGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_PARAM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_POOL_LIST;
 
 public class GravityListActivity extends BaseActivity {
 
     private Toolbar                     mToolbar;
+    private TextView                    mTitle;
     private ViewPager                   mLabPager;
     private TabLayout                   mLabTapLayer;
     private CosmosGravityPageAdapter    mPageAdapter;
+
+    public Liquidity.Params                                 mParams;
+    public ArrayList<Liquidity.Pool>                        mPoolList = new ArrayList<>();
+    public ArrayList<String>                                mAllDenoms = new ArrayList<>();
+    public ArrayList<Liquidity.Pool>                        mPoolMyList = new ArrayList<>();
+    public ArrayList<Liquidity.Pool>                        mPoolOtherList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_labs_list);
         mToolbar = findViewById(R.id.tool_bar);
+        mTitle = findViewById(R.id.toolbar_title);
         mLabTapLayer = findViewById(R.id.lab_tab);
         mLabPager = findViewById(R.id.lab_view_pager);
+        mTitle.setText(getString(R.string.str_gravity_dex));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -76,6 +96,8 @@ public class GravityListActivity extends BaseActivity {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
             }
         });
+        onShowWaitDialog();
+        onFetchPoolListInfo();
     }
 
     @Override
@@ -86,6 +108,41 @@ public class GravityListActivity extends BaseActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void onFetchPoolListInfo() {
+        mTaskCount = 2;
+        mPoolList.clear();
+        mPoolMyList.clear();
+        mPoolOtherList.clear();
+        new GravityDexPoolGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new GravityDexParamGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if (isFinishing()) return;
+        mTaskCount--;
+        if (result.taskType == TASK_GRPC_FETCH_GRAVITY_POOL_LIST) {
+            if (result.isSuccess && result.resultData != null) {
+                mPoolList = (ArrayList<Liquidity.Pool>) result.resultData;
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_GRAVITY_PARAM) {
+            if (result.isSuccess && result.resultData != null) {
+                mParams = (Liquidity.Params) result.resultData;
+            }
+
+        }
+        if (mTaskCount == 0) {
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    onHideWaitDialog();
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                }
+            }, 300);
         }
     }
 

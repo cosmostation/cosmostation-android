@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -32,11 +34,14 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
 
     private RelativeLayout mBtnInputCoinList, mBtnOutputCoinList;
     private ImageView mInputImg;
-    private TextView mInputCoin;
+    private TextView mInputCoin, mInputAmount;
+    private TextView mSwapFee;
     private ImageView mOutputImg;
     private TextView mOutputCoin;
-    private TextView mSwapPoolId, mSwapInputCoinRate, mSwapInputCoinSymbol, mSwapOutputCoinRate, mSwapOutputCoinSymbol, mSwapFee;
-    private Button mBtnSwapStart;
+    private TextView mSwapInputCoinRate, mSwapInputCoinSymbol, mSwapOutputCoinRate, mSwapOutputCoinSymbol;
+    private TextView mSwapInputCoinExRate, mSwapInputCoinExSymbol, mSwapOutputCoinExRate, mSwapOutputCoinExSymbol;
+    private FloatingActionButton mBtnToggle;
+    private Button  mBtnSwapStart;
 
     public ArrayList<PoolOuterClass.Pool>       mPoolList = new ArrayList<>();
     public ArrayList<String>                    mAllDenoms = new ArrayList<>();
@@ -65,19 +70,27 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
 
         mInputImg                   = rootView.findViewById(R.id.img_input_coin);
         mInputCoin                  = rootView.findViewById(R.id.txt_input_coin);
+        mInputAmount                = rootView.findViewById(R.id.inpus_amount);
         mOutputImg                  = rootView.findViewById(R.id.img_output_coin);
-        mOutputCoin                  = rootView.findViewById(R.id.txt_output_coin);
+        mOutputCoin                 = rootView.findViewById(R.id.txt_output_coin);
 
-        mSwapPoolId                 = rootView.findViewById(R.id.str_token_swap_pool_id);
-        mSwapInputCoinRate          = rootView.findViewById(R.id.token_swap_input_coin_rate);
-        mSwapInputCoinSymbol        = rootView.findViewById(R.id.token_swap_input_coin_symbol);
-        mSwapOutputCoinRate         = rootView.findViewById(R.id.token_swap_output_coin_rate);
-        mSwapOutputCoinSymbol       = rootView.findViewById(R.id.token_swap_output_coin_symbol);
+        mSwapInputCoinRate          = rootView.findViewById(R.id.inputs_rate);
+        mSwapInputCoinSymbol        = rootView.findViewById(R.id.inputs_rate_symbol);
+        mSwapOutputCoinRate         = rootView.findViewById(R.id.outputs_rate);
+        mSwapOutputCoinSymbol       = rootView.findViewById(R.id.outputs_rate_symbol);
+
+        mSwapInputCoinExRate        = rootView.findViewById(R.id.global_inputs_rate);
+        mSwapInputCoinExSymbol      = rootView.findViewById(R.id.global_inputs_rate_symbol);
+        mSwapOutputCoinExRate       = rootView.findViewById(R.id.global_outputs_rate);
+        mSwapOutputCoinExSymbol     = rootView.findViewById(R.id.global_outputs_rate_symbol);
+
         mSwapFee                    = rootView.findViewById(R.id.token_swap_fee);
+        mBtnToggle                  = rootView.findViewById(R.id.btn_toggle);
         mBtnSwapStart               = rootView.findViewById(R.id.btn_start_swap);
 
         mBtnInputCoinList.setOnClickListener(this);
         mBtnOutputCoinList.setOnClickListener(this);
+        mBtnToggle.setOnClickListener(this);
         mBtnSwapStart.setOnClickListener(this);
 
         return rootView;
@@ -97,12 +110,13 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void onUpdateView() {
+        int inputDecimal = WDp.mainDivideDecimal(mInputCoinDenom);
         WUtil.dpOsmosisTokenName(getSActivity(), mInputCoin, mInputCoinDenom);
         WUtil.DpOsmosisTokenImg(mInputImg, mInputCoinDenom);
         WUtil.dpOsmosisTokenName(getSActivity(), mOutputCoin, mOutputCoinDenom);
         WUtil.DpOsmosisTokenImg(mOutputImg, mOutputCoinDenom);
 
-        mSwapPoolId.setText("" + mSelectedPool.getId());
+        mInputAmount.setText(WDp.getDpAmount2(getSActivity(), getBaseDao().getAvailable(mInputCoinDenom), inputDecimal, inputDecimal));
         BigDecimal swapFee = new BigDecimal(mSelectedPool.getPoolParams().getSwapFee());
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
 
@@ -133,6 +147,19 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         WUtil.dpOsmosisTokenName(getSActivity(), mSwapInputCoinSymbol, mInputCoinDenom);
         mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, outCoinDecimal));
         WUtil.dpOsmosisTokenName(getSActivity(), mSwapOutputCoinSymbol, mOutputCoinDenom);
+
+        BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
+        BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
+        BigDecimal priceRate = BigDecimal.ZERO;
+        if (priceInput == BigDecimal.ZERO || priceOutput == BigDecimal.ZERO) {
+            mSwapOutputCoinExRate.setText("??????");
+        } else {
+            priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
+        }
+        mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputCoinDecimal));
+        WUtil.dpOsmosisTokenName(getSActivity(), mSwapInputCoinExSymbol, mInputCoinDenom);
+        mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, outCoinDecimal));
+        WUtil.dpOsmosisTokenName(getSActivity(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
     }
 
     @Override
@@ -171,6 +198,12 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+        } else if (v.equals(mBtnToggle)) {
+            String temp = mInputCoinDenom;
+            mInputCoinDenom = mOutputCoinDenom;
+            mOutputCoinDenom = temp;
+            onUpdateView();
 
         } else if (v.equals(mBtnSwapStart)) {
             getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool.getId());

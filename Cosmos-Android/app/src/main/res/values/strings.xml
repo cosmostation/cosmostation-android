@@ -1387,8 +1387,8 @@
     <string name="str_token_swap">Token Swap</string>
     <string name="str_token_id">ID</string>
     <string name="str_token_swap_time">Time</string>
-    <string name="str_token_swap_input_coin">Input Coin</string>
-    <string name="str_token_swap_output_coin">Output Coin</string>
+    <string name="str_token_swap_input_coin">Inputs</string>
+    <string name="str_token_swap_output_coin">Outputs</string>
     <string name="str_token_swap_output_coin_minimum">Output Coin (Minimum Guarantee)</string>
     <string name="str_token_swap_rate_coin">Rate</string>
     <string name="str_token_swap_fee">Swap Fee</string>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,235 +7,363 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="@dimen/space_16">
-        <LinearLayout
+        android:padding="@dimen/space_16">
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/space_16"
-            android:background="@color/colorTransBg">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/font_ss_14_gray1"
-                android:text="@string/str_token_swap_input_coin"/>
-            <RelativeLayout
-                android:id="@+id/btn_to_input_coin"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_12">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_50"
-                    android:background="@drawable/edittext_box"/>
-                <ImageView
-                    android:id="@+id/img_input_coin"
-                    android:layout_width="@dimen/space_20"
-                    android:layout_height="@dimen/space_20"
-                    android:layout_marginLeft="@dimen/space_10"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/token_ic"/>
-                <TextView
-                    android:id="@+id/txt_input_coin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/img_input_coin"
-                    android:layout_marginLeft="@dimen/space_6"
-                    style="@style/font_ss_14_white"
-                    android:text="Coin"/>
-                <ImageView
-                    android:id="@+id/img_input_arrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/space_16"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/arrow_down_gr"/>
-            </RelativeLayout>
-        </LinearLayout>
+            app:cardBackgroundColor="@color/colorTransBg"
+            app:cardCornerRadius="@dimen/space_6"
+            app:cardElevation="1.5dp"
+            app:cardUseCompatPadding="true">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_16"
-            android:background="@color/colorTransBg">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/font_ss_14_gray1"
-                android:text="@string/str_token_swap_output_coin"/>
-            <RelativeLayout
-                android:id="@+id/btn_to_output_coin"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_50"
-                android:layout_marginTop="@dimen/space_12">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_50"
-                    android:background="@drawable/edittext_box"/>
-                <ImageView
-                    android:id="@+id/img_output_coin"
-                    android:layout_width="@dimen/space_20"
-                    android:layout_height="@dimen/space_20"
-                    android:layout_marginLeft="@dimen/space_10"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/token_ic"/>
-                <TextView
-                    android:id="@+id/txt_output_coin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/img_output_coin"
-                    android:layout_marginLeft="@dimen/space_6"
-                    style="@style/font_ss_14_white"
-                    android:text="Coin"/>
-                <ImageView
-                    android:id="@+id/img_output_arrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/space_16"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/arrow_down_gr"/>
-            </RelativeLayout>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/space_16">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/colorTransBg"
-            android:layout_marginTop="@dimen/space_16"
-            android:padding="@dimen/space_16">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/str_pool_id"
+                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_pool_id"
-                    style="@style/font_ss_12_gray1"/>
+                    android:text="@string/str_token_swap_input_coin" />
+
                 <RelativeLayout
+                    android:id="@+id/btn_to_input_coin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/str_pool_id">
-                    <TextView
-                        android:id="@+id/str_token_swap_pool_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                </RelativeLayout>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12">
-                <TextView
-                    android:id="@+id/str_token_swap_rate_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_token_swap_rate_coin"
-                    style="@style/font_ss_12_gray1"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/str_token_swap_rate_title"
-                    android:gravity="right">
-                    <TextView
-                        android:id="@+id/token_swap_input_coin_rate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/token_swap_input_coin_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/token_swap_input_coin_symbol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/token_swap_input_coin_rate"
-                        android:text="Coin"
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/token_swap_rate_vs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/token_swap_input_coin_symbol"
-                        android:text=" : "
+                    android:layout_height="@dimen/space_36"
+                    android:layout_marginTop="@dimen/space_10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_50"
+                        android:background="@drawable/btn_trans_with_border" />
+
+                    <ImageView
+                        android:id="@+id/img_input_coin"
+                        android:layout_width="@dimen/space_20"
+                        android:layout_height="@dimen/space_20"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_10"
-                        android:layout_marginRight="@dimen/space_10"
-                        style="@style/font_ss_12_white"/>
+                        android:src="@drawable/token_ic" />
+
                     <TextView
-                        android:id="@+id/token_swap_output_coin_rate"
+                        android:id="@+id/txt_input_coin"
+                        style="@style/font_ss_14_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/token_swap_rate_vs"
-                        android:layout_alignBaseline="@+id/token_swap_output_coin_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:layout_toRightOf="@+id/img_input_coin"
+                        android:text="Coin" />
+
                     <TextView
-                        android:id="@+id/token_swap_output_coin_symbol"
+                        android:id="@+id/inpus_amount"
+                        style="@style/font_ss_14_white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/token_swap_output_coin_rate"
-                        android:text="Coin"
-                        style="@style/font_ss_12_white"/>
-                </RelativeLayout>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12">
-                <TextView
-                    android:id="@+id/str_swap_fee_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_token_swap_fee"
-                    style="@style/font_ss_12_gray1"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/str_swap_fee_title">
-                    <TextView
-                        android:id="@+id/token_swap_fee"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/space_6"
+                        android:layout_toLeftOf="@+id/img_input_arrow"
+                        android:text="-" />
+
+                    <ImageView
+                        android:id="@+id/img_input_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/space_8"
+                        android:src="@drawable/arrow_down_gr" />
                 </RelativeLayout>
-            </RelativeLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/space_8">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/font_ss_12_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Swap Fee" />
+
+                <TextView
+                    android:id="@+id/token_swap_fee"
+                    style="@style/font_ss_11_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+            </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_20"
+                android:layout_marginRight="@dimen/space_20"
+                android:clickable="true"
+                app:backgroundTint="#9C6CFF"
+                app:maxImageSize="@dimen/space_18"
+                app:srcCompat="@drawable/icon_swap" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/font_ss_12_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Max Slippage" />
+
+                <TextView
+                    android:id="@+id/swap_slippage"
+                    style="@style/font_ss_11_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.00%" />
+            </LinearLayout>
         </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/colorTransBg"
+            app:cardCornerRadius="@dimen/space_6"
+            app:cardElevation="1.5dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/space_16">
+
+                <TextView
+                    style="@style/font_ss_12_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_token_swap_output_coin" />
+
+                <RelativeLayout
+                    android:id="@+id/btn_to_output_coin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_36"
+                    android:layout_marginTop="@dimen/space_10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_50"
+                        android:background="@drawable/btn_trans_with_border" />
+
+                    <ImageView
+                        android:id="@+id/img_output_coin"
+                        android:layout_width="@dimen/space_20"
+                        android:layout_height="@dimen/space_20"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_10"
+                        android:src="@drawable/token_ic" />
+
+                    <TextView
+                        android:id="@+id/txt_output_coin"
+                        style="@style/font_ss_14_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/space_6"
+                        android:layout_toRightOf="@+id/img_output_coin"
+                        android:text="Coin" />
+
+                    <ImageView
+                        android:id="@+id/img_output_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/space_8"
+                        android:src="@drawable/arrow_down_gr" />
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/colorTransBg"
+            app:cardCornerRadius="@dimen/space_6"
+            app:cardElevation="1.5dp"
+            android:layout_above="@+id/bottom_control"
+            android:layout_margin="@dimen/space_16"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/space_16">
+
+                <TextView
+                    style="@style/font_ss_12_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gravity Dex Swap Rate" />
+
+                <TextView
+                    style="@style/font_ss_10_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(Swap rate on this Pool)" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/inputs_rate"
+                        style="@style/font_ss_10_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-" />
+
+                    <TextView
+                        android:id="@+id/inputs_rate_symbol"
+                        style="@style/font_ss_10_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_4"
+                        android:text="-" />
+
+                    <TextView
+                        style="@style/font_ss_10_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_8"
+                        android:layout_marginRight="@dimen/space_8"
+                        android:text="=" />
+
+                    <TextView
+                        android:id="@+id/outputs_rate"
+                        style="@style/font_ss_10_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-" />
+
+                    <TextView
+                        android:id="@+id/outputs_rate_symbol"
+                        style="@style/font_ss_10_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_4"
+                        android:text="-" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/space_16"
+                    android:layout_marginBottom="@dimen/space_16"
+                    android:background="@color/colorGray3" />
+
+                <TextView
+                    style="@style/font_ss_12_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Global Swap Rate" />
+
+                <TextView
+                    style="@style/font_ss_10_gray1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(Average Swap Rate on global exchanges)" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/global_inputs_rate"
+                        style="@style/font_ss_10_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-" />
+
+                    <TextView
+                        android:id="@+id/global_inputs_rate_symbol"
+                        style="@style/font_ss_10_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_4"
+                        android:text="-" />
+
+                    <TextView
+                        style="@style/font_ss_12_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_8"
+                        android:layout_marginRight="@dimen/space_8"
+                        android:text="=" />
+
+                    <TextView
+                        android:id="@+id/global_outputs_rate"
+                        style="@style/font_ss_10_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-" />
+
+                    <TextView
+                        android:id="@+id/global_outputs_rate_symbol"
+                        style="@style/font_ss_10_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_4"
+                        android:text="-" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:id="@+id/bottom_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
-        android:layout_marginBottom="@dimen/space_24">
+        android:layout_marginBottom="@dimen/space_24"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/btn_start_swap"
+            style="@style/font_ss_14_photon"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_45"
-            android:layout_weight="1"
-            android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_4"
+            android:layout_weight="1"
             android:background="@drawable/btn_trans_with_border"
-            style="@style/font_ss_14_photon"
-            android:textColor="@color/color_btn_photon"
+            android:minHeight="@dimen/space_45"
+            android:text="@string/str_token_swap_start"
             android:textAllCaps="false"
-            android:text="@string/str_token_swap_start"/>
+            android:textColor="@color/color_btn_photon" />
     </LinearLayout>
 </RelativeLayout>

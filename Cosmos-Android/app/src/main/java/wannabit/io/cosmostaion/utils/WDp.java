@@ -2080,6 +2080,34 @@ public class WDp {
         }
     }
 
+    public static int mainDivideDecimal(String denom) {
+        if (denom.equals(TOKEN_BNB)) {
+            return 8;
+        } else if (denom.equals(TOKEN_OK)) {
+            return 18;
+        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF)) {
+            return 18;
+        } else if (denom.equals(TOKEN_CRO)) {
+            return 8;
+        } else {
+            return 6;
+        }
+    }
+
+    public static int mainDisplayDecimal(String denom) {
+        if (denom.equals(TOKEN_BNB)) {
+            return 8;
+        } else if (denom.equals(TOKEN_OK)) {
+            return 18;
+        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF)) {
+            return 18;
+        } else if (denom.equals(TOKEN_CRO)) {
+            return 8;
+        } else {
+            return 6;
+        }
+    }
+
     public static int getDpRiskColor(Context c, BigDecimal riskRate) {
         if (riskRate.longValue() <= 50) {
             return c.getResources().getColor(R.color.colorCdpSafe);
