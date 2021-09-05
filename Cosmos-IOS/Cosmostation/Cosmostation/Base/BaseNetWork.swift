@@ -1061,6 +1061,9 @@ class BaseNetWork {
         } else if (chain == ChainType.ALTHEA_TEST) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 20100)
             
+        } else if (chain == ChainType.UMEE_TEST) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 40800)
+            
         }
         return nil
     }
