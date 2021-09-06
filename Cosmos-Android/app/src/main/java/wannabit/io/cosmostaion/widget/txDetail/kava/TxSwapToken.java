@@ -38,13 +38,21 @@ public class TxSwapToken extends TxHolder {
         if (baseChain.equals(BaseChain.KAVA_MAIN)) {
             itemSwapCoinType.setText(msg.type.split("/")[1]);
             itemSwapCoinSender.setText(msg.value.requester);
-            itemSwapTokenInAmount.setText(msg.value.exact_token_a.amount);
 
             Coin inCoin = res.simpleSwapInCoin();
-            WDp.showCoinDp(c, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount, baseChain);
-
+            if (inCoin.amount == null || inCoin.denom == null) {
+                itemSwapTokenInAmount.setText("-");
+                itemSwapTokenInAmountSymbol.setText("-");
+            } else {
+                WDp.showCoinDp(c, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount, baseChain);
+            }
             Coin outCoin = res.simpleSwapOutCoin();
-            WDp.showCoinDp(c, outCoin, itemSwapTokenOutAmountSymbol, itemSwapTokenOutAmount, baseChain);
+            if (outCoin.amount == null || outCoin.denom == null) {
+                itemSwapTokenOutAmount.setText("-");
+                itemSwapTokenOutAmountSymbol.setText("-");
+            } else {
+                WDp.showCoinDp(c, outCoin, itemSwapTokenOutAmountSymbol, itemSwapTokenOutAmount, baseChain);
+            }
         }
 
     }

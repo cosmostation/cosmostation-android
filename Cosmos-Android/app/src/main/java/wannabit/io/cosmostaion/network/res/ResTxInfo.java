@@ -263,7 +263,7 @@ public class ResTxInfo {
 
     public Coin simpleSwapInCoin() {
         Coin coin  = new Coin();
-        if (logs.get(0).events != null) {
+        if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
             for (Event event: logs.get(0).events) {
                 if (event.type.equals("swap_trade")) {
                     for (EventAttribute attr: event.attributes) {
@@ -283,7 +283,7 @@ public class ResTxInfo {
 
     public Coin simpleSwapOutCoin() {
         Coin coin  = new Coin();
-        if (logs.get(0).events != null) {
+        if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
             for (Event event: logs.get(0).events) {
                 if (event.type.equals("swap_trade")) {
                     for (EventAttribute attr: event.attributes) {
@@ -303,7 +303,7 @@ public class ResTxInfo {
 
     public ArrayList<Coin> simpleDeposits() {
         ArrayList<Coin> result = new ArrayList<>();
-        if (logs.get(0).events != null) {
+        if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
             for (Event event: logs.get(0).events) {
                 if (event.type.equals("swap_deposit")) {
                     for (EventAttribute attr: event.attributes) {
@@ -324,7 +324,7 @@ public class ResTxInfo {
 
     public ArrayList<Coin> simpleWithdraws() {
         ArrayList<Coin> result = new ArrayList<>();
-        if (logs.get(0).events != null) {
+        if (logs != null && logs.get(0) != null && logs.get(0).events != null) {
             for (Event event: logs.get(0).events) {
                 if (event.type.equals("swap_withdraw")) {
                     for (EventAttribute attr: event.attributes) {
