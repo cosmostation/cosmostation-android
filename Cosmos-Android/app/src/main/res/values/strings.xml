@@ -1407,9 +1407,9 @@
     <string name="str_token_swap_start">START SWAP</string>
     <string name="str_select_coin_swap_in">Select Coin to Swap In</string>
     <string name="str_select_coin_swap_out">Select Coin to Swap Out</string>
-    <string name="str_pool_total_liquidity_value">Total Locked Value (TVL)</string>
-    <string name="str_pool_total_liquidity_amount">Total Locked Coins</string>
-    <string name="str_pool_my_liquidity_available_amount">Availables</string>
+    <string name="str_pool_total_liquidity_value">Total Deposited Value (TVL)</string>
+    <string name="str_pool_total_liquidity_amount">Total Deposited Coins</string>
+    <string name="str_pool_my_liquidity_available_amount">My Availables</string>
     <string name="str_title_pool_join">Deposit to Pool</string>
     <string name="str_join_pool_step_0">Insert amount to deposit</string>
     <string name="str_join_pool_step_1">Insert memo (optional)</string>
@@ -1497,7 +1497,8 @@
     <string name="str_kava_slippage_title">Slippage</string>
     <string name="str_kava_total_share_title">Total Share</string>
     <string name="str_kava_deposit_my_share_title">My Share</string>
-    <string name="str_kava_deposit_my_title">My Deposited Coins</string>
+    <string name="str_deposit_my_value">My Deposited Value</string>
+    <string name="str_deposit_my_coins">My Deposited Coins</string>
     <string name="str_to_withdraw_coin_title">To Withdraw Coins (MG)</string>
     <string name="str_incentive_amount_title">Incentive Amounts</string>
     <string name="str_gravity_dex">Gravity Dex</string>

@@ -81,15 +81,15 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindHardDetailAvailable(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom) {
     }
 
-    public void onBindMyPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool otherPool) {
+    public void onBindOsmoMyPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool otherPool) {
     }
 
-    public void onBindOtherPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool otherPool) {
+    public void onBindOsmoOtherPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool otherPool) {
     }
 
-    public void onBindMyPool(Context context, BaseActivity activity, BaseData baseData, SwapPool myPool, SwapDeposit mySwapDeposit) {
+    public void onBindKavaMyPool(Context context, BaseActivity activity, BaseData baseData, SwapPool myPool, SwapDeposit mySwapDeposit) {
     }
 
-    public void onBindOtherPool(Context context, BaseActivity activity, BaseData baseData, SwapPool otherPool) {
+    public void onBindKavaOtherPool(Context context, BaseActivity activity, BaseData baseData, SwapPool otherPool) {
     }
 }

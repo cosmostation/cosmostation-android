@@ -37,7 +37,7 @@
                     android:layout_height="@dimen/space_64"
                     android:layout_centerInParent="true"
                     android:layout_alignParentLeft="true"
-                    android:src="@drawable/icon_kavapool"/>
+                    android:src="@drawable/icon_pool"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -45,14 +45,6 @@
                     android:orientation="vertical"
                     android:layout_toRightOf="@+id/pool_market_img"
                     android:layout_centerInParent="true">
-
-                    <TextView
-                        android:id="@+id/pool_market_id"
-                        style="@style/font_ssm_17_white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Swap Pool"
-                        android:textColor="@color/colorWhite"/>
                     <TextView
                         android:id="@+id/pool_market_type"
                         android:layout_below="@+id/market_img"
@@ -61,55 +53,29 @@
                         android:gravity="center"
                         android:text="ATMO / OSMO"
                         android:layout_marginTop="@dimen/space_8"
-                        style="@style/font_ss_12_gray1"/>
+                        style="@style/font_ss_17_white"/>
                 </LinearLayout>
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorGray3"
-                android:layout_marginTop="@dimen/space_16"/>
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12">
+                android:layout_marginTop="@dimen/space_6">
                 <TextView
-                    style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_kava_total_share_title" />
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:text="@string/str_pool_total_liquidity_value"
+                    style="@style/font_ss_12_gray1"/>
+                <TextView
+                    android:id="@+id/pool_total_liquidity_value"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="right">
-                        <TextView
-                            android:id="@+id/pool_total_liquidity_amount"
-                            style="@style/font_ssl_12_white"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="right">
-                        <TextView
-                            android:id="@+id/pool_total_liquidity_value"
-                            style="@style/font_ss_9_gray1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
+                    android:layout_alignParentRight="true"
+                    style="@style/font_ss_15_white"
+                    android:gravity="right"
+                    android:textStyle="bold"
+                    android:text="-"/>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -166,6 +132,79 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGray3"
+                android:layout_marginTop="@dimen/space_14"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_14">
+                <TextView
+                    android:id="@+id/mypool_available_liquidity_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_pool_my_liquidity_available_amount"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/mypool_available_liquidity_amount">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="right">
+                                <TextView
+                                    android:id="@+id/mypool_amount1"
+                                    style="@style/font_ssl_12_white"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="-" />
+                                <TextView
+                                    android:id="@+id/mypool_symbol1"
+                                    style="@style/font_ss_12_white"
+                                    android:layout_width="40dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/space_2"
+                                    android:gravity="end"
+                                    android:text="-" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="right">
+                                <TextView
+                                    android:id="@+id/mypool_amount2"
+                                    style="@style/font_ssl_12_white"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="-" />
+                                <TextView
+                                    android:id="@+id/mypool_symbol2"
+                                    style="@style/font_ss_12_white"
+                                    android:layout_width="@dimen/space_40"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/space_2"
+                                    android:gravity="end"
+                                    android:text="-" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

@@ -19,8 +19,8 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.kava.SwapDeposit;
 import wannabit.io.cosmostaion.model.kava.SwapPool;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-import wannabit.io.cosmostaion.widget.kava.MyPoolListHolder;
-import wannabit.io.cosmostaion.widget.kava.OtherPoolListHolder;
+import wannabit.io.cosmostaion.widget.PoolMyHolder;
+import wannabit.io.cosmostaion.widget.PoolOtherHolder;
 
 public class ListKavaPoolFragment extends BaseFragment {
 
@@ -79,9 +79,9 @@ public class ListKavaPoolFragment extends BaseFragment {
         @Override
         public BaseHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_MY_POOL) {
-                return new MyPoolListHolder(getLayoutInflater().inflate(R.layout.item_kava_pool_list_my, viewGroup, false));
+                return new PoolMyHolder(getLayoutInflater().inflate(R.layout.item_pool_list_my, viewGroup, false));
             } else if (viewType == TYPE_OTHER_POOL) {
-                return new OtherPoolListHolder(getLayoutInflater().inflate(R.layout.item_kava_pool_list_other, viewGroup, false));
+                return new PoolOtherHolder(getLayoutInflater().inflate(R.layout.item_pool_list_other, viewGroup, false));
             }
             return null;
         }
@@ -92,12 +92,12 @@ public class ListKavaPoolFragment extends BaseFragment {
                 final SwapPool MySwapPool = mMySwapPoolList.get(position);
                 final SwapDeposit MySwapDeposit = mMySwapDepositList.get(position);
                 if (MySwapDeposit.pool_id.equalsIgnoreCase(MySwapPool.name)) {
-                    viewHolder.onBindMyPool(getContext(), getSActivity(), getBaseDao(), MySwapPool, MySwapDeposit);
+                    viewHolder.onBindKavaMyPool(getContext(), getSActivity(), getBaseDao(), MySwapPool, MySwapDeposit);
                 }
             }
             else if (getItemViewType(position) == TYPE_OTHER_POOL) {
                 final SwapPool OtherSwapPool = mOtherSwapPoolList.get(position - mMySwapPoolList.size());
-                viewHolder.onBindOtherPool(getContext(), getSActivity(), getBaseDao(), OtherSwapPool);
+                viewHolder.onBindKavaOtherPool(getContext(), getSActivity(), getBaseDao(), OtherSwapPool);
             }
         }
 

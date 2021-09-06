@@ -1557,6 +1557,19 @@ public class WUtil {
         }
     }
 
+    public static BigDecimal getMyShareLpAmount(BaseData baseData, PoolOuterClass.Pool pool, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        BigDecimal myShare = baseData.getAvailable("gamm/pool/" + pool.getId());
+        String totalLpCoin = "";
+        if (pool.getPoolAssets(0).getToken().getDenom().equalsIgnoreCase(denom)) {
+            totalLpCoin = pool.getPoolAssets(0).getToken().getAmount();
+        } else {
+            totalLpCoin = pool.getPoolAssets(1).getToken().getAmount();
+        }
+        result = new BigDecimal(totalLpCoin).multiply(myShare).divide(new BigDecimal(pool.getTotalShares().getAmount()),18, RoundingMode.DOWN);
+        return result;
+    }
+
     public static ArrayList<GaugeOuterClass.Gauge> getGaugesByPoolId(long poolId, ArrayList<QueryOuterClass.IncentivizedPool> incentivizedPools, ArrayList<GaugeOuterClass.Gauge> allGauges) {
         ArrayList<Long> gaugeIds = new ArrayList<Long>();
         ArrayList<GaugeOuterClass.Gauge> result = new ArrayList<GaugeOuterClass.Gauge>();
