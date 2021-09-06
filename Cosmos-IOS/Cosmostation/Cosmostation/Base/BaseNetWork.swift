@@ -923,6 +923,8 @@ class BaseNetWork {
             result = MEDI_TEST_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.ALTHEA_TEST) {
             result = ALTHEA_TEST_API + "v1/account/new_txs/" + address
+        } else if (chain == ChainType.UMEE_TEST) {
+            result = UMEE_TEST_API + "v1/account/new_txs/" + address
         }
         return result
     }
@@ -978,6 +980,8 @@ class BaseNetWork {
             result = MEDI_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.ALTHEA_TEST) {
             result = ALTHEA_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.UMEE_TEST) {
+            result = UMEE_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
         return result
     }

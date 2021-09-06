@@ -2761,7 +2761,7 @@ public class WUtils {
             label.textColor = COLOR_ALTHEA
         } else if (chain == ChainType.UMEE_TEST) {
             label.text = "UMEE"
-            label.textColor = TRANS_BG_COLOR_UMEE
+            label.textColor = COLOR_UMEE
         }
     }
     
