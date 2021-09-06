@@ -211,6 +211,15 @@ extension WUtils {
         return coin0Value.adding(coin1Value)
     }
     
+    static func getMyShareLpAmount(_ pool: Osmosis_Gamm_V1beta1_Pool, _ denom: String) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        let myShare = BaseData.instance.getAvailableAmount_gRPC("gamm/pool/" + String(pool.id))
+        if let totalLpCoin = pool.poolAssets.filter { $0.token.denom == denom }.first?.token.amount {
+            result = (NSDecimalNumber.init(string: totalLpCoin)).multiplying(by: myShare).dividing(by: NSDecimalNumber.init(string: pool.totalShares.amount), withBehavior: handler18)
+        }
+        return result
+    }
+    
     static func getNextIncentiveAmount(_ pool: Osmosis_Gamm_V1beta1_Pool, _ gauges: Array<Osmosis_Incentives_Gauge>, _ position: UInt) -> NSDecimalNumber  {
         if (gauges.count != 3) { return NSDecimalNumber.zero }
         let incentive1Day = NSDecimalNumber.init(string: gauges[0].coins[0].amount).subtracting(NSDecimalNumber.init(string: gauges[0].distributedCoins[0].amount))

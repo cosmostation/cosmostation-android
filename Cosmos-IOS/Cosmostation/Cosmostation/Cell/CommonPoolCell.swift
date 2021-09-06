@@ -1,16 +1,15 @@
 //
-//  MyPoolCell.swift
+//  CommonPoolCell.swift
 //  Cosmostation
 //
-//  Created by 정용주 on 2021/07/16.
+//  Created by 정용주 on 2021/09/06.
 //  Copyright © 2021 wannabit. All rights reserved.
 //
 
 import UIKit
 
-class MyPoolCell: UITableViewCell {
-
-    @IBOutlet weak var poolIDLabel: UILabel!
+class CommonPoolCell: UITableViewCell {
+    
     @IBOutlet weak var poolPairLabel: UILabel!
     @IBOutlet weak var totalLiquidityValueLabel: UILabel!
     @IBOutlet weak var liquidity1AmountLabel: UILabel!
@@ -22,10 +21,7 @@ class MyPoolCell: UITableViewCell {
     @IBOutlet weak var availableCoin0DenomLabel: UILabel!
     @IBOutlet weak var availableCoin1AmountLabel: UILabel!
     @IBOutlet weak var availableCoin1DenomLabel: UILabel!
-    @IBOutlet weak var availableLpAmountLabel: UILabel!
-    @IBOutlet weak var availableLpDenomLabel: UILabel!
-    @IBOutlet weak var availableLpValueLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -34,10 +30,10 @@ class MyPoolCell: UITableViewCell {
         liquidity2AmountLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         availableCoin0AmountLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         availableCoin1AmountLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
-        availableLpAmountLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
     
-    func onBindView(_ pool: Osmosis_Gamm_V1beta1_Pool) {
+    func onBindOsmoPoolView(_ pool: Osmosis_Gamm_V1beta1_Pool) {
+        //dp pool info
         let coin0 = Coin.init(pool.poolAssets[0].token.denom, pool.poolAssets[0].token.amount)
         let coin1 = Coin.init(pool.poolAssets[1].token.denom, pool.poolAssets[1].token.amount)
         let coin0BaseDenom = BaseData.instance.getBaseDenom(coin0.denom)
@@ -47,7 +43,6 @@ class MyPoolCell: UITableViewCell {
         let coin0Decimal = WUtils.getOsmosisCoinDecimal(coin0.denom)
         let coin1Decimal = WUtils.getOsmosisCoinDecimal(coin1.denom)
         
-        poolIDLabel.text = "MY POOL #" + String(pool.id)
         poolPairLabel.text = coin0Symbol + " / " + coin1Symbol
         
         let coin0Value = WUtils.usdValue(coin0BaseDenom, NSDecimalNumber.init(string: coin0.amount), coin0Decimal)
@@ -65,9 +60,9 @@ class MyPoolCell: UITableViewCell {
         liquidity2AmountLabel.attributedText = WUtils.displayAmount2(coin1.amount, liquidity2AmountLabel.font, coin1Decimal, 6)
         
         
+        //dp vailable
         let availableCoin0 = BaseData.instance.getAvailable_gRPC(coin0.denom)
         let availableCoin1 = BaseData.instance.getAvailable_gRPC(coin1.denom)
-        let lpCoin = BaseData.instance.getAvailable_gRPC("gamm/pool/" + String(pool.id))
         
         WUtils.DpOsmosisTokenName(availableCoin0DenomLabel, coin0.denom)
         availableCoin0DenomLabel.adjustsFontSizeToFitWidth = true
@@ -75,13 +70,40 @@ class MyPoolCell: UITableViewCell {
         availableCoin1DenomLabel.adjustsFontSizeToFitWidth = true
         availableCoin0AmountLabel.attributedText = WUtils.displayAmount2(availableCoin0, availableCoin0AmountLabel.font, coin0Decimal, 6)
         availableCoin1AmountLabel.attributedText = WUtils.displayAmount2(availableCoin1, availableCoin1AmountLabel.font, coin1Decimal, 6)
+    }
+    
+    
+    func onBindKavaPoolView(_ pool: SwapPool) {
+        //dp pool info
+        let nf = WUtils.getNumberFormatter(2)
+        let coin0 = pool.coins[0]
+        let coin1 = pool.coins[1]
+        let coin0Decimal = WUtils.getKavaCoinDecimal(coin0.denom)
+        let coin1Decimal = WUtils.getKavaCoinDecimal(coin1.denom)
+        let coin0price = WUtils.getKavaPriceFeed(coin0.denom)
+        let coin1price = WUtils.getKavaPriceFeed(coin1.denom)
+        let coin0Value = NSDecimalNumber.init(string: coin0.amount).multiplying(by: coin0price).multiplying(byPowerOf10: -coin0Decimal, withBehavior: WUtils.handler2)
+        let coin1Value = NSDecimalNumber.init(string: coin1.amount).multiplying(by: coin1price).multiplying(byPowerOf10: -coin1Decimal, withBehavior: WUtils.handler2)
+
+        poolPairLabel.text = coin0.denom.uppercased() + " : " + coin1.denom.uppercased()
+
+        let poolValue = coin0Value.adding(coin1Value)
+        let poolValueFormatted = "$ " + nf.string(from: poolValue)!
+        totalLiquidityValueLabel.attributedText = WUtils.getDpAttributedString(poolValueFormatted, 2, totalLiquidityValueLabel.font)
+
+        WUtils.DpKavaTokenName(liquidity1DenomLabel, coin0.denom)
+        WUtils.DpKavaTokenName(liquidity2DenomLabel, coin1.denom)
+        liquidity1AmountLabel.attributedText = WUtils.displayAmount2(coin0.amount, liquidity1AmountLabel.font, coin0Decimal, 6)
+        liquidity2AmountLabel.attributedText = WUtils.displayAmount2(coin1.amount, liquidity2AmountLabel.font, coin1Decimal, 6)
         
-        availableLpDenomLabel.text = "GAMM-" + String(pool.id)
-        availableLpAmountLabel.attributedText = WUtils.displayAmount2(lpCoin, availableLpAmountLabel.font, 18, 6)
         
-        let lpCoinPrice = WUtils.getOsmoLpTokenPerUsdPrice(pool)
-        let lpCoinValue = NSDecimalNumber.init(string: lpCoin).multiplying(by: lpCoinPrice).multiplying(byPowerOf10: -18, withBehavior: WUtils.handler2)
-        let formatted2 = "$ " + nf.string(from: lpCoinValue)!
-        availableLpValueLabel.attributedText = WUtils.getDpAttributedString(formatted2, 2, availableLpValueLabel.font)
+        //dp vailable
+        let availableCoin0 = BaseData.instance.availableAmount(coin0.denom)
+        let availableCoin1 = BaseData.instance.availableAmount(coin1.denom)
+        
+        WUtils.DpKavaTokenName(availableCoin0DenomLabel, coin0.denom)
+        WUtils.DpKavaTokenName(availableCoin1DenomLabel, coin1.denom)
+        availableCoin0AmountLabel.attributedText = WUtils.displayAmount2(availableCoin0.stringValue, availableCoin0AmountLabel.font, coin0Decimal, 6)
+        availableCoin1AmountLabel.attributedText = WUtils.displayAmount2(availableCoin1.stringValue, availableCoin1AmountLabel.font, coin1Decimal, 6)
     }
 }

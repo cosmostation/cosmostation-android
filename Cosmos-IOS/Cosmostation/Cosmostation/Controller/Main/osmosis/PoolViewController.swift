@@ -27,8 +27,8 @@ class PoolViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         
         self.poolListTableView.delegate = self
         self.poolListTableView.dataSource = self
-        self.poolListTableView.register(UINib(nibName: "PoolCell", bundle: nil), forCellReuseIdentifier: "PoolCell")
-        self.poolListTableView.register(UINib(nibName: "MyPoolCell", bundle: nil), forCellReuseIdentifier: "MyPoolCell")
+        self.poolListTableView.register(UINib(nibName: "CommonPoolCell", bundle: nil), forCellReuseIdentifier: "CommonPoolCell")
+        self.poolListTableView.register(UINib(nibName: "CommonMyPoolCell", bundle: nil), forCellReuseIdentifier: "CommonMyPoolCell")
         
         self.onFetchPoolData()
     }
@@ -52,12 +52,12 @@ class PoolViewController: BaseViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"MyPoolCell") as? MyPoolCell
-            cell?.onBindView(mMyPoolList[indexPath.row])
+            let cell = tableView.dequeueReusableCell(withIdentifier:"CommonMyPoolCell") as? CommonMyPoolCell
+            cell?.onBindOsmoPoolView(mMyPoolList[indexPath.row])
             return cell!
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"PoolCell") as? PoolCell
-            cell?.onBindView(mOtherPoolList[indexPath.row])
+            let cell = tableView.dequeueReusableCell(withIdentifier:"CommonPoolCell") as? CommonPoolCell
+            cell?.onBindOsmoPoolView(mOtherPoolList[indexPath.row])
             return cell!
         }
     }
