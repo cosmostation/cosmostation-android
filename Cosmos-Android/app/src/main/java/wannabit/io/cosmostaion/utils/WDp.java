@@ -92,6 +92,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.ALTHEA_VAL_URL;
@@ -149,6 +150,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_UMEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
@@ -360,6 +362,14 @@ public class WDp {
                 denomTv.setText(coin.denom.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
+        } else if (chain.equals(UMEE_TEST)) {
+            if (coin.denom.equals(TOKEN_UMEE)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(coin.denom.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
         }
     }
 
@@ -537,6 +547,14 @@ public class WDp {
 
         } else if (chain.equals(ALTHEA_TEST)) {
             if (symbol.equals(TOKEN_ALTHEA)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
+        } else if (chain.equals(UMEE_TEST)) {
+            if (symbol.equals(TOKEN_UMEE)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
@@ -1720,6 +1738,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorMedi);
         } else if (chain.equals(ALTHEA_TEST)) {
             return c.getResources().getColor(R.color.colorAlthea);
+        } else if (chain.equals(UMEE_TEST)) {
+            return c.getResources().getColor(R.color.colorUmee);
         } else {
             return c.getResources().getColor(R.color.colorGray0);
         }
@@ -1766,6 +1786,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorTransBgMedi);
         } else if (chain.equals(ALTHEA_TEST)) {
             return c.getResources().getColor(R.color.colorTransBgAlthea);
+        } else if (chain.equals(UMEE_TEST)) {
+            return c.getResources().getColor(R.color.colorTransBgUmee);
         } else {
             return c.getResources().getColor(R.color.colorTransBg);
         }
@@ -1811,6 +1833,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_med);
         } else if (chain.equals(ALTHEA_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_althea);
+        } else if (chain.equals(UMEE_TEST)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_umee);
         }
         return null;
     }
@@ -1854,6 +1878,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorMedi);
         } else if (chain.equals(ALTHEA_TEST)) {
             return c.getResources().getColorStateList(R.color.colorAlthea);
+        } else if (chain.equals(UMEE_TEST)) {
+            return c.getResources().getColorStateList(R.color.colorUmee);
         }
         return null;
     }
@@ -1953,6 +1979,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorAlthea));
             textview.setText(c.getString(R.string.s_althea));
 
+        } else if (BaseChain.getChain(chain).equals(UMEE_TEST)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorUmee));
+            textview.setText(c.getString(R.string.s_umee));
+
         }
     }
 
@@ -2003,6 +2033,8 @@ public class WDp {
             return TOKEN_MEDI;
         } else if (chain.equals(ALTHEA_TEST)) {
             return TOKEN_ALTHEA;
+        } else if (chain.equals(UMEE_TEST)) {
+            return TOKEN_UMEE;
         }
         return "";
     }
@@ -2049,6 +2081,8 @@ public class WDp {
             imageView.setImageResource(R.drawable.token_rizon);
         } else if (baseChain.equals(ALTHEA_TEST)) {
             imageView.setImageResource(R.drawable.tokenalthea);
+        } else if (baseChain.equals(UMEE_TEST)) {
+            imageView.setImageResource(R.drawable.token_umee);
         }
     }
 
