@@ -1,10 +1,13 @@
 package wannabit.io.cosmostaion.fragment.chains.cosmos;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,11 +16,19 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
+import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
+import wannabit.io.cosmostaion.model.GDexManager;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 public class GravitySwapFragment extends BaseFragment implements View.OnClickListener{
     public final static int SELECT_INPUT_CHAIN = 8500;
@@ -32,16 +43,21 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
     private TextView        mSwapInputCoinRate, mSwapInputCoinSymbol, mSwapOutputCoinRate, mSwapOutputCoinSymbol;
     private TextView        mSwapInputCoinExRate, mSwapInputCoinExSymbol, mSwapOutputCoinExRate, mSwapOutputCoinExSymbol;
 
-    private FloatingActionButton    mBtnToggle;
+    private ImageButton             mBtnToggle;
     private Button                  mBtnSwapStart;
 
-    public ArrayList<gravity.v1.Pool>           mPoolList = new ArrayList<>();
+    public Liquidity.Params                     mParms;
+    public ArrayList<Liquidity.Pool>            mPoolList = new ArrayList<>();
+    public GDexManager                          mGdexManager;
     public ArrayList<String>                    mAllDenoms = new ArrayList<>();
-    public ArrayList<PoolOuterClass.Pool>       mSwapablePools = new ArrayList<>();
+    public ArrayList<Liquidity.Pool>            mSwapablePools = new ArrayList<>();
     public ArrayList<String>                    mSwapableDenoms = new ArrayList<>();
-    public PoolOuterClass.Pool                  mSelectedPool;
+    public Liquidity.Pool                       mSelectedPool;
+
     public String                               mInputCoinDenom;
     public String                               mOutputCoinDenom;
+    public int                                  mInPutDecimal = 6;
+    public int                                  mOutPutDecimal = 6;
 
     public static GravitySwapFragment newInstance(Bundle bundle) {
         GravitySwapFragment fragment = new GravitySwapFragment();
@@ -85,11 +101,139 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         mBtnToggle.setOnClickListener(this);
         mBtnSwapStart.setOnClickListener(this);
 
+        mBtnToggle.setBackgroundTintList(getResources().getColorStateList(R.color.colorAtom));
         return rootView;
     }
 
     @Override
-    public void onClick(View v) {
+    public void onRefreshTab() {
+        mPoolList = getSActivity().mPoolList;
+        mParms = getSActivity().mParams;
+        mAllDenoms = getSActivity().mAllDenoms;
 
+        if (mSelectedPool == null || mInputCoinDenom.isEmpty() || mOutputCoinDenom.isEmpty()) {
+            mSelectedPool = mPoolList.get(0);
+            mInputCoinDenom = mSelectedPool.getReserveCoinDenoms(1);
+            mOutputCoinDenom = mSelectedPool.getReserveCoinDenoms(0);
+        }
+        onUpdateView();
     }
+
+    private void onUpdateView() {
+        BigDecimal availableMaxAmount = getBaseDao().getAvailable(mInputCoinDenom);
+        mInPutDecimal = WUtil.getCosmosCoinDecimal(getBaseDao(), mInputCoinDenom);
+        mOutPutDecimal = WUtil.getCosmosCoinDecimal(getBaseDao(), mOutputCoinDenom);
+
+        mSwapFee.setText(WDp.getPercentDp(new BigDecimal(mParms.getSwapFeeRate()).movePointLeft(16)));
+        mInputAmount.setText(WDp.getDpAmount2(getSActivity(), availableMaxAmount, mInPutDecimal, mInPutDecimal));
+
+        WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mInputCoin, mInputCoinDenom);
+        WUtil.DpCosmosTokenImg(getBaseDao(), mInputImg, mInputCoinDenom);
+        WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mOutputCoin, mOutputCoinDenom);
+        WUtil.DpCosmosTokenImg(getBaseDao(), mOutputImg, mOutputCoinDenom);
+
+//        BigDecimal lpInputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mInputCoinDenom);
+//        BigDecimal lpOutputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mOutputCoinDenom);
+
+        mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, mInPutDecimal));
+        WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
+        mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, mInPutDecimal));
+        WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
+
+        BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
+        BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
+        BigDecimal priceRate = BigDecimal.ZERO;
+        if (priceInput == BigDecimal.ZERO || priceOutput == BigDecimal.ZERO) {
+            mSwapOutputCoinExRate.setText("??????");
+        } else {
+            priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
+        }
+        mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, mInPutDecimal));
+        WUtil.dpOsmosisTokenName(getSActivity(), mSwapInputCoinExSymbol, mInputCoinDenom);
+        mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, mOutPutDecimal));
+        WUtil.dpOsmosisTokenName(getSActivity(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mBtnInputCoinList)) {
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList("denoms", mAllDenoms);
+            Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
+            dialog.setTargetFragment(this, SELECT_INPUT_CHAIN);
+            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+        } else if (v.equals(mBtnOutputCoinList)) {
+            mSwapablePools.clear();
+            mSwapableDenoms.clear();
+            for (Liquidity.Pool pool: mPoolList) {
+                for (String denom: pool.getReserveCoinDenomsList()) {
+                    if (denom.contains(mInputCoinDenom)) {
+                        mSwapablePools.add(pool);
+                    }
+                }
+            }
+
+            for (Liquidity.Pool pool: mSwapablePools) {
+                for (String denom: pool.getReserveCoinDenomsList()) {
+                    if (!denom.equalsIgnoreCase(mInputCoinDenom)) {
+                        mSwapableDenoms.add(denom);
+                    }
+                }
+            }
+
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList("denoms", mSwapableDenoms);
+            Dialog_Swap_Coin_List dialog = Dialog_Swap_Coin_List.newInstance(bundle);
+            dialog.setCancelable(true);
+            dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
+            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+        } else if (v.equals(mBtnToggle)) {
+            String temp = mInputCoinDenom;
+            mInputCoinDenom = mOutputCoinDenom;
+            mOutputCoinDenom = temp;
+            onUpdateView();
+
+        } else if (v.equals(mBtnSwapStart)) {
+//            getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool.getId());
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == SELECT_INPUT_CHAIN && resultCode == Activity.RESULT_OK) {
+            mInputCoinDenom = mAllDenoms.get(data.getIntExtra("selectedDenom", 0));
+            loop : for (Liquidity.Pool pool: mPoolList) {
+                for (String denom: pool.getReserveCoinDenomsList()) {
+                    if (denom.equalsIgnoreCase(mInputCoinDenom)) {
+                        mSelectedPool = pool;
+                        break loop;
+                    }
+                }
+            }
+            for (String denom: mSelectedPool.getReserveCoinDenomsList()) {
+                if (!denom.equalsIgnoreCase(mInputCoinDenom)) {
+                    mOutputCoinDenom = denom;
+                    break;
+                }
+            }
+            onUpdateView();
+
+        } else if (requestCode == SELECT_OUTPUT_CHAIN && resultCode == Activity.RESULT_OK) {
+            mOutputCoinDenom = mSwapableDenoms.get(data.getIntExtra("selectedDenom", 0));
+            loop : for (Liquidity.Pool pool: mSwapablePools) {
+                for (String denom: pool.getReserveCoinDenomsList()) {
+                    if (denom.equalsIgnoreCase(mOutputCoinDenom)) {
+                        mSelectedPool = pool;
+                        break loop;
+                    }
+                }
+            }
+            onUpdateView();
+        }
+    }
+
+    private GravityListActivity getSActivity() { return (GravityListActivity)getBaseActivity(); }
+
 }

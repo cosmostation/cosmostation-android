@@ -51,6 +51,7 @@ import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import starnamed.x.starname.v1beta1.Types;
+import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -1420,6 +1421,64 @@ public class WUtil {
             textView.setText("BTC");
         }
         return denom;
+    }
+
+    public static int getCosmosCoinDecimal(BaseData baseData, String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_ATOM)) { return 6; }
+        else if (denom.startsWith("pool")) {
+            Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
+            if (poolInfo != null) { return 6; }
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) { return ibcToken.decimal; }
+        }
+        return 6;
+    }
+
+    public static void dpCosmosTokenName(Context c, BaseData baseData, TextView textView, String denom) {
+        if (denom.equals(TOKEN_ATOM)) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorAtom));
+            textView.setText("ATOM");
+
+        } else if (denom.startsWith("pool")) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
+            if (poolInfo != null) {
+                textView.setText("GDEX-" + poolInfo.getId());
+            } else {
+                textView.setText("UnKnown");
+            }
+
+        } else if (denom.startsWith("ibc/")) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                textView.setText(ibcToken.display_denom.toUpperCase());
+            } else {
+                textView.setText("UnKnown");
+            }
+
+        } else {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setText("UnKnown");
+        }
+    }
+
+    public static void DpCosmosTokenImg(BaseData baseData, ImageView imageView, String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_ATOM)) {
+            Picasso.get().cancelRequest(imageView);
+            imageView.setImageResource(R.drawable.atom_ic);
+        } else if (denom.startsWith("pool")) {
+            Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
+            if (poolInfo != null) {
+                imageView.setImageResource(R.drawable.token_gravitydex);
+            }
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            try {
+                Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+            } catch (Exception e){}
+        }
     }
 
     public static String dpOsmosisTokenName(String denom) {

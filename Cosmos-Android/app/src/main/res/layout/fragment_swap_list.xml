@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_16">
+                android:padding="@dimen/space_8">
 
                 <TextView
                     style="@style/font_ss_12_gray1"
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="@dimen/space_8">
+            android:padding="@dimen/space_6">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -107,16 +107,14 @@
                     android:text="-" />
             </LinearLayout>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <ImageButton
                 android:id="@+id/btn_toggle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_20"
+                android:layout_width="@dimen/space_40"
+                android:layout_height="@dimen/space_40"
+                android:background="@drawable/btn_round_button"
+                android:src="@drawable/icon_swap"
                 android:layout_marginRight="@dimen/space_20"
-                android:clickable="true"
-                app:backgroundTint="#9C6CFF"
-                app:maxImageSize="@dimen/space_18"
-                app:srcCompat="@drawable/icon_swap" />
+                android:layout_marginLeft="@dimen/space_20"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -151,7 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_16">
+                android:padding="@dimen/space_8">
 
                 <TextView
                     style="@style/font_ss_12_gray1"
@@ -216,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="@dimen/space_16">
+                android:padding="@dimen/space_8">
 
                 <TextView
                     style="@style/font_ss_12_white"

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -40,7 +41,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     private TextView mOutputCoin;
     private TextView mSwapInputCoinRate, mSwapInputCoinSymbol, mSwapOutputCoinRate, mSwapOutputCoinSymbol;
     private TextView mSwapInputCoinExRate, mSwapInputCoinExSymbol, mSwapOutputCoinExRate, mSwapOutputCoinExSymbol;
-    private FloatingActionButton mBtnToggle;
+    private ImageButton mBtnToggle;
     private Button  mBtnSwapStart;
 
     public ArrayList<PoolOuterClass.Pool>       mPoolList = new ArrayList<>();
@@ -92,6 +93,8 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         mBtnOutputCoinList.setOnClickListener(this);
         mBtnToggle.setOnClickListener(this);
         mBtnSwapStart.setOnClickListener(this);
+
+        mBtnToggle.setBackgroundTintList(getResources().getColorStateList(R.color.colorOsmosis));
 
         return rootView;
     }
