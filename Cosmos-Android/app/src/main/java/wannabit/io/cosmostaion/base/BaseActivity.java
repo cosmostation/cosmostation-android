@@ -165,6 +165,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
@@ -681,7 +682,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(PERSIS_MAIN) ||
                 mBaseChain.equals(CRYPTO_MAIN) || mBaseChain.equals(OSMOSIS_MAIN) || mBaseChain.equals(MEDI_MAIN) || mBaseChain.equals(CERTIK_MAIN) ||
-                mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) || mBaseChain.equals(MEDI_TEST) || mBaseChain.equals(RIZON_TEST) || mBaseChain.equals(ALTHEA_TEST)) {
+                mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) || mBaseChain.equals(MEDI_TEST) || mBaseChain.equals(RIZON_TEST) || mBaseChain.equals(ALTHEA_TEST) || mBaseChain.equals(UMEE_TEST)) {
             mTaskCount = 9;
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

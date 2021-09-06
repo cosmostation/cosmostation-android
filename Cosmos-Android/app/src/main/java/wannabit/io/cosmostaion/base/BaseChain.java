@@ -223,6 +223,9 @@ public enum BaseChain {
         if (chainName.equals(ALTHEA_TEST.chainName)) {
             return ALTHEA_TEST;
         }
+        if (chainName.equals(UMEE_TEST.chainName)) {
+            return UMEE_TEST;
+        }
         return null;
     }
 

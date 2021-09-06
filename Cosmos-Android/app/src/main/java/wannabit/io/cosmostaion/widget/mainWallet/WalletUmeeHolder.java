@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -16,25 +15,25 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
-import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
-public class WalletOsmosisHolder extends BaseHolder {
-    public TextView mTvOsmosisTotal, mTvOsmosisValue, mTvOsmosisAvailable, mTvOsmosisDelegated, mTvOsmosisUnBonding, mTvOsmosisRewards;
-    public RelativeLayout mBtnStake, mBtnVote, mBtnOsmosisLab;
-    public WalletOsmosisHolder(@NonNull View itemView) {
+public class WalletUmeeHolder extends BaseHolder {
+    public TextView         mTvUmeeTotal, mTvUmeeValue;
+    public TextView         mTvUmeeAvailable, mTvUmeeDelegated, mTvUmeeUnBonding, mTvUmeeRewards;
+    public RelativeLayout   mBtnStake, mBtnVote;
+
+    public WalletUmeeHolder(@NonNull View itemView) {
         super(itemView);
-        mTvOsmosisTotal       = itemView.findViewById(R.id.osmosis_amount);
-        mTvOsmosisValue       = itemView.findViewById(R.id.osmosis_value);
-        mTvOsmosisAvailable   = itemView.findViewById(R.id.osmosis_available);
-        mTvOsmosisDelegated   = itemView.findViewById(R.id.osmosis_delegate);
-        mTvOsmosisUnBonding   = itemView.findViewById(R.id.osmosis_unbonding);
-        mTvOsmosisRewards     = itemView.findViewById(R.id.osmosis_reward);
-        mBtnStake           = itemView.findViewById(R.id.btn_osmosis_reward);
-        mBtnVote            = itemView.findViewById(R.id.btn_osmosis_vote);
-        mBtnOsmosisLab       = itemView.findViewById(R.id.btn_osmosis_lab);
+        mTvUmeeTotal            = itemView.findViewById(R.id.umee_amount);
+        mTvUmeeValue            = itemView.findViewById(R.id.umee_value);
+        mTvUmeeAvailable        = itemView.findViewById(R.id.umee_available);
+        mTvUmeeDelegated        = itemView.findViewById(R.id.umee_delegate);
+        mTvUmeeUnBonding        = itemView.findViewById(R.id.umee_unbonding);
+        mTvUmeeRewards          = itemView.findViewById(R.id.umee_reward);
+        mBtnStake               = itemView.findViewById(R.id.btn_umee_reward);
+        mBtnVote                = itemView.findViewById(R.id.btn_umee_vote);
     }
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
@@ -44,12 +43,12 @@ public class WalletOsmosisHolder extends BaseHolder {
         final BigDecimal unbondingAmount = baseData.getUndelegationSum();
         final BigDecimal rewardAmount = baseData.getRewardSum(denom);
         final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
-        mTvOsmosisTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
-        mTvOsmosisAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
-        mTvOsmosisDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
-        mTvOsmosisUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
-        mTvOsmosisRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
-        mTvOsmosisValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
+        mTvUmeeTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
+        mTvUmeeAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
+        mTvUmeeDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
+        mTvUmeeUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
+        mTvUmeeRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
+        mTvUmeeValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
         mBtnStake.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,13 +62,6 @@ public class WalletOsmosisHolder extends BaseHolder {
             public void onClick(View v) {
                 Intent proposals = new Intent(mainActivity, VoteListActivity.class);
                 mainActivity.startActivity(proposals);
-            }
-        });
-        mBtnOsmosisLab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent osmolab = new Intent(mainActivity, LabsListActivity.class);
-                mainActivity.startActivity(osmolab);
             }
         });
     }

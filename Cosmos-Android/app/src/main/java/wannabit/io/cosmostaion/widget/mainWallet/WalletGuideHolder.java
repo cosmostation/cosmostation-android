@@ -43,6 +43,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 
 public class WalletGuideHolder extends BaseHolder {
     public CardView     itemRoot;
@@ -202,6 +203,13 @@ public class WalletGuideHolder extends BaseHolder {
             itemGuideMsg.setText(R.string.str_front_guide_msg_althea);
             itemBtnGuide1.setText(R.string.str_faq_althea);
             itemBtnGuide2.setText(R.string.str_guide_althea);
+
+        } else if (mainActivity.mBaseChain.equals(UMEE_TEST)) {
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_umee));
+            itemGuideTitle.setText(R.string.str_front_guide_title_umee);
+            itemGuideMsg.setText(R.string.str_front_guide_msg_umee);
+            itemBtnGuide1.setText(R.string.str_faq_umee);
+            itemBtnGuide2.setText(R.string.str_guide_umee);
 
         }
 
