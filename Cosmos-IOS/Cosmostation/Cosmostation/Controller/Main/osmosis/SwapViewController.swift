@@ -14,19 +14,28 @@ import SwiftProtobuf
 class SwapViewController: BaseViewController, SBCardPopupDelegate {
     
     @IBOutlet weak var loadingImg: LoadingImageView!
+    
     @IBOutlet weak var inputCoinLayer: CardView!
     @IBOutlet weak var inputCoinImg: UIImageView!
     @IBOutlet weak var inputCoinName: UILabel!
+    @IBOutlet weak var inputCoinAvailableAmountLabel: UILabel!
+    
+    @IBOutlet weak var toggleBtn: UIButton!
+    @IBOutlet weak var swapFeeLabel: UILabel!
+    @IBOutlet weak var slippageLabel: UILabel!
+    
     @IBOutlet weak var outputCoinLayer: CardView!
     @IBOutlet weak var outputCoinImg: UIImageView!
     @IBOutlet weak var outputCoinName: UILabel!
-    @IBOutlet weak var poolIdLabel: UILabel!
-    @IBOutlet weak var swapFeeLabel: UILabel!
+    
     @IBOutlet weak var inputCoinRateAmount: UILabel!
     @IBOutlet weak var inputCoinRateDenom: UILabel!
     @IBOutlet weak var outputCoinRateAmount: UILabel!
     @IBOutlet weak var outputCoinRateDenom: UILabel!
-    
+    @IBOutlet weak var inputCoinExRateAmount: UILabel!
+    @IBOutlet weak var inputCoinExRateDenom: UILabel!
+    @IBOutlet weak var outputCoinExRateAmount: UILabel!
+    @IBOutlet weak var outputCoinExRateDenom: UILabel!
     
     var mPoolList: Array<Osmosis_Gamm_V1beta1_Pool> = Array<Osmosis_Gamm_V1beta1_Pool>()
     var mAllDenoms: Array<String> = Array<String>()
@@ -35,7 +44,9 @@ class SwapViewController: BaseViewController, SBCardPopupDelegate {
     var mSelectedPool: Osmosis_Gamm_V1beta1_Pool?
     var mInputCoinDenom: String?
     var mOutputCoinDenom: String?
-    
+    var mInPutDecimal:Int16 = 6
+    var mOutPutDecimal:Int16 = 6
+    var mAvailableMaxAmount = NSDecimalNumber.zero
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,17 +55,33 @@ class SwapViewController: BaseViewController, SBCardPopupDelegate {
         self.loadingImg.onStartAnimation()
         
         //init for pool pair osmos/atom
-        
         self.inputCoinLayer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onClickInput (_:))))
         self.outputCoinLayer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onClickOutput (_:))))
         self.onFetchSwapData()
     }
     
-    
     func updateView() {
-        self.poolIdLabel.text = String(mSelectedPool!.id)
-        self.swapFeeLabel.attributedText = WUtils.displayPercent(NSDecimalNumber.init(string: mSelectedPool?.poolParams.swapFee).multiplying(byPowerOf10: -16), swapFeeLabel.font)
+        mInPutDecimal = WUtils.getOsmosisCoinDecimal(mInputCoinDenom)
+        mOutPutDecimal = WUtils.getOsmosisCoinDecimal(mOutputCoinDenom)
+        mAvailableMaxAmount = BaseData.instance.getAvailableAmount_gRPC(mInputCoinDenom!)
         
+        self.swapFeeLabel.attributedText = WUtils.displayPercent(NSDecimalNumber.init(string: mSelectedPool?.poolParams.swapFee).multiplying(byPowerOf10: -16), swapFeeLabel.font)
+        self.slippageLabel.attributedText = WUtils.displayPercent(NSDecimalNumber.init(string: "3"), swapFeeLabel.font)
+        self.inputCoinAvailableAmountLabel.attributedText = WUtils.displayAmount2(mAvailableMaxAmount.stringValue, inputCoinAvailableAmountLabel.font!, mInPutDecimal, mInPutDecimal)
+        
+        WUtils.DpOsmosisTokenImg(inputCoinImg, mInputCoinDenom!)
+        WUtils.DpOsmosisTokenImg(outputCoinImg, mOutputCoinDenom!)
+        WUtils.DpOsmosisTokenName(inputCoinName, mInputCoinDenom!)
+        WUtils.DpOsmosisTokenName(outputCoinName, mOutputCoinDenom!)
+        WUtils.DpOsmosisTokenName(inputCoinRateDenom, mInputCoinDenom!)
+        WUtils.DpOsmosisTokenName(outputCoinRateDenom, mOutputCoinDenom!)
+        WUtils.DpOsmosisTokenName(inputCoinExRateDenom, mInputCoinDenom!)
+        WUtils.DpOsmosisTokenName(outputCoinExRateDenom, mOutputCoinDenom!)
+        
+        inputCoinRateAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.one.stringValue, inputCoinRateAmount.font, 0, mInPutDecimal)
+        inputCoinExRateAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.one.stringValue, inputCoinExRateAmount.font, 0, mInPutDecimal)
+        
+        //display swap rate with this pool
         var inputAssetAmount = NSDecimalNumber.zero
         var inputAssetWeight = NSDecimalNumber.zero
         var outputAssetAmount = NSDecimalNumber.zero
@@ -71,23 +98,27 @@ class SwapViewController: BaseViewController, SBCardPopupDelegate {
         }
         inputAssetAmount = inputAssetAmount.multiplying(byPowerOf10: -WUtils.getOsmosisCoinDecimal(mInputCoinDenom))
         outputAssetAmount = outputAssetAmount.multiplying(byPowerOf10: -WUtils.getOsmosisCoinDecimal(mOutputCoinDenom))
-        let swapRate = outputAssetAmount.multiplying(by: inputAssetWeight).dividing(by: inputAssetAmount, withBehavior: WUtils.handler18).dividing(by: outputAssetWeight, withBehavior: WUtils.handler6)
-        print("swapRate ", swapRate)
+        let poolSwapRate = outputAssetAmount.multiplying(by: inputAssetWeight).dividing(by: inputAssetAmount, withBehavior: WUtils.handler18).dividing(by: outputAssetWeight, withBehavior: WUtils.handler6)
+        print("poolSwapRate ", poolSwapRate)
+        outputCoinRateAmount.attributedText = WUtils.displayAmount2(poolSwapRate.stringValue, outputCoinRateAmount.font, 0, mOutPutDecimal)
         
-        inputCoinRateAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.one.stringValue, inputCoinRateAmount.font, 0, 6)
-        WUtils.DpOsmosisTokenName(inputCoinRateDenom, mInputCoinDenom!)
-        outputCoinRateAmount.attributedText = WUtils.displayAmount2(swapRate.stringValue, outputCoinRateAmount.font, 0, 6)
-        WUtils.DpOsmosisTokenName(outputCoinRateDenom, mOutputCoinDenom!)
-        
-        inputCoinImg.image = UIImage(named: "tokenDefaultIbc")
-        outputCoinImg.image = UIImage(named: "tokenDefaultIbc")
-        WUtils.DpOsmosisTokenImg(inputCoinImg, mInputCoinDenom!)
-        WUtils.DpOsmosisTokenName(inputCoinName, mInputCoinDenom!)
-        WUtils.DpOsmosisTokenImg(outputCoinImg, mOutputCoinDenom!)
-        WUtils.DpOsmosisTokenName(outputCoinName, mOutputCoinDenom!)
-        
+        //display swap rate with market price
+        let priceInput = WUtils.perUsdValue(BaseData.instance.getBaseDenom(mInputCoinDenom!)) ?? NSDecimalNumber.zero
+        let priceOutput = WUtils.perUsdValue(BaseData.instance.getBaseDenom(mOutputCoinDenom!)) ?? NSDecimalNumber.zero
+        if (priceInput == NSDecimalNumber.zero || priceOutput == NSDecimalNumber.zero) {
+            self.outputCoinExRateAmount.text = "?.??????"
+        } else {
+            let priceRate = priceInput.dividing(by: priceOutput, withBehavior: WUtils.handler6)
+            self.outputCoinExRateAmount.attributedText = WUtils.displayAmount2(priceRate.stringValue, outputCoinExRateAmount.font, 0, mOutPutDecimal)
+        }
     }
     
+    @IBAction func onClickToggle(_ sender: UIButton) {
+        let temp = mInputCoinDenom
+        mInputCoinDenom = mOutputCoinDenom
+        mOutputCoinDenom = temp
+        self.updateView()
+    }
     
     @objc func onClickInput (_ sender: UITapGestureRecognizer) {
         let popupVC = SelectPopupViewController(nibName: "SelectPopupViewController", bundle: nil)
