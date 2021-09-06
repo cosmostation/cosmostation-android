@@ -158,6 +158,8 @@
 "send_guide_msg_althea" = "Decentralized internet service provider built with the Cosmos SDK, enabled by community-run mesh networks.";
 "send_guide_title_osmosis" = "OSMOSIS";
 "send_guide_msg_osmosis" = "The interchain AMM powered by the Cosmos Inter-Blockchain Communication protocol, enabling sovereign blockchain networks to access a vast pool of liquidity.";
+"send_guide_title_umee" = "UMEE (The Ocean)";
+"send_guide_msg_umee" = "A cross-chain DeFi platform that enables multi-chain lending & borrowing, staking, and leverage.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -178,6 +180,7 @@
 "send_guide_btn1_medi" = "Home";
 "send_guide_btn1_althea" = "Home";
 "send_guide_btn1_osmosis" = "Home";
+"send_guide_btn1_umee" = "Home";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -198,6 +201,7 @@
 "send_guide_btn2_medi" = "Blog";
 "send_guide_btn2_althea" = "Blog";
 "send_guide_btn2_osmosis" = "Blog";
+"send_guide_btn2_umee" = "Blog";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";
