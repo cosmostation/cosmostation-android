@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -131,6 +129,8 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         WUtil.DpCosmosTokenImg(getBaseDao(), mInputImg, mInputCoinDenom);
         WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mOutputCoin, mOutputCoinDenom);
         WUtil.DpCosmosTokenImg(getBaseDao(), mOutputImg, mOutputCoinDenom);
+        WUtil.dpOsmosisTokenName(getSActivity(), mSwapInputCoinExSymbol, mInputCoinDenom);
+        WUtil.dpOsmosisTokenName(getSActivity(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
 
 //        BigDecimal lpInputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mInputCoinDenom);
 //        BigDecimal lpOutputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mOutputCoinDenom);
@@ -143,15 +143,14 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
         BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
         BigDecimal priceRate = BigDecimal.ZERO;
-        if (priceInput == BigDecimal.ZERO || priceOutput == BigDecimal.ZERO) {
-            mSwapOutputCoinExRate.setText("??????");
+
+        if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
+            mSwapOutputCoinExRate.setText("?.??????");
         } else {
             priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
+            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, mOutPutDecimal));
         }
         mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, mInPutDecimal));
-        WUtil.dpOsmosisTokenName(getSActivity(), mSwapInputCoinExSymbol, mInputCoinDenom);
-        mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, mOutPutDecimal));
-        WUtil.dpOsmosisTokenName(getSActivity(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
     }
 
     @Override

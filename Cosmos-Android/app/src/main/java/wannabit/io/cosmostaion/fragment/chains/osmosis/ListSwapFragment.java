@@ -151,6 +151,9 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, outCoinDecimal));
         WUtil.dpOsmosisTokenName(getSActivity(), mSwapOutputCoinSymbol, mOutputCoinDenom);
 
+        WUtil.dpOsmosisTokenName(getSActivity(), mSwapInputCoinExSymbol, mInputCoinDenom);
+        WUtil.dpOsmosisTokenName(getSActivity(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
+
         BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
         BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
         BigDecimal priceRate = BigDecimal.ZERO;
@@ -158,11 +161,9 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
             mSwapOutputCoinExRate.setText("??????");
         } else {
             priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);
+            mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, outCoinDecimal));
         }
         mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputCoinDecimal));
-        WUtil.dpOsmosisTokenName(getSActivity(), mSwapInputCoinExSymbol, mInputCoinDenom);
-        mSwapOutputCoinExRate.setText(WDp.getDpAmount2(getContext(), priceRate, 0, outCoinDecimal));
-        WUtil.dpOsmosisTokenName(getSActivity(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
     }
 
     @Override
