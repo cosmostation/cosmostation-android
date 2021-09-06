@@ -232,6 +232,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainImg.image = UIImage(named: "testnetAlthea")
             titleChainName.text = "(Althea Testnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.UMEE_TEST) {
+            titleChainImg.image = UIImage(named: "testnetUmee")
+            titleChainName.text = "(Umee Testnet)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -602,6 +606,17 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allCtk = WUtils.getAllMainAsset(CERTIK_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(CERTIK_MAIN_DENOM, allCtk, 6, cell!.tokenValue.font)
+            
+        } else if (coin.denom == UMEE_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenUmee")
+            cell?.tokenSymbol.text = "UMEE"
+            cell?.tokenSymbol.textColor = COLOR_UMEE
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = "Umee Staking Token"
+            
+            let allUmee = WUtils.getAllMainAsset(UMEE_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allUmee.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(UMEE_MAIN_DENOM, allUmee, 6, cell!.tokenValue.font)
             
         }
         

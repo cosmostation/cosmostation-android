@@ -1740,27 +1740,6 @@ public class WUtils {
     
     static func getKavaTokenDollorValue(_ denom: String, _ amount: NSDecimalNumber) -> NSDecimalNumber {
         let dpDeciaml = getKavaCoinDecimal(denom)
-//        let prices = BaseData.instance.mKavaPrice
-//        if let price = prices["hard:usd"], denom == "hard" {
-//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
-//        }
-//        if let price = prices["btc:usd"], denom.contains("btc") {
-//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
-//        }
-//        if let price = prices["bnb:usd"], denom.contains("bnb") {
-//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
-//        }
-//        if let price = prices["xrp:usd"], denom.contains("xrp") {
-//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
-//        }
-//        if let price = prices["usdx:usd"], denom.contains("usdx") {
-//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
-//        }
-//        if let price = prices["busd:usd"], denom.contains("busd") {
-//            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
-//        }
-//        return NSDecimalNumber.zero
-        
         return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: getKavaTokenDollorPrice(denom))
     }
     
@@ -2127,6 +2106,14 @@ public class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.UMEE_TEST) {
+            if (coin.denom == UMEE_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
         }
     }
     
@@ -2366,6 +2353,15 @@ public class WUtils {
                 denomLabel.text = denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            
+        } else if (chainType == ChainType.UMEE_TEST) {
+            if (denom == UMEE_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
         }
             
     }
@@ -2450,6 +2446,8 @@ public class WUtils {
             return COLOR_MEDI
         } else if (chain == ChainType.ALTHEA_TEST) {
             return COLOR_ALTHEA
+        } else if (chain == ChainType.UMEE_TEST) {
+            return COLOR_UMEE
         }
         return COLOR_ATOM
     }
@@ -2495,6 +2493,8 @@ public class WUtils {
             return COLOR_MEDI_DARK
         } else if (chain == ChainType.ALTHEA_TEST) {
             return COLOR_ALTHEA_DARK
+        } else if (chain == ChainType.UMEE_TEST) {
+            return COLOR_UMEE_DARK
         }
         return COLOR_DARK_GRAY
     }
@@ -2540,6 +2540,8 @@ public class WUtils {
             return TRANS_BG_COLOR_MEDI
         } else if (chain == ChainType.ALTHEA_TEST) {
             return TRANS_BG_COLOR_ALTHEA
+        } else if (chain == ChainType.UMEE_TEST) {
+            return TRANS_BG_COLOR_UMEE
         }
         return COLOR_BG_GRAY
     }
@@ -2589,6 +2591,8 @@ public class WUtils {
             return "ATOLO"
         } else if (chain == ChainType.ALTHEA_TEST) {
             return "ALTG"
+        } else if (chain == ChainType.UMEE_TEST) {
+            return "UMEE"
         }
         return ""
     }
@@ -2642,6 +2646,8 @@ public class WUtils {
             return RIZON_MAIN_DENOM
         } else if (chain == ChainType.ALTHEA_TEST) {
             return ALTHEA_MAIN_DENOM
+        } else if (chain == ChainType.UMEE_TEST) {
+            return UMEE_MAIN_DENOM
         }
         return ""
 
@@ -2753,6 +2759,9 @@ public class WUtils {
         } else if (chain == ChainType.ALTHEA_TEST) {
             label.text = "ALTG"
             label.textColor = COLOR_ALTHEA
+        } else if (chain == ChainType.UMEE_TEST) {
+            label.text = "UMEE"
+            label.textColor = COLOR_UMEE
         }
     }
     
@@ -2815,6 +2824,8 @@ public class WUtils {
             return ChainType.MEDI_TEST
         } else if (chainS == CHAIN_ALTHEA_TEST_S) {
             return ChainType.ALTHEA_TEST
+        } else if (chainS == CHAIN_UMEE_TEST_S) {
+            return ChainType.UMEE_TEST
         }
         return nil
     }
@@ -2878,6 +2889,8 @@ public class WUtils {
             return CHAIN_MEDI_TEST_S
         } else if (chain == ChainType.ALTHEA_TEST) {
             return CHAIN_ALTHEA_TEST_S
+        } else if (chain == ChainType.UMEE_TEST) {
+            return CHAIN_UMEE_TEST_S
         }
         return ""
     }
@@ -2933,7 +2946,7 @@ public class WUtils {
         var result = NSDecimalNumber.zero
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
                 chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN ||
-                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
+                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST || chain == ChainType.UMEE_TEST) {
             if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE) {
@@ -3209,7 +3222,7 @@ public class WUtils {
     
     static func getEstimateGasFeeAmount(_ chain:ChainType, _ type:String,  _ valCnt:Int) -> NSDecimalNumber {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN ||
-                chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
+                chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST || chain == ChainType.UMEE_TEST) {
             let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
@@ -3300,7 +3313,7 @@ public class WUtils {
     
     static func getGasRate(_ chain:ChainType, _ position: Int) -> NSDecimalNumber {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN ||
-                chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
+                chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST || chain == ChainType.UMEE_TEST) {
             if (position == 0) {
                 return NSDecimalNumber.init(string: GAS_FEE_RATE_TINY)
             } else if (position == 1) {
@@ -4045,6 +4058,8 @@ public class WUtils {
             return MEDI_VAL_URL + opAddress + ".png";
         } else if (chain == ChainType.ALTHEA_TEST) {
             return ALTHEA_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.UMEE_TEST) {
+            return UMEE_VAL_URL + opAddress + ".png";
         }
         return ""
     }
@@ -4087,6 +4102,9 @@ public class WUtils {
             
         } else if (chain == ChainType.ALTHEA_TEST) {
             return EXPLORER_ALTHEA_TEST + "txs/" + hash
+            
+        } else if (chain == ChainType.UMEE_TEST) {
+            return EXPLORER_UMEE_TEST + "txs/" + hash
             
         }
         
@@ -4212,6 +4230,9 @@ public class WUtils {
         } else if (chain == ChainType.ALTHEA_TEST) {
             return EXPLORER_ALTHEA_TEST + "account/" + address
             
+        } else if (chain == ChainType.UMEE_TEST) {
+            return EXPLORER_UMEE_TEST + "account/" + address
+            
         }
         return ""
     }
@@ -4285,6 +4306,9 @@ public class WUtils {
         } else if (chain == ChainType.ALTHEA_TEST) {
             return EXPLORER_ALTHEA_TEST + "proposals/" + proposalId
             
+        } else if (chain == ChainType.UMEE_TEST) {
+            return EXPLORER_UMEE_TEST + "proposals/" + proposalId
+            
         }
         return ""
     }
@@ -4351,6 +4375,9 @@ public class WUtils {
             
         } else if (chain == ChainType.ALTHEA_TEST) {
             return UIImage(named: "tokenAlthea")
+            
+        } else if (chain == ChainType.UMEE_TEST) {
+            return UIImage(named: "tokenUmee")
             
         }
         return UIImage(named: "tokenIc")
@@ -5143,7 +5170,7 @@ public class WUtils {
                 chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN ||
                 chain == ChainType.OSMOSIS_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.SIF_MAIN ||
                 chain == ChainType.MEDI_MAIN || chain == ChainType.CERTIK_MAIN ||
-                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
+                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST || chain == ChainType.UMEE_TEST) {
             return true
         }
         return false

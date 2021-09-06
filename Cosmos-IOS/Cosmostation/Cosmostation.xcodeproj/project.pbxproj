@@ -665,6 +665,8 @@
 		289DF17C242DDF4F00433CF4 /* CdpDetailMyTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */; };
 		289DF180242DDF6A00433CF4 /* CdpDetailMyActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF17E242DDF6A00433CF4 /* CdpDetailMyActionCell.swift */; };
 		289DF184242DDF8300433CF4 /* CdpDetailAssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */; };
+		289E4DAB26E59263007C7C35 /* WalletUmeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289E4DA926E59263007C7C35 /* WalletUmeeCell.swift */; };
+		289E4DAC26E59263007C7C35 /* WalletUmeeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 289E4DAA26E59263007C7C35 /* WalletUmeeCell.xib */; };
 		289EF81926824E4700F90AC1 /* osmosis_lockup_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289EF7F626824E3D00F90AC1 /* osmosis_lockup_query.grpc.swift */; };
 		289EF81A26824E4700F90AC1 /* osmosis_lockup_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289EF7F726824E3D00F90AC1 /* osmosis_lockup_query.pb.swift */; };
 		289EF81B26824E4700F90AC1 /* osmosis_claim_v1beta1_params.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289EF7F826824E3E00F90AC1 /* osmosis_claim_v1beta1_params.pb.swift */; };
@@ -1802,6 +1804,8 @@
 		289DF17A242DDF4F00433CF4 /* CdpDetailMyTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailMyTopCell.swift; sourceTree = "<group>"; };
 		289DF17E242DDF6A00433CF4 /* CdpDetailMyActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailMyActionCell.swift; sourceTree = "<group>"; };
 		289DF182242DDF8300433CF4 /* CdpDetailAssetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdpDetailAssetsCell.swift; sourceTree = "<group>"; };
+		289E4DA926E59263007C7C35 /* WalletUmeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletUmeeCell.swift; sourceTree = "<group>"; };
+		289E4DAA26E59263007C7C35 /* WalletUmeeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletUmeeCell.xib; sourceTree = "<group>"; };
 		289EF7F626824E3D00F90AC1 /* osmosis_lockup_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = osmosis_lockup_query.grpc.swift; sourceTree = "<group>"; };
 		289EF7F726824E3D00F90AC1 /* osmosis_lockup_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = osmosis_lockup_query.pb.swift; sourceTree = "<group>"; };
 		289EF7F826824E3E00F90AC1 /* osmosis_claim_v1beta1_params.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = osmosis_claim_v1beta1_params.pb.swift; sourceTree = "<group>"; };
@@ -2872,6 +2876,8 @@
 				2852EAEF2681A4CC003A5E74 /* WalletOsmoCell.xib */,
 				288A14DB25199A9800E17808 /* WalletCertikCell.swift */,
 				288A14E325199C6200E17808 /* WalletCertikCell.xib */,
+				289E4DA926E59263007C7C35 /* WalletUmeeCell.swift */,
+				289E4DAA26E59263007C7C35 /* WalletUmeeCell.xib */,
 				E1FD2332233E1C16009327FE /* WalletPriceCell.swift */,
 				E126CF9D2387A60D002A546F /* WalletPriceCell.xib */,
 				E1FD2336233E1C30009327FE /* WalletInflationCell.swift */,
@@ -3947,6 +3953,7 @@
 				284FBC7E26DBE97200403FE2 /* TxSwapDepositCell.xib in Resources */,
 				280524B5255CDA7D004D6172 /* StarnameWalletConnectViewController.xib in Resources */,
 				283EB77626C8148D00B9D28D /* TxUnlockTokenCell.xib in Resources */,
+				289E4DAC26E59263007C7C35 /* WalletUmeeCell.xib in Resources */,
 				2829CEA82627080C0048B52A /* WalletCrytoCell.xib in Resources */,
 				282FF36623F533AF0028CC66 /* TxUnknownCell.xib in Resources */,
 				28D28ACE26CB6BE00074964C /* StartLock3ViewController.xib in Resources */,
@@ -4417,6 +4424,7 @@
 				287AC5A925FDF7250070837E /* htlc_query.grpc.swift in Sources */,
 				287AC61025FDF7260070837E /* nft_genesis.pb.swift in Sources */,
 				04CFBD5D269301780013150B /* TxBeginUnlockTokenCell.swift in Sources */,
+				289E4DAB26E59263007C7C35 /* WalletUmeeCell.swift in Sources */,
 				28E667072699483E00BA2C68 /* OsmosisDAppViewController.swift in Sources */,
 				287AC5BB25FDF7250070837E /* cosmos_bank_v1beta1_tx.pb.swift in Sources */,
 				28B7859D26B3A7F1009F755F /* sifnode_dispensation_v1_query.pb.swift in Sources */,

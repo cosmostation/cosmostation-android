@@ -307,6 +307,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         altheaTestAction.setValue(UIImage(named: "testnetAlthea")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let umeeTestAction = UIAlertAction(title: NSLocalizedString("chain_title_umee_test", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.UMEE_TEST
+            self.initViewUpdate()
+        })
+        umeeTestAction.setValue(UIImage(named: "testnetUmee")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
@@ -355,6 +361,9 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         }
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.ALTHEA_TEST)) {
             showAlert.addAction(altheaTestAction)
+        }
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.UMEE_TEST)) {
+            showAlert.addAction(umeeTestAction)
         }
         self.present(showAlert, animated: true, completion: nil)
     }

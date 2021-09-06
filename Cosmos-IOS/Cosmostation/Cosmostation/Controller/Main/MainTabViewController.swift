@@ -391,7 +391,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchSifLmIncentive(mAccount.account_address)
             
         } else if (mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.RIZON_TEST || mChainType == ChainType.ALTHEA_TEST ||
-                    mChainType == ChainType.IRIS_TEST || mChainType == ChainType.CERTIK_TEST) {
+                    mChainType == ChainType.IRIS_TEST || mChainType == ChainType.CERTIK_TEST || mChainType == ChainType.UMEE_TEST) {
             self.mFetchCnt = 9
             onFetchgRPCNodeInfo()
             onFetchgRPCAuth(mAccount.account_address)

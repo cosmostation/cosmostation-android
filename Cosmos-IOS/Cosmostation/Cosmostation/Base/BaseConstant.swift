@@ -121,6 +121,9 @@ let OSMOSIS_API                         = "https://api-osmosis.cosmostation.io/"
 let ALTHEA_TEST_API                     = "https://api-office.cosmostation.io/althea-testnet2v1/";
 
 
+let UMEE_TEST_API                       = "https://api-office.cosmostation.io/umee-betanet-1/";
+
+
 
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
 let MOON_PAY_PUBLICK                    = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn";
@@ -149,6 +152,7 @@ let RIZON_VAL_URL                       = "https://raw.githubusercontent.com/cos
 let MEDI_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/medibloc/";
 let ALTHEA_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/althea/";
 let OSMOSIS_VAL_URL                     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/osmosis/";
+let UMEE_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/umee/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_CDP_IMG_URL                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
@@ -738,6 +742,11 @@ let COLOR_OSMOSIS                           = UIColor.init(hexString: "9248db")
 let COLOR_OSMOSIS_DARK                      = UIColor.init(hexString: "4e1a82")
 let COLOR_ION                               = UIColor.init(hexString: "3C90FC")
 
+let TRANS_BG_COLOR_UMEE                     = UIColor.init(hexString: "7dcaff", alpha: 0.15)
+let TRANS_BG_COLOR_UMEE2                    = UIColor.init(hexString: "7dcaff", alpha: 0.4)
+let COLOR_UMEE                              = UIColor.init(hexString: "7dcaff")
+let COLOR_UMEE_DARK                         = UIColor.init(hexString: "436b88")
+
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
@@ -780,6 +789,7 @@ public enum ChainType: String {
     case RIZON_TEST
     case MEDI_TEST
     case ALTHEA_TEST
+    case UMEE_TEST
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
@@ -812,6 +822,7 @@ public enum ChainType: String {
         result.append(RIZON_TEST)
 //        result.append(MEDI_TEST)
 //        result.append(ALTHEA_TEST)
+        result.append(UMEE_TEST)
         return result
     }
     
@@ -917,6 +928,7 @@ let CHAIN_CERTIK_TEST_S = "SUPPORT_CHAIN_CERTIK_TEST"
 let CHAIN_RIZON_TEST_S = "SUPPORT_CHAIN_RIZON_TEST"
 let CHAIN_MEDI_TEST_S = "SUPPORT_CHAIN_MEDI_TEST"
 let CHAIN_ALTHEA_TEST_S = "SUPPORT_CHAIN_ALTHEA_TEST"
+let CHAIN_UMEE_TEST_S = "SUPPORT_CHAIN_UMEE_TEST"
 
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "uiris"
@@ -939,6 +951,7 @@ let RIZON_MAIN_DENOM = "uatolo"
 let MEDI_MAIN_DENOM = "umed"
 let ALTHEA_MAIN_DENOM = "ualtg"
 let OSMOSIS_MAIN_DENOM = "uosmo"
+let UMEE_MAIN_DENOM = "uumee"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
@@ -980,6 +993,8 @@ let SELECT_POPUP_OSMOSIS_COIN_IN = 4
 let SELECT_POPUP_OSMOSIS_COIN_OUT = 5
 let SELECT_POPUP_KAVA_SWAP_IN = 6
 let SELECT_POPUP_KAVA_SWAP_OUT = 7
+let SELECT_POPUP_GRAVITY_SWAP_IN = 8
+let SELECT_POPUP_GRAVITY_SWAP_OUT = 9
 
 
 let EXPLORER_COSMOS_MAIN    = "https://www.mintscan.io/cosmos/";
@@ -1010,6 +1025,7 @@ let EXPLORER_OKEX_TEST      = "https://www.oklink.com/okexchain-test/";
 let EXPLORER_MEDI_TEST      = "https://testnet.mintscan.io/medibloc/";
 let EXPLORER_RIZON_TEST     = "https://testnet.mintscan.io/rizon/";
 let EXPLORER_ALTHEA_TEST    = "https://testnet.mintscan.io/althea/";
+let EXPLORER_UMEE_TEST      = "https://testnet.mintscan.io/umee/";
 let EXPLORER_HDAC_TEST      = "http://test.explorer.hdactech.com/hdac-explorer/";
 
 
