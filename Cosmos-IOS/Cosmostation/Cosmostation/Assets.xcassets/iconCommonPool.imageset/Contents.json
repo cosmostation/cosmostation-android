@@ -1,8 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "iconOsmosisMypool.pdf",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "iconCommonPool.pdf"
     }
   ],
   "info" : {

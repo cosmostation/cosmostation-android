@@ -12,18 +12,28 @@ import Alamofire
 class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
     
     @IBOutlet weak var loadingImg: LoadingImageView!
+    
     @IBOutlet weak var inputCoinLayer: CardView!
     @IBOutlet weak var inputCoinImg: UIImageView!
     @IBOutlet weak var inputCoinName: UILabel!
+    @IBOutlet weak var inputCoinAvailableAmountLabel: UILabel!
+    
+    @IBOutlet weak var toggleBtn: UIButton!
+    @IBOutlet weak var swapFeeLabel: UILabel!
+    @IBOutlet weak var slippageLabel: UILabel!
+    
     @IBOutlet weak var outputCoinLayer: CardView!
     @IBOutlet weak var outputCoinImg: UIImageView!
     @IBOutlet weak var outputCoinName: UILabel!
-    @IBOutlet weak var poolIdLabel: UILabel!
-    @IBOutlet weak var swapFeeLabel: UILabel!
+    
     @IBOutlet weak var inputCoinRateAmount: UILabel!
     @IBOutlet weak var inputCoinRateDenom: UILabel!
     @IBOutlet weak var outputCoinRateAmount: UILabel!
     @IBOutlet weak var outputCoinRateDenom: UILabel!
+    @IBOutlet weak var inputCoinExRateAmount: UILabel!
+    @IBOutlet weak var inputCoinExRateDenom: UILabel!
+    @IBOutlet weak var outputCoinExRateAmount: UILabel!
+    @IBOutlet weak var outputCoinExRateDenom: UILabel!
     
     var mSwapParam: SwapParam!
     var mSwapPools: Array<SwapPool> = Array<SwapPool>()
@@ -33,8 +43,7 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
     var mSelectedPool: SwapPool!
     var mInputCoinDenom: String!
     var mOutputCoinDenom: String!
-    var mInputCoinAmount = NSDecimalNumber.zero
-    var mOutputCoinAmount = NSDecimalNumber.zero
+    var mAvailableMaxAmount = NSDecimalNumber.zero
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,31 +60,48 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
     func updateView() {
         let inputCoinDecimal = WUtils.getKavaCoinDecimal(mInputCoinDenom)
         let outputCoinDecimal = WUtils.getKavaCoinDecimal(mOutputCoinDenom)
-        print("mSelectedPool ", mSelectedPool)
+        mAvailableMaxAmount = BaseData.instance.availableAmount(mInputCoinDenom!)
         
-        if (mSelectedPool.coins[0].denom == self.mInputCoinDenom) {
-            mInputCoinAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[0].amount)
-            mOutputCoinAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[1].amount)
-        } else {
-            mInputCoinAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[1].amount)
-            mOutputCoinAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[0].amount)
-        }
-        let swapRate = mOutputCoinAmount.dividing(by: mInputCoinAmount, withBehavior: WUtils.handler6).multiplying(byPowerOf10: (inputCoinDecimal - outputCoinDecimal))
-        print("swapRate ", swapRate)
+        swapFeeLabel.attributedText = WUtils.displayPercent(mSwapParam.swap_fee, swapFeeLabel.font)
+        slippageLabel.attributedText = WUtils.displayPercent(NSDecimalNumber.init(string: "3"), swapFeeLabel.font)
+        inputCoinAvailableAmountLabel.attributedText = WUtils.displayAmount2(mAvailableMaxAmount.stringValue, inputCoinAvailableAmountLabel.font!, inputCoinDecimal, inputCoinDecimal)
         
         WUtils.DpKavaTokenName(inputCoinName, mInputCoinDenom)
         WUtils.DpKavaTokenName(outputCoinName, mOutputCoinDenom)
+        WUtils.DpKavaTokenName(inputCoinRateDenom, mInputCoinDenom)
+        WUtils.DpKavaTokenName(outputCoinRateDenom, mOutputCoinDenom)
+        WUtils.DpKavaTokenName(inputCoinExRateDenom, mInputCoinDenom)
+        WUtils.DpKavaTokenName(outputCoinExRateDenom, mOutputCoinDenom)
         inputCoinImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mInputCoinDenom + ".png")!)
         outputCoinImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mOutputCoinDenom + ".png")!)
         
+        var lpInputAmount = NSDecimalNumber.zero
+        var lpOutputAmount = NSDecimalNumber.zero
+        if (mSelectedPool.coins[0].denom == self.mInputCoinDenom) {
+            lpInputAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[0].amount)
+            lpOutputAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[1].amount)
+        } else {
+            lpInputAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[1].amount)
+            lpOutputAmount = NSDecimalNumber.init(string: self.mSelectedPool.coins[0].amount)
+        }
+        let poolSwapRate = lpOutputAmount.dividing(by: lpInputAmount, withBehavior: WUtils.handler6).multiplying(byPowerOf10: (inputCoinDecimal - outputCoinDecimal))
+        print("poolSwapRate ", poolSwapRate)
         
-        poolIdLabel.text = mSelectedPool.name?.uppercased()
-        swapFeeLabel.attributedText = WUtils.displayPercent(mSwapParam.swap_fee, swapFeeLabel.font)
-        
+        //display swap rate with this pool
         inputCoinRateAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.one.stringValue, inputCoinRateAmount.font, 0, inputCoinDecimal)
-        WUtils.DpKavaTokenName(inputCoinRateDenom, mInputCoinDenom)
-        outputCoinRateAmount.attributedText = WUtils.displayAmount2(swapRate.stringValue, outputCoinRateAmount.font, 0, outputCoinDecimal)
-        WUtils.DpKavaTokenName(outputCoinRateDenom, mOutputCoinDenom)
+        outputCoinRateAmount.attributedText = WUtils.displayAmount2(poolSwapRate.stringValue, outputCoinRateAmount.font, 0, outputCoinDecimal)
+        
+        
+        //display swap rate with market price
+        inputCoinExRateAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.one.stringValue, inputCoinExRateAmount.font, 0, inputCoinDecimal)
+        let priceInput = WUtils.perUsdValue(BaseData.instance.getBaseDenom(mInputCoinDenom!)) ?? NSDecimalNumber.zero
+        let priceOutput = WUtils.perUsdValue(BaseData.instance.getBaseDenom(mOutputCoinDenom!)) ?? NSDecimalNumber.zero
+        if (priceInput == NSDecimalNumber.zero || priceOutput == NSDecimalNumber.zero) {
+            self.outputCoinExRateAmount.text = "?.??????"
+        } else {
+            let priceRate = priceInput.dividing(by: priceOutput, withBehavior: WUtils.handler6)
+            self.outputCoinExRateAmount.attributedText = WUtils.displayAmount2(priceRate.stringValue, outputCoinExRateAmount.font, 0, outputCoinDecimal)
+        }
     }
 
     
@@ -110,6 +136,13 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
         let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
         cardPopup.resultDelegate = self
         cardPopup.show(onViewController: self)
+    }
+    
+    @IBAction func onClickToggle(_ sender: UIButton) {
+        let temp = mInputCoinDenom
+        mInputCoinDenom = mOutputCoinDenom
+        mOutputCoinDenom = temp
+        self.updateView()
     }
     
     @IBAction func onClickSwap(_ sender: UIButton) {

@@ -27,8 +27,8 @@ class PoolListViewController: BaseViewController, UITableViewDelegate, UITableVi
         
         self.swapPoolTableView.delegate = self
         self.swapPoolTableView.dataSource = self
-        self.swapPoolTableView.register(UINib(nibName: "SwapPoolListMyCell", bundle: nil), forCellReuseIdentifier: "SwapPoolListMyCell")
-        self.swapPoolTableView.register(UINib(nibName: "SwapPoolListOtherCell", bundle: nil), forCellReuseIdentifier: "SwapPoolListOtherCell")
+        self.swapPoolTableView.register(UINib(nibName: "CommonPoolCell", bundle: nil), forCellReuseIdentifier: "CommonPoolCell")
+        self.swapPoolTableView.register(UINib(nibName: "CommonMyPoolCell", bundle: nil), forCellReuseIdentifier: "CommonMyPoolCell")
         
         self.refresher = UIRefreshControl()
         self.refresher.addTarget(self, action: #selector(onFetchSwapPoolData), for: .valueChanged)
@@ -51,15 +51,15 @@ class PoolListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"SwapPoolListMyCell") as? SwapPoolListMyCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"CommonMyPoolCell") as? CommonMyPoolCell
             let pool = mMySwapPools[indexPath.row]
             let myDeposit = mMySwapPoolDeposits.filter { $0.pool_id == pool.name }.first!
-            cell?.onBindView(pool, myDeposit)
+            cell?.onBindKavaPoolView(pool, myDeposit)
             return cell!
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"SwapPoolListOtherCell") as? SwapPoolListOtherCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"CommonPoolCell") as? CommonPoolCell
             let pool = mOtherSwapPools[indexPath.row]
-            cell?.onBindView(pool)
+            cell?.onBindKavaPoolView(pool)
             return cell!
         }
     }
