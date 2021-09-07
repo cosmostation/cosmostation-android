@@ -470,6 +470,21 @@ public class ApiClient {
         return api_medi;
     }
 
+    //Services for Emoney mainnet api
+    private static HistoryApi api_emoney = null;
+    public static HistoryApi getEmoneyApi(Context c) {
+        if (api_emoney == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_emoney))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_emoney = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_emoney;
+    }
+
     //Services for Rizon test api
     private static HistoryApi api_rizon_test = null;
     public static HistoryApi getRizonTestApi(Context c) {

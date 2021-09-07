@@ -38,6 +38,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -196,12 +197,14 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_ki));
             } else if (mChain.equals(OSMOSIS_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_osmosis));
-            } else if (mChain.equals(RIZON_TEST)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_rizon));
             } else if (mChain.equals(MEDI_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_medi));
+            } else if (mChain.equals(EMONEY_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_emoney));
             } else if (mChain.equals(ALTHEA_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_althea));
+            } else if (mChain.equals(RIZON_TEST)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_rizon));
             } else if (mChain.equals(UMEE_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_umee));
             }

@@ -523,6 +523,7 @@ public class BaseConstant {
     public final static String TOKEN_OSMOSIS        = "uosmo";
     public final static String TOKEN_ION            = "uion";
     public final static String TOKEN_UMEE           = "uumee";
+    public final static String TOKEN_NGM            = "ungm";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
@@ -776,6 +777,7 @@ public class BaseConstant {
     public final static String MEDI_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/medibloc/";
     public final static String ALTHEA_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/althea/";
     public final static String OSMOSIS_VAL_URL          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/osmosis/";
+    public final static String EMONEY_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/emoney/";
     public final static String UMEE_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/umee/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
@@ -806,7 +808,8 @@ public class BaseConstant {
     public final static String EXPLORER_KI_MAIN         = "https://www.mintscan.io/ki-chain/";
     public final static String EXPLORER_OSMOSIS_MAIN    = "https://www.mintscan.io/osmosis/";
     public final static String EXPLORER_MEDI_MAIN       = "https://www.mintscan.io/medibloc/";
-    public final static String EXPLORER_CERTIK          = "https://www.mintscan.io/certik/";
+    public final static String EXPLORER_CERTIK_MAIN     = "https://www.mintscan.io/certik/";
+    public final static String EXPLORER_EMONEY_MAIN     = "https://dev.mintscan.io/emoney/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 

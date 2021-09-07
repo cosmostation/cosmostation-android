@@ -25,6 +25,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -196,6 +197,13 @@ public class WalletGuideHolder extends BaseHolder {
             itemGuideMsg.setText(R.string.str_front_guide_msg_medi);
             itemBtnGuide1.setText(R.string.str_faq_medi);
             itemBtnGuide2.setText(R.string.str_guide_medi);
+
+        } else if (mainActivity.mBaseChain.equals(EMONEY_MAIN)) {
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_emoney));
+            itemGuideTitle.setText(R.string.str_front_guide_title_emoney);
+            itemGuideMsg.setText(R.string.str_front_guide_msg_emoney);
+            itemBtnGuide1.setText(R.string.str_faq_emoney);
+            itemBtnGuide2.setText(R.string.str_guide_emoney);
 
         } else if (mainActivity.mBaseChain.equals(ALTHEA_TEST)) {
             itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.althea_img));

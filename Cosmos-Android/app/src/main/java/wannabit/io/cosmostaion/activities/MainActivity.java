@@ -68,6 +68,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -399,6 +400,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorMedi));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorWhite));
             mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorMedi));
+
+        } else if (mBaseChain.equals(EMONEY_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_emoney));
+            mToolbarChainName.setText(getString(R.string.str_emoney_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorEmoney));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorEmoney));
+            mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorWhite));
 
         }
 
@@ -809,6 +817,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainmedibloc));
                     holder.chainName.setText(getString(R.string.str_medi_main));
+
+                } else if (chain.equals(EMONEY_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_emoney));
+                    holder.chainName.setText(getString(R.string.str_emoney_main));
 
                 }
 

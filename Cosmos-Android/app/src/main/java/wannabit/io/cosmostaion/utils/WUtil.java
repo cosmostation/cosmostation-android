@@ -89,6 +89,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -2269,7 +2270,10 @@ public class WUtil {
                 return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medibloc.com/en/ "));
             }
 
-        }  else if (chain.equals(UMEE_TEST)) {
+        } else if (chain.equals(EMONEY_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.e-money.com/"));
+
+        } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
         }
         return null;
@@ -2338,6 +2342,9 @@ public class WUtil {
                 return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/medibloc"));
             }
 
+        } else if (chain.equals(EMONEY_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://emoneytokenstandard.org/"));
+
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
 
@@ -2348,7 +2355,7 @@ public class WUtil {
 
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(CRYPTO_MAIN) ||
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(CRYPTO_MAIN) || basechain.equals(EMONEY_MAIN) ||
                 basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
@@ -2694,6 +2701,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(EMONEY_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         } else if (basechain.equals(RIZON_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
@@ -2746,7 +2758,8 @@ public class WUtil {
     }
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(EMONEY_MAIN) ||
+                basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -3210,7 +3223,10 @@ public class WUtil {
             return EXPLORER_MEDI_MAIN;
 
         } else if (basechain.equals(CERTIK_MAIN)) {
-            return EXPLORER_CERTIK;
+            return EXPLORER_CERTIK_MAIN;
+
+        } else if (basechain.equals(EMONEY_MAIN)) {
+            return EXPLORER_EMONEY_MAIN;
 
         }
 
@@ -3297,7 +3313,10 @@ public class WUtil {
             return EXPLORER_MEDI_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(CERTIK_MAIN)) {
-            return EXPLORER_CERTIK + "txs/" + hash;
+            return EXPLORER_CERTIK_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(EMONEY_MAIN)) {
+            return EXPLORER_EMONEY_MAIN + "txs/" + hash;
 
         }
 

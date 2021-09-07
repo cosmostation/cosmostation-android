@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletBinanceHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCertikHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCosmosHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCrytoHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletEmoneyHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletFetchHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletGuideHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletIrisHolder;
@@ -53,6 +54,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -212,6 +214,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_ALTHEA            = 19;
         private static final int TYPE_OSMOSIS           = 20;
         private static final int TYPE_UMEE              = 21;
+        private static final int TYPE_EMONEY              = 22;
 
         private static final int TYPE_STAKE_DROP        = 30;
         private static final int TYPE_KAVA_INCENTIVE    = 40;
@@ -286,6 +289,9 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_UMEE) {
                 return new WalletUmeeHolder(getLayoutInflater().inflate(R.layout.item_wallet_umee, viewGroup, false));
 
+            } else if (viewType == TYPE_EMONEY) {
+                return new WalletEmoneyHolder(getLayoutInflater().inflate(R.layout.item_wallet_emoney, viewGroup, false));
+
             }
 
 
@@ -354,6 +360,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) { return TYPE_STARNAME; }
                     else if (getMainActivity().mBaseChain.equals(MEDI_MAIN) || getMainActivity().mBaseChain.equals(MEDI_TEST)) { return TYPE_MEDI; }
                     else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN)) { return TYPE_CERTIK; }
+                    else if (getMainActivity().mBaseChain.equals(EMONEY_MAIN)) { return TYPE_EMONEY; }
 //                    else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
                     else if (getMainActivity().mBaseChain.equals(RIZON_TEST)) { return TYPE_RIZON; }
                     else if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) { return TYPE_ALTHEA; }
