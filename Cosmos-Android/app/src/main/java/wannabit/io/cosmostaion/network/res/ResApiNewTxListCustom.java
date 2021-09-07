@@ -379,6 +379,18 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_rizon_create_Token_swap);
                 }
 
+                // sifchain msg
+
+                else if (msgType.contains("MsgAddLiquidity")) {
+                    result = c.getString(R.string.tx_add_liquidity);
+
+                } else if (msgType.contains("MsgSwap")) {
+                    result = c.getString(R.string.tx_swap);
+
+                } else if (msgType.contains("MsgCreateEthBridgeClaim")) {
+                    result = c.getString(R.string.tx_create_ethereum_bridge);
+                }
+
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
                 }

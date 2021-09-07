@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.osmosis.ExitPoolActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -55,12 +54,10 @@ import wannabit.io.cosmostaion.task.FetchTask.KavaSwapPoolTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
@@ -70,7 +67,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_SWAP_PAR
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_SWAP_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
 public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
@@ -144,8 +140,8 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
             }
         });
+        onShowWaitDialog();
         onFetchData();
-
     }
 
     public void onCheckStartSwap(String inputCoinDenom, String outCoinDenom, SwapPool swapPool) {
@@ -232,7 +228,6 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     private int mTaskCount = 0;
     public void onFetchData() {
         mTaskCount = 7;
-        onShowWaitDialog();
         mSwapPoolList.clear();
         mMySwapPoolList.clear();
         mOtherSwapPoolList.clear();

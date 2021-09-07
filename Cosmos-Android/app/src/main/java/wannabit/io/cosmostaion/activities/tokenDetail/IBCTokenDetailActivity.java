@@ -166,7 +166,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             }
         }
 
-        mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(IBCTokenDetailActivity.this, mBaseChain));
+        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(IBCTokenDetailActivity.this, mBaseChain));
         mAddress.setText(mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {

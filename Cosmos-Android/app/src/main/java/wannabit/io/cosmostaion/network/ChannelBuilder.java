@@ -20,6 +20,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 
 public class ChannelBuilder {
     private final static String GRPC_COSMOS_MAIN = "lcd-cosmos-app.cosmostation.io";
@@ -73,6 +74,9 @@ public class ChannelBuilder {
     private final static String GRPC_ALTHEA_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_ALTHEA_TEST = 20100;
 
+    private final static String GRPC_UMEE_TEST = "lcd-office.cosmostation.io";
+    private final static int PORT_UMEE_TEST = 40800;
+
 
     public final static int TIME_OUT = 8;
 
@@ -112,6 +116,8 @@ public class ChannelBuilder {
             return getRizonTest();
         } else if (chain.equals(ALTHEA_TEST)) {
             return getAltheaTest();
+        } else if (chain.equals(UMEE_TEST)) {
+            return getUmeeTest();
         }
         return null;
     }
@@ -325,5 +331,18 @@ public class ChannelBuilder {
             }
         }
         return channel_althea_test;
+    }
+
+    //Channel for umee testnet
+    private static ManagedChannel channel_umee_test = null;
+    public static ManagedChannel getUmeeTest() {
+        if (channel_umee_test == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_umee_test = ManagedChannelBuilder.forAddress(GRPC_UMEE_TEST, PORT_UMEE_TEST)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_umee_test;
     }
 }

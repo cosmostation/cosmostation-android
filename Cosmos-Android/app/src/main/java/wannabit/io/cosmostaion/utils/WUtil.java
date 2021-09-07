@@ -51,6 +51,7 @@ import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import starnamed.x.starname.v1beta1.Types;
+import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -106,6 +107,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
@@ -1294,7 +1296,7 @@ public class WUtil {
             result = result + ",bnb";
 
         } else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
-            result = result + ",ukava,hard,usdx,bnb,xrp,busd,btc";
+            result = result + ",ukava,hard,swp,usdx,bnb,xrp,busd,btc";
 
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
             result = result + ",okb,okt";
@@ -1422,6 +1424,87 @@ public class WUtil {
         return denom;
     }
 
+    public static int getCosmosCoinDecimal(BaseData baseData, String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_ATOM)) { return 6; }
+        else if (denom.startsWith("pool")) {
+            Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
+            if (poolInfo != null) { return 6; }
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) { return ibcToken.decimal; }
+        }
+        return 6;
+    }
+
+    public static String dpCosmosTokenName(BaseData baseData, String denom) {
+        if (denom.equals(TOKEN_ATOM)) {
+            return "ATOM";
+
+        } else if (denom.startsWith("pool")) {
+            Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
+            if (poolInfo != null) {
+                return "GDEX-" + poolInfo.getId();
+            } else {
+                return "UnKnown";
+            }
+
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                return ibcToken.display_denom.toUpperCase();
+            } else {
+                return "UnKnown";
+            }
+        }
+        return denom;
+    }
+
+    public static void dpCosmosTokenName(Context c, BaseData baseData, TextView textView, String denom) {
+        if (denom.equals(TOKEN_ATOM)) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorAtom));
+            textView.setText("ATOM");
+
+        } else if (denom.startsWith("pool")) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
+            if (poolInfo != null) {
+                textView.setText("GDEX-" + poolInfo.getId());
+            } else {
+                textView.setText("UnKnown");
+            }
+
+        } else if (denom.startsWith("ibc/")) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                textView.setText(ibcToken.display_denom.toUpperCase());
+            } else {
+                textView.setText("UnKnown");
+            }
+
+        } else {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setText("UnKnown");
+        }
+    }
+
+    public static void DpCosmosTokenImg(BaseData baseData, ImageView imageView, String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_ATOM)) {
+            Picasso.get().cancelRequest(imageView);
+            imageView.setImageResource(R.drawable.atom_ic);
+        } else if (denom.startsWith("pool")) {
+            Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
+            if (poolInfo != null) {
+                imageView.setImageResource(R.drawable.token_gravitydex);
+            }
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            try {
+                Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+            } catch (Exception e){}
+        }
+    }
+
     public static String dpOsmosisTokenName(String denom) {
         if (denom.equals(TOKEN_OSMOSIS)) {
             return "OSMO";
@@ -1497,6 +1580,19 @@ public class WUtil {
         }
     }
 
+    public static BigDecimal getMyShareLpAmount(BaseData baseData, PoolOuterClass.Pool pool, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        BigDecimal myShare = baseData.getAvailable("gamm/pool/" + pool.getId());
+        String totalLpCoin = "";
+        if (pool.getPoolAssets(0).getToken().getDenom().equalsIgnoreCase(denom)) {
+            totalLpCoin = pool.getPoolAssets(0).getToken().getAmount();
+        } else {
+            totalLpCoin = pool.getPoolAssets(1).getToken().getAmount();
+        }
+        result = new BigDecimal(totalLpCoin).multiply(myShare).divide(new BigDecimal(pool.getTotalShares().getAmount()),18, RoundingMode.DOWN);
+        return result;
+    }
+
     public static ArrayList<GaugeOuterClass.Gauge> getGaugesByPoolId(long poolId, ArrayList<QueryOuterClass.IncentivizedPool> incentivizedPools, ArrayList<GaugeOuterClass.Gauge> allGauges) {
         ArrayList<Long> gaugeIds = new ArrayList<Long>();
         ArrayList<GaugeOuterClass.Gauge> result = new ArrayList<GaugeOuterClass.Gauge>();
@@ -1523,6 +1619,11 @@ public class WUtil {
         }
         return result;
     }
+
+//    public static BigDecimal getCosmosLpTokenPerUsdPrice(BaseData baseData, BigDecimal coin0Amount, BigDecimal coin1Amount) {
+//        BigDecimal totalShare = coin0Amount.add(coin1Amount).movePointLeft(18).setScale(18, RoundingMode.DOWN);
+//        return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
+//    }
 
     public static BigDecimal getOsmoLpTokenPerUsdPrice(BaseData baseData, PoolOuterClass.Pool pool) {
         BigDecimal totalShare = (new BigDecimal(pool.getTotalShares().getAmount())).movePointLeft(18).setScale(18, RoundingMode.DOWN);
@@ -2168,6 +2269,8 @@ public class WUtil {
                 return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medibloc.com/en/ "));
             }
 
+        }  else if (chain.equals(UMEE_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
         }
         return null;
     }
@@ -2234,6 +2337,10 @@ public class WUtil {
             } else {
                 return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/medibloc"));
             }
+
+        } else if (chain.equals(UMEE_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
+
         }
         return null;
     }
@@ -2242,7 +2349,7 @@ public class WUtil {
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(CRYPTO_MAIN) ||
-                basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST)) {
+                basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -2597,6 +2704,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(UMEE_TEST)) {
+            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         }
 
         else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {
@@ -2634,7 +2746,7 @@ public class WUtil {
     }
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -3114,6 +3226,9 @@ public class WUtil {
         } else if (basechain.equals(ALTHEA_TEST)) {
             return EXPLORER_ALTHEA_TEST;
 
+        } else if (basechain.equals(UMEE_TEST)) {
+            return EXPLORER_UMEE_TEST;
+
         }
         return "";
     }
@@ -3200,6 +3315,9 @@ public class WUtil {
 
         } else if (basechain.equals(MEDI_TEST)) {
             return EXPLORER_MEDI_TEST + "txs/" + hash;
+
+        } else if (basechain.equals(UMEE_TEST)) {
+            return EXPLORER_UMEE_TEST + "txs/" + hash;
 
         }
         return "";

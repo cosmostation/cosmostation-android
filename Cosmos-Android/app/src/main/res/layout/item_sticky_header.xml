@@ -2,28 +2,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorGray2"
-    android:padding="@dimen/space_4"
-    android:layout_marginBottom="@dimen/space_4">
-    <TextView
-        android:id="@+id/header_title"
-        android:layout_width="@dimen/space_300"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/root"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recently Histories"
-        style="@style/font_ss_12_gray1"
-        android:layout_marginLeft="@dimen/space_6"/>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/header_title">
+        app:cardBackgroundColor="@color/colorGray2"
+        app:contentPadding="@dimen/space_4">
         <TextView
-            android:id="@+id/recycler_cnt"
+            android:id="@+id/header_title"
+            android:layout_width="@dimen/space_300"
+            android:layout_height="wrap_content"
+            android:text="Recently Histories"
+            style="@style/font_ss_12_gray1"
+            android:layout_marginLeft="@dimen/space_6"/>
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="00"
-            style="@style/font_ss_12_white"
-            android:layout_marginRight="@dimen/space_6"/>
-    </RelativeLayout>
+            android:layout_toRightOf="@+id/header_title">
+            <TextView
+                android:id="@+id/recycler_cnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="00"
+                style="@style/font_ss_12_white"
+                android:layout_marginRight="@dimen/space_6"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:layout_below="@+id/root"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp" />
 </RelativeLayout>

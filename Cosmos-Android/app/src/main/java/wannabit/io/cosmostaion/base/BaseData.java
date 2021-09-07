@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.BondingInfo;
+import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.RewardInfo;
 import wannabit.io.cosmostaion.model.SifIncentive;
@@ -400,6 +401,8 @@ public class BaseData {
     //Gravity pool list
     public ArrayList<Liquidity.Pool>                            mGrpcGravityPools = new ArrayList<>();
 
+    //Gravity GDex Manager
+    public ArrayList<GDexManager>                               mGDexManager = new ArrayList<>();
 
     //gRPC funcs
     public String getChainIdGrpc() {

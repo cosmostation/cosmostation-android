@@ -128,7 +128,7 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
     private void onUpdateView() {
         String baseDenom = "";
-        mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(BridgeTokenGrpcActivity.this, mBaseChain));
+        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(BridgeTokenGrpcActivity.this, mBaseChain));
         if (mBaseChain.equals(SIF_MAIN)) {
             baseDenom = mBridgeDenom.substring(1);
             Picasso.get().load(SIF_COIN_IMG_URL + mBridgeDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);

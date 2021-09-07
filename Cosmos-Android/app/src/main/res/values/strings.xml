@@ -103,6 +103,9 @@
     <string name="url_api_althea_test" translatable="false">https://api-office.cosmostation.io/althea-testnet2v1/</string>
 
 
+    <string name="url_api_umee_test" translatable="false">https://api-office.cosmostation.io/umee-betanet-1/</string>
+
+
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
     <string name="str_atom_c" translatable="false">ATOM</string>
@@ -128,6 +131,7 @@
     <string name="str_althea_c" translatable="false">ALTG</string>
     <string name="str_osmosis_c" translatable="false">OSMO</string>
     <string name="str_uion_c" translatable="false">ION</string>
+    <string name="str_umee_c" translatable="false">UMEE</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
@@ -169,6 +173,7 @@
     <string name="str_rizon_test_net">Rizon Testnet</string>
     <string name="str_medi_test_net">Medibloc Testnet</string>
     <string name="str_althea_test_net">Althea Testnet</string>
+    <string name="str_umee_test_net">Umee Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
@@ -335,6 +340,8 @@
     <string name="str_guide_althea">Blog</string>
     <string name="str_faq_osmosis">Home</string>
     <string name="str_guide_osmosis">Blog</string>
+    <string name="str_faq_umee">Home</string>
+    <string name="str_guide_umee">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -426,6 +433,8 @@
     <string name="str_medi_chain_test_2" translatable="false">Medibloc Testnet</string>
     <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
     <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
+    <string name="str_umee_chain_test" translatable="false">(Umee Testnet)</string>
+    <string name="str_umee_chain_test_2" translatable="false">Umee Testnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
@@ -454,6 +463,7 @@
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
+    <string name="str_umee_test" translatable="false">UMEE TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -540,6 +550,7 @@
     <string name="str_front_guide_title_medi"><![CDATA[MEDIBLOC]]></string>
     <string name="str_front_guide_title_althea"><![CDATA[ALTHEA NETWORK]]></string>
     <string name="str_front_guide_title_osmosis"><![CDATA[OSMOSIS ZONE]]></string>
+    <string name="str_front_guide_title_umee"><![CDATA[UMEE (The Ocean]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -560,6 +571,7 @@
     <string name="str_front_guide_msg_medi"><![CDATA[Patient-centric healthcare data solution providing a platform for efficient distribution of healthcare data.]]></string>
     <string name="str_front_guide_msg_althea"><![CDATA[Decentralized internet service provider built with the Cosmos SDK, enabled by community-run mesh networks.]]></string>
     <string name="str_front_guide_msg_osmosis"><![CDATA[The interchain AMM powered by the Cosmos Inter-Blockchain Communication protocol, enabling sovereign blockchain networks to access a vast pool of liquidity.]]></string>
+    <string name="str_front_guide_msg_umee"><![CDATA[A cross-chain DeFi platform that enables multi-chain lending & borrowing, staking, and leverage.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1050,7 +1062,7 @@
     <string name="str_withdraw_all">Claim all Rewards</string>
     <string name="str_delegated">Delegated</string>
     <string name="str_unbonding">Unbonding</string>
-    <string name="str_reward">Reward</string>
+    <string name="str_reward">Staking Reward</string>
     <string name="str_stake_reward">Staking Reward</string>
     <string name="str_harvest_deposited">Harvest Deposited</string>
     <string name="str_harvest_reward">Harvest Reward</string>
@@ -1387,17 +1399,17 @@
     <string name="str_token_swap">Token Swap</string>
     <string name="str_token_id">ID</string>
     <string name="str_token_swap_time">Time</string>
-    <string name="str_token_swap_input_coin">Input Coin</string>
-    <string name="str_token_swap_output_coin">Output Coin</string>
+    <string name="str_token_swap_input_coin">Inputs</string>
+    <string name="str_token_swap_output_coin">Outputs</string>
     <string name="str_token_swap_output_coin_minimum">Output Coin (Minimum Guarantee)</string>
     <string name="str_token_swap_rate_coin">Rate</string>
     <string name="str_token_swap_fee">Swap Fee</string>
     <string name="str_token_swap_start">START SWAP</string>
     <string name="str_select_coin_swap_in">Select Coin to Swap In</string>
     <string name="str_select_coin_swap_out">Select Coin to Swap Out</string>
-    <string name="str_pool_total_liquidity_value">Total Locked Value (TVL)</string>
-    <string name="str_pool_total_liquidity_amount">Total Locked Coins</string>
-    <string name="str_pool_my_liquidity_available_amount">Availables</string>
+    <string name="str_pool_total_liquidity_value">Total Deposited Value (TVL)</string>
+    <string name="str_pool_total_liquidity_amount">Total Deposited Coins</string>
+    <string name="str_pool_my_liquidity_available_amount">My Availables</string>
     <string name="str_title_pool_join">Deposit to Pool</string>
     <string name="str_join_pool_step_0">Insert amount to deposit</string>
     <string name="str_join_pool_step_1">Insert memo (optional)</string>
@@ -1485,9 +1497,25 @@
     <string name="str_kava_slippage_title">Slippage</string>
     <string name="str_kava_total_share_title">Total Share</string>
     <string name="str_kava_deposit_my_share_title">My Share</string>
-    <string name="str_kava_deposit_my_title">My Deposited Coins</string>
+    <string name="str_deposit_my_value">My Deposited Value</string>
+    <string name="str_deposit_my_coins">My Deposited Coins</string>
     <string name="str_to_withdraw_coin_title">To Withdraw Coins (MG)</string>
     <string name="str_incentive_amount_title">Incentive Amounts</string>
+    <string name="str_gravity_dex">Gravity Dex</string>
+    <string name="str_add_liquidity_external_symbol">External Symbol</string>
+    <string name="str_add_liquidity_native_asset">Native Asset</string>
+    <string name="str_add_liquidity_external_asset">External Asset</string>
+    <string name="str_swap_send_asset">Send Asset</string>
+    <string name="str_swap_receive_asset">Received Asset</string>
+    <string name="str_bridge_claim_type">Claim Type</string>
+    <string name="str_bridge_contract_address">Bridge Contract Address</string>
+    <string name="str_token_contract_address">Token Contract Address</string>
+    <string name="str_ethereum_sender">Ethereum Sender</string>
+    <string name="str_cosmos_receiver">Cosmos Receiver</string>
+    <string name="str_asset">Asset</string>
+    <string name="str_swap_gravity">Gravity Dex Swap Rate</string>
+    <string name="str_swap_kava">Kava Swap Rate</string>
+    <string name="str_swap_osmosis">Osmosis Swap Rate</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1620,6 +1648,7 @@
     <string name="s_medi" translatable="false">MED</string>
     <string name="s_althea" translatable="false">ALTG</string>
     <string name="s_osmosis" translatable="false">OSMO</string>
+    <string name="s_umee" translatable="false">UMEE</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>
@@ -1742,6 +1771,10 @@
 
     <string name="tx_add_record">Add Record</string>
     <string name="tx_create_did">Create Did</string>
+
+    <string name="tx_add_liquidity">Add Liquidity</string>
+    <string name="tx_swap">Swap</string>
+    <string name="tx_create_ethereum_bridge">Create Ethereum Bridge</string>
 
     <string name="str_dp_time_format1">MMM d, yyyy HH:mm:ss</string>
     <string name="str_dp_time_format2">MMM d, yyyy HH:mm</string>

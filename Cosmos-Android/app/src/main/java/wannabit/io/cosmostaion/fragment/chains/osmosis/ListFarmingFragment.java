@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
@@ -22,25 +18,17 @@ import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
-import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.osmosis.EarningMyHolder;
 import wannabit.io.cosmostaion.widget.osmosis.EarningOtherHolder;
-import wannabit.io.cosmostaion.widget.osmosis.PoolMyHolder;
-import wannabit.io.cosmostaion.widget.osmosis.PoolOtherHolder;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
 public class ListFarmingFragment extends BaseFragment {
-    private RecyclerView mRecyclerView;
-    private EarningListAdapter mAdapter;
+
+    private SwipeRefreshLayout  mSwipeRefreshLayout;
+    private RecyclerView        mRecyclerView;
+    private EarningListAdapter  mAdapter;
 
     public ArrayList<PoolOuterClass.Pool>               mPoolList = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>               mMyIncentivizedPool = new ArrayList<>();
@@ -65,7 +53,15 @@ public class ListFarmingFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_farming_list, container, false);
+        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView = rootView.findViewById(R.id.recycler);
+
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() { getSActivity().onFetchPoolListInfo(); }
+        });
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new EarningListAdapter();
@@ -110,6 +106,7 @@ public class ListFarmingFragment extends BaseFragment {
             }
         }
         mAdapter.notifyDataSetChanged();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     public PoolOuterClass.Pool getPoolwithID(long id){

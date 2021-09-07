@@ -34,6 +34,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
@@ -188,10 +190,11 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
 
 
     private boolean onCheckValidate() {
+        String mainDenom = WDp.mainDenom(getSActivity().mBaseChain);
         if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
             BigDecimal available = getBaseDao().availableAmount(getSActivity().mDenom);
             if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
-                if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
+                if (getSActivity().mDenom.equals(mainDenom)) {
                     BigDecimal toSend = new BigDecimal(getSActivity().mAmounts.get(0).amount);
                     if ((toSend.add(mFee)).compareTo(available) > 0) {
                         Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
@@ -205,7 +208,7 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
                 }
 
             } else if(getSActivity().mTxType == CONST_PW_TX_SIMPLE_DELEGATE) {
-                BigDecimal delegatable = getBaseDao().delegatableAmount(WDp.mainDenom(getSActivity().mBaseChain));
+                BigDecimal delegatable = getBaseDao().delegatableAmount(mainDenom);
                 BigDecimal todelegate = new BigDecimal(getSActivity().mAmount.amount);
                 if ((todelegate.add(mFee)).compareTo(delegatable) > 0) {
                     Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
@@ -213,7 +216,7 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
                 }
 
             } else if(getSActivity().mTxType == CONST_PW_TX_SIMPLE_REWARD) {
-                BigDecimal rewardable = getBaseDao().availableAmount(WDp.mainDenom(getSActivity().mBaseChain));
+                BigDecimal rewardable = getBaseDao().availableAmount(mainDenom);
                 if (mFee.compareTo(rewardable) > 0) {
                     Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
                     return false;
@@ -230,7 +233,7 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
                 }
 
             } else if (getSActivity().mTxType == CONST_PW_TX_REINVEST) {
-                BigDecimal reinvestable = getBaseDao().availableAmount(WDp.mainDenom(getSActivity().mBaseChain));
+                BigDecimal reinvestable = getBaseDao().availableAmount(mainDenom);
                 if (mFee.compareTo(reinvestable) > 0) {
                     Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
                     return false;
@@ -242,8 +245,33 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
                     return false;
                 }
 
-            }
+            } else if (getSActivity().mTxType == CONST_PW_TX_KAVA_SWAP) {
+                BigDecimal swapable = getBaseDao().availableAmount(mainDenom);
+                if (getSActivity().mSwapInCoin.denom.equalsIgnoreCase(mainDenom)) {
+                    BigDecimal spend = new BigDecimal(getSActivity().mSwapInCoin.amount).add(mFee);
+                    if (swapable.compareTo(spend) < 0) {
+                        Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                }
 
+            } else if (getSActivity().mTxType == CONST_PW_TX_KAVA_JOIN_POOL) {
+                BigDecimal depositable = getBaseDao().availableAmount(mainDenom);
+                if (getSActivity().mPoolCoin0.denom.equalsIgnoreCase(mainDenom)) {
+                    BigDecimal spend = new BigDecimal(getSActivity().mPoolCoin0.amount).add(mFee);
+                    if (depositable.compareTo(spend) < 0) {
+                        Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                }
+                if (getSActivity().mPoolCoin1.denom.equalsIgnoreCase(mainDenom)) {
+                    BigDecimal spend = new BigDecimal(getSActivity().mPoolCoin1.amount).add(mFee);
+                    if (depositable.compareTo(spend) < 0) {
+                        Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                }
+            }
         }
         return true;
     }

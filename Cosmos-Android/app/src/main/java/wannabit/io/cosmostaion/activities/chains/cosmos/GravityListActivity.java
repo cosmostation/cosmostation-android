@@ -1,6 +1,9 @@
 package wannabit.io.cosmostaion.activities.chains.cosmos;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,30 +17,54 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
+import cosmos.base.v1beta1.CoinOuterClass;
+import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.chains.cosmos.GravitySwapFragment;
 import wannabit.io.cosmostaion.fragment.chains.cosmos.GravityPoolListFragment;
+import wannabit.io.cosmostaion.fragment.chains.cosmos.GravitySwapFragment;
+import wannabit.io.cosmostaion.model.GDexManager;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.GravityDexManagerGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.GravityDexParamGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.GravityDexPoolGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_MANAGER;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_PARAM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_POOL_LIST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 
 public class GravityListActivity extends BaseActivity {
 
     private Toolbar                     mToolbar;
+    private TextView                    mTitle;
     private ViewPager                   mLabPager;
     private TabLayout                   mLabTapLayer;
     private CosmosGravityPageAdapter    mPageAdapter;
+
+    public Liquidity.Params                                 mParams;
+    public ArrayList<Liquidity.Pool>                        mPoolList = new ArrayList<>();
+    public ArrayList<String>                                mAllDenoms = new ArrayList<>();
+    public ArrayList<Liquidity.Pool>                        mPoolMyList = new ArrayList<>();
+    public ArrayList<Liquidity.Pool>                        mPoolOtherList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_labs_list);
         mToolbar = findViewById(R.id.tool_bar);
+        mTitle = findViewById(R.id.toolbar_title);
         mLabTapLayer = findViewById(R.id.lab_tab);
         mLabPager = findViewById(R.id.lab_view_pager);
+        mTitle.setText(getString(R.string.str_gravity_dex));
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -76,6 +103,8 @@ public class GravityListActivity extends BaseActivity {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
             }
         });
+        onShowWaitDialog();
+        onFetchPoolListInfo();
     }
 
     @Override
@@ -87,6 +116,84 @@ public class GravityListActivity extends BaseActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void onFetchPoolListInfo() {
+        mTaskCount = 2;
+        mPoolList .clear();
+        mPoolMyList.clear();
+        mPoolOtherList.clear();
+        new GravityDexPoolGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new GravityDexParamGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if (isFinishing()) return;
+        mTaskCount--;
+        if (result.taskType == TASK_GRPC_FETCH_GRAVITY_POOL_LIST) {
+            if (result.isSuccess && result.resultData != null) {
+                mPoolList = (ArrayList<Liquidity.Pool>) result.resultData;
+            }
+            mTaskCount = mTaskCount + mPoolList.size();
+            for (Liquidity.Pool pool: mPoolList ) {
+                new GravityDexManagerGrpcTask(getBaseApplication(), this, mBaseChain, pool.getReserveAccountAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+                if (getBaseDao().getAvailable(pool.getPoolCoinDenom()) != BigDecimal.ZERO) {
+                    mPoolMyList.add(pool);
+                } else {
+                    mPoolOtherList.add(pool);
+                }
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_GRAVITY_PARAM) {
+            if (result.isSuccess && result.resultData != null) {
+                mParams = (Liquidity.Params) result.resultData;
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_GRAVITY_MANAGER) {
+            if (result.isSuccess && result.resultData != null && result.resultData2 != null) {
+                getBaseDao().mGDexManager.add(new GDexManager(result.resultData2, (List<CoinOuterClass.Coin>) result.resultData));
+            }
+        }
+        if (mTaskCount == 0) {
+            mAllDenoms.add(TOKEN_ATOM);
+            for (Liquidity.Pool pool: mPoolList ) {
+                for (String denom: pool.getReserveCoinDenomsList()) {
+                    if (!mAllDenoms.contains(denom)) {
+                        mAllDenoms.add(denom);
+                    }
+                }
+            }
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    onHideWaitDialog();
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                }
+            }, 300);
+        }
+    }
+
+    public GDexManager getGDexManager(String address) {
+        for (GDexManager gDexManager: getBaseDao().mGDexManager) {
+            if (gDexManager.address.equalsIgnoreCase(address)) {
+                return gDexManager;
+            }
+        }
+        return null;
+    }
+
+    public BigDecimal getLpAmount (String address, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (getGDexManager(address) != null) {
+            for (Coin coin: getGDexManager(address).reserve) {
+                if (coin.denom.equalsIgnoreCase(denom)) {
+                    result = new BigDecimal(coin.amount);
+                }
+            }
+        }
+        return result;
     }
 
     private class CosmosGravityPageAdapter extends FragmentPagerAdapter {
