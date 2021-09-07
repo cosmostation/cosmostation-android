@@ -37,6 +37,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     private ImageView mInputImg;
     private TextView mInputCoin, mInputAmount;
     private TextView mSwapFee;
+    private TextView mSwapTitle;
     private ImageView mOutputImg;
     private TextView mOutputCoin;
     private TextView mSwapInputCoinRate, mSwapInputCoinSymbol, mSwapOutputCoinRate, mSwapOutputCoinSymbol;
@@ -75,6 +76,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         mOutputImg                  = rootView.findViewById(R.id.img_output_coin);
         mOutputCoin                 = rootView.findViewById(R.id.txt_output_coin);
 
+        mSwapTitle                  = rootView.findViewById(R.id.swap_title);
         mSwapInputCoinRate          = rootView.findViewById(R.id.inputs_rate);
         mSwapInputCoinSymbol        = rootView.findViewById(R.id.inputs_rate_symbol);
         mSwapOutputCoinRate         = rootView.findViewById(R.id.outputs_rate);
@@ -95,7 +97,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         mBtnSwapStart.setOnClickListener(this);
 
         mBtnToggle.setBackgroundTintList(getResources().getColorStateList(R.color.colorOsmosis));
-
+        mSwapTitle.setText(getString(R.string.str_swap_osmosis));
         return rootView;
     }
 

@@ -43,6 +43,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
     private ImageView           mInputImg;
     private TextView            mInputCoin, mInputAmount;
     private TextView            mSwapFee;
+    private TextView            mSwapTitle;
     private ImageView           mOutputImg;
     private TextView            mOutputCoin;
     private TextView            mSwapInputCoinRate, mSwapInputCoinSymbol, mSwapOutputCoinRate, mSwapOutputCoinSymbol;
@@ -74,7 +75,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_swap_market, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_swap_list, container, false);
         mBtnInputCoinList           = rootView.findViewById(R.id.btn_to_input_coin);
         mBtnOutputCoinList          = rootView.findViewById(R.id.btn_to_output_coin);
 
@@ -84,6 +85,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         mOutputImg                  = rootView.findViewById(R.id.img_output_coin);
         mOutputCoin                 = rootView.findViewById(R.id.txt_output_coin);
 
+        mSwapTitle                  = rootView.findViewById(R.id.swap_title);
         mSwapInputCoinRate          = rootView.findViewById(R.id.inputs_rate);
         mSwapInputCoinSymbol        = rootView.findViewById(R.id.inputs_rate_symbol);
         mSwapOutputCoinRate         = rootView.findViewById(R.id.outputs_rate);
@@ -104,6 +106,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         mBtnSwapStart.setOnClickListener(this);
 
         mBtnToggle.setBackgroundTintList(getResources().getColorStateList(R.color.colorKava));
+        mSwapTitle.setText(getString(R.string.str_swap_kava));
         return rootView;
     }
 
@@ -127,9 +130,13 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         Picasso.get().load(KAVA_COIN_IMG_URL+mOutputCoinDenom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(mOutputImg);
         WUtil.dpKavaTokenName(getSActivity(), mInputCoin, mInputCoinDenom);
         WUtil.dpKavaTokenName(getSActivity(), mOutputCoin, mOutputCoinDenom);
+        int InPutDecimal = WUtil.getKavaCoinDecimal(mInputCoinDenom);
+        int OutPutDecimal = WUtil.getKavaCoinDecimal(mOutputCoinDenom);
 
+        BigDecimal availableMaxAmount = getBaseDao().availableAmount(mInputCoinDenom);
         BigDecimal swapFee = new BigDecimal(mSwapParam.swap_fee);
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
+        mInputAmount.setText(WDp.getDpAmount2(getSActivity(), availableMaxAmount, InPutDecimal, OutPutDecimal));
 
         final int inputCoinDecimal = WUtil.getKavaCoinDecimal(mInputCoinDenom);
         final int outCoinDecimal = WUtil.getKavaCoinDecimal(mOutputCoinDenom);

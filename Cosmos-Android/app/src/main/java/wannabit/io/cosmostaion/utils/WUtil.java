@@ -1296,7 +1296,7 @@ public class WUtil {
             result = result + ",bnb";
 
         } else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
-            result = result + ",ukava,hard,usdx,bnb,xrp,busd,btc";
+            result = result + ",ukava,hard,swp,usdx,bnb,xrp,busd,btc";
 
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
             result = result + ",okb,okt";
@@ -1434,6 +1434,29 @@ public class WUtil {
             if (ibcToken.auth == true) { return ibcToken.decimal; }
         }
         return 6;
+    }
+
+    public static String dpCosmosTokenName(BaseData baseData, String denom) {
+        if (denom.equals(TOKEN_ATOM)) {
+            return "ATOM";
+
+        } else if (denom.startsWith("pool")) {
+            Liquidity.Pool poolInfo = baseData.getGravityPoolByDenom(denom);
+            if (poolInfo != null) {
+                return "GDEX-" + poolInfo.getId();
+            } else {
+                return "UnKnown";
+            }
+
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                return ibcToken.display_denom.toUpperCase();
+            } else {
+                return "UnKnown";
+            }
+        }
+        return denom;
     }
 
     public static void dpCosmosTokenName(Context c, BaseData baseData, TextView textView, String denom) {
@@ -1596,6 +1619,11 @@ public class WUtil {
         }
         return result;
     }
+
+//    public static BigDecimal getCosmosLpTokenPerUsdPrice(BaseData baseData, BigDecimal coin0Amount, BigDecimal coin1Amount) {
+//        BigDecimal totalShare = coin0Amount.add(coin1Amount).movePointLeft(18).setScale(18, RoundingMode.DOWN);
+//        return getPoolValue(baseData, pool).divide(totalShare, 18, RoundingMode.DOWN);
+//    }
 
     public static BigDecimal getOsmoLpTokenPerUsdPrice(BaseData baseData, PoolOuterClass.Pool pool) {
         BigDecimal totalShare = (new BigDecimal(pool.getTotalShares().getAmount())).movePointLeft(18).setScale(18, RoundingMode.DOWN);

@@ -1513,6 +1513,9 @@
     <string name="str_ethereum_sender">Ethereum Sender</string>
     <string name="str_cosmos_receiver">Cosmos Receiver</string>
     <string name="str_asset">Asset</string>
+    <string name="str_swap_gravity">Gravity Dex Swap Rate</string>
+    <string name="str_swap_kava">Kava Swap Rate</string>
+    <string name="str_swap_osmosis">Osmosis Swap Rate</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

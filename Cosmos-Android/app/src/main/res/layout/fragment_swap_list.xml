@@ -217,10 +217,11 @@
                 android:padding="@dimen/space_8">
 
                 <TextView
+                    android:id="@+id/swap_title"
                     style="@style/font_ss_12_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gravity Dex Swap Rate" />
+                    android:text="-" />
 
                 <TextView
                     style="@style/font_ss_10_gray1"

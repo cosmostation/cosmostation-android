@@ -1273,6 +1273,9 @@
     <string name="str_ethereum_sender">Ethereum Sender</string>
     <string name="str_cosmos_receiver">Cosmos Receiver</string>
     <string name="str_asset">Asset</string>
+    <string name="str_swap_gravity">Gravity Dex Swap Rate</string>
+    <string name="str_swap_kava">Kava Swap Rate</string>
+    <string name="str_swap_osmosis">Osmosis Swap Rate</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>

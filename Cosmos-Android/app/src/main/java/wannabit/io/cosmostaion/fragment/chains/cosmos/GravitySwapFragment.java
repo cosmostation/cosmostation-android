@@ -25,7 +25,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
 import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class GravitySwapFragment extends BaseFragment implements View.OnClickListener{
@@ -36,6 +35,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
     private ImageView       mInputImg;
     private TextView        mInputCoin, mInputAmount;
     private TextView        mSwapFee;
+    private TextView        mSwapTitle;
     private ImageView       mOutputImg;
     private TextView        mOutputCoin;
     private TextView        mSwapInputCoinRate, mSwapInputCoinSymbol, mSwapOutputCoinRate, mSwapOutputCoinSymbol;
@@ -46,7 +46,6 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
 
     public Liquidity.Params                     mParms;
     public ArrayList<Liquidity.Pool>            mPoolList = new ArrayList<>();
-    public GDexManager                          mGdexManager;
     public ArrayList<String>                    mAllDenoms = new ArrayList<>();
     public ArrayList<Liquidity.Pool>            mSwapablePools = new ArrayList<>();
     public ArrayList<String>                    mSwapableDenoms = new ArrayList<>();
@@ -80,6 +79,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         mOutputImg                  = rootView.findViewById(R.id.img_output_coin);
         mOutputCoin                 = rootView.findViewById(R.id.txt_output_coin);
 
+        mSwapTitle                  = rootView.findViewById(R.id.swap_title);
         mSwapInputCoinRate          = rootView.findViewById(R.id.inputs_rate);
         mSwapInputCoinSymbol        = rootView.findViewById(R.id.inputs_rate_symbol);
         mSwapOutputCoinRate         = rootView.findViewById(R.id.outputs_rate);
@@ -100,12 +100,13 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         mBtnSwapStart.setOnClickListener(this);
 
         mBtnToggle.setBackgroundTintList(getResources().getColorStateList(R.color.colorAtom));
+        mSwapTitle.setText(getString(R.string.str_swap_gravity));
         return rootView;
     }
 
     @Override
     public void onRefreshTab() {
-        mPoolList = getSActivity().mPoolList;
+        mPoolList = getBaseDao().mGrpcGravityPools;
         mParms = getSActivity().mParams;
         mAllDenoms = getSActivity().mAllDenoms;
 
@@ -129,16 +130,18 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         WUtil.DpCosmosTokenImg(getBaseDao(), mInputImg, mInputCoinDenom);
         WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mOutputCoin, mOutputCoinDenom);
         WUtil.DpCosmosTokenImg(getBaseDao(), mOutputImg, mOutputCoinDenom);
-        WUtil.dpOsmosisTokenName(getSActivity(), mSwapInputCoinExSymbol, mInputCoinDenom);
-        WUtil.dpOsmosisTokenName(getSActivity(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
-
-//        BigDecimal lpInputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mInputCoinDenom);
-//        BigDecimal lpOutputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mOutputCoinDenom);
+        WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
+        WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinSymbol, mOutputCoinDenom);
+        WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
+        WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
 
         mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, mInPutDecimal));
-        WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
         mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, mInPutDecimal));
-        WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
+
+        BigDecimal lpInputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mInputCoinDenom);
+        BigDecimal lpOutputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mOutputCoinDenom);
+        BigDecimal poolSwapRate = lpOutputAmount.divide(lpInputAmount, 6, RoundingMode.DOWN).movePointLeft(mInPutDecimal - mOutPutDecimal);
+        mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), poolSwapRate, 0, mOutPutDecimal));
 
         BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
         BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));

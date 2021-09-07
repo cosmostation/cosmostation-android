@@ -1,10 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import cosmos.base.query.v1beta1.Pagination;
-import tendermint.liquidity.v1beta1.Liquidity;
 import tendermint.liquidity.v1beta1.QueryGrpc;
 import tendermint.liquidity.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -38,7 +35,9 @@ public class GravityDexParamGrpcTask extends CommonTask {
             this.mResult.isSuccess = true;
             mResult.resultData = response.getParams();
 
-        } catch (Exception e) { WLog.e( "GravityDexPoolGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) {
+            WLog.e( "GravityDexPoolGrpcTask "+ e.getMessage());
+        }
         return mResult;
     }
 }
