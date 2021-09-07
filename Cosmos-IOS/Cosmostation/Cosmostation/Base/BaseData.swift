@@ -85,7 +85,10 @@ final class BaseData : NSObject{
     var mStarNameFee_gRPC: Starnamed_X_Configuration_V1beta1_Fees?
     var mStarNameConfig_gRPC: Starnamed_X_Configuration_V1beta1_Config?
     
+    
+    var mGravityParam_gRPC: Tendermint_Liquidity_V1beta1_Params?
     var mGravityPools_gRPC = Array<Tendermint_Liquidity_V1beta1_Pool>()
+    var mGravityManager_gRPC = Array<GDexManager>()
     
     public override init() {
         super.init();

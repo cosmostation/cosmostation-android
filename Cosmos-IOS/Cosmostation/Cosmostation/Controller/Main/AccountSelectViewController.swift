@@ -298,6 +298,13 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "testnetAlthea")
                     cell?.chainName.text = "ALTHEA TEST"
+                    
+                } else if (selectedChain == ChainType.UMEE_TEST) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "testnetUmee")
+                    cell?.chainName.text = "UMEE TEST"
                 }
                 
             }

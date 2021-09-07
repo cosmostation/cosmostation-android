@@ -173,6 +173,13 @@ class WalletGuideCell: UITableViewCell {
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_althea", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_althea", comment: ""), for: .normal)
             
+        } else if (chainType == ChainType.UMEE_TEST) {
+            guideImg.image = UIImage(named: "infoiconUmee")
+            guideTitle.text = NSLocalizedString("send_guide_title_umee", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_umee", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_umee", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_umee", comment: ""), for: .normal)
+            
         }
         
     }

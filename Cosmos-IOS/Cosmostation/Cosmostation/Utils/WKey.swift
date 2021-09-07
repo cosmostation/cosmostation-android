@@ -22,7 +22,7 @@ class WKey {
         
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.AKASH_MAIN ||
                 chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.SIF_MAIN || chainType == ChainType.KI_MAIN || chainType == ChainType.OSMOSIS_MAIN ||
-                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.UMEE_TEST) {
             return masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(account.account_path)!))
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
@@ -132,6 +132,8 @@ class WKey {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "althea", program: ripemd160)
         } else if (chain == ChainType.OSMOSIS_MAIN) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "osmo", program: ripemd160)
+        } else if (chain == ChainType.UMEE_TEST) {
+            result = try! SegwitAddrCoder.shared.encode2(hrp: "umee", program: ripemd160)
         }
         return result
     }
@@ -140,7 +142,7 @@ class WKey {
         var childKey:PrivateKey?
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.AKASH_MAIN ||
                 chain == ChainType.SENTINEL_MAIN || chain == ChainType.SIF_MAIN || chain == ChainType.KI_MAIN || chain == ChainType.OSMOSIS_MAIN ||
-                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.CERTIK_TEST) {
+                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.CERTIK_TEST || chain == ChainType.UMEE_TEST) {
             childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
             
         } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -289,6 +291,8 @@ class WKey {
             result = bech32.encode("althea", values: data)
         } else if (chain == ChainType.OSMOSIS_MAIN) {
             result = bech32.encode("osmo", values: data)
+        } else if (chain == ChainType.UMEE_TEST) {
+            result = bech32.encode("umee", values: data)
         }
         return result
     }
