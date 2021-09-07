@@ -261,7 +261,7 @@ public enum BaseChain {
 //        result.add(RIZON_TEST);
 //        result.add(MEDI_TEST);
 //        result.add(ALTHEA_TEST);
-        result.add(UMEE_TEST);
+//        result.add(UMEE_TEST);
         return result;
     }
 
