@@ -36,7 +36,6 @@ public class GravityDexPoolGrpcTask extends CommonTask {
             Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setLimit(1000).build();
             QueryOuterClass.QueryLiquidityPoolsRequest request = QueryOuterClass.QueryLiquidityPoolsRequest.newBuilder().setPagination(pageRequest).build();
             QueryOuterClass.QueryLiquidityPoolsResponse response = mStub.liquidityPools(request);
-
             for (Liquidity.Pool pool: response.getPoolsList()) {
                 mResultData.add(pool);
             }

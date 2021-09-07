@@ -36,7 +36,7 @@ public class GravityDexParamGrpcTask extends CommonTask {
             mResult.resultData = response.getParams();
 
         } catch (Exception e) {
-            WLog.e( "GravityDexPoolGrpcTask "+ e.getMessage());
+            WLog.e( "GravityDexParamGrpcTask "+ e.getMessage());
         }
         return mResult;
     }

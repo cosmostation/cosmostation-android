@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
 import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class GravitySwapFragment extends BaseFragment implements View.OnClickListener{
@@ -106,7 +107,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onRefreshTab() {
-        mPoolList = getBaseDao().mGrpcGravityPools;
+        mPoolList = getSActivity().mPoolList;
         mParms = getSActivity().mParams;
         mAllDenoms = getSActivity().mAllDenoms;
 
@@ -140,7 +141,11 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
 
         BigDecimal lpInputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mInputCoinDenom);
         BigDecimal lpOutputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mOutputCoinDenom);
-        BigDecimal poolSwapRate = lpOutputAmount.divide(lpInputAmount, 6, RoundingMode.DOWN).movePointLeft(mInPutDecimal - mOutPutDecimal);
+
+        BigDecimal poolSwapRate = BigDecimal.ZERO;
+        if (lpInputAmount != BigDecimal.ZERO && lpOutputAmount != BigDecimal.ZERO) {
+            poolSwapRate = lpOutputAmount.divide(lpInputAmount, 6, RoundingMode.DOWN).movePointLeft(mInPutDecimal - mOutPutDecimal);
+        }
         mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), poolSwapRate, 0, mOutPutDecimal));
 
         BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));

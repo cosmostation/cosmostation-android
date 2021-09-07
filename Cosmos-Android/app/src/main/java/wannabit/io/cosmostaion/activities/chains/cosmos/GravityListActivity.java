@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.GravityDexManagerGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.GravityDexParamGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.GravityDexPoolGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_MANAGER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_PARAM;
@@ -105,6 +106,7 @@ public class GravityListActivity extends BaseActivity {
         });
         onShowWaitDialog();
         onFetchPoolListInfo();
+
     }
 
     @Override
@@ -123,6 +125,7 @@ public class GravityListActivity extends BaseActivity {
         mPoolList .clear();
         mPoolMyList.clear();
         mPoolOtherList.clear();
+
         new GravityDexPoolGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new GravityDexParamGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -134,8 +137,10 @@ public class GravityListActivity extends BaseActivity {
         if (result.taskType == TASK_GRPC_FETCH_GRAVITY_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
                 mPoolList = (ArrayList<Liquidity.Pool>) result.resultData;
+                getBaseDao().mGrpcGravityPools = mPoolList;
             }
-            mTaskCount = mTaskCount + mPoolList.size();
+
+            mTaskCount = mTaskCount + (mPoolList.size() * 1);
             for (Liquidity.Pool pool: mPoolList ) {
                 new GravityDexManagerGrpcTask(getBaseApplication(), this, mBaseChain, pool.getReserveAccountAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
