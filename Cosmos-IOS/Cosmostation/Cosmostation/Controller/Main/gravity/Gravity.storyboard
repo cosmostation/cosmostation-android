@@ -547,9 +547,34 @@
                     <view key="view" contentMode="scaleToFill" id="6uM-T4-9Fc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="771"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SH4-JI-dry">
+                                <rect key="frame" x="0.0" y="34" width="414" height="737"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_1" translatesAutoresizingMaskIntoConstraints="NO" id="eDZ-7J-vLF" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
+                                <rect key="frame" x="177" y="377.5" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="6zm-vm-DJO"/>
+                                    <constraint firstAttribute="height" constant="60" id="Uad-Xv-jE5"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="swK-y3-2OX"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="swK-y3-2OX" firstAttribute="trailing" secondItem="SH4-JI-dry" secondAttribute="trailing" id="0bY-B4-d9A"/>
+                            <constraint firstItem="eDZ-7J-vLF" firstAttribute="centerY" secondItem="swK-y3-2OX" secondAttribute="centerY" id="8gP-PE-J84"/>
+                            <constraint firstItem="SH4-JI-dry" firstAttribute="bottom" secondItem="swK-y3-2OX" secondAttribute="bottom" id="AFJ-ny-Rd6"/>
+                            <constraint firstItem="eDZ-7J-vLF" firstAttribute="centerX" secondItem="swK-y3-2OX" secondAttribute="centerX" id="YcP-Qd-ngH"/>
+                            <constraint firstItem="swK-y3-2OX" firstAttribute="leading" secondItem="SH4-JI-dry" secondAttribute="leading" id="tpK-i0-kst"/>
+                            <constraint firstItem="swK-y3-2OX" firstAttribute="top" secondItem="SH4-JI-dry" secondAttribute="top" constant="10" id="vrE-Gn-8Uy"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="loadingImg" destination="eDZ-7J-vLF" id="XEp-7e-hrm"/>
+                        <outlet property="poolListTableView" destination="SH4-JI-dry" id="gwj-uA-YOo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gPN-fX-ttT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

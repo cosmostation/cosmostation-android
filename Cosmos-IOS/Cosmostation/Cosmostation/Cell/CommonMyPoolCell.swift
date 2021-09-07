@@ -137,7 +137,7 @@ class CommonMyPoolCell: UITableViewCell {
         let my0Value = NSDecimalNumber.init(string: my0.amount).multiplying(by: coin0price).multiplying(byPowerOf10: -coin0Decimal, withBehavior: WUtils.handler2)
         let my1Value = NSDecimalNumber.init(string: my1.amount).multiplying(by: coin1price).multiplying(byPowerOf10: -coin1Decimal, withBehavior: WUtils.handler2)
         
-        let myShareValue = my0Value.adding(my1Value).rounding(accordingToBehavior: WUtils.handler0)
+        let myShareValue = my0Value.adding(my1Value)
         let myShareValueFormatted = "$ " + nf.string(from: myShareValue)!
         myShareValueLabel.attributedText = WUtils.getDpAttributedString(myShareValueFormatted, 2, myShareValueLabel.font)
         
@@ -155,5 +155,44 @@ class CommonMyPoolCell: UITableViewCell {
         WUtils.DpKavaTokenName(availableCoin1DenomLabel, coin1.denom)
         availableCoin0AmountLabel.attributedText = WUtils.displayAmount2(availableCoin0.stringValue, availableCoin0AmountLabel.font, coin0Decimal, 6)
         availableCoin1AmountLabel.attributedText = WUtils.displayAmount2(availableCoin1.stringValue, availableCoin1AmountLabel.font, coin1Decimal, 6)
+    }
+    
+    func onBindGdexPoolView(_ pool: Tendermint_Liquidity_V1beta1_Pool) {
+        poolCardView.backgroundColor = TRANS_BG_COLOR_COSMOS
+        poolPairLabel.textColor = COLOR_ATOM
+        
+        //dp pool info
+        let nf = WUtils.getNumberFormatter(2)
+        let coin0Denom = pool.reserveCoinDenoms[0]
+        let coin1Denom = pool.reserveCoinDenoms[1]
+        let coin0Amount = WUtils.getGdexLpAmount(pool.reserveAccountAddress, coin0Denom)
+        let coin1Amount = WUtils.getGdexLpAmount(pool.reserveAccountAddress, coin1Denom)
+        let coin0Decimal = WUtils.getCosmosCoinDecimal(coin0Denom)
+        let coin1Decimal = WUtils.getCosmosCoinDecimal(coin1Denom)
+        let poolValue = WUtils.getGdexPoolValue(pool)
+        let poolValueFormatted = "$ " + nf.string(from: poolValue)!
+        WUtils.DpCosmosTokenName(liquidity1DenomLabel, coin0Denom)
+        WUtils.DpCosmosTokenName(liquidity2DenomLabel, coin1Denom)
+        poolPairLabel.text = WUtils.getCosmosTokenName(coin0Denom) + " : " + WUtils.getCosmosTokenName(coin1Denom)
+        totalLiquidityValueLabel.attributedText = WUtils.getDpAttributedString(poolValueFormatted, 2, totalLiquidityValueLabel.font)
+        liquidity1AmountLabel.attributedText = WUtils.displayAmount2(coin0Amount.stringValue, liquidity1AmountLabel.font, coin0Decimal, 6)
+        liquidity2AmountLabel.attributedText = WUtils.displayAmount2(coin1Amount.stringValue, liquidity2AmountLabel.font, coin1Decimal, 6)
+        
+        //dp my lp info
+        let myPoolValue = WUtils.getGdexMyShareValue(pool)
+        let myPoolValueFormatted = "$ " + nf.string(from: myPoolValue)!
+        WUtils.DpCosmosTokenName(myDepositCoin0DenomLabel, coin0Denom)
+        WUtils.DpCosmosTokenName(myDepositCoin1DenomLabel, coin1Denom)
+        myShareValueLabel.attributedText = WUtils.getDpAttributedString(myPoolValueFormatted, 2, myShareValueLabel.font)
+        myDepositCoin0AmountLabel.attributedText = WUtils.displayAmount2(WUtils.getGdexMyShareAmount(pool, coin0Denom).stringValue, myDepositCoin0AmountLabel.font, coin0Decimal, 6)
+        myDepositCoin1AmountLabel.attributedText = WUtils.displayAmount2(WUtils.getGdexMyShareAmount(pool, coin1Denom).stringValue, myDepositCoin1AmountLabel.font, coin1Decimal, 6)
+        
+        //dp available
+        let availableCoin0 = BaseData.instance.getAvailable_gRPC(coin0Denom)
+        let availableCoin1 = BaseData.instance.getAvailable_gRPC(coin1Denom)
+        WUtils.DpCosmosTokenName(availableCoin0DenomLabel, coin0Denom)
+        WUtils.DpCosmosTokenName(availableCoin1DenomLabel, coin1Denom)
+        availableCoin0AmountLabel.attributedText = WUtils.displayAmount2(availableCoin0, availableCoin0AmountLabel.font, coin0Decimal, 6)
+        availableCoin1AmountLabel.attributedText = WUtils.displayAmount2(availableCoin1, availableCoin1AmountLabel.font, coin1Decimal, 6)
     }
 }

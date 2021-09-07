@@ -60,7 +60,7 @@ class CommonPoolCell: UITableViewCell {
         liquidity2AmountLabel.attributedText = WUtils.displayAmount2(coin1.amount, liquidity2AmountLabel.font, coin1Decimal, 6)
         
         
-        //dp vailable
+        //dp available
         let availableCoin0 = BaseData.instance.getAvailable_gRPC(coin0.denom)
         let availableCoin1 = BaseData.instance.getAvailable_gRPC(coin1.denom)
         
@@ -71,7 +71,6 @@ class CommonPoolCell: UITableViewCell {
         availableCoin0AmountLabel.attributedText = WUtils.displayAmount2(availableCoin0, availableCoin0AmountLabel.font, coin0Decimal, 6)
         availableCoin1AmountLabel.attributedText = WUtils.displayAmount2(availableCoin1, availableCoin1AmountLabel.font, coin1Decimal, 6)
     }
-    
     
     func onBindKavaPoolView(_ pool: SwapPool) {
         //dp pool info
@@ -97,7 +96,7 @@ class CommonPoolCell: UITableViewCell {
         liquidity2AmountLabel.attributedText = WUtils.displayAmount2(coin1.amount, liquidity2AmountLabel.font, coin1Decimal, 6)
         
         
-        //dp vailable
+        //dp available
         let availableCoin0 = BaseData.instance.availableAmount(coin0.denom)
         let availableCoin1 = BaseData.instance.availableAmount(coin1.denom)
         
@@ -105,5 +104,40 @@ class CommonPoolCell: UITableViewCell {
         WUtils.DpKavaTokenName(availableCoin1DenomLabel, coin1.denom)
         availableCoin0AmountLabel.attributedText = WUtils.displayAmount2(availableCoin0.stringValue, availableCoin0AmountLabel.font, coin0Decimal, 6)
         availableCoin1AmountLabel.attributedText = WUtils.displayAmount2(availableCoin1.stringValue, availableCoin1AmountLabel.font, coin1Decimal, 6)
+    }
+    
+    func onBindGdexPoolView(_ pool: Tendermint_Liquidity_V1beta1_Pool) {
+        //dp pool info
+        let nf = WUtils.getNumberFormatter(2)
+        let coin0Denom = pool.reserveCoinDenoms[0]
+        let coin1Denom = pool.reserveCoinDenoms[1]
+        let coin0Amount = WUtils.getGdexLpAmount(pool.reserveAccountAddress, coin0Denom)
+        let coin1Amount = WUtils.getGdexLpAmount(pool.reserveAccountAddress, coin1Denom)
+        let coin0Decimal = WUtils.getCosmosCoinDecimal(coin0Denom)
+        let coin1Decimal = WUtils.getCosmosCoinDecimal(coin1Denom)
+        
+        poolPairLabel.text = WUtils.getCosmosTokenName(coin0Denom) + " : " + WUtils.getCosmosTokenName(coin1Denom)
+        
+        let poolValue = WUtils.getGdexPoolValue(pool)
+        let poolValueFormatted = "$ " + nf.string(from: poolValue)!
+        totalLiquidityValueLabel.attributedText = WUtils.getDpAttributedString(poolValueFormatted, 2, totalLiquidityValueLabel.font)
+        
+        WUtils.DpCosmosTokenName(liquidity1DenomLabel, coin0Denom)
+        WUtils.DpCosmosTokenName(liquidity2DenomLabel, coin1Denom)
+        liquidity1AmountLabel.attributedText = WUtils.displayAmount2(coin0Amount.stringValue, liquidity1AmountLabel.font, coin0Decimal, 6)
+        liquidity2AmountLabel.attributedText = WUtils.displayAmount2(coin1Amount.stringValue, liquidity2AmountLabel.font, coin1Decimal, 6)
+        
+        
+        //dp available
+        let availableCoin0 = BaseData.instance.getAvailable_gRPC(coin0Denom)
+        let availableCoin1 = BaseData.instance.getAvailable_gRPC(coin1Denom)
+        
+        WUtils.DpCosmosTokenName(availableCoin0DenomLabel, coin0Denom)
+        availableCoin0DenomLabel.adjustsFontSizeToFitWidth = true
+        WUtils.DpCosmosTokenName(availableCoin1DenomLabel, coin1Denom)
+        availableCoin1DenomLabel.adjustsFontSizeToFitWidth = true
+        availableCoin0AmountLabel.attributedText = WUtils.displayAmount2(availableCoin0, availableCoin0AmountLabel.font, coin0Decimal, 6)
+        availableCoin1AmountLabel.attributedText = WUtils.displayAmount2(availableCoin1, availableCoin1AmountLabel.font, coin1Decimal, 6)
+        
     }
 }

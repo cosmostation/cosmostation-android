@@ -88,8 +88,8 @@ class GravitySwapViewController: BaseViewController, SBCardPopupDelegate {
         self.inputCoinExRateAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.one.stringValue, inputCoinExRateAmount.font, 0, mInPutDecimal)
         
         //display swap rate with this pool
-        let lpInputAmount = WUtils.getLpCoinAmount(mSelectedPool?.reserveAccountAddress, mInputCoinDenom)
-        let lpOutputAmount = WUtils.getLpCoinAmount(mSelectedPool?.reserveAccountAddress, mOutputCoinDenom)
+        let lpInputAmount = WUtils.getGdexLpAmount(mSelectedPool?.reserveAccountAddress, mInputCoinDenom)
+        let lpOutputAmount = WUtils.getGdexLpAmount(mSelectedPool?.reserveAccountAddress, mOutputCoinDenom)
         let poolSwapRate = lpOutputAmount.dividing(by: lpInputAmount, withBehavior: WUtils.handler6).multiplying(byPowerOf10: (mInPutDecimal - mOutPutDecimal))
         self.outputCoinRateAmount.attributedText = WUtils.displayAmount2(poolSwapRate.stringValue, outputCoinRateAmount.font, 0, mOutPutDecimal)
         

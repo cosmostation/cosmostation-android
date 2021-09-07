@@ -88,6 +88,7 @@ final class BaseData : NSObject{
     
     var mGravityParam_gRPC: Tendermint_Liquidity_V1beta1_Params?
     var mGravityPools_gRPC = Array<Tendermint_Liquidity_V1beta1_Pool>()
+    var mGravityPoolTokens_gRPC = Array<Coin>()
     var mGravityManager_gRPC = Array<GDexManager>()
     
     public override init() {
