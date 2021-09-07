@@ -78,11 +78,11 @@ public class TokenDetailSupportHolder extends BaseHolder {
         dpDecimal = WUtil.getKavaCoinDecimal(denom);
         mAvailableAmount = baseData.availableAmount(denom);
         if (denom.equalsIgnoreCase(TOKEN_HARD)) {
-            mAmountView.setBackgroundColor(c.getResources().getColor(R.color.colorTransBghard));
+            mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBghard));
         } else if (denom.equalsIgnoreCase(TOKEN_USDX)) {
-            mAmountView.setBackgroundColor(c.getResources().getColor(R.color.colorTransBgusdx));
+            mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgusdx));
         } else if (denom.equalsIgnoreCase(TOKEN_SWP)) {
-            mAmountView.setBackgroundColor(c.getResources().getColor(R.color.colorTransBgswp));
+            mAmountView.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBgswp));
         }
 
         BigDecimal vestingAmount = baseData.lockedAmount(denom);

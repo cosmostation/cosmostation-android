@@ -32,6 +32,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 
 public class Dialog_ChoiceNet extends DialogFragment {
 
@@ -39,8 +40,8 @@ public class Dialog_ChoiceNet extends DialogFragment {
     private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
     private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi, mSecret, mCosmosTest, mIrisTest;
-    private LinearLayout mRizonTestLayer, mMediTestLayer, mAltheaTestLayer;
-    private LinearLayout mRizonTest, mMediTest, mAltheaTest;
+    private LinearLayout mRizonTestLayer, mMediTestLayer, mAltheaTestLayer, mUmeeTestLayer;
+    private LinearLayout mRizonTest, mMediTest, mAltheaTest, mUmeeTest;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -101,6 +102,8 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mMediTest = view.findViewById(R.id.medi_test_net);
         mAltheaTestLayer = view.findViewById(R.id.althea_test_layer);
         mAltheaTest = view.findViewById(R.id.althea_test_net);
+        mUmeeTestLayer = view.findViewById(R.id.umee_test_layer);
+        mUmeeTest = view.findViewById(R.id.umee_test_net);
 
 
 
@@ -355,6 +358,17 @@ public class Dialog_ChoiceNet extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     ((BaseActivity)getActivity()).onChoiceNet(ALTHEA_TEST);
+                    getDialog().dismiss();
+                }
+            });
+        }
+
+        if (BaseChain.SUPPORT_CHAINS().contains(UMEE_TEST)) {
+            mUmeeTestLayer.setVisibility(View.VISIBLE);
+            mUmeeTest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((BaseActivity)getActivity()).onChoiceNet(UMEE_TEST);
                     getDialog().dismiss();
                 }
             });

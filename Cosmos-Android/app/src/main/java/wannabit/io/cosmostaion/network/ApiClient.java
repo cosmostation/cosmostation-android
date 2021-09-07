@@ -515,6 +515,21 @@ public class ApiClient {
         return api_althea_test;
     }
 
+    //Services for Umee test api
+    private static HistoryApi api_umee_test = null;
+    public static HistoryApi getUmeeTestApi(Context c) {
+        if (api_umee_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_umee_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_umee_test = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_umee_test;
+    }
+
 
 
 

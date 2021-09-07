@@ -10,7 +10,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.PoolOuterClass;
+import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.activities.chains.kava.HardDetailActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -81,15 +83,21 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindHardDetailAvailable(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom) {
     }
 
-    public void onBindMyPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool otherPool) {
+    public void onBindOsmoMyPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool mypool) {
     }
 
-    public void onBindOtherPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool otherPool) {
+    public void onBindOsmoOtherPool(Context context, BaseActivity activity, BaseData baseData, PoolOuterClass.Pool otherPool) {
     }
 
-    public void onBindMyPool(Context context, BaseActivity activity, BaseData baseData, SwapPool myPool, SwapDeposit mySwapDeposit) {
+    public void onBindKavaMyPool(Context context, BaseActivity activity, BaseData baseData, SwapPool myPool, SwapDeposit myDeposit) {
     }
 
-    public void onBindOtherPool(Context context, BaseActivity activity, BaseData baseData, SwapPool otherPool) {
+    public void onBindKavaOtherPool(Context context, BaseActivity activity, BaseData baseData, SwapPool otherPool) {
+    }
+
+    public void onBindGDexMyPool(Context context, GravityListActivity activity, BaseData baseData, Liquidity.Pool mypool) {
+    }
+
+    public void onBindGDexOtherPool(Context context, GravityListActivity activity, BaseData baseData, Liquidity.Pool otherPool) {
     }
 }

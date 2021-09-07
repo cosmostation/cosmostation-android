@@ -22,6 +22,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 
 public class ApiAccountTxsHistoryTask extends CommonTask {
 
@@ -221,6 +222,15 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
 
             } else if (mChain.equals(ALTHEA_TEST)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAltheaTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(UMEE_TEST)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getUmeeTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

@@ -84,7 +84,8 @@ public enum BaseChain {
     CERTIK_TEST("certik-testnet"),
     RIZON_TEST("rizon-testnet"),
     MEDI_TEST("medi-testnet"),
-    ALTHEA_TEST("althea-testnet");
+    ALTHEA_TEST("althea-testnet"),
+    UMEE_TEST("umee-testnet");
 
     private final String chainName;
 
@@ -222,6 +223,9 @@ public enum BaseChain {
         if (chainName.equals(ALTHEA_TEST.chainName)) {
             return ALTHEA_TEST;
         }
+        if (chainName.equals(UMEE_TEST.chainName)) {
+            return UMEE_TEST;
+        }
         return null;
     }
 
@@ -257,6 +261,7 @@ public enum BaseChain {
 //        result.add(RIZON_TEST);
 //        result.add(MEDI_TEST);
 //        result.add(ALTHEA_TEST);
+//        result.add(UMEE_TEST);
         return result;
     }
 
@@ -336,6 +341,8 @@ public enum BaseChain {
           else if (baseChain.equals(RIZON_TEST)) {
             return true;
         } else if (baseChain.equals(ALTHEA_TEST)) {
+            return true;
+        } else if (baseChain.equals(UMEE_TEST)) {
             return true;
         }
 

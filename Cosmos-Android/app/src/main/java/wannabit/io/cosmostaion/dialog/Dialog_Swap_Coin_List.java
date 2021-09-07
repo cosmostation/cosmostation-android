@@ -30,6 +30,8 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 
@@ -80,18 +82,25 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
         public void onBindViewHolder(@NonNull SwapChainListAdapter.SwapChainHolder holder, int position) {
             final String inputCoin = mSwapCoinList.get(position);
             if (isGRPC(getSActivity().mBaseChain)) {
-                final IbcToken ibcToken = getSActivity().getBaseDao().getIbcToken(inputCoin);
+                IbcToken ibcToken = getSActivity().getBaseDao().getIbcToken(inputCoin);
                 if (inputCoin.startsWith("ibc/")) {
-                    holder.chainName.setText(ibcToken.display_denom.toUpperCase());
+                    if (ibcToken.auth) {
+                        holder.chainName.setText(ibcToken.display_denom.toUpperCase());
+                    } else {
+                        holder.chainName.setText("UNKNOWN");
+                    }
                     try {
                         Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.chainImg);
-                    } catch (Exception e) {
-                    }
+                    } catch (Exception e) { }
+                } else if (inputCoin.equals(TOKEN_ATOM)) {
+                    holder.chainName.setText(getString(R.string.str_atom_c));
+                    Picasso.get().cancelRequest(holder.chainImg);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
                 } else if (inputCoin.equals(TOKEN_OSMOSIS)) {
                     holder.chainName.setText(getString(R.string.str_osmosis_c));
                     Picasso.get().cancelRequest(holder.chainImg);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_osmosis));
-                } else {
+                } else if (inputCoin.equals(TOKEN_ION)) {
                     holder.chainName.setText(getString(R.string.str_uion_c));
                     Picasso.get().cancelRequest(holder.chainImg);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));

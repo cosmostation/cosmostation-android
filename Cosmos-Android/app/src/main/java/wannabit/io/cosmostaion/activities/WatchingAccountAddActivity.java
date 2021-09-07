@@ -62,6 +62,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SUPPORT_CHAINS;
+import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 
 public class WatchingAccountAddActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -340,6 +341,13 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
             } else if (mUserInput.startsWith("althea1")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     onGenNewAccount(ALTHEA_TEST, mUserInput);
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (mUserInput.startsWith("umee1")) {
+                if (WKey.isValidBech32(mUserInput)) {
+                    onGenNewAccount(UMEE_TEST, mUserInput);
                 } else {
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 }

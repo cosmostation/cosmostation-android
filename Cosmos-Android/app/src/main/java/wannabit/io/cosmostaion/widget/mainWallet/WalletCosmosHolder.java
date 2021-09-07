@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
+import wannabit.io.cosmostaion.activities.chains.cosmos.GravityListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -83,9 +84,9 @@ public class WalletCosmosHolder extends BaseHolder {
         mBtnGravityDex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent proposals = new Intent(mainActivity, VoteListActivity.class);
-//                mainActivity.startActivity(proposals);
-                Toast.makeText(mainActivity, mainActivity.getString(R.string.error_prepare), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mainActivity, GravityListActivity.class);
+                mainActivity.startActivity(intent);
+//                Toast.makeText(mainActivity, mainActivity.getString(R.string.error_prepare), Toast.LENGTH_SHORT).show();
             }
         });
         mBtnWalletConnect.setOnClickListener(new View.OnClickListener() {

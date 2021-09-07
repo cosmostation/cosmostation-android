@@ -148,7 +148,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(NativeTokenGrpcActivity.this, mBaseChain));
+        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenGrpcActivity.this, mBaseChain));
         mAddress.setText(mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {

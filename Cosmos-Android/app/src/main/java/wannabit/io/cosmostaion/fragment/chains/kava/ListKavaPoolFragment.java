@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,29 +13,21 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
-import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
-import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.ListPoolFragment;
 import wannabit.io.cosmostaion.model.kava.SwapDeposit;
-import wannabit.io.cosmostaion.model.kava.SwapParam;
 import wannabit.io.cosmostaion.model.kava.SwapPool;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-import wannabit.io.cosmostaion.widget.kava.MyPoolListHolder;
-import wannabit.io.cosmostaion.widget.kava.OtherPoolListHolder;
-import wannabit.io.cosmostaion.widget.osmosis.PoolMyHolder;
-import wannabit.io.cosmostaion.widget.osmosis.PoolOtherHolder;
+import wannabit.io.cosmostaion.widget.PoolMyHolder;
+import wannabit.io.cosmostaion.widget.PoolOtherHolder;
 
 public class ListKavaPoolFragment extends BaseFragment {
 
+    private SwipeRefreshLayout                  mSwipeRefreshLayout;
     private RecyclerView                        mRecyclerView;
     private KavaPoolListAdapter                 mAdapter;
 
-    public SwapParam                            mSwapParam;
-    public ArrayList<SwapPool>                  mSwapPoolList = new ArrayList<>();
     public ArrayList<SwapDeposit>               mMySwapDepositList = new ArrayList<>();
     public ArrayList<SwapPool>                  mMySwapPoolList = new ArrayList<>();
     public ArrayList<SwapPool>                  mOtherSwapPoolList = new ArrayList<>();
@@ -56,8 +46,14 @@ public class ListKavaPoolFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_pool_list, container, false);
+        mSwipeRefreshLayout     = rootView.findViewById(R.id.layer_refresher);
         mRecyclerView           = rootView.findViewById(R.id.recycler);
 
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() { getSActivity().onFetchData(); }
+        });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new KavaPoolListAdapter();
@@ -72,6 +68,7 @@ public class ListKavaPoolFragment extends BaseFragment {
         mMySwapPoolList = getSActivity().mMySwapPoolList;
         mOtherSwapPoolList = getSActivity().mOtherSwapPoolList;
         mAdapter.notifyDataSetChanged();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     private class KavaPoolListAdapter extends RecyclerView.Adapter<BaseHolder> {
@@ -82,9 +79,9 @@ public class ListKavaPoolFragment extends BaseFragment {
         @Override
         public BaseHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_MY_POOL) {
-                return new MyPoolListHolder(getLayoutInflater().inflate(R.layout.item_kava_pool_list_my, viewGroup, false));
+                return new PoolMyHolder(getLayoutInflater().inflate(R.layout.item_pool_list_my, viewGroup, false));
             } else if (viewType == TYPE_OTHER_POOL) {
-                return new OtherPoolListHolder(getLayoutInflater().inflate(R.layout.item_kava_pool_list_other, viewGroup, false));
+                return new PoolOtherHolder(getLayoutInflater().inflate(R.layout.item_pool_list_other, viewGroup, false));
             }
             return null;
         }
@@ -95,12 +92,12 @@ public class ListKavaPoolFragment extends BaseFragment {
                 final SwapPool MySwapPool = mMySwapPoolList.get(position);
                 final SwapDeposit MySwapDeposit = mMySwapDepositList.get(position);
                 if (MySwapDeposit.pool_id.equalsIgnoreCase(MySwapPool.name)) {
-                    viewHolder.onBindMyPool(getContext(), getSActivity(), getBaseDao(), MySwapPool, MySwapDeposit);
+                    viewHolder.onBindKavaMyPool(getContext(), getSActivity(), getBaseDao(), MySwapPool, MySwapDeposit);
                 }
             }
             else if (getItemViewType(position) == TYPE_OTHER_POOL) {
                 final SwapPool OtherSwapPool = mOtherSwapPoolList.get(position - mMySwapPoolList.size());
-                viewHolder.onBindOtherPool(getContext(), getSActivity(), getBaseDao(), OtherSwapPool);
+                viewHolder.onBindKavaOtherPool(getContext(), getSActivity(), getBaseDao(), OtherSwapPool);
             }
         }
 

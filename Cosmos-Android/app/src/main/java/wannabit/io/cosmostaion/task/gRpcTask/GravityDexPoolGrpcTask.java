@@ -1,8 +1,10 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import cosmos.base.query.v1beta1.Pagination;
+import tendermint.liquidity.v1beta1.Liquidity;
 import tendermint.liquidity.v1beta1.QueryGrpc;
 import tendermint.liquidity.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -19,6 +21,7 @@ import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 public class GravityDexPoolGrpcTask extends CommonTask {
     private BaseChain mChain;
     private QueryGrpc.QueryBlockingStub mStub;
+    private ArrayList<Liquidity.Pool> mResultData = new ArrayList<>();
 
     public GravityDexPoolGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
@@ -34,10 +37,13 @@ public class GravityDexPoolGrpcTask extends CommonTask {
             QueryOuterClass.QueryLiquidityPoolsRequest request = QueryOuterClass.QueryLiquidityPoolsRequest.newBuilder().setPagination(pageRequest).build();
             QueryOuterClass.QueryLiquidityPoolsResponse response = mStub.liquidityPools(request);
 
-            this.mResult.isSuccess = true;
-            this.mResult.resultData = response.getPoolsList();
+            for (Liquidity.Pool pool: response.getPoolsList()) {
+                mResultData.add(pool);
+            }
+            mResult.resultData = mResultData;
+            mResult.isSuccess = true;
 
-        } catch (Exception e) { WLog.e( "StakingPoolGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) { WLog.e( "GravityDexPoolGrpcTask "+ e.getMessage()); }
         return mResult;
     }
 }

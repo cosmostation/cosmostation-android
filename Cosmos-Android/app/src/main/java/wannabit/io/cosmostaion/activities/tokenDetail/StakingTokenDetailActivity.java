@@ -28,14 +28,9 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HistoryHolder;
-import wannabit.io.cosmostaion.widget.mainWallet.WalletUndelegationHolder;
-import wannabit.io.cosmostaion.widget.tokenDetail.TokenBnbHolder;
-import wannabit.io.cosmostaion.widget.tokenDetail.TokenKavaHolder;
-import wannabit.io.cosmostaion.widget.tokenDetail.TokenOKExHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenStakingOldHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.UnBondingHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
@@ -170,7 +165,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             mItemUpDownImg.setVisibility(View.INVISIBLE);
         }
 
-        mBtnAddressPopup.setBackgroundColor(WDp.getChainBgColor(StakingTokenDetailActivity.this, mBaseChain));
+        mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(StakingTokenDetailActivity.this, mBaseChain));
         if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             try {
                 shareAddress = WKey.convertAddressOkexToEth(mAccount.address);

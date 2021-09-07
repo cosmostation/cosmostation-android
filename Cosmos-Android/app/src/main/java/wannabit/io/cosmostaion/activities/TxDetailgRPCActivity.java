@@ -79,6 +79,9 @@ import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxTokenSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxBeginUnlockAllTokensHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxUnlockPeriodHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxBeginUnlockTokenHolder;
+import wannabit.io.cosmostaion.widget.txDetail.sif.TxAddLiquidityHolder;
+import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateEthBridgeHolder;
+import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
@@ -253,6 +256,10 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_CREATE_DID = 61;
         private static final int TYPE_TX_CREATE_TOKEN_SWAP = 62;
 
+        private static final int TYPE_TX_ADD_LIQUIDITY = 70;
+        private static final int TYPE_TX_SWAP = 71;
+        private static final int TYPE_TX_CREATE_ETH_BRIDGE = 72;
+
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -392,6 +399,17 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_CREATE_TOKEN_SWAP) {
                 return new TxCreateTokenSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_create_token_swap, viewGroup, false));
             }
+
+            // sifchain
+            else if (viewType == TYPE_TX_ADD_LIQUIDITY) {
+                return new TxAddLiquidityHolder(getLayoutInflater().inflate(R.layout.item_tx_add_liquidity, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_SWAP) {
+                return new TxSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_swap, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_CREATE_ETH_BRIDGE) {
+                return new TxCreateEthBridgeHolder(getLayoutInflater().inflate(R.layout.item_tx_create_eth_bridge, viewGroup, false));
+            }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
         }
@@ -518,6 +536,15 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_CREATE_DID;
                 } else if (msg.getTypeUrl().contains(rizonworld.rizon.tokenswap.Tx.MsgCreateTokenswapRequest.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_TOKEN_SWAP;
+                }
+
+                // sifchain msg
+                else if (msg.getTypeUrl().contains(sifnode.clp.v1.Tx.MsgAddLiquidity.getDescriptor().getFullName())) {
+                    return TYPE_TX_ADD_LIQUIDITY;
+                } else if (msg.getTypeUrl().contains(sifnode.clp.v1.Tx.MsgSwap.getDescriptor().getFullName())) {
+                    return TYPE_TX_SWAP;
+                } else if (msg.getTypeUrl().contains(sifnode.ethbridge.v1.Tx.MsgCreateEthBridgeClaim.getDescriptor().getFullName())) {
+                    return TYPE_TX_CREATE_ETH_BRIDGE;
                 }
                 return TYPE_TX_UNKNOWN;
             }
