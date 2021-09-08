@@ -2963,6 +2963,12 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            } else if (type == LIQUIDITY_MSG_TYPE_SWAP) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_COSMOS_SWAP))
+            } else if (type == LIQUIDITY_MSG_TYPE_JOIN_POOL) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_COSMOS_JOIN_POOL))
+            } else if (type == LIQUIDITY_MSG_TYPE_EXIT_POOL) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_COSMOS_EXIT_POOL))
             }
             
         } else if (chain == ChainType.OSMOSIS_MAIN ) {

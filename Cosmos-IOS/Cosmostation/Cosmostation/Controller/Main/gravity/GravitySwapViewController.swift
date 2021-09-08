@@ -205,6 +205,31 @@ class GravitySwapViewController: BaseViewController, SBCardPopupDelegate {
     
     @IBAction func onClickStarSwap(_ sender: UIButton) {
         print("onClickStarSwap")
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let txFeeAmount = WUtils.getEstimateGasFeeAmount(chainType!, GAS_FEE_AMOUNT_COSMOS_SWAP, 0)
+        let mainBalance = BaseData.instance.getAvailableAmount_gRPC(COSMOS_MAIN_DENOM)
+        if (mainBalance.compare(txFeeAmount).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+            return
+        }
+        
+        let inputBalance = BaseData.instance.getAvailableAmount_gRPC(mInputCoinDenom!)
+        if (inputBalance.compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = GAS_FEE_AMOUNT_COSMOS_SWAP
+        txVC.mPoolId = String(mSelectedPool!.id)
+        txVC.mSwapInDenom = mInputCoinDenom
+        txVC.mSwapOutDenom = mOutputCoinDenom
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
 }

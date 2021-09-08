@@ -80,4 +80,67 @@ class GravityPoolViewController: BaseViewController, UITableViewDelegate, UITabl
             return cell!
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.section == 0) {
+            let noticeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+            noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("title_pool_join", comment: ""), style: .default, handler: { _ in
+                self.onCheckPoolJoin(self.mMyPoolList[indexPath.row])
+            }))
+            noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("title_pool_exit", comment: ""), style: .default, handler: { _ in
+                self.onCheckExitJoin(self.mMyPoolList[indexPath.row])
+            }))
+            self.present(noticeAlert, animated: true) {
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+                noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+            }
+            
+        } else if (indexPath.section == 1) {
+            self.onCheckPoolJoin(self.mOtherPoolList[indexPath.row])
+            
+        }
+    }
+    
+    func onCheckPoolJoin(_ pool: Tendermint_Liquidity_V1beta1_Pool) {
+        print("onCheckPoolJoin")
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        let txFeeAmount = WUtils.getEstimateGasFeeAmount(chainType!, GAS_FEE_AMOUNT_COSMOS_JOIN_POOL, 0)
+        let coin0Denom = pool.reserveCoinDenoms[0]
+        let coin1Denom = pool.reserveCoinDenoms[1]
+        var coin0Available = BaseData.instance.getAvailableAmount_gRPC(coin0Denom)
+        var coin1Available = BaseData.instance.getAvailableAmount_gRPC(coin1Denom)
+        if (coin0Denom == COSMOS_MAIN_DENOM) { coin0Available = coin0Available.subtracting(txFeeAmount) }
+        if (coin1Denom == COSMOS_MAIN_DENOM) { coin1Available = coin1Available.subtracting(txFeeAmount) }
+        
+        if (coin0Available.compare(NSDecimalNumber.zero).rawValue <= 0 || coin1Available.compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_to_deposit", comment: ""))
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = GAS_FEE_AMOUNT_COSMOS_JOIN_POOL
+        txVC.mPoolId = String(pool.id)
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    func onCheckExitJoin(_ pool: Tendermint_Liquidity_V1beta1_Pool) {
+        print("onCheckExitJoin")
+        let mainBalance = BaseData.instance.getAvailableAmount_gRPC(COSMOS_MAIN_DENOM)
+        let txFeeAmount = WUtils.getEstimateGasFeeAmount(chainType!, GAS_FEE_AMOUNT_COSMOS_EXIT_POOL, 0)
+        
+        if (mainBalance.compare(txFeeAmount).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = GAS_FEE_AMOUNT_COSMOS_EXIT_POOL
+        txVC.mPoolId = String(pool.id)
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
 }

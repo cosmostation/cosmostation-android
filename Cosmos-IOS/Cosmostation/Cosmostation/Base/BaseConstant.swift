@@ -266,6 +266,10 @@ let COSMOS_KEY_TYPE_PUBLIC                  = "tendermint/PubKeySecp256k1";
 let ETHERMINT_KEY_TYPE_PUBLIC               = "ethermint/PubKeyEthSecp256k1";
 let COSMOS_AUTH_TYPE_STDTX                  = "auth/StdTx";
 
+let LIQUIDITY_MSG_TYPE_SWAP                 = "liquidity/MsgSwapWithinBatch";
+let LIQUIDITY_MSG_TYPE_JOIN_POOL            = "liquidity/MsgDepositWithinBatch";
+let LIQUIDITY_MSG_TYPE_EXIT_POOL            = "liquidity/MsgWithdrawWithinBatch";
+
 
 let IRIS_MSG_TYPE_TRANSFER                  = "irishub/bank/Send";
 let IRIS_MSG_TYPE_DELEGATE                  = "irishub/stake/MsgDelegate";
@@ -478,6 +482,9 @@ let GAS_FEE_AMOUNT_HIGH                     = "300000"
 let GAS_FEE_AMOUNT_REINVEST                 = "220000"
 let GAS_FEE_AMOUNT_REDELE                   = "240000"
 
+let GAS_FEE_AMOUNT_COSMOS_SWAP              = "200000"
+let GAS_FEE_AMOUNT_COSMOS_JOIN_POOL         = "300000"
+let GAS_FEE_AMOUNT_COSMOS_EXIT_POOL         = "300000"
 
 let GAS_FEE_AMOUNT_OSMOS_SWAP               = "300000"
 let GAS_FEE_AMOUNT_OSMOS_JOIN_POOL          = "600000"
