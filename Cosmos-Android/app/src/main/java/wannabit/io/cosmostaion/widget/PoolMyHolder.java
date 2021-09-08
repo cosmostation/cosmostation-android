@@ -171,12 +171,10 @@ public class PoolMyHolder extends BaseHolder {
         int coin0Decimal = WUtil.getCosmosCoinDecimal(baseData, coin0Denom);
         int coin1Decimal = WUtil.getCosmosCoinDecimal(baseData, coin1Denom);
 
-        itemMyPoolType.setText(WUtil.dpCosmosTokenName(baseData, coin0Denom) + " / " + WUtil.dpCosmosTokenName(baseData, coin1Denom));
+        itemMyPoolType.setText(WUtil.dpCosmosTokenName(baseData, coin0Denom) + " : " + WUtil.dpCosmosTokenName(baseData, coin1Denom));
 
         // Total deposit
-        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0Denom), coin0Amount, WUtil.getCosmosCoinDecimal(baseData, coin0Denom));
-        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1Denom), coin1Amount, WUtil.getCosmosCoinDecimal(baseData, coin1Denom));
-        BigDecimal PoolValue = coin0Value.add(coin1Value);
+        BigDecimal PoolValue = activity.getGdexPoolValue(mypool);
         itemMyTotalDepositValue.setText(WDp.getDpRawDollor(context, PoolValue, 2));
 
         WUtil.dpCosmosTokenName(context, baseData, itemMyTotalDepositSymbol0, coin0Denom);
@@ -185,10 +183,12 @@ public class PoolMyHolder extends BaseHolder {
         itemMyTotalDepositAmount1.setText(WDp.getDpAmount2(context, coin1Amount, coin1Decimal, 6));
 
         //deposit
-        BigDecimal lpCoin = baseData.getAvailable(mypool.getPoolCoinDenom());
-//        BigDecimal lpCoinPrice = WUtil.getOsmoLpTokenPerUsdPrice(baseData, myPool);
-//        BigDecimal lpCoinValue = new BigDecimal(lpCoin.toPlainString()).multiply(lpCoinPrice).movePointLeft(18).setScale(2,RoundingMode.DOWN);
-//        itemMypoolDepositValue.setText(WDp.getDpRawDollor(context, lpCoinValue, 2));
+        BigDecimal myPoolValue = activity.getGdexMyShareValue(mypool);
+        WUtil.dpCosmosTokenName(context, baseData, itemMyDepositSymbol0, coin0Denom);
+        WUtil.dpCosmosTokenName(context, baseData, itemMyDepositSymbol1, coin1Denom);
+        itemMypoolDepositValue.setText(WDp.getDpRawDollor(context, myPoolValue, 2));
+        itemMyDepositAmount0.setText(WDp.getDpAmount2(context, activity.getGdexMyShareAmount(mypool, coin0Denom), coin0Decimal, 6));
+        itemMyDepositAmount1.setText(WDp.getDpAmount2(context, activity.getGdexMyShareAmount(mypool, coin1Denom), coin1Decimal, 6));
 
         // available
         BigDecimal availableCoin0 = baseData.getAvailable(coin0Denom);

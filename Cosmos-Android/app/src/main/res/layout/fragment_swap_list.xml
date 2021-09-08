@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/space_16">
+        android:padding="@dimen/space_12">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_8">
+                android:padding="@dimen/space_12">
 
                 <TextView
                     style="@style/font_ss_12_gray1"
@@ -149,7 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/space_8">
+                android:padding="@dimen/space_12">
 
                 <TextView
                     style="@style/font_ss_12_gray1"
@@ -199,156 +199,156 @@
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorTransBg"
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="1.5dp"
+        android:layout_above="@+id/bottom_control"
+        android:layout_margin="@dimen/space_12"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/colorTransBg"
-            app:cardCornerRadius="@dimen/space_6"
-            app:cardElevation="1.5dp"
-            android:layout_above="@+id/bottom_control"
-            android:layout_margin="@dimen/space_16"
-            app:cardUseCompatPadding="true">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/space_8">
+
+            <TextView
+                android:id="@+id/swap_title"
+                style="@style/font_ss_12_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-" />
+
+            <TextView
+                style="@style/font_ss_10_gray1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(Swap rate on this Pool)" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:padding="@dimen/space_8">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/swap_title"
-                    style="@style/font_ss_12_white"
+                    android:id="@+id/inputs_rate"
+                    style="@style/font_ss_10_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
 
                 <TextView
-                    style="@style/font_ss_10_gray1"
+                    android:id="@+id/inputs_rate_symbol"
+                    style="@style/font_ss_10_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="(Swap rate on this Pool)" />
+                    android:layout_marginLeft="@dimen/space_4"
+                    android:text="-" />
 
-                <LinearLayout
+                <TextView
+                    style="@style/font_ss_10_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:layout_marginRight="@dimen/space_8"
+                    android:text="=" />
 
-                    <TextView
-                        android:id="@+id/inputs_rate"
-                        style="@style/font_ss_10_white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-" />
+                <TextView
+                    android:id="@+id/outputs_rate"
+                    style="@style/font_ss_10_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
 
-                    <TextView
-                        android:id="@+id/inputs_rate_symbol"
-                        style="@style/font_ss_10_white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_4"
-                        android:text="-" />
+                <TextView
+                    android:id="@+id/outputs_rate_symbol"
+                    style="@style/font_ss_10_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_4"
+                    android:text="-" />
+            </LinearLayout>
 
-                    <TextView
-                        style="@style/font_ss_10_white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:layout_marginRight="@dimen/space_8"
-                        android:text="=" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/space_16"
+                android:layout_marginBottom="@dimen/space_16"
+                android:background="@color/colorGray3" />
 
-                    <TextView
-                        android:id="@+id/outputs_rate"
-                        style="@style/font_ss_10_white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-" />
+            <TextView
+                style="@style/font_ss_12_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Global Swap Rate" />
 
-                    <TextView
-                        android:id="@+id/outputs_rate_symbol"
-                        style="@style/font_ss_10_white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_4"
-                        android:text="-" />
-                </LinearLayout>
+            <TextView
+                style="@style/font_ss_10_gray1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(Average Swap Rate on global exchanges)" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/space_16"
-                    android:layout_marginBottom="@dimen/space_16"
-                    android:background="@color/colorGray3" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/global_inputs_rate"
+                    style="@style/font_ss_10_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/global_inputs_rate_symbol"
+                    style="@style/font_ss_10_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_4"
+                    android:text="-" />
 
                 <TextView
                     style="@style/font_ss_12_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Global Swap Rate" />
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:layout_marginRight="@dimen/space_8"
+                    android:text="=" />
 
                 <TextView
-                    style="@style/font_ss_10_gray1"
+                    android:id="@+id/global_outputs_rate"
+                    style="@style/font_ss_10_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="(Average Swap Rate on global exchanges)" />
+                    android:text="-" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/global_outputs_rate_symbol"
+                    style="@style/font_ss_10_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/global_inputs_rate"
-                        style="@style/font_ss_10_white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-" />
-
-                    <TextView
-                        android:id="@+id/global_inputs_rate_symbol"
-                        style="@style/font_ss_10_white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_4"
-                        android:text="-" />
-
-                    <TextView
-                        style="@style/font_ss_12_white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_8"
-                        android:layout_marginRight="@dimen/space_8"
-                        android:text="=" />
-
-                    <TextView
-                        android:id="@+id/global_outputs_rate"
-                        style="@style/font_ss_10_white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-" />
-
-                    <TextView
-                        android:id="@+id/global_outputs_rate_symbol"
-                        style="@style/font_ss_10_white"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_4"
-                        android:text="-" />
-                </LinearLayout>
+                    android:layout_marginLeft="@dimen/space_4"
+                    android:text="-" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:id="@+id/bottom_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16"
+        android:layout_marginLeft="@dimen/space_12"
+        android:layout_marginRight="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_24"
         android:orientation="horizontal">
 

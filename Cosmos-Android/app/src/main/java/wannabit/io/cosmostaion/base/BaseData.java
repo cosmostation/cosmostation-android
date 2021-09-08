@@ -403,6 +403,8 @@ public class BaseData {
 
     //Gravity GDex Manager
     public ArrayList<GDexManager>                               mGDexManager = new ArrayList<>();
+    //Gravity GDex Denom Supply
+    public ArrayList<Coin>                                      mGDexPoolTokens = new ArrayList<>();
 
     //gRPC funcs
     public String getChainIdGrpc() {
