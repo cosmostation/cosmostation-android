@@ -121,7 +121,7 @@ class GravityPoolViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mType = GAS_FEE_AMOUNT_COSMOS_JOIN_POOL
+        txVC.mType = LIQUIDITY_MSG_TYPE_JOIN_POOL
         txVC.mPoolId = String(pool.id)
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
@@ -138,7 +138,7 @@ class GravityPoolViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mType = GAS_FEE_AMOUNT_COSMOS_EXIT_POOL
+        txVC.mType = LIQUIDITY_MSG_TYPE_EXIT_POOL
         txVC.mPoolId = String(pool.id)
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)

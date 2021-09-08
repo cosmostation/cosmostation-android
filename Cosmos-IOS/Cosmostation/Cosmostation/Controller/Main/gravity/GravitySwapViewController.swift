@@ -109,7 +109,7 @@ class GravitySwapViewController: BaseViewController, SBCardPopupDelegate {
     
     
     @objc func onGdexFetchDone(_ notification: NSNotification) {
-        if (BaseData.instance.mGravityPools_gRPC.count <= 0 ) {
+        if (BaseData.instance.mGravityPools_gRPC.count <= 0) {
             self.onShowToast(NSLocalizedString("error_network", comment: ""))
             self.navigationController?.popViewController(animated: true)
         }
@@ -224,7 +224,7 @@ class GravitySwapViewController: BaseViewController, SBCardPopupDelegate {
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mType = GAS_FEE_AMOUNT_COSMOS_SWAP
+        txVC.mType = LIQUIDITY_MSG_TYPE_SWAP
         txVC.mPoolId = String(mSelectedPool!.id)
         txVC.mSwapInDenom = mInputCoinDenom
         txVC.mSwapOutDenom = mOutputCoinDenom

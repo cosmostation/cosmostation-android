@@ -415,22 +415,22 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         }
         
         else if (mType == LIQUIDITY_MSG_TYPE_SWAP) {
-            return [Swap0ViewController(nibName: "GdexSwap0ViewController", bundle: nil),
+            return [GdexSwap0ViewController(nibName: "GdexSwap0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
                     StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
-                    Swap3ViewController(nibName: "GdexSwap3ViewController", bundle: nil)]
+                    GdexSwap3ViewController(nibName: "GdexSwap3ViewController", bundle: nil)]
             
         } else if (mType == LIQUIDITY_MSG_TYPE_JOIN_POOL) {
-            return [JoinPool0ViewController(nibName: "GdexDeposit0ViewController", bundle: nil),
+            return [GdexDeposit0ViewController(nibName: "GdexDeposit0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
                     StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
-                    JoinPool3ViewController(nibName: "GdexDeposit3ViewController", bundle: nil)]
+                    GdexDeposit3ViewController(nibName: "GdexDeposit3ViewController", bundle: nil)]
             
         } else if (mType == LIQUIDITY_MSG_TYPE_EXIT_POOL) {
-            return [ExitPool0ViewController(nibName: "GdexWithdraw0ViewController", bundle: nil),
+            return [GdexWithdraw0ViewController(nibName: "GdexWithdraw0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
                     StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
-                    ExitPool3ViewController(nibName: "GdexWithdraw3ViewController", bundle: nil)]
+                    GdexWithdraw3ViewController(nibName: "GdexWithdraw3ViewController", bundle: nil)]
             
         }
         
