@@ -1,8 +1,8 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "filename" : "iconSwap.pdf"
+      "filename" : "iconSwap.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

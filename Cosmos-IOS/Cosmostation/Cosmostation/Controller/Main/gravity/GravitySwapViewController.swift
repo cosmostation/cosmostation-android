@@ -43,6 +43,7 @@ class GravitySwapViewController: BaseViewController, SBCardPopupDelegate {
     var mOutputCoinDenom: String?
     var mInPutDecimal:Int16 = 6
     var mOutPutDecimal:Int16 = 6
+    var mAvailableMaxAmount = NSDecimalNumber.zero
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,13 +67,13 @@ class GravitySwapViewController: BaseViewController, SBCardPopupDelegate {
     }
     
     func updateView() {
-        let availableMaxAmount = BaseData.instance.getAvailableAmount_gRPC(mInputCoinDenom!)
         mInPutDecimal = WUtils.getCosmosCoinDecimal(mInputCoinDenom!)
         mOutPutDecimal = WUtils.getCosmosCoinDecimal(mOutputCoinDenom!)
+        mAvailableMaxAmount = BaseData.instance.getAvailableAmount_gRPC(mInputCoinDenom!)
         
         self.swapFeeLabel.attributedText = WUtils.displayPercent(NSDecimalNumber.init(string: BaseData.instance.mGravityParam_gRPC?.swapFeeRate).multiplying(byPowerOf10: -16), swapFeeLabel.font)
         self.slippageLabel.attributedText = WUtils.displayPercent(NSDecimalNumber.init(string: "3"), swapFeeLabel.font)
-        self.inputCoinAvailableAmountLabel.attributedText = WUtils.displayAmount2(availableMaxAmount.stringValue, inputCoinAvailableAmountLabel.font!, mInPutDecimal, mInPutDecimal)
+        self.inputCoinAvailableAmountLabel.attributedText = WUtils.displayAmount2(mAvailableMaxAmount.stringValue, inputCoinAvailableAmountLabel.font!, mInPutDecimal, mInPutDecimal)
         
         WUtils.DpCosmosTokenImg(inputCoinImg, mInputCoinDenom!)
         WUtils.DpCosmosTokenName(inputCoinName, mInputCoinDenom!)
@@ -87,8 +88,8 @@ class GravitySwapViewController: BaseViewController, SBCardPopupDelegate {
         self.inputCoinExRateAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.one.stringValue, inputCoinExRateAmount.font, 0, mInPutDecimal)
         
         //display swap rate with this pool
-        let lpInputAmount = WUtils.getLpCoinAmount(mSelectedPool?.reserveAccountAddress, mInputCoinDenom)
-        let lpOutputAmount = WUtils.getLpCoinAmount(mSelectedPool?.reserveAccountAddress, mOutputCoinDenom)
+        let lpInputAmount = WUtils.getGdexLpAmount(mSelectedPool?.reserveAccountAddress, mInputCoinDenom)
+        let lpOutputAmount = WUtils.getGdexLpAmount(mSelectedPool?.reserveAccountAddress, mOutputCoinDenom)
         let poolSwapRate = lpOutputAmount.dividing(by: lpInputAmount, withBehavior: WUtils.handler6).multiplying(byPowerOf10: (mInPutDecimal - mOutPutDecimal))
         self.outputCoinRateAmount.attributedText = WUtils.displayAmount2(poolSwapRate.stringValue, outputCoinRateAmount.font, 0, mOutPutDecimal)
         
@@ -96,7 +97,7 @@ class GravitySwapViewController: BaseViewController, SBCardPopupDelegate {
         let priceInput = WUtils.perUsdValue(BaseData.instance.getBaseDenom(mInputCoinDenom!)) ?? NSDecimalNumber.zero
         let priceOutput = WUtils.perUsdValue(BaseData.instance.getBaseDenom(mOutputCoinDenom!)) ?? NSDecimalNumber.zero
         if (priceInput == NSDecimalNumber.zero || priceOutput == NSDecimalNumber.zero) {
-            self.outputCoinExRateAmount.text = "??????"
+            self.outputCoinExRateAmount.text = "?.??????"
         } else {
             let priceRate = priceInput.dividing(by: priceOutput, withBehavior: WUtils.handler6)
             self.outputCoinExRateAmount.attributedText = WUtils.displayAmount2(priceRate.stringValue, outputCoinExRateAmount.font, 0, mOutPutDecimal)

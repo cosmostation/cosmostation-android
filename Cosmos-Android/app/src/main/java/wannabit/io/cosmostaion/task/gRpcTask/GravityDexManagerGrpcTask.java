@@ -34,10 +34,9 @@ public class GravityDexManagerGrpcTask extends CommonTask {
         try {
             QueryOuterClass.QueryAllBalancesRequest request = QueryOuterClass.QueryAllBalancesRequest.newBuilder().setAddress(mAddress).build();
             QueryOuterClass.QueryAllBalancesResponse response = mStub.allBalances(request);
-
             mResult.resultData = response.getBalancesList();
             mResult.resultData2 = mAddress;
-            this.mResult.isSuccess = true;
+            mResult.isSuccess = true;
 
         } catch (Exception e) { WLog.e( "GravityDexManagerGrpcTask "+ e.getMessage()); }
         return mResult;
