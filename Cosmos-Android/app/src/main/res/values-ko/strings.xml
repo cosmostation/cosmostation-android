@@ -1507,9 +1507,9 @@
     <string name="tx_osmosis_periodlock_unlock">풀린 토큰 받기(End Earning)</string>
 
     <string name="tx_gravity_create_pool">풀 생성</string>
-    <string name="tx_gravity_swap_batch">일괄 스왑</string>
-    <string name="tx_gravity_deposit_batch">일괄 예금</string>
-    <string name="tx_gravity_withdraw_batch">일괄 인출</string>
+    <string name="tx_gravity_swap_batch">코인 스왑</string>
+    <string name="tx_gravity_deposit_batch">풀 참가</string>
+    <string name="tx_gravity_withdraw_batch">풀 나가기</string>
 
     <string name="tx_add_record">Add Record</string>
     <string name="tx_create_did">Create Did</string>

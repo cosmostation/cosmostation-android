@@ -36,7 +36,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     private RelativeLayout mBtnInputCoinList, mBtnOutputCoinList;
     private ImageView mInputImg;
     private TextView mInputCoin, mInputAmount;
-    private TextView mSwapFee;
+    private TextView mSwapFee, mSwapSlippage;
     private TextView mSwapTitle;
     private ImageView mOutputImg;
     private TextView mOutputCoin;
@@ -88,6 +88,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         mSwapOutputCoinExSymbol     = rootView.findViewById(R.id.global_outputs_rate_symbol);
 
         mSwapFee                    = rootView.findViewById(R.id.token_swap_fee);
+        mSwapSlippage               = rootView.findViewById(R.id.swap_slippage);
         mBtnToggle                  = rootView.findViewById(R.id.btn_toggle);
         mBtnSwapStart               = rootView.findViewById(R.id.btn_start_swap);
 
@@ -122,6 +123,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         WUtil.DpOsmosisTokenImg(mOutputImg, mOutputCoinDenom);
 
         mInputAmount.setText(WDp.getDpAmount2(getSActivity(), getBaseDao().getAvailable(mInputCoinDenom), inputDecimal, inputDecimal));
+        mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
         BigDecimal swapFee = new BigDecimal(mSelectedPool.getPoolParams().getSwapFee());
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
 

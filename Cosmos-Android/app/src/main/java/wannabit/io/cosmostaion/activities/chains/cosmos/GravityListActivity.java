@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.cosmos;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +29,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.cosmos.GravityPoolListFragment;
 import wannabit.io.cosmostaion.fragment.chains.cosmos.GravitySwapFragment;
 import wannabit.io.cosmostaion.model.GDexManager;
@@ -38,7 +40,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.GravityDexParamGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.GravityDexPoolGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.SupplyDenomGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DENOM_SUPPLY;
@@ -124,12 +125,26 @@ public class GravityListActivity extends BaseActivity {
         }
     }
 
+    public void onStartSwap(String inputCoinDenom, String outCoinDenom, long poolId, String orderPrice) {
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        Intent intent = new Intent(GravityListActivity.this, GravitySwapActivity.class);
+        intent.putExtra("inputDenom", inputCoinDenom);
+        intent.putExtra("outputDenom", outCoinDenom);
+        intent.putExtra("mPoolId", poolId);
+        startActivity(intent);
+    }
+
     public void onFetchPoolListInfo() {
         mTaskCount = 2;
         mPoolList .clear();
         mPoolMyList.clear();
         mPoolOtherList.clear();
-
         new GravityDexPoolGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new GravityDexParamGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -140,11 +155,13 @@ public class GravityListActivity extends BaseActivity {
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_GRAVITY_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
-                mPoolList = (ArrayList<Liquidity.Pool>) result.resultData;
-                getBaseDao().mGrpcGravityPools = mPoolList;
+                for (Liquidity.Pool pool : getBaseDao().mGrpcGravityPools) {
+                    if (getBaseDao().mChainParam.isPoolEnabled(pool.getId())) {
+                        mPoolList.add(pool);
+                    }
+                }
             }
-
-            mTaskCount = mTaskCount + (mPoolList.size() * 1);
+            mTaskCount = mTaskCount + (mPoolList.size() * 2);
             for (Liquidity.Pool pool: mPoolList ) {
                 new GravityDexManagerGrpcTask(getBaseApplication(), this, mBaseChain, pool.getReserveAccountAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 new SupplyDenomGrpcTask(getBaseApplication(), this, mBaseChain, pool.getPoolCoinDenom()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -238,7 +255,7 @@ public class GravityListActivity extends BaseActivity {
         BigDecimal totalShare = BigDecimal.ZERO;
         for (Coin coin: getBaseDao().mGDexPoolTokens) {
             if (coin.denom.equalsIgnoreCase(pool.getPoolCoinDenom())) {
-                totalShare = new BigDecimal(getBaseDao().mGDexPoolTokens.get(0).amount);
+                totalShare = new BigDecimal(coin.amount);
             }
         }
         return poolValue.divide(totalShare.movePointLeft(6).setScale(24, RoundingMode.DOWN), 18, RoundingMode.DOWN);
@@ -250,7 +267,7 @@ public class GravityListActivity extends BaseActivity {
         BigDecimal totalShare = BigDecimal.ZERO;
         for (Coin coin: getBaseDao().mGDexPoolTokens) {
             if (coin.denom.equalsIgnoreCase(pool.getPoolCoinDenom())) {
-                totalShare = new BigDecimal(getBaseDao().mGDexPoolTokens.get(0).amount);
+                totalShare = new BigDecimal(coin.amount);
             }
         }
         BigDecimal coinAmount = getLpAmount(pool.getReserveAccountAddress(), denom);

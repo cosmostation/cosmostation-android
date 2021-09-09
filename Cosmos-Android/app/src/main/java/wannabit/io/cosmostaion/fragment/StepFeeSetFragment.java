@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDeleteDomainGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulGravitySwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisBeginUnbondingGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisExitPoolGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulOsmosisJoinPoolGrpcTask;
@@ -56,11 +57,11 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulSendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulUndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_BEGIN_UNBONDING;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EARNING;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
@@ -407,6 +408,15 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
                 }
                 new SimulOsmosisUnLockGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                         tempList, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+
+            else if (getSActivity().mTxType == CONST_PW_TX_GDEX_SWAP) {
+                Coin coinFee = new Coin(getSActivity().mSwapInCoin.denom, "0");
+                String orderPrice = new BigDecimal(getSActivity().mSwapOutCoin.amount).divide(new BigDecimal(getSActivity().mSwapInCoin.amount)).movePointRight(18).setScale(0).toPlainString();
+                new SimulGravitySwapGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
+                        getSActivity().mPoolId, getSActivity().mSwapInCoin, getSActivity().mSwapOutCoin.denom, coinFee,
+                        orderPrice, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
             }
 
         }

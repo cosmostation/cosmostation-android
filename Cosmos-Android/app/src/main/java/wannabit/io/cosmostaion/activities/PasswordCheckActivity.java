@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.Tx;
@@ -32,7 +33,6 @@ import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HdacBurnTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbHtlcRefundTask;
@@ -49,6 +49,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaSwapTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
@@ -71,6 +72,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteDomainGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravitySwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisBeginUnbondingGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisExitPooGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisJoinPoolGrpcTask;
@@ -114,6 +116,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAI
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
@@ -652,6 +655,15 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
             new OsmosisUnLockGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, tempList,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+        }
+
+        else if (mPurpose == CONST_PW_TX_GDEX_SWAP) {
+            Coin coinFee = new Coin(mSwapInCoin.denom, "0");
+            String orderPrice = new BigDecimal(mSwapOutCoin.amount).divide(new BigDecimal(mSwapInCoin.amount)).movePointRight(18).setScale(0).toPlainString();
+            new GravitySwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
+                    Long.parseLong(mPoolId), mSwapInCoin, mSwapOutCoin.denom, coinFee, orderPrice, mTargetMemo, mTargetFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
         }
 
         else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {

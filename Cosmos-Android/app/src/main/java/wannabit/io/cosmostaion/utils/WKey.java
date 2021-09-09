@@ -478,6 +478,8 @@ public class WKey {
             return bech32Encode("rizonvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
             return bech32Encode("panaceavaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(EMONEY_MAIN)) {
+            return bech32Encode("emoneyvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(ALTHEA_TEST)) {
             return bech32Encode("altheavaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {

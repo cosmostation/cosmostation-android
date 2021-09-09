@@ -62,6 +62,7 @@ import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
+import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
@@ -1594,6 +1595,28 @@ public class WUtil {
         return result;
     }
 
+    // cosmos gravity dex
+    public static GDexManager getGDexManager(BaseData baseData, String address) {
+        for (GDexManager gDexManager: baseData.mGDexManager) {
+            if (gDexManager.address.equalsIgnoreCase(address)) {
+                return gDexManager;
+            }
+        }
+        return null;
+    }
+
+    public static BigDecimal getLpAmount (BaseData baseData, String address, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (getGDexManager(baseData, address) != null) {
+            for (Coin coin: getGDexManager(baseData, address).reserve) {
+                if (coin.denom.equalsIgnoreCase(denom)) {
+                    result = new BigDecimal(coin.amount);
+                }
+            }
+        }
+        return result;
+    }
+
     public static ArrayList<GaugeOuterClass.Gauge> getGaugesByPoolId(long poolId, ArrayList<QueryOuterClass.IncentivizedPool> incentivizedPools, ArrayList<GaugeOuterClass.Gauge> allGauges) {
         ArrayList<Long> gaugeIds = new ArrayList<Long>();
         ArrayList<GaugeOuterClass.Gauge> result = new ArrayList<GaugeOuterClass.Gauge>();
@@ -2374,6 +2397,8 @@ public class WUtil {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
+            } else if (txType == CONST_PW_TX_GDEX_SWAP) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_SWAP);
             }
 
         } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {

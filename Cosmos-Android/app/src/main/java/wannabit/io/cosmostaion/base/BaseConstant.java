@@ -214,6 +214,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_GRAVITY_PARAM               = 4027;
     public final static int TASK_GRPC_FETCH_GRAVITY_MANAGER             = 4028;
     public final static int TASK_GRPC_FETCH_DENOM_SUPPLY                = 4029;
+    public final static int TASK_GRPC_FETCH_GRAVITY_POOL_INFO           = 4030;
 
     public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4100;
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;
@@ -250,6 +251,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_START_LOCK                 = 4318;
     public final static int TASK_GRPC_GEN_TX_BEGIN_UNBONDING            = 4319;
     public final static int TASK_GRPC_GEN_TX_START_UNLOCK               = 4320;
+    public final static int TASK_GRPC_GEN_TX_GRAVITY_SWAP               = 4321;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -272,6 +274,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_START_LOCK               = 4518;
     public final static int TASK_GRPC_SIMULATE_BEGIN_UNBONDING          = 4519;
     public final static int TASK_GRPC_SIMULATE_START_UNLOCK             = 4520;
+    public final static int TASK_GRPC_SIMULATE_GRAVITY_SWAP             = 4521;
 
 
 
@@ -397,6 +400,8 @@ public class BaseConstant {
     public final static String ETHERMINT_KEY_TYPE_PUBLIC                    = "ethermint/PubKeyEthSecp256k1";
     public final static String IOV_KEY_TYPE                                 = "sigs/ed25519/";
 
+    public final static String LIQUIDITY_MSG_TYPE_SWAP                      = "liquidity/MsgSwapWithinBatch";
+
     public final static String CONST_PW_PURPOSE                             = "CONST_PW_PURPOSE";
     public final static int CONST_PW_INIT                                   = 5000;
     public final static int CONST_PW_UNLOUCK                                = 5001;
@@ -444,6 +449,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_KAVA_SWAP                           = 5043;
     public final static int CONST_PW_TX_KAVA_JOIN_POOL                      = 5044;
     public final static int CONST_PW_TX_KAVA_EXIT_POOL                      = 5045;
+    public final static int CONST_PW_TX_GDEX_SWAP                           = 5046;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
@@ -692,6 +698,7 @@ public class BaseConstant {
     public final static String OSMOSIS_GAS_AMOUNT_BEGIN_UNBONDING       = "30000000";
     public final static String OSMOSIS_GAS_AMOUNT_UNLOCK                = "10000000";
 
+    public final static String COSMOS_GAS_AMOUNT_SWAP                    = "200000";
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
     public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";
@@ -736,6 +743,10 @@ public class BaseConstant {
     public final static String CERTIK_GAS_RATE_TINY                     = "0.05";
     public final static String CERTIK_GAS_RATE_LOW                      = "0.05";
     public final static String CERTIK_GAS_RATE_AVERAGE                  = "0.05";
+
+    public final static String EMONEY_GAS_RATE_TINY                     = "2.00";
+    public final static String EMONEY_GAS_RATE_LOW                      = "2.00";
+    public final static String EMONEY_GAS_RATE_AVERAGE                  = "2.00";
 
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";

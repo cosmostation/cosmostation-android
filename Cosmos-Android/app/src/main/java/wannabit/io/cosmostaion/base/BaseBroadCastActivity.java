@@ -7,6 +7,7 @@ import osmosis.gamm.v1beta1.PoolOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
 import starnamed.x.starname.v1beta1.Types;
+import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
 import wannabit.io.cosmostaion.model.kava.SwapDeposit;
 import wannabit.io.cosmostaion.model.kava.SwapPool;
@@ -43,10 +44,13 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mPoolCoin0;
     public Coin                         mPoolCoin1;
     public Coin                         mOsmosisLpToken;
-    public Coin                         mSwapInCoin;
-    public Coin                         mSwapOutCoin;
     public long                         mOsmosisLockupDuration;
     public ArrayList<Lock.PeriodLock>   mOsmosisLockups = new ArrayList<>();
+    public Coin                         mSwapInCoin;
+    public Coin                         mSwapOutCoin;
+
+    public long                         mPoolId;                                    // cosmos
+    public Liquidity.Pool               mCosmosPool;
 
     public SwapPool                     mKavaSwapPool;                              //kava swap
     public SwapDeposit                  mKavaSwapDeposit;

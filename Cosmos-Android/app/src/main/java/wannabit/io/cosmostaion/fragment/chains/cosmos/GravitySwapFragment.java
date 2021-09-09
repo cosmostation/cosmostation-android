@@ -35,7 +35,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
     private RelativeLayout  mBtnInputCoinList, mBtnOutputCoinList;
     private ImageView       mInputImg;
     private TextView        mInputCoin, mInputAmount;
-    private TextView        mSwapFee;
+    private TextView        mSwapFee, mSwapSlippage;
     private TextView        mSwapTitle;
     private ImageView       mOutputImg;
     private TextView        mOutputCoin;
@@ -54,6 +54,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
 
     public String                               mInputCoinDenom;
     public String                               mOutputCoinDenom;
+    public BigDecimal                           mPoolSwapRate;
     public int                                  mInPutDecimal = 6;
     public int                                  mOutPutDecimal = 6;
 
@@ -92,6 +93,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         mSwapOutputCoinExSymbol     = rootView.findViewById(R.id.global_outputs_rate_symbol);
 
         mSwapFee                    = rootView.findViewById(R.id.token_swap_fee);
+        mSwapSlippage               = rootView.findViewById(R.id.swap_slippage);
         mBtnToggle                  = rootView.findViewById(R.id.btn_toggle);
         mBtnSwapStart               = rootView.findViewById(R.id.btn_start_swap);
 
@@ -125,6 +127,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         mOutPutDecimal = WUtil.getCosmosCoinDecimal(getBaseDao(), mOutputCoinDenom);
 
         mSwapFee.setText(WDp.getPercentDp(new BigDecimal(mParms.getSwapFeeRate()).movePointLeft(16)));
+        mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
         mInputAmount.setText(WDp.getDpAmount2(getSActivity(), availableMaxAmount, mInPutDecimal, mInPutDecimal));
 
         WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mInputCoin, mInputCoinDenom);
@@ -142,11 +145,11 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
         BigDecimal lpInputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mInputCoinDenom);
         BigDecimal lpOutputAmount = getSActivity().getLpAmount(mSelectedPool.getReserveAccountAddress(), mOutputCoinDenom);
 
-        BigDecimal poolSwapRate = BigDecimal.ZERO;
+        mPoolSwapRate = BigDecimal.ZERO;
         if (lpInputAmount != BigDecimal.ZERO && lpOutputAmount != BigDecimal.ZERO) {
-            poolSwapRate = lpOutputAmount.divide(lpInputAmount, 6, RoundingMode.DOWN).movePointLeft(mInPutDecimal - mOutPutDecimal);
+            mPoolSwapRate = lpOutputAmount.divide(lpInputAmount, 6, RoundingMode.DOWN).movePointLeft(mInPutDecimal - mOutPutDecimal);
         }
-        mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), poolSwapRate, 0, mOutPutDecimal));
+        mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), mPoolSwapRate, 0, mOutPutDecimal));
 
         BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
         BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
@@ -203,7 +206,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
             onUpdateView();
 
         } else if (v.equals(mBtnSwapStart)) {
-//            getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool.getId());
+            getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool.getId(), mPoolSwapRate.toPlainString());
         }
     }
 

@@ -133,7 +133,7 @@
                     style="@style/font_ss_11_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3.00%" />
+                    android:text="-" />
             </LinearLayout>
         </LinearLayout>
 
