@@ -1207,7 +1207,7 @@
     <string name="str_osmosis_swap_out">Swap Out (MG)</string>
     <string name="str_osmosis_join_deposit_coin">To Deposit Coin (Max)</string>
     <string name="str_osmosis_join_receive_lp_coin">Receiving LP Coin</string>
-    <string name="str_osmosis_exit_insert_lp_coin">Insert LP Coin</string>
+    <string name="str_exit_insert_lp_coin">Insert LP Coin</string>
     <string name="str_osmosis_exit_to_withdraw_coin">To Withdraw Coins (MG)</string>
     <string name="str_rizon_event_horizon_msg_title">이벤트 호라이즌</string>
     <string name="str_rizon_event_horizon_msg">에이치닥 체인의 자산을 라이젠 체인으로 스왑을 진행합니다.\n스왑 특성상 되돌릴 수 없으며, 두 체인간의 비동기적 작동으로 인해 실제 스왑 완료시까지 시간이 걸릴 수 있습니다.</string>

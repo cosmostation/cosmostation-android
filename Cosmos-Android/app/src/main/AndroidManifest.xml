@@ -628,6 +628,20 @@
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
+        <activity
+            android:name=".activities.chains.cosmos.GravityDepositPoolActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.cosmos.GravityWithdrawPoolActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
 
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"

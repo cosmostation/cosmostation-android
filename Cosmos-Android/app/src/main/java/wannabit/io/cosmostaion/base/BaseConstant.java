@@ -252,6 +252,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_BEGIN_UNBONDING            = 4319;
     public final static int TASK_GRPC_GEN_TX_START_UNLOCK               = 4320;
     public final static int TASK_GRPC_GEN_TX_GRAVITY_SWAP               = 4321;
+    public final static int TASK_GRPC_GEN_TX_GRAVITY_JOIN_POOL          = 4322;
+    public final static int TASK_GRPC_GEN_TX_GRAVITY_EXIT_POOL          = 4323;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -275,6 +277,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_BEGIN_UNBONDING          = 4519;
     public final static int TASK_GRPC_SIMULATE_START_UNLOCK             = 4520;
     public final static int TASK_GRPC_SIMULATE_GRAVITY_SWAP             = 4521;
+    public final static int TASK_GRPC_SIMULATE_GRAVITY_JOIN_POOL        = 4522;
+    public final static int TASK_GRPC_SIMULATE_GRAVITY_EXIT_POOL        = 4523;
 
 
 
@@ -450,6 +454,8 @@ public class BaseConstant {
     public final static int CONST_PW_TX_KAVA_JOIN_POOL                      = 5044;
     public final static int CONST_PW_TX_KAVA_EXIT_POOL                      = 5045;
     public final static int CONST_PW_TX_GDEX_SWAP                           = 5046;
+    public final static int CONST_PW_TX_GDEX_DEPOSIT                        = 5047;
+    public final static int CONST_PW_TX_GDEX_WITHDRAW                       = 5048;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
@@ -698,7 +704,9 @@ public class BaseConstant {
     public final static String OSMOSIS_GAS_AMOUNT_BEGIN_UNBONDING       = "30000000";
     public final static String OSMOSIS_GAS_AMOUNT_UNLOCK                = "10000000";
 
-    public final static String COSMOS_GAS_AMOUNT_SWAP                    = "200000";
+    public final static String COSMOS_GAS_AMOUNT_SWAP                   = "200000";
+    public final static String COSMOS_GAS_AMOUNT_JOIN_POOL              = "300000";
+    public final static String COSMOS_GAS_AMOUNT_EXIT_POOL              = "300000";
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
     public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";

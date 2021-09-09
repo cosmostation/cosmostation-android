@@ -185,7 +185,7 @@ public class StartLockStep0Fragment extends BaseFragment implements View.OnClick
             if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (amountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0) return false;
 
-            getSActivity().mOsmosisLpToken = new Coin(mLpDenom, amountTemp.movePointRight(mCoinDecimal).toPlainString());
+            getSActivity().mLpToken = new Coin(mLpDenom, amountTemp.movePointRight(mCoinDecimal).toPlainString());
             return true;
         } catch (Exception e) {
             return false;

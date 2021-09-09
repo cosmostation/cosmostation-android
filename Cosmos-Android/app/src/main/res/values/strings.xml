@@ -1451,7 +1451,7 @@
     <string name="str_osmosis_swap_out">Swap Out (MG)</string>
     <string name="str_osmosis_join_deposit_coin">To Deposit Coin (Max)</string>
     <string name="str_osmosis_join_receive_lp_coin">Receiving LP Coin</string>
-    <string name="str_osmosis_exit_insert_lp_coin">Insert LP Coin</string>
+    <string name="str_exit_insert_lp_coin">Insert LP Coin</string>
     <string name="str_osmosis_exit_to_withdraw_coin">To Withdraw Coins (MG)</string>
     <string name="str_rizon_event_horizon_msg_title">Event Horizon</string>
     <string name="str_rizon_event_horizon_msg">Swap Hdac chain assets to Rizon chain.\nDue to the nature of the swap, it is irreversible, and it may take some time until the actual swap is completed due to the asynchronous operation between the two chains.</string>

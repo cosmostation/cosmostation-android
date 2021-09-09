@@ -43,13 +43,13 @@
                         android:orientation="horizontal"
                         android:gravity="center">
                         <TextView
-                            android:id="@+id/exit_fee_amount"
+                            android:id="@+id/withdraw_fee_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
                             style="@style/font_ssl_12_white"/>
                         <TextView
-                            android:id="@+id/exit_fee_amount_symbol"
+                            android:id="@+id/withdraw_fee_amount_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
@@ -65,108 +65,53 @@
                 android:layout_height="1dp"
                 android:background="@color/colorGray3"/>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_exit_insert_lp_coin"
+                    style="@style/font_ss_12_gray1"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/withdraw_lp_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        style="@style/font_ssl_12_white"/>
+                    <TextView
+                        android:id="@+id/withdraw_lp_symbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_2"
+                        android:text="@string/str_atom_c"
+                        style="@style/font_ss_12_atom"/>
+                </LinearLayout>
+            </RelativeLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_exit_insert_lp_coin"
-                style="@style/font_ss_12_gray1"
-                android:layout_marginTop="@dimen/space_12"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="right">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-                        <TextView
-                            android:id="@+id/exit_in_amount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="-"
-                            style="@style/font_ssl_12_white"/>
-                        <TextView
-                            android:id="@+id/exit_in_amount_symbol"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_2"
-                            android:text="@string/str_atom_c"
-                            style="@style/font_ss_12_atom"/>
-                    </LinearLayout>
-                </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/space_8"
+                android:text="@string/str_memo"
+                style="@style/font_ss_12_gray1"/>
+            <TextView
+                android:id="@+id/memo"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_12">
-                <TextView
-                    style="@style/font_ss_12_gray1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_osmosis_exit_to_withdraw_coin" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="right">
-                        <TextView
-                            android:id="@+id/exit_output0_amount"
-                            style="@style/font_ssl_12_white"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="-" />
-                        <TextView
-                            android:id="@+id/exit_output0_amount_symbol"
-                            style="@style/font_ss_12_white"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_2"
-                            android:text="-" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="right">
-                        <TextView
-                            android:id="@+id/exit_output1_amount"
-                            style="@style/font_ssl_12_white"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="-" />
-                        <TextView
-                            android:id="@+id/exit_output1_amount_symbol"
-                            style="@style/font_ss_12_white"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_2"
-                            android:text="-" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8"
-                    android:text="@string/str_memo"
-                    style="@style/font_ss_12_gray1"/>
-                <TextView
-                    android:id="@+id/memo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8"
-                    android:lines="2"
-                    android:ellipsize="end"
-                    android:text=""
-                    style="@style/font_ss_12_white"/>
-            </LinearLayout>
+                android:layout_marginTop="@dimen/space_8"
+                android:lines="2"
+                android:ellipsize="end"
+                android:text=""
+                style="@style/font_ss_12_white"/>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <LinearLayout

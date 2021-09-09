@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.activities.chains.osmosis;
+package wannabit.io.cosmostaion.activities.chains.cosmos;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,12 +24,12 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.ExitPoolStep3Fragment;
+import wannabit.io.cosmostaion.fragment.chains.cosmos.GDexWithdrawStep0Fragment;
+import wannabit.io.cosmostaion.fragment.chains.cosmos.GDexWithdrawStep3Fragment;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_EXIT_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_WITHDRAW;
 
-public class ExitPoolActivity extends BaseBroadCastActivity {
+public class GravityWithdrawPoolActivity extends BaseBroadCastActivity {
 
     private RelativeLayout                  mRootView;
     private Toolbar                         mToolbar;
@@ -51,8 +51,8 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_pool_exit));
 
-        mTxType = CONST_PW_TX_OSMOSIS_EXIT_POOL;
-        mOsmosisPoolId = getIntent().getLongExtra("mPoolId", 0);
+        mTxType = CONST_PW_TX_GDEX_WITHDRAW;
+        mPoolId = getIntent().getLongExtra("mPoolId", 0);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -144,12 +144,10 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
     }
 
     public void onStartExitPool() {
-        Intent intent = new Intent(ExitPoolActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_EXIT_POOL);
-        intent.putExtra("mPoolId", mOsmosisPoolId);
-        intent.putExtra("mPoolCoin0", mPoolCoin0);
-        intent.putExtra("mPoolCoin1", mPoolCoin1);
+        Intent intent = new Intent(GravityWithdrawPoolActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_GDEX_WITHDRAW);
         intent.putExtra("mLpToken", mLpToken);
+        intent.putExtra("mPoolId", mPoolId);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
@@ -164,10 +162,10 @@ public class ExitPoolActivity extends BaseBroadCastActivity {
         public ExitPoolPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(ExitPoolStep0Fragment.newInstance(null));
+            mFragments.add(GDexWithdrawStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(ExitPoolStep3Fragment.newInstance(null));
+            mFragments.add(GDexWithdrawStep3Fragment.newInstance(null));
         }
 
         @Override

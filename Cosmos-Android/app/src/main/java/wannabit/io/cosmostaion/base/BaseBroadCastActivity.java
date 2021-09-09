@@ -43,7 +43,7 @@ public class BaseBroadCastActivity extends BaseActivity {
     public PoolOuterClass.Pool          mOsmosisPool;
     public Coin                         mPoolCoin0;
     public Coin                         mPoolCoin1;
-    public Coin                         mOsmosisLpToken;
+    public Coin                         mLpToken;
     public long                         mOsmosisLockupDuration;
     public ArrayList<Lock.PeriodLock>   mOsmosisLockups = new ArrayList<>();
     public Coin                         mSwapInCoin;
@@ -51,6 +51,7 @@ public class BaseBroadCastActivity extends BaseActivity {
 
     public long                         mPoolId;                                    // cosmos
     public Liquidity.Pool               mCosmosPool;
+    public Coin                         mGDexToken;
 
     public SwapPool                     mKavaSwapPool;                              //kava swap
     public SwapDeposit                  mKavaSwapDeposit;

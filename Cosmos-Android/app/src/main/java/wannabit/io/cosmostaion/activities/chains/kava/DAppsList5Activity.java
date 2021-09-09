@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Pool_Gravity_Dex;
 import wannabit.io.cosmostaion.dialog.Dialog_Pool_Kava;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
@@ -173,9 +174,9 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         Bundle bundle = new Bundle();
         bundle.putParcelable("mKavaPool", mPool);
         bundle.putParcelable("mKavaDeposit", mDeposit);
-        Dialog_Pool_Kava add = Dialog_Pool_Kava.newInstance(bundle);
-        add.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+        Dialog_Pool_Kava bottomSheetDialog = Dialog_Pool_Kava.getInstance();
+        bottomSheetDialog.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
     }
 
     public void onCheckStartJoinPool(SwapPool myPool) {

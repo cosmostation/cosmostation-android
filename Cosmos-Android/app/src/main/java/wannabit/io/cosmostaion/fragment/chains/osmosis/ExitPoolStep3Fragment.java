@@ -67,8 +67,8 @@ public class ExitPoolStep3Fragment extends BaseFragment implements View.OnClickL
     public void onRefreshTab() {
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        String InputAmount = getSActivity().mOsmosisLpToken.amount;
-        String InputDenom = getSActivity().mOsmosisLpToken.denom;
+        String InputAmount = getSActivity().mLpToken.amount;
+        String InputDenom = getSActivity().mLpToken.denom;
         String OutputAmount0 = getSActivity().mPoolCoin0.amount;
         String OutputDenom0 = getSActivity().mPoolCoin0.denom;
         String OutputAmount1 = getSActivity().mPoolCoin1.amount;

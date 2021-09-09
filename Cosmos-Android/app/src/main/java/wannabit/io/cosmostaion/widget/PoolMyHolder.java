@@ -164,14 +164,14 @@ public class PoolMyHolder extends BaseHolder {
         itemRoot.setCardBackgroundColor(context.getResources().getColor(R.color.colorTransBgCosmos));
         itemMyPoolType.setTextColor(WDp.getChainColor(context, BaseChain.COSMOS_MAIN));
 
-        String coin0Denom = mypool.getReserveCoinDenoms(1);
-        String coin1Denom = mypool.getReserveCoinDenoms(0);
+        String coin0Denom = mypool.getReserveCoinDenoms(0);
+        String coin1Denom = mypool.getReserveCoinDenoms(1);
         BigDecimal coin0Amount = activity.getLpAmount(mypool.getReserveAccountAddress(), coin0Denom);
         BigDecimal coin1Amount = activity.getLpAmount(mypool.getReserveAccountAddress(), coin1Denom);
         int coin0Decimal = WUtil.getCosmosCoinDecimal(baseData, coin0Denom);
         int coin1Decimal = WUtil.getCosmosCoinDecimal(baseData, coin1Denom);
 
-        itemMyPoolType.setText(WUtil.dpCosmosTokenName(baseData, coin0Denom) + " : " + WUtil.dpCosmosTokenName(baseData, coin1Denom));
+        itemMyPoolType.setText(WUtil.dpCosmosTokenName(baseData, coin0Denom) + " / " + WUtil.dpCosmosTokenName(baseData, coin1Denom));
 
         // Total deposit
         BigDecimal PoolValue = activity.getGdexPoolValue(mypool);
@@ -198,5 +198,13 @@ public class PoolMyHolder extends BaseHolder {
 
         WDp.showCoinDp(context, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0, BaseChain.COSMOS_MAIN);
         WDp.showCoinDp(context, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1, BaseChain.COSMOS_MAIN);
+
+        itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WLog.w("PoolMyHolder onClick ");
+                (activity).onClickMyPool(mypool.getId());
+            }
+        });
     }
 }

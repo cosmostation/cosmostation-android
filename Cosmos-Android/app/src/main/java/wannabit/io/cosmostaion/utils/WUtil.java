@@ -1461,7 +1461,7 @@ public class WUtil {
         return denom;
     }
 
-    public static void dpCosmosTokenName(Context c, BaseData baseData, TextView textView, String denom) {
+    public static String dpCosmosTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom.equals(TOKEN_ATOM)) {
             textView.setTextColor(c.getResources().getColor(R.color.colorAtom));
             textView.setText("ATOM");
@@ -1488,6 +1488,7 @@ public class WUtil {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
             textView.setText("UnKnown");
         }
+        return denom;
     }
 
     public static void DpCosmosTokenImg(BaseData baseData, ImageView imageView, String denom) {
@@ -2399,6 +2400,10 @@ public class WUtil {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
             } else if (txType == CONST_PW_TX_GDEX_SWAP) {
                 return new BigDecimal(COSMOS_GAS_AMOUNT_SWAP);
+            } else if (txType == CONST_PW_TX_GDEX_DEPOSIT) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_JOIN_POOL);
+            } else if (txType == CONST_PW_TX_GDEX_WITHDRAW) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_EXIT_POOL);
             }
 
         } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {

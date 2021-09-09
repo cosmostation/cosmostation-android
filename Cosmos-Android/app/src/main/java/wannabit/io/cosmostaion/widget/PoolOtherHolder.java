@@ -121,8 +121,8 @@ public class PoolOtherHolder extends BaseHolder {
 
     @Override
     public void onBindGDexOtherPool(Context context, GravityListActivity activity, BaseData baseData, Liquidity.Pool otherPool) {
-        String coin0Denom = otherPool.getReserveCoinDenoms(1);
-        String coin1Denom = otherPool.getReserveCoinDenoms(0);
+        String coin0Denom = otherPool.getReserveCoinDenoms(0);
+        String coin1Denom = otherPool.getReserveCoinDenoms(1);
         BigDecimal coin0Amount = activity.getLpAmount(otherPool.getReserveAccountAddress(), coin0Denom);
         BigDecimal coin1Amount = activity.getLpAmount(otherPool.getReserveAccountAddress(), coin1Denom);
         int coin0Decimal = WUtil.getCosmosCoinDecimal(baseData, coin0Denom);
@@ -146,5 +146,12 @@ public class PoolOtherHolder extends BaseHolder {
 
         WDp.showCoinDp(context, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0, BaseChain.COSMOS_MAIN);
         WDp.showCoinDp(context, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1, BaseChain.COSMOS_MAIN);
+
+        itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                (activity).onCheckStartDepositPool(otherPool.getId());
+            }
+        });
     }
 }

@@ -975,6 +975,62 @@ public class Signer {
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcGDexDepositReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin deposit0Coin, Coin deposit1Coin, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+        CoinOuterClass.Coin inputCoin0 = CoinOuterClass.Coin.newBuilder().setDenom(deposit0Coin.denom).setAmount(deposit0Coin.amount).build();
+        CoinOuterClass.Coin inputCoin1 = CoinOuterClass.Coin.newBuilder().setDenom(deposit1Coin.denom).setAmount(deposit1Coin.amount).build();
+        ArrayList<CoinOuterClass.Coin> tokenMax = new ArrayList<>();
+        tokenMax.add(inputCoin0);
+        tokenMax.add(inputCoin1);
+        tendermint.liquidity.v1beta1.Tx.MsgDepositWithinBatch msgDepositWithinBatch = tendermint.liquidity.v1beta1.Tx.MsgDepositWithinBatch.newBuilder().setDepositorAddress(onParseAddress(auth)).setPoolId(poolId).addAllDepositCoins(tokenMax).build();
+        Any msgGDexDepositAny = Any.newBuilder().setTypeUrl("/tendermint.liquidity.v1beta1.MsgDepositWithinBatch").setValue(msgDepositWithinBatch.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgGDexDepositAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcGDexDepositSimulateReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin deposit0Coin, Coin deposit1Coin, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+        CoinOuterClass.Coin inputCoin0 = CoinOuterClass.Coin.newBuilder().setDenom(deposit0Coin.denom).setAmount(deposit0Coin.amount).build();
+        CoinOuterClass.Coin inputCoin1 = CoinOuterClass.Coin.newBuilder().setDenom(deposit1Coin.denom).setAmount(deposit1Coin.amount).build();
+        ArrayList<CoinOuterClass.Coin> tokenMax = new ArrayList<>();
+        tokenMax.add(inputCoin0);
+        tokenMax.add(inputCoin1);
+        tendermint.liquidity.v1beta1.Tx.MsgDepositWithinBatch msgDepositWithinBatch = tendermint.liquidity.v1beta1.Tx.MsgDepositWithinBatch.newBuilder().setDepositorAddress(onParseAddress(auth)).setPoolId(poolId).addAllDepositCoins(tokenMax).build();
+        Any msgGDexDepositAny = Any.newBuilder().setTypeUrl("/tendermint.liquidity.v1beta1.MsgDepositWithinBatch").setValue(msgDepositWithinBatch.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgGDexDepositAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcGDexWithdrawReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin WithdrawCoin, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+        CoinOuterClass.Coin OutputCoin = CoinOuterClass.Coin.newBuilder().setDenom(WithdrawCoin.denom).setAmount(WithdrawCoin.amount).build();
+        tendermint.liquidity.v1beta1.Tx.MsgWithdrawWithinBatch msgWithdrawWithinBatch = tendermint.liquidity.v1beta1.Tx.MsgWithdrawWithinBatch.newBuilder().setWithdrawerAddress(onParseAddress(auth)).setPoolId(poolId).setPoolCoin(OutputCoin).build();
+        Any msgGDexWithdrawAny = Any.newBuilder().setTypeUrl("/tendermint.liquidity.v1beta1.MsgWithdrawWithinBatch").setValue(msgWithdrawWithinBatch.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgGDexWithdrawAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.SimulateRequest getGrpcGDexWithdrawSimulateReq(QueryOuterClass.QueryAccountResponse auth, long poolId, Coin WithdrawCoin, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+        CoinOuterClass.Coin OutputCoin = CoinOuterClass.Coin.newBuilder().setDenom(WithdrawCoin.denom).setAmount(WithdrawCoin.amount).build();
+        tendermint.liquidity.v1beta1.Tx.MsgWithdrawWithinBatch msgWithdrawWithinBatch = tendermint.liquidity.v1beta1.Tx.MsgWithdrawWithinBatch.newBuilder().setWithdrawerAddress(onParseAddress(auth)).setPoolId(poolId).setPoolCoin(OutputCoin).build();
+        Any msgGDexWithdrawAny = Any.newBuilder().setTypeUrl("/tendermint.liquidity.v1beta1.MsgWithdrawWithinBatch").setValue(msgWithdrawWithinBatch.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgGDexWithdrawAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(auth, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.Tx simulateTx          = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
+    }
+
 
 
     public static TxOuterClass.TxBody getGrpcTxBody(Any msgAny, String memo) {

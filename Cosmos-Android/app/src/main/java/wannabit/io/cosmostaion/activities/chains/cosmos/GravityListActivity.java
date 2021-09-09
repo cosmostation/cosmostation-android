@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -29,6 +30,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Osmo_Lockup_Duration;
+import wannabit.io.cosmostaion.dialog.Dialog_Pool_Gravity_Dex;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.cosmos.GravityPoolListFragment;
 import wannabit.io.cosmostaion.fragment.chains.cosmos.GravitySwapFragment;
@@ -40,8 +43,11 @@ import wannabit.io.cosmostaion.task.gRpcTask.GravityDexParamGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.GravityDexPoolGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.SupplyDenomGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_DEPOSIT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DENOM_SUPPLY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_MANAGER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_PARAM;
@@ -136,6 +142,69 @@ public class GravityListActivity extends BaseActivity {
         Intent intent = new Intent(GravityListActivity.this, GravitySwapActivity.class);
         intent.putExtra("inputDenom", inputCoinDenom);
         intent.putExtra("outputDenom", outCoinDenom);
+        intent.putExtra("mPoolId", poolId);
+        startActivity(intent);
+    }
+
+    public void onClickMyPool(long poolId) {
+        WLog.w("onClickMyPool " + poolId);
+        Bundle bundle = new Bundle();
+        bundle.putLong("poolId", poolId);
+        Dialog_Pool_Gravity_Dex bottomSheetDialog = Dialog_Pool_Gravity_Dex.getInstance();
+        bottomSheetDialog.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
+
+    }
+
+    public void onCheckStartDepositPool(long poolId) {
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        Liquidity.Pool tempPool = null;
+        for (Liquidity.Pool pool: mPoolList) {
+            if (pool.getId() == poolId) { tempPool = pool; }
+        }
+        String coin0denom = tempPool.getReserveCoinDenoms(0);
+        String coin1Denom = tempPool.getReserveCoinDenoms(1);
+
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(GravityListActivity.this, mBaseChain, CONST_PW_TX_GDEX_DEPOSIT, 0);
+        BigDecimal coin0Available = getBaseDao().getAvailable(coin0denom);
+        BigDecimal coin1Available = getBaseDao().getAvailable(coin1Denom);
+
+        if (coin1Denom.equalsIgnoreCase(TOKEN_ATOM)) { coin1Available = coin1Available.subtract(feeAmount); }
+
+        if (coin0Available.compareTo(BigDecimal.ZERO) <= 0 || coin1Available.compareTo(BigDecimal.ZERO) <=0 ) {
+            Toast.makeText(GravityListActivity.this, R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(getBaseContext(), GravityDepositPoolActivity.class);
+        intent.putExtra("mPoolId", poolId);
+        startActivity(intent);
+    }
+
+    public void onCheckStartWithdrawPool(long poolId) {
+        WLog.w("onCheckStartExitPool " + poolId);
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        BigDecimal mainBalance = getBaseDao().getAvailable(TOKEN_ATOM);
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_GDEX_WITHDRAW, 0);
+
+        if (mainBalance.compareTo(feeAmount) < 0) {
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(getBaseContext(), GravityWithdrawPoolActivity.class);
         intent.putExtra("mPoolId", poolId);
         startActivity(intent);
     }

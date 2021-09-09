@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Pool_Kava;
 import wannabit.io.cosmostaion.dialog.Dialog_Pool_Osmosis;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.osmosis.ListFarmingFragment;
@@ -140,10 +141,9 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         WLog.w("onClickMyPool " + poolId);
         Bundle bundle = new Bundle();
         bundle.putLong("poolId", poolId);
-        Dialog_Pool_Osmosis add = Dialog_Pool_Osmosis.newInstance(bundle);
-        add.setCancelable(true);
-        getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-
+        Dialog_Pool_Osmosis bottomSheetDialog = Dialog_Pool_Osmosis.getInstance();
+        bottomSheetDialog.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
     }
 
     public void onStartSwap(String inputCoinDenom, String outCoinDenom, long poolId) {
