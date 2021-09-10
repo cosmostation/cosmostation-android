@@ -179,7 +179,13 @@ class GdexSwap0ViewController: BaseViewController, UITextFieldDelegate {
             pageHolderVC.mGDexPoolSupply = selectedPoolSupply
             let coin0Amount = NSDecimalNumber.init(string: selectedPoolManager.reserve[0].amount)
             let coin1Amount = NSDecimalNumber.init(string: selectedPoolManager.reserve[1].amount)
-            let orderPrice = coin0Amount.dividing(by: coin1Amount, withBehavior: WUtils.handler18)
+            var padding = NSDecimalNumber.one
+            if (swapInDenom == selectedPoolManager.reserve[0].denom) {
+                padding = NSDecimalNumber.init(string: "1.03")
+            } else if (swapInDenom == selectedPoolManager.reserve[1].denom) {
+                padding = NSDecimalNumber.init(string: "0.97")
+            }
+            let orderPrice = coin0Amount.multiplying(by: padding).dividing(by: coin1Amount, withBehavior: WUtils.handler18)
             print("orderPrice ", orderPrice)
             pageHolderVC.mGDexSwapOrderPrice = orderPrice.multiplying(byPowerOf10: 18)
             sender.isUserInteractionEnabled = false
