@@ -340,7 +340,7 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
                 DispatchQueue.main.async(execute: { self.onUpdateView() });
                 
             } catch {
-                print("onFetchgRPCAuth failed: \(error)")
+                print("onFetchgRPCTx failed: \(error)")
                 if (self.mIsGen) {
                     self.mFetchCnt = self.mFetchCnt - 1
                     if (self.mFetchCnt > 0) {

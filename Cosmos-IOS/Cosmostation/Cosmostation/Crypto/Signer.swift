@@ -1094,6 +1094,154 @@ class Signer {
             $0.tx = simulateTx
         }
     }
+    
+    
+    static func genSignedSwapBatchMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                            _ requester: String, _ poolId: String, _ swapType: String, _ offerCoin: Coin, _ offerCoinFee: Coin,
+                                            _ demandCoinDenom: String, _ orderPrice: String,
+                                            _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let swapBatchMsg = Tendermint_Liquidity_V1beta1_MsgSwapWithinBatch.with {
+            $0.swapRequesterAddress = requester
+            $0.poolID = UInt64(poolId)!
+            $0.swapTypeID = UInt32("1")!
+            $0.offerCoin = Cosmos_Base_V1beta1_Coin.with({ $0.denom = offerCoin.denom; $0.amount = offerCoin.amount })
+            $0.offerCoinFee = Cosmos_Base_V1beta1_Coin.with({ $0.denom = offerCoinFee.denom; $0.amount = offerCoinFee.amount })
+            $0.demandCoinDenom = demandCoinDenom
+            $0.orderPrice = orderPrice
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/tendermint.liquidity.v1beta1.MsgSwapWithinBatch"
+            $0.value = try! swapBatchMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSimulateSwapBatchMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                              _ requester: String, _ poolId: String, _ swapType: String, _ offerCoin: Coin, _ offerCoinFee: Coin,
+                                              _ demandCoinDenom: String, _ orderPrice: String,
+                                              _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        let swapBatchMsg = Tendermint_Liquidity_V1beta1_MsgSwapWithinBatch.with {
+            $0.swapRequesterAddress = requester
+            $0.poolID = UInt64(poolId)!
+            $0.swapTypeID = UInt32("1")!
+            $0.offerCoin = Cosmos_Base_V1beta1_Coin.with({ $0.denom = offerCoin.denom; $0.amount = offerCoin.amount })
+            $0.offerCoinFee = Cosmos_Base_V1beta1_Coin.with({ $0.denom = offerCoinFee.denom; $0.amount = offerCoinFee.amount })
+            $0.demandCoinDenom = demandCoinDenom
+            $0.orderPrice = orderPrice
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/tendermint.liquidity.v1beta1.MsgSwapWithinBatch"
+            $0.value = try! swapBatchMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
+    
+    static func genSignedDepositBatchMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                               _ depositor: String, _ poolId: String, _ depositCoins: Array<Coin>,
+                                               _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let depositBatchMsg = Tendermint_Liquidity_V1beta1_MsgDepositWithinBatch.with {
+            $0.depositorAddress = depositor
+            $0.poolID = UInt64(poolId)!
+            var convertedCoins = Array<Cosmos_Base_V1beta1_Coin>()
+            depositCoins.forEach { coin in
+                convertedCoins.append(Cosmos_Base_V1beta1_Coin.with { $0.denom = coin.denom; $0.amount = coin.amount })
+            }
+            $0.depositCoins = convertedCoins
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/tendermint.liquidity.v1beta1.MsgDepositWithinBatch"
+            $0.value = try! depositBatchMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSimulateDepositBatchMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                 _ depositor: String, _ poolId: String, _ depositCoins: Array<Coin>,
+                                                 _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        let depositBatchMsg = Tendermint_Liquidity_V1beta1_MsgDepositWithinBatch.with {
+            $0.depositorAddress = depositor
+            $0.poolID = UInt64(poolId)!
+            var convertedCoins = Array<Cosmos_Base_V1beta1_Coin>()
+            depositCoins.forEach { coin in
+                convertedCoins.append(Cosmos_Base_V1beta1_Coin.with { $0.denom = coin.denom; $0.amount = coin.amount })
+            }
+            $0.depositCoins = convertedCoins
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/tendermint.liquidity.v1beta1.MsgDepositWithinBatch"
+            $0.value = try! depositBatchMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
+    
+    static func genSignedWithdrawBatchMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                _ withdrawer: String, _ poolId: String, _ withdrawCoin: Coin,
+                                                _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let withdrawBatchMsg = Tendermint_Liquidity_V1beta1_MsgWithdrawWithinBatch.with {
+            $0.withdrawerAddress = withdrawer
+            $0.poolID = UInt64(poolId)!
+            $0.poolCoin = Cosmos_Base_V1beta1_Coin.with { $0.denom = withdrawCoin.denom; $0.amount = withdrawCoin.amount }
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/tendermint.liquidity.v1beta1.MsgWithdrawWithinBatch"
+            $0.value = try! withdrawBatchMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSimulateWithdrawBatchMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                  _ withdrawer: String, _ poolId: String, _ withdrawCoin: Coin,
+                                                  _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        let withdrawBatchMsg = Tendermint_Liquidity_V1beta1_MsgWithdrawWithinBatch.with {
+            $0.withdrawerAddress = withdrawer
+            $0.poolID = UInt64(poolId)!
+            $0.poolCoin = Cosmos_Base_V1beta1_Coin.with { $0.denom = withdrawCoin.denom; $0.amount = withdrawCoin.amount }
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/tendermint.liquidity.v1beta1.MsgWithdrawWithinBatch"
+            $0.value = try! withdrawBatchMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
         
     
     
