@@ -19,19 +19,28 @@ import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 
+import cosmos.base.v1beta1.CoinOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravitySwapActivity;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.gRpcTask.GravityDexPoolInfoGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.GravityDexManagerGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.SupplyDenomGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DENOM_SUPPLY;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_MANAGER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_POOL_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 
@@ -125,12 +134,26 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
         WUtil.dpCosmosTokenName(getContext(), getBaseDao(), mSwapOutputSymbol, getSActivity().mOutputDenom);
         WUtil.DpCosmosTokenImg(getBaseDao(), mSwapOutputImg, getSActivity().mOutputDenom);
 
-        BigDecimal lpInputAmount = WUtil.getLpAmount(getBaseDao(), getSActivity().mCosmosPool.getReserveAccountAddress(), getSActivity().mInputDenom);
-        BigDecimal lpOutputAmount = WUtil.getLpAmount(getBaseDao(), getSActivity().mCosmosPool.getReserveAccountAddress(), getSActivity().mOutputDenom);
-
+        //새로 받아온 데이터로 보여줄것.
+//        BigDecimal lpInputAmount = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), getSActivity().mInputDenom);
+//        BigDecimal lpOutputAmount = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), getSActivity().mOutputDenom);
+        BigDecimal lpInputAmount = getLocalLpAmount(getSActivity().mInputDenom);
+        BigDecimal lpOutputAmount = getLocalLpAmount(getSActivity().mOutputDenom);
         if (lpInputAmount != BigDecimal.ZERO && lpOutputAmount != BigDecimal.ZERO) {
             mSwapRate = lpOutputAmount.divide(lpInputAmount, 6, RoundingMode.DOWN).movePointLeft(mInputCoinDecimal - mOutputCoinDecimal);
         }
+    }
+
+    public BigDecimal getLocalLpAmount (String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (getSActivity().mGDexManager!= null) {
+            for (Coin coin: getSActivity().mGDexManager.reserve) {
+                if (coin.denom.equalsIgnoreCase(denom)) {
+                    result = new BigDecimal(coin.amount);
+                }
+            }
+        }
+        return result;
     }
 
     private void onAddAmountWatcher(){
@@ -237,9 +260,8 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private void onUpdateOutputTextView() {
         try {
             BigDecimal InputAmountTemp = new BigDecimal(mSwapInputAmount.getText().toString().trim());
-
-            BigDecimal OutputAmount = InputAmountTemp.movePointRight(mInputCoinDecimal).multiply(mSwapRate).setScale(0, RoundingMode.DOWN);
-
+            BigDecimal padding = new BigDecimal("0.97");
+            BigDecimal OutputAmount = InputAmountTemp.movePointRight(mInputCoinDecimal).multiply(padding).multiply(mSwapRate).setScale(0, RoundingMode.DOWN);
             mSwapOutputAmount.setText(OutputAmount.movePointLeft(mOutputCoinDecimal).toPlainString());
         } catch (Exception e) { }
     }
@@ -254,6 +276,17 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
             getSActivity().mSwapInCoin = new Coin(getSActivity().mInputDenom, InputAmountTemp.movePointRight(mInputCoinDecimal).setScale(0).toPlainString());
             getSActivity().mSwapOutCoin = new Coin(getSActivity().mOutputDenom, OutAmountTemp.movePointRight(mOutputCoinDecimal).setScale(0).toPlainString());
 
+            BigDecimal lpInputAmount = getLocalLpAmount(getSActivity().mInputDenom);
+            BigDecimal lpOutputAmount = getLocalLpAmount(getSActivity().mOutputDenom);
+            BigDecimal padding = BigDecimal.ONE;
+            if (getSActivity().mInputDenom.equalsIgnoreCase(getSActivity().mGDexPool.getReserveCoinDenoms(0))) {
+                padding = new BigDecimal("1.03");
+            } else if (getSActivity().mInputDenom.equalsIgnoreCase(getSActivity().mGDexPool.getReserveCoinDenoms(1))) {
+                padding = new BigDecimal("0.97");
+            }
+            BigDecimal orderPrice = lpInputAmount.multiply(padding).divide(lpOutputAmount, 18, RoundingMode.DOWN);
+            getSActivity().mGDexSwapOrderPrice = orderPrice.movePointRight(18).toPlainString();
+            WLog.w("mGDexSwapOrderPrice " + getSActivity().mGDexSwapOrderPrice);
             return true;
 
         } catch (Exception e) {
@@ -266,17 +299,25 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
     private int mTaskCount;
     public void onFetchPoolInfo() {
-        mTaskCount = 1;
-        new GravityDexPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        mTaskCount = 2;
+        new GravityDexManagerGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mGDexPool.getReserveAccountAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SupplyDenomGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mGDexPool.getPoolCoinDenom()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
-        if (result.taskType == TASK_GRPC_FETCH_GRAVITY_POOL_INFO) {
-            if (result.isSuccess && result.resultData != null) {
-                getSActivity().mCosmosPool = (Liquidity.Pool) result.resultData;
+        if (result.taskType == TASK_GRPC_FETCH_GRAVITY_MANAGER) {
+            if (result.isSuccess && result.resultData != null && result.resultData2 != null) {
+                getSActivity().mGDexManager = new GDexManager(result.resultData2, (List<CoinOuterClass.Coin>) result.resultData);
             }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_DENOM_SUPPLY) {
+            if (result.isSuccess && result.resultData != null) {
+                CoinOuterClass.Coin rawCoin = (CoinOuterClass.Coin)result.resultData;
+                getSActivity().mGDexPoolCoinSupply = new Coin(rawCoin.getDenom(), rawCoin.getAmount());
+            }
+
         }
         if (mTaskCount == 0) {
             onInitView();

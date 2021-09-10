@@ -141,7 +141,7 @@ public class GravityListActivity extends BaseActivity {
         Intent intent = new Intent(GravityListActivity.this, GravitySwapActivity.class);
         intent.putExtra("inputDenom", inputCoinDenom);
         intent.putExtra("outputDenom", outCoinDenom);
-        intent.putExtra("mCosmosPool", pool);
+        intent.putExtra("gDexPool", pool);
         startActivity(intent);
     }
 
@@ -213,6 +213,7 @@ public class GravityListActivity extends BaseActivity {
         mPoolList .clear();
         mPoolMyList.clear();
         mPoolOtherList.clear();
+        getBaseDao().mGDexPoolTokens.clear();
         new GravityDexPoolGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new GravityDexParamGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -253,7 +254,9 @@ public class GravityListActivity extends BaseActivity {
 
         } else if (result.taskType == TASK_GRPC_FETCH_DENOM_SUPPLY) {
             if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mGDexPoolTokens = (ArrayList<Coin>) result.resultData;
+                CoinOuterClass.Coin rawCoin = (CoinOuterClass.Coin)result.resultData;
+                getBaseDao().mGDexPoolTokens.add(new Coin(rawCoin.getDenom(), rawCoin.getAmount()));
+
             }
         }
         if (mTaskCount == 0) {

@@ -52,7 +52,7 @@ public class GravityWithdrawPoolActivity extends BaseBroadCastActivity {
         mTitle.setText(getString(R.string.str_title_pool_exit));
 
         mTxType = CONST_PW_TX_GDEX_WITHDRAW;
-        mPoolId = getIntent().getLongExtra("mPoolId", 0);
+        mGDexPoolId = getIntent().getLongExtra("mPoolId", 0);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -147,7 +147,7 @@ public class GravityWithdrawPoolActivity extends BaseBroadCastActivity {
         Intent intent = new Intent(GravityWithdrawPoolActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_GDEX_WITHDRAW);
         intent.putExtra("mLpToken", mLpToken);
-        intent.putExtra("mPoolId", mPoolId);
+        intent.putExtra("mPoolId", mGDexPoolId);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

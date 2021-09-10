@@ -230,7 +230,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Coin                        mSwapOutCoin;
     private long                        mOsmosisLockupDuration;
     private ArrayList<Lock.PeriodLock>  mOsmosisLockups = new ArrayList<>();
-    private Liquidity.Pool              mCosmosPool;
+
+    private Liquidity.Pool              mGDexPool;
+    public String                       mGDexSwapOrderPrice;
 
     private String                      mKavaShareAmount;
 
@@ -327,7 +329,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         if (lockupsWrapper != null) {
             mOsmosisLockups = lockupsWrapper.array;
         }
-        mCosmosPool = (Liquidity.Pool) getIntent().getSerializableExtra("mCosmosPool");
+
+        mGDexPool = (Liquidity.Pool) getIntent().getSerializableExtra("gDexPool");
+        mGDexSwapOrderPrice = getIntent().getStringExtra("gDexSwapOrderPrice");
 
         if (getIntent().getByteArrayExtra("osmosisSwapRoute") != null) {
             try {
@@ -667,22 +671,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         else if (mPurpose == CONST_PW_TX_GDEX_SWAP) {
             Coin coinFee = new Coin(mSwapInCoin.denom, "0");
-            BigDecimal coin0Amount = WUtil.getLpAmount(getBaseDao(), mCosmosPool.getReserveAccountAddress(), mSwapInCoin.denom);
-            BigDecimal coin1Amount = WUtil.getLpAmount(getBaseDao(), mCosmosPool.getReserveAccountAddress(), mSwapOutCoin.denom);
-            BigDecimal orderPrice = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN).movePointRight(18).setScale(0, RoundingMode.DOWN);
-            WLog.w("mCosmosPool.id : " + mCosmosPool.getId());
-            WLog.w("coin0Amount : " + coin0Amount);
-            WLog.w("coin1Amount : " + coin1Amount);
-            WLog.w("orderPrice : " + orderPrice);
-            WLog.w("mSwapInCoin.amount : " + mSwapInCoin.amount);
-            WLog.w("mSwapInCoin.denom : " + mSwapInCoin.denom);
-            WLog.w("mSwapOutCoin.amount : " + mSwapOutCoin.amount);
-            WLog.w("demandCoin.denom : " + mSwapOutCoin.denom);
-            WLog.w("coinFee.amount : " + coinFee.amount);
-            WLog.w("coinFee.denom : " + coinFee.denom);
-//            new GravitySwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
-//                    mCosmosPool.getId(), mSwapInCoin, mSwapOutCoin.denom, coinFee, orderPrice.toPlainString(), mTargetMemo, mTargetFee,
-//                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new GravitySwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
+                    mGDexPool.getId(), mSwapInCoin, mSwapOutCoin.denom, coinFee, mGDexSwapOrderPrice, mTargetMemo, mTargetFee,
+                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_GDEX_DEPOSIT) {
             new GravityDepositGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1,
