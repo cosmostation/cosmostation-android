@@ -342,6 +342,28 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
                                                                 privateKey, publicKey,
                                                                 BaseData.instance.getChainId(self.chainType))
         }
+        
+        
+        //for gDex custom msg
+        else if (pageHolderVC.mType == LIQUIDITY_MSG_TYPE_SWAP) {
+            return Signer.genSimulateSwapBatchMsgTxgRPC(auth,
+                                                        self.pageHolderVC.mAccount!.account_address,
+                                                        String(self.pageHolderVC.mGDexPool!.id),
+                                                        "1",
+                                                        Coin.init(self.pageHolderVC.mSwapInDenom!, self.pageHolderVC.mSwapInAmount!.stringValue),
+                                                        Coin.init(self.pageHolderVC.mSwapInDenom!, "0"),
+                                                        self.pageHolderVC.mSwapOutDenom!,
+                                                        self.pageHolderVC.mGDexSwapOrderPrice!.stringValue,
+                                                        self.pageHolderVC.mFee!,
+                                                        self.pageHolderVC.mMemo!,
+                                                        privateKey, publicKey,
+                                                        BaseData.instance.getChainId(self.chainType))
+            
+        }else if (pageHolderVC.mType == LIQUIDITY_MSG_TYPE_JOIN_POOL) {
+            
+        }else if (pageHolderVC.mType == LIQUIDITY_MSG_TYPE_EXIT_POOL) {
+        }
+        
         return nil
     }
 }

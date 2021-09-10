@@ -109,6 +109,7 @@ class GravitySwapViewController: BaseViewController, SBCardPopupDelegate {
     
     
     @objc func onGdexFetchDone(_ notification: NSNotification) {
+        print("onGdexFetchDone ", BaseData.instance.mGravityPools_gRPC.count)
         if (BaseData.instance.mGravityPools_gRPC.count <= 0) {
             self.onShowToast(NSLocalizedString("error_network", comment: ""))
             self.navigationController?.popViewController(animated: true)

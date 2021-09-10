@@ -129,6 +129,12 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mLockups: Array<Osmosis_Lockup_PeriodLock>?
     
     
+    var mGDexPool: Tendermint_Liquidity_V1beta1_Pool?
+    var mGDexPoolManager: GDexManager!
+    var mGDexPoolSupply: Coin!
+    var mGDexSwapOrderPrice: NSDecimalNumber?
+    
+    
     var mHdacKey: HDWalletKit.PrivateKey?
     var mHdacAddress: String?
     var mHdacBalance: NSDecimalNumber?
