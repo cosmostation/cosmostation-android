@@ -43,12 +43,6 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
     private ViewPager                   mViewPager;
     private ClaimIncentivePageAdapter   mPageAdapter;
 
-    //KAVA-5
-    public IncentiveReward              mIncentiveReward5;
-    public BigDecimal                   mReceivableAmount;
-    public ArrayList<ClaimMultiplier>   mClaimMultipliers;
-    public String                       mIncentiveMultiplier = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,14 +66,6 @@ public class ClaimIncentiveActivity extends BaseBroadCastActivity {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_CLAIM_INCENTIVE;
-
-        mIncentiveReward5 = getBaseDao().mIncentiveRewards;
-        mClaimMultipliers = getBaseDao().mIncentiveParam5.claim_multipliers;
-
-//        WLog.w("mCollateralParamType " + mCollateralParamType);
-//        WLog.w("mIncentiveReward " + mIncentiveReward.collateral_type);
-//        WLog.w("mAllIncentiveAmount " + mAllIncentiveAmount);
-//        WLog.w("mClaimMultipliers " + mClaimMultipliers.size());
 
         mPageAdapter = new ClaimIncentivePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
