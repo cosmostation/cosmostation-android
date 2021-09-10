@@ -16,19 +16,20 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.activities.chains.osmosis.SwapActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.osmosis.CoinSwapStep3Fragment;
+import wannabit.io.cosmostaion.fragment.chains.cosmos.GDexSwapStep0Fragment;
+import wannabit.io.cosmostaion.fragment.chains.cosmos.GDexSwapStep3Fragment;
+import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OSMOSIS_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
 
 public class GravitySwapActivity extends BaseBroadCastActivity {
 
@@ -55,9 +56,10 @@ public class GravitySwapActivity extends BaseBroadCastActivity {
         mViewPager = findViewById(R.id.view_pager);
         mTitle.setText(getString(R.string.str_title_swap));
 
-//        mTxType = CONST_PW_TX_OSMOSIS_SWAP;
+        mTxType = CONST_PW_TX_GDEX_SWAP;
         mInputDenom = getIntent().getStringExtra("inputDenom");
         mOutputDenom = getIntent().getStringExtra("outputDenom");
+        mCosmosPool = (Liquidity.Pool) getIntent().getSerializableExtra("mCosmosPool");
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -150,9 +152,10 @@ public class GravitySwapActivity extends BaseBroadCastActivity {
 
     public void onStartSwap() {
         Intent intent = new Intent(GravitySwapActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_SWAP);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_GDEX_SWAP);
         intent.putExtra("SwapInputCoin", mSwapInCoin);
         intent.putExtra("SwapOutputcoin", mSwapOutCoin);
+        intent.putExtra("mCosmosPool", mCosmosPool);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
@@ -167,10 +170,10 @@ public class GravitySwapActivity extends BaseBroadCastActivity {
         public CoinSwapPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(CoinSwapStep0Fragment.newInstance(null));
+            mFragments.add(GDexSwapStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(CoinSwapStep3Fragment.newInstance(null));
+            mFragments.add(GDexSwapStep3Fragment.newInstance(null));
         }
 
         @Override

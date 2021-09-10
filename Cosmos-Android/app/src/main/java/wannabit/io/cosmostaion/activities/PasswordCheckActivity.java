@@ -18,11 +18,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
 import starnamed.x.starname.v1beta1.Types;
+import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonDetailActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -32,7 +35,6 @@ import wannabit.io.cosmostaion.fragment.NumberKeyBoardFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.HdacBurnTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.ReInvestTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleBnbHtlcRefundTask;
@@ -49,6 +51,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaSwapTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleKavaWithdrawTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDirectVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkWithdrawTask;
@@ -71,6 +74,9 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DeleteDomainGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravityDepositGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravitySwapGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.GravityWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisBeginUnbondingGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisExitPooGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.OsmosisJoinPoolGrpcTask;
@@ -114,6 +120,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAI
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_DEPOSIT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
@@ -221,6 +230,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Coin                        mSwapOutCoin;
     private long                        mOsmosisLockupDuration;
     private ArrayList<Lock.PeriodLock>  mOsmosisLockups = new ArrayList<>();
+    private Liquidity.Pool              mCosmosPool;
 
     private String                      mKavaShareAmount;
 
@@ -317,6 +327,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         if (lockupsWrapper != null) {
             mOsmosisLockups = lockupsWrapper.array;
         }
+        mCosmosPool = (Liquidity.Pool) getIntent().getSerializableExtra("mCosmosPool");
 
         if (getIntent().getByteArrayExtra("osmosisSwapRoute") != null) {
             try {
@@ -652,6 +663,35 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             }
             new OsmosisUnLockGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, tempList,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+        }
+
+        else if (mPurpose == CONST_PW_TX_GDEX_SWAP) {
+            Coin coinFee = new Coin(mSwapInCoin.denom, "0");
+            BigDecimal coin0Amount = WUtil.getLpAmount(getBaseDao(), mCosmosPool.getReserveAccountAddress(), mSwapInCoin.denom);
+            BigDecimal coin1Amount = WUtil.getLpAmount(getBaseDao(), mCosmosPool.getReserveAccountAddress(), mSwapOutCoin.denom);
+            BigDecimal orderPrice = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN).movePointRight(18).setScale(0, RoundingMode.DOWN);
+            WLog.w("mCosmosPool.id : " + mCosmosPool.getId());
+            WLog.w("coin0Amount : " + coin0Amount);
+            WLog.w("coin1Amount : " + coin1Amount);
+            WLog.w("orderPrice : " + orderPrice);
+            WLog.w("mSwapInCoin.amount : " + mSwapInCoin.amount);
+            WLog.w("mSwapInCoin.denom : " + mSwapInCoin.denom);
+            WLog.w("mSwapOutCoin.amount : " + mSwapOutCoin.amount);
+            WLog.w("demandCoin.denom : " + mSwapOutCoin.denom);
+            WLog.w("coinFee.amount : " + coinFee.amount);
+            WLog.w("coinFee.denom : " + coinFee.denom);
+//            new GravitySwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
+//                    mCosmosPool.getId(), mSwapInCoin, mSwapOutCoin.denom, coinFee, orderPrice.toPlainString(), mTargetMemo, mTargetFee,
+//                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_GDEX_DEPOSIT) {
+            new GravityDepositGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_GDEX_WITHDRAW) {
+            new GravityWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mLpToken,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
         }
 
         else if (mPurpose == CONST_PW_TX_RIZON_SWAP) {

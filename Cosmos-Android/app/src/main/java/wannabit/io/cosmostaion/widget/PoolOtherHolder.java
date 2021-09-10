@@ -121,8 +121,8 @@ public class PoolOtherHolder extends BaseHolder {
 
     @Override
     public void onBindGDexOtherPool(Context context, GravityListActivity activity, BaseData baseData, Liquidity.Pool otherPool) {
-        String coin0Denom = otherPool.getReserveCoinDenoms(1);
-        String coin1Denom = otherPool.getReserveCoinDenoms(0);
+        String coin0Denom = otherPool.getReserveCoinDenoms(0);
+        String coin1Denom = otherPool.getReserveCoinDenoms(1);
         BigDecimal coin0Amount = activity.getLpAmount(otherPool.getReserveAccountAddress(), coin0Denom);
         BigDecimal coin1Amount = activity.getLpAmount(otherPool.getReserveAccountAddress(), coin1Denom);
         int coin0Decimal = WUtil.getCosmosCoinDecimal(baseData, coin0Denom);
@@ -131,9 +131,7 @@ public class PoolOtherHolder extends BaseHolder {
         itemPoolType.setText(WUtil.dpCosmosTokenName(baseData, coin0Denom) + " / " + WUtil.dpCosmosTokenName(baseData, coin1Denom));
 
         // Total deposit
-        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0Denom), coin0Amount, WUtil.getCosmosCoinDecimal(baseData, coin0Denom));
-        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1Denom), coin1Amount, WUtil.getCosmosCoinDecimal(baseData, coin1Denom));
-        BigDecimal PoolValue = coin0Value.add(coin1Value);
+        BigDecimal PoolValue = activity.getGdexPoolValue(otherPool);
         itemTotalDepositValue.setText(WDp.getDpRawDollor(context, PoolValue, 2));
 
         WUtil.dpCosmosTokenName(context, baseData, itemTotalDepositSymbol0, coin0Denom);
@@ -148,5 +146,12 @@ public class PoolOtherHolder extends BaseHolder {
 
         WDp.showCoinDp(context, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0, BaseChain.COSMOS_MAIN);
         WDp.showCoinDp(context, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1, BaseChain.COSMOS_MAIN);
+
+        itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                (activity).onCheckStartDepositPool(otherPool.getId());
+            }
+        });
     }
 }

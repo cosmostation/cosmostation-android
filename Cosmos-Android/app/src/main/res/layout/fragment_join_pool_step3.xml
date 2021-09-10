@@ -98,9 +98,10 @@
                             <TextView
                                 android:id="@+id/join_input0_amount_symbol"
                                 style="@style/font_ss_12_white"
-                                android:layout_width="wrap_content"
+                                android:layout_width="@dimen/space_40"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
+                                android:gravity="end"
                                 android:text="-" />
                         </LinearLayout>
                         <LinearLayout
@@ -117,44 +118,47 @@
                             <TextView
                                 android:id="@+id/join_input1_amount_symbol"
                                 style="@style/font_ss_12_white"
-                                android:layout_width="wrap_content"
+                                android:layout_width="@dimen/space_40"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/space_2"
+                                android:gravity="end"
                                 android:text="-" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
                     <TextView
+                        android:id="@+id/lp_amount_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/str_osmosis_join_receive_lp_coin"
                         style="@style/font_ss_12_gray1"/>
                     <LinearLayout
+                        android:id="@+id/lp_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_gravity="right">
-                    <LinearLayout
+                        <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:orientation="horizontal"
                         android:gravity="center">
-                        <TextView
+                            <TextView
                             android:id="@+id/join_out_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
                             style="@style/font_ssl_12_white"/>
-                        <TextView
+                            <TextView
                             android:id="@+id/join_out_amount_symbol"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="@string/str_atom_c"
                             style="@style/font_ss_12_atom"/>
-                    </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"

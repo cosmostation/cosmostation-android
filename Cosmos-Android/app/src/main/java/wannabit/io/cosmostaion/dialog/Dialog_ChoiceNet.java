@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
@@ -39,9 +40,9 @@ public class Dialog_ChoiceNet extends DialogFragment {
 
     private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
-    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi, mSecret, mCosmosTest, mIrisTest;
-    private LinearLayout mRizonTestLayer, mMediTestLayer, mAltheaTestLayer, mUmeeTestLayer;
-    private LinearLayout mRizonTest, mMediTest, mAltheaTest, mUmeeTest;
+    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi, mEmoney, mSecret, mCosmosTest, mIrisTest;
+    private LinearLayout mRizonTestLayer, mMediTestLayer, mAltheaTestLayer, mUmeeTestLayer, mAxelarTestLayer;
+    private LinearLayout mRizonTest, mMediTest, mAltheaTest, mUmeeTest, mAxelarTest;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -95,6 +96,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mKichain = view.findViewById(R.id.ki_chain);
         mOsmosis = view.findViewById(R.id.osmosis_chain);
         mMedi = view.findViewById(R.id.medi_chain);
+        mEmoney = view.findViewById(R.id.emoney_chain);
 
         mRizonTestLayer = view.findViewById(R.id.rizon_test_layer);
         mRizonTest = view.findViewById(R.id.rizon_test_net);
@@ -104,6 +106,8 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mAltheaTest = view.findViewById(R.id.althea_test_net);
         mUmeeTestLayer = view.findViewById(R.id.umee_test_layer);
         mUmeeTest = view.findViewById(R.id.umee_test_net);
+        mAxelarTestLayer = view.findViewById(R.id.axelar_test_layer);
+        mAxelarTest = view.findViewById(R.id.axelar_test_net);
 
 
 
@@ -244,6 +248,14 @@ public class Dialog_ChoiceNet extends DialogFragment {
             }
         });
 
+        mEmoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.EMONEY_MAIN);
+                getDialog().dismiss();
+            }
+        });
+
         mSecret.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -369,6 +381,17 @@ public class Dialog_ChoiceNet extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     ((BaseActivity)getActivity()).onChoiceNet(UMEE_TEST);
+                    getDialog().dismiss();
+                }
+            });
+        }
+
+        if (BaseChain.SUPPORT_CHAINS().contains(AXELAR_TEST)) {
+            mAxelarTestLayer.setVisibility(View.VISIBLE);
+            mAxelarTest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((BaseActivity)getActivity()).onChoiceNet(AXELAR_TEST);
                     getDialog().dismiss();
                 }
             });

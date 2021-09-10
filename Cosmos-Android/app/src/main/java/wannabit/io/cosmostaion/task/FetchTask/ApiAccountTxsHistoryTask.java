@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -182,6 +183,22 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 } else {
                     WLog.w("HistoryTask : NOk");
                 }
+            } else if (mChain.equals(BaseChain.CERTIK_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCertikApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+            } else if (mChain.equals(BaseChain.EMONEY_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getEmoneyApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
 
 //            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
 //                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getBandApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
@@ -231,6 +248,15 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
 
             } else if (mChain.equals(UMEE_TEST)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getUmeeTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(AXELAR_TEST)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAxelarTestApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

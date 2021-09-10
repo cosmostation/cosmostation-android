@@ -157,7 +157,7 @@ public class StartEarningActivity extends BaseBroadCastActivity {
         Intent intent = new Intent(StartEarningActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OSMOSIS_EARNING);
         intent.putExtra("mOsmoDuraion", mOsmosisLockupDuration);
-        intent.putExtra("mLpToken", mOsmosisLpToken);
+        intent.putExtra("mLpToken", mLpToken);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

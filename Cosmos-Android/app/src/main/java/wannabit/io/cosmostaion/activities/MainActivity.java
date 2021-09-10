@@ -60,6 +60,7 @@ import wannabit.io.cosmostaion.widget.TintableImageView;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -68,6 +69,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -400,6 +402,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorWhite));
             mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorMedi));
 
+        } else if (mBaseChain.equals(EMONEY_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_emoney));
+            mToolbarChainName.setText(getString(R.string.str_emoney_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorEmoney));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorEmoney));
+            mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorWhite));
+
         }
 
         else if (mBaseChain.equals(COSMOS_TEST)) {
@@ -474,6 +483,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorUmee));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorUmee));
             mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorWhite));
+
+        } else if (mBaseChain.equals(AXELAR_TEST)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_axelar));
+            mToolbarChainName.setText(getString(R.string.str_axelar_chain_test));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorAxelar2));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorAxelar));
+            mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorBlack));
         }
 
         onUpdateTitle();
@@ -810,6 +826,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainmedibloc));
                     holder.chainName.setText(getString(R.string.str_medi_main));
 
+                } else if (chain.equals(EMONEY_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_emoney));
+                    holder.chainName.setText(getString(R.string.str_emoney_main));
+
                 }
 
                 else if (chain.equals(COSMOS_TEST)) {
@@ -877,6 +899,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_umee));
                     holder.chainName.setText(getString(R.string.str_umee_test));
+
+                } else if (chain.equals(AXELAR_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_axelar));
+                    holder.chainName.setText(getString(R.string.str_axelar_test));
 
                 }
             }

@@ -65,7 +65,7 @@ public class StartLockStep3Fragment extends BaseFragment implements View.OnClick
     public void onRefreshTab() {
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        final Coin LpCoin = new Coin(getSActivity().mOsmosisLpToken.denom, getSActivity().mOsmosisLpToken.amount);
+        final Coin LpCoin = new Coin(getSActivity().mLpToken.denom, getSActivity().mLpToken.amount);
         long UnbondingDuraion = getSActivity().mOsmosisLockupDuration;
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));

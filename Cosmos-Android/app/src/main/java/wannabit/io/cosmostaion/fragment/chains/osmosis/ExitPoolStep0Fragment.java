@@ -199,7 +199,7 @@ public class ExitPoolStep0Fragment extends BaseFragment implements View.OnClickL
             if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (amountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0) return false;
 
-            getSActivity().mOsmosisLpToken = new Coin(getSActivity().mOsmosisPool.getTotalShares().getDenom(), amountTemp.movePointRight(mCoinDecimal).toPlainString());
+            getSActivity().mLpToken = new Coin(getSActivity().mOsmosisPool.getTotalShares().getDenom(), amountTemp.movePointRight(mCoinDecimal).toPlainString());
 
             //Expected receiveing pool tokens!!
             String coin0Denom = getSActivity().mOsmosisPool.getPoolAssets(0).getToken().getDenom();

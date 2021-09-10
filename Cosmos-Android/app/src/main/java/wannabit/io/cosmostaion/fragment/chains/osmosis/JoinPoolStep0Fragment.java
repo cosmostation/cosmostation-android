@@ -394,7 +394,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
             BigDecimal poolTotalShare = new BigDecimal(getSActivity().mOsmosisPool.getTotalShares().getAmount());
             BigDecimal expectedLpTokenAmount = addedAmount.multiply(poolTotalShare).divide(originAmount, 0, RoundingMode.DOWN);
             BigDecimal willReceieveLpTokenAmount = (expectedLpTokenAmount.subtract(poolTotalShare)).multiply(new BigDecimal("0.975")).setScale(0, RoundingMode.DOWN);
-            getSActivity().mOsmosisLpToken = new Coin(getSActivity().mOsmosisPool.getTotalShares().getDenom(), willReceieveLpTokenAmount.toPlainString());
+            getSActivity().mLpToken = new Coin(getSActivity().mOsmosisPool.getTotalShares().getDenom(), willReceieveLpTokenAmount.toPlainString());
 
             return true;
 

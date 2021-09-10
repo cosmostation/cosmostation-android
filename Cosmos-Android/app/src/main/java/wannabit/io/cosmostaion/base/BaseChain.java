@@ -56,6 +56,7 @@ public enum BaseChain {
     KI_MAIN("ki-mainnet"),
     OSMOSIS_MAIN("osmosis-mainnet"),
     MEDI_MAIN("medibloc-mainnet"),
+    EMONEY_MAIN("emoney-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -85,7 +86,8 @@ public enum BaseChain {
     RIZON_TEST("rizon-testnet"),
     MEDI_TEST("medi-testnet"),
     ALTHEA_TEST("althea-testnet"),
-    UMEE_TEST("umee-testnet");
+    UMEE_TEST("umee-testnet"),
+    AXELAR_TEST("axelar-testnet");
 
     private final String chainName;
 
@@ -173,6 +175,9 @@ public enum BaseChain {
         if (chainName.equals(MEDI_MAIN.chainName)) {
             return MEDI_MAIN;
         }
+        if (chainName.equals(EMONEY_MAIN.chainName)) {
+            return EMONEY_MAIN;
+        }
 
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
@@ -226,6 +231,10 @@ public enum BaseChain {
         if (chainName.equals(UMEE_TEST.chainName)) {
             return UMEE_TEST;
         }
+        if (chainName.equals(AXELAR_TEST.chainName)) {
+            return AXELAR_TEST;
+        }
+
         return null;
     }
 
@@ -248,6 +257,7 @@ public enum BaseChain {
         result.add(KI_MAIN);
         result.add(OSMOSIS_MAIN);
         result.add(MEDI_MAIN);
+//        result.add(EMONEY_MAIN);
         result.add(SECRET_MAIN);
 
 
@@ -262,6 +272,7 @@ public enum BaseChain {
 //        result.add(MEDI_TEST);
 //        result.add(ALTHEA_TEST);
 //        result.add(UMEE_TEST);
+//        result.add(AXELAR_TEST);
         return result;
     }
 
@@ -335,6 +346,8 @@ public enum BaseChain {
             return true;
         } else if (baseChain.equals(CERTIK_MAIN)) {
             return true;
+        } else if (baseChain.equals(EMONEY_MAIN)) {
+            return true;
         }
 //        } else if (baseChain.equals(BAND_MAIN)) {
 //            return true;
@@ -343,6 +356,8 @@ public enum BaseChain {
         } else if (baseChain.equals(ALTHEA_TEST)) {
             return true;
         } else if (baseChain.equals(UMEE_TEST)) {
+            return true;
+        } else if (baseChain.equals(AXELAR_TEST)) {
             return true;
         }
 

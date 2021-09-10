@@ -213,6 +213,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_GRAVITY_POOL_LIST           = 4026;
     public final static int TASK_GRPC_FETCH_GRAVITY_PARAM               = 4027;
     public final static int TASK_GRPC_FETCH_GRAVITY_MANAGER             = 4028;
+    public final static int TASK_GRPC_FETCH_DENOM_SUPPLY                = 4029;
+    public final static int TASK_GRPC_FETCH_GRAVITY_POOL_INFO           = 4030;
 
     public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4100;
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;
@@ -249,6 +251,9 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_START_LOCK                 = 4318;
     public final static int TASK_GRPC_GEN_TX_BEGIN_UNBONDING            = 4319;
     public final static int TASK_GRPC_GEN_TX_START_UNLOCK               = 4320;
+    public final static int TASK_GRPC_GEN_TX_GRAVITY_SWAP               = 4321;
+    public final static int TASK_GRPC_GEN_TX_GRAVITY_JOIN_POOL          = 4322;
+    public final static int TASK_GRPC_GEN_TX_GRAVITY_EXIT_POOL          = 4323;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -271,6 +276,9 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_START_LOCK               = 4518;
     public final static int TASK_GRPC_SIMULATE_BEGIN_UNBONDING          = 4519;
     public final static int TASK_GRPC_SIMULATE_START_UNLOCK             = 4520;
+    public final static int TASK_GRPC_SIMULATE_GRAVITY_SWAP             = 4521;
+    public final static int TASK_GRPC_SIMULATE_GRAVITY_JOIN_POOL        = 4522;
+    public final static int TASK_GRPC_SIMULATE_GRAVITY_EXIT_POOL        = 4523;
 
 
 
@@ -396,6 +404,8 @@ public class BaseConstant {
     public final static String ETHERMINT_KEY_TYPE_PUBLIC                    = "ethermint/PubKeyEthSecp256k1";
     public final static String IOV_KEY_TYPE                                 = "sigs/ed25519/";
 
+    public final static String LIQUIDITY_MSG_TYPE_SWAP                      = "liquidity/MsgSwapWithinBatch";
+
     public final static String CONST_PW_PURPOSE                             = "CONST_PW_PURPOSE";
     public final static int CONST_PW_INIT                                   = 5000;
     public final static int CONST_PW_UNLOUCK                                = 5001;
@@ -443,6 +453,9 @@ public class BaseConstant {
     public final static int CONST_PW_TX_KAVA_SWAP                           = 5043;
     public final static int CONST_PW_TX_KAVA_JOIN_POOL                      = 5044;
     public final static int CONST_PW_TX_KAVA_EXIT_POOL                      = 5045;
+    public final static int CONST_PW_TX_GDEX_SWAP                           = 5046;
+    public final static int CONST_PW_TX_GDEX_DEPOSIT                        = 5047;
+    public final static int CONST_PW_TX_GDEX_WITHDRAW                       = 5048;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
@@ -523,6 +536,8 @@ public class BaseConstant {
     public final static String TOKEN_OSMOSIS        = "uosmo";
     public final static String TOKEN_ION            = "uion";
     public final static String TOKEN_UMEE           = "uumee";
+    public final static String TOKEN_NGM            = "ungm";
+    public final static String TOKEN_AXELAR         = "uaxl";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
@@ -690,6 +705,9 @@ public class BaseConstant {
     public final static String OSMOSIS_GAS_AMOUNT_BEGIN_UNBONDING       = "30000000";
     public final static String OSMOSIS_GAS_AMOUNT_UNLOCK                = "10000000";
 
+    public final static String COSMOS_GAS_AMOUNT_SWAP                   = "200000";
+    public final static String COSMOS_GAS_AMOUNT_JOIN_POOL              = "300000";
+    public final static String COSMOS_GAS_AMOUNT_EXIT_POOL              = "300000";
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
     public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";
@@ -735,6 +753,10 @@ public class BaseConstant {
     public final static String CERTIK_GAS_RATE_LOW                      = "0.05";
     public final static String CERTIK_GAS_RATE_AVERAGE                  = "0.05";
 
+    public final static String EMONEY_GAS_RATE_TINY                     = "2.00";
+    public final static String EMONEY_GAS_RATE_LOW                      = "2.00";
+    public final static String EMONEY_GAS_RATE_AVERAGE                  = "2.00";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -776,7 +798,9 @@ public class BaseConstant {
     public final static String MEDI_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/medibloc/";
     public final static String ALTHEA_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/althea/";
     public final static String OSMOSIS_VAL_URL          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/osmosis/";
+    public final static String EMONEY_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/emoney/";
     public final static String UMEE_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/umee/";
+    public final static String AXELAR_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/umee/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -806,7 +830,8 @@ public class BaseConstant {
     public final static String EXPLORER_KI_MAIN         = "https://www.mintscan.io/ki-chain/";
     public final static String EXPLORER_OSMOSIS_MAIN    = "https://www.mintscan.io/osmosis/";
     public final static String EXPLORER_MEDI_MAIN       = "https://www.mintscan.io/medibloc/";
-    public final static String EXPLORER_CERTIK          = "https://www.mintscan.io/certik/";
+    public final static String EXPLORER_CERTIK_MAIN     = "https://www.mintscan.io/certik/";
+    public final static String EXPLORER_EMONEY_MAIN     = "https://dev.mintscan.io/emoney/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 
@@ -820,6 +845,7 @@ public class BaseConstant {
     public final static String EXPLORER_MEDI_TEST       = "https://testnet.mintscan.io/medibloc/";
     public final static String EXPLORER_ALTHEA_TEST     = "https://testnet.mintscan.io/althea/";
     public final static String EXPLORER_UMEE_TEST       = "https://dev.mintscan.io/umee/";
+    public final static String EXPLORER_AXELAR_TEST     = "https://dev.mintscan.io/axelar/";
 
 
     public final static String  PERSISTENCE_COSMOS_EVENT_ADDRESS    = "cosmos1ea6cx6km3jmryax5aefq0vy5wrfcdqtaau4f22";

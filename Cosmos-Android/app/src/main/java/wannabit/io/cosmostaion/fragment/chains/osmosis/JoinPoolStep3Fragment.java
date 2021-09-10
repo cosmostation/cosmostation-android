@@ -71,8 +71,8 @@ public class JoinPoolStep3Fragment extends BaseFragment implements View.OnClickL
         String InputDenom0 = getSActivity().mPoolCoin0.denom;
         String InputAmount1 = getSActivity().mPoolCoin1.amount;
         String InputDenom1 = getSActivity().mPoolCoin1.denom;
-        String LpTokenAmount = getSActivity().mOsmosisLpToken.amount;
-        String LpTokenSymbol = getSActivity().mOsmosisLpToken.denom;
+        String LpTokenAmount = getSActivity().mLpToken.amount;
+        String LpTokenSymbol = getSActivity().mLpToken.denom;
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));

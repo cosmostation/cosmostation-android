@@ -80,7 +80,7 @@
                         style="@style/font_ss_12_gray1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/str_gravity_create_pool_deposit" />
+                        android:text="@string/str_gravity_withdraw_pool" />
                     <RelativeLayout
                         android:id="@+id/tx_create_pool_asset_layer"
                         android:layout_width="match_parent"

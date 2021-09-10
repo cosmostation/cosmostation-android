@@ -149,7 +149,7 @@ public class JoinPoolActivity extends BaseBroadCastActivity {
         intent.putExtra("mPoolId", mOsmosisPoolId);
         intent.putExtra("mPoolCoin0", mPoolCoin0);
         intent.putExtra("mPoolCoin1", mPoolCoin1);
-        intent.putExtra("mLpToken", mOsmosisLpToken);
+        intent.putExtra("mLpToken", mLpToken);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

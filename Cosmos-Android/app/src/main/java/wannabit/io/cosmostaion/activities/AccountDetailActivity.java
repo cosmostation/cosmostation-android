@@ -45,6 +45,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -53,6 +54,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -194,7 +196,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else {
             BigDecimal mainDenomAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 1);
-            if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(KI_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
+            if (mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(KI_MAIN)) {
 //                if (mainDenomAvailable.compareTo(feeAmount) < 0) {
 //                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
 //                    return;
@@ -380,6 +382,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainmedibloc));
 
+        } else if (mBaseChain.equals(EMONEY_MAIN)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgEmoney));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgEmoney));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgEmoney));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgEmoney));
+            mCardRewardAddress.setVisibility(View.VISIBLE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_emoney));
+
         }
 
 
@@ -481,6 +492,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_umee));
+
+        } else if (mBaseChain.equals(AXELAR_TEST)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardRewardAddress.setVisibility(View.VISIBLE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_axelar));
         }
 
         if (isGRPC(mBaseChain)) {

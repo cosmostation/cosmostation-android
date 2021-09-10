@@ -86,7 +86,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             style="@style/font_ss_10_gray1"
-                            android:text="12312312321"/>
+                            android:text="-"/>
                         <TextView
                             android:id="@+id/exit_pool_input_amount_denom"
                             android:layout_width="wrap_content"

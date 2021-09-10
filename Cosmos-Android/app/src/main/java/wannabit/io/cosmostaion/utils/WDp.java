@@ -66,6 +66,7 @@ import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -74,6 +75,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -96,11 +98,12 @@ import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.ALTHEA_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.AXELAR_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CRYPTO_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.DAY_SEC;
+import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
@@ -114,7 +117,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KEY_MEDI_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_RIZON_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.KI_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MEDI_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MONTH_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OSMOSIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_VAL_URL;
@@ -125,6 +127,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.SIF_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AXELAR;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
@@ -144,6 +147,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MEDI;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_NGM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
@@ -153,7 +157,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_UMEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
-import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
+import static wannabit.io.cosmostaion.base.BaseConstant.UMEE_VAL_URL;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_REFUNDED;
@@ -335,6 +339,10 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
+        } else if (chain.equals(EMONEY_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         } else if (chain.equals(COSMOS_TEST)) {
             if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
@@ -365,6 +373,14 @@ public class WDp {
 
         } else if (chain.equals(UMEE_TEST)) {
             if (coin.denom.equals(TOKEN_UMEE)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(coin.denom.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
+        } else if (chain.equals(AXELAR_TEST)) {
+            if (coin.denom.equals(TOKEN_AXELAR)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
@@ -526,6 +542,10 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
+        } else if (chain.equals(EMONEY_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
         } else if (chain.equals(COSMOS_TEST)) {
             if (symbol.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
@@ -555,6 +575,14 @@ public class WDp {
 
         } else if (chain.equals(UMEE_TEST)) {
             if (symbol.equals(TOKEN_UMEE)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+            }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
+        } else if (chain.equals(AXELAR_TEST)) {
+            if (symbol.equals(TOKEN_AXELAR)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
@@ -1736,10 +1764,14 @@ public class WDp {
             return c.getResources().getColor(R.color.colorRizon);
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
             return c.getResources().getColor(R.color.colorMedi);
+        } else if (chain.equals(EMONEY_MAIN)) {
+            return c.getResources().getColor(R.color.colorEmoney);
         } else if (chain.equals(ALTHEA_TEST)) {
             return c.getResources().getColor(R.color.colorAlthea);
         } else if (chain.equals(UMEE_TEST)) {
             return c.getResources().getColor(R.color.colorUmee);
+        } else if (chain.equals(AXELAR_TEST)) {
+            return c.getResources().getColor(R.color.colorAxelar2);
         } else {
             return c.getResources().getColor(R.color.colorGray0);
         }
@@ -1784,10 +1816,14 @@ public class WDp {
             return c.getResources().getColor(R.color.colorTransBgRizon);
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
             return c.getResources().getColor(R.color.colorTransBgMedi);
+        } else if (chain.equals(EMONEY_MAIN)) {
+            return c.getResources().getColor(R.color.colorTransBgEmoney);
         } else if (chain.equals(ALTHEA_TEST)) {
             return c.getResources().getColor(R.color.colorTransBgAlthea);
         } else if (chain.equals(UMEE_TEST)) {
             return c.getResources().getColor(R.color.colorTransBgUmee);
+        } else if (chain.equals(AXELAR_TEST)) {
+            return c.getResources().getColor(R.color.colorTransBgAxelar);
         } else {
             return c.getResources().getColor(R.color.colorTransBg);
         }
@@ -1831,10 +1867,14 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_rizon);
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_med);
+        } else if (chain.equals(EMONEY_MAIN)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_emoney);
         } else if (chain.equals(ALTHEA_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_althea);
         } else if (chain.equals(UMEE_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_umee);
+        } else if (chain.equals(AXELAR_TEST)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_axelar);
         }
         return null;
     }
@@ -1876,10 +1916,14 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorRizon);
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
             return c.getResources().getColorStateList(R.color.colorMedi);
+        } else if (chain.equals(EMONEY_MAIN)) {
+            return c.getResources().getColorStateList(R.color.colorEmoney);
         } else if (chain.equals(ALTHEA_TEST)) {
             return c.getResources().getColorStateList(R.color.colorAlthea);
         } else if (chain.equals(UMEE_TEST)) {
             return c.getResources().getColorStateList(R.color.colorUmee);
+        } else if (chain.equals(AXELAR_TEST)) {
+            return c.getResources().getColorStateList(R.color.colorAxelar);
         }
         return null;
     }
@@ -1961,6 +2005,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorMedi));
             textview.setText(c.getString(R.string.s_medi));
 
+        } else if (BaseChain.getChain(chain).equals(EMONEY_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorEmoney));
+            textview.setText(c.getString(R.string.s_emoney));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -1982,6 +2030,10 @@ public class WDp {
         } else if (BaseChain.getChain(chain).equals(UMEE_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorUmee));
             textview.setText(c.getString(R.string.s_umee));
+
+        } else if (BaseChain.getChain(chain).equals(AXELAR_TEST)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorAxelar));
+            textview.setText(c.getString(R.string.s_axelar));
 
         }
     }
@@ -2031,10 +2083,14 @@ public class WDp {
             return TOKEN_RIZON;
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
             return TOKEN_MEDI;
+        } else if (chain.equals(EMONEY_MAIN)) {
+            return TOKEN_NGM;
         } else if (chain.equals(ALTHEA_TEST)) {
             return TOKEN_ALTHEA;
         } else if (chain.equals(UMEE_TEST)) {
             return TOKEN_UMEE;
+        } else if (chain.equals(AXELAR_TEST)) {
+            return TOKEN_AXELAR;
         }
         return "";
     }
@@ -2075,6 +2131,8 @@ public class WDp {
             imageView.setImageResource(R.drawable.token_osmosis);
         } else if (baseChain.equals(MEDI_MAIN)) {
             imageView.setImageResource(R.drawable.tokenmedibloc);
+        } else if (baseChain.equals(EMONEY_MAIN)) {
+            imageView.setImageResource(R.drawable.token_emoney);
         }
 
         else if (baseChain.equals(RIZON_TEST)) {
@@ -2083,6 +2141,8 @@ public class WDp {
             imageView.setImageResource(R.drawable.tokenalthea);
         } else if (baseChain.equals(UMEE_TEST)) {
             imageView.setImageResource(R.drawable.token_umee);
+        } else if (baseChain.equals(AXELAR_TEST)) {
+            imageView.setImageResource(R.drawable.token_axelar);
         }
     }
 
@@ -2457,12 +2517,18 @@ public class WDp {
             return CERTIK_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(MEDI_MAIN) || basechain.equals(MEDI_TEST)) {
             return MEDI_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(EMONEY_MAIN)) {
+            return EMONEY_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(BAND_MAIN)) {
             return BAND_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(RIZON_TEST)) {
             return RIZON_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(ALTHEA_TEST)) {
             return ALTHEA_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(UMEE_TEST)) {
+            return UMEE_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(UMEE_TEST)) {
+            return AXELAR_VAL_URL + opAddress + ".png";
         }
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {

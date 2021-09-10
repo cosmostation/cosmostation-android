@@ -68,7 +68,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_osmosis_exit_insert_lp_coin"
+                android:text="@string/str_exit_insert_lp_coin"
                 style="@style/font_ss_12_gray1"
                 android:layout_marginTop="@dimen/space_12"/>
                 <LinearLayout
