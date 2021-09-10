@@ -1599,7 +1599,7 @@ public class WUtils {
             result = result + ",okb,okt"
             
         } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
-            result = result + ",ukava,hard,usdx,btc,bnb,xrp,busd"
+            result = result + ",ukava,hard,swp,usdx,btc,bnb,xrp,busd"
             
         } else if (chain == ChainType.BAND_MAIN) {
             result = result + ",uband"
