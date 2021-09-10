@@ -19,11 +19,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
 import starnamed.x.starname.v1beta1.Types;
+import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonDetailActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -228,6 +230,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private Coin                        mSwapOutCoin;
     private long                        mOsmosisLockupDuration;
     private ArrayList<Lock.PeriodLock>  mOsmosisLockups = new ArrayList<>();
+    private Liquidity.Pool              mCosmosPool;
 
     private String                      mKavaShareAmount;
 
@@ -324,6 +327,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         if (lockupsWrapper != null) {
             mOsmosisLockups = lockupsWrapper.array;
         }
+        mCosmosPool = (Liquidity.Pool) getIntent().getSerializableExtra("mCosmosPool");
 
         if (getIntent().getByteArrayExtra("osmosisSwapRoute") != null) {
             try {
@@ -663,10 +667,22 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         else if (mPurpose == CONST_PW_TX_GDEX_SWAP) {
             Coin coinFee = new Coin(mSwapInCoin.denom, "0");
-            String orderPrice = new BigDecimal(mSwapOutCoin.amount).divide(new BigDecimal(mSwapInCoin.amount)).movePointRight(18).setScale(0).toPlainString();
-            new GravitySwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
-                    Long.parseLong(mPoolId), mSwapInCoin, mSwapOutCoin.denom, coinFee, orderPrice, mTargetMemo, mTargetFee,
-                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            BigDecimal coin0Amount = WUtil.getLpAmount(getBaseDao(), mCosmosPool.getReserveAccountAddress(), mSwapInCoin.denom);
+            BigDecimal coin1Amount = WUtil.getLpAmount(getBaseDao(), mCosmosPool.getReserveAccountAddress(), mSwapOutCoin.denom);
+            BigDecimal orderPrice = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN).movePointRight(18).setScale(0, RoundingMode.DOWN);
+            WLog.w("mCosmosPool.id : " + mCosmosPool.getId());
+            WLog.w("coin0Amount : " + coin0Amount);
+            WLog.w("coin1Amount : " + coin1Amount);
+            WLog.w("orderPrice : " + orderPrice);
+            WLog.w("mSwapInCoin.amount : " + mSwapInCoin.amount);
+            WLog.w("mSwapInCoin.denom : " + mSwapInCoin.denom);
+            WLog.w("mSwapOutCoin.amount : " + mSwapOutCoin.amount);
+            WLog.w("demandCoin.denom : " + mSwapOutCoin.denom);
+            WLog.w("coinFee.amount : " + coinFee.amount);
+            WLog.w("coinFee.denom : " + coinFee.denom);
+//            new GravitySwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain,
+//                    mCosmosPool.getId(), mSwapInCoin, mSwapOutCoin.denom, coinFee, orderPrice.toPlainString(), mTargetMemo, mTargetFee,
+//                    getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_GDEX_DEPOSIT) {
             new GravityDepositGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, Long.parseLong(mPoolId), mPoolCoin0, mPoolCoin1,

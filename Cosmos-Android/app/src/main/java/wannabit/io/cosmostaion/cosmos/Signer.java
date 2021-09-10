@@ -949,10 +949,10 @@ public class Signer {
         return ServiceOuterClass.SimulateRequest.newBuilder().setTx(simulateTx).build();
     }
 
-    public static ServiceOuterClass.BroadcastTxRequest getGrpcGravitySwapReq(QueryOuterClass.QueryAccountResponse auth, long poolId, int typeId, String inputDenom, String inputAmount, String outputDenom, String coinFeeDnom, String coinFeeAmount, String orderPrice, Fee fee, String memo, DeterministicKey pKey, String chainId) {
-        CoinOuterClass.Coin inputCoin = CoinOuterClass.Coin.newBuilder().setDenom(inputDenom).setAmount(inputAmount).build();
-        CoinOuterClass.Coin FeeCoin = CoinOuterClass.Coin.newBuilder().setDenom(coinFeeDnom).setAmount(coinFeeAmount).build();
-        tendermint.liquidity.v1beta1.Tx.MsgSwapWithinBatch msgSwapWithinBatch = tendermint.liquidity.v1beta1.Tx.MsgSwapWithinBatch.newBuilder().setSwapRequesterAddress(onParseAddress(auth)).setPoolId(poolId).setSwapTypeId(typeId).setOfferCoin(inputCoin).setDemandCoinDenom(outputDenom).setOfferCoinFee(FeeCoin).setOrderPrice(orderPrice).build();
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcGravitySwapReq(QueryOuterClass.QueryAccountResponse auth, long poolId, int typeId, Coin offerCoin, String demandCoinDenom, Coin feeCoin, String orderPrice, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+        CoinOuterClass.Coin inputCoin = CoinOuterClass.Coin.newBuilder().setDenom(offerCoin.denom).setAmount(offerCoin.amount).build();
+        CoinOuterClass.Coin coinFee = CoinOuterClass.Coin.newBuilder().setDenom(feeCoin.denom).setAmount(feeCoin.amount).build();
+        tendermint.liquidity.v1beta1.Tx.MsgSwapWithinBatch msgSwapWithinBatch = tendermint.liquidity.v1beta1.Tx.MsgSwapWithinBatch.newBuilder().setSwapRequesterAddress(onParseAddress(auth)).setPoolId(poolId).setSwapTypeId(typeId).setOfferCoin(inputCoin).setDemandCoinDenom(demandCoinDenom).setOfferCoinFee(coinFee).setOrderPrice(orderPrice).build();
         Any msgSwapAny = Any.newBuilder().setTypeUrl("/tendermint.liquidity.v1beta1.MsgSwapWithinBatch").setValue(msgSwapWithinBatch.toByteString()).build();
 
         TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSwapAny, memo);
@@ -962,10 +962,10 @@ public class Signer {
         return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
     }
 
-    public static ServiceOuterClass.SimulateRequest getGrpcGravitySwapSimulateReq(QueryOuterClass.QueryAccountResponse auth, long poolId, int typeId, String inputDenom, String inputAmount, String outputDenom, String coinFeeDnom, String coinFeeAmount, String orderPrice, Fee fee, String memo, DeterministicKey pKey, String chainId) {
-        CoinOuterClass.Coin inputCoin = CoinOuterClass.Coin.newBuilder().setDenom(inputDenom).setAmount(inputAmount).build();
-        CoinOuterClass.Coin FeeCoin = CoinOuterClass.Coin.newBuilder().setDenom(coinFeeDnom).setAmount(coinFeeAmount).build();
-        tendermint.liquidity.v1beta1.Tx.MsgSwapWithinBatch msgSwapWithinBatch = tendermint.liquidity.v1beta1.Tx.MsgSwapWithinBatch.newBuilder().setSwapRequesterAddress(onParseAddress(auth)).setPoolId(poolId).setSwapTypeId(typeId).setOfferCoin(inputCoin).setDemandCoinDenom(outputDenom).setOfferCoinFee(FeeCoin).setOrderPrice(orderPrice).build();
+    public static ServiceOuterClass.SimulateRequest getGrpcGravitySwapSimulateReq(QueryOuterClass.QueryAccountResponse auth, long poolId, int typeId, Coin offerCoin, String demandCoinDenom, Coin feeCoin, String orderPrice, Fee fee, String memo, DeterministicKey pKey, String chainId) {
+        CoinOuterClass.Coin inputCoin = CoinOuterClass.Coin.newBuilder().setDenom(offerCoin.denom).setAmount(offerCoin.amount).build();
+        CoinOuterClass.Coin coinFee = CoinOuterClass.Coin.newBuilder().setDenom(feeCoin.denom).setAmount(feeCoin.amount).build();
+        tendermint.liquidity.v1beta1.Tx.MsgSwapWithinBatch msgSwapWithinBatch = tendermint.liquidity.v1beta1.Tx.MsgSwapWithinBatch.newBuilder().setSwapRequesterAddress(onParseAddress(auth)).setPoolId(poolId).setSwapTypeId(typeId).setOfferCoin(inputCoin).setDemandCoinDenom(demandCoinDenom).setOfferCoinFee(coinFee).setOrderPrice(orderPrice).build();
         Any msgSwapAny = Any.newBuilder().setTypeUrl("/tendermint.liquidity.v1beta1.MsgSwapWithinBatch").setValue(msgSwapWithinBatch.toByteString()).build();
 
         TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSwapAny, memo);

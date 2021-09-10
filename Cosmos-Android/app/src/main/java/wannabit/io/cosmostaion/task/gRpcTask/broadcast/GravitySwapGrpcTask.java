@@ -39,18 +39,18 @@ public class GravitySwapGrpcTask extends CommonTask {
     private Fee                     mFees;
     private String                  mChainId;
 
-    private QueryOuterClass.QueryAccountResponse mAuthResponse;
-    private DeterministicKey deterministicKey;
+    private QueryOuterClass.QueryAccountResponse    mAuthResponse;
+    private DeterministicKey                        deterministicKey;
 
     public GravitySwapGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, long poolId, Coin offerCoin,
-                                    String denomCoinDenom, Coin coinFee, String orderPrice, String memo, Fee fee, String chainId) {
+                                    String demandCoinDenom, Coin coinFee, String orderPrice, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
         this.mPoolId = poolId;
         this.mTypeId = 1;
         this.mOfferCoin = offerCoin;
-        this.mDemandCoinDenom = denomCoinDenom;
+        this.mDemandCoinDenom = demandCoinDenom;
         this.mCoinFee = coinFee;
         this.mOrderPrice = orderPrice;
         this.mMemo = memo;
@@ -79,7 +79,7 @@ public class GravitySwapGrpcTask extends CommonTask {
 
             //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcGravitySwapReq(mAuthResponse, mPoolId, mTypeId, mOfferCoin.denom, mOfferCoin.amount, mDemandCoinDenom, mCoinFee.denom, mCoinFee.amount, mOrderPrice, mFees, mMemo, deterministicKey, mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcGravitySwapReq(mAuthResponse, mPoolId, mTypeId, mOfferCoin, mDemandCoinDenom, mCoinFee, mOrderPrice, mFees, mMemo, deterministicKey, mChainId);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {

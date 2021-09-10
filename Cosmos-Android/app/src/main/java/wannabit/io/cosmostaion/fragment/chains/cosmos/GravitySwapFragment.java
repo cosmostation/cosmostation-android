@@ -110,7 +110,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onRefreshTab() {
         mPoolList = getSActivity().mPoolList;
-        mParms = getSActivity().mParams;
+        mParms = getBaseDao().mParams;
         mAllDenoms = getSActivity().mAllDenoms;
 
         if (mSelectedPool == null || mInputCoinDenom.isEmpty() || mOutputCoinDenom.isEmpty()) {
@@ -206,7 +206,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
             onUpdateView();
 
         } else if (v.equals(mBtnSwapStart)) {
-            getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool.getId(), mPoolSwapRate.toPlainString());
+            getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool);
         }
     }
 

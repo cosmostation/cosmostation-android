@@ -62,7 +62,6 @@ public class GravityListActivity extends BaseActivity {
     private TabLayout                   mLabTapLayer;
     private CosmosGravityPageAdapter    mPageAdapter;
 
-    public Liquidity.Params                                 mParams;
     public ArrayList<Liquidity.Pool>                        mPoolList = new ArrayList<>();
     public ArrayList<String>                                mAllDenoms = new ArrayList<>();
     public ArrayList<Liquidity.Pool>                        mPoolMyList = new ArrayList<>();
@@ -131,7 +130,7 @@ public class GravityListActivity extends BaseActivity {
         }
     }
 
-    public void onStartSwap(String inputCoinDenom, String outCoinDenom, long poolId, String orderPrice) {
+    public void onStartSwap(String inputCoinDenom, String outCoinDenom, Liquidity.Pool pool) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
@@ -142,7 +141,7 @@ public class GravityListActivity extends BaseActivity {
         Intent intent = new Intent(GravityListActivity.this, GravitySwapActivity.class);
         intent.putExtra("inputDenom", inputCoinDenom);
         intent.putExtra("outputDenom", outCoinDenom);
-        intent.putExtra("mPoolId", poolId);
+        intent.putExtra("mCosmosPool", pool);
         startActivity(intent);
     }
 
@@ -244,7 +243,7 @@ public class GravityListActivity extends BaseActivity {
 
         } else if (result.taskType == TASK_GRPC_FETCH_GRAVITY_PARAM) {
             if (result.isSuccess && result.resultData != null) {
-                mParams = (Liquidity.Params) result.resultData;
+                getBaseDao().mParams = (Liquidity.Params) result.resultData;
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_GRAVITY_MANAGER) {

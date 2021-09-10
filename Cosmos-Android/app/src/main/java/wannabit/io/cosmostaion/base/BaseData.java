@@ -400,6 +400,7 @@ public class BaseData {
 
     //Gravity pool list
     public ArrayList<Liquidity.Pool>                            mGrpcGravityPools = new ArrayList<>();
+    public Liquidity.Params                                     mParams;
 
     //Gravity GDex Manager
     public ArrayList<GDexManager>                               mGDexManager = new ArrayList<>();

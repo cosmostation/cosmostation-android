@@ -417,17 +417,18 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
             else if (getSActivity().mTxType == CONST_PW_TX_GDEX_SWAP) {
                 Coin coinFee = new Coin(getSActivity().mSwapInCoin.denom, "0");
-                String orderPrice = new BigDecimal(getSActivity().mSwapOutCoin.amount).divide(new BigDecimal(getSActivity().mSwapInCoin.amount)).movePointRight(18).setScale(0).toPlainString();
+                BigDecimal coin0Amount = WUtil.getLpAmount(getBaseDao(), getSActivity().mCosmosPool.getReserveAccountAddress(), getSActivity().mSwapInCoin.denom);
+                BigDecimal coin1Amount = WUtil.getLpAmount(getBaseDao(), getSActivity().mCosmosPool.getReserveAccountAddress(), getSActivity().mSwapOutCoin.denom);
+                BigDecimal orderPrice = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN).movePointRight(18).setScale(0, RoundingMode.DOWN);
                 new SimulGravitySwapGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
-                        getSActivity().mPoolId, getSActivity().mSwapInCoin, getSActivity().mSwapOutCoin.denom, coinFee,
-                        orderPrice, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                        getSActivity().mCosmosPool.getId(), getSActivity().mSwapInCoin, getSActivity().mSwapOutCoin.denom, coinFee, orderPrice.toPlainString(),
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_GDEX_DEPOSIT) {
                 new SimulGravityDepositGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                         getSActivity().mPoolId, getSActivity().mPoolCoin0, getSActivity().mPoolCoin1, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_GDEX_WITHDRAW) {
-                WLog.w("mLpToken : " + getSActivity().mLpToken.amount);
                 new SimulGravityWithdrawGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
                         getSActivity().mPoolId, getSActivity().mLpToken, getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 

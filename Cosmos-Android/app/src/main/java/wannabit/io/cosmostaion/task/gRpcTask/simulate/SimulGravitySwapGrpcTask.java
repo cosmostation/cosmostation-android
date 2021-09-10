@@ -37,8 +37,8 @@ public class SimulGravitySwapGrpcTask extends CommonTask {
     private Fee                     mFees;
     private String                  mChainId;
 
-    private QueryOuterClass.QueryAccountResponse mAuthResponse;
-    private DeterministicKey deterministicKey;
+    private QueryOuterClass.QueryAccountResponse    mAuthResponse;
+    private DeterministicKey                        deterministicKey;
 
     public SimulGravitySwapGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, long poolId, Coin offerCoin,
                                     String denomCoinDenom, Coin coinFee, String orderPrice, String memo, Fee fee, String chainId) {
@@ -70,7 +70,7 @@ public class SimulGravitySwapGrpcTask extends CommonTask {
 
             //simulate
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcGravitySwapSimulateReq(mAuthResponse, mPoolId, mTypeId, mOfferCoin.denom, mOfferCoin.amount, mDemandCoinDenom, mCoinFee.denom, mCoinFee.amount, mOrderPrice, mFees, mMemo, deterministicKey, mChainId);
+            ServiceOuterClass.SimulateRequest simulateTxRequest = Signer.getGrpcGravitySwapSimulateReq(mAuthResponse, mPoolId, mTypeId, mOfferCoin, mDemandCoinDenom, mCoinFee, mOrderPrice, mFees, mMemo, deterministicKey, mChainId);
             ServiceOuterClass.SimulateResponse response = txService.simulate(simulateTxRequest);
             mResult.resultData = response.getGasInfo();
             mResult.isSuccess = true;

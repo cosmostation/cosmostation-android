@@ -51,7 +51,6 @@ public class BaseBroadCastActivity extends BaseActivity {
 
     public long                         mPoolId;                                    // cosmos
     public Liquidity.Pool               mCosmosPool;
-    public Coin                         mGDexToken;
 
     public SwapPool                     mKavaSwapPool;                              //kava swap
     public SwapDeposit                  mKavaSwapDeposit;

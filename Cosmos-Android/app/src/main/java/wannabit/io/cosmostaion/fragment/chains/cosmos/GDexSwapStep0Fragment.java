@@ -115,7 +115,7 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
         BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_GDEX_SWAP, 0);
         if (getSActivity().mInputDenom.equals(TOKEN_ATOM)) {
-            mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
+            mAvailableMaxAmount = mAvailableMaxAmount.multiply(new BigDecimal("0.9985")).subtract(txFee);
         }
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
         WUtil.dpCosmosTokenName(getContext(), getBaseDao(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
