@@ -348,6 +348,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (indexPath.section == SECTION_UNKNOWN_GRPC) {
             cell?.tokenSymbol.text = mUnKnown_gRPC[indexPath.row].denom.uppercased()
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(mUnKnown_gRPC[indexPath.row].amount, cell!.tokenAmount.font, 6, 6)
         }
         
         else if (indexPath.section == SECTION_NATIVE) {
@@ -900,6 +901,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         mPoolToken_gRPC.removeAll()
         mSifEther_gRPC.removeAll()
         mIbcUnknown_gRPC.removeAll()
+        mUnKnown_gRPC.removeAll()
         
         self.mBalances_gRPC.forEach { balance_gRPC in
             if (WUtils.getMainDenom(chainType) == balance_gRPC.denom) {
