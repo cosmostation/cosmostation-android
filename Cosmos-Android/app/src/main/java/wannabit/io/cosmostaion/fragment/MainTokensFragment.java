@@ -52,6 +52,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -84,6 +85,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AXELAR;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
@@ -818,6 +820,18 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_emoney));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_NGM);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
+        } else if (coin.denom.equals(TOKEN_AXELAR)) {
+            holder.itemSymbol.setText(getString(R.string.str_axl_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), AXELAR_TEST));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Axelar Staking Token");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_axelar));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_AXELAR);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 

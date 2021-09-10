@@ -82,6 +82,7 @@ import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -2299,6 +2300,9 @@ public class WUtil {
 
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
+
+        } else if (chain.equals(AXELAR_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://axelar.network/"));
         }
         return null;
     }
@@ -2372,6 +2376,9 @@ public class WUtil {
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
 
+        } else if (chain.equals(AXELAR_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://axelar.network/blog"));
+
         }
         return null;
     }
@@ -2380,7 +2387,7 @@ public class WUtil {
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(CRYPTO_MAIN) || basechain.equals(EMONEY_MAIN) ||
-                basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST)) {
+                basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -2751,6 +2758,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(AXELAR_TEST)) {
+            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         }
 
         else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {
@@ -2789,7 +2801,7 @@ public class WUtil {
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(EMONEY_MAIN) ||
-                basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST)) {
+                basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -3275,6 +3287,9 @@ public class WUtil {
         } else if (basechain.equals(UMEE_TEST)) {
             return EXPLORER_UMEE_TEST;
 
+        } else if (basechain.equals(AXELAR_TEST)) {
+            return EXPLORER_AXELAR_TEST;
+
         }
         return "";
     }
@@ -3367,6 +3382,9 @@ public class WUtil {
 
         } else if (basechain.equals(UMEE_TEST)) {
             return EXPLORER_UMEE_TEST + "txs/" + hash;
+
+        } else if (basechain.equals(AXELAR_TEST)) {
+            return EXPLORER_AXELAR_TEST + "txs/" + hash;
 
         }
         return "";

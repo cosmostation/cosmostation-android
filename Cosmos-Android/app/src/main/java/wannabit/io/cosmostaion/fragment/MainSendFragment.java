@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletAkashHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletAltheaHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletAxelarHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBandHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBinanceHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCertikHolder;
@@ -47,6 +48,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletUmeeHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -214,7 +216,8 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_ALTHEA            = 19;
         private static final int TYPE_OSMOSIS           = 20;
         private static final int TYPE_UMEE              = 21;
-        private static final int TYPE_EMONEY              = 22;
+        private static final int TYPE_EMONEY            = 22;
+        private static final int TYPE_AXELAR            = 23;
 
         private static final int TYPE_STAKE_DROP        = 30;
         private static final int TYPE_KAVA_INCENTIVE    = 40;
@@ -292,6 +295,9 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_EMONEY) {
                 return new WalletEmoneyHolder(getLayoutInflater().inflate(R.layout.item_wallet_emoney, viewGroup, false));
 
+            } else if (viewType == TYPE_AXELAR) {
+                return new WalletAxelarHolder(getLayoutInflater().inflate(R.layout.item_wallet_axelar, viewGroup, false));
+
             }
 
 
@@ -365,6 +371,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(RIZON_TEST)) { return TYPE_RIZON; }
                     else if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) { return TYPE_ALTHEA; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
+                    else if (getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }
                 } else if (position == 1) {
                     return TYPE_PRICE;
                 } else if (position == 2) {

@@ -545,6 +545,21 @@ public class ApiClient {
         return api_umee_test;
     }
 
+    //Services for Axelar test api
+    private static HistoryApi api_axelar_test = null;
+    public static HistoryApi getAxelarTestApi(Context c) {
+        if (api_axelar_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_axelar))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_axelar_test = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_axelar_test;
+    }
+
 
 
 

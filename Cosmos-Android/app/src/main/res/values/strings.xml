@@ -92,6 +92,9 @@
     <string name="url_api_emoney" translatable="false">https://api-office.cosmostation.io/lilmermaid-13/</string>
 
 
+    <string name="url_api_axelar" translatable="false">https://api-office.cosmostation.io/axelar-testnet-adelaide/</string>
+
+
     <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
     <string name="url_rizon_swap_status_mainnet" translatable="false">https://swap-api.rizon.world/</string>
 
@@ -136,6 +139,7 @@
     <string name="str_uion_c" translatable="false">ION</string>
     <string name="str_umee_c" translatable="false">UMEE</string>
     <string name="str_ngm_c" translatable="false">NGM</string>
+    <string name="str_axl_c" translatable="false">AXL</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
@@ -179,6 +183,7 @@
     <string name="str_medi_test_net">Medibloc Testnet</string>
     <string name="str_althea_test_net">Althea Testnet</string>
     <string name="str_umee_test_net">Umee Testnet</string>
+    <string name="str_axelar_test_net">Axelar Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
@@ -347,6 +352,8 @@
     <string name="str_guide_osmosis">Blog</string>
     <string name="str_faq_umee">Home</string>
     <string name="str_guide_umee">Blog</string>
+    <string name="str_faq_axelar">Home</string>
+    <string name="str_guide_axelar">Blog</string>
     <string name="str_faq_emoney">Home</string>
     <string name="str_guide_emoney">Blog</string>
     <string name="str_telegram">Telegram</string>
@@ -442,6 +449,8 @@
     <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
     <string name="str_umee_chain_test" translatable="false">(Umee Testnet)</string>
     <string name="str_umee_chain_test_2" translatable="false">Umee Testnet</string>
+    <string name="str_axelar_chain_test" translatable="false">(Axelar Testnet)</string>
+    <string name="str_axelar_chain_test_2" translatable="false">Axelar Testnet</string>
     <string name="str_emoney_net" translatable="false">(Emoney Mainnet)</string>
     <string name="str_emoney_net2" translatable="false">Emoney Mainnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
@@ -474,6 +483,7 @@
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
     <string name="str_umee_test" translatable="false">UMEE TEST</string>
+    <string name="str_axelar_test" translatable="false">AXELAR TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -561,6 +571,7 @@
     <string name="str_front_guide_title_althea"><![CDATA[ALTHEA NETWORK]]></string>
     <string name="str_front_guide_title_osmosis"><![CDATA[OSMOSIS ZONE]]></string>
     <string name="str_front_guide_title_umee"><![CDATA[UMEE (The Ocean)]]></string>
+    <string name="str_front_guide_title_axelar"><![CDATA[AXELAR NETWORK]]></string>
     <string name="str_front_guide_title_emoney"><![CDATA[e-Money]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
@@ -584,6 +595,7 @@
     <string name="str_front_guide_msg_osmosis"><![CDATA[The interchain AMM powered by the Cosmos Inter-Blockchain Communication protocol, enabling sovereign blockchain networks to access a vast pool of liquidity.]]></string>
     <string name="str_front_guide_msg_umee"><![CDATA[A cross-chain DeFi platform that enables multi-chain lending & borrowing, staking, and leverage.]]></string>
     <string name="str_front_guide_msg_emoney"><![CDATA[A network for the next generation fiat-backed stablecoins for the Internet of Money.]]></string>
+    <string name="str_front_guide_msg_axelar"><![CDATA[Axelar is a decentralized multi-chain network that enables cross chain communication with a simple pegging mechanism.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1663,6 +1675,7 @@
     <string name="s_osmosis" translatable="false">OSMO</string>
     <string name="s_umee" translatable="false">UMEE</string>
     <string name="s_emoney" translatable="false">NGM</string>
+    <string name="s_axelar" translatable="false">AXL</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

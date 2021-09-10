@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
@@ -235,6 +236,15 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
             } else if (mChain.equals(UMEE_TEST)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getUmeeTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(AXELAR_TEST)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAxelarTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

@@ -141,6 +141,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -683,7 +684,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(PERSIS_MAIN) ||
                 mBaseChain.equals(CRYPTO_MAIN) || mBaseChain.equals(OSMOSIS_MAIN) || mBaseChain.equals(MEDI_MAIN) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(EMONEY_MAIN) ||
-                mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) || mBaseChain.equals(MEDI_TEST) || mBaseChain.equals(RIZON_TEST) || mBaseChain.equals(ALTHEA_TEST) || mBaseChain.equals(UMEE_TEST)) {
+                mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) || mBaseChain.equals(MEDI_TEST) || mBaseChain.equals(RIZON_TEST) || mBaseChain.equals(ALTHEA_TEST) ||
+                mBaseChain.equals(UMEE_TEST) || mBaseChain.equals(AXELAR_TEST)) {
             mTaskCount = 9;
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

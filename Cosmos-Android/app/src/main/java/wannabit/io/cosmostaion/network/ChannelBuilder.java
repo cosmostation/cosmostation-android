@@ -6,6 +6,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
@@ -80,6 +81,9 @@ public class ChannelBuilder {
     private final static String GRPC_UMEE_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_UMEE_TEST = 40800;
 
+    private final static String GRPC_AXELAR_TEST = "lcd-office.cosmostation.io";
+    private final static int PORT_AXELAR_TEST = 40600;
+
 
     public final static int TIME_OUT = 8;
 
@@ -123,6 +127,8 @@ public class ChannelBuilder {
             return getAltheaTest();
         } else if (chain.equals(UMEE_TEST)) {
             return getUmeeTest();
+        } else if (chain.equals(AXELAR_TEST)) {
+            return getAxelarTest();
         }
         return null;
     }
@@ -362,5 +368,18 @@ public class ChannelBuilder {
             }
         }
         return channel_umee_test;
+    }
+
+    //Channel for axelar testnet
+    private static ManagedChannel channel_axelar_test = null;
+    public static ManagedChannel getAxelarTest() {
+        if (channel_axelar_test == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_axelar_test = ManagedChannelBuilder.forAddress(GRPC_AXELAR_TEST, PORT_AXELAR_TEST)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_axelar_test;
     }
 }

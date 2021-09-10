@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -207,6 +208,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_rizon));
             } else if (mChain.equals(UMEE_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_umee));
+            } else if (mChain.equals(AXELAR_TEST)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_axelar));
             }
         }
 

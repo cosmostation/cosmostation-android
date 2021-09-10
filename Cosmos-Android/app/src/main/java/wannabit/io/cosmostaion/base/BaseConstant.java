@@ -537,6 +537,7 @@ public class BaseConstant {
     public final static String TOKEN_ION            = "uion";
     public final static String TOKEN_UMEE           = "uumee";
     public final static String TOKEN_NGM            = "ungm";
+    public final static String TOKEN_AXELAR         = "uaxl";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
@@ -799,6 +800,7 @@ public class BaseConstant {
     public final static String OSMOSIS_VAL_URL          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/osmosis/";
     public final static String EMONEY_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/emoney/";
     public final static String UMEE_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/umee/";
+    public final static String AXELAR_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/umee/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -843,6 +845,7 @@ public class BaseConstant {
     public final static String EXPLORER_MEDI_TEST       = "https://testnet.mintscan.io/medibloc/";
     public final static String EXPLORER_ALTHEA_TEST     = "https://testnet.mintscan.io/althea/";
     public final static String EXPLORER_UMEE_TEST       = "https://dev.mintscan.io/umee/";
+    public final static String EXPLORER_AXELAR_TEST     = "https://dev.mintscan.io/axelar/";
 
 
     public final static String  PERSISTENCE_COSMOS_EVENT_ADDRESS    = "cosmos1ea6cx6km3jmryax5aefq0vy5wrfcdqtaau4f22";
