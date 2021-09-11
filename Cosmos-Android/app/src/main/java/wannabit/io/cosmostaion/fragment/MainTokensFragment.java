@@ -79,6 +79,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
@@ -337,7 +338,8 @@ public class MainTokensFragment extends BaseFragment {
                 }
             } else if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) && coin.osmosisAmm()) {
                 mOsmosisPoolGrpc.add(coin);
-            } else if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_ION)) {
+            } else if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN) && coin.denom.equalsIgnoreCase(TOKEN_ION) ||
+                        getMainActivity().mBaseChain.equals(EMONEY_MAIN) && coin.denom.startsWith("e")) {
                 mNativeGrpc.add(coin);
             } else if (getMainActivity().mBaseChain.equals(SIF_MAIN) && coin.denom.startsWith("c")) {
                 mSifEtherGrpc.add(coin);
@@ -822,6 +824,17 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_NGM);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
+        } else if (coin.denom.startsWith("e")) {
+            holder.itemSymbol.setText(coin.denom.substring(1).toUpperCase());
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on Emoney Chain");
+            Picasso.get().load(EMONEY_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
+
+            BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom.substring(1), totalAmount, 6));
 
         } else if (coin.denom.equals(TOKEN_AXELAR)) {
             holder.itemSymbol.setText(getString(R.string.str_axl_c));

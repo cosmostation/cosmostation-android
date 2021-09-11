@@ -11,9 +11,9 @@ import retrofit2.http.Query;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaAuctionParam;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHardInterestRate;
 import wannabit.io.cosmostaion.network.res.ResKavaHardModuleAccount;
 import wannabit.io.cosmostaion.network.res.ResKavaHardMyBorrow;
@@ -36,7 +36,6 @@ import wannabit.io.cosmostaion.network.res.ResKavaSwapPool;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.network.res.ResLcdAllRewards;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
-import wannabit.io.cosmostaion.network.res.ResLcdInflation;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdProposal;
 import wannabit.io.cosmostaion.network.res.ResLcdProposalTally;
@@ -51,10 +50,8 @@ import wannabit.io.cosmostaion.network.res.ResLcdSingleValidator;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdValidators;
 import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
-import wannabit.io.cosmostaion.network.res.ResMintParam;
 import wannabit.io.cosmostaion.network.res.ResMyVote;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
-import wannabit.io.cosmostaion.network.res.ResProvisions;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
@@ -89,15 +86,6 @@ public interface KavaChain {
 
     @GET("distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
     Call<ResLcdRewardFromVal> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
-
-    @GET("minting/parameters")
-    Call<ResMintParam> getMintParam();
-
-    @GET("minting/inflation")
-    Call<ResLcdInflation> getInflation();
-
-    @GET("minting/annual-provisions")
-    Call<ResProvisions> getProvisions();
 
     @GET("staking/pool")
     Call<ResStakingPool> getStakingPool();

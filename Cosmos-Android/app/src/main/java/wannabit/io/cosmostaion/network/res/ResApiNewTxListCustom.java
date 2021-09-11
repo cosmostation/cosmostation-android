@@ -391,6 +391,14 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_create_ethereum_bridge);
                 }
 
+                // certik msg
+                else if (msgType.contains("MsgTaskResponse")) {
+                    result = c.getString(R.string.tx_task_response);
+
+                } else if (msgType.contains("MsgCreateTask")) {
+                    result = c .getString(R.string.tx_create_task);
+                }
+
                 if (getMsgCnt() > 1) {
                     result = result + " + " + (getMsgCnt() - 1);
                 }
