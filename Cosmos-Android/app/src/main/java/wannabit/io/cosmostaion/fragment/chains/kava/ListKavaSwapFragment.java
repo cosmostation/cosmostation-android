@@ -43,7 +43,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
     private ImageView           mInputImg;
     private TextView            mInputCoin, mInputAmount;
     private TextView            mSwapFee;
-    private TextView            mSwapTitle;
+    private TextView            mSwapTitle, mSwapSlippage;
     private ImageView           mOutputImg;
     private TextView            mOutputCoin;
     private TextView            mSwapInputCoinRate, mSwapInputCoinSymbol, mSwapOutputCoinRate, mSwapOutputCoinSymbol;
@@ -97,6 +97,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         mSwapOutputCoinExSymbol     = rootView.findViewById(R.id.global_outputs_rate_symbol);
 
         mSwapFee                    = rootView.findViewById(R.id.token_swap_fee);
+        mSwapSlippage               = rootView.findViewById(R.id.swap_slippage);
         mBtnToggle                  = rootView.findViewById(R.id.btn_toggle);
         mBtnSwapStart               = rootView.findViewById(R.id.btn_start_swap);
 
@@ -136,6 +137,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         BigDecimal availableMaxAmount = getBaseDao().availableAmount(mInputCoinDenom);
         BigDecimal swapFee = new BigDecimal(mSwapParam.swap_fee);
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
+        mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
         mInputAmount.setText(WDp.getDpAmount2(getSActivity(), availableMaxAmount, InPutDecimal, OutPutDecimal));
 
         final int inputCoinDecimal = WUtil.getKavaCoinDecimal(mInputCoinDenom);
@@ -210,6 +212,12 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
             dialog.setCancelable(true);
             dialog.setTargetFragment(this, SELECT_OUTPUT_CHAIN);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+
+        } else if (v.equals(mBtnToggle)) {
+            String temp = mInputCoinDenom;
+            mInputCoinDenom = mOutputCoinDenom;
+            mOutputCoinDenom = temp;
+            onUpdateView();
 
         } else if (v.equals(mBtnSwapStart)) {
             getSActivity().onCheckStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool);
