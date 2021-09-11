@@ -1287,6 +1287,11 @@
     <string name="str_swap_gravity">Gravity Dex Swap Rate</string>
     <string name="str_swap_kava">Kava Swap Rate</string>
     <string name="str_swap_osmosis">Osmosis Swap Rate</string>
+    <string name="str_create_task_creator">Creator</string>
+    <string name="str_task_contract">Contract</string>
+    <string name="str_create_task_bountry">Bountry</string>
+    <string name="str_task_response_operator">Operator</string>
+    <string name="str_task_response_score">Score</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -1523,6 +1528,9 @@
     <string name="tx_add_liquidity">Add Liquidity</string>
     <string name="tx_swap">Swap</string>
     <string name="tx_create_ethereum_bridge">Create Ethereum Bridge</string>
+
+    <string name="tx_task_response">Task Response</string>
+    <string name="tx_create_task">Create Task </string>
 
     <string name="str_dp_time_format1" >yyyy-MM-dd HH:mm:ss</string>
     <string name="str_dp_time_format2" >yyyy-MM-dd HH:mm</string>

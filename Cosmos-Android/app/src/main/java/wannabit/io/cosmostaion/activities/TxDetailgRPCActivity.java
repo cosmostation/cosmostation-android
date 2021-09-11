@@ -48,6 +48,8 @@ import wannabit.io.cosmostaion.widget.txDetail.TxCreateLeaseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateTokenSwapHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
+import wannabit.io.cosmostaion.widget.txDetail.certik.TxCreateTaskHolder;
+import wannabit.io.cosmostaion.widget.txDetail.certik.TxTaskResponseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityCreatePoolHolder;
 import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravityDepositHolder;
 import wannabit.io.cosmostaion.widget.txDetail.gravity.TxGravitySwapHolder;
@@ -260,6 +262,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_SWAP = 71;
         private static final int TYPE_TX_CREATE_ETH_BRIDGE = 72;
 
+        private static final int TYPE_TX_CREATE_TASK = 80;
+        private static final int TYPE_TX_TASK_RESPONSE = 81;
+
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -410,6 +415,14 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_CREATE_ETH_BRIDGE) {
                 return new TxCreateEthBridgeHolder(getLayoutInflater().inflate(R.layout.item_tx_create_eth_bridge, viewGroup, false));
             }
+
+            // certik
+            else if (viewType == TYPE_TX_CREATE_TASK) {
+                return new TxCreateTaskHolder(getLayoutInflater().inflate(R.layout.item_tx_create_task, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_TASK_RESPONSE) {
+                return new TxTaskResponseHolder(getLayoutInflater().inflate(R.layout.item_tx_task_response, viewGroup, false));
+            }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
 
         }
@@ -545,6 +558,13 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_SWAP;
                 } else if (msg.getTypeUrl().contains(sifnode.ethbridge.v1.Tx.MsgCreateEthBridgeClaim.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_ETH_BRIDGE;
+                }
+
+                // certik msg
+                else if (msg.getTypeUrl().contains(shentu.oracle.v1alpha1.Tx.MsgCreateTask.getDescriptor().getFullName())) {
+                    return TYPE_TX_CREATE_TASK;
+                } else if (msg.getTypeUrl().contains(shentu.oracle.v1alpha1.Tx.MsgTaskResponse.getDescriptor().getFullName())) {
+                    return TYPE_TX_TASK_RESPONSE;
                 }
                 return TYPE_TX_UNKNOWN;
             }
