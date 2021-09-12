@@ -69,6 +69,10 @@ class NativeTokenGrpcViewController: BaseViewController, UITableViewDelegate, UI
                 totalAmount = BaseData.instance.getAvailableAmount_gRPC(nativeDenom)
             }
             
+        } else if (chainType == ChainType.EMONEY_MAIN) {
+            naviTokenSymbol.text = nativeDenom.substring(from: 1).uppercased()
+            naviTokenImg.af_setImage(withURL: URL(string: EMONEY_COIN_IMG_URL + nativeDenom + ".png")!)
+            
         }
         
         self.naviPerPrice.attributedText = WUtils.dpPerUserCurrencyValue(nativeDenom, naviPerPrice.font)

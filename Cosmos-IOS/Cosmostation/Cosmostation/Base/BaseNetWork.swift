@@ -893,6 +893,8 @@ class BaseNetWork {
             result = SIF_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.MEDI_MAIN) {
             result = MEDI_API + "v1/account/new_txs/" + address
+        } else if (chain == ChainType.EMONEY_MAIN) {
+            result = EMONEY_API + "v1/account/new_txs/" + address
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
@@ -953,6 +955,8 @@ class BaseNetWork {
             result = SIF_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.MEDI_MAIN) {
             result = MEDI_API + "v1/account/new_txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.EMONEY_MAIN) {
+            result = EMONEY_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
