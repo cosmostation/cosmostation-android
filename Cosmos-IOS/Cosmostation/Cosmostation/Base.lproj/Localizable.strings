@@ -830,6 +830,7 @@ support@cosmostation.io";
 "chain_title_medi_test" = "Medibloc Testnet";
 "chain_title_althea_test" = "Althea Testnet";
 "chain_title_umee_test" = "Umee Testnet";
+"chain_title_axelar_test" = "Axelar Testnet";
 
 "date_format" = "MMM d, yyyy HH:mm:ss";
 "date_format2" = "MMM d, yyyy";

@@ -925,6 +925,8 @@ class BaseNetWork {
             result = ALTHEA_TEST_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.UMEE_TEST) {
             result = UMEE_TEST_API + "v1/account/new_txs/" + address
+        } else if (chain == ChainType.AXELAR_TEST) {
+            result = AXELAR_TEST_API + "v1/account/new_txs/" + address
         }
         return result
     }
@@ -982,6 +984,8 @@ class BaseNetWork {
             result = ALTHEA_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.UMEE_TEST) {
             result = UMEE_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.AXELAR_TEST) {
+            result = AXELAR_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
         return result
     }
@@ -1067,6 +1071,9 @@ class BaseNetWork {
             
         } else if (chain == ChainType.UMEE_TEST) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 40800)
+            
+        } else if (chain == ChainType.AXELAR_TEST) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 40600)
             
         }
         return nil
