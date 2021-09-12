@@ -573,7 +573,7 @@
     <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
-
+    
 
     <string name="str_min_collateral_rate">최소 담보 비율</string>
     <string name="str_stability_fee">연간 수수료</string>
@@ -1274,8 +1274,8 @@
     <string name="str_incentive_amount_title">Incentive Amounts</string>
     <string name="str_gravity_dex">Gravity Dex</string>
     <string name="str_add_liquidity_external_symbol">External Symbol</string>
-    <string name="str_add_liquidity_native_asset">Native Asset</string>
-    <string name="str_add_liquidity_external_asset">External Asset</string>
+    <string name="str_liquidity_native_asset">Native Asset</string>
+    <string name="str_liquidity_external_asset">External Asset</string>
     <string name="str_swap_send_asset">Send Asset</string>
     <string name="str_swap_receive_asset">Received Asset</string>
     <string name="str_bridge_claim_type">Claim Type</string>
@@ -1292,6 +1292,7 @@
     <string name="str_create_task_bountry">Bountry</string>
     <string name="str_task_response_operator">Operator</string>
     <string name="str_task_response_score">Score</string>
+
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
@@ -1526,6 +1527,7 @@
     <string name="tx_create_did">Create Did</string>
 
     <string name="tx_add_liquidity">Add Liquidity</string>
+    <string name="tx_remove_liquidity">Remove Liquidity</string>
     <string name="tx_swap">Swap</string>
     <string name="tx_create_ethereum_bridge">Create Ethereum Bridge</string>
 
