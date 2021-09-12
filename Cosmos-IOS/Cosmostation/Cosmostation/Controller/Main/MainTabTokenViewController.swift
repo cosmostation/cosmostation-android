@@ -623,6 +623,17 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allUmee.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(UMEE_MAIN_DENOM, allUmee, 6, cell!.tokenValue.font)
             
+        } else if (coin.denom == AXELAR_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenAxelar")
+            cell?.tokenSymbol.text = "AXL"
+            cell?.tokenSymbol.textColor = .white
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = "Axelar Staking Token"
+            
+            let allAlx = WUtils.getAllMainAsset(AXELAR_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAlx.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(AXELAR_MAIN_DENOM, allAlx, 6, cell!.tokenValue.font)
+            
         }
         
         else if (coin.denom == COSMOS_TEST_DENOM) {

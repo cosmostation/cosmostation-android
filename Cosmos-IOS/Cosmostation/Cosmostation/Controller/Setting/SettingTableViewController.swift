@@ -223,6 +223,10 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
                     guard let url = URL(string: EXPLORER_UMEE_TEST) else { return }
                     self.onShowSafariWeb(url)
                     
+                } else if (chainType == ChainType.AXELAR_TEST) {
+                    guard let url = URL(string: EXPLORER_AXELAR_TEST) else { return }
+                    self.onShowSafariWeb(url)
+                    
                 }
                 
             } else if(indexPath.row == 3) {
