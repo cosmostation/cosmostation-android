@@ -64,6 +64,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletOsmoCell", bundle: nil), forCellReuseIdentifier: "WalletOsmoCell")
         self.walletTableView.register(UINib(nibName: "WalletUmeeCell", bundle: nil), forCellReuseIdentifier: "WalletUmeeCell")
         self.walletTableView.register(UINib(nibName: "WalletAxelarCell", bundle: nil), forCellReuseIdentifier: "WalletAxelarCell")
+        self.walletTableView.register(UINib(nibName: "WalletEmoneyCell", bundle: nil), forCellReuseIdentifier: "WalletEmoneyCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
@@ -188,6 +189,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.MEDI_MAIN) {
             titleChainImg.image = UIImage(named: "chainMedibloc")
             titleChainName.text = "(Medibloc Mainnet)"
+            titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.EMONEY_MAIN) {
+            titleChainImg.image = UIImage(named: "chainEmoney")
+            titleChainName.text = "(E-Money Mainnet)"
             titleAlarmBtn.isHidden = true
         }
         
@@ -355,6 +360,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetOsmoItems(tableView, indexPath);
         } else if (chainType == ChainType.MEDI_MAIN || chainType == ChainType.MEDI_TEST) {
             return onSetMediItems(tableView, indexPath);
+        } else if (chainType == ChainType.EMONEY_MAIN) {
+            return onSetEmoneyItems(tableView, indexPath);
         }
         
         else if (chainType == ChainType.COSMOS_TEST) {
@@ -905,6 +912,36 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func onSetMediItems(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletMediCell") as? WalletMediCell
+            cell?.updateView(account, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            return cell!
+
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(account, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            return cell!
+
+        } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(account, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(account, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+        }
+        
+    }
+    
+    func onSetEmoneyItems(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletEmoneyCell") as? WalletEmoneyCell
             cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
@@ -1521,6 +1558,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://axelar.network/") else { return }
             self.onShowSafariWeb(url)
             
+        } else if (chainType! == ChainType.EMONEY_MAIN) {
+            guard let url = URL(string: "https://e-money.com/") else { return }
+            self.onShowSafariWeb(url)
+            
         }
         
     }
@@ -1615,8 +1656,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://axelar.network/blog") else { return }
             self.onShowSafariWeb(url)
             
+        } else if (chainType! == ChainType.EMONEY_MAIN) {
+            guard let url = URL(string: "https://medium.com/e-money-com") else { return }
+            self.onShowSafariWeb(url)
+            
         }
-        
     }
     
     func onClickMarketInfo() {
@@ -1687,6 +1731,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType == ChainType.MEDI_MAIN || chainType == ChainType.MEDI_TEST) {
             guard let url = URL(string: "https://www.coingecko.com/en/coins/medibloc") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType == ChainType.MEDI_MAIN || chainType == ChainType.EMONEY_MAIN) {
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/e-money") else { return }
+            self.onShowSafariWeb(url)
+            
         }
         
         

@@ -241,6 +241,13 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "chainMedibloc")
                     cell?.chainName.text = "MEDIBLOC"
+                    
+                } else if (selectedChain == ChainType.EMONEY_MAIN) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "chainEmoney")
+                    cell?.chainName.text = "E-MONEY"
                 }
                 
                 else if (selectedChain == ChainType.COSMOS_TEST) {

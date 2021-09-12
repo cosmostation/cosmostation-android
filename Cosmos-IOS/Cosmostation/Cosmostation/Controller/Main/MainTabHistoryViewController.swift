@@ -187,6 +187,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "chainMedibloc")
             titleChainName.text = "(Medibloc Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.EMONEY_MAIN) {
+            titleChainImg.image = UIImage(named: "chainEmoney")
+            titleChainName.text = "(E-Money Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         
