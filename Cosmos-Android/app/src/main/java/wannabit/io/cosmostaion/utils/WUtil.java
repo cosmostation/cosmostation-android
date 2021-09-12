@@ -1298,7 +1298,7 @@ public class WUtil {
         else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {
             result = result + ",bnb";
 
-        } else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
+        } else if (basechain.equals(KAVA_MAIN)) {
             result = result + ",ukava,hard,swp,usdx,bnb,xrp,busd,btc";
 
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
@@ -1316,9 +1316,8 @@ public class WUtil {
         } else if (basechain.equals(KI_MAIN)) {
             result = result + ",uxki";
 
-        } else if (basechain.equals(MEDI_TEST)) {
-            result = result + ",umed";
-
+        } else if (basechain.equals(EMONEY_MAIN)) {
+            result = result + ",echf,edkk,eeur,enok,esek";
         }
         return result;
     }
@@ -2739,7 +2738,7 @@ public class WUtil {
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(EMONEY_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasRate = new BigDecimal(EMONEY_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -2800,7 +2799,7 @@ public class WUtil {
     }
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(EMONEY_MAIN) ||
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) ||
                 basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
@@ -2888,6 +2887,14 @@ public class WUtil {
                 return new BigDecimal(CERTIK_GAS_RATE_LOW);
             }
             return new BigDecimal(CERTIK_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(EMONEY_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(EMONEY_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(EMONEY_GAS_RATE_LOW);
+            }
+            return new BigDecimal(EMONEY_GAS_RATE_AVERAGE);
         }
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
