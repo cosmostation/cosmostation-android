@@ -319,6 +319,13 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "testnetUmee")
                     cell?.chainName.text = "UMEE TEST"
+                    
+                } else if (selectedChain == ChainType.AXELAR_TEST) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "testnetAxelar")
+                    cell?.chainName.text = "AXELAR TEST"
                 }
             }
             return cell!

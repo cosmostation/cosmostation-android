@@ -389,7 +389,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.onFetchSifLmIncentive(self.mAccount.account_address)
                     
                 } else if (self.mChainType == ChainType.COSMOS_TEST || self.mChainType == ChainType.RIZON_TEST || self.mChainType == ChainType.ALTHEA_TEST ||
-                            self.mChainType == ChainType.IRIS_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.UMEE_TEST) {
+                            self.mChainType == ChainType.IRIS_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.UMEE_TEST ||
+                            self.mChainType == ChainType.AXELAR_TEST) {
                     self.mFetchCnt = 9
                     self.onFetchgRPCNodeInfo()
                     self.onFetchgRPCAuth(self.mAccount.account_address)
@@ -409,7 +410,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchFinished() {
-//        print("onFetchFinished ", self.mFetchCnt)
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt > 0) { return }
         if (WUtils.isGRPC(mChainType!)) {

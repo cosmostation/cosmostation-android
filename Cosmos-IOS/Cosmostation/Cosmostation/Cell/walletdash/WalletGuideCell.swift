@@ -180,6 +180,13 @@ class WalletGuideCell: UITableViewCell {
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_umee", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_umee", comment: ""), for: .normal)
             
+        } else if (chainType == ChainType.AXELAR_TEST) {
+            guideImg.image = UIImage(named: "infoiconAxelar")
+            guideTitle.text = NSLocalizedString("send_guide_title_axelar", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_axelar", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_axelar", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_axelar", comment: ""), for: .normal)
+            
         }
         
     }

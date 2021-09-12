@@ -601,6 +601,8 @@
 		287D746A26A52BB800532E01 /* ExitPool0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 287D746826A52BB800532E01 /* ExitPool0ViewController.xib */; };
 		287D746D26A52BC500532E01 /* ExitPool3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D746B26A52BC500532E01 /* ExitPool3ViewController.swift */; };
 		287D746E26A52BC500532E01 /* ExitPool3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 287D746C26A52BC500532E01 /* ExitPool3ViewController.xib */; };
+		287E0AA426EDC6F300F8C242 /* WalletAxelarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287E0AA226EDC6F300F8C242 /* WalletAxelarCell.swift */; };
+		287E0AA526EDC6F300F8C242 /* WalletAxelarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 287E0AA326EDC6F300F8C242 /* WalletAxelarCell.xib */; };
 		288243E026E0E74D000B6C37 /* GDexManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288243DF26E0E74D000B6C37 /* GDexManager.swift */; };
 		2887BA0C26DE276C00CDA415 /* burrow_crypto.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887BA0526DE276B00CDA415 /* burrow_crypto.pb.swift */; };
 		2887BA0D26DE276C00CDA415 /* burrow_registry.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2887BA0626DE276B00CDA415 /* burrow_registry.pb.swift */; };
@@ -1747,6 +1749,8 @@
 		287D746826A52BB800532E01 /* ExitPool0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExitPool0ViewController.xib; sourceTree = "<group>"; };
 		287D746B26A52BC500532E01 /* ExitPool3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitPool3ViewController.swift; sourceTree = "<group>"; };
 		287D746C26A52BC500532E01 /* ExitPool3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExitPool3ViewController.xib; sourceTree = "<group>"; };
+		287E0AA226EDC6F300F8C242 /* WalletAxelarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAxelarCell.swift; sourceTree = "<group>"; };
+		287E0AA326EDC6F300F8C242 /* WalletAxelarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletAxelarCell.xib; sourceTree = "<group>"; };
 		288243DF26E0E74D000B6C37 /* GDexManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GDexManager.swift; sourceTree = "<group>"; };
 		2887BA0526DE276B00CDA415 /* burrow_crypto.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = burrow_crypto.pb.swift; sourceTree = "<group>"; };
 		2887BA0626DE276B00CDA415 /* burrow_registry.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = burrow_registry.pb.swift; sourceTree = "<group>"; };
@@ -2894,6 +2898,8 @@
 				288A14E325199C6200E17808 /* WalletCertikCell.xib */,
 				289E4DA926E59263007C7C35 /* WalletUmeeCell.swift */,
 				289E4DAA26E59263007C7C35 /* WalletUmeeCell.xib */,
+				287E0AA226EDC6F300F8C242 /* WalletAxelarCell.swift */,
+				287E0AA326EDC6F300F8C242 /* WalletAxelarCell.xib */,
 				E1FD2332233E1C16009327FE /* WalletPriceCell.swift */,
 				E126CF9D2387A60D002A546F /* WalletPriceCell.xib */,
 				E1FD2336233E1C30009327FE /* WalletInflationCell.swift */,
@@ -4191,6 +4197,7 @@
 				283A80CD24514194008FF813 /* CdpDetailMyTopCell.xib in Resources */,
 				28584B4B26E87CE600EE5719 /* GdexDeposit0ViewController.xib in Resources */,
 				E151B65522486C300026B8C0 /* ProposalCell.xib in Resources */,
+				287E0AA526EDC6F300F8C242 /* WalletAxelarCell.xib in Resources */,
 				28060E7825427F2C00F13510 /* EventStakeDropCell.xib in Resources */,
 				283E94872549333B007A9291 /* AccountDetailViewController.xib in Resources */,
 				E103DAAF22812773006C2146 /* ValidatorDetailHistoryEmpty.xib in Resources */,
@@ -5164,6 +5171,7 @@
 				E1317142225F352A00EE5AD0 /* PostTx.swift in Sources */,
 				E171A06D225B08A000C5756C /* StepDelegateAmountViewController.swift in Sources */,
 				2842AB61242C30AA00248EEB /* KavaCdpParam.swift in Sources */,
+				287E0AA426EDC6F300F8C242 /* WalletAxelarCell.swift in Sources */,
 				E1A82DD1224220910097CAEE /* Account.swift in Sources */,
 				E1A82DE12244818C0097CAEE /* AccountInfo.swift in Sources */,
 				287AC64425FDF7260070837E /* akash_audit_v1beta1_audit.grpc.swift in Sources */,

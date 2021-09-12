@@ -159,6 +159,8 @@
 "send_guide_msg_osmosis" = "Cosmos SDK와 코스모스 인터블록체인 커뮤니케이션(IBC) 프로토콜을 이용하여 다수의 다른 블록체인 네트워크 유저들에게 유동성을 제공해주는 인터체인 AMM.";
 "send_guide_title_umee" = "우미 (대양)";
 "send_guide_msg_umee" = "멀티체인 대출 및 차용, 스테이킹, 레버리지를 가능하게 하는 크로스체인 DeFi 플랫폼. ";
+"send_guide_title_axelar" = "엑셀라 네트워크";
+"send_guide_msg_axelar" = "Axelar는 간단한 페깅 메커니즘으로 크로스 체인 통신을 가능하게 하는 분산형 멀티체인 네트워크입니다.";
 "send_guide_btn1_cosmos" = "가이드";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -180,6 +182,7 @@
 "send_guide_btn1_althea" = "Home";
 "send_guide_btn1_osmosis" = "Home";
 "send_guide_btn1_umee" = "Home";
+"send_guide_btn1_axelar" = "Home";
 "send_guide_btn2_cosmos" = "도움말";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -201,6 +204,7 @@
 "send_guide_btn2_althea" = "Blog";
 "send_guide_btn2_osmosis" = "Blog";
 "send_guide_btn2_umee" = "Blog";
+"send_guide_btn2_axelar" = "Blog";
 "name" = "이름";
 "amount" = "수량";
 "value" = "금액";

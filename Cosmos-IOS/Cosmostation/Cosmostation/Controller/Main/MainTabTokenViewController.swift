@@ -236,6 +236,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainImg.image = UIImage(named: "testnetUmee")
             titleChainName.text = "(Umee Testnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.AXELAR_TEST) {
+            titleChainImg.image = UIImage(named: "testnetAxelar")
+            titleChainName.text = "(Axelar Testnet)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
