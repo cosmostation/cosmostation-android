@@ -127,6 +127,9 @@ let UMEE_TEST_API                       = "https://api-office.cosmostation.io/um
 let AXELAR_TEST_API                     = "https://api-office.cosmostation.io/axelar-testnet-adelaide/";
 
 
+let EMONEY_TEST_API                     = "https://api-office.cosmostation.io/lilmermaid-13/";
+
+
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
 let MOON_PAY_PUBLICK                    = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn";
 
@@ -156,6 +159,7 @@ let ALTHEA_VAL_URL                      = "https://raw.githubusercontent.com/cos
 let OSMOSIS_VAL_URL                     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/osmosis/";
 let UMEE_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/umee/";
 let AXELAR_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/axelar/";
+let EMONEY_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/emoney/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_CDP_IMG_URL                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
@@ -163,6 +167,7 @@ let KAVA_HARD_POOL_IMG_URL              = "https://raw.githubusercontent.com/cos
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
 let OKEX_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
 let SIF_COIN_IMG_URL                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/sif/";
+let EMONEY_COIN_IMG_URL                 = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/emoney/";
 
 
 //DB for Account
@@ -479,6 +484,10 @@ let GAS_FEE_RATE_TINY_CERTIK                = "0.05";
 let GAS_FEE_RATE_LOW_CERTIK                 = "0.05";
 let GAS_FEE_RATE_AVERAGE_CERTIK             = "0.05";
 
+let GAS_FEE_RATE_TINY_EMONEY                = "1";
+let GAS_FEE_RATE_LOW_EMONEY                 = "1";
+let GAS_FEE_RATE_AVERAGE_EMONEY             = "1";
+
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
 let GAS_FEE_AMOUNT_HIGH                     = "300000"
@@ -762,6 +771,11 @@ let TRANS_BG_COLOR_AXELAR2                  = UIColor.init(hexString: "C4C4C4", 
 let COLOR_AXELAR                            = UIColor.init(hexString: "C4C4C4")
 let COLOR_AXELAR_DARK                       = UIColor.init(hexString: "6c7076")
 
+let TRANS_BG_COLOR_EMONEY                   = UIColor.init(hexString: "86ccba", alpha: 0.15)
+let TRANS_BG_COLOR_EMONEY2                  = UIColor.init(hexString: "86ccba", alpha: 0.4)
+let COLOR_EMONEY                            = UIColor.init(hexString: "86ccba")
+let COLOR_EMONEY_DARK                       = UIColor.init(hexString: "43655c")
+
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
@@ -793,6 +807,7 @@ public enum ChainType: String {
     case KI_MAIN
     case OSMOSIS_MAIN
     case MEDI_MAIN
+    case EMONEY_MAIN
     
     case COSMOS_TEST
     case IRIS_TEST
@@ -826,6 +841,7 @@ public enum ChainType: String {
         result.append(KI_MAIN)
         result.append(OSMOSIS_MAIN)
         result.append(MEDI_MAIN)
+        result.append(EMONEY_MAIN)
         result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)
@@ -934,6 +950,7 @@ let CHAIN_SIF_S = "SUPPORT_CHAIN_SIF_MAIN"
 let CHAIN_KI_S = "SUPPORT_CHAIN_KI_MAIN"
 let CHAIN_OSMOSIS_S = "SUPPORT_CHAIN_OSMOSIS_MAIN"
 let CHAIN_MEDI_S = "SUPPORT_CHAIN_MEDI"
+let CHAIN_EMONEY_S = "SUPPORT_CHAIN_EMONEY"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_IRIS_TEST_S = "SUPPORT_CHAIN_IRIS_TEST"
@@ -971,6 +988,7 @@ let ALTHEA_MAIN_DENOM = "ualtg"
 let OSMOSIS_MAIN_DENOM = "uosmo"
 let UMEE_MAIN_DENOM = "uumee"
 let AXELAR_MAIN_DENOM = "uaxl"
+let EMONEY_MAIN_DENOM = "ungm"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
@@ -979,6 +997,11 @@ let KAVA_HARD_DENOM = "hard"
 let KAVA_USDX_DENOM = "usdx"
 let KAVA_SWAP_DENOM = "swp"
 let OSMOSIS_ION_DENOM = "uion"
+let EMONEY_EUR_DENOM = "eeur"
+let EMONEY_CHF_DENOM = "echf"
+let EMONEY_DKK_DENOM = "edkk"
+let EMONEY_NOK_DENOM = "enok"
+let EMONEY_SEK_DENOM = "esek"
 
 
 let BITCOINCASH    = "asset:bch";
@@ -1034,6 +1057,7 @@ let EXPLORER_KI_MAIN        = "https://www.mintscan.io/ki-chain/";
 let EXPLORER_OSMOSIS_MAIN   = "https://www.mintscan.io/osmosis/";
 let EXPLORER_MEDI_MAIN      = "https://www.mintscan.io/medibloc/";
 let EXPLORER_CERTIK         = "https://www.mintscan.io/certik/";
+let EXPLORER_EMONEY         = "https://www.mintscan.io/emoney/";
 let EXPLORER_HDAC_MAIN      = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";

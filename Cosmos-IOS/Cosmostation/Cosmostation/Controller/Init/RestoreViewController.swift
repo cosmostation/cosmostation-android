@@ -246,6 +246,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         mediAction.setValue(UIImage(named: "chainMedibloc")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let emoneyAction = UIAlertAction(title: NSLocalizedString("chain_title_emoney", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.EMONEY_MAIN
+            self.initViewUpdate()
+        })
+        emoneyAction.setValue(UIImage(named: "chainEmoney")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         
         let cosmosTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_cosmos", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.COSMOS_TEST
@@ -330,6 +336,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         showAlert.addAction(kiAction)
         showAlert.addAction(osmosisAction)
         showAlert.addAction(mediAction)
+        showAlert.addAction(emoneyAction)
         showAlert.addAction(secretAction)
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {

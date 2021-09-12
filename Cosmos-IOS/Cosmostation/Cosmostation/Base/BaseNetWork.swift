@@ -1053,6 +1053,9 @@ class BaseNetWork {
         } else if (chain == ChainType.CERTIK_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-certik.cosmostation.io", port: 9090)
             
+        } else if (chain == ChainType.EMONEY_MAIN) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 40900)
+            
         }
         
         
