@@ -753,9 +753,9 @@ public class BaseConstant {
     public final static String CERTIK_GAS_RATE_LOW                      = "0.05";
     public final static String CERTIK_GAS_RATE_AVERAGE                  = "0.05";
 
-    public final static String EMONEY_GAS_RATE_TINY                     = "2.00";
-    public final static String EMONEY_GAS_RATE_LOW                      = "2.00";
-    public final static String EMONEY_GAS_RATE_AVERAGE                  = "2.00";
+    public final static String EMONEY_GAS_RATE_TINY                     = "1.00";
+    public final static String EMONEY_GAS_RATE_LOW                      = "1.00";
+    public final static String EMONEY_GAS_RATE_AVERAGE                  = "1.00";
 
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
@@ -832,7 +832,7 @@ public class BaseConstant {
     public final static String EXPLORER_OSMOSIS_MAIN    = "https://www.mintscan.io/osmosis/";
     public final static String EXPLORER_MEDI_MAIN       = "https://www.mintscan.io/medibloc/";
     public final static String EXPLORER_CERTIK_MAIN     = "https://www.mintscan.io/certik/";
-    public final static String EXPLORER_EMONEY_MAIN     = "https://dev.mintscan.io/emoney/";
+    public final static String EXPLORER_EMONEY_MAIN     = "https://www.mintscan.io/emoney/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 
@@ -845,8 +845,8 @@ public class BaseConstant {
     public final static String EXPLORER_HDAC_TEST       = "http://test.explorer.hdactech.com/hdac-explorer/";
     public final static String EXPLORER_MEDI_TEST       = "https://testnet.mintscan.io/medibloc/";
     public final static String EXPLORER_ALTHEA_TEST     = "https://testnet.mintscan.io/althea/";
-    public final static String EXPLORER_UMEE_TEST       = "https://dev.mintscan.io/umee/";
-    public final static String EXPLORER_AXELAR_TEST     = "https://dev.mintscan.io/axelar/";
+    public final static String EXPLORER_UMEE_TEST       = "https://testnet.mintscan.io/umee/";
+    public final static String EXPLORER_AXELAR_TEST     = "https://testnet.mintscan.io/axelar/";
 
 
     public final static String  PERSISTENCE_COSMOS_EVENT_ADDRESS    = "cosmos1ea6cx6km3jmryax5aefq0vy5wrfcdqtaau4f22";

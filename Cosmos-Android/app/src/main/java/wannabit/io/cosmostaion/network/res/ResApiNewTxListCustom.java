@@ -380,15 +380,18 @@ public class ResApiNewTxListCustom {
                 }
 
                 // sifchain msg
-
-                else if (msgType.contains("MsgAddLiquidity")) {
+                else if (msgType.contains("AddLiquidity")) {
                     result = c.getString(R.string.tx_add_liquidity);
 
-                } else if (msgType.contains("MsgSwap")) {
+                } else if (msgType.contains("Swap")) {
                     result = c.getString(R.string.tx_swap);
 
                 } else if (msgType.contains("MsgCreateEthBridgeClaim")) {
                     result = c.getString(R.string.tx_create_ethereum_bridge);
+
+                } else if (msgType.contains("RemoveLiquidity")) {
+                    result = c.getString(R.string.tx_remove_liquidity);
+
                 }
 
                 // certik msg

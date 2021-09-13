@@ -83,6 +83,7 @@ import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxUnlockPeriodHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxBeginUnlockTokenHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxAddLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateEthBridgeHolder;
+import wannabit.io.cosmostaion.widget.txDetail.sif.TxRemoveLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
@@ -259,8 +260,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_CREATE_TOKEN_SWAP = 62;
 
         private static final int TYPE_TX_ADD_LIQUIDITY = 70;
-        private static final int TYPE_TX_SWAP = 71;
-        private static final int TYPE_TX_CREATE_ETH_BRIDGE = 72;
+        private static final int TYPE_TX_REMOVE_LIQUIDITY = 71;
+        private static final int TYPE_TX_SWAP = 72;
+        private static final int TYPE_TX_CREATE_ETH_BRIDGE = 73;
 
         private static final int TYPE_TX_CREATE_TASK = 80;
         private static final int TYPE_TX_TASK_RESPONSE = 81;
@@ -409,11 +411,15 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             else if (viewType == TYPE_TX_ADD_LIQUIDITY) {
                 return new TxAddLiquidityHolder(getLayoutInflater().inflate(R.layout.item_tx_add_liquidity, viewGroup, false));
 
+            } else if (viewType == TYPE_TX_REMOVE_LIQUIDITY) {
+                return new TxRemoveLiquidityHolder(getLayoutInflater().inflate(R.layout.item_tx_remove_liquidity, viewGroup, false));
+
             } else if (viewType == TYPE_TX_SWAP) {
                 return new TxSwapHolder(getLayoutInflater().inflate(R.layout.item_tx_swap, viewGroup, false));
 
             } else if (viewType == TYPE_TX_CREATE_ETH_BRIDGE) {
                 return new TxCreateEthBridgeHolder(getLayoutInflater().inflate(R.layout.item_tx_create_eth_bridge, viewGroup, false));
+
             }
 
             // certik
@@ -554,6 +560,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                 // sifchain msg
                 else if (msg.getTypeUrl().contains(sifnode.clp.v1.Tx.MsgAddLiquidity.getDescriptor().getFullName())) {
                     return TYPE_TX_ADD_LIQUIDITY;
+                } else if (msg.getTypeUrl().contains(sifnode.clp.v1.Tx.MsgRemoveLiquidity.getDescriptor().getFullName())) {
+                    return TYPE_TX_REMOVE_LIQUIDITY;
                 } else if (msg.getTypeUrl().contains(sifnode.clp.v1.Tx.MsgSwap.getDescriptor().getFullName())) {
                     return TYPE_TX_SWAP;
                 } else if (msg.getTypeUrl().contains(sifnode.ethbridge.v1.Tx.MsgCreateEthBridgeClaim.getDescriptor().getFullName())) {
