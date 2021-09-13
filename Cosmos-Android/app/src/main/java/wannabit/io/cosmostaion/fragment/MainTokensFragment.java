@@ -880,12 +880,10 @@ public class MainTokensFragment extends BaseFragment {
                     Intent intent = new Intent(getMainActivity(), StakingTokenGrpcActivity.class);
                     intent.putExtra("denom", coin.denom);
                     startActivity(intent);
-                } else if (mNativeGrpc.get(position).denom.equalsIgnoreCase(TOKEN_ION)) {
+                } else {
                     Intent intent = new Intent(getMainActivity(), NativeTokenGrpcActivity.class);
                     intent.putExtra("denom", coin.denom);
                     startActivity(intent);
-                } else {
-                    return;
                 }
             }
         });

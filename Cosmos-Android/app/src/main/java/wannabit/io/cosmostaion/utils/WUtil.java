@@ -1316,8 +1316,6 @@ public class WUtil {
         } else if (basechain.equals(KI_MAIN)) {
             result = result + ",uxki";
 
-        } else if (basechain.equals(EMONEY_MAIN)) {
-            result = result + ",echf,edkk,eeur,enok,esek";
         }
         return result;
     }
