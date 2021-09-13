@@ -451,8 +451,8 @@
     <string name="str_umee_chain_test_2" translatable="false">Umee Testnet</string>
     <string name="str_axelar_chain_test" translatable="false">(Axelar Testnet)</string>
     <string name="str_axelar_chain_test_2" translatable="false">Axelar Testnet</string>
-    <string name="str_emoney_net" translatable="false">(Emoney Mainnet)</string>
-    <string name="str_emoney_net2" translatable="false">Emoney Mainnet</string>
+    <string name="str_emoney_net" translatable="false">(E-Money Mainnet)</string>
+    <string name="str_emoney_net2" translatable="false">E-Money Mainnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>

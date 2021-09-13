@@ -324,7 +324,7 @@
     <string name="str_front_guide_title_osmosis"><![CDATA[오스모시스 존]]></string>
     <string name="str_front_guide_title_umee"><![CDATA[우미 체인 (The Ocean)]]></string>
     <string name="str_front_guide_title_axelar"><![CDATA[악셀라 네트워크]]></string>
-    <string name="str_front_guide_title_emoney"><![CDATA[e-Money]]></string>
+    <string name="str_front_guide_title_emoney"><![CDATA[e-머니]]></string>
     <string name="str_front_guide_msg">Tendermint BFT와 ABCI 기반의 분산형 블록체인 네트워크.</string>
     <string name="str_front_guide_msg_iris">분산형 비즈니스 생태계를 위한 인터체인 서비스 인프라 <![CDATA[&]]> 프로토콜.</string>
     <string name="str_front_guide_msg_bnb">바이낸스가 구축한 Tendermint 기반의 빠르고 안전한 분산형 디지털 자산 거래소.</string>
@@ -574,7 +574,6 @@
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
     
-
     <string name="str_min_collateral_rate">최소 담보 비율</string>
     <string name="str_stability_fee">연간 수수료</string>
     <string name="str_liquidation_penalty">청산시 추가 수수료</string>
