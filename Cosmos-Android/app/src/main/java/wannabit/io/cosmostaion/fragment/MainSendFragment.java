@@ -218,8 +218,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_UMEE              = 21;
         private static final int TYPE_EMONEY            = 22;
         private static final int TYPE_AXELAR            = 23;
-
-        private static final int TYPE_STAKE_DROP        = 30;
+        
         private static final int TYPE_KAVA_INCENTIVE    = 40;
         private static final int TYPE_SIF_INCENTIVE     = 50;
         private static final int TYPE_PRICE             = 80;
@@ -367,6 +366,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(MEDI_MAIN) || getMainActivity().mBaseChain.equals(MEDI_TEST)) { return TYPE_MEDI; }
                     else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN)) { return TYPE_CERTIK; }
                     else if (getMainActivity().mBaseChain.equals(EMONEY_MAIN)) { return TYPE_EMONEY; }
+                    else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) { return TYPE_FETCH; }
 //                    else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
                     else if (getMainActivity().mBaseChain.equals(RIZON_TEST)) { return TYPE_RIZON; }
                     else if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) { return TYPE_ALTHEA; }
@@ -409,7 +409,6 @@ public class MainSendFragment extends BaseFragment {
                 if (position == 0) {
                     if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
-                    else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) { return TYPE_FETCH; }
                     else if (getMainActivity().mBaseChain.equals(KI_MAIN)) { return TYPE_KI; }
                 } else if (position == 1) {
                     return TYPE_PRICE;

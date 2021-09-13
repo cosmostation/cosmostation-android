@@ -134,9 +134,6 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
         WUtil.dpCosmosTokenName(getContext(), getBaseDao(), mSwapOutputSymbol, getSActivity().mOutputDenom);
         WUtil.DpCosmosTokenImg(getBaseDao(), mSwapOutputImg, getSActivity().mOutputDenom);
 
-        //새로 받아온 데이터로 보여줄것.
-//        BigDecimal lpInputAmount = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), getSActivity().mInputDenom);
-//        BigDecimal lpOutputAmount = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), getSActivity().mOutputDenom);
         BigDecimal lpInputAmount = getLocalLpAmount(getSActivity().mInputDenom);
         BigDecimal lpOutputAmount = getLocalLpAmount(getSActivity().mOutputDenom);
         if (lpInputAmount != BigDecimal.ZERO && lpOutputAmount != BigDecimal.ZERO) {

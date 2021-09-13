@@ -80,18 +80,6 @@ public class CheckWithdrawAddressTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(FETCHAI_MAIN)) {
-                Response<ResLcdWithDrawAddress> response = ApiClient.getFetchChain(mApp).getWithdrawAddress(mAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if(response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (getChain(mAccount.baseChain).equals(KI_MAIN)) {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getKiChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {

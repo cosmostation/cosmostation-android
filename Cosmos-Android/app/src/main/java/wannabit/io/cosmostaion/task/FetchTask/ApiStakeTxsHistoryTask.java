@@ -192,6 +192,15 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
 
+            } else if (mChain.equals(BaseChain.FETCHAI_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getFetchApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
+
 //            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
 //                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getBandApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
 //                if (response.isSuccessful() && response.body() != null) {
