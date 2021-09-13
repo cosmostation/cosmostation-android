@@ -52,7 +52,7 @@ public class GravityDepositPoolActivity extends BaseBroadCastActivity {
         mTitle.setText(getString(R.string.str_title_pool_join));
 
         mTxType = CONST_PW_TX_GDEX_DEPOSIT;
-        mPoolId = getIntent().getLongExtra("mPoolId", 0);
+        mGDexPoolId = getIntent().getLongExtra("mPoolId", 0);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -148,7 +148,7 @@ public class GravityDepositPoolActivity extends BaseBroadCastActivity {
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_GDEX_DEPOSIT);
         intent.putExtra("mPoolCoin0", mPoolCoin0);
         intent.putExtra("mPoolCoin1", mPoolCoin1);
-        intent.putExtra("mPoolId", mPoolId);
+        intent.putExtra("mPoolId", mGDexPoolId);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);

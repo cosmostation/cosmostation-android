@@ -23,7 +23,6 @@ import java.math.RoundingMode;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravityWithdrawPoolActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -94,7 +93,7 @@ public class GDexWithdrawStep0Fragment extends BaseFragment implements View.OnCl
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        String lpDenom = getSActivity().mCosmosPool.getPoolCoinDenom();
+        String lpDenom = getSActivity().mGDexPool.getPoolCoinDenom();
         mAvailableMaxAmount = getBaseDao().getAvailable(lpDenom);
         setDpDecimals(mCoinDecimal);
 
@@ -201,7 +200,7 @@ public class GDexWithdrawStep0Fragment extends BaseFragment implements View.OnCl
             if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (amountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mCoinDecimal).setScale(mCoinDecimal, RoundingMode.CEILING)) > 0) return false;
 
-            getSActivity().mLpToken = new Coin(getSActivity().mCosmosPool.getPoolCoinDenom(), amountTemp.movePointRight(mCoinDecimal).toPlainString());
+            getSActivity().mLpToken = new Coin(getSActivity().mGDexPool.getPoolCoinDenom(), amountTemp.movePointRight(mCoinDecimal).toPlainString());
 
             return true;
 
@@ -215,7 +214,7 @@ public class GDexWithdrawStep0Fragment extends BaseFragment implements View.OnCl
     private int mTaskCount;
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new GravityDexPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new GravityDexPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mGDexPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -223,7 +222,7 @@ public class GDexWithdrawStep0Fragment extends BaseFragment implements View.OnCl
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_GRAVITY_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getSActivity().mCosmosPool = (Liquidity.Pool) result.resultData;
+                getSActivity().mGDexPool = (Liquidity.Pool) result.resultData;
             }
         }
         if (mTaskCount == 0) {

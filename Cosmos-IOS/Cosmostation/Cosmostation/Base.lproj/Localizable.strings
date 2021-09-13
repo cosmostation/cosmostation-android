@@ -160,6 +160,10 @@
 "send_guide_msg_osmosis" = "The interchain AMM powered by the Cosmos Inter-Blockchain Communication protocol, enabling sovereign blockchain networks to access a vast pool of liquidity.";
 "send_guide_title_umee" = "UMEE (The Ocean)";
 "send_guide_msg_umee" = "A cross-chain DeFi platform that enables multi-chain lending & borrowing, staking, and leverage.";
+"send_guide_title_axelar" = "AXELAR NETWORK";
+"send_guide_msg_axelar" = "Axelar is a decentralized multi-chain network that enables cross chain communication with a simple pegging mechanism.";
+"send_guide_title_emoney" = "e-Money";
+"send_guide_msg_emoney" = "A network for the next generation fiat-backed stablecoins for the Internet of Money.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -181,6 +185,8 @@
 "send_guide_btn1_althea" = "Home";
 "send_guide_btn1_osmosis" = "Home";
 "send_guide_btn1_umee" = "Home";
+"send_guide_btn1_axelar" = "Home";
+"send_guide_btn1_emoney" = "Home";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -202,6 +208,8 @@
 "send_guide_btn2_althea" = "Blog";
 "send_guide_btn2_osmosis" = "Blog";
 "send_guide_btn2_umee" = "Blog";
+"send_guide_btn2_axelar" = "Blog";
+"send_guide_btn2_emoney" = "Blog";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";
@@ -819,6 +827,7 @@ support@cosmostation.io";
 "chain_title_ki" = "KiChain Mainnet";
 "chain_title_osmosis" = "Osmosis Mainnet";
 "chain_title_medi" = "Medibloc Mainnet";
+"chain_title_emoney" = "E-Money Mainnet";
 "chain_title_test_cosmos" = "StarGate Testnet";
 "chain_title_test_iris" = "Bifrost Testnet";
 "chain_title_test_bnb" = "Binance Testnet";
@@ -830,6 +839,7 @@ support@cosmostation.io";
 "chain_title_medi_test" = "Medibloc Testnet";
 "chain_title_althea_test" = "Althea Testnet";
 "chain_title_umee_test" = "Umee Testnet";
+"chain_title_axelar_test" = "Axelar Testnet";
 
 "date_format" = "MMM d, yyyy HH:mm:ss";
 "date_format2" = "MMM d, yyyy";

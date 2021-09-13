@@ -174,7 +174,6 @@ public class BaseData {
     public HashMap<String, MarketPrice>     mKavaTokenPrices = new HashMap<>();
     public SwapParam                        mSwapParam;
     public ArrayList<KavaPriceMarket.Market>       mKavaPriceMarket = new ArrayList<>();
-//    public String                           mIncentiveMultiplier;
 
     //COMMON DATA FOR BINANCE
     public ArrayList<BnbToken>      mBnbTokens = new ArrayList<>();

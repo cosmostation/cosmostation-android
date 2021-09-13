@@ -35,9 +35,12 @@ public class SupplyDenomGrpcTask extends CommonTask {
             QueryOuterClass.QuerySupplyOfRequest request = QueryOuterClass.QuerySupplyOfRequest.newBuilder().setDenom(mDenom).build();
             QueryOuterClass.QuerySupplyOfResponse response = mStub.supplyOf(request);
 
-            mApp.getBaseDao().mGDexPoolTokens.add(new Coin(response.getAmount().getDenom(), response.getAmount().getAmount()));
-            mResult.resultData = mApp.getBaseDao().mGDexPoolTokens;
+            mResult.resultData = response.getAmount();
             mResult.isSuccess = true;
+
+//            mApp.getBaseDao().mGDexPoolTokens.add(new Coin(response.getAmount().getDenom(), response.getAmount().getAmount()));
+//            mResult.resultData = mApp.getBaseDao().mGDexPoolTokens;
+//            mResult.isSuccess = true;
 
         } catch (Exception e) { WLog.e( "SupplyDenomGrpcTask "+ e.getMessage()); }
         return mResult;

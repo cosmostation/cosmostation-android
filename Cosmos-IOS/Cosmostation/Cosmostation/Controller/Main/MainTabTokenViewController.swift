@@ -190,6 +190,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainImg.image = UIImage(named: "chainMedibloc")
             titleChainName.text = "(Medibloc Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.EMONEY_MAIN) {
+            titleChainImg.image = UIImage(named: "chainEmoney")
+            titleChainName.text = "(E-Money Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
@@ -235,6 +239,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (chainType! == ChainType.UMEE_TEST) {
             titleChainImg.image = UIImage(named: "testnetUmee")
             titleChainName.text = "(Umee Testnet)"
+            titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.AXELAR_TEST) {
+            titleChainImg.image = UIImage(named: "testnetAxelar")
+            titleChainName.text = "(Axelar Testnet)"
             titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
@@ -348,6 +356,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (indexPath.section == SECTION_UNKNOWN_GRPC) {
             cell?.tokenSymbol.text = mUnKnown_gRPC[indexPath.row].denom.uppercased()
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(mUnKnown_gRPC[indexPath.row].amount, cell!.tokenAmount.font, 6, 6)
         }
         
         else if (indexPath.section == SECTION_NATIVE) {
@@ -618,7 +627,42 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allUmee.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(UMEE_MAIN_DENOM, allUmee, 6, cell!.tokenValue.font)
             
+        } else if (coin.denom == AXELAR_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenAxelar")
+            cell?.tokenSymbol.text = "AXL"
+            cell?.tokenSymbol.textColor = COLOR_AXELAR
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = "Axelar Staking Token"
+            
+            let allAlx = WUtils.getAllMainAsset(AXELAR_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAlx.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(AXELAR_MAIN_DENOM, allAlx, 6, cell!.tokenValue.font)
+            
+        } else if (coin.denom == EMONEY_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenEmoney")
+            cell?.tokenSymbol.text = "NGM"
+            cell?.tokenSymbol.textColor = COLOR_EMONEY
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = "E-Money Staking Token"
+            
+            let allNgm = WUtils.getAllMainAsset(EMONEY_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allNgm.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(EMONEY_MAIN_DENOM, allNgm, 6, cell!.tokenValue.font)
+            
+        } else if (coin.denom == EMONEY_EUR_DENOM || coin.denom == EMONEY_CHF_DENOM || coin.denom == EMONEY_DKK_DENOM ||
+                    coin.denom == EMONEY_NOK_DENOM || coin.denom == EMONEY_SEK_DENOM) {
+            cell?.tokenImg.af_setImage(withURL: URL(string: EMONEY_COIN_IMG_URL + coin.denom + ".png")!)
+            cell?.tokenSymbol.text = coin.denom.substring(from: 1).uppercased()
+            cell?.tokenSymbol.textColor = .white
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = coin.denom.substring(from: 1).uppercased() + " on E-Money Network"
+            
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(coin.amount, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(coin.denom, BaseData.instance.getAvailableAmount_gRPC(coin.denom), 6, cell!.tokenValue.font)
+            
         }
+        
+        
         
         else if (coin.denom == COSMOS_TEST_DENOM) {
             cell?.tokenImg.image = UIImage(named: "atom_ic")
@@ -900,6 +944,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         mPoolToken_gRPC.removeAll()
         mSifEther_gRPC.removeAll()
         mIbcUnknown_gRPC.removeAll()
+        mUnKnown_gRPC.removeAll()
         
         self.mBalances_gRPC.forEach { balance_gRPC in
             if (WUtils.getMainDenom(chainType) == balance_gRPC.denom) {
@@ -913,14 +958,20 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 if (ibcToken.auth == true) { mIbcAuthed_gRPC.append(balance_gRPC) }
                 else { mIbcUnknown_gRPC.append(balance_gRPC) }
                 
+            } else if (chainType == ChainType.OSMOSIS_MAIN && balance_gRPC.denom == OSMOSIS_ION_DENOM) {
+                mNative_gRPC.append(balance_gRPC)
+                
+            } else if (chainType == ChainType.EMONEY_MAIN) {
+                if (balance_gRPC.denom == EMONEY_EUR_DENOM || balance_gRPC.denom == EMONEY_CHF_DENOM || balance_gRPC.denom == EMONEY_DKK_DENOM ||
+                        balance_gRPC.denom == EMONEY_NOK_DENOM || balance_gRPC.denom == EMONEY_SEK_DENOM) {
+                    mNative_gRPC.append(balance_gRPC)
+                }
+            
             } else if (chainType == ChainType.OSMOSIS_MAIN && balance_gRPC.isOsmosisAmm()) {
                 mPoolToken_gRPC.append(balance_gRPC)
                 
             } else if (chainType == ChainType.COSMOS_MAIN && balance_gRPC.isGravityAmm()) {
                 mPoolToken_gRPC.append(balance_gRPC)
-                
-            } else if (chainType == ChainType.OSMOSIS_MAIN && balance_gRPC.denom == OSMOSIS_ION_DENOM) {
-                mNative_gRPC.append(balance_gRPC)
                 
             } else if (chainType == ChainType.SIF_MAIN && balance_gRPC.denom.starts(with: "c")) {
                 mSifEther_gRPC.append(balance_gRPC)

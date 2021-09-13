@@ -893,6 +893,8 @@ class BaseNetWork {
             result = SIF_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.MEDI_MAIN) {
             result = MEDI_API + "v1/account/new_txs/" + address
+        } else if (chain == ChainType.EMONEY_MAIN) {
+            result = EMONEY_API + "v1/account/new_txs/" + address
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
@@ -925,6 +927,8 @@ class BaseNetWork {
             result = ALTHEA_TEST_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.UMEE_TEST) {
             result = UMEE_TEST_API + "v1/account/new_txs/" + address
+        } else if (chain == ChainType.AXELAR_TEST) {
+            result = AXELAR_TEST_API + "v1/account/new_txs/" + address
         }
         return result
     }
@@ -951,6 +955,8 @@ class BaseNetWork {
             result = SIF_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.MEDI_MAIN) {
             result = MEDI_API + "v1/account/new_txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.EMONEY_MAIN) {
+            result = EMONEY_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
@@ -982,6 +988,8 @@ class BaseNetWork {
             result = ALTHEA_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.UMEE_TEST) {
             result = UMEE_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.AXELAR_TEST) {
+            result = AXELAR_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
         return result
     }
@@ -1049,6 +1057,9 @@ class BaseNetWork {
         } else if (chain == ChainType.CERTIK_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-certik.cosmostation.io", port: 9090)
             
+        } else if (chain == ChainType.EMONEY_MAIN) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 40900)
+            
         }
         
         
@@ -1067,6 +1078,9 @@ class BaseNetWork {
             
         } else if (chain == ChainType.UMEE_TEST) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 40800)
+            
+        } else if (chain == ChainType.AXELAR_TEST) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 40600)
             
         }
         return nil

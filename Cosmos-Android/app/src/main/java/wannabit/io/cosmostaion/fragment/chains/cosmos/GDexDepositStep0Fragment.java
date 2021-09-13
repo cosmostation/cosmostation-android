@@ -130,8 +130,8 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
         mProgress.setVisibility(View.GONE);
 
         BigDecimal txFeeAmount = WUtil.getEstimateGasFeeAmount(getSActivity(), getSActivity().mBaseChain, CONST_PW_TX_GDEX_DEPOSIT, 0);
-        String coin0Denom = getSActivity().mCosmosPool.getReserveCoinDenoms(0);
-        String coin1Denom = getSActivity().mCosmosPool.getReserveCoinDenoms(1);
+        String coin0Denom = getSActivity().mGDexPool.getReserveCoinDenoms(0);
+        String coin1Denom = getSActivity().mGDexPool.getReserveCoinDenoms(1);
 
         mAvailable0MaxAmount = getBaseDao().getAvailable(coin0Denom);
         mAvailable1MaxAmount = getBaseDao().getAvailable(coin1Denom);
@@ -148,8 +148,8 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
         WDp.showCoinDp(getSActivity(), WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mJoinPoolInput0Denom, coin0Denom), mAvailable0MaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount, BaseChain.COSMOS_MAIN);
         WDp.showCoinDp(getSActivity(), WUtil.dpCosmosTokenName(getSActivity(), getBaseDao(), mJoinPoolInput1Denom, coin1Denom), mAvailable1MaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount, BaseChain.COSMOS_MAIN);
 
-        BigDecimal lpInputAmount0 = WUtil.getLpAmount(getBaseDao(), getSActivity().mCosmosPool.getReserveAccountAddress(), coin0Denom);
-        BigDecimal lpInputAmount1 = WUtil.getLpAmount(getBaseDao(), getSActivity().mCosmosPool.getReserveAccountAddress(), coin1Denom);
+        BigDecimal lpInputAmount0 = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), coin0Denom);
+        BigDecimal lpInputAmount1 = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), coin1Denom);
 
         if (lpInputAmount0 != BigDecimal.ZERO && lpInputAmount1 != BigDecimal.ZERO) {
             mDepositRate = lpInputAmount1.divide(lpInputAmount0, 18, RoundingMode.DOWN);
@@ -386,8 +386,8 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
             if (OutputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (OutputAmountTemp.compareTo(mAvailable1MaxAmount.movePointLeft(mCoin1Decimal).setScale(mCoin1Decimal, RoundingMode.CEILING)) > 0) return false;
 
-            getSActivity().mPoolCoin0 = new Coin(getSActivity().mCosmosPool.getReserveCoinDenoms(0), InputAmountTemp.movePointRight(mCoin0Decimal).toPlainString());
-            getSActivity().mPoolCoin1 = new Coin(getSActivity().mCosmosPool.getReserveCoinDenoms(1), OutputAmountTemp.movePointRight(mCoin1Decimal).toPlainString());
+            getSActivity().mPoolCoin0 = new Coin(getSActivity().mGDexPool.getReserveCoinDenoms(0), InputAmountTemp.movePointRight(mCoin0Decimal).toPlainString());
+            getSActivity().mPoolCoin1 = new Coin(getSActivity().mGDexPool.getReserveCoinDenoms(1), OutputAmountTemp.movePointRight(mCoin1Decimal).toPlainString());
 
             return true;
 
@@ -418,7 +418,7 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
     private int mTaskCount;
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new GravityDexPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new GravityDexPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mGDexPoolId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -426,7 +426,7 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_GRAVITY_POOL_INFO) {
             if (result.isSuccess && result.resultData != null) {
-                getSActivity().mCosmosPool = (Liquidity.Pool) result.resultData;
+                getSActivity().mGDexPool = (Liquidity.Pool) result.resultData;
             }
         }
         if (mTaskCount == 0) {

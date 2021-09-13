@@ -187,6 +187,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "chainMedibloc")
             titleChainName.text = "(Medibloc Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.EMONEY_MAIN) {
+            titleChainImg.image = UIImage(named: "chainEmoney")
+            titleChainName.text = "(E-Money Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         
@@ -233,6 +237,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType! == ChainType.UMEE_TEST) {
             titleChainImg.image = UIImage(named: "testnetUmee")
             titleChainName.text = "(Umee Testnet)"
+            titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.AXELAR_TEST) {
+            titleChainImg.image = UIImage(named: "testnetAxelar")
+            titleChainName.text = "(Axelar Testnet)"
             titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in

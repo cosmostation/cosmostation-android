@@ -61,6 +61,7 @@ class PoolViewController: BaseViewController, UITableViewDelegate, UITableViewDa
             return cell!
         }
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 0) {
             let noticeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)

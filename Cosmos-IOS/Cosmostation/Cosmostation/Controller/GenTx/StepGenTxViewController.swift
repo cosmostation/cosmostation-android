@@ -129,6 +129,12 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mLockups: Array<Osmosis_Lockup_PeriodLock>?
     
     
+    var mGDexPool: Tendermint_Liquidity_V1beta1_Pool?
+    var mGDexPoolManager: GDexManager!
+    var mGDexPoolSupply: Coin!
+    var mGDexSwapOrderPrice: NSDecimalNumber?
+    
+    
     var mHdacKey: HDWalletKit.PrivateKey?
     var mHdacAddress: String?
     var mHdacBalance: NSDecimalNumber?
@@ -272,28 +278,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     self.newVc(viewController: "StepHtlcRefund3ViewController")]
             
-        }
-//        else if (mType == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
-//            return [self.newVc(viewController: "StepIncentive0ViewController"),
-//                    self.newVc(viewController: "StepMemoViewController"),
-//                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
-//                    self.newVc(viewController: "StepIncentive3ViewController")]
-//
-//        } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
-//            return [self.newVc(viewController: "StepHarvestReward0ViewController"),
-//                    self.newVc(viewController: "StepMemoViewController"),
-//                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
-//                    self.newVc(viewController: "StepHarvestReward3ViewController")]
-//
-//        } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV) {
-//            return [self.newVc(viewController: "StepSendAddressViewController"),
-//                    self.newVc(viewController: "StepHarvestReward0ViewController"),
-//                    self.newVc(viewController: "StepMemoViewController"),
-//                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
-//                    self.newVc(viewController: "StepHarvestReward3ViewController")]
-//
-//        }
-        else if (mType == KAVA_MSG_TYPE_DEPOSIT_HARD) {
+        } else if (mType == KAVA_MSG_TYPE_DEPOSIT_HARD) {
             return [HardPoolDeposit0ViewController(nibName: "HardPoolDeposit0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
                     StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
@@ -433,6 +418,26 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         else if (mType == TASK_RIZON_EVENT_HORIZON) {
             return [StepEventHorizon0ViewController(nibName: "StepEventHorizon0ViewController", bundle: nil),
                     StepEventHorizon1ViewController(nibName: "StepEventHorizon1ViewController", bundle: nil)]
+        }
+        
+        else if (mType == LIQUIDITY_MSG_TYPE_SWAP) {
+            return [GdexSwap0ViewController(nibName: "GdexSwap0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                    GdexSwap3ViewController(nibName: "GdexSwap3ViewController", bundle: nil)]
+            
+        } else if (mType == LIQUIDITY_MSG_TYPE_JOIN_POOL) {
+            return [GdexDeposit0ViewController(nibName: "GdexDeposit0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                    GdexDeposit3ViewController(nibName: "GdexDeposit3ViewController", bundle: nil)]
+            
+        } else if (mType == LIQUIDITY_MSG_TYPE_EXIT_POOL) {
+            return [GdexWithdraw0ViewController(nibName: "GdexWithdraw0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                    GdexWithdraw3ViewController(nibName: "GdexWithdraw3ViewController", bundle: nil)]
+            
         }
         
         

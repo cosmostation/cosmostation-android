@@ -327,6 +327,26 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
+        } else if (userInput.starts(with: "axelar1")) {
+            if (WKey.isValidateBech32(userInput)) {
+                self.onGenWatchAccount(ChainType.AXELAR_TEST, userInput)
+                return;
+            } else {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                self.addAddressInputText.text = ""
+                return;
+            }
+            
+        } else if (userInput.starts(with: "emoney1")) {
+            if (WKey.isValidateBech32(userInput)) {
+                self.onGenWatchAccount(ChainType.EMONEY_MAIN, userInput)
+                return;
+            } else {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                self.addAddressInputText.text = ""
+                return;
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
             self.addAddressInputText.text = ""
