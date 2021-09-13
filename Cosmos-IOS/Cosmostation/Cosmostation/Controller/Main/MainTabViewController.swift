@@ -302,7 +302,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         if (WUtils.isGRPC(mChainType!)) {
             DispatchQueue.global().async {
-                let group = MultiThreadedEventLoopGroup(numberOfThreads: 6)
+                let group = MultiThreadedEventLoopGroup(numberOfThreads: 15)
                 defer { try! group.syncShutdownGracefully() }
                 
                 self.channel = BaseNetWork.getConnection(self.mChainType!, group)!
