@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.squareup.picasso.Picasso;
+
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
@@ -31,9 +33,11 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 
 public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClickListener{
@@ -59,7 +63,6 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     private String                          mNativeGrpcDenom;
 
     private int                             mDivideDecimal = 6;
-    private int                             mDisplayDecimal = 6;
     private BigDecimal                      mTotalAmount = BigDecimal.ZERO;
 
     @Override
@@ -128,11 +131,15 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             mToolbarSymbol.setText(getString(R.string.str_uion_c));
             if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_ION)) {
                 mDivideDecimal = 6;
-                mDisplayDecimal = 6;
+
                 mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
-                mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mNativeGrpcDenom, mTotalAmount, mDivideDecimal));
             }
             mBtnIbcSend.setVisibility(View.VISIBLE);
+
+        } else if (mBaseChain.equals(BaseChain.EMONEY_MAIN)) {
+            mToolbarSymbol.setText(mNativeGrpcDenom.substring(1).toUpperCase());
+            Picasso.get().load(EMONEY_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
+            mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
         }
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mNativeGrpcDenom));
@@ -150,6 +157,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(NativeTokenGrpcActivity.this, mBaseChain));
         mAddress.setText(mAccount.address);
+        mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mNativeGrpcDenom, mTotalAmount, mDivideDecimal));
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
             mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -190,6 +198,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
     private class NativeTokenGrpcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_UNKNOWN               = -1;
         private static final int TYPE_OSMOSIS               = 0;
+        private static final int TYPE_EMONEY                = 1;
 
         private static final int TYPE_HISTORY               = 100;
 
@@ -199,6 +208,9 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             if (viewType == TYPE_UNKNOWN) {
 
             } else if (viewType == TYPE_OSMOSIS) {
+                return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
+
+            } else if (viewType == TYPE_EMONEY) {
                 return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
             }
 
@@ -211,6 +223,10 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_OSMOSIS) {
+                TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
+                holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, mBaseChain, getBaseDao(), mNativeGrpcDenom);
+
+            } else if (getItemViewType(position) == TYPE_EMONEY) {
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
                 holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, mBaseChain, getBaseDao(), mNativeGrpcDenom);
             }
@@ -227,9 +243,9 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         @Override
         public int getItemViewType(int position) {
-            if (mBaseChain.equals(OSMOSIS_MAIN)) {
-                if (position == 0) return TYPE_OSMOSIS;
-                else return TYPE_HISTORY;
+            if (position == 0) {
+                if (mBaseChain.equals(OSMOSIS_MAIN)) { return TYPE_OSMOSIS; }
+                else if (mBaseChain.equals(EMONEY_MAIN)) { return TYPE_EMONEY; }
             }
             return TYPE_UNKNOWN;
         }
