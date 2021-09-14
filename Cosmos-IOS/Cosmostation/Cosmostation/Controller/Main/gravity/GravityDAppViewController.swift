@@ -106,11 +106,11 @@ class GravityDAppViewController: BaseViewController {
         let page = Cosmos_Base_Query_V1beta1_PageRequest.with { $0.limit = 1000 }
         let req = Tendermint_Liquidity_V1beta1_QueryLiquidityPoolsRequest.with { $0.pagination = page }
         if let response = try? Tendermint_Liquidity_V1beta1_QueryClient(channel: self.channel).liquidityPools(req, callOptions: BaseNetWork.getCallOptions()).response.wait() {
-            self.mFetchCnt = self.mFetchCnt + (response.pools.count * 2)
-            response.pools.forEach { pool in
-                self.onFetchGdexPoolManager(pool.reserveAccountAddress)
-                self.onFetchSupply(pool.poolCoinDenom)
+            response.pools.forEach { pool in                
                 if (BaseData.instance.mParam?.isPoolEnabled(Int(pool.id)) == true) {
+                    self.mFetchCnt = self.mFetchCnt + 2
+                    self.onFetchGdexPoolManager(pool.reserveAccountAddress)
+                    self.onFetchSupply(pool.poolCoinDenom)
                     BaseData.instance.mGravityPools_gRPC.append(pool)
                 }
             }
