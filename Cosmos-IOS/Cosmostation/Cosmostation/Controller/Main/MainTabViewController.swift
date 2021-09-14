@@ -1162,7 +1162,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     BaseData.instance.mMyBalances_gRPC.append(Coin.init(balance.denom, balance.amount))
                 }
             }
-            if (BaseData.instance.mMyBalances_gRPC.count <= 0) {
+            if (BaseData.instance.getAvailableAmount_gRPC(WUtils.getMainDenom(self.mChainType)).compare(NSDecimalNumber.zero).rawValue <= 0) {
                 BaseData.instance.mMyBalances_gRPC.append(Coin.init(WUtils.getMainDenom(self.mChainType), "0"))
             }
         }
