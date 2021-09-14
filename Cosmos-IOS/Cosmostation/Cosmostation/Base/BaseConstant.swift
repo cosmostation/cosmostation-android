@@ -841,7 +841,7 @@ public enum ChainType: String {
         result.append(KI_MAIN)
         result.append(OSMOSIS_MAIN)
         result.append(MEDI_MAIN)
-        result.append(EMONEY_MAIN)
+//        result.append(EMONEY_MAIN)
         result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)
