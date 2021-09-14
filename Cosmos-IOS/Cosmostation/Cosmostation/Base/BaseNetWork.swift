@@ -24,8 +24,6 @@ class BaseNetWork {
             return BAND_URL + "node_info"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "node_info"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "node_info"
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "node_info"
         }
@@ -55,8 +53,6 @@ class BaseNetWork {
             return BAND_URL + "auth/accounts/" + address
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "auth/accounts/" + address
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "auth/accounts/" + address
         }
@@ -84,8 +80,6 @@ class BaseNetWork {
             return BAND_URL + "staking/validators"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/validators"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "staking/validators"
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "staking/validators"
         }
@@ -109,8 +103,6 @@ class BaseNetWork {
             return BAND_URL + "staking/validators" + "/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/validators" + "/" + opAddress
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "staking/validators" + "/" + opAddress
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "staking/validators" + "/" + opAddress
         }
@@ -132,8 +124,6 @@ class BaseNetWork {
             return BAND_URL + "staking/delegators/" + address + "/delegations"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/delegators/" + address + "/delegations"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "staking/delegators/" + address + "/delegations"
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "staking/delegators/" + address + "/delegations"
         }
@@ -155,8 +145,6 @@ class BaseNetWork {
             return BAND_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/delegators/" + address + "/delegations/" + opAddress
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         }
@@ -178,8 +166,6 @@ class BaseNetWork {
             return BAND_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/delegators/" + address + "/unbonding_delegations"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "staking/delegators/" + address + "/unbonding_delegations"
         }
@@ -201,8 +187,6 @@ class BaseNetWork {
             return BAND_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         }
@@ -224,8 +208,6 @@ class BaseNetWork {
             return BAND_URL + "staking/redelegations"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/redelegations"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "staking/redelegations"
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "staking/redelegations"
         }
@@ -247,8 +229,6 @@ class BaseNetWork {
             return BAND_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "distribution/delegators/" + address + "/rewards"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "distribution/delegators/" + address + "/rewards"
         }
@@ -270,8 +250,6 @@ class BaseNetWork {
             return BAND_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         }
@@ -293,8 +271,6 @@ class BaseNetWork {
             return BAND_URL + "distribution/delegators/" + address + "/withdraw_address"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "distribution/delegators/" + address + "/withdraw_address"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "distribution/delegators/" + address + "/withdraw_address"
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "distribution/delegators/" + address + "/withdraw_address"
         }
@@ -316,8 +292,6 @@ class BaseNetWork {
             return BAND_URL + "gov/proposals"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "gov/proposals"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "gov/proposals"
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "gov/proposals"
         }
@@ -339,8 +313,6 @@ class BaseNetWork {
             return BAND_URL + "gov/proposals" + "/" + id
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "gov/proposals" + "/" + id
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "gov/proposals" + "/" + id
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "gov/proposals" + "/" + id
         }
@@ -362,8 +334,6 @@ class BaseNetWork {
             return BAND_URL + "gov/proposals" + "/" + id + "/tally"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "gov/proposals" + "/" + id + "/tally"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "gov/proposals" + "/" + id + "/tally"
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "gov/proposals" + "/" + id + "/tally"
         }
@@ -385,8 +355,6 @@ class BaseNetWork {
             return BAND_URL + "gov/proposals" + "/" + id + "/votes/" + address
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "gov/proposals" + "/" + id + "/votes/" + address
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "gov/proposals" + "/" + id + "/votes/" + address
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "gov/proposals" + "/" + id + "/votes/" + address
         }
@@ -408,8 +376,6 @@ class BaseNetWork {
             return BAND_URL + "gov/proposals" + "/" + id + "/proposer"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "gov/proposals" + "/" + id + "/proposer"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "gov/proposals" + "/" + id + "/proposer"
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "gov/proposals" + "/" + id + "/proposer"
         }
@@ -431,8 +397,6 @@ class BaseNetWork {
             return BAND_URL + "gov/proposals" + "/" + id + "/votes"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "gov/proposals" + "/" + id + "/votes"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "gov/proposals" + "/" + id + "/votes"
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "gov/proposals" + "/" + id + "/votes"
         }
@@ -459,8 +423,6 @@ class BaseNetWork {
             return BAND_URL + "txs/" + txhash
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "txs/" + txhash
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "txs/" + txhash
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "txs/" + txhash
         }
@@ -490,8 +452,6 @@ class BaseNetWork {
             return BAND_URL + "txs"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "txs"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "txs"
         } else if (chain == ChainType.KI_MAIN) {
             return KI_URL + "txs"
         }
@@ -893,18 +853,18 @@ class BaseNetWork {
             result = SIF_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.MEDI_MAIN) {
             result = MEDI_API + "v1/account/new_txs/" + address
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            result = CERTIK_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.EMONEY_MAIN) {
             result = EMONEY_API + "v1/account/new_txs/" + address
+        } else if (chain == ChainType.FETCH_MAIN) {
+            result = FETCH_API + "v1/account/new_txs/" + address
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
             result = KAVA_API + "v1/account/new_txs/" + address
-        }  else if (chain == ChainType.CERTIK_MAIN) {
-            result = CERTIK_API + "v1/account/new_txs/" + address
-        }  else if (chain == ChainType.SENTINEL_MAIN) {
+        } else if (chain == ChainType.SENTINEL_MAIN) {
             result = SENTINEL_API + "v1/account/new_txs/" + address
-        } else if (chain == ChainType.FETCH_MAIN) {
-            result = FETCH_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.KI_MAIN) {
             result = KI_API + "v1/account/txs/" + address
         }
@@ -955,18 +915,18 @@ class BaseNetWork {
             result = SIF_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.MEDI_MAIN) {
             result = MEDI_API + "v1/account/new_txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            result = CERTIK_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.EMONEY_MAIN) {
             result = EMONEY_API + "v1/account/new_txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.FETCH_MAIN) {
+            result = FETCH_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
             result = KAVA_API + "v1/account/new_txs/" + address + "/" + valAddress
-        } else if (chain == ChainType.CERTIK_MAIN) {
-            result = CERTIK_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.SENTINEL_MAIN) {
             result = SENTINEL_API + "v1/account/new_txs/" + address + "/" + valAddress
-        } else if (chain == ChainType.FETCH_MAIN) {
-            result = FETCH_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.KI_MAIN) {
             result = KI_API + "v1/account/txs/" + address + "/" + valAddress
         }
@@ -1059,7 +1019,11 @@ class BaseNetWork {
             
         } else if (chain == ChainType.EMONEY_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 40702)
+//            return ClientConnection.insecure(group: group).connect(host: "lcd-emoney.cosmostation.io", port: 9090)
             
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 40600)
+//            return ClientConnection.insecure(group: group).connect(host: "lcd-fetch.cosmostation.io", port: 9090)
         }
         
         
