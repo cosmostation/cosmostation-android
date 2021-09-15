@@ -1771,7 +1771,7 @@ public class WDp {
         } else if (chain.equals(UMEE_TEST)) {
             return c.getResources().getColor(R.color.colorUmee);
         } else if (chain.equals(AXELAR_TEST)) {
-            return c.getResources().getColor(R.color.colorAxelar2);
+            return c.getResources().getColor(R.color.colorAxelar);
         } else {
             return c.getResources().getColor(R.color.colorGray0);
         }

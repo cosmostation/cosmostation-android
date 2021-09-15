@@ -37,7 +37,7 @@
     <color name="colorTransBgOsmosis">#249248db</color>
     <color name="colorTransBgUmee">#247dcaff</color>
     <color name="colorTransBgEmoney">#2486ccba</color>
-    <color name="colorTransBgAxelar">#24ffffff</color>
+    <color name="colorTransBgAxelar">#24C4C4C4</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -131,7 +131,7 @@
     <color name="colorEmoney">#86ccba</color>
     <color name="colorEmoney2">#43655c</color>
 
-    <color name="colorAxelar">#ffffff</color>
+    <color name="colorAxelar">#C4C4C4</color>
     <color name="colorAxelar2">#6c7076</color>
 
     <color name="colorRed">#f31963</color>

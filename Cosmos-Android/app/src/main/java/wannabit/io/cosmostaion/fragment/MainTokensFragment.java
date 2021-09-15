@@ -817,7 +817,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(getString(R.string.str_ngm_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), EMONEY_MAIN));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText("Emoney Staking Token");
+            holder.itemFullName.setText("E-Money Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_emoney));
 
@@ -829,7 +829,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(coin.denom.substring(1).toUpperCase());
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on Emoney Chain");
+            holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on E-Money Network");
             Picasso.get().load(EMONEY_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
 
             BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);

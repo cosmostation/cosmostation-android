@@ -943,6 +943,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 for (CoinOuterClass.Coin coin: balance) {
                     if (!coin.getAmount().equals("0")) {
                         getBaseDao().mGrpcBalance.add(new Coin(coin.getDenom(), coin.getAmount()));
+                    } else {
+                        if (coin.getDenom().equalsIgnoreCase(WDp.mainDenom(mBaseChain))) {
+                            getBaseDao().mGrpcBalance.add(new Coin(coin.getDenom(), coin.getAmount()));
+                        }
                     }
                 }
             }

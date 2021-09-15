@@ -451,8 +451,8 @@
     <string name="str_umee_chain_test_2" translatable="false">Umee Testnet</string>
     <string name="str_axelar_chain_test" translatable="false">(Axelar Testnet)</string>
     <string name="str_axelar_chain_test_2" translatable="false">Axelar Testnet</string>
-    <string name="str_emoney_net" translatable="false">(Emoney Mainnet)</string>
-    <string name="str_emoney_net2" translatable="false">Emoney Mainnet</string>
+    <string name="str_emoney_net" translatable="false">(E-Money Mainnet)</string>
+    <string name="str_emoney_net2" translatable="false">E-Money Mainnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
@@ -1528,8 +1528,8 @@
     <string name="str_incentive_amount_title">Incentive Amounts</string>
     <string name="str_gravity_dex">Gravity Dex</string>
     <string name="str_add_liquidity_external_symbol">External Symbol</string>
-    <string name="str_add_liquidity_native_asset">Native Asset</string>
-    <string name="str_add_liquidity_external_asset">External Asset</string>
+    <string name="str_liquidity_native_asset">Native Asset</string>
+    <string name="str_liquidity_external_asset">External Asset</string>
     <string name="str_swap_send_asset">Send Asset</string>
     <string name="str_swap_receive_asset">Received Asset</string>
     <string name="str_bridge_claim_type">Claim Type</string>
@@ -1546,6 +1546,7 @@
     <string name="str_create_task_bountry">Bountry</string>
     <string name="str_task_response_operator">Operator</string>
     <string name="str_task_response_score">Score</string>
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1805,6 +1806,7 @@
     <string name="tx_create_did">Create Did</string>
 
     <string name="tx_add_liquidity">Add Liquidity</string>
+    <string name="tx_remove_liquidity">Remove Liquidity</string>
     <string name="tx_swap">Swap</string>
     <string name="tx_create_ethereum_bridge">Create Ethereum Bridge</string>
 

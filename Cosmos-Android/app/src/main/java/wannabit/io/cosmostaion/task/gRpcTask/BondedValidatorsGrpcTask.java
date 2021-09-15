@@ -36,7 +36,7 @@ public class BondedValidatorsGrpcTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setLimit(125).build();
+            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setLimit(300).build();
             QueryOuterClass.QueryValidatorsRequest request = QueryOuterClass.QueryValidatorsRequest.newBuilder().setPagination(pageRequest).setStatus(BOND_STATUS_BONDED.name()).build();
             QueryOuterClass.QueryValidatorsResponse response = mStub.validators(request);
             mResultData.addAll(response.getValidatorsList());

@@ -26,7 +26,7 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
                 <ImageView
-                    android:id="@+id/tx_add_liquidity_icon"
+                    android:id="@+id/tx_remove_liquidity_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/icon_postprice"/>
@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:text="@string/tx_add_liquidity"
+                    android:text="@string/tx_remove_liquidity"
                     style="@style/font_ss_15_white"/>
             </LinearLayout>
             <LinearLayout
@@ -48,22 +48,7 @@
                     android:text="@string/str_signer"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/tx_add_liquidity_signer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:singleLine="true"
-                    android:ellipsize="middle"
-                    android:text="-"
-                    style="@style/font_ss_12_white"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_add_liquidity_external_symbol"
-                    android:layout_marginTop="@dimen/space_16"
-                    style="@style/font_ss_12_gray1"/>
-                <TextView
-                    android:id="@+id/tx_add_liquidity_external_asset"
+                    android:id="@+id/tx_remove_liquidity_signer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -77,39 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">
                 <TextView
-                    android:id="@+id/tx_add_liquidity_native_asset_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_liquidity_native_asset"
-                    style="@style/font_ss_12_gray1"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tx_add_liquidity_native_asset_title">
-                    <TextView
-                        android:id="@+id/tx_add_liquidity_native_symbol"
-                        android:layout_width="@dimen/space_60"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:gravity="end"
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/tx_add_liquidity_native_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_add_liquidity_native_symbol"
-                        android:layout_toLeftOf="@+id/tx_add_liquidity_native_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                </RelativeLayout>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_16">
-                <TextView
-                    android:id="@+id/tx_add_liquidity_exteranl_asset_title"
+                    android:id="@+id/tx_remove_liquidity_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_liquidity_external_asset"
@@ -117,21 +70,20 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tx_add_liquidity_exteranl_asset_title">
+                    android:layout_toRightOf="@+id/tx_remove_liquidity_title">
                     <TextView
-                        android:id="@+id/tx_add_liquidity_exteranl_symbol"
-                        android:layout_width="@dimen/space_60"
+                        android:id="@+id/tx_remove_liquidity_symbol"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="end"
-                        android:text=""
                         style="@style/font_ss_12_white"/>
                     <TextView
-                        android:id="@+id/tx_add_liquidity_exteranl_amount"
+                        android:id="@+id/tx_remove_liquidity_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_add_liquidity_exteranl_symbol"
-                        android:layout_toLeftOf="@+id/tx_add_liquidity_exteranl_symbol"
+                        android:layout_alignBaseline="@+id/tx_remove_liquidity_symbol"
+                        android:layout_toLeftOf="@+id/tx_remove_liquidity_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
                         style="@style/font_ss_12_white"/>
