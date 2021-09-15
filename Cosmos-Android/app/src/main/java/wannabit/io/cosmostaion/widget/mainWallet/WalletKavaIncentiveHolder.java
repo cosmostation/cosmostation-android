@@ -28,7 +28,6 @@ public class WalletKavaIncentiveHolder extends BaseHolder {
     private TextView                mKavaIncetive;
     private TextView                mHardIncetive;
     private TextView                mSwpIncetive;
-    private TextView                mUsdxIncetive;
     private RelativeLayout          mBtnIncentive;
 
     public WalletKavaIncentiveHolder(@NonNull View itemView) {
@@ -36,7 +35,6 @@ public class WalletKavaIncentiveHolder extends BaseHolder {
         mKavaIncetive           = itemView.findViewById(R.id.kava_incentive);
         mHardIncetive           = itemView.findViewById(R.id.hard_incentive);
         mSwpIncetive            = itemView.findViewById(R.id.swp_incentive);
-        mUsdxIncetive           = itemView.findViewById(R.id.usdx_incentive);
         mBtnIncentive           = itemView.findViewById(R.id.btn_kava_incentive);
     }
 
@@ -45,19 +43,16 @@ public class WalletKavaIncentiveHolder extends BaseHolder {
         BigDecimal mKavaIncetiveAmount  = BigDecimal.ZERO;
         BigDecimal mHardIncetiveAmount  = BigDecimal.ZERO;
         BigDecimal mSwpIncetiveAmount   = BigDecimal.ZERO;
-        BigDecimal mUsdxIncetiveAmount  = BigDecimal.ZERO;
 
         if (baseData.mIncentiveRewards != null) {
             mKavaIncetiveAmount = baseData.mIncentiveRewards.getRewardSum(TOKEN_KAVA);
             mHardIncetiveAmount = baseData.mIncentiveRewards.getRewardSum(TOKEN_HARD);
             mSwpIncetiveAmount  = baseData.mIncentiveRewards.getRewardSum(TOKEN_SWP);
-            mUsdxIncetiveAmount = baseData.mIncentiveRewards.getRewardSum(TOKEN_USDX);
         }
 
         mKavaIncetive.setText(WDp.getDpAmount2(mainActivity, mKavaIncetiveAmount, 6, 6));
         mHardIncetive.setText(WDp.getDpAmount2(mainActivity, mHardIncetiveAmount, 6, 6));
         mSwpIncetive.setText(WDp.getDpAmount2(mainActivity, mSwpIncetiveAmount, 6, 6));
-        mUsdxIncetive.setText(WDp.getDpAmount2(mainActivity, mUsdxIncetiveAmount, 6, 6));
 
         mBtnIncentive.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -136,25 +136,6 @@
                                     android:gravity="end"
                                     android:text="SWP" />
                             </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="right">
-                                <TextView
-                                    android:id="@+id/tx_incentive_usdx_amount"
-                                    style="@style/font_ssl_12_white"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="-" />
-                                <TextView
-                                    style="@style/font_ss_12_white"
-                                    android:layout_width="@dimen/space_40"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/space_2"
-                                    android:gravity="end"
-                                    android:text="USDX" />
-                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
 
