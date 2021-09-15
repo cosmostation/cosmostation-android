@@ -18,7 +18,6 @@ class KavaIncentiveClaim3ViewController: BaseViewController, PasswordViewDelegat
     @IBOutlet weak var kavaIncentiveAmountLabel: UILabel!
     @IBOutlet weak var hardIncentiveAmountLabel: UILabel!
     @IBOutlet weak var swpIncentiveAmountLabel: UILabel!
-    @IBOutlet weak var usdxIncentiveAmountLabel: UILabel!
     @IBOutlet weak var lockupLabel: UILabel!
     @IBOutlet weak var memoLabel: UILabel!
     @IBOutlet weak var btnBack: UIButton!
@@ -50,27 +49,23 @@ class KavaIncentiveClaim3ViewController: BaseViewController, PasswordViewDelegat
         var kavaIncentiveAmount = mIncentiveRewards.getIncentiveAmount(KAVA_MAIN_DENOM)
         var hardIncentiveAmount = mIncentiveRewards.getIncentiveAmount(KAVA_HARD_DENOM)
         var swpIncentiveAmount = mIncentiveRewards.getIncentiveAmount(KAVA_SWAP_DENOM)
-        var usdxIncentiveAmount = mIncentiveRewards.getIncentiveAmount(KAVA_USDX_DENOM)
         
         if (pageHolderVC.mIncentiveMultiplier == "small") {
             lockupLabel.text = "1 Month"
             kavaIncentiveAmount = kavaIncentiveAmount.multiplying(by: mIncentiveParam.getFactor(KAVA_MAIN_DENOM, 0), withBehavior: WUtils.handler0)
             hardIncentiveAmount = hardIncentiveAmount.multiplying(by: mIncentiveParam.getFactor(KAVA_HARD_DENOM, 0), withBehavior: WUtils.handler0)
             swpIncentiveAmount = swpIncentiveAmount.multiplying(by: mIncentiveParam.getFactor(KAVA_SWAP_DENOM, 0), withBehavior: WUtils.handler0)
-            usdxIncentiveAmount = usdxIncentiveAmount.multiplying(by: mIncentiveParam.getFactor(KAVA_USDX_DENOM, 0), withBehavior: WUtils.handler0)
             
         } else {
             lockupLabel.text = "12 Month"
             kavaIncentiveAmount = kavaIncentiveAmount.multiplying(by: mIncentiveParam.getFactor(KAVA_MAIN_DENOM, 1), withBehavior: WUtils.handler0)
             hardIncentiveAmount = hardIncentiveAmount.multiplying(by: mIncentiveParam.getFactor(KAVA_HARD_DENOM, 1), withBehavior: WUtils.handler0)
             swpIncentiveAmount = swpIncentiveAmount.multiplying(by: mIncentiveParam.getFactor(KAVA_SWAP_DENOM, 1), withBehavior: WUtils.handler0)
-            usdxIncentiveAmount = usdxIncentiveAmount.multiplying(by: mIncentiveParam.getFactor(KAVA_USDX_DENOM, 1), withBehavior: WUtils.handler0)
         }
         
         kavaIncentiveAmountLabel.attributedText = WUtils.displayAmount2(kavaIncentiveAmount.stringValue, kavaIncentiveAmountLabel.font!, 6, 6)
         hardIncentiveAmountLabel.attributedText = WUtils.displayAmount2(hardIncentiveAmount.stringValue, hardIncentiveAmountLabel.font!, 6, 6)
         swpIncentiveAmountLabel.attributedText = WUtils.displayAmount2(swpIncentiveAmount.stringValue, swpIncentiveAmountLabel.font!, 6, 6)
-        usdxIncentiveAmountLabel.attributedText = WUtils.displayAmount2(usdxIncentiveAmount.stringValue, usdxIncentiveAmountLabel.font!, 6, 6)
         
         memoLabel.text = pageHolderVC.mMemo
     }
