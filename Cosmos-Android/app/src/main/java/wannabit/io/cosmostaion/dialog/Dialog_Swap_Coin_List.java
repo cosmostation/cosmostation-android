@@ -112,8 +112,6 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                     String baseDenom = WDp.getKavaBaseDenom(mSwapCoinList.get(position));
                     if (baseDenom.equalsIgnoreCase(TOKEN_KAVA)) {
                         holder.chainName.setText(getString(R.string.str_kava_c));
-                    } else if (baseDenom.contains("btc")) {
-                        holder.chainName.setText("BTC");
                     } else {
                         holder.chainName.setText(mSwapCoinList.get(position).toUpperCase());
                     }

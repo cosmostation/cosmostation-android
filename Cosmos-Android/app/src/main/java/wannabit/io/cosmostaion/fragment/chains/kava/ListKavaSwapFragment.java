@@ -169,7 +169,7 @@ public class ListKavaSwapFragment extends BaseFragment implements View.OnClickLi
         BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
         BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));
         BigDecimal priceRate = BigDecimal.ZERO;
-        if (priceInput == BigDecimal.ZERO || priceOutput == BigDecimal.ZERO) {
+        if (priceInput.compareTo(BigDecimal.ZERO) == 0 || priceOutput.compareTo(BigDecimal.ZERO) == 0) {
             mSwapOutputCoinExRate.setText("?.??????");
         } else {
             priceRate = priceInput.divide(priceOutput, 6, RoundingMode.DOWN);

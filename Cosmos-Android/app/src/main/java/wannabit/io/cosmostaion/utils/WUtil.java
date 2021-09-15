@@ -1422,7 +1422,7 @@ public class WUtil {
             textView.setText("BUSD");
         } else if (denom.contains("btc")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            textView.setText("BTC");
+            textView.setText("BTCB");
         }
         return denom;
     }
