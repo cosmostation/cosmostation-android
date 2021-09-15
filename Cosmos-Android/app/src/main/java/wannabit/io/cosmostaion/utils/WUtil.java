@@ -1132,6 +1132,17 @@ public class WUtil {
         });
     }
 
+    public static void onSortingCtkGrpcProposals(ArrayList<shentu.gov.v1alpha1.Gov.Proposal> proposals) {
+        Collections.sort(proposals, new Comparator<shentu.gov.v1alpha1.Gov.Proposal>() {
+            @Override
+            public int compare(shentu.gov.v1alpha1.Gov.Proposal o1, shentu.gov.v1alpha1.Gov.Proposal o2) {
+                if (o1.getProposalId() < o2.getProposalId()) return 1;
+                else if (o1.getProposalId() > o2.getProposalId()) return -1;
+                return 0;
+            }
+        });
+    }
+
     public static void onSortingDenom(ArrayList<String> denom, BaseChain chain) {
         Collections.sort(denom, new Comparator<String>() {
             @Override

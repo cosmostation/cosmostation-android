@@ -16,6 +16,7 @@ public class ProposalTallyGrpcTask extends CommonTask {
     private BaseChain mChain;
     private String mProposalId;
     private QueryGrpc.QueryBlockingStub mStub;
+    private shentu.gov.v1alpha1.QueryGrpc.QueryBlockingStub mCtkStub;
 
     public ProposalTallyGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String proposalId) {
         super(app, listener);
@@ -23,15 +24,22 @@ public class ProposalTallyGrpcTask extends CommonTask {
         this.mProposalId = proposalId;
         this.mResult.taskType = TASK_GRPC_FETCH_PROPOSAL_TALLY;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
+        this.mCtkStub = shentu.gov.v1alpha1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryTallyResultRequest request = QueryOuterClass.QueryTallyResultRequest.newBuilder().setProposalId(Long.parseLong(mProposalId)).build();
-            QueryOuterClass.QueryTallyResultResponse response = mStub.tallyResult(request);
-            this.mResult.resultData = response.getTally();
+            if (mChain.equals(BaseChain.CERTIK_MAIN)) {
+                shentu.gov.v1alpha1.QueryOuterClass.QueryTallyResultRequest request = shentu.gov.v1alpha1.QueryOuterClass.QueryTallyResultRequest.newBuilder().setProposalId(Long.parseLong(mProposalId)).build();
+                shentu.gov.v1alpha1.QueryOuterClass.QueryTallyResultResponse response = mCtkStub.tallyResult(request);
+                this.mResult.resultData = response.getTally();
+            } else {
+                QueryOuterClass.QueryTallyResultRequest request = QueryOuterClass.QueryTallyResultRequest.newBuilder().setProposalId(Long.parseLong(mProposalId)).build();
+                QueryOuterClass.QueryTallyResultResponse response = mStub.tallyResult(request);
+                this.mResult.resultData = response.getTally();
 //            WLog.w("ProposalsGrpcTask " + response.getProposalsList());
+            }
 
         } catch (Exception e) { WLog.e( "ProposalsGrpcTask "+ e.getMessage()); }
         return mResult;
