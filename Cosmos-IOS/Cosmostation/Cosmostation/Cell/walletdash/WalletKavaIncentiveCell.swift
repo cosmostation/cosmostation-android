@@ -12,7 +12,6 @@ class WalletKavaIncentiveCell: UITableViewCell {
 
     @IBOutlet weak var kavaAmountLabel: UILabel!
     @IBOutlet weak var hardAmountLabel: UILabel!
-    @IBOutlet weak var usdxAmountLabel: UILabel!
     @IBOutlet weak var swpAmountLabel: UILabel!
     
     override func awakeFromNib() {
@@ -20,7 +19,6 @@ class WalletKavaIncentiveCell: UITableViewCell {
         self.selectionStyle = .none
         kavaAmountLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         hardAmountLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
-        usdxAmountLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         swpAmountLabel.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
     
@@ -32,12 +30,10 @@ class WalletKavaIncentiveCell: UITableViewCell {
     func updateView() {
         let kavaAmount = BaseData.instance.mIncentiveRewards?.getIncentiveAmount(KAVA_MAIN_DENOM) ?? NSDecimalNumber.zero
         let hardAmount = BaseData.instance.mIncentiveRewards?.getIncentiveAmount(KAVA_HARD_DENOM) ?? NSDecimalNumber.zero
-        let usdxAmount = BaseData.instance.mIncentiveRewards?.getIncentiveAmount(KAVA_USDX_DENOM) ?? NSDecimalNumber.zero
         let swpAmount = BaseData.instance.mIncentiveRewards?.getIncentiveAmount(KAVA_SWAP_DENOM) ?? NSDecimalNumber.zero
         
         kavaAmountLabel.attributedText = WUtils.displayAmount2(kavaAmount.stringValue, kavaAmountLabel.font, 6, 6)
         hardAmountLabel.attributedText = WUtils.displayAmount2(hardAmount.stringValue, hardAmountLabel.font, 6, 6)
-        usdxAmountLabel.attributedText = WUtils.displayAmount2(usdxAmount.stringValue, usdxAmountLabel.font, 6, 6)
         swpAmountLabel.attributedText = WUtils.displayAmount2(swpAmount.stringValue, swpAmountLabel.font, 6, 6)
     }
 }
