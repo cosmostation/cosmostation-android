@@ -414,7 +414,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         if (mFetchCnt > 0) { return }
         if (WUtils.isGRPC(mChainType!)) {
             DispatchQueue.global().async {
-//                defer { try? self.channel.close().wait() }
+                if (self.mChainType != ChainType.SIF_MAIN) {
+                    defer { try? self.channel.close().wait() }
+                }
                 DispatchQueue.main.async(execute: {
                     BaseData.instance.mAllValidators_gRPC.append(contentsOf: BaseData.instance.mBondedValidators_gRPC)
                     BaseData.instance.mAllValidators_gRPC.append(contentsOf: BaseData.instance.mUnbondValidators_gRPC)
