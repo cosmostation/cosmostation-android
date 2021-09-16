@@ -846,7 +846,7 @@ public class MainTokensFragment extends BaseFragment {
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_FET);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 18));
 
         } else if (coin.denom.equals(TOKEN_AXELAR)) {
             holder.itemSymbol.setText(getString(R.string.str_axl_c));
