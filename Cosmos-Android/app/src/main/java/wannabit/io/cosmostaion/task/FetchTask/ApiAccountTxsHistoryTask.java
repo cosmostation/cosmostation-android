@@ -9,7 +9,6 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
-import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -59,7 +58,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.KI_MAIN)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKiApi(mApp).getAccountTxs(mAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getKiApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

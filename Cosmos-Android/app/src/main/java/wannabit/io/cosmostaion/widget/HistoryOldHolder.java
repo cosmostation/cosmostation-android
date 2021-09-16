@@ -14,10 +14,8 @@ import org.jetbrains.annotations.NotNull;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.TxDetailActivity;
-import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
-import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -42,34 +40,6 @@ public class HistoryOldHolder extends BaseHolder {
         history_time = itemView.findViewById(R.id.history_time);
         history_block = itemView.findViewById(R.id.history_block_height);
         history_time_gap = itemView.findViewById(R.id.history_time_gap);
-    }
-
-    public void onBindOldGrpcHistory(@NotNull MainActivity mainActivity, ResApiTxListCustom history) {
-        historyType.setText(history.getMsgType(mainActivity, mainActivity.mAccount.address));
-        history_time.setText(WDp.getTimeTxformat(mainActivity, history.timestamp));
-        history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.timestamp));
-        history_block.setText(history.height + "block");
-        if (history.isSuccess()) {
-            historySuccess.setVisibility(View.GONE);
-        } else {
-            historySuccess.setVisibility(View.VISIBLE);
-        }
-        historyRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!TextUtils.isEmpty(history.chain_id) && !mainActivity.getBaseDao().getChainIdGrpc().equals(history.chain_id)) {
-                    String url = WUtil.getTxExplorer(mainActivity.mBaseChain, history.tx_hash);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    mainActivity.startActivity(intent);
-                } else {
-                    Intent txDetail = new Intent(mainActivity, TxDetailgRPCActivity.class);
-                    txDetail.putExtra("txHash", history.tx_hash);
-                    txDetail.putExtra("isGen", false);
-                    txDetail.putExtra("isSuccess", true);
-                    mainActivity.startActivity(txDetail);
-                }
-            }
-        });
     }
 
     public void onBindOldBnbHistory(@NotNull MainActivity mainActivity, BnbHistory history) {
