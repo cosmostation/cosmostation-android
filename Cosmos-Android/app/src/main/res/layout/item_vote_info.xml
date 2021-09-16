@@ -53,7 +53,7 @@
                     android:layout_marginRight="@dimen/space_8"
                     android:layout_centerVertical="true"
                     android:padding="@dimen/space_8"
-                    android:src="@drawable/wallet_detail_btn" />
+                    android:src="@drawable/icon_explorer" />
             </RelativeLayout>
 
             <TextView

@@ -126,14 +126,17 @@ public class ChainParam {
         public BigDecimal getApr(BaseChain baseChain) {
             BigDecimal inflation = getMintInflation(baseChain);
             BigDecimal calTax = BigDecimal.ONE.subtract(getTax(baseChain));
-            if (getMainSupply(baseChain).equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
-            BigDecimal bondingRate = getBondedAmount(baseChain).divide(getMainSupply(baseChain), 6, RoundingMode.DOWN);
-            if (bondingRate.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
-            if (baseChain.equals(BaseChain.OSMOSIS_MAIN)) {
-                BigDecimal stakingDistribution = new BigDecimal(osmosisMingtingParams.params.distributionProportions.staking);
-                return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
+            if (getMainSupply(baseChain) == null || getMainSupply(baseChain).equals(BigDecimal.ZERO)) {
+                   return BigDecimal.ZERO;
             } else {
-                return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
+                BigDecimal bondingRate = getBondedAmount(baseChain).divide(getMainSupply(baseChain), 6, RoundingMode.DOWN);
+                if (bondingRate.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
+                if (baseChain.equals(BaseChain.OSMOSIS_MAIN)) {
+                    BigDecimal stakingDistribution = new BigDecimal(osmosisMingtingParams.params.distributionProportions.staking);
+                    return inflation.multiply(calTax).multiply(stakingDistribution).divide(bondingRate, 6, RoundingMode.DOWN);
+                } else {
+                    return inflation.multiply(calTax).divide(bondingRate, 6, RoundingMode.DOWN);
+                }
             }
         }
 

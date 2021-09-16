@@ -596,14 +596,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_STAKE_HISTORY) {
-            if (mBaseChain.equals(CRYPTO_MAIN)) {
-                ArrayList<ResApiTxListCustom> hits = (ArrayList<ResApiTxListCustom>)result.resultData;
-                if (hits != null && hits.size() > 0) {
-                    mApiTxCustomHistory = hits;
-                }
-//                WLog.w("mApiTxCustomHistory " + mApiTxCustomHistory.size());
-
-            } else if (isGRPC(mBaseChain) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(FETCHAI_MAIN)) {
+            if (isGRPC(mBaseChain) || mBaseChain.equals(KAVA_MAIN)) {
                 ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>)result.resultData;
                 if (hits != null && hits.size() > 0) {
                     mApiNewTxCustomHistory = hits;
@@ -679,9 +672,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             } else if(viewType == TYPE_HISTORY_HEADER) {
                 return new HistoryHeaderHolder(getLayoutInflater().inflate(R.layout.item_validator_history_header, viewGroup, false));
             } else if(viewType == TYPE_HISTORY) {
-                if (mBaseChain.equals(CRYPTO_MAIN)) {
-                    return new HistoryOldHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
-                } else if (isGRPC(mBaseChain) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(FETCHAI_MAIN)) {
+                if (isGRPC(mBaseChain) || mBaseChain.equals(KAVA_MAIN)) {
                     return new HistoryNewHolder(getLayoutInflater().inflate(R.layout.item_new_history, viewGroup, false));
                 } else {
                     return new HistoryOldHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
@@ -919,7 +910,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         private void onBindApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(FETCHAI_MAIN)) {
+            if (mBaseChain.equals(KAVA_MAIN)) {
                 final HistoryNewHolder holder = (HistoryNewHolder)viewHolder;
                 final ResApiNewTxListCustom history;
                 if (mBondingInfo == null && mUnbondingInfo == null) {
@@ -1187,89 +1178,52 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         private void onBindApiHistoryGrpc(RecyclerView.ViewHolder viewHolder, int position) {
-            if (mBaseChain.equals(CRYPTO_MAIN)) {
-                final HistoryOldHolder holder = (HistoryOldHolder) viewHolder;
-                final ResApiTxListCustom history;
-                if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
-                    history = mApiTxCustomHistory.get(position - 2);
-                } else {
-                    history = mApiTxCustomHistory.get(position - 3);
-                }
-                holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
-                holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.timestamp));
-                holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.timestamp));
-                holder.history_block.setText(history.height + " block");
-                if (history.isSuccess()) {
-                    holder.historySuccess.setVisibility(View.GONE);
-                } else {
-                    holder.historySuccess.setVisibility(View.VISIBLE);
-                }
-                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!TextUtils.isEmpty(history.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.chain_id)) {
-                            String url = WUtil.getTxExplorer(mBaseChain, history.tx_hash);
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                            startActivity(intent);
-
-                        } else {
-                            Intent txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
-                            txDetail.putExtra("txHash", history.tx_hash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            startActivity(txDetail);
-                        }
-                    }
-                });
-
+            final HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
+            final ResApiNewTxListCustom history;
+            if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
+                history = mApiNewTxCustomHistory.get(position - 2);
             } else {
-                final HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
-                final ResApiNewTxListCustom history;
-                if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
-                    history = mApiNewTxCustomHistory.get(position - 2);
-                } else {
-                    history = mApiNewTxCustomHistory.get(position - 3);
-                }
-                holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
-                holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
-                holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.data.timestamp));
-                final Coin coin = history.getDpCoin(mBaseChain);
-                if (coin != null) {
-                    holder.history_amount_symbol.setVisibility(View.VISIBLE);
-                    holder.history_amount.setVisibility(View.VISIBLE);
-                    WDp.showCoinDp(getBaseContext(), history.getDpCoin(mBaseChain).denom, history.getDpCoin(mBaseChain).amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
-                } else if (history.getMsgType(ValidatorActivity.this, mAccount.address).equals(getString(R.string.tx_vote))) {
-                    holder.history_amount_symbol.setVisibility(View.VISIBLE);
-                    holder.history_amount_symbol.setText(history.getVoteOption());
-                    holder.history_amount_symbol.setTextColor(getResources().getColor(R.color.colorWhite));
-                    holder.history_amount.setVisibility(View.GONE);
-                } else {
-                    holder.history_amount_symbol.setVisibility(View.GONE);
-                    holder.history_amount.setVisibility(View.GONE);
-                }
-                if (history.isSuccess()) {
-                    holder.historySuccess.setVisibility(View.GONE);
-                } else {
-                    holder.historySuccess.setVisibility(View.VISIBLE);
-                }
-                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
-                            String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                            startActivity(intent);
-
-                        } else {
-                            Intent txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
-                            txDetail.putExtra("txHash", history.data.txhash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            startActivity(txDetail);
-                        }
-                    }
-                });
+                history = mApiNewTxCustomHistory.get(position - 3);
             }
+            holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
+            holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
+            holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.data.timestamp));
+            final Coin coin = history.getDpCoin(mBaseChain);
+            if (coin != null) {
+                holder.history_amount_symbol.setVisibility(View.VISIBLE);
+                holder.history_amount.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), history.getDpCoin(mBaseChain).denom, history.getDpCoin(mBaseChain).amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
+            } else if (history.getMsgType(ValidatorActivity.this, mAccount.address).equals(getString(R.string.tx_vote))) {
+                holder.history_amount_symbol.setVisibility(View.VISIBLE);
+                holder.history_amount_symbol.setText(history.getVoteOption());
+                holder.history_amount_symbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                holder.history_amount.setVisibility(View.GONE);
+            } else {
+                holder.history_amount_symbol.setVisibility(View.GONE);
+                holder.history_amount.setVisibility(View.GONE);
+            }
+            if (history.isSuccess()) {
+                holder.historySuccess.setVisibility(View.GONE);
+            } else {
+                holder.historySuccess.setVisibility(View.VISIBLE);
+            }
+            holder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
+                        String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
+
+                    } else {
+                        Intent txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
+                        txDetail.putExtra("txHash", history.data.txhash);
+                        txDetail.putExtra("isGen", false);
+                        txDetail.putExtra("isSuccess", true);
+                        startActivity(txDetail);
+                    }
+                }
+            });
         }
 
         @Override

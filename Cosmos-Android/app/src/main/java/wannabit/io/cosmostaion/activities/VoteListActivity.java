@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.protobuf2.Any;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.ProposalsGrpcTask;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSALS;
 
@@ -54,8 +57,9 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     private GrpcProposalsAdapter        mGrpcProposalsAdapter;
 
 
-    private ArrayList<Proposal>         mProposals = new ArrayList<>();
-    private ArrayList<Gov.Proposal>     mGrpcProposals = new ArrayList<>();
+    private ArrayList<Proposal>                             mProposals = new ArrayList<>();
+    private ArrayList<Gov.Proposal>                         mGrpcProposals = new ArrayList<>();
+    private ArrayList<shentu.gov.v1alpha1.Gov.Proposal>     mCtkGrpcProposals = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,18 +145,28 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == TASK_GRPC_FETCH_PROPOSALS) {
             mGrpcProposals.clear();
-            List<Gov.Proposal> temp = (List<Gov.Proposal>)result.resultData;
-            mLoadingLayer.setVisibility(View.GONE);
-            if (temp != null && temp.size() > 0) {
-                mGrpcProposals.addAll(temp);
-                WUtil.onSortingGrpcProposals(mGrpcProposals);
-                mGrpcProposalsAdapter.notifyDataSetChanged();
-                mRecyclerView.setVisibility(View.VISIBLE);
-
+            mCtkGrpcProposals.clear();
+            if (mBaseChain.equals(CERTIK_MAIN)) {
+                List<shentu.gov.v1alpha1.Gov.Proposal> temp = (List<shentu.gov.v1alpha1.Gov.Proposal>) result.resultData;
+                mLoadingLayer.setVisibility(View.GONE);
+                if (temp != null && temp.size() > 0) {
+                    mCtkGrpcProposals.addAll(temp);
+                    WUtil.onSortingCtkGrpcProposals(mCtkGrpcProposals);
+                    mGrpcProposalsAdapter.notifyDataSetChanged();
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                }
             } else {
-                mEmptyProposal.setVisibility(View.VISIBLE);
+                List<Gov.Proposal> temp = (List<Gov.Proposal>)result.resultData;
+                mLoadingLayer.setVisibility(View.GONE);
+                if (temp != null && temp.size() > 0) {
+                    mGrpcProposals.addAll(temp);
+                    WUtil.onSortingGrpcProposals(mGrpcProposals);
+                    mGrpcProposalsAdapter.notifyDataSetChanged();
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    mEmptyProposal.setVisibility(View.VISIBLE);
+                }
             }
-
         }
         mSwipeRefreshLayout.setRefreshing(false);
 
@@ -237,63 +251,93 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull VoteHolder voteHolder, int position) {
-            final Gov.Proposal proposal = mGrpcProposals.get(position);
-            voteHolder.proposal_id.setText("# " + proposal.getProposalId());
-            if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
-                voteHolder.proposal_status.setText("DepositPeriod");
-            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
-                voteHolder.proposal_status.setText("VotingPeriod");
-            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
-                voteHolder.proposal_status.setText("Rejected");
-            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
-                voteHolder.proposal_status.setText("Passed");
+            if (mBaseChain.equals(CERTIK_MAIN)) {
+                final shentu.gov.v1alpha1.Gov.Proposal proposal = mCtkGrpcProposals.get(position);
+                voteHolder.proposal_id.setText("# " + proposal.getProposalId());
+                if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
+                    voteHolder.proposal_status.setText("DepositPeriod");
+                } else if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD) ||
+                            proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD)) {
+                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
+                    voteHolder.proposal_status.setText("VotingPeriod");
+                } else if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
+                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
+                    voteHolder.proposal_status.setText("Rejected");
+                } else if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
+                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
+                    voteHolder.proposal_status.setText("Passed");
+                } else {
+                    voteHolder.proposal_status_img.setVisibility(View.GONE);
+                    voteHolder.proposal_status.setText("unKnown");
+                }
+
             } else {
-                voteHolder.proposal_status_img.setVisibility(View.GONE);
-                voteHolder.proposal_status.setText("unKnown");
+                final Gov.Proposal proposal = mGrpcProposals.get(position);
+                voteHolder.proposal_id.setText("# " + proposal.getProposalId());
+                if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
+                    voteHolder.proposal_status.setText("DepositPeriod");
+                } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
+                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
+                    voteHolder.proposal_status.setText("VotingPeriod");
+                } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
+                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
+                    voteHolder.proposal_status.setText("Rejected");
+                } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
+                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
+                    voteHolder.proposal_status.setText("Passed");
+                } else {
+                    voteHolder.proposal_status_img.setVisibility(View.GONE);
+                    voteHolder.proposal_status.setText("unKnown");
+                }
+
+            }
+            Any proposalContent = null;
+            if (mBaseChain.equals(CERTIK_MAIN)) {
+                proposalContent = mCtkGrpcProposals.get(position).getContent();
+            } else {
+                proposalContent = mGrpcProposals.get(position).getContent();
             }
 
             try {
-                if (proposal.getContent().getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
-                    Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposal.getContent().getValue());
+                if (proposalContent.getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
+                    Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposalContent.getValue());
                     voteHolder.proposal_title.setText(textProposal.getTitle());
                     voteHolder.proposal_details.setText(textProposal.getDescription());
 
-                } else if (proposal.getContent().getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
-                    Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposal.getContent().getValue());
+                } else if (proposalContent.getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
+                    Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposalContent.getValue());
                     voteHolder.proposal_title.setText(parameterChangeProposal.getTitle());
                     voteHolder.proposal_details.setText(parameterChangeProposal.getDescription());
 
-                } else if (proposal.getContent().getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
-                    Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposal.getContent().getValue());
+                } else if (proposalContent.getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
+                    Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposalContent.getValue());
                     voteHolder.proposal_title.setText(clientUpdateProposal.getTitle());
                     voteHolder.proposal_details.setText(clientUpdateProposal.getDescription());
 
-                } else if (proposal.getContent().getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
-                    Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposal.getContent().getValue());
+                } else if (proposalContent.getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
+                    Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposalContent.getValue());
                     voteHolder.proposal_title.setText(communityPoolSpendProposal.getTitle());
                     voteHolder.proposal_details.setText(communityPoolSpendProposal.getDescription());
 
-                } else if (proposal.getContent().getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
-                    Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposal.getContent().getValue());
+                } else if (proposalContent.getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
+                    Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposalContent.getValue());
                     voteHolder.proposal_title.setText(softwareUpgradeProposal.getTitle());
                     voteHolder.proposal_details.setText(softwareUpgradeProposal.getDescription());
 
-                } else if (proposal.getContent().getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
-                    Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposal.getContent().getValue());
+                } else if (proposalContent.getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
+                    Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposalContent.getValue());
                     voteHolder.proposal_title.setText(cancelSoftwareUpgradeProposal.getTitle());
                     voteHolder.proposal_details.setText(cancelSoftwareUpgradeProposal.getDescription());
 
-                } else if (proposal.getContent().getTypeUrl().equals("/osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal")) {
-                    osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal updatePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal.parseFrom(proposal.getContent().getValue());
+                } else if (proposalContent.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal")) {
+                    osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal updatePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal.parseFrom(proposalContent.getValue());
                     voteHolder.proposal_title.setText(updatePoolIncentivesProposal.getTitle());
                     voteHolder.proposal_details.setText(updatePoolIncentivesProposal.getDescription());
 
-                } else if (proposal.getContent().getTypeUrl().equals("/osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal")) {
-                    osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal replacePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal.parseFrom(proposal.getContent().getValue());
+                } else if (proposalContent.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal")) {
+                    osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal replacePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal.parseFrom(proposalContent.getValue());
                     voteHolder.proposal_title.setText(replacePoolIncentivesProposal.getTitle());
                     voteHolder.proposal_details.setText(replacePoolIncentivesProposal.getDescription());
                 }
@@ -303,14 +347,31 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD) || proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD) ) {
-                        Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
-                        voteIntent.putExtra("proposalId", String.valueOf(proposal.getProposalId()));
-                        startActivity(voteIntent);
+                    if (mBaseChain.equals(CERTIK_MAIN)) {
+                        final shentu.gov.v1alpha1.Gov.Proposal proposal = mCtkGrpcProposals.get(position);
+                        if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD) ||
+                                proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD)) {
+                            Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+                            voteIntent.putExtra("proposalId", String.valueOf(proposal.getProposalId()));
+                            startActivity(voteIntent);
+                        } else {
+                            String url  = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.getProposalId();
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
+                        }
+
                     } else {
-                        String url  = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.getProposalId();
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
+                        final Gov.Proposal proposal = mGrpcProposals.get(position);
+                        if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD) ||
+                                proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD) ) {
+                            Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+                            voteIntent.putExtra("proposalId", String.valueOf(proposal.getProposalId()));
+                            startActivity(voteIntent);
+                        } else {
+                            String url  = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.getProposalId();
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
+                        }
                     }
                 }
             });
@@ -318,7 +379,8 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
         @Override
         public int getItemCount() {
-            return mGrpcProposals.size();
+            if (mBaseChain.equals(CERTIK_MAIN)) { return mCtkGrpcProposals.size(); }
+            else { return mGrpcProposals.size(); }
         }
 
         public class VoteHolder extends RecyclerView.ViewHolder {

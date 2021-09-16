@@ -28,7 +28,7 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
 
     private Button mBackBtn, mConfirmBtn;
     private TextView mFee, mFeeDenom;
-    private TextView mKavaAmount, mHardAmount, mSwpAmount, mUsdxAmount;
+    private TextView mKavaAmount, mHardAmount, mSwpAmount;
     private TextView mLockTime, mMemo;
 
     private IncentiveParam  mIncentiveParam;
@@ -55,7 +55,6 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
         mKavaAmount             = rootView.findViewById(R.id.tx_incentive_kava_amount);
         mHardAmount             = rootView.findViewById(R.id.tx_incentive_hard_amount);
         mSwpAmount              = rootView.findViewById(R.id.tx_incentive_swp_amount);
-        mUsdxAmount             = rootView.findViewById(R.id.tx_incentive_usdx_amount);
         mLockTime               = rootView.findViewById(R.id.lockup_time);
         mMemo                   = rootView.findViewById(R.id.memo);
 
@@ -75,27 +74,23 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
         BigDecimal kavaIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_KAVA);
         BigDecimal hardIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_HARD);
         BigDecimal swpIncentiveAmount  = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_SWP);
-        BigDecimal usdxIncentiveAmount = getBaseDao().mIncentiveRewards.getRewardSum(TOKEN_USDX);
 
         if (getSActivity().mIncentiveMultiplier.equalsIgnoreCase("small")) {
             mLockTime.setText("1 Month");
             kavaIncentiveAmount = kavaIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_KAVA, 0)).setScale(0, RoundingMode.DOWN);
             hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_HARD, 0)).setScale(0, RoundingMode.DOWN);
             swpIncentiveAmount = swpIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_SWP, 0)).setScale(0, RoundingMode.DOWN);
-            usdxIncentiveAmount = usdxIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_USDX, 0)).setScale(0, RoundingMode.DOWN);
 
         } else {
             mLockTime.setText("12 Month");
             kavaIncentiveAmount = kavaIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_KAVA, 1)).setScale(0, RoundingMode.DOWN);
             hardIncentiveAmount = hardIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_HARD, 1)).setScale(0, RoundingMode.DOWN);
             swpIncentiveAmount = swpIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_SWP, 1)).setScale(0, RoundingMode.DOWN);
-            usdxIncentiveAmount = usdxIncentiveAmount.multiply(mIncentiveParam.getFactor(TOKEN_USDX, 1)).setScale(0, RoundingMode.DOWN);
         }
 
         mKavaAmount.setText(WDp.getDpAmount2(getSActivity(), kavaIncentiveAmount, 6, 6));
         mHardAmount.setText(WDp.getDpAmount2(getSActivity(), hardIncentiveAmount, 6, 6));
         mSwpAmount.setText(WDp.getDpAmount2(getSActivity(), swpIncentiveAmount, 6, 6));
-        mUsdxAmount.setText(WDp.getDpAmount2(getSActivity(), usdxIncentiveAmount, 6, 6));
         mMemo.setText(getSActivity().mTxMemo);
     }
 

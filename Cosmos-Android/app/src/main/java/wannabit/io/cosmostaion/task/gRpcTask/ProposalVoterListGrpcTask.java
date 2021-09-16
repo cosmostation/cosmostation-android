@@ -17,6 +17,7 @@ public class ProposalVoterListGrpcTask extends CommonTask {
     private BaseChain mChain;
     private String mProposalId;
     private QueryGrpc.QueryBlockingStub mStub;
+    private shentu.gov.v1alpha1.QueryGrpc.QueryBlockingStub mCtkStub;
 
     public ProposalVoterListGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String proposalId) {
         super(app, listener);
@@ -24,16 +25,23 @@ public class ProposalVoterListGrpcTask extends CommonTask {
         this.mProposalId = proposalId;
         this.mResult.taskType = TASK_GRPC_FETCH_PROPOSAL_VOTER_LIST;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
+        this.mCtkStub = shentu.gov.v1alpha1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
+        Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setLimit(2000).build();
         try {
-            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setLimit(2000).build();
-            QueryOuterClass.QueryVotesRequest request = QueryOuterClass.QueryVotesRequest.newBuilder().setPagination(pageRequest).setProposalId(Long.parseLong(mProposalId)).build();
-            QueryOuterClass.QueryVotesResponse response = mStub.votes(request);
-            this.mResult.resultData = response.getVotesList();
+            if (mChain.equals(BaseChain.CERTIK_MAIN)) {
+                shentu.gov.v1alpha1.QueryOuterClass.QueryVotesRequest request = shentu.gov.v1alpha1.QueryOuterClass.QueryVotesRequest.newBuilder().setProposalId(Long.parseLong(mProposalId)).build();
+                shentu.gov.v1alpha1.QueryOuterClass.QueryVotesResponse response = mCtkStub.votes(request);
+                this.mResult.resultData = response.getVotesList();
+            } else {
+                QueryOuterClass.QueryVotesRequest request = QueryOuterClass.QueryVotesRequest.newBuilder().setPagination(pageRequest).setProposalId(Long.parseLong(mProposalId)).build();
+                QueryOuterClass.QueryVotesResponse response = mStub.votes(request);
+                this.mResult.resultData = response.getVotesList();
 //            WLog.w("ProposalVoterListGrpcTask " + response.getVotesList());
+            }
 
         } catch (Exception e) { WLog.e( "ProposalVoterListGrpcTask "+ e.getMessage()); }
         return mResult;

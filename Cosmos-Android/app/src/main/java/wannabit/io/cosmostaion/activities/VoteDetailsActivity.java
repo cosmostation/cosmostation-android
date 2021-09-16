@@ -46,8 +46,10 @@ import wannabit.io.cosmostaion.task.gRpcTask.ProposalMyVoteGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.ProposalTallyGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.ProposalVoterListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MY_VOTE;
@@ -85,6 +87,9 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     private Gov.TallyResult     mTally_gRPC;
     private ArrayList<Gov.Vote> mAllVoter_gRPC = new ArrayList<>();
     private Gov.Vote            mMyVote_gRPC;
+
+    //Certik gRPC
+    private shentu.gov.v1alpha1.Gov.Proposal            mCtkProposalDetail_gRPC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,10 +160,18 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 BigDecimal mainDenomAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
                 BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
 
-                if (!mProposalDetail_gRPC.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
-                    return;
+                if (mBaseChain.equals(CERTIK_MAIN)) {
+                    if (!mCtkProposalDetail_gRPC.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD)) {
+                        Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                } else {
+                    if (!mProposalDetail_gRPC.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
+                        Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
+
                 if (getBaseDao().getDelegationSum().compareTo(BigDecimal.ZERO) <= 0) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
@@ -196,8 +209,10 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private String getProposalTitle() {
-        if (isGRPC(mBaseChain)) {
-            return  "# " + mProposalDetail_gRPC.getProposalId() + ". " + WDp.getProposalTitle(mProposalDetail_gRPC);
+        if (mBaseChain.equals(CERTIK_MAIN)) {
+            return "# " + mCtkProposalDetail_gRPC.getProposalId() + ". " + WDp.getProposalTitle(mBaseChain, mProposalDetail_gRPC, mCtkProposalDetail_gRPC);
+        } else if (isGRPC(mBaseChain)) {
+            return  "# " + mProposalDetail_gRPC.getProposalId() + ". " + WDp.getProposalTitle(mBaseChain, mProposalDetail_gRPC, mCtkProposalDetail_gRPC);
         } else {
             return mProposal.getTitle();
         }
@@ -253,12 +268,16 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         // gRPC
         else if (result.taskType == TASK_GRPC_FETCH_PROPOSAL_DETAIL) {
             if (result.resultData != null) {
-                mProposalDetail_gRPC = (Gov.Proposal)result.resultData;
+                if (mBaseChain.equals(CERTIK_MAIN)) {
+                    mCtkProposalDetail_gRPC = (shentu.gov.v1alpha1.Gov.Proposal) result.resultData;
+                } else {
+                    mProposalDetail_gRPC = (Gov.Proposal)result.resultData;
+                }
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_PROPOSAL_TALLY) {
             if (result.resultData != null) {
-                mTally_gRPC = (Gov.TallyResult)result.resultData;
+                mTally_gRPC = (Gov.TallyResult) result.resultData;
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_PROPOSAL_VOTER_LIST) {
@@ -317,15 +336,15 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindVoteInfo(RecyclerView.ViewHolder viewHolder) {
             final VoteInfoHolder holder = (VoteInfoHolder)viewHolder;
-            if (isGRPC(mBaseChain) && mProposalDetail_gRPC != null) {
-                holder.itemStatusImg.setImageDrawable(WDp.getProposalStatusImg(getBaseContext(), mProposalDetail_gRPC));
-                holder.itemStatusTxt.setText(WDp.getProposalStatusTxt(getBaseContext(), mProposalDetail_gRPC));
-                holder.itemTitle.setText(WDp.getProposalTitle(mProposalDetail_gRPC));
+            if (isGRPC(mBaseChain) && mProposalDetail_gRPC != null || mBaseChain.equals(CERTIK_MAIN) && mCtkProposalDetail_gRPC != null) {
+                holder.itemStatusImg.setImageDrawable(WDp.getProposalStatusImg(getBaseContext(), mBaseChain, mProposalDetail_gRPC, mCtkProposalDetail_gRPC));
+                holder.itemStatusTxt.setText(WDp.getProposalStatusTxt(getBaseContext(), mBaseChain, mProposalDetail_gRPC, mCtkProposalDetail_gRPC));
+                holder.itemTitle.setText(WDp.getProposalTitle(mBaseChain, mProposalDetail_gRPC, mCtkProposalDetail_gRPC));
                 holder.itemProposerLayer.setVisibility(View.GONE);
-                holder.itemType.setText(WDp.getProposalType(mProposalDetail_gRPC));
-                holder.itemStartTime.setText(WDp.getProposalStartTime(getBaseContext(), mProposalDetail_gRPC));
-                holder.itemFinishTime.setText(WDp.geProposalEndTime(getBaseContext(), mProposalDetail_gRPC));
-                holder.itemMsg.setText(WDp.getProposalDescription(mProposalDetail_gRPC));
+                holder.itemType.setText(WDp.getProposalType(mBaseChain, mProposalDetail_gRPC, mCtkProposalDetail_gRPC));
+                holder.itemStartTime.setText(WDp.getProposalStartTime(getBaseContext(), mBaseChain, mProposalDetail_gRPC, mCtkProposalDetail_gRPC));
+                holder.itemFinishTime.setText(WDp.geProposalEndTime(getBaseContext(), mBaseChain, mProposalDetail_gRPC, mCtkProposalDetail_gRPC));
+                holder.itemMsg.setText(WDp.getProposalDescription(mBaseChain, mProposalDetail_gRPC, mCtkProposalDetail_gRPC));
 
             } else if (mProposal != null) {
                 holder.itemStatusImg.setImageDrawable(mProposal.getStatusImg(getBaseContext()));
@@ -380,7 +399,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 holder.itemVetoRate.setText(WDp.getDpString(WDp.getVetoPer(mTally_gRPC).toPlainString() + "%", 3));
                 holder.itemAbstainRate.setText(WDp.getDpString(WDp.getAbstainPer(mTally_gRPC).toPlainString() + "%", 3));
 
-                if (mProposalDetail_gRPC != null && mProposalDetail_gRPC.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
+                if (mProposalDetail_gRPC != null && mProposalDetail_gRPC.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD) ||
+                    mCtkProposalDetail_gRPC != null && mCtkProposalDetail_gRPC.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD)) {
                     onDisplayVote_V1(holder);
                     holder.itemTurnoutLayer.setVisibility(View.VISIBLE);
                     holder.itemQuorum.setText(WDp.getPercentDp(getBaseDao().mChainParam.getQuorum(mBaseChain)));
@@ -453,7 +473,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         private void onExplorerLink() {
             String url;
-            if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
+            if (mBaseChain.equals(BaseChain.SECRET_MAIN)) {
                 url = WUtil.getExplorer(mBaseChain) + "governance/proposals/" + mProposalId;
             } else {
                 url  = WUtil.getExplorer(mBaseChain) + "proposals/" + mProposalId;

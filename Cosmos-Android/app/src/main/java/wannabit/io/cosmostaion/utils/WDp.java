@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.google.protobuf2.Any;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -2576,38 +2577,44 @@ public class WDp {
     }
 
 
-    public static String getProposalTitle(Gov.Proposal proposal) {
-        try {
-            if (proposal.getContent().getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
-                Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposal.getContent().getValue());
+    public static String getProposalTitle(BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
+        Any proposalContent = null;
+        if (baseChain.equals(CERTIK_MAIN)) {
+            proposalContent = ctkProposal.getContent();
+        } else {
+            proposalContent = proposal.getContent();
+        }
+         try {
+            if (proposalContent.getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
+                Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposalContent.getValue());
                 return textProposal.getTitle();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
-                Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
+                Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposalContent.getValue());
                 return parameterChangeProposal.getTitle();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
-                Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
+                Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposalContent.getValue());
                 return clientUpdateProposal.getTitle();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
-                Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
+                Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposalContent.getValue());
                 return communityPoolSpendProposal.getTitle();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
-                Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
+                Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposalContent.getValue());
                 return softwareUpgradeProposal.getTitle();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
-                Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
+                Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposalContent.getValue());
                 return cancelSoftwareUpgradeProposal.getTitle();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal")) {
-                osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal updatePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal")) {
+                osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal updatePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal.parseFrom(proposalContent.getValue());
                 return updatePoolIncentivesProposal.getTitle();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal")) {
-                osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal replacePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal")) {
+                osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal replacePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal.parseFrom(proposalContent.getValue());
                 return replacePoolIncentivesProposal.getTitle();
             }
 
@@ -2615,38 +2622,45 @@ public class WDp {
         return "";
     }
 
-    public static String getProposalDescription(Gov.Proposal proposal) {
+    public static String getProposalDescription(BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
+        Any proposalContent = null;
+        if (baseChain.equals(CERTIK_MAIN)) {
+            proposalContent = ctkProposal.getContent();
+        } else {
+            proposalContent = proposal.getContent();
+        }
+
         try {
-            if (proposal.getContent().getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
-                Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposal.getContent().getValue());
+            if (proposalContent.getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
+                Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposalContent.getValue());
                 return textProposal.getDescription();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
-                Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
+                Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposalContent.getValue());
                 return parameterChangeProposal.getDescription();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
-                Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
+                Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposalContent.getValue());
                 return clientUpdateProposal.getDescription();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
-                Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
+                Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposalContent.getValue());
                 return communityPoolSpendProposal.getDescription();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
-                Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
+                Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposalContent.getValue());
                 return softwareUpgradeProposal.getDescription();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
-                Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
+                Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposalContent.getValue());
                 return cancelSoftwareUpgradeProposal.getDescription();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal")) {
-                osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal updatePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal")) {
+                osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal updatePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal.parseFrom(proposalContent.getValue());
                 return updatePoolIncentivesProposal.getDescription();
 
-            } else if (proposal.getContent().getTypeUrl().equals("/osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal")) {
-                osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal replacePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal.parseFrom(proposal.getContent().getValue());
+            } else if (proposalContent.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal")) {
+                osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal replacePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal.parseFrom(proposalContent.getValue());
                 return replacePoolIncentivesProposal.getDescription();
             }
 
@@ -2654,57 +2668,131 @@ public class WDp {
         return "";
     }
 
-    public static Drawable getProposalStatusImg(Context c, Gov.Proposal proposal) {
-        if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-            return c.getResources().getDrawable(R.drawable.ic_deposit_img);
+    public static Drawable getProposalStatusImg(Context c, BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
+        if (baseChain.equals(CERTIK_MAIN)) {
+            if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+                return c.getResources().getDrawable(R.drawable.ic_deposit_img);
 
-        } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
-            return c.getResources().getDrawable(R.drawable.ic_voting_img);
+            } else if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD) ||
+                    ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD)) {
+                return c.getResources().getDrawable(R.drawable.ic_voting_img);
 
-        } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
-            return c.getResources().getDrawable(R.drawable.ic_rejected_img);
+            } else if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
+                return c.getResources().getDrawable(R.drawable.ic_rejected_img);
 
-        } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
-            return c.getResources().getDrawable(R.drawable.ic_passed_img);
+            } else if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
+                return c.getResources().getDrawable(R.drawable.ic_passed_img);
+            }
+        } else {
+            if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+                return c.getResources().getDrawable(R.drawable.ic_deposit_img);
+
+            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
+                return c.getResources().getDrawable(R.drawable.ic_voting_img);
+
+            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
+                return c.getResources().getDrawable(R.drawable.ic_rejected_img);
+
+            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
+                return c.getResources().getDrawable(R.drawable.ic_passed_img);
+            }
         }
         return null;
     }
 
-    public static String getProposalStatusTxt(Context c, Gov.Proposal proposal) {
-        if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+    public static String getProposalStatusTxt(Context c, BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
+        if (baseChain.equals(CERTIK_MAIN)) {
+            if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+                return "DepositPeriod";
+
+            } else if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD) ||
+                    ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD)) {
+                return "VotingPeriod";
+
+            } else if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
+                return "Rejected";
+
+            } else if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
+                return "Passed";
+            }
+
+        } else {
+            if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+                return "DepositPeriod";
+
+            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
+                return "VotingPeriod";
+
+            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
+                return "Rejected";
+
+            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
+                return "Passed";
+            }
+        }
+        return "unKnown";
+    }
+
+    public static String getCtkProposalStatusTxt(Context c, shentu.gov.v1alpha1.Gov.Proposal proposal) {
+        if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
             return "DepositPeriod";
 
-        } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
+        } else if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD) ||
+                    proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD)) {
             return "VotingPeriod";
 
-        } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
+        } else if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
             return "Rejected";
 
-        } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
+        } else if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
             return "Passed";
         }
         return "unKnown";
     }
 
-    public static String getProposalType(Gov.Proposal proposal) {
-        String[] split = proposal.getContent().getTypeUrl().split("\\.");
+    public static String getProposalType(BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
+        Any proposalContent = null;
+        if (baseChain.equals(CERTIK_MAIN)) {
+            proposalContent = ctkProposal.getContent();
+        } else {
+            proposalContent = proposal.getContent();
+        }
+        String[] split = proposalContent.getTypeUrl().split("\\.");
         return split[split.length - 1];
     }
 
 
-    public static String getProposalStartTime(Context c, Gov.Proposal proposal) {
-        if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-            return c.getString(R.string.str_vote_wait_deposit);
+    public static String getProposalStartTime(Context c, BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
+        if (baseChain.equals(CERTIK_MAIN)) {
+            if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+               return c.getString(R.string.str_vote_wait_deposit);
+            } else {
+                return WDp.getDpTime(c, ctkProposal.getVotingStartTime().getSeconds() * 1000);
+            }
+
         } else {
-            return WDp.getDpTime(c, proposal.getVotingStartTime().getSeconds() * 1000);
+            if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+                return c.getString(R.string.str_vote_wait_deposit);
+            } else {
+                return WDp.getDpTime(c, proposal.getVotingStartTime().getSeconds() * 1000);
+            }
         }
     }
 
-    public static String geProposalEndTime(Context c, Gov.Proposal proposal) {
-        if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-            return c.getString(R.string.str_vote_wait_deposit);
+    public static String geProposalEndTime(Context c, BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
+        if (baseChain.equals(CERTIK_MAIN)) {
+            if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+                return c.getString(R.string.str_vote_wait_deposit);
+            } else {
+                return WDp.getDpTime(c, ctkProposal.getVotingEndTime().getSeconds() * 1000);
+            }
+
         } else {
-            return WDp.getDpTime(c, proposal.getVotingEndTime().getSeconds() * 1000);
+            if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+                return c.getString(R.string.str_vote_wait_deposit);
+            } else {
+                return WDp.getDpTime(c, proposal.getVotingEndTime().getSeconds() * 1000);
+            }
         }
     }
 
