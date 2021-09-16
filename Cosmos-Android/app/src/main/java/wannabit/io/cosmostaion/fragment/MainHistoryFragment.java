@@ -209,21 +209,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 mRecyclerView.setVisibility(View.GONE);
             }
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
-            if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) {
-                ArrayList<ResApiTxListCustom> hits = (ArrayList<ResApiTxListCustom>) result.resultData;
-                if (hits != null && hits.size() > 0) {
-//                    WLog.w("Custom hit size " + hits.size());
-                    mApiTxCustomHistory = hits;
-                    mHistoryAdapter.notifyDataSetChanged();
-                    mEmptyHistory.setVisibility(View.GONE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                } else {
-                    mEmptyHistory.setVisibility(View.VISIBLE);
-                    mRecyclerView.setVisibility(View.GONE);
-                }
-
-            } else if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN) ||
-                    getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) {
+            if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
                 ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>) result.resultData;
                 if (hits != null && hits.size() > 0) {
 //                  WLog.w("Custom hit size " + hits.size());
@@ -271,17 +257,12 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) {
-                HistoryOldHolder holder = (HistoryOldHolder) viewHolder;
-                final ResApiTxListCustom history = mApiTxCustomHistory.get(position);
-                holder.onBindOldGrpcHistory(getMainActivity(), history);
-
-            } else if (isGRPC(getMainActivity().mBaseChain)) {
+            if (isGRPC(getMainActivity().mBaseChain)) {
                 HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
                 holder.onBindNewHistory(getMainActivity(), history);
 
-            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
                 HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
                 holder.onBindHistory(getMainActivity(), history);
@@ -303,10 +284,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemViewType(int position) {
-            if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) {
-                return TYPE_OLD_HISTORY;
-            } else if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(FETCHAI_MAIN) ||
-                    getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+            if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
                 return TYPE_NEW_HISTORY;
             } else {
                 return TYPE_OLD_HISTORY;
@@ -319,10 +297,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 return mBnbHistory.size();
             } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 return mOkHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) {
-                return mApiTxCustomHistory.size();
-            } else if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(FETCHAI_MAIN) ||
-                    getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+            } else if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
                 return mApiNewTxCustomHistory.size();
             } else {
                 return mApiTxHistory.size();
