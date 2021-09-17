@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
@@ -95,6 +96,8 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
             Bundle bundle = new Bundle();
             if (getSActivity().mBaseChain.equals(SENTINEL_MAIN) || getSActivity().mBaseChain.equals(CRYPTO_MAIN)) {
                 bundle.putInt("day", 28);
+            } else if (getSActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
+                bundle.putInt("day", 14);
             } else {
                 bundle.putInt("day", 21);
             }
