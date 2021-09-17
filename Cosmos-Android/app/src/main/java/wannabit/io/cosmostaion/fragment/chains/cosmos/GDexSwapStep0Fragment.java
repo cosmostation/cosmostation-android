@@ -23,25 +23,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cosmos.base.v1beta1.CoinOuterClass;
-import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.cosmos.GravitySwapActivity;
-import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.GravityDexManagerGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.SupplyDenomGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.TotalSupplyGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DENOM_SUPPLY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_MANAGER;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_POOL_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_TOTAL_SUPPLY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 
 public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
@@ -297,9 +294,8 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
     private int mTaskCount;
     public void onFetchPoolInfo() {
-        mTaskCount = 2;
+        mTaskCount = 1;
         new GravityDexManagerGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mGDexPool.getReserveAccountAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new SupplyDenomGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mGDexPool.getPoolCoinDenom()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -308,12 +304,6 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
         if (result.taskType == TASK_GRPC_FETCH_GRAVITY_MANAGER) {
             if (result.isSuccess && result.resultData != null && result.resultData2 != null) {
                 getSActivity().mGDexManager = new GDexManager(result.resultData2, (List<CoinOuterClass.Coin>) result.resultData);
-            }
-
-        } else if (result.taskType == TASK_GRPC_FETCH_DENOM_SUPPLY) {
-            if (result.isSuccess && result.resultData != null) {
-                CoinOuterClass.Coin rawCoin = (CoinOuterClass.Coin)result.resultData;
-                getSActivity().mGDexPoolCoinSupply = new Coin(rawCoin.getDenom(), rawCoin.getAmount());
             }
 
         }
