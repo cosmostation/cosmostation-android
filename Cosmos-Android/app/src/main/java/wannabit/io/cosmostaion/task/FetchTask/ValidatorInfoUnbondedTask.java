@@ -97,19 +97,6 @@ public class ValidatorInfoUnbondedTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(FETCHAI_MAIN)) {
-                Response<ResLcdValidators> response = ApiClient.getFetchChain(mApp).getUnBondedValidatorDetailList().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(KI_MAIN)) {
                 Response<ResLcdValidators> response = ApiClient.getKiChain(mApp).getUnBondedValidatorDetailList().execute();
                 if(!response.isSuccessful()) {

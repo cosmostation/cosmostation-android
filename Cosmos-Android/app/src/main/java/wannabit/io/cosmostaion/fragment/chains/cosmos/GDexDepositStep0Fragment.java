@@ -266,7 +266,7 @@ public class GDexDepositStep0Fragment extends BaseFragment implements View.OnCli
 
                         BigDecimal checkPosition = inputAmount.movePointRight(mCoin1Decimal);
                         BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
-                        if (checkPosition.compareTo(checkMax) != 0) {
+                        if (checkPosition.compareTo(checkMax) != 0 || !checkPosition.equals(checkMax)) {
                             String recover = es.substring(0, es.length() - 1);
                             mJoinPoolInput1.setText(recover);
                             mJoinPoolInput1.setSelection(recover.length());

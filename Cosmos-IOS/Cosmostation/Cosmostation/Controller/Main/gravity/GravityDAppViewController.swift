@@ -63,7 +63,7 @@ class GravityDAppViewController: BaseViewController {
         if (self.mFetchCnt > 0)  {
             return false
         }
-        self.mFetchCnt = 2
+        self.mFetchCnt = 3
         BaseData.instance.mGravityPools_gRPC.removeAll()
         BaseData.instance.mGravityManager_gRPC.removeAll()
         BaseData.instance.mGravityPoolTokens_gRPC.removeAll()
@@ -77,6 +77,7 @@ class GravityDAppViewController: BaseViewController {
             
             self.onFetchGdexParam()
             self.onFetchGdexPools()
+            self.onFetchTotalSupply()
         }
         return true
     }
@@ -108,9 +109,8 @@ class GravityDAppViewController: BaseViewController {
         if let response = try? Tendermint_Liquidity_V1beta1_QueryClient(channel: self.channel).liquidityPools(req, callOptions: BaseNetWork.getCallOptions()).response.wait() {
             response.pools.forEach { pool in                
                 if (BaseData.instance.mParam?.isPoolEnabled(Int(pool.id)) == true) {
-                    self.mFetchCnt = self.mFetchCnt + 2
+                    self.mFetchCnt = self.mFetchCnt + 1
                     self.onFetchGdexPoolManager(pool.reserveAccountAddress)
-                    self.onFetchSupply(pool.poolCoinDenom)
                     BaseData.instance.mGravityPools_gRPC.append(pool)
                 }
             }
@@ -126,10 +126,14 @@ class GravityDAppViewController: BaseViewController {
         self.onFetchFinished()
     }
     
-    func onFetchSupply(_ denom: String) {
-        let req = Cosmos_Bank_V1beta1_QuerySupplyOfRequest.with { $0.denom = denom }
-        if let response = try? Cosmos_Bank_V1beta1_QueryClient(channel: self.channel).supplyOf(req, callOptions: BaseNetWork.getCallOptions()).response.wait() {
-            BaseData.instance.mGravityPoolTokens_gRPC.append(Coin.init(response.amount.denom, response.amount.amount))
+    func onFetchTotalSupply() {
+        let req = Cosmos_Bank_V1beta1_QueryTotalSupplyRequest.init()
+        if let response = try? Cosmos_Bank_V1beta1_QueryClient(channel: self.channel).totalSupply(req, callOptions: BaseNetWork.getCallOptions()).response.wait() {
+            response.supply.forEach { coin in
+                if (coin.denom.starts(with: "pool")) {
+                    BaseData.instance.mGravityPoolTokens_gRPC.append(Coin.init(coin.denom, coin.amount))
+                }
+            }
         }
         self.onFetchFinished()
     }

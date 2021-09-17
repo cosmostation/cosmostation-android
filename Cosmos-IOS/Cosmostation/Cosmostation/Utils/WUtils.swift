@@ -5097,83 +5097,83 @@ public class WUtils {
         return result
     }
     
-    static func onParseProposalTitle(_ proposal: Cosmos_Gov_V1beta1_Proposal) -> String {
-        if (proposal.content.typeURL.contains(Cosmos_Gov_V1beta1_TextProposal.protoMessageName)) {
-            let textProposal = try! Cosmos_Gov_V1beta1_TextProposal.init(serializedData: proposal.content.value)
+    static func onParseProposalTitle(_ proposalContent: Google_Protobuf2_Any) -> String {
+        if (proposalContent.typeURL.contains(Cosmos_Gov_V1beta1_TextProposal.protoMessageName)) {
+            let textProposal = try! Cosmos_Gov_V1beta1_TextProposal.init(serializedData: proposalContent.value)
             return textProposal.title
             
-        } else if (proposal.content.typeURL.contains(Cosmos_Params_V1beta1_ParameterChangeProposal.protoMessageName)) {
-            let paramProposal = try! Cosmos_Params_V1beta1_ParameterChangeProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Cosmos_Params_V1beta1_ParameterChangeProposal.protoMessageName)) {
+            let paramProposal = try! Cosmos_Params_V1beta1_ParameterChangeProposal.init(serializedData: proposalContent.value)
             return paramProposal.title
             
-        } else if (proposal.content.typeURL.contains(Ibc_Core_Client_V1_ClientUpdateProposal.protoMessageName)) {
-            let clientProposal = try! Ibc_Core_Client_V1_ClientUpdateProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Ibc_Core_Client_V1_ClientUpdateProposal.protoMessageName)) {
+            let clientProposal = try! Ibc_Core_Client_V1_ClientUpdateProposal.init(serializedData: proposalContent.value)
             return clientProposal.title
             
-        } else if (proposal.content.typeURL.contains(Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.protoMessageName)) {
-            let poolProposal = try! Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.protoMessageName)) {
+            let poolProposal = try! Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.init(serializedData: proposalContent.value)
             return poolProposal.title
             
-        } else if (proposal.content.typeURL.contains(Cosmos_Upgrade_V1beta1_SoftwareUpgradeProposal.protoMessageName)) {
-            let upgradeProposal = try! Cosmos_Upgrade_V1beta1_SoftwareUpgradeProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Cosmos_Upgrade_V1beta1_SoftwareUpgradeProposal.protoMessageName)) {
+            let upgradeProposal = try! Cosmos_Upgrade_V1beta1_SoftwareUpgradeProposal.init(serializedData: proposalContent.value)
             return upgradeProposal.title
             
-        } else if (proposal.content.typeURL.contains(Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.protoMessageName)) {
-            let cancelProposal = try! Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.protoMessageName)) {
+            let cancelProposal = try! Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.init(serializedData: proposalContent.value)
             return cancelProposal.title
             
-        } else if (proposal.content.typeURL.contains(Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.protoMessageName)) {
-            let PoolIncentiveProposal = try! Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.protoMessageName)) {
+            let PoolIncentiveProposal = try! Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.init(serializedData: proposalContent.value)
             return PoolIncentiveProposal.title
             
-        } else if (proposal.content.typeURL.contains(Osmosis_Poolincentives_V1beta1_ReplacePoolIncentivesProposal.protoMessageName)) {
-            let ReplacePoolIncentive = try! Osmosis_Poolincentives_V1beta1_ReplacePoolIncentivesProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Osmosis_Poolincentives_V1beta1_ReplacePoolIncentivesProposal.protoMessageName)) {
+            let ReplacePoolIncentive = try! Osmosis_Poolincentives_V1beta1_ReplacePoolIncentivesProposal.init(serializedData: proposalContent.value)
             return ReplacePoolIncentive.title
             
         }
         return ""
     }
     
-    static func onParseProposalDescription(_ proposal: Cosmos_Gov_V1beta1_Proposal) -> String {
-        if (proposal.content.typeURL.contains(Cosmos_Gov_V1beta1_TextProposal.protoMessageName)) {
-            let textProposal = try! Cosmos_Gov_V1beta1_TextProposal.init(serializedData: proposal.content.value)
+    static func onParseProposalDescription(_ proposalContent: Google_Protobuf2_Any) -> String {
+        if (proposalContent.typeURL.contains(Cosmos_Gov_V1beta1_TextProposal.protoMessageName)) {
+            let textProposal = try! Cosmos_Gov_V1beta1_TextProposal.init(serializedData: proposalContent.value)
             return textProposal.description_p
             
-        } else if (proposal.content.typeURL.contains(Cosmos_Params_V1beta1_ParameterChangeProposal.protoMessageName)) {
-            let paramProposal = try! Cosmos_Params_V1beta1_ParameterChangeProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Cosmos_Params_V1beta1_ParameterChangeProposal.protoMessageName)) {
+            let paramProposal = try! Cosmos_Params_V1beta1_ParameterChangeProposal.init(serializedData: proposalContent.value)
             return paramProposal.description_p
             
-        } else if (proposal.content.typeURL.contains(Ibc_Core_Client_V1_ClientUpdateProposal.protoMessageName)) {
-            let clientProposal = try! Ibc_Core_Client_V1_ClientUpdateProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Ibc_Core_Client_V1_ClientUpdateProposal.protoMessageName)) {
+            let clientProposal = try! Ibc_Core_Client_V1_ClientUpdateProposal.init(serializedData: proposalContent.value)
             return clientProposal.description_p
             
-        } else if (proposal.content.typeURL.contains(Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.protoMessageName)) {
-            let poolProposal = try! Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.protoMessageName)) {
+            let poolProposal = try! Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.init(serializedData: proposalContent.value)
             return poolProposal.description_p
             
-        } else if (proposal.content.typeURL.contains(Cosmos_Upgrade_V1beta1_SoftwareUpgradeProposal.protoMessageName)) {
-            let upgradeProposal = try! Cosmos_Upgrade_V1beta1_SoftwareUpgradeProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Cosmos_Upgrade_V1beta1_SoftwareUpgradeProposal.protoMessageName)) {
+            let upgradeProposal = try! Cosmos_Upgrade_V1beta1_SoftwareUpgradeProposal.init(serializedData: proposalContent.value)
             return upgradeProposal.description_p
             
-        } else if (proposal.content.typeURL.contains(Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.protoMessageName)) {
-            let cancelProposal = try! Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.protoMessageName)) {
+            let cancelProposal = try! Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.init(serializedData: proposalContent.value)
             return cancelProposal.description_p
             
-        } else if (proposal.content.typeURL.contains(Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.protoMessageName)) {
-            let PoolIncentiveProposal = try! Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.protoMessageName)) {
+            let PoolIncentiveProposal = try! Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.init(serializedData: proposalContent.value)
             return PoolIncentiveProposal.description_p
             
-        } else if (proposal.content.typeURL.contains(Osmosis_Poolincentives_V1beta1_ReplacePoolIncentivesProposal.protoMessageName)) {
-            let ReplacePoolIncentive = try! Osmosis_Poolincentives_V1beta1_ReplacePoolIncentivesProposal.init(serializedData: proposal.content.value)
+        } else if (proposalContent.typeURL.contains(Osmosis_Poolincentives_V1beta1_ReplacePoolIncentivesProposal.protoMessageName)) {
+            let ReplacePoolIncentive = try! Osmosis_Poolincentives_V1beta1_ReplacePoolIncentivesProposal.init(serializedData: proposalContent.value)
             return ReplacePoolIncentive.description_p
             
         }
         return ""
     }
     
-    static func onParseProposalRequestAmount(_ proposal: Cosmos_Gov_V1beta1_Proposal) -> Coin? {
-        if (proposal.content.typeURL.contains(Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.protoMessageName)) {
-            let poolProposal = try! Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.init(serializedData: proposal.content.value)
+    static func onParseProposalRequestAmount(_ proposalContent: Google_Protobuf2_Any) -> Coin? {
+        if (proposalContent.typeURL.contains(Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.protoMessageName)) {
+            let poolProposal = try! Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.init(serializedData: proposalContent.value)
             return Coin.init(poolProposal.amount[0].denom, poolProposal.amount[0].amount)
         } else {
             return nil;
@@ -5193,6 +5193,21 @@ public class WUtils {
         return "unKnown"
     }
     
+    static func onParseProposalStatusCertikTxt(_ status: Shentu_Gov_V1alpha1_ProposalStatus) -> String {
+        if (status == Shentu_Gov_V1alpha1_ProposalStatus.depositPeriod) {
+            return "DepositPeriod"
+        } else if (status == Shentu_Gov_V1alpha1_ProposalStatus.certifierVotingPeriod || status == Shentu_Gov_V1alpha1_ProposalStatus.validatorVotingPeriod) {
+            return "VotingPeriod"
+        } else if (status == Shentu_Gov_V1alpha1_ProposalStatus.passed) {
+            return "Passed"
+        } else if (status == Shentu_Gov_V1alpha1_ProposalStatus.rejected) {
+            return "Rejected"
+        } else if (status == Shentu_Gov_V1alpha1_ProposalStatus.failed) {
+            return "Failed"
+        }
+        return "unKnown"
+    }
+    
     static func onParseProposalStatusImg(_ proposal: Cosmos_Gov_V1beta1_Proposal) -> UIImage? {
         if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.depositPeriod) {
             return UIImage.init(named: "depositImg")
@@ -5206,6 +5221,21 @@ public class WUtils {
         return nil
     }
     
+    static func onParseProposalStatusCertikImg(_ status: Shentu_Gov_V1alpha1_ProposalStatus) -> UIImage? {
+        if (status == Shentu_Gov_V1alpha1_ProposalStatus.depositPeriod) {
+            return UIImage.init(named: "depositImg")
+        } else if (status == Shentu_Gov_V1alpha1_ProposalStatus.certifierVotingPeriod || status == Shentu_Gov_V1alpha1_ProposalStatus.validatorVotingPeriod) {
+            return UIImage.init(named: "votingImg")
+        } else if (status == Shentu_Gov_V1alpha1_ProposalStatus.passed) {
+            return UIImage.init(named: "passedImg")
+        } else if (status == Shentu_Gov_V1alpha1_ProposalStatus.rejected) {
+            return UIImage.init(named: "rejectedImg")
+        } else if (status == Shentu_Gov_V1alpha1_ProposalStatus.failed) {
+            return UIImage.init(named: "rejectedImg")
+        }
+        return nil
+    }
+    
     static func onParseProposalStartTime(_ proposal: Cosmos_Gov_V1beta1_Proposal) -> String {
         if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.depositPeriod) {
             return "Waiting Deposit"
@@ -5214,8 +5244,24 @@ public class WUtils {
         }
     }
     
+    static func onParseProposalCertikStartTime(_ proposal: Shentu_Gov_V1alpha1_Proposal) -> String {
+        if (proposal.status == Shentu_Gov_V1alpha1_ProposalStatus.depositPeriod) {
+            return "Waiting Deposit"
+        } else {
+            return longTimetoString(proposal.votingStartTime.seconds * 1000)
+        }
+    }
+    
     static func onParseProposalEndTime(_ proposal: Cosmos_Gov_V1beta1_Proposal) -> String {
         if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.depositPeriod) {
+            return "Waiting Deposit"
+        } else {
+            return longTimetoString(proposal.votingEndTime.seconds * 1000)
+        }
+    }
+    
+    static func onParseProposalCertikEndTime(_ proposal: Shentu_Gov_V1alpha1_Proposal) -> String {
+        if (proposal.status == Shentu_Gov_V1alpha1_ProposalStatus.depositPeriod) {
             return "Waiting Deposit"
         } else {
             return longTimetoString(proposal.votingEndTime.seconds * 1000)
@@ -5280,11 +5326,24 @@ public class WUtils {
         return String(result)
     }
     
+    static func getCertikVoterTypeCnt_gRPC(_ votes: Array<Shentu_Gov_V1alpha1_Vote>?, _ option: Cosmos_Gov_V1beta1_VoteOption) -> String {
+        var result = 0
+        if (votes == nil) {
+            return String(result)
+        }
+        for vote in votes! {
+            if (vote.deposit.option == option) {
+                result = result + 1
+            }
+        }
+        return String(result)
+    }
+    
     public static func isGRPC(_ chain: ChainType?) -> Bool {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
                 chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN ||
                 chain == ChainType.OSMOSIS_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.SIF_MAIN ||
-                chain == ChainType.MEDI_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.EMONEY_MAIN ||
+                chain == ChainType.MEDI_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.EMONEY_MAIN || chain == ChainType.FETCH_MAIN ||
                 chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST ||
                 chain == ChainType.ALTHEA_TEST || chain == ChainType.UMEE_TEST || chain == ChainType.AXELAR_TEST) {
             return true

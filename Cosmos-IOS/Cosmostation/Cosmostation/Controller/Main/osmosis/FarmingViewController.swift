@@ -178,6 +178,7 @@ class FarmingViewController: BaseViewController, UITableViewDelegate, UITableVie
                     }
                 }
 //                print("mPoolList ", self.mPoolList.count)
+                try? channel.close().wait()
                 
             } catch {
                 print("onFetchGammPools failed: \(error)")

@@ -348,6 +348,8 @@ public enum BaseChain {
             return true;
         } else if (baseChain.equals(EMONEY_MAIN)) {
             return true;
+        } else if (baseChain.equals(FETCHAI_MAIN)) {
+            return true;
         }
 //        } else if (baseChain.equals(BAND_MAIN)) {
 //            return true;

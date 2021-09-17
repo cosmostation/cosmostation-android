@@ -91,16 +91,6 @@ public class NodeInfoTask extends CommonTask {
                     WLog.w("NodeInfoTask : NOk");
                 }
 
-            } else if (mChain.equals(FETCHAI_MAIN)) {
-                Response<ResNodeInfo> response = ApiClient.getFetchChain(mApp).getNodeInfo().execute();
-                if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
-                    mResult.resultData = response.body().node_info;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("NodeInfoTask : NOk");
-                }
-
             } else if (mChain.equals(KI_MAIN)) {
                 Response<ResNodeInfo> response = ApiClient.getKiChain(mApp).getNodeInfo().execute();
                 if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {

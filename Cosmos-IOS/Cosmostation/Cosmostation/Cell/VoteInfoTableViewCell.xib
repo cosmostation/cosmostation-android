@@ -53,7 +53,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="-" textAlignment="right" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pz4-hx-UQc">
-                                <rect key="frame" x="410" y="74" width="6" height="13.5"/>
+                                <rect key="frame" x="236" y="74" width="180" height="13.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="4IK-Iu-Zro"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -170,7 +173,6 @@ Come together</string>
                             <constraint firstItem="uvz-bo-nO9" firstAttribute="top" secondItem="6KK-yM-R3J" secondAttribute="bottom" constant="16" id="Wiy-2F-pxr"/>
                             <constraint firstItem="pz4-hx-UQc" firstAttribute="centerY" secondItem="VN6-Bd-E2T" secondAttribute="centerY" id="YP2-UG-Qjg"/>
                             <constraint firstItem="e8m-dx-Yxg" firstAttribute="centerY" secondItem="nXe-xR-DfV" secondAttribute="centerY" id="YPb-jE-gP8"/>
-                            <constraint firstItem="pz4-hx-UQc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VN6-Bd-E2T" secondAttribute="trailing" constant="48" id="ZDK-nH-wb7"/>
                             <constraint firstItem="uwc-7Q-e0m" firstAttribute="trailing" secondItem="pz4-hx-UQc" secondAttribute="trailing" id="dQq-Wd-dRa"/>
                             <constraint firstItem="uvz-bo-nO9" firstAttribute="leading" secondItem="KH4-c3-ohL" secondAttribute="leading" id="dhc-Fe-g7n"/>
                             <constraint firstItem="LVW-2d-9ch" firstAttribute="centerY" secondItem="e8m-dx-Yxg" secondAttribute="centerY" id="dmG-lE-Hfj"/>

@@ -273,7 +273,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchOkUnbondingInfo(mAccount)
             
             
-        } else if (mChainType == ChainType.FETCH_MAIN || mChainType == ChainType.KI_MAIN || mChainType == ChainType.MEDI_TEST) {
+        } else if (mChainType == ChainType.KI_MAIN || mChainType == ChainType.MEDI_TEST) {
             self.mFetchCnt = 8
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
@@ -302,7 +302,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         if (WUtils.isGRPC(mChainType!)) {
             DispatchQueue.global().async {
-                let group = MultiThreadedEventLoopGroup(numberOfThreads: 6)
+                let group = MultiThreadedEventLoopGroup(numberOfThreads: 15)
                 defer { try! group.syncShutdownGracefully() }
                 
                 self.channel = BaseNetWork.getConnection(self.mChainType!, group)!
@@ -323,10 +323,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     
                     self.onFetchgRPCGravityPools()
                     
-                }
-                else if (self.mChainType == ChainType.IRIS_MAIN || self.mChainType == ChainType.AKASH_MAIN || self.mChainType == ChainType.PERSIS_MAIN ||
+                } else if (self.mChainType == ChainType.IRIS_MAIN || self.mChainType == ChainType.AKASH_MAIN || self.mChainType == ChainType.PERSIS_MAIN ||
                             self.mChainType == ChainType.CRYPTO_MAIN || self.mChainType == ChainType.SENTINEL_MAIN || self.mChainType == ChainType.MEDI_MAIN ||
-                            self.mChainType == ChainType.CERTIK_MAIN || self.mChainType == ChainType.OSMOSIS_MAIN || self.mChainType == ChainType.EMONEY_MAIN) {
+                            self.mChainType == ChainType.CERTIK_MAIN || self.mChainType == ChainType.OSMOSIS_MAIN || self.mChainType == ChainType.EMONEY_MAIN ||
+                            self.mChainType == ChainType.FETCH_MAIN) {
                     self.mFetchCnt = 9
                     self.onFetchgRPCNodeInfo()
                     self.onFetchgRPCAuth(self.mAccount.account_address)
@@ -373,7 +373,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.onFetchgRPCStarNameConfig()
                     
                 } else if (self.mChainType == ChainType.SIF_MAIN) {
-                    self.mFetchCnt = 11
+                    self.mFetchCnt = 10
                     self.onFetchgRPCNodeInfo()
                     self.onFetchgRPCAuth(self.mAccount.account_address)
                     self.onFetchgRPCBondedValidators(0)
@@ -385,7 +385,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.onFetchgRPCUndelegations(self.mAccount.account_address, 0)
                     self.onFetchgRPCRewards(self.mAccount.account_address, 0)
 
-                    self.onFetchSifVsIncentive(self.mAccount.account_address)
+//                    self.onFetchSifVsIncentive(self.mAccount.account_address)
                     self.onFetchSifLmIncentive(self.mAccount.account_address)
                     
                 } else if (self.mChainType == ChainType.COSMOS_TEST || self.mChainType == ChainType.RIZON_TEST || self.mChainType == ChainType.ALTHEA_TEST ||
@@ -1038,9 +1038,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchSifVsIncentive(_ address: String) {
         print("onFetchSifVsIncentive url ", BaseNetWork.vsIncentiveUrl(address))
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 5
-        configuration.timeoutIntervalForResource = 5
+        configuration.timeoutIntervalForRequest = 8
+        configuration.timeoutIntervalForResource = 8
         let request = Alamofire.SessionManager(configuration: configuration).request(BaseNetWork.vsIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+//        let request = Alamofire.request(BaseNetWork.vsIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1061,10 +1062,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchSifLmIncentive(_ address: String) {
         print("onFetchSifLmIncentive url ", BaseNetWork.lmIncentiveUrl(address))
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 5
-        configuration.timeoutIntervalForResource = 5
-        let request = Alamofire.SessionManager(configuration: configuration).request(BaseNetWork.lmIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.lmIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

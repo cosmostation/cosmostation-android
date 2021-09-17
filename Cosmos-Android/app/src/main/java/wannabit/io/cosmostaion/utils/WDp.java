@@ -2520,6 +2520,8 @@ public class WDp {
             return MEDI_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(EMONEY_MAIN)) {
             return EMONEY_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(FETCHAI_MAIN)) {
+            return FETCH_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(BAND_MAIN)) {
             return BAND_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(RIZON_TEST)) {
@@ -2538,8 +2540,6 @@ public class WDp {
             return SECRET_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
             return OKEX_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(FETCHAI_MAIN)) {
-            return FETCH_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(KI_MAIN)) {
             return KI_VAL_URL + opAddress + ".png";
         }

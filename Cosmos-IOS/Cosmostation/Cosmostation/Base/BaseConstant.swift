@@ -71,7 +71,7 @@ let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostat
 let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostation.io/";
 
 
-let SECRET_URL                          = "https://secret-2--lcd--full.datahub.figment.io/apikey/290520481df876316ee7664924c0a1df/";
+let SECRET_URL                          = "https://secret-3--lcd--full.datahub.figment.io/apikey/290520481df876316ee7664924c0a1df/";
 let SECRET_API                          = "";
 
 
@@ -84,7 +84,6 @@ let PERSIS_API                          = "https://api-persistence.cosmostation.
 let SENTINEL_API                        = "https://api-sentinel.cosmostation.io/";
 
 
-let FETCH_URL                           = "https://lcd-fetchai-app.cosmostation.io/";
 let FETCH_API                           = "https://api-fetchai.cosmostation.io/";
 
 
@@ -851,7 +850,7 @@ public enum ChainType: String {
 //        result.append(IOV_TEST)
 //        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
-        result.append(RIZON_TEST)
+//        result.append(RIZON_TEST)
 //        result.append(MEDI_TEST)
 //        result.append(ALTHEA_TEST)
         result.append(UMEE_TEST)

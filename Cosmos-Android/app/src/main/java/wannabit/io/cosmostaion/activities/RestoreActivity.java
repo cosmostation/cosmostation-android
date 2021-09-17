@@ -441,7 +441,7 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
                     } else {
                         ArrayList<String> filteredList = new ArrayList<>();
                         for (String word : mAllMnemonic) {
-                            if (word.startsWith(charString.toLowerCase())) {
+                            if (word.startsWith(charString.toLowerCase()) && !word.equals(charString.toLowerCase())) {
                                 filteredList.add(word);
                             }
                         }

@@ -181,6 +181,7 @@ class PoolViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                 }
 //                print("mMyPoolList ", self.mMyPoolList.count)
 //                print("mOtherPoolList ", self.mOtherPoolList.count)
+                try? channel.close().wait()
                 
             } catch {
                 print("onFetchGammPools failed: \(error)")

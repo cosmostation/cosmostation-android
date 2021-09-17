@@ -197,9 +197,9 @@ public class ChainParam {
 
             } else {
                 if (baseChain.equals(CERTIK_MAIN) || baseChain.equals(CERTIK_TEST)) {
-                    return new BigDecimal(govTallyings.defaultTally.quorum).movePointRight(2);
+                    return new BigDecimal(govTallyings.tallyparams.defaultTally.quorum).movePointRight(2);
                 }
-                return new BigDecimal(govTallyings.quorum).movePointRight(2);
+                return new BigDecimal(govTallyings.tallyparams.quorum).movePointRight(2);
             }
         }
 
@@ -371,20 +371,8 @@ public class ChainParam {
     }
 
     public class GovTallyings {
-        @SerializedName("DefaultTally")
-        public DefaultTally defaultTally;
-
         @SerializedName("tally_params")
         public GovTallying tallyparams;
-
-        @SerializedName("veto")
-        public String veto;
-
-        @SerializedName("quorum")
-        public String quorum;
-
-        @SerializedName("threshold")
-        public String threshold;
 
         public class GovTallying {
             @SerializedName("quorum")
@@ -395,17 +383,20 @@ public class ChainParam {
 
             @SerializedName("veto_threshold")
             public String veto_threshold;
+
+            @SerializedName("default_tally")
+            public DefaultTally defaultTally;
         }
 
         public class DefaultTally {
-            @SerializedName("veto")
-            public String veto;
-
             @SerializedName("quorum")
             public String quorum;
 
             @SerializedName("threshold")
             public String threshold;
+
+            @SerializedName("veto_threshold")
+            public String veto;
         }
 
     }

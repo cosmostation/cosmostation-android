@@ -12,6 +12,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
@@ -54,11 +55,14 @@ public class ChannelBuilder {
     private final static String GRPC_MEDI_MAIN = "lcd-medibloc-app.cosmostation.io";
     private final static int PORT_MEDI_MAIN = 9090;
 
-    private final static String GRPC_CERTIK_MAIN = "lcd-certik.cosmostation.io";
+    private final static String GRPC_CERTIK_MAIN = "lcd-certik-app.cosmostation.io";
     private final static int PORT_CERTIK_MAIN = 9090;
 
     private final static String GRPC_EMONEY_MAIN = "lcd-office.cosmostation.io";
     private final static int PORT_EMONEY_MAIN = 40900;
+
+    private final static String GRPC_FETCH_MAIN = "lcd-fetchai-app.cosmostation.io";
+    private final static int PORT_FETCH_MAIN = 9090;
 
 //    private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
 //    private final static int PORT_BAND_MAIN = 21700;
@@ -113,6 +117,8 @@ public class ChannelBuilder {
             return getCertikMain();
         } else if (chain.equals(EMONEY_MAIN)) {
             return getEmoneyMain();
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            return getFetchMain();
 
 //        } else if (chain.equals(BAND_MAIN)) {
 //            return getBandMain();
@@ -289,6 +295,19 @@ public class ChannelBuilder {
             }
         }
         return channel_emoney_main;
+    }
+
+    //Channel for fetchai main
+    private static ManagedChannel channel_fetch_main = null;
+    public static ManagedChannel getFetchMain() {
+        if (channel_fetch_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_fetch_main = ManagedChannelBuilder.forAddress(GRPC_FETCH_MAIN, PORT_FETCH_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_fetch_main;
     }
 
 //    //Channel for band main
