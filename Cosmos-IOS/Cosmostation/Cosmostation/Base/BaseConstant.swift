@@ -487,6 +487,10 @@ let GAS_FEE_RATE_TINY_EMONEY                = "1";
 let GAS_FEE_RATE_LOW_EMONEY                 = "1";
 let GAS_FEE_RATE_AVERAGE_EMONEY             = "1";
 
+let GAS_FEE_RATE_TINY_FETCH                 = "0.00";
+let GAS_FEE_RATE_LOW_FETCH                  = "0.00";
+let GAS_FEE_RATE_AVERAGE_FETCH              = "0.00";
+
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
 let GAS_FEE_AMOUNT_HIGH                     = "300000"
@@ -549,7 +553,6 @@ let OK_GAS_AMOUNT_STAKE_MUX                     = "20000";
 let OK_GAS_AMOUNT_VOTE                          = "200000";
 let OK_GAS_AMOUNT_VOTE_MUX                      = "50000";
 
-//let CERTIK_GAS_RATE_AVERAGE                     = "0.05";
 let CERTIK_GAS_AMOUNT_SEND                      = "100000";
 let CERTIK_GAS_AMOUNT_STAKE                     = "200000";
 let CERTIK_GAS_AMOUNT_REDELEGATE                = "300000";
@@ -572,7 +575,7 @@ let SENTINEL_GAS_AMOUNT_REINVEST                = "350000";
 let SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE   = "100000";
 let SENTINEL_GAS_AMOUNT_VOTE                    = "100000";
 
-let FETCH_GAS_FEE_RATE_AVERAGE                  = "0.00";
+//let FETCH_GAS_FEE_RATE_AVERAGE                  = "0.00";
 let FETCH_GAS_AMOUNT_SEND                       = "100000";
 let FETCH_GAS_AMOUNT_STAKE                      = "200000";
 let FETCH_GAS_AMOUNT_REDELEGATE                 = "300000";
@@ -1101,7 +1104,7 @@ let BLOCK_TIME_FETCH        = NSDecimalNumber.init(string: "5.8956")
 let BLOCK_TIME_CRYPTO       = NSDecimalNumber.init(string: "6.4383")
 let BLOCK_TIME_SIF          = NSDecimalNumber.init(string: "5.6577")
 let BLOCK_TIME_KI           = NSDecimalNumber.init(string: "5.6524")
-let BLOCK_TIME_MEDI         = NSDecimalNumber.init(string: "1.8923")
+let BLOCK_TIME_MEDI         = NSDecimalNumber.init(string: "6.0247")
 
 
 let OK_TX_TYPE_TRANSFER        = 1;

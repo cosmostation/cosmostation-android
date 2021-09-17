@@ -61,6 +61,9 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
     func onCalculateFees() {
         mSelectedGasRate = WUtils.getGasRate(chainType!, mSelectedGasPosition)
         mFee = mSelectedGasRate.multiplying(by: mEstimateGasAmount, withBehavior: WUtils.handler0Up)
+//        print("mSelectedGasRate ", mSelectedGasRate)
+//        print("mEstimateGasAmount ", mEstimateGasAmount)
+//        print("mFee ", mFee)
     }
     
     func onUpdateView() {
