@@ -44,7 +44,7 @@ class KavaSwap3ViewController: BaseViewController, PasswordViewDelegate {
         WUtils.showCoinDp(pageHolderVC.mFee!.amount[0].denom, pageHolderVC.mFee!.amount[0].amount, txFeeDenomLabel, txFeeAmountLabel, chainType!)
         WUtils.showCoinDp(pageHolderVC.mSwapInDenom!, pageHolderVC.mSwapInAmount!.stringValue, swapInDenomLabel, swapInAmountLabel, chainType!)
         WUtils.showCoinDp(pageHolderVC.mSwapOutDenom!, pageHolderVC.mSwapOutAmount!.stringValue, swapOutDenomLabel, swapOutAmountLabel, chainType!)
-        swapFeeLabel.attributedText = WUtils.displayPercent(BaseData.instance.mKavaSwapParam.swap_fee.multiplying(byPowerOf10: 2), swapFeeLabel.font)
+        swapFeeLabel.attributedText = WUtils.displayPercent(BaseData.instance.mKavaSwapParam.swap_fee, swapFeeLabel.font)
         mSlippageLabel.attributedText = WUtils.displayPercent(NSDecimalNumber.init(string: "3"), mSlippageLabel.font)
         mMemoLabel.text = pageHolderVC.mMemo
     }
