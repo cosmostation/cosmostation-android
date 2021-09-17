@@ -192,14 +192,12 @@ public class ChainParam {
         }
 
         public BigDecimal getQuorum (BaseChain baseChain) {
-            if (isGRPC(baseChain)) {
+            if (baseChain.equals(CERTIK_MAIN) || baseChain.equals(CERTIK_TEST)) {
+                return new BigDecimal(govTallyings.tallyparams.defaultTally.quorum).movePointRight(2);
+            } else if (isGRPC(baseChain)) {
                 return new BigDecimal(govTallyings.tallyparams.quorum).movePointRight(2);
-
             } else {
-                if (baseChain.equals(CERTIK_MAIN) || baseChain.equals(CERTIK_TEST)) {
-                    return new BigDecimal(govTallyings.tallyparams.defaultTally.quorum).movePointRight(2);
-                }
-                return new BigDecimal(govTallyings.tallyparams.quorum).movePointRight(2);
+                return new BigDecimal(govTallyings.quorum).movePointRight(2);
             }
         }
 
@@ -373,6 +371,16 @@ public class ChainParam {
     public class GovTallyings {
         @SerializedName("tally_params")
         public GovTallying tallyparams;
+
+        @SerializedName("quorum")
+        public String quorum;
+
+        @SerializedName("veto")
+        public String veto;
+
+        @SerializedName("threshold")
+        public String threshold;
+
 
         public class GovTallying {
             @SerializedName("quorum")
