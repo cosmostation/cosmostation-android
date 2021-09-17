@@ -373,7 +373,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.onFetchgRPCStarNameConfig()
                     
                 } else if (self.mChainType == ChainType.SIF_MAIN) {
-                    self.mFetchCnt = 11
+                    self.mFetchCnt = 10
                     self.onFetchgRPCNodeInfo()
                     self.onFetchgRPCAuth(self.mAccount.account_address)
                     self.onFetchgRPCBondedValidators(0)
@@ -385,7 +385,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.onFetchgRPCUndelegations(self.mAccount.account_address, 0)
                     self.onFetchgRPCRewards(self.mAccount.account_address, 0)
 
-                    self.onFetchSifVsIncentive(self.mAccount.account_address)
+//                    self.onFetchSifVsIncentive(self.mAccount.account_address)
                     self.onFetchSifLmIncentive(self.mAccount.account_address)
                     
                 } else if (self.mChainType == ChainType.COSMOS_TEST || self.mChainType == ChainType.RIZON_TEST || self.mChainType == ChainType.ALTHEA_TEST ||
@@ -1038,9 +1038,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchSifVsIncentive(_ address: String) {
         print("onFetchSifVsIncentive url ", BaseNetWork.vsIncentiveUrl(address))
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 5
-        configuration.timeoutIntervalForResource = 5
+        configuration.timeoutIntervalForRequest = 8
+        configuration.timeoutIntervalForResource = 8
         let request = Alamofire.SessionManager(configuration: configuration).request(BaseNetWork.vsIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+//        let request = Alamofire.request(BaseNetWork.vsIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1061,10 +1062,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchSifLmIncentive(_ address: String) {
         print("onFetchSifLmIncentive url ", BaseNetWork.lmIncentiveUrl(address))
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 5
-        configuration.timeoutIntervalForResource = 5
-        let request = Alamofire.SessionManager(configuration: configuration).request(BaseNetWork.lmIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.lmIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
