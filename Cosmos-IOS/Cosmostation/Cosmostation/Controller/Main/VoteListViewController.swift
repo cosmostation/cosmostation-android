@@ -17,9 +17,11 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var chainBg: UIImageView!
     @IBOutlet weak var voteTableView: UITableView!
     @IBOutlet weak var emptyLabel: UILabel!
+    @IBOutlet weak var loadingImg: LoadingImageView!
     
     var mProposals = Array<Proposal>()
     var mProposals_gRPC = Array<Cosmos_Gov_V1beta1_Proposal>()
+    var mProposals_Certik_gRPC = Array<Shentu_Gov_V1alpha1_Proposal>()
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
     
@@ -40,7 +42,11 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.refresher.tintColor = UIColor.white
         self.voteTableView.addSubview(refresher)
         
-        if (WUtils.isGRPC(chainType!)) {
+        
+        self.loadingImg.onStartAnimation()
+        if (chainType == ChainType.CERTIK_MAIN) {
+            self.onFetchCertikProposals_gRPC()
+        } else if (WUtils.isGRPC(chainType!)) {
             self.onFetchProposals_gRPC()
         } else {
             self.onFetchProposals()
@@ -57,7 +63,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onUpdateViews() {
-        if(mProposals.count > 0 || mProposals_gRPC.count > 0) {
+        if(mProposals.count > 0 || mProposals_gRPC.count > 0 || mProposals_Certik_gRPC.count > 0) {
             self.emptyLabel.isHidden = true
             self.voteTableView.reloadData()
         } else {
@@ -65,11 +71,15 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         }
         self.sortProposals()
         self.refresher.endRefreshing()
+        self.loadingImg.onStopAnimation()
+        self.loadingImg.isHidden = true
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         if (WUtils.isGRPC(chainType!)) {
+        if (chainType == ChainType.CERTIK_MAIN) {
+            return self.mProposals_Certik_gRPC.count
+        } else if (WUtils.isGRPC(chainType!)) {
             return self.mProposals_gRPC.count
          } else {
             return self.mProposals.count
@@ -77,7 +87,9 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (WUtils.isGRPC(chainType!)) {
+        if (chainType == ChainType.CERTIK_MAIN) {
+            return onBindCertikProposal_gRPC(tableView, indexPath)
+        } else if (WUtils.isGRPC(chainType!)) {
             return onBindProposal_gRPC(tableView, indexPath)
         } else {
             return onBindProposal(tableView, indexPath)
@@ -109,10 +121,21 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
         let proposal = mProposals_gRPC[indexPath.row]
         cell?.proposalIdLabel.text = "# ".appending(String(proposal.proposalID))
-        cell?.proposalTitleLabel.text = WUtils.onParseProposalTitle(proposal)
-        cell?.proposalMsgLabel.text = WUtils.onParseProposalDescription(proposal)
+        cell?.proposalTitleLabel.text = WUtils.onParseProposalTitle(proposal.content)
+        cell?.proposalMsgLabel.text = WUtils.onParseProposalDescription(proposal.content)
         cell?.proposalStateLabel.text = WUtils.onParseProposalStatusTxt(proposal)
         cell?.proposalStateImg.image = WUtils.onParseProposalStatusImg(proposal)
+        return cell!
+    }
+    
+    func onBindCertikProposal_gRPC(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell  {
+        let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
+        let proposal = mProposals_Certik_gRPC[indexPath.row]
+        cell?.proposalIdLabel.text = "# ".appending(String(proposal.proposalID))
+        cell?.proposalTitleLabel.text = WUtils.onParseProposalTitle(proposal.content)
+        cell?.proposalMsgLabel.text = WUtils.onParseProposalDescription(proposal.content)
+        cell?.proposalStateLabel.text = WUtils.onParseProposalStatusCertikTxt(proposal.status)
+        cell?.proposalStateImg.image = WUtils.onParseProposalStatusCertikImg(proposal.status)
         return cell!
     }
     
@@ -121,7 +144,18 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (WUtils.isGRPC(chainType!)) {
+        if (chainType == ChainType.CERTIK_MAIN) {
+            let proposal = mProposals_Certik_gRPC[indexPath.row]
+            if (proposal.status  == Shentu_Gov_V1alpha1_ProposalStatus.depositPeriod || proposal.status  == Shentu_Gov_V1alpha1_ProposalStatus.validatorVotingPeriod) {
+                let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
+                voteDetailsVC.proposalId = String(proposal.proposalID)
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(voteDetailsVC, animated: true)
+            } else {
+                onExplorerLink(String(proposal.proposalID))
+            }
+            
+        } else if (WUtils.isGRPC(chainType!)) {
             let proposal = mProposals_gRPC[indexPath.row]
             if (proposal.status  == Cosmos_Gov_V1beta1_ProposalStatus.passed || proposal.status  == Cosmos_Gov_V1beta1_ProposalStatus.rejected) {
                 onExplorerLink(String(proposal.proposalID))
@@ -194,11 +228,40 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         }
     }
     
+    @objc func onFetchCertikProposals_gRPC() {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let req = Shentu_Gov_V1alpha1_QueryProposalsRequest.init()
+                let response = try Shentu_Gov_V1alpha1_QueryClient(channel: channel).proposals(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
+                self.mProposals_Certik_gRPC = response.proposals
+
+            } catch {
+                print("onFetchCertikProposals_gRPC failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onUpdateViews()
+            });
+        }
+        
+    }
+    
     func sortProposals() {
-        if (WUtils.isGRPC(chainType!)) {
+        if (chainType == ChainType.CERTIK_MAIN) {
+            self.mProposals_Certik_gRPC.sort {
+                return $0.proposalID < $1.proposalID ? false : true
+            }
+            
+        } else  if (WUtils.isGRPC(chainType!)) {
             self.mProposals_gRPC.sort{
                 return $0.proposalID < $1.proposalID ? false : true
             }
+            
         } else {
             self.mProposals.sort{
                 return Int($0.id)! < Int($1.id)! ? false : true

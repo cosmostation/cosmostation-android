@@ -19,6 +19,8 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var loadingImg: LoadingImageView!
     var refresher: UIRefreshControl!
     
+    var channel: ClientConnection!
+    
     var proposalId: String?
     var mProposal: Proposal?
     var mProposer: String?
@@ -31,9 +33,13 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     var mVoters_gRPC: Array<Cosmos_Gov_V1beta1_Vote>?
     var mMyVote_gRPC: Cosmos_Gov_V1beta1_Vote?
     
+    var mCertikProposalDetail_gRPC: Shentu_Gov_V1alpha1_Proposal!
+    var mCertikTally_gRPC: Cosmos_Gov_V1beta1_TallyResult?
+    var mCertikVoters_gRPC: Array<Shentu_Gov_V1alpha1_Vote> = Array<Shentu_Gov_V1alpha1_Vote>()
+    var mCertikMyVote_gRPC: Shentu_Gov_V1alpha1_Vote?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
         
@@ -46,12 +52,12 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
         self.voteDetailTableView.estimatedRowHeight = UITableView.automaticDimension
         
         refresher = UIRefreshControl()
-        refresher.addTarget(self, action: #selector(onFech), for: .valueChanged)
+        refresher.addTarget(self, action: #selector(onFetch), for: .valueChanged)
         refresher.tintColor = UIColor.white
         voteDetailTableView.addSubview(refresher)
         
         self.loadingImg.onStartAnimation()
-        self.onFech()
+        self.onFetch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,7 +92,22 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         
         let mainDenom = WUtils.getMainDenom(chainType)
-        if (WUtils.isGRPC(chainType!)) {
+        if (chainType == ChainType.CERTIK_MAIN) {
+            if (mCertikProposalDetail_gRPC?.status != Shentu_Gov_V1alpha1_ProposalStatus.validatorVotingPeriod ) {
+                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
+                return
+            }
+            if (BaseData.instance.mMyDelegations_gRPC.count < 0) {
+                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
+                return
+            }
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
+            if (BaseData.instance.getAvailableAmount_gRPC(mainDenom).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
+        } else if (WUtils.isGRPC(chainType!)) {
             if (mProposalDetail_gRPC?.status != Cosmos_Gov_V1beta1_ProposalStatus.votingPeriod ) {
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
@@ -129,15 +150,19 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func getTitle() -> String? {
-        if (WUtils.isGRPC(chainType!)) {
-            return WUtils.onParseProposalTitle(mProposalDetail_gRPC!)
+        if (chainType == ChainType.CERTIK_MAIN) {
+            return WUtils.onParseProposalTitle(mCertikProposalDetail_gRPC.content)
+        } else if (WUtils.isGRPC(chainType!)) {
+            return WUtils.onParseProposalTitle(mProposalDetail_gRPC!.content)
         } else {
             return mProposal?.getTitle()
         }
     }
     
     func getProposer() -> String? {
-        if (WUtils.isGRPC(chainType!)) {
+        if (chainType == ChainType.CERTIK_MAIN) {
+            return mCertikProposalDetail_gRPC.proposerAddress
+        } else if (WUtils.isGRPC(chainType!)) {
             return ""
         } else {
             return self.mProposer
@@ -158,16 +183,31 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onBindVoteInfo(_ tableView: UITableView) -> UITableViewCell {
         let cell:VoteInfoTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"VoteInfoTableViewCell") as? VoteInfoTableViewCell
-        if (WUtils.isGRPC(chainType!) && mProposalDetail_gRPC != nil) {
+        if (chainType == ChainType.CERTIK_MAIN && mCertikProposalDetail_gRPC != nil) {
+            cell?.statusImg.image = WUtils.onParseProposalStatusCertikImg(mCertikProposalDetail_gRPC.status)
+            cell?.statusTitle.text  = WUtils.onParseProposalStatusCertikTxt(mCertikProposalDetail_gRPC.status)
+            cell?.proposalTitle.text = WUtils.onParseProposalTitle(mCertikProposalDetail_gRPC!.content)
+            cell?.proposerLabel.text = getProposer()
+            cell?.proposalTypeLabel.text = String((mCertikProposalDetail_gRPC!.content.typeURL).split(separator: ".").last!)
+            cell?.voteStartTime.text = WUtils.onParseProposalCertikStartTime(mCertikProposalDetail_gRPC!)
+            cell?.voteEndTime.text = WUtils.onParseProposalCertikEndTime(mCertikProposalDetail_gRPC!)
+            cell?.voteDescription.text = WUtils.onParseProposalDescription(mCertikProposalDetail_gRPC!.content)
+            if let coin = WUtils.onParseProposalRequestAmount(mCertikProposalDetail_gRPC!.content) {
+                WUtils.showCoinDp(coin, cell!.requestAmountDenom, cell!.requestAmount, chainType!)
+            } else {
+                cell!.requestAmountDenom.text = "N/A"
+            }
+            
+        } else if (WUtils.isGRPC(chainType!) && mProposalDetail_gRPC != nil) {
             cell?.statusImg.image = WUtils.onParseProposalStatusImg(mProposalDetail_gRPC!)
             cell?.statusTitle.text = WUtils.onParseProposalStatusTxt(mProposalDetail_gRPC!)
-            cell?.proposalTitle.text = WUtils.onParseProposalTitle(mProposalDetail_gRPC!)
+            cell?.proposalTitle.text = WUtils.onParseProposalTitle(mProposalDetail_gRPC!.content)
             cell?.proposerLabel.text = getProposer()
             cell?.proposalTypeLabel.text = String((mProposalDetail_gRPC!.content.typeURL).split(separator: ".").last!)
             cell?.voteStartTime.text = WUtils.onParseProposalStartTime(mProposalDetail_gRPC!)
             cell?.voteEndTime.text = WUtils.onParseProposalEndTime(mProposalDetail_gRPC!)
-            cell?.voteDescription.text = WUtils.onParseProposalDescription(mProposalDetail_gRPC!)
-            if let coin = WUtils.onParseProposalRequestAmount(mProposalDetail_gRPC!) {
+            cell?.voteDescription.text = WUtils.onParseProposalDescription(mProposalDetail_gRPC!.content)
+            if let coin = WUtils.onParseProposalRequestAmount(mProposalDetail_gRPC!.content) {
                 WUtils.showCoinDp(coin, cell!.requestAmountDenom, cell!.requestAmount, chainType!)
             } else {
                 cell!.requestAmountDenom.text = "N/A"
@@ -200,9 +240,13 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onBindTally(_ tableView: UITableView) -> UITableViewCell {
         let cell:VoteTallyTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"VoteTallyTableViewCell") as? VoteTallyTableViewCell
-        if (WUtils.isGRPC(chainType!) && mTally_gRPC != nil) {
+        if (chainType == ChainType.CERTIK_MAIN && mCertikTally_gRPC != nil) {
+            cell?.onCertikUpdateCards_gRPC(chainType!, mCertikTally_gRPC!, mCertikVoters_gRPC, mCertikProposalDetail_gRPC)
+            cell?.onCheckMyVote_gRPC(mCertikMyVote_gRPC?.deposit.option)
+
+        } else if (WUtils.isGRPC(chainType!) && mTally_gRPC != nil) {
             cell?.onUpdateCards_gRPC(chainType!, mTally_gRPC!, mVoters_gRPC, mProposalDetail_gRPC)
-            cell?.onCheckMyVote_gRPC(mMyVote_gRPC)
+            cell?.onCheckMyVote_gRPC(mMyVote_gRPC?.option)
 
         } else if (mTally != nil) {
             cell?.onUpdateCards(chainType!, mTally!, mVoters, mProposal?.proposal_status)
@@ -211,13 +255,36 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
         return cell!
     }
     
-    @objc func onFech() {
-        if (WUtils.isGRPC(chainType!)) {
+    @objc func onFetch() {
+        if (chainType == ChainType.CERTIK_MAIN) {
             mFetchCnt = 4
-            onFetchProposalDetail_gRPC(proposalId!)
-            onFetchProposalTally_gRPC(proposalId!)
-            onFetchProposalVoterList_gRPC(proposalId!)
-            onFetchProposalMyVote_gRPC(proposalId!, account!.account_address)
+            DispatchQueue.global().async {
+                let group = MultiThreadedEventLoopGroup(numberOfThreads: 4)
+                defer { try! group.syncShutdownGracefully() }
+                
+                self.channel = BaseNetWork.getConnection(self.chainType!, group)!
+                defer { try! self.channel.close().wait() }
+                
+                self.onFetchCertikProposalDetail_gRPC(self.proposalId!)
+                self.onFetchCertikProposalTally_gRPC(self.proposalId!)
+                self.onFetchCertikProposalVoterList_gRPC(self.proposalId!)
+                self.onFetchCertikProposalMyVote_gRPC(self.proposalId!, self.account!.account_address)
+            }
+            
+        } else if (WUtils.isGRPC(chainType!)) {
+            mFetchCnt = 4
+            DispatchQueue.global().async {
+                let group = MultiThreadedEventLoopGroup(numberOfThreads: 4)
+                defer { try! group.syncShutdownGracefully() }
+                
+                self.channel = BaseNetWork.getConnection(self.chainType!, group)!
+                defer { try! self.channel.close().wait() }
+                
+                self.onFetchProposalDetail_gRPC(self.proposalId!)
+                self.onFetchProposalTally_gRPC(self.proposalId!)
+                self.onFetchProposalVoterList_gRPC(self.proposalId!)
+                self.onFetchProposalMyVote_gRPC(self.proposalId!, self.account!.account_address)
+            }
             
         } else {
             mFetchCnt = 5
@@ -233,7 +300,17 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     var mFetchCnt = 0
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
-        if(mFetchCnt <= 0) {
+        if (mFetchCnt > 0) { return }
+        
+        if (WUtils.isGRPC(chainType!)) {
+            DispatchQueue.global().async {
+                defer { try? self.channel.close().wait() }
+            }
+            DispatchQueue.main.async(execute: {
+                self.onUpdateView()
+            })
+            
+        } else {
             self.onUpdateView()
         }
     }
@@ -337,103 +414,69 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
 
     
     func onFetchProposalDetail_gRPC(_ proposal_id: String) {
-        DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.chainType!, group)!
-            defer { try! channel.close().wait() }
-            
-            let req = Cosmos_Gov_V1beta1_QueryProposalRequest.with {
-                $0.proposalID = UInt64(proposal_id)!
-            }
-            do {
-                let response = try Cosmos_Gov_V1beta1_QueryClient(channel: channel).proposal(req).response.wait()
-                self.mProposalDetail_gRPC = response.proposal
-                
-            } catch {
-                print("onFetchProposalDetail_gRPC failed: \(error)")
-            }
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
+        let req = Cosmos_Gov_V1beta1_QueryProposalRequest.with { $0.proposalID = UInt64(proposal_id)! }
+        if let response = try? Cosmos_Gov_V1beta1_QueryClient(channel: channel).proposal(req, callOptions:BaseNetWork.getCallOptions()).response.wait() {
+            self.mProposalDetail_gRPC = response.proposal
         }
+        self.onFetchFinished()
     }
     
     func onFetchProposalTally_gRPC(_ proposal_id: String) {
-        DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.chainType!, group)!
-            defer { try! channel.close().wait() }
-            
-            let req = Cosmos_Gov_V1beta1_QueryTallyResultRequest.with {
-                $0.proposalID = UInt64(proposal_id)!
-            }
-            do {
-                let response = try Cosmos_Gov_V1beta1_QueryClient(channel: channel).tallyResult(req).response.wait()
-                self.mTally_gRPC = response.tally
-                
-            } catch {
-                print("onFetchProposalTally_gRPC failed: \(error)")
-            }
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
+        let req = Cosmos_Gov_V1beta1_QueryTallyResultRequest.with { $0.proposalID = UInt64(proposal_id)! }
+        if let response = try? Cosmos_Gov_V1beta1_QueryClient(channel: channel).tallyResult(req, callOptions:BaseNetWork.getCallOptions()).response.wait() {
+            self.mTally_gRPC = response.tally
         }
+        self.onFetchFinished()
     }
     
     func onFetchProposalVoterList_gRPC(_ proposal_id: String) {
-        DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.chainType!, group)!
-            defer { try! channel.close().wait() }
-            
-            let page = Cosmos_Base_Query_V1beta1_PageRequest.with {
-                $0.limit = 2000
-            }
-            let req = Cosmos_Gov_V1beta1_QueryVotesRequest.with {
-                $0.pagination = page
-                $0.proposalID = UInt64(proposal_id)!
-            }
-            do {
-                let response = try Cosmos_Gov_V1beta1_QueryClient(channel: channel).votes(req).response.wait()
-                self.mVoters_gRPC = response.votes
-                
-            } catch {
-                print("onFetchProposalVoterList_gRPC failed: \(error)")
-            }
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
+        let page = Cosmos_Base_Query_V1beta1_PageRequest.with { $0.limit = 5000 }
+        let req = Cosmos_Gov_V1beta1_QueryVotesRequest.with { $0.pagination = page; $0.proposalID = UInt64(proposal_id)! }
+        if let response = try? Cosmos_Gov_V1beta1_QueryClient(channel: channel).votes(req, callOptions:BaseNetWork.getCallOptions()).response.wait() {
+            self.mVoters_gRPC = response.votes
         }
+        self.onFetchFinished()
     }
     
     func onFetchProposalMyVote_gRPC(_ proposal_id: String, _ address: String) {
-        DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.chainType!, group)!
-            defer { try! channel.close().wait() }
-            
-            let req = Cosmos_Gov_V1beta1_QueryVoteRequest.with {
-                $0.voter = address
-                $0.proposalID = UInt64(proposal_id)!
-            }
-            do {
-                let response = try Cosmos_Gov_V1beta1_QueryClient(channel: channel).vote(req).response.wait()
-                self.mMyVote_gRPC = response.vote
-                
-            } catch {
-                print("onFetchProposalMyVote_gRPC failed: \(error)")
-            }
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
+        let req = Cosmos_Gov_V1beta1_QueryVoteRequest.with { $0.voter = address; $0.proposalID = UInt64(proposal_id)! }
+        if let response = try? Cosmos_Gov_V1beta1_QueryClient(channel: channel).vote(req, callOptions:BaseNetWork.getCallOptions()).response.wait() {
+            self.mMyVote_gRPC = response.vote
         }
+        self.onFetchFinished()
+    }
+    
+    
+    func onFetchCertikProposalDetail_gRPC(_ proposal_id: String) {
+        let req = Shentu_Gov_V1alpha1_QueryProposalRequest.with { $0.proposalID = UInt64(proposal_id)! }
+        if let response = try? Shentu_Gov_V1alpha1_QueryClient(channel: channel).proposal(req, callOptions:BaseNetWork.getCallOptions()).response.wait() {
+            self.mCertikProposalDetail_gRPC = response.proposal
+        }
+        self.onFetchFinished()
+    }
+    
+    func onFetchCertikProposalTally_gRPC(_ proposal_id: String) {
+        let req = Shentu_Gov_V1alpha1_QueryTallyResultRequest.with { $0.proposalID = UInt64(proposal_id)! }
+        if let response = try? Shentu_Gov_V1alpha1_QueryClient(channel: channel).tallyResult(req, callOptions:BaseNetWork.getCallOptions()).response.wait() {
+            self.mCertikTally_gRPC = response.tally
+        }
+        self.onFetchFinished()
+    }
+    
+    func onFetchCertikProposalVoterList_gRPC(_ proposal_id: String) {
+        let page = Cosmos_Base_Query_V1beta1_PageRequest.with { $0.limit = 5000 }
+        let req = Shentu_Gov_V1alpha1_QueryVotesRequest.with { $0.pagination = page; $0.proposalID = UInt64(proposal_id)! }
+        if let response = try? Shentu_Gov_V1alpha1_QueryClient(channel: channel).votes(req, callOptions:BaseNetWork.getCallOptions()).response.wait() {
+            self.mCertikVoters_gRPC = response.votes
+        }
+        self.onFetchFinished()
+    }
+    
+    func onFetchCertikProposalMyVote_gRPC(_ proposal_id: String, _ address: String) {
+        let req = Shentu_Gov_V1alpha1_QueryVoteRequest.with { $0.voter = address; $0.proposalID = UInt64(proposal_id)! }
+        if let response = try? Shentu_Gov_V1alpha1_QueryClient(channel: channel).vote(req, callOptions:BaseNetWork.getCallOptions()).response.wait() {
+            self.mCertikMyVote_gRPC = response.vote
+        }
+        self.onFetchFinished()
     }
 }
