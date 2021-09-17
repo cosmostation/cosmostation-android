@@ -678,6 +678,13 @@
                                 <rect key="frame" x="0.0" y="52" width="414" height="844"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_1" translatesAutoresizingMaskIntoConstraints="NO" id="C5K-UD-pK1" customClass="LoadingImageView" customModule="Cosmostation" customModuleProvider="target">
+                                <rect key="frame" x="177" y="423" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="PHM-LY-FEY"/>
+                                    <constraint firstAttribute="height" constant="60" id="T8y-yV-cjy"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Du9-Qj-Mbj"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
@@ -686,18 +693,21 @@
                             <constraint firstItem="PEW-5B-acc" firstAttribute="top" secondItem="zCR-E0-N9f" secondAttribute="top" id="ITb-F7-YQc"/>
                             <constraint firstItem="cgw-Hd-L7W" firstAttribute="leading" secondItem="Du9-Qj-Mbj" secondAttribute="leading" id="SBi-Gg-Mf4"/>
                             <constraint firstItem="a3x-sr-rPq" firstAttribute="centerX" secondItem="Du9-Qj-Mbj" secondAttribute="centerX" id="Y5M-PS-BS7"/>
+                            <constraint firstItem="C5K-UD-pK1" firstAttribute="centerY" secondItem="Du9-Qj-Mbj" secondAttribute="centerY" id="auv-nT-Du6"/>
                             <constraint firstAttribute="bottom" secondItem="cgw-Hd-L7W" secondAttribute="bottom" id="d1n-r5-m3x"/>
                             <constraint firstItem="PEW-5B-acc" firstAttribute="bottom" secondItem="zCR-E0-N9f" secondAttribute="bottom" id="gnZ-Xs-BUf"/>
                             <constraint firstItem="PEW-5B-acc" firstAttribute="leading" secondItem="Du9-Qj-Mbj" secondAttribute="leading" id="iIe-TE-L1l"/>
                             <constraint firstItem="Du9-Qj-Mbj" firstAttribute="trailing" secondItem="cgw-Hd-L7W" secondAttribute="trailing" id="iYo-gg-eGH"/>
                             <constraint firstItem="Du9-Qj-Mbj" firstAttribute="trailing" secondItem="PEW-5B-acc" secondAttribute="trailing" id="jmY-UV-hUG"/>
                             <constraint firstItem="a3x-sr-rPq" firstAttribute="centerY" secondItem="Du9-Qj-Mbj" secondAttribute="centerY" id="mp8-yA-K2Z"/>
+                            <constraint firstItem="C5K-UD-pK1" firstAttribute="centerX" secondItem="Du9-Qj-Mbj" secondAttribute="centerX" id="zEr-PE-1JA"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="E0Q-yY-xu0"/>
                     <connections>
                         <outlet property="chainBg" destination="PEW-5B-acc" id="V0J-4f-xsP"/>
                         <outlet property="emptyLabel" destination="a3x-sr-rPq" id="mph-OM-gFY"/>
+                        <outlet property="loadingImg" destination="C5K-UD-pK1" id="7Sl-jK-SoI"/>
                         <outlet property="voteTableView" destination="cgw-Hd-L7W" id="pSt-0J-Ci3"/>
                     </connections>
                 </viewController>
@@ -2950,6 +2960,7 @@
         <image name="connectImg1" width="180.5" height="47"/>
         <image name="cosmosWhMain" width="42" height="42"/>
         <image name="key_off" width="20" height="20"/>
+        <image name="loading_1" width="144" height="144"/>
         <image name="notificationsIcOff" width="24" height="24"/>
         <image name="setting_ic" width="24" height="24"/>
         <image name="sortBtn" width="16" height="16"/>

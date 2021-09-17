@@ -114,25 +114,25 @@ class VoteTallyTableViewCell: UITableViewCell {
     }
     
     
-    func onCheckMyVote_gRPC(_ myVote: Cosmos_Gov_V1beta1_Vote?) {
-        if (myVote == nil || myVote!.option == nil) { return }
+    func onCheckMyVote_gRPC(_ option: Cosmos_Gov_V1beta1_VoteOption?) {
+        if (option == nil) { return }
         
-        if (myVote!.option == Cosmos_Gov_V1beta1_VoteOption.yes) {
+        if (option == Cosmos_Gov_V1beta1_VoteOption.yes) {
             self.myVoteYes.isHidden = false
             self.cardYes.borderWidth = 1
             self.cardYes.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
             
-        } else if (myVote!.option == Cosmos_Gov_V1beta1_VoteOption.no) {
+        } else if (option == Cosmos_Gov_V1beta1_VoteOption.no) {
             self.myVoteNo.isHidden = false
             self.cardNo.borderWidth = 1
             self.cardNo.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
             
-        } else if (myVote!.option == Cosmos_Gov_V1beta1_VoteOption.noWithVeto) {
+        } else if (option == Cosmos_Gov_V1beta1_VoteOption.noWithVeto) {
             self.myVoteVeto.isHidden = false
             self.cardVeto.borderWidth = 1
             self.cardVeto.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
             
-        } else if (myVote!.option == Cosmos_Gov_V1beta1_VoteOption.abstain) {
+        } else if (option == Cosmos_Gov_V1beta1_VoteOption.abstain) {
             self.myVoteAbstain.isHidden = false
             self.cardAbstain.borderWidth = 1
             self.cardAbstain.borderColor = UIColor.init(hexString: "#e4185d", alpha: 1.0)
@@ -172,6 +172,43 @@ class VoteTallyTableViewCell: UITableViewCell {
             turnoutTitle.isHidden = false
             quorumRate.attributedText = WUtils.displayPercent(WUtils.systemQuorum(chain).multiplying(byPowerOf10: 2), quorumRate.font)
             turnoutRate.attributedText = WUtils.displayPercent(WUtils.getTurnout(tally), turnoutRate.font)
+        }
+    }
+    
+    func onCertikUpdateCards_gRPC(_ chain: ChainType, _ tally:Cosmos_Gov_V1beta1_TallyResult, _ voters:Array<Shentu_Gov_V1alpha1_Vote>?, _ proposal: Shentu_Gov_V1alpha1_Proposal?) {
+        progressYes.progress = WUtils.getYes(tally).floatValue / 100
+        progressNo.progress = WUtils.getNo(tally).floatValue / 100
+        progressVeto.progress = WUtils.getVeto(tally).floatValue / 100
+        propressAbstain.progress = WUtils.getAbstain(tally).floatValue / 100
+        
+        percentYes.attributedText = WUtils.displayPercent(WUtils.getYes(tally), percentYes.font)
+        percentNo.attributedText = WUtils.displayPercent(WUtils.getNo(tally), percentYes.font)
+        percentVeto.attributedText = WUtils.displayPercent(WUtils.getVeto(tally), percentYes.font)
+        percentAbstain.attributedText = WUtils.displayPercent(WUtils.getAbstain(tally), percentYes.font)
+        
+        if (proposal?.status == Shentu_Gov_V1alpha1_ProposalStatus.certifierVotingPeriod ||
+                proposal?.status == Shentu_Gov_V1alpha1_ProposalStatus.validatorVotingPeriod ) {
+            imgYes.isHidden = false
+            imgNo.isHidden = false
+            imgVeto.isHidden = false
+            imgAbstain.isHidden = false
+            cntYes.isHidden = false
+            cntNo.isHidden = false
+            cntVeto.isHidden = false
+            cntAbstain.isHidden = false
+            
+            cntYes.text = WUtils.getCertikVoterTypeCnt_gRPC(voters, Cosmos_Gov_V1beta1_VoteOption.yes)
+            cntNo.text = WUtils.getCertikVoterTypeCnt_gRPC(voters, Cosmos_Gov_V1beta1_VoteOption.no)
+            cntVeto.text = WUtils.getCertikVoterTypeCnt_gRPC(voters, Cosmos_Gov_V1beta1_VoteOption.noWithVeto)
+            cntAbstain.text = WUtils.getCertikVoterTypeCnt_gRPC(voters, Cosmos_Gov_V1beta1_VoteOption.abstain)
+            
+            quorumTitle.isHidden = false
+            quorumRate.isHidden = false
+            turnoutRate.isHidden = false
+            turnoutTitle.isHidden = false
+            quorumRate.attributedText = WUtils.displayPercent(WUtils.systemQuorum(chain).multiplying(byPowerOf10: 2), quorumRate.font)
+            turnoutRate.attributedText = WUtils.displayPercent(WUtils.getTurnout(tally), turnoutRate.font)
+            
         }
     }
     
