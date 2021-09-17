@@ -196,7 +196,7 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
                         BigDecimal checkPosition = inputAmount.movePointRight(mInputCoinDecimal);
                         BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
-                        if (checkPosition.compareTo(checkMax) != 0) {
+                        if (checkPosition.compareTo(checkMax) != 0 || !checkPosition.equals(checkMax)) {
                             String recover = es.substring(0, es.length() - 1);
                             mSwapInputAmount.setText(recover);
                             mSwapInputAmount.setSelection(recover.length());

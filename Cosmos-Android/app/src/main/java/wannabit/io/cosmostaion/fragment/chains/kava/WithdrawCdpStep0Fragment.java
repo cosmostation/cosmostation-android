@@ -179,7 +179,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
 
                         BigDecimal checkPosition = inputAmount.movePointRight(WUtil.getKavaCoinDecimal(mCollateralDenom));
                         BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
-                        if (checkPosition.compareTo(checkMax) != 0) {
+                        if (checkPosition.compareTo(checkMax) != 0 || !checkPosition.equals(checkMax)) {
                             String recover = es.substring(0, es.length() - 1);
                             mCollateralInput.setText(recover);
                             mCollateralInput.setSelection(recover.length());

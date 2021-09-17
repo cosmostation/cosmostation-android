@@ -140,7 +140,7 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
 
                         BigDecimal checkPosition = inputAmount.movePointRight(mDpDecimal);
                         BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
-                        if (checkPosition.compareTo(checkMax) != 0) {
+                        if (checkPosition.compareTo(checkMax) != 0 || !checkPosition.equals(checkMax)) {
                             String recover = es.substring(0, es.length() - 1);
                             mWithdrawInput.setText(recover);
                             mWithdrawInput.setSelection(recover.length());
