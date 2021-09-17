@@ -32,9 +32,8 @@ class TxGravityWithdrawBatchCell: TxCell {
         txWithdrawerLabel.adjustsFontSizeToFitWidth = true
         
         txPoolIDLabel.text = String(msg.poolID)
-        
-        txWithdrawAmountLabel.text = ""
-        txWithdrawDenomLabel.text = ""
+        let poolCoin = Coin.init(msg.poolCoin.denom, msg.poolCoin.amount)
+        WUtils.showCoinDp(poolCoin, txWithdrawDenomLabel, txWithdrawAmountLabel, chain)
         
     }
     

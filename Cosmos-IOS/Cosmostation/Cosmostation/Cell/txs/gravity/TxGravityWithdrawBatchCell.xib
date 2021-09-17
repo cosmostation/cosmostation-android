@@ -82,10 +82,10 @@
                             <constraint firstAttribute="trailing" secondItem="DoM-XU-6Y3" secondAttribute="trailing" constant="16" id="6hE-OR-VYN"/>
                             <constraint firstItem="gBr-6m-xVF" firstAttribute="leading" secondItem="nTJ-Vq-Q5W" secondAttribute="leading" constant="16" id="7se-Re-E6K"/>
                             <constraint firstItem="1Th-ZP-LAv" firstAttribute="leading" secondItem="gBr-6m-xVF" secondAttribute="leading" id="FMP-sO-KH5"/>
-                            <constraint firstItem="i7Q-2G-8m8" firstAttribute="top" secondItem="1Th-ZP-LAv" secondAttribute="bottom" constant="6" id="Fnx-Kd-iJb"/>
+                            <constraint firstItem="i7Q-2G-8m8" firstAttribute="top" secondItem="1Th-ZP-LAv" secondAttribute="bottom" constant="4" id="Fnx-Kd-iJb"/>
                             <constraint firstItem="DoM-XU-6Y3" firstAttribute="leading" secondItem="gBr-6m-xVF" secondAttribute="leading" id="JKc-tG-eSJ"/>
                             <constraint firstItem="9fg-01-VFa" firstAttribute="leading" secondItem="JsN-S4-a7A" secondAttribute="trailing" constant="2" id="POF-9n-HvQ"/>
-                            <constraint firstItem="VPu-6A-nGO" firstAttribute="top" secondItem="i7Q-2G-8m8" secondAttribute="bottom" constant="16" id="PvV-of-Q5N"/>
+                            <constraint firstItem="VPu-6A-nGO" firstAttribute="top" secondItem="i7Q-2G-8m8" secondAttribute="bottom" constant="24" id="PvV-of-Q5N"/>
                             <constraint firstItem="i7Q-2G-8m8" firstAttribute="leading" secondItem="gBr-6m-xVF" secondAttribute="leading" id="Q3A-bI-oLF"/>
                             <constraint firstItem="VPu-6A-nGO" firstAttribute="leading" secondItem="gBr-6m-xVF" secondAttribute="leading" id="Q4O-TB-Xpg"/>
                             <constraint firstAttribute="trailing" secondItem="9fg-01-VFa" secondAttribute="trailing" constant="16" id="Q53-Mw-WfK"/>
@@ -96,9 +96,9 @@
                             <constraint firstItem="cno-AN-W0d" firstAttribute="top" secondItem="gBr-6m-xVF" secondAttribute="bottom" constant="16" id="YO2-1T-gcB"/>
                             <constraint firstItem="cno-AN-W0d" firstAttribute="leading" secondItem="gBr-6m-xVF" secondAttribute="leading" id="gHi-EA-wNS"/>
                             <constraint firstAttribute="trailing" secondItem="i7Q-2G-8m8" secondAttribute="trailing" constant="16" id="hEC-py-WR2"/>
-                            <constraint firstItem="1Th-ZP-LAv" firstAttribute="top" secondItem="DoM-XU-6Y3" secondAttribute="bottom" constant="16" id="iiM-9S-M20"/>
+                            <constraint firstItem="1Th-ZP-LAv" firstAttribute="top" secondItem="DoM-XU-6Y3" secondAttribute="bottom" constant="24" id="iiM-9S-M20"/>
                             <constraint firstItem="7DS-FZ-OxU" firstAttribute="leading" secondItem="gBr-6m-xVF" secondAttribute="trailing" constant="6" id="nac-Ps-vHZ"/>
-                            <constraint firstItem="DoM-XU-6Y3" firstAttribute="top" secondItem="cno-AN-W0d" secondAttribute="bottom" constant="6" id="nhU-Cc-lja"/>
+                            <constraint firstItem="DoM-XU-6Y3" firstAttribute="top" secondItem="cno-AN-W0d" secondAttribute="bottom" constant="4" id="nhU-Cc-lja"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
@@ -129,6 +129,13 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="txIcon" destination="gBr-6m-xVF" id="Czq-2l-KNc"/>
+                <outlet property="txPoolIDLabel" destination="i7Q-2G-8m8" id="7u5-7p-6Il"/>
+                <outlet property="txWithdrawAmountLabel" destination="JsN-S4-a7A" id="csD-Zd-hLd"/>
+                <outlet property="txWithdrawDenomLabel" destination="9fg-01-VFa" id="jbD-uA-gce"/>
+                <outlet property="txWithdrawerLabel" destination="DoM-XU-6Y3" id="YYE-Ci-AeQ"/>
+            </connections>
             <point key="canvasLocation" x="277.536231884058" y="198.88392857142856"/>
         </tableViewCell>
     </objects>

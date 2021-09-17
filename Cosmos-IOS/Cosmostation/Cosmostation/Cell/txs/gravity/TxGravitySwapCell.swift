@@ -13,22 +13,15 @@ class TxGravitySwapCell: TxCell {
     @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var txRequesterLabel: UILabel!
     @IBOutlet weak var txPoolIDLabel: UILabel!
-    @IBOutlet weak var txSwapTypeIDLabel: UILabel!
+    @IBOutlet weak var txDemandCoinLabel: UILabel!
     @IBOutlet weak var txOrderPriceLabel: UILabel!
-    @IBOutlet weak var txSwapFeeAmountLabel: UILabel!
-    @IBOutlet weak var txSwapFeeDenomLabel: UILabel!
     @IBOutlet weak var txOfferInAmountLabel: UILabel!
     @IBOutlet weak var txOfferInDenomLabel: UILabel!
-    @IBOutlet weak var txOfferOutAmountLabel: UILabel!
-    @IBOutlet weak var txOfferOutDenomLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
-        
-        txSwapFeeAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
         txOfferInAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
-        txOfferOutAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
     
     override func onBindMsg(_ chain: ChainType, _ response: Cosmos_Tx_V1beta1_GetTxResponse, _ position: Int) {
@@ -38,17 +31,11 @@ class TxGravitySwapCell: TxCell {
         let msg = try! Tendermint_Liquidity_V1beta1_MsgSwapWithinBatch.init(serializedData: response.tx.body.messages[position].value)
         txRequesterLabel.text = msg.swapRequesterAddress
         txRequesterLabel.adjustsFontSizeToFitWidth = true
-        
         txPoolIDLabel.text = String(msg.poolID)
-        txSwapTypeIDLabel.text = String(msg.swapTypeID)
+        txDemandCoinLabel.text = WUtils.getCosmosTokenName(msg.demandCoinDenom)
         txOrderPriceLabel.text = NSDecimalNumber.init(string: msg.orderPrice).multiplying(byPowerOf10: -18).stringValue
-        
-        txSwapFeeAmountLabel.text = ""
-        txSwapFeeDenomLabel.text = ""
-        txOfferInAmountLabel.text = ""
-        txOfferInDenomLabel.text = ""
-        txOfferOutAmountLabel.text = ""
-        txOfferOutDenomLabel.text = ""
+        let coinInput = Coin.init(msg.offerCoin.denom, msg.offerCoin.amount)
+        WUtils.showCoinDp(coinInput, txOfferInDenomLabel, txOfferInAmountLabel, chain)
         
     }
     

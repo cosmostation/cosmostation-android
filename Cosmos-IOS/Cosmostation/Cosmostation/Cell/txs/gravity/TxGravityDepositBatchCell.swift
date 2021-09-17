@@ -36,10 +36,10 @@ class TxGravityDepositBatchCell: TxCell {
         
         txPoolIDLabel.text = String(msg.poolID)
         
-        txDeposit1AmountLabel.text = ""
-        txDeposit1DenomLabel.text = ""
-        txDeposit2AmountLabel.text = ""
-        txDeposit2DenomLabel.text = ""
+        let deposit0Coin = Coin.init(msg.depositCoins[0].denom, msg.depositCoins[0].amount)
+        let deposit1Coin = Coin.init(msg.depositCoins[1].denom, msg.depositCoins[1].amount)
+        WUtils.showCoinDp(deposit0Coin, txDeposit1DenomLabel, txDeposit1AmountLabel, chain)
+        WUtils.showCoinDp(deposit1Coin, txDeposit2DenomLabel, txDeposit2AmountLabel, chain)
         
     }
 }

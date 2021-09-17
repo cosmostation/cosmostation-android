@@ -1883,6 +1883,13 @@ public class WUtils {
         } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             if (coin.denom == COSMOS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+            } else if (coin.denom.starts(with: "pool")) {
+                denomLabel.textColor = .white
+                if let poolInfo = BaseData.instance.getGravityPoolByDenom(coin.denom)  {
+                    denomLabel.text = "GDEX-" + String(poolInfo.id)
+                } else {
+                    denomLabel.text = "UnKnown"
+                }
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = coin.denom.uppercased()
@@ -2149,6 +2156,13 @@ public class WUtils {
         } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             if (denom == COSMOS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+            } else if (denom.starts(with: "pool")) {
+                denomLabel.textColor = .white
+                if let poolInfo = BaseData.instance.getGravityPoolByDenom(denom)  {
+                    denomLabel.text = "GDEX-" + String(poolInfo.id)
+                } else {
+                    denomLabel.text = "UnKnown"
+                }
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = denom.uppercased()
