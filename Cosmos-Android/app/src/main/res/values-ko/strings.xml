@@ -1519,8 +1519,8 @@
 
     <string name="tx_gravity_create_pool">풀 생성</string>
     <string name="tx_gravity_swap_batch">코인 스왑</string>
-    <string name="tx_gravity_deposit_batch">풀 참가</string>
-    <string name="tx_gravity_withdraw_batch">풀 나가기</string>
+    <string name="tx_gravity_deposit_batch">풀 참가(Batch Deposit)</string>
+    <string name="tx_gravity_withdraw_batch">풀 나가기(Batch Withdraw)</string>
 
     <string name="tx_add_record">Add Record</string>
     <string name="tx_create_did">Create Did</string>
