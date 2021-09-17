@@ -1015,14 +1015,14 @@ class BaseNetWork {
             return ClientConnection.insecure(group: group).connect(host: "lcd-medibloc-app.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.CERTIK_MAIN) {
-            return ClientConnection.insecure(group: group).connect(host: "lcd-certik.cosmostation.io", port: 9090)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-certik-app.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.EMONEY_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 40702)
 //            return ClientConnection.insecure(group: group).connect(host: "lcd-emoney.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.FETCH_MAIN) {
-            return ClientConnection.insecure(group: group).connect(host: "lcd-fetch.cosmostation.io", port: 9090)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-fetchai-app.cosmostation.io", port: 9090)
         }
         
         

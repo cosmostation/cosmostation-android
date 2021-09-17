@@ -55,13 +55,13 @@ public class ChannelBuilder {
     private final static String GRPC_MEDI_MAIN = "lcd-medibloc-app.cosmostation.io";
     private final static int PORT_MEDI_MAIN = 9090;
 
-    private final static String GRPC_CERTIK_MAIN = "lcd-certik.cosmostation.io";
+    private final static String GRPC_CERTIK_MAIN = "lcd-certik-app.cosmostation.io";
     private final static int PORT_CERTIK_MAIN = 9090;
 
     private final static String GRPC_EMONEY_MAIN = "lcd-office.cosmostation.io";
     private final static int PORT_EMONEY_MAIN = 40900;
 
-    private final static String GRPC_FETCH_MAIN = "lcd-fetchai.cosmostation.io";
+    private final static String GRPC_FETCH_MAIN = "lcd-fetchai-app.cosmostation.io";
     private final static int PORT_FETCH_MAIN = 9090;
 
 //    private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
