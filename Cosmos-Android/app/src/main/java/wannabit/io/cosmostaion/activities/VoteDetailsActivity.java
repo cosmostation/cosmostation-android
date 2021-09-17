@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.protobuf2.Any;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +92,9 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
     //Certik gRPC
     private shentu.gov.v1alpha1.Gov.Proposal            mCtkProposalDetail_gRPC;
+    private Gov.TallyResult                             mCtkTally_gRPC;
+    private ArrayList<shentu.gov.v1alpha1.Gov.Vote>     mCtkAllVoter_gRPC = new ArrayList<>();
+    private shentu.gov.v1alpha1.Gov.Vote                mCtkMyVote_gRPC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,7 +224,9 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private String getProposer() {
-        if (isGRPC(mBaseChain)) {
+        if (mBaseChain.equals(CERTIK_MAIN)) {
+            return mCtkProposalDetail_gRPC.getProposerAddress();
+        } else if (isGRPC(mBaseChain)) {
             return "";
         } else {
             return mProposer;
@@ -277,17 +284,29 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         } else if (result.taskType == TASK_GRPC_FETCH_PROPOSAL_TALLY) {
             if (result.resultData != null) {
-                mTally_gRPC = (Gov.TallyResult) result.resultData;
+                if (mBaseChain.equals(CERTIK_MAIN)) {
+                    mCtkTally_gRPC = (Gov.TallyResult) result.resultData;
+                } else {
+                    mTally_gRPC = (Gov.TallyResult) result.resultData;
+                }
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_PROPOSAL_VOTER_LIST) {
             if (result.resultData != null) {
-                mAllVoter_gRPC = new ArrayList((List<Gov.Vote>)result.resultData);
+                if (mBaseChain.equals(CERTIK_MAIN)) {
+                    mCtkAllVoter_gRPC = (ArrayList<shentu.gov.v1alpha1.Gov.Vote>) result.resultData;
+                } else {
+                    mAllVoter_gRPC = new ArrayList((List<Gov.Vote>)result.resultData);
+                }
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_PROPOSAL_MY_VOTE) {
             if (result.resultData != null) {
-                mMyVote_gRPC = (Gov.Vote)result.resultData;
+                if (mBaseChain.equals(CERTIK_MAIN)) {
+                    mCtkMyVote_gRPC = (shentu.gov.v1alpha1.Gov.Vote) result.resultData;
+                } else {
+                    mMyVote_gRPC = (Gov.Vote)result.resultData;
+                }
             }
         }
         if (mTaskCount == 0) {
@@ -388,7 +407,18 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindVoteTally(RecyclerView.ViewHolder viewHolder) {
             final VoteTallyHolder holder = (VoteTallyHolder)viewHolder;
-            if (isGRPC(mBaseChain) && mTally_gRPC != null) {
+            if (mBaseChain.equals(CERTIK_MAIN) && mCtkTally_gRPC != null) {
+                holder.itemYesProgress.setProgress(WDp.getYesPer(mCtkTally_gRPC).intValue());
+                holder.itemNoProgress.setProgress(WDp.getNoPer(mCtkTally_gRPC).intValue());
+                holder.itemVetoProgress.setProgress(WDp.getVetoPer(mCtkTally_gRPC).intValue());
+                holder.itemAbstainProgress.setProgress(WDp.getAbstainPer(mCtkTally_gRPC).intValue());
+
+                holder.itemYesRate.setText(WDp.getDpString(WDp.getYesPer(mCtkTally_gRPC).toPlainString() + "%", 3));
+                holder.itemNoRate.setText(WDp.getDpString(WDp.getNoPer(mCtkTally_gRPC).toPlainString() + "%", 3));
+                holder.itemVetoRate.setText(WDp.getDpString(WDp.getVetoPer(mCtkTally_gRPC).toPlainString() + "%", 3));
+                holder.itemAbstainRate.setText(WDp.getDpString(WDp.getAbstainPer(mCtkTally_gRPC).toPlainString() + "%", 3));
+
+            } else if (isGRPC(mBaseChain) && mTally_gRPC != null) {
                 holder.itemYesProgress.setProgress(WDp.getYesPer(mTally_gRPC).intValue());
                 holder.itemNoProgress.setProgress(WDp.getNoPer(mTally_gRPC).intValue());
                 holder.itemVetoProgress.setProgress(WDp.getVetoPer(mTally_gRPC).intValue());
@@ -404,23 +434,31 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     onDisplayVote_V1(holder);
                     holder.itemTurnoutLayer.setVisibility(View.VISIBLE);
                     holder.itemQuorum.setText(WDp.getPercentDp(getBaseDao().mChainParam.getQuorum(mBaseChain)));
-                    holder.itemTurnout.setText(WDp.getDpString(WDp.getTurnout(mBaseChain, getBaseDao(), mTally_gRPC).setScale(2).toPlainString() + "%", 3));
+                    if (mBaseChain.equals(CERTIK_MAIN)) { holder.itemTurnout.setText(WDp.getDpString(WDp.getTurnout(mBaseChain, getBaseDao(), mCtkTally_gRPC).setScale(2).toPlainString() + "%", 3)); }
+                    else { holder.itemTurnout.setText(WDp.getDpString(WDp.getTurnout(mBaseChain, getBaseDao(), mTally_gRPC).setScale(2).toPlainString() + "%", 3)); }
+
                 }
 
-                if (mMyVote_gRPC != null) {
-                    if (mMyVote_gRPC.getOption().equals(Gov.VoteOption.VOTE_OPTION_YES)) {
+                if (mMyVote_gRPC != null || mCtkMyVote_gRPC != null) {
+                    Gov.VoteOption voteOption = null;
+                    if (mBaseChain.equals(CERTIK_MAIN)) {
+                        voteOption = mCtkMyVote_gRPC.getDeposit().getOption();
+                    } else {
+                        voteOption = mMyVote_gRPC.getOption();
+                    }
+                    if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_YES)) {
                         holder.itemYesDone.setVisibility(View.VISIBLE);
                         holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_voted));
 
-                    } else if (mMyVote_gRPC.getOption().equals(Gov.VoteOption.VOTE_OPTION_NO)) {
+                    } else if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_NO)) {
                         holder.itemNoDone.setVisibility(View.VISIBLE);
                         holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
 
-                    } else if (mMyVote_gRPC.getOption().equals(Gov.VoteOption.VOTE_OPTION_NO_WITH_VETO)) {
+                    } else if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_NO_WITH_VETO)) {
                         holder.itemVetoDone.setVisibility(View.VISIBLE);
                         holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
 
-                    } else if (mMyVote_gRPC.getOption().equals(Gov.VoteOption.VOTE_OPTION_ABSTAIN)) {
+                    } else if (voteOption.equals(Gov.VoteOption.VOTE_OPTION_ABSTAIN)) {
                         holder.itemAbstainDone.setVisibility(View.VISIBLE);
                         holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_voted));
                     }
@@ -498,10 +536,17 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         }
 
         private void onDisplayVote_V1(VoteTallyHolder holder) {
-            holder.itemYesCnt.setText(""+ WUtil.getVoterTypeCnt_gRPC(mAllVoter_gRPC, Gov.VoteOption.VOTE_OPTION_YES));
-            holder.itemNoCnt.setText(""+WUtil.getVoterTypeCnt_gRPC(mAllVoter_gRPC, Gov.VoteOption.VOTE_OPTION_NO));
-            holder.itemVetoCnt.setText(""+WUtil.getVoterTypeCnt_gRPC(mAllVoter_gRPC, Gov.VoteOption.VOTE_OPTION_NO_WITH_VETO));
-            holder.itemAbstainCnt.setText(""+WUtil.getVoterTypeCnt_gRPC(mAllVoter_gRPC, Gov.VoteOption.VOTE_OPTION_ABSTAIN));
+            if (mBaseChain.equals(CERTIK_MAIN)) {
+                holder.itemYesCnt.setText(""+ WUtil.getVoterTypeCnt_CtkgRPC(mCtkAllVoter_gRPC, Gov.VoteOption.VOTE_OPTION_YES));
+                holder.itemNoCnt.setText(""+WUtil.getVoterTypeCnt_CtkgRPC(mCtkAllVoter_gRPC, Gov.VoteOption.VOTE_OPTION_NO));
+                holder.itemVetoCnt.setText(""+WUtil.getVoterTypeCnt_CtkgRPC(mCtkAllVoter_gRPC, Gov.VoteOption.VOTE_OPTION_NO_WITH_VETO));
+                holder.itemAbstainCnt.setText(""+WUtil.getVoterTypeCnt_CtkgRPC(mCtkAllVoter_gRPC, Gov.VoteOption.VOTE_OPTION_ABSTAIN));
+            } else {
+                holder.itemYesCnt.setText(""+ WUtil.getVoterTypeCnt_gRPC(mAllVoter_gRPC, Gov.VoteOption.VOTE_OPTION_YES));
+                holder.itemNoCnt.setText(""+WUtil.getVoterTypeCnt_gRPC(mAllVoter_gRPC, Gov.VoteOption.VOTE_OPTION_NO));
+                holder.itemVetoCnt.setText(""+WUtil.getVoterTypeCnt_gRPC(mAllVoter_gRPC, Gov.VoteOption.VOTE_OPTION_NO_WITH_VETO));
+                holder.itemAbstainCnt.setText(""+WUtil.getVoterTypeCnt_gRPC(mAllVoter_gRPC, Gov.VoteOption.VOTE_OPTION_ABSTAIN));
+            }
             holder.itemYesCnt.setVisibility(View.VISIBLE);
             holder.itemNoCnt.setVisibility(View.VISIBLE);
             holder.itemVetoCnt.setVisibility(View.VISIBLE);
