@@ -1022,8 +1022,7 @@ class BaseNetWork {
 //            return ClientConnection.insecure(group: group).connect(host: "lcd-emoney.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.FETCH_MAIN) {
-            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 40600)
-//            return ClientConnection.insecure(group: group).connect(host: "lcd-fetch.cosmostation.io", port: 9090)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-fetch.cosmostation.io", port: 9090)
         }
         
         

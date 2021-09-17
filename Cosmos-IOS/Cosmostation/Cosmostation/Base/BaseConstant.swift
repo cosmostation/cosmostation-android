@@ -850,7 +850,7 @@ public enum ChainType: String {
 //        result.append(IOV_TEST)
 //        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
-        result.append(RIZON_TEST)
+//        result.append(RIZON_TEST)
 //        result.append(MEDI_TEST)
 //        result.append(ALTHEA_TEST)
         result.append(UMEE_TEST)
