@@ -213,7 +213,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_GRAVITY_POOL_LIST           = 4026;
     public final static int TASK_GRPC_FETCH_GRAVITY_PARAM               = 4027;
     public final static int TASK_GRPC_FETCH_GRAVITY_MANAGER             = 4028;
-    public final static int TASK_GRPC_FETCH_DENOM_SUPPLY                = 4029;
+    public final static int TASK_GRPC_FETCH_TOTAL_SUPPLY                = 4029;
     public final static int TASK_GRPC_FETCH_GRAVITY_POOL_INFO           = 4030;
 
     public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4100;

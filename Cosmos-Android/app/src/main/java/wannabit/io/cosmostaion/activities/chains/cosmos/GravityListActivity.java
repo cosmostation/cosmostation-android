@@ -30,7 +30,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Osmo_Lockup_Duration;
 import wannabit.io.cosmostaion.dialog.Dialog_Pool_Gravity_Dex;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.cosmos.GravityPoolListFragment;
@@ -41,17 +40,17 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.GravityDexManagerGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.GravityDexParamGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.GravityDexPoolGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.SupplyDenomGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.TotalSupplyGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_WITHDRAW;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DENOM_SUPPLY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_MANAGER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_GRAVITY_POOL_LIST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_TOTAL_SUPPLY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 
 public class GravityListActivity extends BaseActivity {
@@ -209,13 +208,14 @@ public class GravityListActivity extends BaseActivity {
     }
 
     public void onFetchPoolListInfo() {
-        mTaskCount = 2;
+        mTaskCount = 3;
         mPoolList .clear();
         mPoolMyList.clear();
         mPoolOtherList.clear();
         getBaseDao().mGDexPoolTokens.clear();
         new GravityDexPoolGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new GravityDexParamGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new TotalSupplyGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -230,10 +230,9 @@ public class GravityListActivity extends BaseActivity {
                     }
                 }
             }
-            mTaskCount = mTaskCount + (mPoolList.size() * 2);
+            mTaskCount = mTaskCount + 1;
             for (Liquidity.Pool pool: mPoolList ) {
                 new GravityDexManagerGrpcTask(getBaseApplication(), this, mBaseChain, pool.getReserveAccountAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                new SupplyDenomGrpcTask(getBaseApplication(), this, mBaseChain, pool.getPoolCoinDenom()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
                 if (getBaseDao().getAvailable(pool.getPoolCoinDenom()) != BigDecimal.ZERO) {
                     mPoolMyList.add(pool);
@@ -252,11 +251,14 @@ public class GravityListActivity extends BaseActivity {
                 getBaseDao().mGDexManager.add(new GDexManager(result.resultData2, (List<CoinOuterClass.Coin>) result.resultData));
             }
 
-        } else if (result.taskType == TASK_GRPC_FETCH_DENOM_SUPPLY) {
+        } else if (result.taskType == TASK_GRPC_FETCH_TOTAL_SUPPLY) {
             if (result.isSuccess && result.resultData != null) {
-                CoinOuterClass.Coin rawCoin = (CoinOuterClass.Coin)result.resultData;
-                getBaseDao().mGDexPoolTokens.add(new Coin(rawCoin.getDenom(), rawCoin.getAmount()));
-
+                ArrayList<CoinOuterClass.Coin> supplys = (ArrayList<CoinOuterClass.Coin>) result.resultData;
+                for (CoinOuterClass.Coin coin: supplys) {
+                    if (coin.getDenom().startsWith("pool")) {
+                        getBaseDao().mGDexPoolTokens.add((new Coin(coin.getDenom(), coin.getAmount())));
+                    }
+                }
             }
         }
         if (mTaskCount == 0) {
