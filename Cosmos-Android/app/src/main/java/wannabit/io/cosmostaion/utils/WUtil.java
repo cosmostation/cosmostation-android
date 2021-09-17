@@ -1804,6 +1804,19 @@ public class WUtil {
         return result;
     }
 
+    public static int getVoterTypeCnt_CtkgRPC(ArrayList<shentu.gov.v1alpha1.Gov.Vote> votes, Gov.VoteOption option) {
+        int result = 0;
+        if (votes == null) {
+            return result;
+        }
+        for (shentu.gov.v1alpha1.Gov.Vote v:votes) {
+            if (v.getDeposit().getOption().equals(option)) {
+                result = result + 1;
+            }
+        }
+        return result;
+    }
+
     public static String getMonikerName(String opAddress, ArrayList<Validator> validators, boolean bracket) {
         String result = "";
         for (Validator val:validators) {
