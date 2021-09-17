@@ -18,6 +18,7 @@ public class ProposalMyVoteGrpcTask extends CommonTask {
     private String mProposalId;
     private String mAddress;
     private QueryGrpc.QueryBlockingStub mStub;
+    private shentu.gov.v1alpha1.QueryGrpc.QueryBlockingStub mCtkStub;
 
     public ProposalMyVoteGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String proposalId, String address) {
         super(app, listener);
@@ -26,15 +27,22 @@ public class ProposalMyVoteGrpcTask extends CommonTask {
         this.mAddress = address;
         this.mResult.taskType = TASK_GRPC_FETCH_PROPOSAL_MY_VOTE;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
+        this.mCtkStub = shentu.gov.v1alpha1.QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryVoteRequest request = QueryOuterClass.QueryVoteRequest.newBuilder().setProposalId(Long.parseLong(mProposalId)).setVoter(mAddress).build();
-            QueryOuterClass.QueryVoteResponse response = mStub.vote(request);
-            this.mResult.resultData = response.getVote();
+            if (mChain.equals(BaseChain.CERTIK_MAIN)) {
+                shentu.gov.v1alpha1.QueryOuterClass.QueryVoteRequest request = shentu.gov.v1alpha1.QueryOuterClass.QueryVoteRequest.newBuilder().setProposalId(Long.parseLong(mProposalId)).setVoter(mAddress).build();
+                shentu.gov.v1alpha1.QueryOuterClass.QueryVoteResponse response = mCtkStub.vote(request);
+                this.mResult.resultData = response.getVote();
+            } else {
+                QueryOuterClass.QueryVoteRequest request = QueryOuterClass.QueryVoteRequest.newBuilder().setProposalId(Long.parseLong(mProposalId)).setVoter(mAddress).build();
+                QueryOuterClass.QueryVoteResponse response = mStub.vote(request);
+                this.mResult.resultData = response.getVote();
 //            WLog.w("ProposalMyVoteGrpcTask " + response.getVote()));
+            }
 
         } catch (Exception e) { WLog.e( "ProposalMyVoteGrpcTask "+ e.getMessage()); }
         return mResult;

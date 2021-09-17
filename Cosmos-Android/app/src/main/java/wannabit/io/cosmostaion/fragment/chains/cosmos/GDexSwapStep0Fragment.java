@@ -124,8 +124,9 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
         BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_GDEX_SWAP, 0);
         if (getSActivity().mInputDenom.equals(TOKEN_ATOM)) {
-            mAvailableMaxAmount = mAvailableMaxAmount.multiply(new BigDecimal("0.9985")).subtract(txFee);
+            mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
+        mAvailableMaxAmount = mAvailableMaxAmount.multiply(new BigDecimal("0.9985"));
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
         WUtil.dpCosmosTokenName(getContext(), getBaseDao(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
 
@@ -134,9 +135,6 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
         WUtil.dpCosmosTokenName(getContext(), getBaseDao(), mSwapOutputSymbol, getSActivity().mOutputDenom);
         WUtil.DpCosmosTokenImg(getBaseDao(), mSwapOutputImg, getSActivity().mOutputDenom);
 
-        //새로 받아온 데이터로 보여줄것.
-//        BigDecimal lpInputAmount = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), getSActivity().mInputDenom);
-//        BigDecimal lpOutputAmount = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), getSActivity().mOutputDenom);
         BigDecimal lpInputAmount = getLocalLpAmount(getSActivity().mInputDenom);
         BigDecimal lpOutputAmount = getLocalLpAmount(getSActivity().mOutputDenom);
         if (lpInputAmount != BigDecimal.ZERO && lpOutputAmount != BigDecimal.ZERO) {
@@ -198,7 +196,7 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
                         BigDecimal checkPosition = inputAmount.movePointRight(mInputCoinDecimal);
                         BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
-                        if (checkPosition.compareTo(checkMax) != 0) {
+                        if (checkPosition.compareTo(checkMax) != 0 || !checkPosition.equals(checkMax)) {
                             String recover = es.substring(0, es.length() - 1);
                             mSwapInputAmount.setText(recover);
                             mSwapInputAmount.setSelection(recover.length());

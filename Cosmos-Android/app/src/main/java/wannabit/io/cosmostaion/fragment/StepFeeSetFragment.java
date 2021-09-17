@@ -416,11 +416,8 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
             else if (getSActivity().mTxType == CONST_PW_TX_GDEX_SWAP) {
                 Coin coinFee = new Coin(getSActivity().mSwapInCoin.denom, "0");
-                BigDecimal coin0Amount = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), getSActivity().mSwapInCoin.denom);
-                BigDecimal coin1Amount = WUtil.getLpAmount(getBaseDao(), getSActivity().mGDexPool.getReserveAccountAddress(), getSActivity().mSwapOutCoin.denom);
-                BigDecimal orderPrice = coin1Amount.divide(coin0Amount, 18, RoundingMode.DOWN).movePointRight(18).setScale(0, RoundingMode.DOWN);
                 new SimulGravitySwapGrpcTask(getBaseApplication(), this, getSActivity().mAccount, getSActivity().mBaseChain,
-                        getSActivity().mGDexPool.getId(), getSActivity().mSwapInCoin, getSActivity().mSwapOutCoin.denom, coinFee, orderPrice.toPlainString(),
+                        getSActivity().mGDexPool.getId(), getSActivity().mSwapInCoin, getSActivity().mSwapOutCoin.denom, coinFee, getSActivity().mGDexSwapOrderPrice,
                         getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (getSActivity().mTxType == CONST_PW_TX_GDEX_DEPOSIT) {

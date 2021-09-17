@@ -84,7 +84,6 @@ let PERSIS_API                          = "https://api-persistence.cosmostation.
 let SENTINEL_API                        = "https://api-sentinel.cosmostation.io/";
 
 
-let FETCH_URL                           = "https://lcd-fetchai-app.cosmostation.io/";
 let FETCH_API                           = "https://api-fetchai.cosmostation.io/";
 
 

@@ -660,6 +660,17 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(coin.amount, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(coin.denom, BaseData.instance.getAvailableAmount_gRPC(coin.denom), 6, cell!.tokenValue.font)
             
+        } else if (coin.denom == FETCH_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenfetchai")
+            cell?.tokenSymbol.text = "FET"
+            cell?.tokenSymbol.textColor = COLOR_FETCH
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = "Fetch.ai Staking Token"
+            
+            let allFet = WUtils.getAllMainAsset(FETCH_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allFet.stringValue, cell!.tokenAmount.font, 18, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(FETCH_MAIN_DENOM, allFet, 18, cell!.tokenValue.font)
+            
         }
         
         
@@ -840,17 +851,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allSecret = WUtils.getAllMainAssetOld(SECRET_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allSecret.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(SECRET_MAIN_DENOM, allSecret, 6, cell!.tokenValue.font)
-            
-        } else if (balance.balance_denom == FETCH_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "tokenfetchai")
-            cell?.tokenSymbol.text = "FET"
-            cell?.tokenSymbol.textColor = COLOR_FETCH
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = "Fetch.ai Staking Token"
-            
-            let allFet = WUtils.getAllMainAssetOld(FETCH_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allFet.stringValue, cell!.tokenAmount.font, 18, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(FETCH_MAIN_DENOM, allFet, 18, cell!.tokenValue.font)
             
         } else if (balance.balance_denom == KI_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokenKifoundation")

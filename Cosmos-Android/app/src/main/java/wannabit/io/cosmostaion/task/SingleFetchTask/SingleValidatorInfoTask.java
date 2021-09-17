@@ -65,13 +65,6 @@ public class SingleValidatorInfoTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(FETCHAI_MAIN)) {
-                Response<ResLcdSingleValidator> response = ApiClient.getFetchChain(mApp).getValidatorDetail(mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(KI_MAIN)) {
                 Response<ResLcdSingleValidator> response = ApiClient.getKiChain(mApp).getValidatorDetail(mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
