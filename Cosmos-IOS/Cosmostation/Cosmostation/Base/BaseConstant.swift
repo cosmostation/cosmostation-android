@@ -71,7 +71,7 @@ let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostat
 let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostation.io/";
 
 
-let SECRET_URL                          = "https://secret-2--lcd--full.datahub.figment.io/apikey/290520481df876316ee7664924c0a1df/";
+let SECRET_URL                          = "https://secret-3--lcd--full.datahub.figment.io/apikey/290520481df876316ee7664924c0a1df/";
 let SECRET_API                          = "";
 
 
