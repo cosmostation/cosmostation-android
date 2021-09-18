@@ -25,9 +25,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string> $(PRODUCT_NAME) camera use</string>
+	<string>The camera is used to scan QR-Code that expresses a blockchain address or URL of Wallet Connect.</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string> $(PRODUCT_NAME) face id</string>
+	<string>Face ID is using for unlock app</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

@@ -7,6 +7,6 @@
 */
 
 "CFBundleDisplayName" = "Cosmostation";
-"NSCameraUsageDescription" = "Request Camera access for QR code scan.";
-"NSFaceIDUsageDescription" = "Request Face ID for unlock app";
+"NSCameraUsageDescription" = "The camera is used to scan QR-Code that expresses a blockchain address or URL of Wallet Connect.";
+"NSFaceIDUsageDescription" = "Face ID is using for unlock app";
 

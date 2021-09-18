@@ -614,7 +614,7 @@ support@cosmostation.io";
 "error_wasting_fee" = "요청할 이자가 Tx 수수료 보다 낮습니다.\n수수료 낭비 입니다.";
 "error_no_telegram" = "텔레그렘이 설치되어있지 않습니다.\n다운로드후 사용가능합니다.";
 "error_access_camera_title" = "카메라 권한";
-"error_access_camera_msg" = "QR코드 스켄을 위해 카메라 접근을 허락해 주세요.";
+"error_access_camera_msg" = "QR코드 스캔을 위해 카메라 접근을 허락해 주세요.";
 "error_unbonding_count_over" = "위임 철회 가능 횟수를 초과하였습니다.";
 "error_jailded_delegate" = "수감중인 노드에 위임하는 기능은 지원하지 않습니다.";
 "error_redelegate_cnt_over" = "재위임 가능 횟수를 초과하였습니다. 다른 검증인을 선택해주세요.";

@@ -7,5 +7,5 @@
 */
 
 "CFBundleDisplayName" = "Cosmostation";
-"NSCameraUsageDescription" = "QR Code 스캔을 위해 카메라 권한을 요청합니다.";
+"NSCameraUsageDescription" = "카메라는 블럭체인 주소 또는 월렛 커넥트의 URL을 표현하는 QR코드를 스캔하기 위해 활용합니다.";
 "NSFaceIDUsageDescription" = "앱 잠금 해제를 위해 Face ID를 사용합니다.";
