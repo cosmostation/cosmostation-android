@@ -1602,12 +1602,6 @@ public class WUtils {
         } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
             result = result + ",ukava,hard,swp,usdx,btc,bnb,xrp,busd"
             
-        } else if (chain == ChainType.BAND_MAIN) {
-            result = result + ",uband"
-            
-        } else if (chain == ChainType.FETCH_MAIN) {
-            result = result + ",afet"
-            
         } else if (chain == ChainType.KI_MAIN) {
             result = result + ",uxki"
             
@@ -5354,15 +5348,12 @@ public class WUtils {
     }
     
     public static func isGRPC(_ chain: ChainType?) -> Bool {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
-                chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN ||
-                chain == ChainType.OSMOSIS_MAIN || chain == ChainType.IOV_MAIN || chain == ChainType.SIF_MAIN ||
-                chain == ChainType.MEDI_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.EMONEY_MAIN || chain == ChainType.FETCH_MAIN ||
-                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST ||
-                chain == ChainType.ALTHEA_TEST || chain == ChainType.UMEE_TEST || chain == ChainType.AXELAR_TEST) {
-            return true
+        if (chain == ChainType.BINANCE_MAIN || chain == ChainType.OKEX_MAIN || chain == ChainType.KAVA_MAIN ||
+                chain == ChainType.KI_MAIN || chain == ChainType.SECRET_MAIN ||
+                chain == ChainType.BINANCE_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.KAVA_TEST) {
+            return false
         }
-        return false
+        return true
     }
 }
 

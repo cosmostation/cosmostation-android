@@ -56,8 +56,7 @@ let IOV_TEST_URL                        = "https://api.cluster-stargatenet.iov.o
 let IOV_TEST_API                        = "";
 
 
-let BAND_URL                            = "https://lcd-band.cosmostation.io/";
-let BAND_API                            = "https://api-band.cosmostation.io/";
+let BAND_API                            = "https://api-office.cosmostation.io/band-laozi-testnet4/";
 
 
 let OKEX_URL                            = "https://www.okex.com/okexchain/v1/";
