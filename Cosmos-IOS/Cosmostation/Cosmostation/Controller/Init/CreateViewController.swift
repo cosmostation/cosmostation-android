@@ -295,7 +295,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             self.chainType = ChainType.UMEE_TEST
             self.onGenNewKey()
         })
-        umeeTestAction.setValue(UIImage(named: "testnetAxelar")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        umeeTestAction.setValue(UIImage(named: "testnetUmee")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let axelarTestAction = UIAlertAction(title: NSLocalizedString("chain_title_axelar_test", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.AXELAR_TEST
@@ -321,7 +321,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(kiAction)
         showAlert.addAction(osmosisAction)
         showAlert.addAction(mediAction)
-//        showAlert.addAction(emoneyAction)
+        showAlert.addAction(emoneyAction)
         showAlert.addAction(secretAction)
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {

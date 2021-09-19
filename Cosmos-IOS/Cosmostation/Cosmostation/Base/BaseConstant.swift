@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -126,7 +126,7 @@ let UMEE_TEST_API                       = "https://api-office.cosmostation.io/um
 let AXELAR_TEST_API                     = "https://api-office.cosmostation.io/axelar-testnet-adelaide/";
 
 
-let EMONEY_API                          = "https://api-office.cosmostation.io/lilmermaid-15/";
+let EMONEY_API                          = "https://api-office.cosmostation.io/lilmermaid-16/";
 
 
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
@@ -843,7 +843,7 @@ public enum ChainType: String {
         result.append(KI_MAIN)
         result.append(OSMOSIS_MAIN)
         result.append(MEDI_MAIN)
-//        result.append(EMONEY_MAIN)
+        result.append(EMONEY_MAIN)
         result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)

@@ -319,6 +319,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         umeeTestAction.setValue(UIImage(named: "testnetUmee")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let axelarTestAction = UIAlertAction(title: NSLocalizedString("chain_title_axelar_test", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.AXELAR_TEST
+            self.initViewUpdate()
+        })
+        axelarTestAction.setValue(UIImage(named: "testnetAxelar")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
@@ -336,7 +342,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         showAlert.addAction(kiAction)
         showAlert.addAction(osmosisAction)
         showAlert.addAction(mediAction)
-//        showAlert.addAction(emoneyAction)
+        showAlert.addAction(emoneyAction)
         showAlert.addAction(secretAction)
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {
@@ -371,6 +377,9 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         }
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.UMEE_TEST)) {
             showAlert.addAction(umeeTestAction)
+        }
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.AXELAR_TEST)) {
+            showAlert.addAction(axelarTestAction)
         }
         self.present(showAlert, animated: true, completion: nil)
     }
