@@ -323,6 +323,21 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
         let idrAction = UIAlertAction(title: NSLocalizedString("currency_idr", comment: ""), style: .default, handler: { _ in
             self.onSetCurrency(9)
         })
+        let dkkAction = UIAlertAction(title: NSLocalizedString("currency_dkk", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(10)
+        })
+        let nokAction = UIAlertAction(title: NSLocalizedString("currency_nok", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(11)
+        })
+        let sekAction = UIAlertAction(title: NSLocalizedString("currency_sek", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(12)
+        })
+        let chfAction = UIAlertAction(title: NSLocalizedString("currency_chf", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(13)
+        })
+        let audAction = UIAlertAction(title: NSLocalizedString("currency_aud", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(14)
+        })
         
         showAlert.addAction(usdAction)
         showAlert.addAction(eurAction)
@@ -334,6 +349,11 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
         showAlert.addAction(inrAction)
         showAlert.addAction(brlAction)
         showAlert.addAction(idrAction)
+        showAlert.addAction(dkkAction)
+        showAlert.addAction(nokAction)
+        showAlert.addAction(sekAction)
+        showAlert.addAction(chfAction)
+        showAlert.addAction(audAction)
         
         self.present(showAlert, animated: true) {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
