@@ -58,8 +58,6 @@ final class BaseData : NSObject{
     var mOkStaking: OkStaking?
     var mOkUnbonding: OkUnbonding?
     var mOKBPrice: NSDecimalNumber = NSDecimalNumber.zero
-    
-    var mBandOracleStatus: BandOracleStatus?
         
     var mSifVsIncentive: SifIncentive?
     var mSifLmIncentive: SifIncentive?
