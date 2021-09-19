@@ -1079,6 +1079,11 @@ public class WUtils {
     }
     
     static func perUsdValue(_ denom: String) -> NSDecimalNumber? {
+        if (denom == EMONEY_EUR_DENOM || denom == EMONEY_CHF_DENOM || denom == EMONEY_DKK_DENOM || denom == EMONEY_NOK_DENOM || denom == EMONEY_SEK_DENOM) {
+            if let value = BaseData.instance.getPrice("usdt")?.prices.filter{ $0.currency == denom.substring(from: 1) }.first?.current_price {
+                return NSDecimalNumber.one.dividing(by: NSDecimalNumber.init(value: value), withBehavior: handler18)
+            }
+        }
         if let coinPrice = BaseData.instance.getPrice(denom) {
             return coinPrice.currencyPrice("usd").rounding(accordingToBehavior: handler18)
         }
@@ -1135,25 +1140,6 @@ public class WUtils {
         return perBtcValue(denom).multiplying(by: amount).multiplying(byPowerOf10: -divider, withBehavior: handler8)
     }
     
-//    static func allAssetToUsd(_ chainType: ChainType?) -> NSDecimalNumber {
-//        let baseData = BaseData.instance
-//        var totalUsdValue = NSDecimalNumber.zero
-//        if (isGRPC(chainType)) {
-//            baseData.mMyBalances_gRPC.forEach { coin in
-//                if (coin.denom == getMainDenom(chainType)) {
-//                    let amount = getAllMainAsset(coin.denom)
-//                    let assetValue = usdValue(coin.denom, amount, 6)
-//                    totalUsdValue = totalUsdValue.adding(assetValue)
-//
-//                } else {
-//                    // not yet!
-//
-//                }
-//            }
-//        }
-//        return totalUsdValue
-//    }
-    
     static func allAssetToUserCurrency(_ chainType: ChainType?) -> NSDecimalNumber {
         let baseData = BaseData.instance
         var totalValue = NSDecimalNumber.zero
@@ -1175,7 +1161,11 @@ public class WUtils {
                     let decimal = getSifCoinDecimal(coin.denom)
                     totalValue = totalValue.adding(userCurrencyValue(coin.denom.substring(from: 1), available, decimal))
                     
-                }  else if (coin.isIbc()) {
+                } else if (chainType! == ChainType.EMONEY_MAIN && coin.denom.starts(with: "e")) {
+                    let available = baseData.getAvailableAmount_gRPC(coin.denom)
+                    totalValue = totalValue.adding(userCurrencyValue(coin.denom, available, 6))
+                    
+                } else if (coin.isIbc()) {
                     if let ibcToken = BaseData.instance.getIbcToken(coin.getIbcHash()) {
                         if (ibcToken.auth == true) {
                             let amount = baseData.getAvailableAmount_gRPC(coin.denom)
@@ -1260,6 +1250,10 @@ public class WUtils {
                     let available = baseData.getAvailableAmount_gRPC(coin.denom)
                     let decimal = getSifCoinDecimal(coin.denom)
                     totalValue = totalValue.adding(btcValue(coin.denom.substring(from: 1), available, decimal))
+                    
+                } else if (chainType! == ChainType.EMONEY_MAIN && coin.denom.starts(with: "e")) {
+                    let available = baseData.getAvailableAmount_gRPC(coin.denom)
+                    totalValue = totalValue.adding(btcValue(coin.denom, available, 6))
                     
                 } else if (coin.isIbc()) {
                     if let ibcToken = BaseData.instance.getIbcToken(coin.getIbcHash()) {
