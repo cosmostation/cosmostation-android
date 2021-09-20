@@ -135,6 +135,11 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_CHF;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_DKK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_EUR;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_NOK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_SEK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
@@ -778,6 +783,14 @@ public class WDp {
     }
 
     public static BigDecimal perUsdValue(BaseData baseData, String denom) {
+        if (denom.equals(TOKEN_EMONEY_EUR) || denom.equals(TOKEN_EMONEY_CHF) || denom.equals(TOKEN_EMONEY_DKK) ||
+                denom.equals(TOKEN_EMONEY_NOK) || denom.equals(TOKEN_EMONEY_SEK)) {
+            for (Price.Prices price: baseData.getPrice("usdt").prices) {
+                if (price.currency.equalsIgnoreCase(denom.substring(1))) {
+                    return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 18, RoundingMode.DOWN);
+                }
+            }
+        }
         if (baseData.getPrice(denom) != null) {
             return baseData.getPrice(denom).currencyPrice("usd").setScale(3, RoundingMode.DOWN);
         }
@@ -845,7 +858,10 @@ public class WDp {
                     int decimal = WUtil.getSifCoinDecimal(coin.denom);
                     BigDecimal assetValue = userCurrencyValue(baseData, coin.denom.substring(1), amount, decimal);
                     totalValue = totalValue.add(assetValue);
-                } else if (coin.denom.startsWith("ibc/")) {
+                } else if (baseChain.equals(EMONEY_MAIN) || coin.denom.startsWith("e")) {
+                    BigDecimal available = baseData.getAvailable(coin.denom);
+                    totalValue = totalValue.add(userCurrencyValue(baseData, coin.denom, available, 6));
+                } else if (coin.isIbc()) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
                     IbcToken ibcToken = baseData.getIbcToken(coin.denom);
                     if (ibcToken != null && ibcToken.auth) {

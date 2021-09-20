@@ -59,7 +59,7 @@ public class ChannelBuilder {
     private final static int PORT_CERTIK_MAIN = 9090;
 
     private final static String GRPC_EMONEY_MAIN = "lcd-office.cosmostation.io";
-    private final static int PORT_EMONEY_MAIN = 40900;
+    private final static int PORT_EMONEY_MAIN = 40700;
 
     private final static String GRPC_FETCH_MAIN = "lcd-fetchai-app.cosmostation.io";
     private final static int PORT_FETCH_MAIN = 9090;
