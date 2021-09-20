@@ -88,7 +88,7 @@
     <string name="url_api_osmosis" translatable="false">https://api-osmosis.cosmostation.io/</string>
 
 
-    <string name="url_api_emoney" translatable="false">https://api-office.cosmostation.io/lilmermaid-13/</string>
+    <string name="url_api_emoney" translatable="false">https://api-office.cosmostation.io/lilmermaid-16/</string>
 
 
     <string name="url_api_axelar" translatable="false">https://api-office.cosmostation.io/axelar-testnet-adelaide/</string>
