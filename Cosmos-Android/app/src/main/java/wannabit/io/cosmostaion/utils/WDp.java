@@ -787,7 +787,7 @@ public class WDp {
                 denom.equals(TOKEN_EMONEY_NOK) || denom.equals(TOKEN_EMONEY_SEK)) {
             for (Price.Prices price: baseData.getPrice("usdt").prices) {
                 if (price.currency.equalsIgnoreCase(denom.substring(1))) {
-                    return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 18, RoundingMode.DOWN);
+                    return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 3, RoundingMode.DOWN);
                 }
             }
         }
