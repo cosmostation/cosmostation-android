@@ -346,7 +346,11 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(EMONEY_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_NGM)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(coin.denom.substring(1).toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(COSMOS_TEST)) {
@@ -549,7 +553,11 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(EMONEY_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equalsIgnoreCase(TOKEN_NGM)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.substring(1).toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(COSMOS_TEST)) {
@@ -787,7 +795,7 @@ public class WDp {
                 denom.equals(TOKEN_EMONEY_NOK) || denom.equals(TOKEN_EMONEY_SEK)) {
             for (Price.Prices price: baseData.getPrice("usdt").prices) {
                 if (price.currency.equalsIgnoreCase(denom.substring(1))) {
-                    return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 18, RoundingMode.DOWN);
+                    return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 3, RoundingMode.DOWN);
                 }
             }
         }
