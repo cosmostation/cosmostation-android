@@ -564,7 +564,7 @@
     <string name="str_lock_time">잠금 시간</string>
     <string name="str_vesting_schedule">베스팅 풀림 정보</string>
     <string name="str_relayer_status">릴레이어 현황</string>
-    <string name="str_apr_help_title">연 수익율</string>
+    <string name="str_apr_help_title">위임 수익율</string>
     <string name="str_apr_help_onchain_msg">체인 타겟 수익율</string>
     <string name="str_apr_help_real_msg">실제 블럭타임 기준 수익율</string>
     <string name="str_apr_help_msg">현재 체인의 평균 블럭 시간을 바탕으로 계산한 연간 위임 예상 수익율 입니다.</string>
