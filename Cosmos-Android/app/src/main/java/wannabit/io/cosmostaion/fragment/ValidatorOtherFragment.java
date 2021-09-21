@@ -148,13 +148,13 @@ public class ValidatorOtherFragment extends BaseFragment {
                     holder.itemTvCommission.setText("--");
                 }
 
-//                if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-//                    if (getBaseDao().mGrpcBandOracles != null && !getBaseDao().isOracleEnable(validator.getOperatorAddress())) {
-//                        holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-//                    } else {
-//                        holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-//                    }
-//                }
+                if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
+                    if (getBaseDao().mGrpcBandOracles != null && !getBaseDao().isOracleEnable(validator.getOperatorAddress())) {
+                        holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+                    }
+                }
 
             } else {
                 final Validator validator  = getBaseDao().mOtherValidators.get(position);
@@ -184,14 +184,6 @@ public class ValidatorOtherFragment extends BaseFragment {
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
                 } else {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-                }
-
-                if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                    if (getBaseDao().mBandOracles != null && !getBaseDao().mBandOracles.isEnable(validator.operator_address)) {
-                        holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-                    }
                 }
             }
         }

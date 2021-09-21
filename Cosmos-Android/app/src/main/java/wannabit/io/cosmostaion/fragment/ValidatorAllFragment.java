@@ -153,15 +153,15 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
                 }
 
-//                if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-//                    holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorGray1));
-//                    if (getBaseDao().mGrpcBandOracles != null && !getBaseDao().isOracleEnable(validator.getOperatorAddress())) {
-//                        holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-//                        holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorRed));
-//                    } else {
-//                        holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-//                    }
-//                }
+                if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
+                    holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorGray1));
+                    if (getBaseDao().mGrpcBandOracles != null && !getBaseDao().isOracleEnable(validator.getOperatorAddress())) {
+                        holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+                        holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorRed));
+                    } else {
+                        holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+                    }
+                }
 
                 if (getMainActivity().mBaseChain.equals(SIF_MAIN) || getMainActivity().mBaseChain.equals(ALTHEA_TEST)) {
                     holder.itemTvCommission.setText("--");
@@ -202,16 +202,6 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
                 } else {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-                }
-
-                if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                    holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorGray1));
-                    if (getBaseDao().mBandOracles != null && !getBaseDao().mBandOracles.isEnable(validator.operator_address)) {
-                        holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-                        holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorRed));
-                    } else {
-                        holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-                    }
                 }
             }
         }

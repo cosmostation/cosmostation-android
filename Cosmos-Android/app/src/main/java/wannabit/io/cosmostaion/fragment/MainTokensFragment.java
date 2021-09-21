@@ -848,6 +848,18 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 18));
 
+        } else if (coin.denom.equals(TOKEN_BAND)) {
+            holder.itemSymbol.setText(getString(R.string.str_band_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BAND_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Band Staking Token");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_band));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_BAND);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
         } else if (coin.denom.equals(TOKEN_AXELAR)) {
             holder.itemSymbol.setText(getString(R.string.str_axl_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), AXELAR_TEST));
@@ -1158,17 +1170,6 @@ public class MainTokensFragment extends BaseFragment {
                     startActivity(intent);
                 }
             });
-
-        } else if (balance.symbol.equals(TOKEN_BAND)) {
-            holder.itemSymbol.setText(getString(R.string.str_band_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BAND_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Band Staking Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.band_token_img));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_BAND);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
 
         } else if (balance.symbol.equals(TOKEN_SECRET)) {
             holder.itemSymbol.setText(getString(R.string.str_scrt_c));

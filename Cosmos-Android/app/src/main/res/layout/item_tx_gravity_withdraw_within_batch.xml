@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:text="@string/tx_gravity_withdraw_batch"
+                    android:text="@string/str_gravity_withdraw_batch"
                     style="@style/font_ss_15_white"/>
             </LinearLayout>
             <LinearLayout

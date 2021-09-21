@@ -51,13 +51,6 @@ public class SingleValidatorInfoTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(BAND_MAIN)) {
-                Response<ResLcdSingleValidator> response = ApiClient.getBandChain(mApp).getValidatorDetail(mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(SECRET_MAIN)) {
                 Response<ResLcdSingleValidator> response = ApiClient.getSecretChain(mApp).getValidatorDetail(mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
@@ -67,15 +60,6 @@ public class SingleValidatorInfoTask extends CommonTask {
 
             } else if (mChain.equals(KI_MAIN)) {
                 Response<ResLcdSingleValidator> response = ApiClient.getKiChain(mApp).getValidatorDetail(mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            }
-
-            else if (mChain.equals(KAVA_TEST)) {
-                Response<ResLcdSingleValidator> response = ApiClient.getKavaTestChain(mApp).getValidatorDetail(mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;

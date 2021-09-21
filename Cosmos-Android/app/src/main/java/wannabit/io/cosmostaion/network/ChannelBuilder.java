@@ -7,6 +7,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
@@ -64,8 +65,8 @@ public class ChannelBuilder {
     private final static String GRPC_FETCH_MAIN = "lcd-fetchai-app.cosmostation.io";
     private final static int PORT_FETCH_MAIN = 9090;
 
-//    private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
-//    private final static int PORT_BAND_MAIN = 21700;
+    private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
+    private final static int PORT_BAND_MAIN = 40200;
 
 
 
@@ -119,9 +120,8 @@ public class ChannelBuilder {
             return getEmoneyMain();
         } else if (chain.equals(FETCHAI_MAIN)) {
             return getFetchMain();
-
-//        } else if (chain.equals(BAND_MAIN)) {
-//            return getBandMain();
+        } else if (chain.equals(BAND_MAIN)) {
+            return getBandMain();
 
         } else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
@@ -310,18 +310,18 @@ public class ChannelBuilder {
         return channel_fetch_main;
     }
 
-//    //Channel for band main
-//    private static ManagedChannel channel_band_main = null;
-//    public static ManagedChannel getBandMain() {
-//        if (channel_band_main == null) {
-//            synchronized (ChannelBuilder.class) {
-//                channel_band_main = ManagedChannelBuilder.forAddress(GRPC_BAND_MAIN, PORT_BAND_MAIN)
-//                        .usePlaintext()
-//                        .build();
-//            }
-//        }
-//        return channel_band_main;
-//    }
+    //Channel for band main
+    private static ManagedChannel channel_band_main = null;
+    public static ManagedChannel getBandMain() {
+        if (channel_band_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_band_main = ManagedChannelBuilder.forAddress(GRPC_BAND_MAIN, PORT_BAND_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_band_main;
+    }
 
 
     //Channel for stargate testnet
