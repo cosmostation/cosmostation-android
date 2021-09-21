@@ -125,7 +125,7 @@ let UMEE_TEST_API                       = "https://api-office.cosmostation.io/um
 let AXELAR_TEST_API                     = "https://api-office.cosmostation.io/axelar-testnet-adelaide/";
 
 
-let EMONEY_API                          = "https://api-office.cosmostation.io/lilmermaid-16/";
+let EMONEY_API                          = "https://api-emoney.cosmostation.io/";
 
 
 let MOON_PAY_URL                        = "https://buy.moonpay.io";

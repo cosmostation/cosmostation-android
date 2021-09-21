@@ -139,7 +139,7 @@ class WKey {
         } else if (chain == ChainType.AXELAR_TEST) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "axelar", program: ripemd160)
         } else if (chain == ChainType.EMONEY_MAIN) {
-            result = try! SegwitAddrCoder.shared.encode2(hrp: "emoney1", program: ripemd160)
+            result = try! SegwitAddrCoder.shared.encode2(hrp: "emoney", program: ripemd160)
         }
         return result
     }
@@ -304,7 +304,7 @@ class WKey {
         } else if (chain == ChainType.AXELAR_TEST) {
             result = bech32.encode("axelar", values: data)
         } else if (chain == ChainType.EMONEY_MAIN) {
-            result = bech32.encode("emoney1", values: data)
+            result = bech32.encode("emoney", values: data)
         }
         return result
     }

@@ -564,7 +564,7 @@
     <string name="str_lock_time">잠금 시간</string>
     <string name="str_vesting_schedule">베스팅 풀림 정보</string>
     <string name="str_relayer_status">릴레이어 현황</string>
-    <string name="str_apr_help_title">연 수익율</string>
+    <string name="str_apr_help_title">위임 수익율</string>
     <string name="str_apr_help_onchain_msg">체인 타겟 수익율</string>
     <string name="str_apr_help_real_msg">실제 블럭타임 기준 수익율</string>
     <string name="str_apr_help_msg">현재 체인의 평균 블럭 시간을 바탕으로 계산한 연간 위임 예상 수익율 입니다.</string>
@@ -1151,13 +1151,13 @@
     <string name="str_gravity_deposit_batch_id">Pool ID</string>
     <string name="str_gravity_create_pool_deposit">Deposit Coins</string>
     <string name="str_gravity_withdraw_pool">Withdraw Coin</string>
-    <string name="str_gravity_swap_request_address">Swap Requester Address</string>
+    <string name="str_gravity_swap_request_address">Swap Requester</string>
     <string name="str_gravity_swap_pool_id">Pool ID</string>
     <string name="str_gravity_swap_type_id">Swap Type ID</string>
     <string name="str_gravity_swap_offer">Offer</string>
-    <string name="str_gravity_swap_offer_coin">Coin</string>
+    <string name="str_gravity_swap_offer_coin">Offer In Coin</string>
     <string name="str_gravity_swap_offer_coin_fee">Coin Fee</string>
-    <string name="str_gravity_swap_demand_coin_denom">Demand Coin Denom</string>
+    <string name="str_gravity_swap_demand_coin_denom">Demand Coin</string>
     <string name="str_gravity_swap_order_price">Order Price</string>
     <string name="str_gravity_withdraw_address">Withdraw Address</string>
     <string name="str_gravity_withdraw_pool_id">Pool ID</string>
@@ -1291,6 +1291,8 @@
     <string name="str_create_task_bountry">Bountry</string>
     <string name="str_task_response_operator">Operator</string>
     <string name="str_task_response_score">Score</string>
+    <string name="str_gravity_deposit_batch">풀 참가(Batch Deposit)</string>
+    <string name="str_gravity_withdraw_batch">풀 나가기(Batch Withdraw)</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
@@ -1519,8 +1521,8 @@
 
     <string name="tx_gravity_create_pool">풀 생성</string>
     <string name="tx_gravity_swap_batch">코인 스왑</string>
-    <string name="tx_gravity_deposit_batch">풀 참가(Batch Deposit)</string>
-    <string name="tx_gravity_withdraw_batch">풀 나가기(Batch Withdraw)</string>
+    <string name="tx_gravity_deposit_batch">풀 참가</string>
+    <string name="tx_gravity_withdraw_batch">풀 나가기</string>
 
     <string name="tx_add_record">Add Record</string>
     <string name="tx_create_did">Create Did</string>
@@ -1538,5 +1540,37 @@
     <string name="str_dp_time_format3" >HH:mm:ss</string>
     <string name="str_dp_time_format4">yyyy-MM-dd</string>
     <string name="str_dp_date_format" >yyyy-MM-dd</string>
+
+    <string name="currency_usd">USD</string>
+    <string name="currency_eur">EUR</string>
+    <string name="currency_krw">KRW</string>
+    <string name="currency_jpy">JPY</string>
+    <string name="currency_cny">CNY</string>
+    <string name="currency_rub">RUB</string>
+    <string name="currency_gbp">GBP</string>
+    <string name="currency_inr">INR</string>
+    <string name="currency_brl">BRL</string>
+    <string name="currency_idr">IDR</string>
+    <string name="currency_dkk">DKK</string>
+    <string name="currency_nok">NOK</string>
+    <string name="currency_sek">SEK</string>
+    <string name="currency_chf">CHF</string>
+    <string name="currency_aud">AUD</string>
+
+    <string name="currency_usd_symbol">$</string>
+    <string name="currency_eur_symbol">€</string>
+    <string name="currency_krw_symbol">₩</string>
+    <string name="currency_jpy_symbol">¥</string>
+    <string name="currency_cny_symbol">¥</string>
+    <string name="currency_rub_symbol">₽</string>
+    <string name="currency_gbp_symbol">£</string>
+    <string name="currency_inr_symbol">₹</string>
+    <string name="currency_brl_symbol">R$</string>
+    <string name="currency_idr_symbol">Rp</string>
+    <string name="currency_dkk_symbol">Kr</string>
+    <string name="currency_nok_symbol">Kr</string>
+    <string name="currency_sek_symbol">Kr</string>
+    <string name="currency_chf_symbol">sFr</string>
+    <string name="currency_aud_symbol">AU$</string>
 
 </resources>
