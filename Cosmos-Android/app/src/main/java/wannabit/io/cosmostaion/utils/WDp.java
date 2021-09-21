@@ -607,7 +607,8 @@ public class WDp {
 
     public static SpannableString getDpEstAprCommission(BaseData baseData, BaseChain chain, BigDecimal commission) {
         final ChainParam.Params param = baseData.mChainParam;
-        BigDecimal apr = param.getApr(chain);
+        BigDecimal apr = BigDecimal.ZERO;
+        if (param != null) { apr = param.getApr(chain); }
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission).movePointRight(2);
         return getPercentDp(aprCommission);
