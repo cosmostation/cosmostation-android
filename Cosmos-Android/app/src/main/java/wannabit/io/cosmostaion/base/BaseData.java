@@ -754,6 +754,16 @@ public class BaseData {
             return "BRL";
         } else if (getCurrency() == 9) {
             return "IDR";
+        } else if (getCurrency() == 10) {
+            return "DKK";
+        } else if (getCurrency() == 11) {
+            return "NOK";
+        } else if (getCurrency() == 12) {
+            return "SEK";
+        } else if (getCurrency() == 13) {
+            return "CHF";
+        } else if (getCurrency() == 14) {
+            return "AUD";
         }
         return "";
     }
@@ -779,6 +789,16 @@ public class BaseData {
             return "R$";
         } else if (getCurrency() == 9) {
             return "Rp";
+        } else if (getCurrency() == 10) {
+            return "Kr";
+        } else if (getCurrency() == 11) {
+            return "Kr";
+        } else if (getCurrency() == 12) {
+            return "Kr";
+        } else if (getCurrency() == 13) {
+            return "sFr";
+        } else if (getCurrency() == 14) {
+            return "AU$";
         }
         return "";
     }

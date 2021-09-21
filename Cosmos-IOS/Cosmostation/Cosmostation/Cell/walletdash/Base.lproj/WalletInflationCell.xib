@@ -66,16 +66,16 @@
                                 <rect key="frame" x="179.5" y="0.0" width="171.5" height="60"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VPK-oy-6is">
-                                        <rect key="frame" x="59" y="13" width="54" height="16"/>
+                                        <rect key="frame" x="37.5" y="13" width="96.5" height="16"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="APR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Tv-jQ-cnM">
-                                                <rect key="frame" x="4" y="0.0" width="22" height="13.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Staking APR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Tv-jQ-cnM">
+                                                <rect key="frame" x="4" y="0.0" width="64.5" height="13.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="questionIc" translatesAutoresizingMaskIntoConstraints="NO" id="6oA-jg-cbM">
-                                                <rect key="frame" x="32" y="1" width="14" height="14"/>
+                                                <rect key="frame" x="74.5" y="1" width="14" height="14"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="14" id="5a1-nN-Pkp"/>
                                                     <constraint firstAttribute="height" constant="14" id="Z9X-hp-5L3"/>

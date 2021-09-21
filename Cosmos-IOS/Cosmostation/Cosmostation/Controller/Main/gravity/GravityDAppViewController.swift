@@ -17,7 +17,7 @@ class GravityDAppViewController: BaseViewController {
     @IBOutlet weak var gravitySwapView: UIView!
     @IBOutlet weak var gravityPoolView: UIView!
     
-    var channel: ClientConnection!
+//    var channel: ClientConnection!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,74 +68,96 @@ class GravityDAppViewController: BaseViewController {
         BaseData.instance.mGravityManager_gRPC.removeAll()
         BaseData.instance.mGravityPoolTokens_gRPC.removeAll()
         
-        DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 5)
-            defer { try! group.syncShutdownGracefully() }
-            
-            self.channel = BaseNetWork.getConnection(self.chainType!, group)!
-            defer { try! self.channel.close().wait() }
-            
-            self.onFetchGdexParam()
-            self.onFetchGdexPools()
-            self.onFetchTotalSupply()
-        }
+        self.onFetchGdexParam()
+        self.onFetchGdexPools()
+        self.onFetchTotalSupply()
         return true
     }
     
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt > 0) { return }
-        
-        DispatchQueue.global().async {
-            try? self.channel.close().wait()
-            DispatchQueue.main.async(execute: {
-                NotificationCenter.default.post(name: Notification.Name("GdexFetchDone"), object: nil, userInfo: nil)
-                print("mGravityPoolTokens_gRPC ", BaseData.instance.mGravityPoolTokens_gRPC.count)
-            });
-        }
+        NotificationCenter.default.post(name: Notification.Name("GdexFetchDone"), object: nil, userInfo: nil)
+        print("mGravityPoolTokens_gRPC ", BaseData.instance.mGravityPoolTokens_gRPC.count)
     }
     
     func onFetchGdexParam() {
-        let req = Tendermint_Liquidity_V1beta1_QueryParamsRequest.init()
-        if let response = try? Tendermint_Liquidity_V1beta1_QueryClient(channel: self.channel).params(req, callOptions: BaseNetWork.getCallOptions()).response.wait() {
-            BaseData.instance.mGravityParam_gRPC = response.params
+        DispatchQueue.global().async {
+            do {
+                let channel = BaseNetWork.getConnection(self.chainType!, MultiThreadedEventLoopGroup(numberOfThreads: 1))!
+                let req = Tendermint_Liquidity_V1beta1_QueryParamsRequest.init()
+                if let response = try? Tendermint_Liquidity_V1beta1_QueryClient(channel: channel).params(req, callOptions: BaseNetWork.getCallOptions()).response.wait() {
+                    BaseData.instance.mGravityParam_gRPC = response.params
+                }
+                try channel.close().wait()
+                
+            } catch {
+                print("onFetchGdexParam failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: { self.onFetchFinished() });
         }
-        self.onFetchFinished()
     }
     
     func onFetchGdexPools() {
-        let page = Cosmos_Base_Query_V1beta1_PageRequest.with { $0.limit = 1000 }
-        let req = Tendermint_Liquidity_V1beta1_QueryLiquidityPoolsRequest.with { $0.pagination = page }
-        if let response = try? Tendermint_Liquidity_V1beta1_QueryClient(channel: self.channel).liquidityPools(req, callOptions: BaseNetWork.getCallOptions()).response.wait() {
-            response.pools.forEach { pool in                
-                if (BaseData.instance.mParam?.isPoolEnabled(Int(pool.id)) == true) {
-                    self.mFetchCnt = self.mFetchCnt + 1
-                    self.onFetchGdexPoolManager(pool.reserveAccountAddress)
-                    BaseData.instance.mGravityPools_gRPC.append(pool)
+        DispatchQueue.global().async {
+            do {
+                let channel = BaseNetWork.getConnection(self.chainType!, MultiThreadedEventLoopGroup(numberOfThreads: 1))!
+                let page = Cosmos_Base_Query_V1beta1_PageRequest.with { $0.limit = 1000 }
+                let req = Tendermint_Liquidity_V1beta1_QueryLiquidityPoolsRequest.with { $0.pagination = page }
+                if let response = try? Tendermint_Liquidity_V1beta1_QueryClient(channel: channel).liquidityPools(req, callOptions: BaseNetWork.getCallOptions()).response.wait() {
+                    response.pools.forEach { pool in
+                        if (BaseData.instance.mParam?.isPoolEnabled(Int(pool.id)) == true) {
+                            self.mFetchCnt = self.mFetchCnt + 1
+                            self.onFetchGdexPoolManager(pool.reserveAccountAddress)
+                            BaseData.instance.mGravityPools_gRPC.append(pool)
+                        }
+                    }
                 }
+                try channel.close().wait()
+                
+            } catch {
+                print("onFetchGdexParam failed: \(error)")
             }
+            DispatchQueue.main.async(execute: { self.onFetchFinished() });
         }
-        self.onFetchFinished()
     }
     
     func onFetchGdexPoolManager(_ address: String) {
-        let req = Cosmos_Bank_V1beta1_QueryAllBalancesRequest.with { $0.address = address }
-        if let response = try? Cosmos_Bank_V1beta1_QueryClient(channel: self.channel).allBalances(req, callOptions: BaseNetWork.getCallOptions()).response.wait() {
-            BaseData.instance.mGravityManager_gRPC.append(GDexManager.init(address, response.balances))
+        DispatchQueue.global().async {
+            do {
+                let channel = BaseNetWork.getConnection(self.chainType!, MultiThreadedEventLoopGroup(numberOfThreads: 1))!
+                let req = Cosmos_Bank_V1beta1_QueryAllBalancesRequest.with { $0.address = address }
+                if let response = try? Cosmos_Bank_V1beta1_QueryClient(channel: channel).allBalances(req, callOptions: BaseNetWork.getCallOptions()).response.wait() {
+                    BaseData.instance.mGravityManager_gRPC.append(GDexManager.init(address, response.balances))
+                }
+                try channel.close().wait()
+                
+            } catch {
+                print("onFetchGdexPoolManager failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: { self.onFetchFinished() });
         }
-        self.onFetchFinished()
     }
     
     func onFetchTotalSupply() {
-        let req = Cosmos_Bank_V1beta1_QueryTotalSupplyRequest.init()
-        if let response = try? Cosmos_Bank_V1beta1_QueryClient(channel: self.channel).totalSupply(req, callOptions: BaseNetWork.getCallOptions()).response.wait() {
-            response.supply.forEach { coin in
-                if (coin.denom.starts(with: "pool")) {
-                    BaseData.instance.mGravityPoolTokens_gRPC.append(Coin.init(coin.denom, coin.amount))
+        DispatchQueue.global().async {
+            do {
+                let channel = BaseNetWork.getConnection(self.chainType!, MultiThreadedEventLoopGroup(numberOfThreads: 1))!
+                let req = Cosmos_Bank_V1beta1_QueryTotalSupplyRequest.init()
+                if let response = try? Cosmos_Bank_V1beta1_QueryClient(channel: channel).totalSupply(req, callOptions: BaseNetWork.getCallOptions()).response.wait() {
+                    response.supply.forEach { coin in
+                        if (coin.denom.starts(with: "pool")) {
+                            BaseData.instance.mGravityPoolTokens_gRPC.append(Coin.init(coin.denom, coin.amount))
+                        }
+                    }
                 }
+                try channel.close().wait()
+                
+            } catch {
+                print("onFetchTotalSupply failed: \(error)")
             }
+            DispatchQueue.main.async(execute: { self.onFetchFinished() });
         }
-        self.onFetchFinished()
     }
 }
 

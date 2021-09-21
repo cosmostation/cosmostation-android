@@ -539,6 +539,12 @@ public class BaseConstant {
     public final static String TOKEN_NGM            = "ungm";
     public final static String TOKEN_AXELAR         = "uaxl";
 
+    public final static String TOKEN_EMONEY_EUR     = "eeur";
+    public final static String TOKEN_EMONEY_CHF     = "echf";
+    public final static String TOKEN_EMONEY_DKK     = "edkk";
+    public final static String TOKEN_EMONEY_NOK     = "enok";
+    public final static String TOKEN_EMONEY_SEK     = "esek";
+
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
     public final static String TOKEN_IRIS_TEST      = "ubif";
