@@ -46,10 +46,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Redelegate;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
-import wannabit.io.cosmostaion.network.res.ResApiTxList;
-import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.task.FetchTask.ApiStakeTxsHistoryTask;
-import wannabit.io.cosmostaion.task.FetchTask.BandOracleStatusTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleBondingStateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRedelegateStateTask;
@@ -68,7 +65,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.ValidatorInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_BONDED;
@@ -102,7 +98,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private RecyclerView                                mRecyclerView;
     private SpannableString                             mSelfBondingRate;
     private int                                         mTaskCount;
-    private ResBandOracleStatus                         mBandOracles;
     private ArrayList<Oracle.ActiveValidator>           mGrpcBandOracles;
 
     private ValidatorAdapter                            mValidatorAdapter;
@@ -112,7 +107,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private UnbondingInfo                               mUnbondingInfo;
     private ArrayList<Coin>                             mRewardCoins;
     private ArrayList<Redelegate>                       mRedelegates;
-    private ArrayList<ResApiTxList.Data>                mApiTxHistory = new ArrayList<>();
 
 
     //gRPC
@@ -139,7 +133,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mValidator = getIntent().getParcelableExtra("validator");
         mValOpAddress = getIntent().getStringExtra("valOpAddress");
-        mBandOracles = getBaseDao().mBandOracles;
         mGrpcBandOracles = getBaseDao().mGrpcBandOracles;
 
         setSupportActionBar(mToolbar);
@@ -197,15 +190,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ReDelegationsToGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValOpAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(BAND_MAIN)) {
-            mTaskCount = 6;
-            new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)), mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleRedelegateStateTask(getBaseApplication(), this, mAccount, mValidator).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BandOracleStatusTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
             mTaskCount = 5;
@@ -594,17 +578,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_STAKE_HISTORY) {
-            if (mBaseChain.equals(BAND_MAIN)) {
-                ArrayList<ResApiTxList.Data> hits = (ArrayList<ResApiTxList.Data>)result.resultData;
-                if (hits != null && hits.size() > 0) {
-                    mApiTxHistory = hits;
-                }
-
-            } else {
-                ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>)result.resultData;
+            ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>)result.resultData;
                 if (hits != null && hits.size() > 0) {
                     mApiNewTxCustomHistory = hits;
-                }
+
             }
         }
 
@@ -640,7 +617,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 mGrpcMyReward       = getBaseDao().getRewardInfo(mValOpAddress);
 
             }
-            mBandOracles = getBaseDao().mBandOracles;
 
             mRecyclerView.setVisibility(View.VISIBLE);
             mValidatorAdapter.notifyDataSetChanged();
@@ -747,16 +723,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValidator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) { }
 
-            if (mBaseChain.equals(BAND_MAIN)) {
-                if (mBandOracles != null && !mBandOracles.isEnable(mValidator.operator_address)) {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-                } else {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
-                }
-                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-            }
-
             if (!TextUtils.isEmpty(mSelfBondingRate)) {
                 holder.itemTvSelfBondRate.setText(mSelfBondingRate);
             } else {
@@ -810,16 +776,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             try {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValidator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e) { }
-
-            if (mBaseChain.equals(BAND_MAIN)) {
-                if (mBandOracles != null && !mBandOracles.isEnable(mValidator.operator_address)) {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-                } else {
-                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
-                }
-                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-            }
 
             if (!TextUtils.isEmpty(mSelfBondingRate)){
                 holder.itemTvSelfBondRate.setText(mSelfBondingRate);
@@ -907,89 +863,52 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         private void onBindApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KI_MAIN)) {
-                final HistoryNewHolder holder = (HistoryNewHolder)viewHolder;
-                final ResApiNewTxListCustom history;
-                if (mBondingInfo == null && mUnbondingInfo == null) {
-                    history = mApiNewTxCustomHistory.get(position - 2);
-                } else {
-                    history = mApiNewTxCustomHistory.get(position - 3);
-                }
-                holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
-                holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
-                holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.data.timestamp));
-                final Coin coin = history.getDpCoin(mBaseChain);
-                if (coin != null) {
-                    holder.history_amount_symbol.setVisibility(View.VISIBLE);
-                    holder.history_amount.setVisibility(View.VISIBLE);
-                    WDp.showCoinDp(getBaseContext(), history.getDpCoin(mBaseChain).denom, history.getDpCoin(mBaseChain).amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
-                } else if (history.getMsgType(ValidatorActivity.this, mAccount.address).equals(getString(R.string.tx_vote))) {
-                    holder.history_amount_symbol.setVisibility(View.VISIBLE);
-                    holder.history_amount_symbol.setText(history.getVoteOption());
-                    holder.history_amount_symbol.setTextColor(getResources().getColor(R.color.colorWhite));
-                    holder.history_amount.setVisibility(View.GONE);
-                } else {
-                    holder.history_amount_symbol.setVisibility(View.GONE);
-                    holder.history_amount.setVisibility(View.GONE);
-                }
-                if (history.isSuccess()) {
-                    holder.historySuccess.setVisibility(View.GONE);
-                } else {
-                    holder.historySuccess.setVisibility(View.VISIBLE);
-                }
-                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainId().equals(history.header.chain_id)) {
-                            String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                            startActivity(intent);
-
-                        } else {
-                            Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
-                            txDetail.putExtra("txHash", history.data.txhash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            startActivity(txDetail);
-                        }
-                    }
-                });
-
+            final HistoryNewHolder holder = (HistoryNewHolder)viewHolder;
+            final ResApiNewTxListCustom history;
+            if (mBondingInfo == null && mUnbondingInfo == null) {
+                history = mApiNewTxCustomHistory.get(position - 2);
             } else {
-                final HistoryOldHolder holder = (HistoryOldHolder)viewHolder;
-                final ResApiTxList.Data tx;
-                if (mBondingInfo == null && mUnbondingInfo == null) {
-                    tx = mApiTxHistory.get(position - 2);
-                } else {
-                    tx = mApiTxHistory.get(position - 3);
-                }
-                if (tx.logs != null) {
-                    holder.historySuccess.setVisibility(View.GONE);
-                } else {
-                    holder.historySuccess.setVisibility(View.VISIBLE);
-                }
-                holder.historyType.setText(WDp.DpTxType(getBaseContext(), tx.messages, mAccount.address));
-                holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), tx.time));
-                holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), tx.time));
-                holder.history_block.setText("" + tx.height + " block");
-                holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!TextUtils.isEmpty(tx.chain_id) && !getBaseDao().getChainId().equals(tx.chain_id)) {
-                            String url  = WUtil.getTxExplorer(mBaseChain, tx.tx_hash);
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                            startActivity(intent);
-
-                        } else {
-                            Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
-                            txDetail.putExtra("txHash", tx.tx_hash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            startActivity(txDetail);
-                        }
-                    }
-                });
+                history = mApiNewTxCustomHistory.get(position - 3);
             }
+            holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
+            holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
+            holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.data.timestamp));
+            final Coin coin = history.getDpCoin(mBaseChain);
+            if (coin != null) {
+                holder.history_amount_symbol.setVisibility(View.VISIBLE);
+                holder.history_amount.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), history.getDpCoin(mBaseChain).denom, history.getDpCoin(mBaseChain).amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
+            } else if (history.getMsgType(ValidatorActivity.this, mAccount.address).equals(getString(R.string.tx_vote))) {
+                holder.history_amount_symbol.setVisibility(View.VISIBLE);
+                holder.history_amount_symbol.setText(history.getVoteOption());
+                holder.history_amount_symbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                holder.history_amount.setVisibility(View.GONE);
+            } else {
+                holder.history_amount_symbol.setVisibility(View.GONE);
+                holder.history_amount.setVisibility(View.GONE);
+            }
+            if (history.isSuccess()) {
+                holder.historySuccess.setVisibility(View.GONE);
+            } else {
+                holder.historySuccess.setVisibility(View.VISIBLE);
+            }
+            holder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainId().equals(history.header.chain_id)) {
+                        String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
+
+                    } else {
+                        Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                        txDetail.putExtra("txHash", history.data.txhash);
+                        txDetail.putExtra("isGen", false);
+                        txDetail.putExtra("isSuccess", true);
+                        startActivity(txDetail);
+                    }
+                }
+            });
         }
 
 
@@ -1023,15 +942,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemImgRevoked.setVisibility(View.GONE);
             }
 
-//            if (mBaseChain.equals(BAND_MAIN)) {
-//                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
-//                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-//                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-//                } else {
-//                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
-//                }
-//                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-//            }
+            if (mBaseChain.equals(BAND_MAIN)) {
+                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
+                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                } else {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
+                }
+                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+            }
 
             holder.itemTvCommissionRate.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
             holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
@@ -1088,15 +1007,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemImgRevoked.setVisibility(View.GONE);
             }
 
-//            if (mBaseChain.equals(BAND_MAIN)) {
-//                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
-//                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
-//                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-//                } else {
-//                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
-//                }
-//                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-//            }
+            if (mBaseChain.equals(BAND_MAIN)) {
+                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
+                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
+                } else {
+                    holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleon_l));
+                }
+                holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+            }
 
             holder.itemTvCommissionRate.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
             holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mGrpcValidator.getTokens()), dpDecimal, dpDecimal));
@@ -1264,7 +1183,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                         return TYPE_HISTORY_HEADER;
                     }
                 }
-                if (mApiTxHistory.size() > 0 || mApiNewTxCustomHistory .size() > 0) {
+                if (mApiNewTxCustomHistory .size() > 0) {
                     return TYPE_HISTORY;
                 }
                 return TYPE_HISTORY_EMPTY;
@@ -1290,18 +1209,14 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             } else {
                 if (mBondingInfo == null && mUnbondingInfo == null) {
-                    if(mApiTxHistory.size() > 0) {
-                        return mApiTxHistory.size() + 2;
-                    } else if (mApiNewTxCustomHistory.size() > 0) {
+                    if (mApiNewTxCustomHistory.size() > 0) {
                         return mApiNewTxCustomHistory.size() + 2;
                     } else {
                         return 3;
                     }
 
                 } else {
-                    if(mApiTxHistory.size() > 0) {
-                        return mApiTxHistory.size() + 3;
-                    } else if (mApiNewTxCustomHistory.size() > 0) {
+                    if (mApiNewTxCustomHistory.size() > 0) {
                         return mApiNewTxCustomHistory.size() + 3;
                     } else {
                         return 4;
