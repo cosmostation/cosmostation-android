@@ -2026,6 +2026,9 @@ public class WUtils {
             let dpDecimal = WUtils.getSifCoinDecimal(coin.denom)
             if (coin.denom == SIF_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+            } else if (coin.denom.starts(with: "c")) {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.substring(from: 1).uppercased()
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = coin.denom.uppercased()
@@ -2116,6 +2119,9 @@ public class WUtils {
         } else if (chainType == ChainType.EMONEY_MAIN) {
             if (coin.denom == EMONEY_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+            } else if (coin.denom.starts(with: "e")) {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.substring(from: 1).uppercased()
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = coin.denom.uppercased()
@@ -2299,6 +2305,9 @@ public class WUtils {
             let dpDecimal = WUtils.getSifCoinDecimal(denom)
             if (denom == SIF_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+            } else if (denom.starts(with: "c")) {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.substring(from: 1).uppercased()
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = denom.uppercased()
@@ -2389,6 +2398,9 @@ public class WUtils {
         } else if (chainType == ChainType.EMONEY_MAIN) {
             if (denom == EMONEY_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+            } else if (denom.starts(with: "e")) {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.substring(from: 1).uppercased()
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = denom.uppercased()
