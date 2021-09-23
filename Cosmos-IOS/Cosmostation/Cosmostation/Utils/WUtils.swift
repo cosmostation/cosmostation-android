@@ -1084,6 +1084,11 @@ public class WUtils {
                 return WUtils.getOsmoLpTokenPerUsdPrice(pool)
             }
         }
+        if (denom.starts(with: "pool") && denom.count >= 68) {
+            if let pool = BaseData.instance.getGravityPoolByDenom(denom) {
+                //TODO need manager account balance for display gDex coin value
+            }
+        }
         if (denom == EMONEY_EUR_DENOM || denom == EMONEY_CHF_DENOM || denom == EMONEY_DKK_DENOM || denom == EMONEY_NOK_DENOM || denom == EMONEY_SEK_DENOM) {
             if let value = BaseData.instance.getPrice("usdt")?.prices.filter{ $0.currency == denom.substring(from: 1) }.first?.current_price {
                 return NSDecimalNumber.one.dividing(by: NSDecimalNumber.init(value: value), withBehavior: handler18)
@@ -1174,6 +1179,12 @@ public class WUtils {
                     let amount = baseData.getAvailableAmount_gRPC(coin.denom)
                     let assetValue = userCurrencyValue(coin.denom, amount, 18)
                     totalValue = totalValue.adding(assetValue)
+                    
+                }  else if (chainType == ChainType.COSMOS_MAIN && coin.denom.starts(with: "pool") && coin.denom.count >= 68) {
+                    let amount = baseData.getAvailableAmount_gRPC(coin.denom)
+                    let assetValue = userCurrencyValue(coin.denom, amount, 6)
+                    totalValue = totalValue.adding(assetValue)
+                    
                 }
                 
                 else if (coin.isIbc()) {

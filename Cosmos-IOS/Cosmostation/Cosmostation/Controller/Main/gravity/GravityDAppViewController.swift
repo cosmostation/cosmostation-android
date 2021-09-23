@@ -298,7 +298,9 @@ extension WUtils {
     
     static func getGdexLpTokenPerUsdPrice(_ pool: Tendermint_Liquidity_V1beta1_Pool) -> NSDecimalNumber {
         let poolValue = getGdexPoolValue(pool)
+        print("poolValue ", poolValue)
         let totalShare = NSDecimalNumber.init(string: BaseData.instance.mGravityPoolTokens_gRPC.filter { $0.denom == pool.poolCoinDenom }.first?.amount)
+        print("totalShare ", totalShare)
         return poolValue.dividing(by: totalShare.multiplying(byPowerOf10: -6, withBehavior: handler24Down), withBehavior: handler18)
     }
     
