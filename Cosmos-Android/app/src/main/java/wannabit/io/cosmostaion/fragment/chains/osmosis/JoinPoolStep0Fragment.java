@@ -265,7 +265,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
 
                         BigDecimal checkPosition = inputAmount.movePointRight(mCoin1Decimal);
                         BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
-                        if (checkPosition.compareTo(checkMax) != 0) {
+                        if (checkPosition.compareTo(checkMax) != 0 || !checkPosition.equals(checkMax)) {
                             String recover = es.substring(0, es.length() - 1);
                             mJoinPoolInput1.setText(recover);
                             mJoinPoolInput1.setSelection(recover.length());
@@ -290,6 +290,7 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         if (!mIsInput0Focused) {
             try {
                 final BigDecimal outputAmount = new BigDecimal(outputs).movePointRight(mCoin1Decimal);
+                if (outputAmount.equals(BigDecimal.ZERO)) { mJoinPoolInput0.setText(""); return; }
                 BigDecimal inputAmount = outputAmount.divide(mDepositRate, 0, RoundingMode.DOWN);
                 mJoinPoolInput0.setText(inputAmount.movePointLeft(mCoin0Decimal).toPlainString());
 
@@ -304,7 +305,8 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         if (mIsInput0Focused) {
             try {
                 final BigDecimal inputAmount = new BigDecimal(inputs).movePointRight(mCoin0Decimal);
-                BigDecimal OutputAmount = inputAmount.multiply(mDepositRate);
+                if (inputAmount.equals(BigDecimal.ZERO)) { mJoinPoolInput1.setText(""); return; }
+                BigDecimal OutputAmount = inputAmount.multiply(mDepositRate).setScale(0, RoundingMode.DOWN);
                 mJoinPoolInput1.setText(OutputAmount.movePointLeft(mCoin1Decimal).toPlainString());
 
             } catch (Exception e) {

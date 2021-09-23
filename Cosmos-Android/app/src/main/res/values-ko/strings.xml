@@ -1271,7 +1271,7 @@
     <string name="str_deposit_my_coins">My Deposited Coins</string>
     <string name="str_to_withdraw_coin_title">To Withdraw Coins (MG)</string>
     <string name="str_incentive_amount_title">Incentive Amounts</string>
-    <string name="str_gravity_dex">Gravity Dex</string>
+    <string name="str_gravity_dex">그래비티 덱스</string>
     <string name="str_add_liquidity_external_symbol">External Symbol</string>
     <string name="str_liquidity_native_asset">Native Asset</string>
     <string name="str_liquidity_external_asset">External Asset</string>

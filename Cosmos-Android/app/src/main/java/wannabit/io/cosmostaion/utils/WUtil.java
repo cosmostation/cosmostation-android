@@ -3369,7 +3369,7 @@ public class WUtil {
             return EXPLORER_SIF_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(BAND_MAIN)) {
-            return EXPLORER_BAND_MAIN + "tx/" + hash;
+            return EXPLORER_BAND_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(MEDI_MAIN)) {
             return EXPLORER_MEDI_MAIN + "txs/" + hash;
