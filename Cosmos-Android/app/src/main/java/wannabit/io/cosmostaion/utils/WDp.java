@@ -350,6 +350,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(coin.denom.substring(1).toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
@@ -557,6 +558,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.substring(1).toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -2555,7 +2557,7 @@ public class WDp {
             return ALTHEA_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(UMEE_TEST)) {
             return UMEE_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(UMEE_TEST)) {
+        } else if (basechain.equals(AXELAR_TEST)) {
             return AXELAR_VAL_URL + opAddress + ".png";
         }
 

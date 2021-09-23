@@ -8,7 +8,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
-import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -51,15 +50,6 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getKavaTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("ApiStakeTxsHistoryTask : NOk");
-                }
-
-            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getBandApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -191,13 +181,12 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
 
-//            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
-//                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getBandApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
-//                if (response.isSuccessful() && response.body() != null) {
-//                    mResult.resultData = response.body();
-//                    mResult.isSuccess = true;
-//                }
-
+            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getBandApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
             }
 
             else if (mChain.equals(BaseChain.COSMOS_TEST)) {

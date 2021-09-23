@@ -49,13 +49,6 @@ public class SingleSelfBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(BAND_MAIN)) {
-                Response<ResLcdSingleBonding> response = ApiClient.getBandChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(SECRET_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getSecretChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
@@ -72,13 +65,6 @@ public class SingleSelfBondingStateTask extends CommonTask {
 
             }
 
-            else if (mChain.equals(KAVA_TEST)) {
-                Response<ResLcdSingleBonding> response = ApiClient.getKavaTestChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-            }
         } catch (Exception e) {
             WLog.w("SingleBondingStateTask Error " + e.getMessage());
         }

@@ -671,6 +671,16 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allFet.stringValue, cell!.tokenAmount.font, 18, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(FETCH_MAIN_DENOM, allFet, 18, cell!.tokenValue.font)
             
+        } else if (coin.denom == BAND_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenBand")
+            cell?.tokenSymbol.text = "BAND"
+            cell?.tokenSymbol.textColor = COLOR_BAND
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = "Band Staking Token"
+            
+            let allBand = WUtils.getAllMainAsset(BAND_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(BAND_MAIN_DENOM, allBand, 6, cell!.tokenValue.font)
         }
         
         
@@ -863,16 +873,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allKi.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KI_MAIN_DENOM, allKi, 6, cell!.tokenValue.font)
             
-        } else if (balance.balance_denom == BAND_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "tokenBand")
-            cell?.tokenSymbol.text = "BAND"
-            cell?.tokenSymbol.textColor = COLOR_BAND
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = "Band Staking Token"
-            
-            let allBand = WUtils.getAllMainAssetOld(BAND_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(BAND_MAIN_DENOM, allBand, 6, cell!.tokenValue.font)
         }
     }
     

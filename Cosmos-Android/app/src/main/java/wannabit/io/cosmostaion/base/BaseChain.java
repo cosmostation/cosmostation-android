@@ -324,50 +324,11 @@ public enum BaseChain {
     }
 
     public static boolean isGRPC(BaseChain baseChain) {
-        if (baseChain.equals(COSMOS_MAIN)) {
-            return true;
-        } else if (baseChain.equals(IRIS_MAIN)) {
-            return true;
-        } else if (baseChain.equals(AKASH_MAIN)) {
-            return true;
-        } else if (baseChain.equals(SENTINEL_MAIN)) {
-            return true;
-        } else if (baseChain.equals(PERSIS_MAIN)) {
-            return true;
-        } else if (baseChain.equals(CRYPTO_MAIN)) {
-            return true;
-        } else if (baseChain.equals(OSMOSIS_MAIN)) {
-            return true;
-        } else if (baseChain.equals(IOV_MAIN)) {
-            return true;
-        } else if (baseChain.equals(SIF_MAIN)) {
-            return true;
-        } else if (baseChain.equals(MEDI_MAIN)) {
-            return true;
-        } else if (baseChain.equals(CERTIK_MAIN)) {
-            return true;
-        } else if (baseChain.equals(EMONEY_MAIN)) {
-            return true;
-        } else if (baseChain.equals(FETCHAI_MAIN)) {
-            return true;
+        if (baseChain.equals(BNB_MAIN) || baseChain.equals(OKEX_MAIN) || baseChain.equals(KAVA_MAIN) ||
+            baseChain.equals(KI_MAIN) || baseChain.equals(SECRET_MAIN) ||
+            baseChain.equals(BNB_TEST) || baseChain.equals(OK_TEST)) {
+            return false;
         }
-//        } else if (baseChain.equals(BAND_MAIN)) {
-//            return true;
-          else if (baseChain.equals(RIZON_TEST)) {
-            return true;
-        } else if (baseChain.equals(ALTHEA_TEST)) {
-            return true;
-        } else if (baseChain.equals(UMEE_TEST)) {
-            return true;
-        } else if (baseChain.equals(AXELAR_TEST)) {
-            return true;
-        }
-
-        else if (baseChain.equals(COSMOS_TEST)) {
-            return true;
-        } else if (baseChain.equals(IRIS_TEST)) {
-            return true;
-        }
-        return false;
+        return true;
     }
 }

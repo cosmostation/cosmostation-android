@@ -98,7 +98,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         if (chainType == ChainType.CRYPTO_MAIN) {
             onFetchApiHistoryCustom(account!.account_address, mValidator_gRPC!.operatorAddress)
             
-        } else if (chainType == ChainType.BAND_MAIN || chainType == ChainType.KI_MAIN) {
+        } else if (chainType == ChainType.KI_MAIN) {
             onFetchApiHistory(account!, mValidator!.operator_address)
             
         } else {
@@ -153,7 +153,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else {
             if (chainType == ChainType.CRYPTO_MAIN) {
                 return self.mApiCustomHistories.count
-            } else if (chainType == ChainType.BAND_MAIN || chainType == ChainType.KI_MAIN) {
+            } else if (chainType == ChainType.KI_MAIN) {
                 return self.mApiHistories.count
             } else {
                 return self.mApiCustomNewHistories.count
@@ -232,18 +232,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
         }
         
-        //band rollback
-        if (chainType == ChainType.BAND_MAIN) {
-            if (BaseData.instance.mBandOracleStatus?.isEnable(mValidator!.operator_address) == true) {
-                cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
-            } else {
-                cell?.bandOracleImg.image = UIImage(named: "bandoracleoffl")
-                cell?.avergaeYield.textColor = UIColor.init(hexString: "f31963")
-            }
-            cell?.bandOracleImg.isHidden = false
-        }
-
-        
         //temp hide apr for no mint param chain
         if (chainType == ChainType.SIF_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell!.avergaeYield.text = "--"
@@ -291,18 +279,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
             cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
         }
-        
-        //band rollback
-        if (chainType == ChainType.BAND_MAIN) {
-            if (BaseData.instance.mBandOracleStatus?.isEnable(mValidator!.operator_address) == true) {
-                cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
-            } else {
-                cell?.bandOracleImg.image = UIImage(named: "bandoracleoffl")
-                cell?.avergaeYield.textColor = UIColor.init(hexString: "f31963")
-            }
-            cell?.bandOracleImg.isHidden = false
-        }
-
         
         //temp hide apr for no mint param chain
         if (chainType == ChainType.SIF_MAIN || chainType == ChainType.ALTHEA_TEST) {
@@ -451,7 +427,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell?.bindHistoryCustomView(mApiCustomHistories[indexPath.row], account!.account_address)
             return cell!
             
-        } else if (chainType == ChainType.BAND_MAIN || chainType == ChainType.KI_MAIN) {
+        } else if (chainType == ChainType.KI_MAIN) {
             let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
             cell?.bindHistoryLegacyView(mApiHistories[indexPath.row], account!.account_address)
             return cell!
@@ -481,7 +457,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     self.navigationController?.pushViewController(txDetailVC, animated: true)
                 }
                 
-            } else if (chainType == ChainType.BAND_MAIN || chainType == ChainType.KI_MAIN) {
+            } else if (chainType == ChainType.KI_MAIN) {
                 let history = mApiHistories[indexPath.row]
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
                 txDetailVC.mIsGen = false

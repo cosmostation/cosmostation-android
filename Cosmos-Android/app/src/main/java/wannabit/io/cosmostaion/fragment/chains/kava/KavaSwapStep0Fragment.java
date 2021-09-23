@@ -244,6 +244,7 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
             BigDecimal InputAmountTemp = new BigDecimal(mSwapInputAmount.getText().toString().trim());
 
             BigDecimal padding = BigDecimal.ONE.subtract(new BigDecimal(getBaseDao().mSwapParam.swap_fee)).subtract(new BigDecimal("0.03"));
+            if (InputAmountTemp.compareTo(BigDecimal.ZERO) == 0) { mSwapOutputAmount.setText(""); return; }
             BigDecimal OutputAmount = InputAmountTemp.movePointRight(mInputCoinDecimal).multiply(padding).multiply(mSwapRate).setScale(0, RoundingMode.DOWN);
 
             mSwapOutputAmount.setText(OutputAmount.movePointLeft(mOutputCoinDecimal).toPlainString());

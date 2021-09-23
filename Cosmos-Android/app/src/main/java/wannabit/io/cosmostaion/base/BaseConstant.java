@@ -142,7 +142,6 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_KAVA_DEPOSIT_HARD               = 2107;
     public final static int TASK_GEN_TX_KAVA_WITHDRAW_HARD              = 2108;
     public final static int TASK_GEN_TX_KAVA_CLAIM_HARVEST              = 2109;
-    public final static int TASK_FETCH_BAND_ORACLE_STATUS               = 2111;
     public final static int TASK_FETCH_MINT_PARAM                       = 2112;
     public final static int TASK_FETCH_OK_HISTORY                       = 2113;
     public final static int TASK_FETCH_OK_DEX_TICKERS                   = 2114;
@@ -809,7 +808,7 @@ public class BaseConstant {
     public final static String OSMOSIS_VAL_URL          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/osmosis/";
     public final static String EMONEY_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/emoney/";
     public final static String UMEE_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/umee/";
-    public final static String AXELAR_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/umee/";
+    public final static String AXELAR_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/axelar/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -828,7 +827,7 @@ public class BaseConstant {
     public final static String EXPLORER_KAVA_MAIN       = "https://www.mintscan.io/kava/";
     public final static String EXPLORER_IOV_MAIN        = "https://www.mintscan.io/starname/";
     public final static String EXPLORER_BINANCE_MAIN    = "https://binance.mintscan.io/";
-    public final static String EXPLORER_BAND_MAIN       = "https://cosmoscan.io/";
+    public final static String EXPLORER_BAND_MAIN       = "https://www.mintscan.io/band/";
     public final static String EXPLORER_SECRET_MAIN     = "https://secretnodes.com/secret/chains/secret-2/";
     public final static String EXPLORER_AKASH_MAIN      = "https://www.mintscan.io/akash/";
     public final static String EXPLORER_OKEX_MAIN       = "https://www.oklink.com/okexchain/";

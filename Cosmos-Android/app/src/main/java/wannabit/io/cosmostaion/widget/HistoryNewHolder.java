@@ -17,7 +17,6 @@ import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
-import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 

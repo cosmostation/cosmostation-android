@@ -28,7 +28,6 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
-import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.task.FetchTask.ApiAccountTxsHistoryTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbHistoryTask;
@@ -39,7 +38,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.HistoryNewHolder;
 import wannabit.io.cosmostaion.widget.HistoryOldHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
@@ -61,7 +59,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
     private ArrayList<BnbHistory>                   mBnbHistory = new ArrayList<>();
     private ArrayList<ResOkHistory.DataDetail>      mOkHistory = new ArrayList<>();
-    private ArrayList<ResApiTxList.Data>            mApiTxHistory = new ArrayList<>();
     private ArrayList<ResApiNewTxListCustom>        mApiNewTxCustomHistory = new ArrayList<>();
 
     public static MainHistoryFragment newInstance(Bundle bundle) {
@@ -154,7 +151,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private void onFetchHistory() {
         mNotYet.setVisibility(View.GONE);
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
-        if (isGRPC(getMainActivity().mBaseChain)) {
+        if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KI_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
@@ -168,10 +165,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             mRecyclerView.setVisibility(View.GONE);
             mNotYet.setVisibility(View.VISIBLE);
             mNotYet.setText("Check with Explorer");
-
-        }
-        else  {
-            new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
     }
@@ -207,30 +200,16 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 mRecyclerView.setVisibility(View.GONE);
             }
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
-            if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                ArrayList<ResApiTxList.Data> hits = (ArrayList<ResApiTxList.Data>)result.resultData;
-                if (hits != null && hits.size() > 0) {
-//                    WLog.w("hit size " + hits.size());
-                    mApiTxHistory = hits;
-                    mHistoryAdapter.notifyDataSetChanged();
-                    mEmptyHistory.setVisibility(View.GONE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                } else {
-                    mEmptyHistory.setVisibility(View.VISIBLE);
-                    mRecyclerView.setVisibility(View.GONE);
-                }
-            } else {
-                ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>) result.resultData;
-                if (hits != null && hits.size() > 0) {
+            ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>) result.resultData;
+            if (hits != null && hits.size() > 0) {
 //                  WLog.w("Custom hit size " + hits.size());
-                    mApiNewTxCustomHistory = hits;
-                    mHistoryAdapter.notifyDataSetChanged();
-                    mEmptyHistory.setVisibility(View.GONE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                } else {
-                    mEmptyHistory.setVisibility(View.VISIBLE);
-                    mRecyclerView.setVisibility(View.GONE);
-                }
+                mApiNewTxCustomHistory = hits;
+                mHistoryAdapter.notifyDataSetChanged();
+                mEmptyHistory.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+            } else {
+                mEmptyHistory.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
             }
         }
         mSwipeRefreshLayout.setRefreshing(false);
@@ -272,9 +251,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                     final ResOkHistory.DataDetail history = mOkHistory.get(position);
                     holder.onBindOldOkHistory(getMainActivity(), history);
-                } else {
-                    final ResApiTxList.Data history = mApiTxHistory.get(position);
-                    holder.onBindOldHistory(getMainActivity(), history);
                 }
             }
         }
@@ -294,8 +270,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 return mBnbHistory.size();
             } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 return mOkHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                return mApiTxHistory.size();
             } else {
                 return mApiNewTxCustomHistory.size();
             }

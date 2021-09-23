@@ -30,7 +30,6 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-import wannabit.io.cosmostaion.widget.HistoryHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenStakingOldHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.UnBondingHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
@@ -236,8 +235,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 return new VestingHolder(getLayoutInflater().inflate(R.layout.layout_vesting_schedule, viewGroup, false));
             } else if (viewType == TYPE_UNBONDING) {
                 return new UnBondingHolder(getLayoutInflater().inflate(R.layout.item_wallet_undelegation, viewGroup, false));
-            } else if (viewType == TYPE_HISTORY) {
-                return new HistoryHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
             }
             return null;
         }
