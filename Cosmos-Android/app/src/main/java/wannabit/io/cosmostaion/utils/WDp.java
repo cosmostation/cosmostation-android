@@ -2555,7 +2555,7 @@ public class WDp {
             return ALTHEA_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(UMEE_TEST)) {
             return UMEE_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(UMEE_TEST)) {
+        } else if (basechain.equals(AXELAR_TEST)) {
             return AXELAR_VAL_URL + opAddress + ".png";
         }
 
