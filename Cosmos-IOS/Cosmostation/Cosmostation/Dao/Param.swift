@@ -20,7 +20,10 @@ public struct Param {
     }
     
     func getInflation(_ chainType: ChainType?) -> NSDecimalNumber {
-        if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.EMONEY_MAIN) {
+            return NSDecimalNumber.init(string: params?.emoney_minting_inflation?.assets.filter { $0.denom == EMONEY_MAIN_DENOM }.first?.inflation)
+            
+        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             return NSDecimalNumber.init(string: params?.minting_params?.inflation)
             
         } else if (chainType == ChainType.OSMOSIS_MAIN) {
@@ -145,6 +148,8 @@ public struct Params {
     var osmosis_minting_params: OsmosisMintingParam?
     var osmosis_minting_epoch_provisions: String?
     
+    var emoney_minting_inflation: EmoneyMintingInflation?
+    
     init(_ dictionary: NSDictionary?) {
         if let rawIbcParams = dictionary?["ibc_params"] as? NSDictionary {
             self.ibc_params = IbcParams.init(rawIbcParams)
@@ -203,6 +208,11 @@ public struct Params {
         }
         if let rawOsmosisMintingEpochProvisions = dictionary?["minting_epoch_provisions"] as? NSDictionary {
             self.osmosis_minting_epoch_provisions = OsmosisMintingEpochProvisions.init(rawOsmosisMintingEpochProvisions).epoch_provisions
+        }
+        
+        
+        if let rawEmoneyMintingInflation = dictionary?["emoney_minting_inflation"] as? NSDictionary {
+            self.emoney_minting_inflation = EmoneyMintingInflation.init(rawEmoneyMintingInflation)
         }
     }
 }
@@ -539,5 +549,30 @@ public struct OsmosisMintingEpochProvisions {
     
     init(_ dictionary: NSDictionary?) {
         self.epoch_provisions = dictionary?["epoch_provisions"] as? String
+    }
+}
+
+
+public struct EmoneyMintingInflation {
+    var assets = Array<EmoneyMintingAsset>()
+    
+    init(_ dictionary: NSDictionary?) {
+        let result = dictionary?["result"] as? NSDictionary
+        let assets = result?["assets"] as? Array<NSDictionary>
+        assets?.forEach{ asset in
+            self.assets.append(EmoneyMintingAsset.init(asset))
+        }
+    }
+}
+
+public struct EmoneyMintingAsset {
+    var accum: String?
+    var denom: String?
+    var inflation: String?
+    
+    init(_ dictionary: NSDictionary?) {
+        self.accum = dictionary?["accum"] as? String
+        self.denom = dictionary?["denom"] as? String
+        self.inflation = dictionary?["inflation"] as? String
     }
 }
