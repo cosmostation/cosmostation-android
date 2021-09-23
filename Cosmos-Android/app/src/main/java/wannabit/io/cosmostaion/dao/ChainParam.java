@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -69,6 +71,9 @@ public class ChainParam {
         @SerializedName("enabled_pools")
         public ArrayList<Integer> mEnabledPools;
 
+        @SerializedName("emoney_minting_inflation")
+        public EmoneyInflations mEmoneyInflations;
+
 
         public BigDecimal getMintInflation(BaseChain baseChain) {
             if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {
@@ -79,6 +84,13 @@ public class ChainParam {
                 BigDecimal epochPeriods = new BigDecimal(osmosisMingtingParams.params.reduction_period_in_epochs);
                 BigDecimal osmoSupply =getMainSupply(baseChain);
                 return epochProvisions.multiply(epochPeriods).divide(osmoSupply, 18, RoundingMode.DOWN);
+            } else if (baseChain.equals(EMONEY_MAIN)) {
+                for (Asset asset: mEmoneyInflations.mEmoneyInflation.assets) {
+                    if (asset.denom.equalsIgnoreCase(BaseConstant.TOKEN_NGM)) {
+                        return new BigDecimal(asset.inflation);
+                    }
+                }
+                return new BigDecimal(mEmoneyInflations.mEmoneyInflation.assets.get(0).inflation);
             } else {
                 try {
                     MintInflation temp = new Gson().fromJson(new Gson().toJson(mMintInflations), MintInflation.class);
@@ -485,6 +497,27 @@ public class ChainParam {
     public class MintingEpochProvision {
         @SerializedName("epoch_provisions")
         public String epoch_provisions;
+    }
+
+    public class EmoneyInflations {
+        @SerializedName("result")
+        public EmoneyInflation mEmoneyInflation;
+    }
+
+    public class EmoneyInflation {
+        @SerializedName("assets")
+        public ArrayList<Asset> assets;
+    }
+
+    public class Asset {
+        @SerializedName("accum")
+        public String accum;
+
+        @SerializedName("denom")
+        public String denom;
+
+        @SerializedName("inflation")
+        public String inflation;
     }
 
 }
