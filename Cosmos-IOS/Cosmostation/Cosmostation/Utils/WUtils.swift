@@ -1079,6 +1079,11 @@ public class WUtils {
     }
     
     static func perUsdValue(_ denom: String) -> NSDecimalNumber? {
+        if (denom.contains("gamm/pool/")) {
+            if let pool = BaseData.instance.getOsmoPoolByDenom(denom) {
+                return WUtils.getOsmoLpTokenPerUsdPrice(pool)
+            }
+        }
         if (denom == EMONEY_EUR_DENOM || denom == EMONEY_CHF_DENOM || denom == EMONEY_DKK_DENOM || denom == EMONEY_NOK_DENOM || denom == EMONEY_SEK_DENOM) {
             if let value = BaseData.instance.getPrice("usdt")?.prices.filter{ $0.currency == denom.substring(from: 1) }.first?.current_price {
                 return NSDecimalNumber.one.dividing(by: NSDecimalNumber.init(value: value), withBehavior: handler18)
@@ -1165,7 +1170,13 @@ public class WUtils {
                     let available = baseData.getAvailableAmount_gRPC(coin.denom)
                     totalValue = totalValue.adding(userCurrencyValue(coin.denom, available, 6))
                     
-                } else if (coin.isIbc()) {
+                } else if (chainType == ChainType.OSMOSIS_MAIN && coin.denom.contains("gamm/pool/")) {
+                    let amount = baseData.getAvailableAmount_gRPC(coin.denom)
+                    let assetValue = userCurrencyValue(coin.denom, amount, 18)
+                    totalValue = totalValue.adding(assetValue)
+                }
+                
+                else if (coin.isIbc()) {
                     if let ibcToken = BaseData.instance.getIbcToken(coin.getIbcHash()) {
                         if (ibcToken.auth == true) {
                             let amount = baseData.getAvailableAmount_gRPC(coin.denom)

@@ -213,6 +213,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mStarNameFee_gRPC = nil
         BaseData.instance.mStarNameConfig_gRPC = nil
         
+        BaseData.instance.mOsmoPools_gRPC.removeAll()
+        
         BaseData.instance.mGravityPools_gRPC.removeAll()
         
         
@@ -300,8 +302,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (self.mChainType == ChainType.IRIS_MAIN || self.mChainType == ChainType.AKASH_MAIN || self.mChainType == ChainType.PERSIS_MAIN ||
                     self.mChainType == ChainType.CRYPTO_MAIN || self.mChainType == ChainType.SENTINEL_MAIN || self.mChainType == ChainType.MEDI_MAIN ||
-                    self.mChainType == ChainType.CERTIK_MAIN || self.mChainType == ChainType.OSMOSIS_MAIN || self.mChainType == ChainType.EMONEY_MAIN ||
-                    self.mChainType == ChainType.FETCH_MAIN) {
+                    self.mChainType == ChainType.CERTIK_MAIN  || self.mChainType == ChainType.EMONEY_MAIN || self.mChainType == ChainType.FETCH_MAIN) {
             self.mFetchCnt = 9
             self.onFetchgRPCNodeInfo()
             self.onFetchgRPCAuth(self.mAccount.account_address)
@@ -361,7 +362,23 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //            self.onFetchSifVsIncentive(self.mAccount.account_address)
             self.onFetchSifLmIncentive(self.mAccount.account_address)
             
-        } else if (self.mChainType == ChainType.COSMOS_TEST || self.mChainType == ChainType.RIZON_TEST || self.mChainType == ChainType.ALTHEA_TEST ||
+        } else if (self.mChainType == ChainType.OSMOSIS_MAIN) {
+            self.mFetchCnt = 10
+            self.onFetchgRPCNodeInfo()
+            self.onFetchgRPCAuth(self.mAccount.account_address)
+            self.onFetchgRPCBondedValidators(0)
+            self.onFetchgRPCUnbondedValidators(0)
+            self.onFetchgRPCUnbondingValidators(0)
+            
+            self.onFetchgRPCBalance(self.mAccount.account_address, 0)
+            self.onFetchgRPCDelegations(self.mAccount.account_address, 0)
+            self.onFetchgRPCUndelegations(self.mAccount.account_address, 0)
+            self.onFetchgRPCRewards(self.mAccount.account_address, 0)
+            
+            self.onFetchgRPCOsmoPools()
+        }
+        
+        else if (self.mChainType == ChainType.COSMOS_TEST || self.mChainType == ChainType.RIZON_TEST || self.mChainType == ChainType.ALTHEA_TEST ||
                     self.mChainType == ChainType.IRIS_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.UMEE_TEST ||
                     self.mChainType == ChainType.AXELAR_TEST) {
             self.mFetchCnt = 9
@@ -1272,6 +1289,27 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 
             } catch {
                 print("onFetchgRPCStarNameConfig failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: { self.onFetchFinished() });
+        }
+    }
+    
+    func onFetchgRPCOsmoPools() {
+        DispatchQueue.global().async {
+            do {
+                let channel = BaseNetWork.getConnection(self.mChainType!, MultiThreadedEventLoopGroup(numberOfThreads: 1))!
+                let page = Cosmos_Base_Query_V1beta1_PageRequest.with { $0.limit = 1000 }
+                let req = Osmosis_Gamm_V1beta1_QueryPoolsRequest.with { $0.pagination = page }
+                if let response = try? Osmosis_Gamm_V1beta1_QueryClient(channel: channel).pools(req, callOptions: BaseNetWork.getCallOptions()).response.wait() {
+                    response.pools.forEach { pool in
+                        let rawPool = try! Osmosis_Gamm_V1beta1_Pool.init(serializedData: pool.value)
+                        BaseData.instance.mOsmoPools_gRPC.append(rawPool)
+                    }
+                }
+                try channel.close().wait()
+                
+            } catch {
+                print("onFetchgRPCOsmoPools failed: \(error)")
             }
             DispatchQueue.main.async(execute: { self.onFetchFinished() });
         }

@@ -83,6 +83,7 @@ final class BaseData : NSObject{
     var mStarNameFee_gRPC: Starnamed_X_Configuration_V1beta1_Fees?
     var mStarNameConfig_gRPC: Starnamed_X_Configuration_V1beta1_Config?
     
+    var mOsmoPools_gRPC = Array<Osmosis_Gamm_V1beta1_Pool>()
     
     var mGravityParam_gRPC: Tendermint_Liquidity_V1beta1_Params?
     var mGravityPools_gRPC = Array<Tendermint_Liquidity_V1beta1_Pool>()
@@ -431,6 +432,10 @@ final class BaseData : NSObject{
             }
         }
         return NSDecimalNumber.zero
+    }
+    
+    func getOsmoPoolByDenom(_ denom: String) -> Osmosis_Gamm_V1beta1_Pool? {
+        return mOsmoPools_gRPC.filter { $0.totalShares.denom == denom }.first
     }
     
     func getGravityPoolByDenom(_ denom: String) -> Tendermint_Liquidity_V1beta1_Pool? {
