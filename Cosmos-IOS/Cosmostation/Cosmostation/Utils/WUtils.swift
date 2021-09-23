@@ -4220,7 +4220,7 @@ public class WUtils {
             return EXPLORER_KAVA_MAIN + "txs/" + hash
             
         } else if (chain == ChainType.BAND_MAIN) {
-            return EXPLORER_BAND_MAIN + "tx/" + hash
+            return EXPLORER_BAND_MAIN + "txs/" + hash
             
         } else if (chain == ChainType.SECRET_MAIN) {
             return EXPLORER_SECRET_MAIN + "transactions/" + hash
@@ -4362,7 +4362,7 @@ public class WUtils {
             return EXPLORER_KAVA_MAIN + "proposals/" + proposalId
             
         } else if (chain == ChainType.BAND_MAIN) {
-            return EXPLORER_BAND_MAIN + "proposal/" + proposalId
+            return EXPLORER_BAND_MAIN + "proposals/" + proposalId
             
         } else if (chain == ChainType.SECRET_MAIN) {
             return EXPLORER_SECRET_MAIN + "governance/proposals/" + proposalId

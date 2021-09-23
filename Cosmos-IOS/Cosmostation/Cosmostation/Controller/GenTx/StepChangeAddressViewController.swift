@@ -164,8 +164,26 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
+        } else if (pageHolderVC.chainType! == ChainType.EMONEY_MAIN) {
+            if (!userInput!.starts(with: "emoney1") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+            
         } else if (pageHolderVC.chainType! == ChainType.ALTHEA_TEST) {
             if (!userInput!.starts(with: "althea1") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+            
+        } else if (pageHolderVC.chainType! == ChainType.UMEE_TEST) {
+            if (!userInput!.starts(with: "umee1") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+            
+        } else if (pageHolderVC.chainType! == ChainType.AXELAR_TEST) {
+            if (!userInput!.starts(with: "axelar1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
