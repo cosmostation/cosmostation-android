@@ -65,8 +65,8 @@ public class ChannelBuilder {
     private final static String GRPC_FETCH_MAIN = "lcd-fetchai-app.cosmostation.io";
     private final static int PORT_FETCH_MAIN = 9090;
 
-    private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
-    private final static int PORT_BAND_MAIN = 40200;
+    private final static String GRPC_BAND_MAIN = "lcd-band-app.cosmostation.io";
+    private final static int PORT_BAND_MAIN = 9090;
 
 
 

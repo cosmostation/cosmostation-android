@@ -56,7 +56,7 @@ let IOV_TEST_URL                        = "https://api.cluster-stargatenet.iov.o
 let IOV_TEST_API                        = "";
 
 
-let BAND_API                            = "https://api-office.cosmostation.io/band-laozi-testnet4/";
+let BAND_API                            = "https://api-band.cosmostation.io/";
 
 
 let OKEX_URL                            = "https://www.okex.com/okexchain/v1/";
@@ -1045,7 +1045,7 @@ let EXPLORER_IRIS_MAIN      = "https://www.mintscan.io/iris/";
 let EXPLORER_KAVA_MAIN      = "https://www.mintscan.io/kava/";
 let EXPLORER_IOV_MAIN       = "https://www.mintscan.io/starname/";
 let EXPLORER_BINANCE_MAIN   = "https://binance.mintscan.io/";
-let EXPLORER_BAND_MAIN      = "https://cosmoscan.io/";
+let EXPLORER_BAND_MAIN      = "https://www.mintscan.io/band/";
 let EXPLORER_SECRET_MAIN    = "https://secretnodes.com/secret/chains/secret-2/";
 let EXPLORER_AKASH_MAIN     = "https://www.mintscan.io/akash/";
 let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
