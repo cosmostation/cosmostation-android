@@ -10,6 +10,16 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IBCSend0ViewController" customModule="Cosmostation" customModuleProvider="target">
             <connections>
+                <outlet property="btnCancel" destination="xxV-dh-thc" id="ooS-hF-s09"/>
+                <outlet property="btnNext" destination="JYx-j5-2aK" id="StB-L1-AQY"/>
+                <outlet property="fromChainImg" destination="Mpq-9E-GTO" id="weC-cA-WXb"/>
+                <outlet property="fromChainTxt" destination="RiJ-aW-xmJ" id="5xf-yV-nP1"/>
+                <outlet property="relayerCard" destination="cbI-Ka-BJV" id="bRP-vT-Frc"/>
+                <outlet property="relayerMsg" destination="uPG-R3-VC7" id="nmb-DZ-AYh"/>
+                <outlet property="relayerTxt" destination="lTj-Uz-CKX" id="HCf-Kp-RCc"/>
+                <outlet property="toChainCard" destination="1t1-6v-sSL" id="UeU-c2-eIm"/>
+                <outlet property="toChainImg" destination="jaG-lb-NSk" id="gYW-1n-jnJ"/>
+                <outlet property="toChainText" destination="zob-rC-EGS" id="frP-hZ-RBc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -137,6 +147,9 @@
                                     <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickCancel:" destination="-1" eventType="touchUpInside" id="3jH-gS-X34"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYx-j5-2aK">
                             <rect key="frame" x="196" y="0.0" width="186" height="50"/>
@@ -158,6 +171,9 @@
                                     <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickNext:" destination="-1" eventType="touchUpInside" id="3oe-TT-cyh"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>

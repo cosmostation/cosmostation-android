@@ -464,6 +464,11 @@
 "str_osmosis_unlock_token_step_1" = "Insert memo (optional)";
 "str_osmosis_unlock_token_step_2" = "Select transaction fee";
 "str_osmosis_unlock_token_step_3" = "Check transaction detail";
+"str_ibc_transfer_step_0" = "Select destination chain & relayer";
+"str_ibc_transfer_step_1" = "Enter recipient address";
+"str_ibc_transfer_step_2" = "Enter to send amount";
+"str_ibc_transfer_step_3" = "Select transaction fee";
+"str_ibc_transfer_step_4" = "Check transaction detail";
 
 
 
@@ -581,6 +586,7 @@ support@cosmostation.io";
 "title_rizon_swap_status" = "Event Horizon Status";
 "title_rizon_swap" = "Event Horizon";
 "title_dapp_gravity" = "Gravity Dex";
+"title_ibc_transfer" = "IBC Send";
 
 
 "proposal_type_basic" = "Basic";

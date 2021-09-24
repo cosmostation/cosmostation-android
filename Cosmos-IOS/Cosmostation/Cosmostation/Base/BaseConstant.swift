@@ -367,6 +367,8 @@ let OSMOSIS_MSG_TYPE_PERIOD_UNLOCK          = "osmosis/MsgUnlockPeriodLock";
 
 let TASK_RIZON_EVENT_HORIZON                = "rizon_swap";
 
+let TASK_IBC_TRANSFER                       = "ibc_MsgTransfer";
+
 
 let PASSWORD_ACTION_INIT                    = "ACTION_INIT"
 let PASSWORD_ACTION_SIMPLE_CHECK            = "ACTION_SIMPLE_CHECK"
