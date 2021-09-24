@@ -3213,6 +3213,13 @@
 			path = okex;
 			sourceTree = "<group>";
 		};
+		2894104E26FDB30A005BCBE4 /* ibc */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ibc;
+			sourceTree = "<group>";
+		};
 		28A97CAA26DE452F0085FD0E /* gravity */ = {
 			isa = PBXGroup;
 			children = (
@@ -3519,6 +3526,7 @@
 		E171A067225AF71800C5756C /* GenTx */ = {
 			isa = PBXGroup;
 			children = (
+				2894104E26FDB30A005BCBE4 /* ibc */,
 				28584B3F26E8696B00EE5719 /* gravity */,
 				28B785B826B8089A009F755F /* rizon */,
 				28E0458F269B520E0022A366 /* osmosis */,
