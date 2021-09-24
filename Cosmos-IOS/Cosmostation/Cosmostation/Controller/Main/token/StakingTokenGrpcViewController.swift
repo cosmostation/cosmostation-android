@@ -132,17 +132,11 @@ class StakingTokenGrpcViewController: BaseViewController, UITableViewDelegate, U
     }
     
     @objc func onClickActionShare() {
-        var nickName:String?
-        if (account?.account_nick_name == "") {
-            nickName = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
-        } else {
-            nickName = account?.account_nick_name
-        }
         var address = account!.account_address
         if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             address = WKey.convertAddressOkexToEth(address)
         }
-        self.shareAddress(address, nickName!)
+        self.shareAddress(address, WUtils.getWalletName(account))
     }
     
 
@@ -151,12 +145,20 @@ class StakingTokenGrpcViewController: BaseViewController, UITableViewDelegate, U
     }
     
     @IBAction func onClickIbcSend(_ sender: UIButton) {
-//        if (!account!.account_has_private) {
-//            self.onShowAddMenomicDialog()
-//            return
-//        }
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
         
-        self.onShowToast(NSLocalizedString("prepare", comment: ""))
+//        self.onShowToast(NSLocalizedString("prepare", comment: ""))
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+//        txVC.mToSendDenom = stakingDenom
+        txVC.mType = TASK_IBC_TRANSFER
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     @IBAction func onClickSend(_ sender: UIButton) {

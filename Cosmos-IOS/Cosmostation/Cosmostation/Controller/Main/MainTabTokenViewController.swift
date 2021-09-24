@@ -103,12 +103,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func updateTitle() {
-        titleChainName.textColor = WUtils.getChainColor(chainType!)
-        if (account?.account_nick_name == "") {
-            titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
-        } else {
-            titleWalletName.text = account?.account_nick_name
-        }
+        self.titleChainImg.image = WUtils.getChainImg(chainType)
+        self.titleChainName.text = WUtils.getChainTitle(chainType)
+        self.titleChainName.textColor = WUtils.getChainColor(chainType!)
+        self.titleWalletName.text = WUtils.getWalletName(account)
+        self.titleAlarmBtn.isHidden = (chainType! == ChainType.COSMOS_MAIN) ? false : true
         
         self.totalCard.backgroundColor = WUtils.getChainBg(chainType)
         if (account?.account_has_private == true) {
@@ -119,132 +118,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.totalDpAddress.adjustsFontSizeToFitWidth = true
         self.totalValue.attributedText = WUtils.dpAllAssetValueUserCurrency(chainType, totalValue.font)
         
-        if (chainType! == ChainType.COSMOS_MAIN) {
-            titleChainImg.image = UIImage(named: "cosmosWhMain")
-            titleChainName.text = "(Cosmos Mainnet)"
-        } else if (chainType! == ChainType.IRIS_MAIN) {
-            titleChainImg.image = UIImage(named: "irisWh")
-            titleChainName.text = "(Iris Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.BINANCE_MAIN) {
-            titleChainImg.image = UIImage(named: "binanceChImg")
-            titleChainName.text = "(Binance Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.KAVA_MAIN) {
-            titleChainImg.image = UIImage(named: "kavaImg")
-            titleChainName.text = "(Kava Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.IOV_MAIN) {
-            titleChainImg.image = UIImage(named: "iovChainImg")
-            titleChainName.text = "(Starname Mainnet)"
-            titleAlarmBtn.isHidden = true
-        }  else if (chainType! == ChainType.BAND_MAIN) {
-            titleChainImg.image = UIImage(named: "chainBandprotocal")
-            titleChainName.text = "(Band Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.SECRET_MAIN) {
-            titleChainImg.image = UIImage(named: "secretChainImg")
-            titleChainName.text = "(Secret Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.CERTIK_MAIN) {
-            titleChainImg.image = UIImage(named: "certikChainImg")
-            titleChainName.text = "(Certik Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.AKASH_MAIN) {
-            titleChainImg.image = UIImage(named: "akashChainImg")
-            titleChainName.text = "(Akash Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.OKEX_MAIN) {
-            titleChainImg.image = UIImage(named: "okexChainImg")
-            titleChainName.text = "(ExChain Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.PERSIS_MAIN) {
-            titleChainImg.image = UIImage(named: "chainpersistence")
-            titleChainName.text = "(Persistence Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.SENTINEL_MAIN) {
-            titleChainImg.image = UIImage(named: "chainsentinel")
-            titleChainName.text = "(Sentinel Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.FETCH_MAIN) {
-            titleChainImg.image = UIImage(named: "chainfetchai")
-            titleChainName.text = "(Fetch.ai Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.CRYPTO_MAIN) {
-            titleChainImg.image = UIImage(named: "chaincrypto")
-            titleChainName.text = "(Crypto.org Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.SIF_MAIN) {
-            titleChainImg.image = UIImage(named: "chainsifchain")
-            titleChainName.text = "(SifChain Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.KI_MAIN) {
-            titleChainImg.image = UIImage(named: "chainKifoundation")
-            titleChainName.text = "(KiChain Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.OSMOSIS_MAIN) {
-            titleChainImg.image = UIImage(named: "chainOsmosis")
-            titleChainName.text = "(OSMOSIS Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.MEDI_MAIN) {
-            titleChainImg.image = UIImage(named: "chainMedibloc")
-            titleChainName.text = "(Medibloc Mainnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.EMONEY_MAIN) {
-            titleChainImg.image = UIImage(named: "chainEmoney")
-            titleChainName.text = "(E-Money Mainnet)"
-            titleAlarmBtn.isHidden = true
-        }
-        
-        else if (chainType! == ChainType.COSMOS_TEST) {
-            titleChainImg.image = UIImage(named: "cosmosTestChainImg")
-            titleChainName.text = "(StarGate Testnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.IRIS_TEST) {
-            titleChainImg.image = UIImage(named: "irisTestChainImg")
-            titleChainName.text = "(Bifrost Testnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.BINANCE_TEST) {
-            titleChainImg.image = UIImage(named: "binancetestnet")
-            titleChainName.text = "(Binance Testnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.KAVA_TEST) {
-            titleChainImg.image = UIImage(named: "kavaTestImg")
-            titleChainName.text = "(Kava Testnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.IOV_TEST) {
-            titleChainImg.image = UIImage(named: "iovTestnetImg")
-            titleChainName.text = "(Starname Testnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.OKEX_TEST) {
-            titleChainImg.image = UIImage(named: "okexTestnetImg")
-            titleChainName.text = "(ExChain Testnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.CERTIK_TEST) {
-            titleChainImg.image = UIImage(named: "certikTestnetImg")
-            titleChainName.text = "(Certik Testnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.RIZON_TEST) {
-            titleChainImg.image = UIImage(named: "testnetRizon")
-            titleChainName.text = "(Rizon Testnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.MEDI_TEST) {
-            titleChainImg.image = UIImage(named: "testnetMedibloc")
-            titleChainName.text = "(Medi Testnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.ALTHEA_TEST) {
-            titleChainImg.image = UIImage(named: "testnetAlthea")
-            titleChainName.text = "(Althea Testnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.UMEE_TEST) {
-            titleChainImg.image = UIImage(named: "testnetUmee")
-            titleChainName.text = "(Umee Testnet)"
-            titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.AXELAR_TEST) {
-            titleChainImg.image = UIImage(named: "testnetAxelar")
-            titleChainName.text = "(Axelar Testnet)"
-            titleAlarmBtn.isHidden = true
-        }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
                 DispatchQueue.main.async {
@@ -1104,16 +977,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @objc func onClickActionShare() {
-        var nickName:String?
-        if (account?.account_nick_name == "") {
-            nickName = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
-        } else {
-            nickName = account?.account_nick_name
-        }
         var address = account!.account_address
         if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             address = WKey.convertAddressOkexToEth(address)
         }
-        self.shareAddress(address, nickName!)
+        self.shareAddress(address, WUtils.getWalletName(account))
     }
 }

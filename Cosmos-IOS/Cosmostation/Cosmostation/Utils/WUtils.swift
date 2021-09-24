@@ -4541,6 +4541,115 @@ public class WUtils {
         
     }
     
+    static func getChainImg(_ chain: ChainType?) -> UIImage? {
+        if (chain == ChainType.COSMOS_MAIN) { return UIImage(named: "cosmosWhMain") }
+        else if (chain == ChainType.IRIS_MAIN) { return UIImage(named: "irisWh") }
+        else if (chain == ChainType.BINANCE_MAIN) { return UIImage(named: "binanceChImg") }
+        else if (chain == ChainType.OKEX_MAIN) { return UIImage(named: "okexChainImg") }
+        else if (chain == ChainType.AKASH_MAIN) { return UIImage(named: "akashChainImg") }
+        else if (chain == ChainType.KAVA_MAIN) { return UIImage(named: "kavaImg") }
+        else if (chain == ChainType.BAND_MAIN) { return UIImage(named: "chainBandprotocal") }
+        else if (chain == ChainType.SECRET_MAIN) { return UIImage(named: "secretChainImg") }
+        else if (chain == ChainType.CERTIK_MAIN) { return UIImage(named: "certikChainImg") }
+        else if (chain == ChainType.IOV_MAIN) { return UIImage(named: "iovChainImg") }
+        else if (chain == ChainType.PERSIS_MAIN) { return UIImage(named: "chainpersistence") }
+        else if (chain == ChainType.SENTINEL_MAIN) { return UIImage(named: "chainsentinel") }
+        else if (chain == ChainType.FETCH_MAIN) { return UIImage(named: "chainfetchai") }
+        else if (chain == ChainType.CRYPTO_MAIN) { return UIImage(named: "chaincrypto") }
+        else if (chain == ChainType.SIF_MAIN) { return UIImage(named: "chainsifchain") }
+        else if (chain == ChainType.KI_MAIN) { return UIImage(named: "chainKifoundation") }
+        else if (chain == ChainType.OSMOSIS_MAIN) { return UIImage(named: "chainOsmosis") }
+        else if (chain == ChainType.MEDI_MAIN) { return UIImage(named: "chainMedibloc") }
+        else if (chain == ChainType.EMONEY_MAIN) { return UIImage(named: "chainEmoney") }
+        
+        else if (chain == ChainType.COSMOS_TEST) { return UIImage(named: "cosmosTestChainImg") }
+        else if (chain == ChainType.IRIS_TEST) { return UIImage(named: "irisTestChainImg") }
+        else if (chain == ChainType.BINANCE_TEST) { return UIImage(named: "binancetestnet") }
+        else if (chain == ChainType.KAVA_TEST) { return UIImage(named: "kavaTestImg") }
+        else if (chain == ChainType.RIZON_TEST) { return UIImage(named: "tokenRizon") }
+        else if (chain == ChainType.ALTHEA_TEST) { return UIImage(named: "tokenAlthea") }
+        else if (chain == ChainType.UMEE_TEST) { return UIImage(named: "tokenUmee") }
+        else if (chain == ChainType.AXELAR_TEST) { return UIImage(named: "tokenAxelar") }
+        return UIImage(named: "cosmosTestChainImg")
+    }
+    
+    static func getChainTitle(_ chain: ChainType?) -> String {
+        if (chain == ChainType.COSMOS_MAIN) { return "(Cosmos Mainnet)" }
+        else if (chain == ChainType.IRIS_MAIN) { return "(Iris Mainnet)" }
+        else if (chain == ChainType.BINANCE_MAIN) { return "(Binance Mainnet)" }
+        else if (chain == ChainType.OKEX_MAIN) { return "(ExChain Mainnet)" }
+        else if (chain == ChainType.AKASH_MAIN) { return "(Akash Mainnet)" }
+        else if (chain == ChainType.KAVA_MAIN) { return "(Kava Mainnet)" }
+        else if (chain == ChainType.BAND_MAIN) { return "(Band Mainnet)" }
+        else if (chain == ChainType.SECRET_MAIN) { return "(Secret Mainnet)" }
+        else if (chain == ChainType.CERTIK_MAIN) { return "(Certik Mainnet)" }
+        else if (chain == ChainType.IOV_MAIN) { return "(Starname Mainnet)" }
+        else if (chain == ChainType.PERSIS_MAIN) { return "(Persistence Mainnet)" }
+        else if (chain == ChainType.SENTINEL_MAIN) { return "(Sentinel Mainnet)" }
+        else if (chain == ChainType.FETCH_MAIN) { return "(Fetch.Ai Mainnet)" }
+        else if (chain == ChainType.CRYPTO_MAIN) { return "(Crypto.org Mainnet)" }
+        else if (chain == ChainType.SIF_MAIN) { return "(SifChain Mainnet)" }
+        else if (chain == ChainType.KI_MAIN) { return "(KiChain Mainnet)" }
+        else if (chain == ChainType.OSMOSIS_MAIN) { return "(Osmosis Mainnet)" }
+        else if (chain == ChainType.MEDI_MAIN) { return "(Medibloc Mainnet)" }
+        else if (chain == ChainType.EMONEY_MAIN) { return "(E-Money Mainnet)" }
+        
+        else if (chain == ChainType.COSMOS_TEST) { return "(StarGate Testnet)" }
+        else if (chain == ChainType.IRIS_TEST) { return "(Bifrost Testnet)" }
+        else if (chain == ChainType.BINANCE_TEST) { return "(Binance Testnet)" }
+        else if (chain == ChainType.KAVA_TEST) { return "(Kava Testnet)" }
+        else if (chain == ChainType.RIZON_TEST) { return "(Rizon Testnet)" }
+        else if (chain == ChainType.ALTHEA_TEST) { return "(Althea Testnet)" }
+        else if (chain == ChainType.UMEE_TEST) { return "(Umee Testnet)" }
+        else if (chain == ChainType.AXELAR_TEST) { return "(Axelar Testnet)" }
+        
+        return "Unknown"
+    }
+    
+    static func getChainTitle2(_ chain: ChainType?) -> String {
+        if (chain == ChainType.COSMOS_MAIN) { return "COSMOS" }
+        else if (chain == ChainType.IRIS_MAIN) { return "IRIS" }
+        else if (chain == ChainType.BINANCE_MAIN) { return "BINANCE" }
+        else if (chain == ChainType.OKEX_MAIN) { return "EX" }
+        else if (chain == ChainType.AKASH_MAIN) { return "AKASH" }
+        else if (chain == ChainType.KAVA_MAIN) { return "KAVA" }
+        else if (chain == ChainType.BAND_MAIN) { return "BAND" }
+        else if (chain == ChainType.SECRET_MAIN) { return "SECRET" }
+        else if (chain == ChainType.CERTIK_MAIN) { return "CERTIK" }
+        else if (chain == ChainType.IOV_MAIN) { return "STARNAME" }
+        else if (chain == ChainType.PERSIS_MAIN) { return "PERSISTENCE" }
+        else if (chain == ChainType.SENTINEL_MAIN) { return "SENTINEL" }
+        else if (chain == ChainType.FETCH_MAIN) { return "FETCH.AI" }
+        else if (chain == ChainType.CRYPTO_MAIN) { return "CRYPTO.ORG" }
+        else if (chain == ChainType.SIF_MAIN) { return "SIF" }
+        else if (chain == ChainType.KI_MAIN) { return "KI" }
+        else if (chain == ChainType.OSMOSIS_MAIN) { return "OSMOSIS" }
+        else if (chain == ChainType.MEDI_MAIN) { return "MEDIBLOC" }
+        else if (chain == ChainType.EMONEY_MAIN) { return "E-MONEY" }
+        
+        else if (chain == ChainType.COSMOS_TEST) { return "STARGATE" }
+        else if (chain == ChainType.IRIS_TEST) { return "BIFROST" }
+        else if (chain == ChainType.BINANCE_TEST) { return "BINANCE TEST" }
+        else if (chain == ChainType.KAVA_TEST) { return "KAVA TEST" }
+        else if (chain == ChainType.RIZON_TEST) { return "RIZON TEST" }
+        else if (chain == ChainType.ALTHEA_TEST) { return "ALTHEA TEST" }
+        else if (chain == ChainType.UMEE_TEST) { return "UMEE TEST" }
+        else if (chain == ChainType.AXELAR_TEST) { return "AXELAR TEST" }
+        
+        return "Unknown"
+    }
+    
+    
+    static func getWalletName(_ account: Account?) -> String? {
+        if (account == nil) {
+            return  ""
+        } else if (account!.account_nick_name == "") {
+            return NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
+        } else {
+            return account!.account_nick_name
+        }
+    }
+    
     static func systemQuorum(_ chain: ChainType?) -> NSDecimalNumber {
         if (BaseData.instance.mParam != nil) {
             return BaseData.instance.mParam!.getQuorum()
