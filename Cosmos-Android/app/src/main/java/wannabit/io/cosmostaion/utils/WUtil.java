@@ -1690,6 +1690,12 @@ public class WUtil {
         return incentiveValue.multiply(new BigDecimal("36500")).divide(poolValue, 12, RoundingMode.DOWN);
     }
 
+    public static int getIbcDecimal(String denom) {
+        IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+        if (ibcToken.auth) { return ibcToken.decimal; }
+        else { return 6; }
+    }
+
 
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
         if (all == null) return null;
