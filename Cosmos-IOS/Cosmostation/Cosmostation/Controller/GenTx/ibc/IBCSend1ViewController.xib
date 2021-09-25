@@ -38,7 +38,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="UWF-TW-ulJ"/>
                     </constraints>
-                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="done" smartInsertDeleteType="no"/>
                 </textField>

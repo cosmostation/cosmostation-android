@@ -142,6 +142,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     var mIBCSendDenom: String?
     var mIBCSendAmount: String?
+    var mIBCRecipient: String?
     var mIBCSendRelayer: IbcPath?
     var mIBCSendPath: Path?
     

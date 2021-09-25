@@ -12,7 +12,6 @@ class IBCSend1ViewController: BaseViewController, QrScannerDelegate, SBCardPopup
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnNext: UIButton!
-    
     @IBOutlet weak var detinationChainLabel: UILabel!
     @IBOutlet weak var addressInput: AddressInputTextField!
     @IBOutlet weak var btnWallet: UIButton!
@@ -49,7 +48,7 @@ class IBCSend1ViewController: BaseViewController, QrScannerDelegate, SBCardPopup
             
         } else {
             let popupVC = SelectPopupViewController(nibName: "SelectPopupViewController", bundle: nil)
-            popupVC.type = SELECT_POPUP_STARNAME_ACCOUNT
+            popupVC.type = SELECT_POPUP_IBC_RECIPIENT
             popupVC.toChain = toChain
             let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
             cardPopup.resultDelegate = self
@@ -87,5 +86,16 @@ class IBCSend1ViewController: BaseViewController, QrScannerDelegate, SBCardPopup
     }
     
     @IBAction func onClickNext(_ sender: UIButton) {
+        let userInputRecipient = addressInput.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if (WUtils.isValidChainAddress(toChain, userInputRecipient)) {
+            pageHolderVC.mIBCRecipient = userInputRecipient
+            btnBack.isUserInteractionEnabled = true
+            btnNext.isUserInteractionEnabled = true
+            pageHolderVC.onNextPage()
+            
+        } else {
+            self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+            return;
+        }
     }
 }

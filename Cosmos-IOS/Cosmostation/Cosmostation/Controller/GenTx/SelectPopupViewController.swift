@@ -53,7 +53,7 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             self.popupTitle.text = NSLocalizedString("select_account", comment: "")
             self.toAccountList = BaseData.instance.selectAllAccountsByHtlcClaim(toChain)
             
-        } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
+        } else if (type == SELECT_POPUP_STARNAME_ACCOUNT || type == SELECT_POPUP_IBC_RECIPIENT) {
             self.popupTitle.text = NSLocalizedString("select_account", comment: "")
             self.toAccountList = BaseData.instance.selectAllAccountsByChain(toChain!)
             
@@ -80,7 +80,7 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             esHeight = (CGFloat)((toCoinList.count * 55) + 55)
         } else if (type == SELECT_POPUP_HTLC_TO_ACCOUNT) {
             esHeight = (CGFloat)((toAccountList.count * 55) + 55)
-        } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
+        } else if (type == SELECT_POPUP_STARNAME_ACCOUNT || type == SELECT_POPUP_IBC_RECIPIENT) {
             esHeight = (CGFloat)((toAccountList.count * 55) + 55)
         } else if (type == SELECT_POPUP_IBC_CHAIN) {
             esHeight = (CGFloat)((ibcToChain.count * 55) + 55)
@@ -100,7 +100,7 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             return toCoinList.count
         } else if (type == SELECT_POPUP_HTLC_TO_ACCOUNT) {
             return toAccountList.count
-        } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
+        } else if (type == SELECT_POPUP_STARNAME_ACCOUNT || type == SELECT_POPUP_IBC_RECIPIENT) {
             return toAccountList.count
         } else if (type == SELECT_POPUP_OSMOSIS_COIN_IN || type == SELECT_POPUP_KAVA_SWAP_IN || type == SELECT_POPUP_GRAVITY_SWAP_IN) {
             return toCoinList.count
@@ -190,7 +190,7 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             }
             return cell!
             
-        } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
+        } else if (type == SELECT_POPUP_STARNAME_ACCOUNT || type == SELECT_POPUP_IBC_RECIPIENT) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"SelectAccountCell") as? SelectAccountCell
             let account = toAccountList[indexPath.row]
             WUtils.setDenomTitle(toChain!, cell!.accountDenom)

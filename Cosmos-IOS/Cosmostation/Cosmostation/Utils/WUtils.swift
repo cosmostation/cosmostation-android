@@ -4682,6 +4682,75 @@ public class WUtils {
         return nil
     }
     
+    //check with only mainnet
+    static func isValidChainAddress(_ chain: ChainType?, _ address: String?) -> Bool {
+        if (address?.starts(with: "0x") == true) {
+            if (!WKey.isValidEthAddress(address!)) { return false }
+            if (chain == ChainType.OKEX_MAIN) { return true }
+            return false
+        }
+        
+        if (!WKey.isValidateBech32(address ?? "")) { return false }
+        if (address?.starts(with: "cosmos1") == true && chain == ChainType.COSMOS_MAIN) { return true }
+        else if (address?.starts(with: "iaa1") == true && chain == ChainType.IRIS_MAIN) { return true }
+        else if (address?.starts(with: "bnb1") == true && chain == ChainType.BINANCE_MAIN) { return true }
+        else if (address?.starts(with: "kava1") == true && chain == ChainType.KAVA_MAIN) { return true }
+        else if (address?.starts(with: "star1") == true && chain == ChainType.IOV_MAIN) { return true }
+        else if (address?.starts(with: "band1") == true && chain == ChainType.BAND_MAIN) { return true }
+        else if (address?.starts(with: "secret1") == true && chain == ChainType.SECRET_MAIN) { return true }
+        else if (address?.starts(with: "ex1") == true && chain == ChainType.OKEX_MAIN) { return true }
+        else if (address?.starts(with: "certik1") == true && chain == ChainType.CERTIK_MAIN) { return true }
+        else if (address?.starts(with: "akash1") == true && chain == ChainType.AKASH_MAIN) { return true }
+        else if (address?.starts(with: "persistence1") == true && chain == ChainType.PERSIS_MAIN) { return true }
+        else if (address?.starts(with: "sent1") == true && chain == ChainType.SENTINEL_MAIN) { return true }
+        else if (address?.starts(with: "fetch1") == true && chain == ChainType.FETCH_MAIN) { return true }
+        else if (address?.starts(with: "cro1") == true && chain == ChainType.CRYPTO_MAIN) { return true }
+        else if (address?.starts(with: "sif1") == true && chain == ChainType.SIF_MAIN) { return true }
+        else if (address?.starts(with: "ki1") == true && chain == ChainType.KI_MAIN) { return true }
+        else if (address?.starts(with: "panacea1") == true && chain == ChainType.MEDI_MAIN) { return true }
+        else if (address?.starts(with: "osmo1") == true && chain == ChainType.OSMOSIS_MAIN) { return true }
+        else if (address?.starts(with: "emoney1") == true && chain == ChainType.EMONEY_MAIN) { return true }
+        
+        else if (address?.starts(with: "regen1") == true && chain == ChainType.REGEN_MAIN) { return true }
+        
+        return false
+    }
+    
+    static func getChainWithPrefix(_ address: String?) -> Array<ChainType>? {
+        if (address?.starts(with: "0x") == true) {
+            return [ChainType.OKEX_MAIN, ChainType.OKEX_TEST]
+        }
+        
+        if (!WKey.isValidateBech32(address ?? "")) { return nil }
+        if (address?.starts(with: "cosmos1") == true) { return [ChainType.COSMOS_MAIN, ChainType.COSMOS_TEST] }
+        else if (address?.starts(with: "iaa1") == true) { return [ChainType.IRIS_MAIN, ChainType.IRIS_TEST] }
+        else if (address?.starts(with: "bnb1") == true) { return [ChainType.BINANCE_MAIN] }
+        else if (address?.starts(with: "kava1") == true) { return [ChainType.KAVA_MAIN, ChainType.KAVA_TEST] }
+        else if (address?.starts(with: "star1") == true) { return [ChainType.IOV_MAIN, ChainType.IOV_TEST] }
+        else if (address?.starts(with: "band1") == true) { return [ChainType.BAND_MAIN] }
+        else if (address?.starts(with: "secret1") == true) { return [ChainType.SECRET_MAIN] }
+        else if (address?.starts(with: "ex1") == true) { return [ChainType.OKEX_MAIN, ChainType.OKEX_TEST] }
+        else if (address?.starts(with: "certik1") == true) { return [ChainType.CERTIK_MAIN, ChainType.CERTIK_TEST] }
+        else if (address?.starts(with: "akash1") == true) { return [ChainType.AKASH_MAIN] }
+        else if (address?.starts(with: "persistence1") == true) { return [ChainType.PERSIS_MAIN] }
+        else if (address?.starts(with: "sent1") == true) { return [ChainType.SENTINEL_MAIN] }
+        else if (address?.starts(with: "fetch1") == true) { return [ChainType.FETCH_MAIN] }
+        else if (address?.starts(with: "cro1") == true) { return [ChainType.CRYPTO_MAIN] }
+        else if (address?.starts(with: "sif1") == true) { return [ChainType.SIF_MAIN] }
+        else if (address?.starts(with: "ki1") == true) { return [ChainType.KI_MAIN] }
+        else if (address?.starts(with: "panacea1") == true) { return [ChainType.MEDI_MAIN] }
+        else if (address?.starts(with: "osmo1") == true) { return [ChainType.OSMOSIS_MAIN] }
+        else if (address?.starts(with: "emoney1") == true) { return [ChainType.EMONEY_MAIN] }
+        
+        else if (address?.starts(with: "tbnb1") == true) { return [ChainType.BINANCE_TEST] }
+        else if (address?.starts(with: "rizon1") == true) { return [ChainType.RIZON_TEST] }
+        else if (address?.starts(with: "althea1") == true) { return [ChainType.ALTHEA_TEST] }
+        else if (address?.starts(with: "umee1") == true) { return [ChainType.UMEE_TEST] }
+        else if (address?.starts(with: "axelar1") == true) { return [ChainType.AXELAR_TEST] }
+        
+        return nil
+    }
+    
     static func getWalletName(_ account: Account?) -> String? {
         if (account == nil) {
             return  ""

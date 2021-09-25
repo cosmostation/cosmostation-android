@@ -150,9 +150,28 @@ class IBCTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func onClickIbcSend(_ sender: UIButton) {
-//        self.onShowToast(NSLocalizedString("prepare", comment: ""))
-        
-        
+//        if (!account!.account_has_private) {
+//            self.onShowAddMenomicDialog()
+//            return
+//        }
+        //TODO check Tx fee
+        self.onAlertIbcTransfer()
+    }
+    
+    func onAlertIbcTransfer() {
+        let unAuthTitle = NSLocalizedString("str_notice", comment: "")
+        let unAuthMsg = NSLocalizedString("str_msg_ibc", comment: "")
+        let noticeAlert = UIAlertController(title: unAuthTitle, message: unAuthMsg, preferredStyle: .alert)
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
+            self.onStartIbc()
+        }))
+        self.present(noticeAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    func onStartIbc() {
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mIBCSendDenom = ibcDenom
         txVC.mType = TASK_IBC_TRANSFER
