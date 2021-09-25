@@ -1079,6 +1079,16 @@ public class WUtils {
     }
     
     static func perUsdValue(_ denom: String) -> NSDecimalNumber? {
+        if (denom.contains("gamm/pool/")) {
+            if let pool = BaseData.instance.getOsmoPoolByDenom(denom) {
+                return WUtils.getOsmoLpTokenPerUsdPrice(pool)
+            }
+        }
+        if (denom.starts(with: "pool") && denom.count >= 68) {
+            if let pool = BaseData.instance.getGravityPoolByDenom(denom) {
+                //TODO need manager account balance for display gDex coin value
+            }
+        }
         if (denom == EMONEY_EUR_DENOM || denom == EMONEY_CHF_DENOM || denom == EMONEY_DKK_DENOM || denom == EMONEY_NOK_DENOM || denom == EMONEY_SEK_DENOM) {
             if let value = BaseData.instance.getPrice("usdt")?.prices.filter{ $0.currency == denom.substring(from: 1) }.first?.current_price {
                 return NSDecimalNumber.one.dividing(by: NSDecimalNumber.init(value: value), withBehavior: handler18)
@@ -1165,7 +1175,19 @@ public class WUtils {
                     let available = baseData.getAvailableAmount_gRPC(coin.denom)
                     totalValue = totalValue.adding(userCurrencyValue(coin.denom, available, 6))
                     
-                } else if (coin.isIbc()) {
+                } else if (chainType == ChainType.OSMOSIS_MAIN && coin.denom.contains("gamm/pool/")) {
+                    let amount = baseData.getAvailableAmount_gRPC(coin.denom)
+                    let assetValue = userCurrencyValue(coin.denom, amount, 18)
+                    totalValue = totalValue.adding(assetValue)
+                    
+                }  else if (chainType == ChainType.COSMOS_MAIN && coin.denom.starts(with: "pool") && coin.denom.count >= 68) {
+                    let amount = baseData.getAvailableAmount_gRPC(coin.denom)
+                    let assetValue = userCurrencyValue(coin.denom, amount, 6)
+                    totalValue = totalValue.adding(assetValue)
+                    
+                }
+                
+                else if (coin.isIbc()) {
                     if let ibcToken = BaseData.instance.getIbcToken(coin.getIbcHash()) {
                         if (ibcToken.auth == true) {
                             let amount = baseData.getAvailableAmount_gRPC(coin.denom)
@@ -2026,6 +2048,9 @@ public class WUtils {
             let dpDecimal = WUtils.getSifCoinDecimal(coin.denom)
             if (coin.denom == SIF_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+            } else if (coin.denom.starts(with: "c")) {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.substring(from: 1).uppercased()
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = coin.denom.uppercased()
@@ -2116,6 +2141,9 @@ public class WUtils {
         } else if (chainType == ChainType.EMONEY_MAIN) {
             if (coin.denom == EMONEY_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+            } else if (coin.denom.starts(with: "e")) {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.substring(from: 1).uppercased()
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = coin.denom.uppercased()
@@ -2299,6 +2327,9 @@ public class WUtils {
             let dpDecimal = WUtils.getSifCoinDecimal(denom)
             if (denom == SIF_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+            } else if (denom.starts(with: "c")) {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.substring(from: 1).uppercased()
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = denom.uppercased()
@@ -2389,6 +2420,9 @@ public class WUtils {
         } else if (chainType == ChainType.EMONEY_MAIN) {
             if (denom == EMONEY_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
+            } else if (denom.starts(with: "e")) {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.substring(from: 1).uppercased()
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = denom.uppercased()
