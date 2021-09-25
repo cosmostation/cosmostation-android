@@ -140,6 +140,11 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mHdacBalance: NSDecimalNumber?
     var mHdacUTXOs: Array<HdacUtxo>?
     
+    var mIBCSendDenom: String?
+    var mIBCSendAmount: String?
+    var mIBCSendRelayer: IbcPath?
+    var mIBCSendPath: Path?
+    
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
             if (WUtils.isGRPC(chainType!)) {

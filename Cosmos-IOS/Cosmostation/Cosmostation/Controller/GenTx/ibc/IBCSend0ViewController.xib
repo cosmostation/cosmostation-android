@@ -15,6 +15,7 @@
                 <outlet property="fromChainImg" destination="Mpq-9E-GTO" id="weC-cA-WXb"/>
                 <outlet property="fromChainTxt" destination="RiJ-aW-xmJ" id="5xf-yV-nP1"/>
                 <outlet property="relayerCard" destination="cbI-Ka-BJV" id="bRP-vT-Frc"/>
+                <outlet property="relayerImg" destination="J16-1L-WJw" id="zf2-Fl-eiB"/>
                 <outlet property="relayerMsg" destination="uPG-R3-VC7" id="nmb-DZ-AYh"/>
                 <outlet property="relayerTxt" destination="lTj-Uz-CKX" id="HCf-Kp-RCc"/>
                 <outlet property="toChainCard" destination="1t1-6v-sSL" id="UeU-c2-eIm"/>
@@ -61,7 +62,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="0.0"/>
+                            <real key="value" value="4"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
@@ -107,7 +108,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="0.0"/>
+                            <real key="value" value="4"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                             <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -205,12 +206,17 @@
                                 <constraint firstAttribute="width" constant="20" id="peM-Cs-YyV"/>
                             </constraints>
                         </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ibcauthed" translatesAutoresizingMaskIntoConstraints="NO" id="J16-1L-WJw">
+                            <rect key="frame" x="92.5" y="11" width="55" height="20"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="lTj-Uz-CKX" firstAttribute="centerY" secondItem="cbI-Ka-BJV" secondAttribute="centerY" id="0pl-HV-301"/>
                         <constraint firstAttribute="height" constant="42" id="AJJ-Er-7bh"/>
+                        <constraint firstItem="J16-1L-WJw" firstAttribute="leading" secondItem="lTj-Uz-CKX" secondAttribute="trailing" constant="8" id="CsH-3N-WaX"/>
                         <constraint firstAttribute="trailing" secondItem="UVb-3J-Kcg" secondAttribute="trailing" constant="6" id="UWR-Zq-fOt"/>
+                        <constraint firstItem="J16-1L-WJw" firstAttribute="centerY" secondItem="lTj-Uz-CKX" secondAttribute="centerY" id="VO1-Qw-YE2"/>
                         <constraint firstItem="uPG-R3-VC7" firstAttribute="firstBaseline" secondItem="lTj-Uz-CKX" secondAttribute="firstBaseline" id="eGR-Yv-2pE"/>
                         <constraint firstItem="lTj-Uz-CKX" firstAttribute="leading" secondItem="cbI-Ka-BJV" secondAttribute="leading" constant="12" id="eht-iq-DY5"/>
                         <constraint firstItem="uPG-R3-VC7" firstAttribute="leading" secondItem="lTj-Uz-CKX" secondAttribute="trailing" constant="8" id="idn-Bg-VFN"/>
@@ -218,7 +224,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="0.0"/>
+                            <real key="value" value="4"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                             <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -260,6 +266,7 @@
     <resources>
         <image name="cosmosWhMain" width="42" height="42"/>
         <image name="dropdown_btn" width="24" height="24"/>
+        <image name="ibcauthed" width="55" height="20"/>
         <image name="interchainArrow" width="20" height="20"/>
     </resources>
 </document>

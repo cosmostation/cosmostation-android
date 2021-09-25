@@ -23,6 +23,8 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
     var toChainList = Array<ChainType>()
     var toCoinList = Array<String>()
     var toAccountList = Array<Account>()
+    var ibcToChain = Array<IbcPath>()
+    var ibcRelayer = Array<Path>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +37,7 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
         self.popupTableview.register(UINib(nibName: "SelectChainCell", bundle: nil), forCellReuseIdentifier: "SelectChainCell")
         self.popupTableview.register(UINib(nibName: "SelectCoinCell", bundle: nil), forCellReuseIdentifier: "SelectCoinCell")
         self.popupTableview.register(UINib(nibName: "SelectAccountCell", bundle: nil), forCellReuseIdentifier: "SelectAccountCell")
+        self.popupTableview.register(UINib(nibName: "SelectRelayerCell", bundle: nil), forCellReuseIdentifier: "SelectRelayerCell")
         self.popupTableview.rowHeight = UITableView.automaticDimension
         self.popupTableview.estimatedRowHeight = UITableView.automaticDimension
         
@@ -60,6 +63,12 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
         } else if (type == SELECT_POPUP_OSMOSIS_COIN_OUT || type == SELECT_POPUP_KAVA_SWAP_OUT || type == SELECT_POPUP_GRAVITY_SWAP_OUT) {
             self.popupTitle.text = NSLocalizedString("str_select_coin_swap_out", comment: "")
             
+        } else if (type == SELECT_POPUP_IBC_CHAIN) {
+            self.popupTitle.text = NSLocalizedString("str_select_ibc_destination", comment: "")
+            
+        } else if (type == SELECT_POPUP_IBC_RELAYER) {
+            self.popupTitle.text = NSLocalizedString("str_select_ibc_relayer", comment: "")
+            
         }
     }
     
@@ -73,6 +82,10 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             esHeight = (CGFloat)((toAccountList.count * 55) + 55)
         } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
             esHeight = (CGFloat)((toAccountList.count * 55) + 55)
+        } else if (type == SELECT_POPUP_IBC_CHAIN) {
+            esHeight = (CGFloat)((ibcToChain.count * 55) + 55)
+        } else if (type == SELECT_POPUP_IBC_RELAYER) {
+            esHeight = (CGFloat)((ibcRelayer.count * 55) + 55)
         }
         esHeight = (esHeight > 350) ? 350 : esHeight
         cardView.frame = CGRect(x: cardView.frame.origin.x, y: cardView.frame.origin.y, width: cardView.frame.size.width, height: esHeight)
@@ -93,19 +106,23 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             return toCoinList.count
         } else if (type == SELECT_POPUP_OSMOSIS_COIN_OUT || type == SELECT_POPUP_KAVA_SWAP_OUT || type == SELECT_POPUP_GRAVITY_SWAP_OUT) {
             return toCoinList.count
+        } else if (type == SELECT_POPUP_IBC_CHAIN) {
+            return ibcToChain.count
+        } else if (type == SELECT_POPUP_IBC_RELAYER) {
+            return ibcRelayer.count
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (type == SELECT_POPUP_HTLC_TO_CHAIN) {
-            let cell:SelectChainCell? = tableView.dequeueReusableCell(withIdentifier:"SelectChainCell") as? SelectChainCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectChainCell") as? SelectChainCell
             let chain = toChainList[indexPath.row]
             WUtils.dpChainInfo(chain, cell!.chainImg, cell!.chainTitle)
             return cell!
             
         } else if (type == SELECT_POPUP_HTLC_TO_COIN) {
-            let cell:SelectCoinCell? = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
             let toSendCoin = toCoinList[indexPath.row]
             if (chainType! == ChainType.BINANCE_MAIN) {
                 if (toSendCoin == TOKEN_HTLC_BINANCE_BNB) {
@@ -158,7 +175,7 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             return cell!
             
         } else if (type == SELECT_POPUP_HTLC_TO_ACCOUNT) {
-            let cell:SelectAccountCell? = tableView.dequeueReusableCell(withIdentifier:"SelectAccountCell") as? SelectAccountCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectAccountCell") as? SelectAccountCell
             let account = toAccountList[indexPath.row]
             cell?.keyStatusImg.image = cell?.keyStatusImg.image?.withRenderingMode(.alwaysTemplate)
             cell?.accountAddress.text = account.account_address
@@ -174,7 +191,7 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             return cell!
             
         } else if (type == SELECT_POPUP_STARNAME_ACCOUNT) {
-            let cell:SelectAccountCell? = tableView.dequeueReusableCell(withIdentifier:"SelectAccountCell") as? SelectAccountCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectAccountCell") as? SelectAccountCell
             let account = toAccountList[indexPath.row]
             WUtils.setDenomTitle(toChain!, cell!.accountDenom)
             cell?.accountAddress.text = account.account_address
@@ -189,49 +206,73 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             return cell!
             
         } else if (type == SELECT_POPUP_OSMOSIS_COIN_IN) {
-            let cell:SelectCoinCell? = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
             let swapInDenom = toCoinList[indexPath.row]
             WUtils.DpOsmosisTokenImg(cell!.coinImg, swapInDenom)
             cell!.coinTitle.text = WUtils.getOsmosisTokenName(swapInDenom)
             return cell!
             
         } else if (type == SELECT_POPUP_OSMOSIS_COIN_OUT) {
-            let cell:SelectCoinCell? = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
             let swapOutDenom = toCoinList[indexPath.row]
             WUtils.DpOsmosisTokenImg(cell!.coinImg, swapOutDenom)
             cell!.coinTitle.text = WUtils.getOsmosisTokenName(swapOutDenom)
             return cell!
             
         } else if (type == SELECT_POPUP_KAVA_SWAP_IN) {
-            let cell:SelectCoinCell? = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
             let swapInDenom = toCoinList[indexPath.row]
             cell!.coinImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + swapInDenom + ".png")!)
             cell!.coinTitle.text = WUtils.getKavaTokenName(swapInDenom)
             return cell!
             
         } else if (type == SELECT_POPUP_KAVA_SWAP_OUT) {
-            let cell:SelectCoinCell? = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
             let swapOutDenom = toCoinList[indexPath.row]
             cell!.coinImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + swapOutDenom + ".png")!)
             cell!.coinTitle.text = WUtils.getKavaTokenName(swapOutDenom)
             return cell!
             
         } else if (type == SELECT_POPUP_GRAVITY_SWAP_IN) {
-            let cell:SelectCoinCell? = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
             let swapInDenom = toCoinList[indexPath.row]
             WUtils.DpCosmosTokenImg(cell!.coinImg, swapInDenom)
             cell!.coinTitle.text = WUtils.getCosmosTokenName(swapInDenom)
             return cell!
             
         } else if (type == SELECT_POPUP_GRAVITY_SWAP_OUT) {
-            let cell:SelectCoinCell? = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectCoinCell") as? SelectCoinCell
             let swapOutDenom = toCoinList[indexPath.row]
             WUtils.DpCosmosTokenImg(cell!.coinImg, swapOutDenom)
             cell!.coinTitle.text = WUtils.getCosmosTokenName(swapOutDenom)
             return cell!
             
+        } else if (type == SELECT_POPUP_IBC_CHAIN) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectChainCell") as? SelectChainCell
+            let toChain = WUtils.getChainTypeByChainId(ibcToChain[indexPath.row].chain_id)
+            cell!.chainImg.image = WUtils.getChainImg(toChain)
+            cell!.chainTitle.text = WUtils.getChainTitle2(toChain)
+            return cell!
+            
+        } else if (type == SELECT_POPUP_IBC_RELAYER) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectRelayerCell") as? SelectRelayerCell
+            let path = ibcRelayer[indexPath.row]
+            cell!.channelTitle.text = path.channel_id
+            cell!.channelMsg.text = ""
+            if (path.auth == true) {
+                cell!.channelStausImg.image = UIImage(named: "ibcauthed")
+            } else {
+                cell!.channelStausImg.image = UIImage(named: "ibcunknown")
+            }
+//            if let description = path.description {
+//                cell!.channelMsg.text = description
+//            } else {
+//                cell!.channelMsg.text = "Unknown"
+//            }
+            return cell!
+            
         } else {
-            let cell:SelectAccountCell? = tableView.dequeueReusableCell(withIdentifier:"SelectAccountCell") as? SelectAccountCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectAccountCell") as? SelectAccountCell
             return cell!
         }
     }

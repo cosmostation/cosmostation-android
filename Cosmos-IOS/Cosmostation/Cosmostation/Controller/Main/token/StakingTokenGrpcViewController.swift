@@ -145,15 +145,15 @@ class StakingTokenGrpcViewController: BaseViewController, UITableViewDelegate, U
     }
     
     @IBAction func onClickIbcSend(_ sender: UIButton) {
-        if (!account!.account_has_private) {
-            self.onShowAddMenomicDialog()
-            return
-        }
+//        if (!account!.account_has_private) {
+//            self.onShowAddMenomicDialog()
+//            return
+//        }
         
 //        self.onShowToast(NSLocalizedString("prepare", comment: ""))
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-//        txVC.mToSendDenom = stakingDenom
+        txVC.mIBCSendDenom = WUtils.getMainDenom(chainType)
         txVC.mType = TASK_IBC_TRANSFER
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""

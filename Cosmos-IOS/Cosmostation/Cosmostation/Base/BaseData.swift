@@ -116,6 +116,50 @@ final class BaseData : NSObject{
         return nil
     }
     
+//    func getIbcSendableChains() -> Array<ChainType> {
+//        var result = Array<ChainType>()
+//        for ibcPath in mIbcPaths {
+//            if ibcPath.paths.filter({ $0.auth == true }).first != nil {
+//                if let chainType = WUtils.getChainTypeByChainId(ibcPath.chain_id) {
+//                    result.append(chainType)
+//                }
+//            }
+//        }
+//        return result
+//    }
+    
+    func getIbcSendableRelayers() -> Array<IbcPath> {
+        var result = Array<IbcPath>()
+        for ibcPath in mIbcPaths {
+            if ibcPath.paths.filter({ $0.auth == true }).first != nil {
+                result.append(ibcPath)
+            }
+        }
+        return result
+    }
+    
+//    func getIbcRollbackChain(_ denom: String) -> Array<ChainType> {
+//        var result = Array<ChainType>()
+//        if let ibcToken = getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")) {
+//            if let chainType = WUtils.getChainTypeByChainId(ibcToken.counter_party?.chain_id) {
+//                result.append(chainType)
+//            }
+//        }
+//        return result
+//    }
+    
+    func getIbcRollbackRelayer(_ denom: String) -> Array<IbcPath> {
+        var result = Array<IbcPath>()
+        if let ibcToken = getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")) {
+            for ibcPath in mIbcPaths {
+                if (ibcPath.paths.filter { $0.channel_id == ibcToken.channel_id }.first != nil) {
+                    result.append(ibcPath)
+                }
+            }
+        }
+        return result
+    }
+    
 //    func getIbcCounterChainId(_ channelId: String?) -> String {
 //        for ibcPath in mIbcPaths {
 //            for path in ibcPath.paths {

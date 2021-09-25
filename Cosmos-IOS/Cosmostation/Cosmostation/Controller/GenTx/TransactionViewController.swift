@@ -54,6 +54,8 @@ class TransactionViewController: UIViewController {
     var mLockupDuration: Int64?
     var mLockups: Array<Osmosis_Lockup_PeriodLock>?
     
+    var mIBCSendDenom: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
@@ -336,6 +338,9 @@ class TransactionViewController: UIViewController {
             StepVc.mPool = self.mPool
             StepVc.mLockupDuration = self.mLockupDuration
             StepVc.mLockups = self.mLockups
+            
+            
+            StepVc.mIBCSendDenom = self.mIBCSendDenom
         }
     }
     

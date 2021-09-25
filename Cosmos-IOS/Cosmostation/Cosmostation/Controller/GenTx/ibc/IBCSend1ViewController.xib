@@ -10,6 +10,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IBCSend1ViewController" customModule="Cosmostation" customModuleProvider="target">
             <connections>
+                <outlet property="addressInput" destination="JTJ-OD-S05" id="GgY-cn-nDS"/>
+                <outlet property="btnBack" destination="cD6-ju-ufz" id="kjN-wZ-kRh"/>
+                <outlet property="btnNext" destination="zt9-WH-Z4y" id="jct-zH-oKk"/>
+                <outlet property="btnPaste" destination="fhV-en-PlU" id="UYt-5L-H2M"/>
+                <outlet property="btnQrScan" destination="VYr-yu-Mo4" id="aEL-eQ-hkG"/>
+                <outlet property="btnWallet" destination="h51-cB-q0G" id="YdN-Sv-0Id"/>
+                <outlet property="detinationChainLabel" destination="Mpn-ad-VPN" id="i6F-eZ-xCC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -58,6 +65,9 @@
                                     <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickBack:" destination="-1" eventType="touchUpInside" id="r3z-64-UVK"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zt9-WH-Z4y">
                             <rect key="frame" x="196" y="0.0" width="186" height="50"/>
@@ -79,6 +89,9 @@
                                     <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickNext:" destination="-1" eventType="touchUpInside" id="IL0-ne-GA2"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>
@@ -93,7 +106,7 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="  Wallet" image="listIc">
-                                <color key="titleColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -106,6 +119,9 @@
                                     <color key="value" red="0.92156862750000001" green="0.92549019610000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickWallet:" destination="-1" eventType="touchUpInside" id="J82-We-ZS1"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYr-yu-Mo4">
                             <rect key="frame" x="88" y="0.0" width="80" height="35"/>
@@ -116,7 +132,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="tintColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="  Scan" image="qrIc">
-                                <color key="titleColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -129,6 +145,9 @@
                                     <color key="value" red="0.92156862750000001" green="0.92549019610000005" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickScan:" destination="-1" eventType="touchUpInside" id="UJV-w1-hIC"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhV-en-PlU">
                             <rect key="frame" x="176" y="0.0" width="80" height="35"/>
@@ -138,7 +157,7 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="  Paste" image="copyIc">
-                                <color key="titleColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -151,6 +170,9 @@
                                     <color key="value" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickPaste:" destination="-1" eventType="touchUpInside" id="2ta-Xm-fTB"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>
@@ -193,6 +215,12 @@
                         <constraint firstAttribute="trailing" secondItem="hOG-bn-FnJ" secondAttribute="trailing" constant="12" id="sha-L5-GdZ"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Destination Chain)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mpn-ad-VPN">
+                    <rect key="frame" x="295" y="62" width="103" height="14"/>
+                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -210,7 +238,9 @@
                 <constraint firstItem="tAR-Ba-vio" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="haG-RD-Rtv"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="leading" secondItem="tAR-Ba-vio" secondAttribute="leading" constant="-16" id="lTk-o0-MYh"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="S2H-Cy-2NI" secondAttribute="trailing" constant="16" id="mSs-H3-1WC"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Mpn-ad-VPN" secondAttribute="trailing" constant="16" id="mxf-yw-Npf"/>
                 <constraint firstItem="fbD-ka-Xhh" firstAttribute="trailing" secondItem="JTJ-OD-S05" secondAttribute="trailing" id="rQ6-K4-cpC"/>
+                <constraint firstItem="Mpn-ad-VPN" firstAttribute="firstBaseline" secondItem="vCT-49-c6c" secondAttribute="firstBaseline" id="uR5-SC-lWg"/>
             </constraints>
             <point key="canvasLocation" x="139" y="130"/>
         </view>

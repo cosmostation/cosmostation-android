@@ -4562,14 +4562,16 @@ public class WUtils {
         else if (chain == ChainType.MEDI_MAIN) { return UIImage(named: "chainMedibloc") }
         else if (chain == ChainType.EMONEY_MAIN) { return UIImage(named: "chainEmoney") }
         
+        else if (chain == ChainType.REGEN_MAIN) { return UIImage(named: "chainRegen") }
+        
         else if (chain == ChainType.COSMOS_TEST) { return UIImage(named: "cosmosTestChainImg") }
         else if (chain == ChainType.IRIS_TEST) { return UIImage(named: "irisTestChainImg") }
         else if (chain == ChainType.BINANCE_TEST) { return UIImage(named: "binancetestnet") }
         else if (chain == ChainType.KAVA_TEST) { return UIImage(named: "kavaTestImg") }
-        else if (chain == ChainType.RIZON_TEST) { return UIImage(named: "tokenRizon") }
-        else if (chain == ChainType.ALTHEA_TEST) { return UIImage(named: "tokenAlthea") }
-        else if (chain == ChainType.UMEE_TEST) { return UIImage(named: "tokenUmee") }
-        else if (chain == ChainType.AXELAR_TEST) { return UIImage(named: "tokenAxelar") }
+        else if (chain == ChainType.RIZON_TEST) { return UIImage(named: "testnetRizon") }
+        else if (chain == ChainType.ALTHEA_TEST) { return UIImage(named: "testnetAlthea") }
+        else if (chain == ChainType.UMEE_TEST) { return UIImage(named: "testnetUmee") }
+        else if (chain == ChainType.AXELAR_TEST) { return UIImage(named: "testnetAxelar") }
         return UIImage(named: "cosmosTestChainImg")
     }
     
@@ -4593,6 +4595,8 @@ public class WUtils {
         else if (chain == ChainType.OSMOSIS_MAIN) { return "(Osmosis Mainnet)" }
         else if (chain == ChainType.MEDI_MAIN) { return "(Medibloc Mainnet)" }
         else if (chain == ChainType.EMONEY_MAIN) { return "(E-Money Mainnet)" }
+        
+        else if (chain == ChainType.REGEN_MAIN) { return "(Regen Mainnet)" }
         
         else if (chain == ChainType.COSMOS_TEST) { return "(StarGate Testnet)" }
         else if (chain == ChainType.IRIS_TEST) { return "(Bifrost Testnet)" }
@@ -4627,6 +4631,8 @@ public class WUtils {
         else if (chain == ChainType.MEDI_MAIN) { return "MEDIBLOC" }
         else if (chain == ChainType.EMONEY_MAIN) { return "E-MONEY" }
         
+        else if (chain == ChainType.REGEN_MAIN) { return "REGEN" }
+        
         else if (chain == ChainType.COSMOS_TEST) { return "STARGATE" }
         else if (chain == ChainType.IRIS_TEST) { return "BIFROST" }
         else if (chain == ChainType.BINANCE_TEST) { return "BINANCE TEST" }
@@ -4639,6 +4645,42 @@ public class WUtils {
         return "Unknown"
     }
     
+    static func getChainTypeByChainId(_ chainId: String?) -> ChainType? {
+        if (chainId?.contains("cosmoshub-") == true) {
+            return ChainType.COSMOS_MAIN
+        } else if (chainId?.contains("irishub-") == true) {
+            return ChainType.IRIS_MAIN
+        } else if (chainId?.contains("iov-") == true) {
+            return ChainType.IOV_MAIN
+        } else if (chainId?.contains("akashnet-") == true) {
+            return ChainType.AKASH_MAIN
+        } else if (chainId?.contains("sentinelhub-") == true) {
+            return ChainType.SENTINEL_MAIN
+        } else if (chainId?.contains("core-") == true) {
+            return ChainType.PERSIS_MAIN
+        } else if (chainId?.contains("sifchain-") == true) {
+            return ChainType.SIF_MAIN
+        } else if (chainId?.contains("osmosis-") == true) {
+            return ChainType.OSMOSIS_MAIN
+        } else if (chainId?.contains("crypto-org-") == true) {
+            return ChainType.CRYPTO_MAIN
+        } else if (chainId?.contains("laozi-mainnet") == true) {
+            return ChainType.BAND_MAIN
+        } else if (chainId?.contains("shentu-") == true) {
+            return ChainType.CERTIK_MAIN
+        } else if (chainId?.contains("fetchhub-") == true) {
+            return ChainType.FETCH_MAIN
+        } else if (chainId?.contains("panacea-") == true) {
+            return ChainType.MEDI_MAIN
+        } else if (chainId?.contains("emoney-") == true) {
+            return ChainType.EMONEY_MAIN
+        }
+        
+        else if (chainId?.contains("regen-") == true) {
+            return ChainType.REGEN_MAIN
+        }
+        return nil
+    }
     
     static func getWalletName(_ account: Account?) -> String? {
         if (account == nil) {

@@ -150,7 +150,16 @@ class IBCTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func onClickIbcSend(_ sender: UIButton) {
-        self.onShowToast(NSLocalizedString("prepare", comment: ""))
+//        self.onShowToast(NSLocalizedString("prepare", comment: ""))
+        
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mIBCSendDenom = ibcDenom
+        txVC.mType = TASK_IBC_TRANSFER
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     @IBAction func onClickSend(_ sender: UIButton) {

@@ -329,6 +329,11 @@
 "str_select_osmo_lockup_duration_title" = "Select Lockup Type.";
 "str_select_osmo_unbonding_all" = "Unbonding all for same durations?";
 "str_select_osmo_unlock_all" = "Unlock all?";
+"str_select_ibc_destination" = "Select Destination Chain.";
+"str_select_ibc_relayer" = "Select Realyer for IBC Transfer.";
+"str_notice" = "Notice";
+"str_msg_ibc" = "Notice";
+"str_msg_relayer_unauthed" = "This is an unconfirmed relayer.\nIBC transfers through an inoperable relayer may result in loss of assets.\nDo you wish to continue?";
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";
 "creat_cdp_step_1" = "Insert memo (optional)";

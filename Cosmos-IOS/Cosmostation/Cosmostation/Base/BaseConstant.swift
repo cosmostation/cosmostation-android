@@ -812,6 +812,8 @@ public enum ChainType: String {
     case MEDI_MAIN
     case EMONEY_MAIN
     
+    case REGEN_MAIN
+    
     case COSMOS_TEST
     case IRIS_TEST
     case BINANCE_TEST
@@ -1040,6 +1042,8 @@ let SELECT_POPUP_KAVA_SWAP_IN = 6
 let SELECT_POPUP_KAVA_SWAP_OUT = 7
 let SELECT_POPUP_GRAVITY_SWAP_IN = 8
 let SELECT_POPUP_GRAVITY_SWAP_OUT = 9
+let SELECT_POPUP_IBC_CHAIN = 10
+let SELECT_POPUP_IBC_RELAYER = 11
 
 
 let EXPLORER_COSMOS_MAIN    = "https://www.mintscan.io/cosmos/";
