@@ -432,13 +432,13 @@ public class BaseData {
 
     public ArrayList<Vesting.Period> onParseRemainVestingsByDenom(String denom) {
         ArrayList<Vesting.Period> result = new ArrayList<>();
-        if (mGRpcAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
+        if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
             try {
                 Vesting.PeriodicVestingAccount vestingAccount = Vesting.PeriodicVestingAccount.parseFrom(mGRpcAccount.getValue());
                 return WDp.onParsePeriodicRemainVestingsByDenom(vestingAccount, denom);
             } catch (InvalidProtocolBufferException e) { }
 
-        } else if (mGRpcAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
+        } else if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
             try {
                 Vesting.ContinuousVestingAccount vestingAccount = Vesting.ContinuousVestingAccount.parseFrom(mGRpcAccount.getValue());
                 long cTime = Calendar.getInstance().getTime().getTime();
