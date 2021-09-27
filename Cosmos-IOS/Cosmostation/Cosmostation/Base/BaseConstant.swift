@@ -497,6 +497,7 @@ let GAS_FEE_AMOUNT_MID                      = "200000"
 let GAS_FEE_AMOUNT_HIGH                     = "300000"
 let GAS_FEE_AMOUNT_REINVEST                 = "220000"
 let GAS_FEE_AMOUNT_REDELE                   = "240000"
+let GAS_FEE_AMOUNT_IBC_SEND                 = "400000"
 
 let GAS_FEE_AMOUNT_COSMOS_SWAP              = "200000"
 let GAS_FEE_AMOUNT_COSMOS_JOIN_POOL         = "300000"
@@ -534,6 +535,7 @@ let BAND_GAS_AMOUNT_REDELEGATE                  = "240000";
 let BAND_GAS_AMOUNT_REINVEST                    = "220000";
 let BAND_GAS_AMOUNT_ADDRESS_CHANGE              = "100000";
 let BAND_GAS_AMOUNT_VOTE                        = "100000";
+let BAND_GAS_AMOUNT_IBC_SEND                    = "500000";
 
 
 let IOV_GAS_AMOUNT_SEND                         = "100000";
@@ -546,6 +548,7 @@ let IOV_GAS_AMOUNT_REGISTER                     = "300000";
 let IOV_GAS_AMOUNT_DELETE                       = "150000";
 let IOV_GAS_AMOUNT_RENEW                        = "300000";
 let IOV_GAS_AMOUNT_REPLACE                      = "300000";
+let IOV_GAS_AMOUNT_IBC_SEND                     = "500000";
 
 let OK_GAS_RATE_AVERAGE                         = "0.000000001";
 let OK_GAS_AMOUNT_SEND                          = "200000";
@@ -560,6 +563,7 @@ let CERTIK_GAS_AMOUNT_REDELEGATE                = "300000";
 let CERTIK_GAS_AMOUNT_REINVEST                  = "300000";
 let CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE     = "100000";
 let CERTIK_GAS_AMOUNT_VOTE                      = "100000";
+let CERTIK_GAS_AMOUNT_IBC_SEND                  = "500000";
 
 let SECRET_GAS_FEE_RATE_AVERAGE                 = "0.25";
 let SECRET_GAS_AMOUNT_SEND                      = "80000";
@@ -575,6 +579,7 @@ let SENTINEL_GAS_AMOUNT_REDELEGATE              = "300000";
 let SENTINEL_GAS_AMOUNT_REINVEST                = "350000";
 let SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE   = "100000";
 let SENTINEL_GAS_AMOUNT_VOTE                    = "100000";
+let SENTINEL_GAS_AMOUNT_IBC_SEND                = "500000";
 
 //let FETCH_GAS_FEE_RATE_AVERAGE                  = "0.00";
 let FETCH_GAS_AMOUNT_SEND                       = "100000";
@@ -583,6 +588,7 @@ let FETCH_GAS_AMOUNT_REDELEGATE                 = "300000";
 let FETCH_GAS_AMOUNT_REINVEST                   = "350000";
 let FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE      = "100000";
 let FETCH_GAS_AMOUNT_VOTE                       = "100000";
+let FETCH_GAS_AMOUNT_IBC_SEND                   = "500000";
 
 
 let SIF_GAS_AMOUNT_SEND                         = "100000";
@@ -591,6 +597,7 @@ let SIF_GAS_AMOUNT_REDELEGATE                   = "300000";
 let SIF_GAS_AMOUNT_REINVEST                     = "350000";
 let SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE        = "100000";
 let SIF_GAS_AMOUNT_VOTE                         = "100000";
+let SIF_GAS_AMOUNT_IBC_SEND                     = "500000";
 
 let KI_GAS_FEE_RATE_AVERAGE                     = "0.025";
 let KI_GAS_AMOUNT_SEND                          = "100000";
@@ -606,6 +613,7 @@ let MEDI_GAS_AMOUNT_REDELEGATE                  = "300000";
 let MEDI_GAS_AMOUNT_REINVEST                    = "350000";
 let MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE       = "100000";
 let MEDI_GAS_AMOUNT_VOTE                        = "100000";
+let MEDI_GAS_AMOUNT_IBC_SEND                    = "500000";
 
 
 
@@ -649,7 +657,7 @@ let TOKEN_HTLC_KAVA_TEST_BTC                = "btcb"
 
 let SWAP_MEMO_CREATE                        = "Create Atomic Swap via Cosmostation iOS Wallet"
 let SWAP_MEMO_CLAIM                         = "Claim Atomic Swap via Cosmostation iOS Wallet"
-
+let IBC_TRANSFER_MEMO                       = "IBC Transfer via Cosmostation iOS Wallet"
 
 
 let COLOR_BG_GRAY                           = UIColor.init(hexString: "2E2E2E", alpha: 0.4)

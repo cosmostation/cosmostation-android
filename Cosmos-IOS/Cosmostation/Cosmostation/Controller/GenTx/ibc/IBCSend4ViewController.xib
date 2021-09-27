@@ -10,6 +10,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IBCSend4ViewController" customModule="Cosmostation" customModuleProvider="target">
             <connections>
+                <outlet property="btnBack" destination="Ge7-Ns-XHy" id="wEb-Ca-cQc"/>
+                <outlet property="btnConfirm" destination="Rtq-pl-eO8" id="Tca-5r-NlG"/>
+                <outlet property="destinationAddressLabel" destination="4iF-sr-RGw" id="vQR-Qk-GBi"/>
+                <outlet property="destinationChainLabel" destination="GB0-Nn-ROE" id="tbP-Aw-MVM"/>
+                <outlet property="toSendAmountLabel" destination="Hrs-Wb-FIU" id="nSl-C1-eRp"/>
+                <outlet property="toSendDenomLabel" destination="ubs-Xc-6bR" id="GxU-Jm-pos"/>
+                <outlet property="txFeeAmountLabel" destination="bKn-2U-OzE" id="Nbo-QU-xUy"/>
+                <outlet property="txFeeDenomLabel" destination="bsE-i6-X9F" id="tX8-8L-8mH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -41,6 +49,9 @@
                                     <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickBack:" destination="-1" eventType="touchUpInside" id="pNi-vv-gvt"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rtq-pl-eO8">
                             <rect key="frame" x="196" y="0.0" width="186" height="50"/>
@@ -62,6 +73,9 @@
                                     <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickConfirm:" destination="-1" eventType="touchUpInside" id="fIT-S9-ZxO"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>
@@ -117,7 +131,7 @@
                             <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iF-sr-RGw">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iF-sr-RGw">
                             <rect key="frame" x="16" y="150.5" width="350" height="16.5"/>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -129,8 +143,8 @@
                             <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chain" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GB0-Nn-ROE">
-                            <rect key="frame" x="334.5" y="99.5" width="31.5" height="14"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GB0-Nn-ROE">
+                            <rect key="frame" x="362" y="99.5" width="4" height="14"/>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>

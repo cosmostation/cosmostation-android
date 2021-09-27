@@ -152,18 +152,17 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
     func onFetchgRPCAuth(_ account: Account) {
         self.showWaittingAlert()
         DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.chainType!, group)!
-            defer { try! channel.close().wait() }
-            
-            let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
-                $0.address = account.account_address
-            }
             do {
-                let response = try Cosmos_Auth_V1beta1_QueryClient(channel: channel).account(req).response.wait()
-                self.onSimulateGrpcTx(response)
+                let channel = BaseNetWork.getConnection(self.chainType!, MultiThreadedEventLoopGroup(numberOfThreads: 1))!
+                let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with { $0.address = account.account_address }
+                if let response = try? Cosmos_Auth_V1beta1_QueryClient(channel: channel).account(req).response.wait() {
+                    if (self.pageHolderVC.mType == TASK_IBC_TRANSFER) {
+                        self.onFetchIbcClientState(response)
+                    } else {
+                        self.onSimulateGrpcTx(response, nil)
+                    }
+                }
+                try channel.close().wait()
             } catch {
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
                 print("onFetchgRPCAuth failed: \(error)")
@@ -171,22 +170,36 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
         }
     }
     
-    func onSimulateGrpcTx(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse?) {
+    func onFetchIbcClientState(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse) {
+        DispatchQueue.global().async {
+            do {
+                let channel = BaseNetWork.getConnection(self.chainType!, MultiThreadedEventLoopGroup(numberOfThreads: 1))!
+                let req = Ibc_Core_Channel_V1_QueryChannelClientStateRequest.with {
+                    $0.channelID = self.pageHolderVC.mIBCSendPath!.channel_id!
+                    $0.portID = self.pageHolderVC.mIBCSendPath!.port_id!
+                }
+                if let response = try? Ibc_Core_Channel_V1_QueryClient(channel: channel).channelClientState(req).response.wait() {
+                    let clientState = try! Ibc_Lightclients_Tendermint_V1_ClientState.init(serializedData: response.identifiedClientState.clientState.value)
+                    self.onSimulateGrpcTx(auth, clientState.latestHeight)
+                }
+                try channel.close().wait()
+            } catch {
+                print("onFetchIbcClientState failed: \(error)")
+            }
+        }
+    }
+    
+    func onSimulateGrpcTx(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse?, _ height: Ibc_Core_Client_V1_Height?) {
         DispatchQueue.global().async {
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
             let privateKey = KeyFac.getPrivateRaw(words, self.pageHolderVC.mAccount!)
             let publicKey = KeyFac.getPublicRaw(words, self.pageHolderVC.mAccount!)
-            let simulateReq = self.genSimulateReq(auth!, privateKey, publicKey)
-            
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.chainType!, group)!
-            defer { try! channel.close().wait() }
+            let simulateReq = self.genSimulateReq(auth!, privateKey, publicKey, height)
             
             do {
+                let channel = BaseNetWork.getConnection(self.chainType!, MultiThreadedEventLoopGroup(numberOfThreads: 1))!
                 let response = try Cosmos_Tx_V1beta1_ServiceClient(channel: channel).simulate(simulateReq!).response.wait()
 //                print("response ", response.gasInfo)
                 DispatchQueue.main.async(execute: {
@@ -210,7 +223,7 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
         }
     }
     
-    func genSimulateReq(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ privateKey: Data, _ publicKey: Data)  -> Cosmos_Tx_V1beta1_SimulateRequest? {
+    func genSimulateReq(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ privateKey: Data, _ publicKey: Data, _ height: Ibc_Core_Client_V1_Height?)  -> Cosmos_Tx_V1beta1_SimulateRequest? {
         if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2) {
             return Signer.genSimulateSendTxgRPC(auth, self.pageHolderVC.mToSendRecipientAddress!, self.pageHolderVC.mToSendAmount,
                                                 self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, privateKey, publicKey,
@@ -381,6 +394,21 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
                                                             self.pageHolderVC.mMemo!,
                                                             privateKey, publicKey,
                                                             BaseData.instance.getChainId(self.chainType))
+        }
+        
+        //for IBC Transfer
+        else if (pageHolderVC.mType == TASK_IBC_TRANSFER) {
+            return Signer.genSimulateIbcTransferMsgTxgRPC(auth,
+                                                          self.pageHolderVC.mAccount!.account_address,
+                                                          self.pageHolderVC.mIBCRecipient!,
+                                                          self.pageHolderVC.mIBCSendDenom!,
+                                                          self.pageHolderVC.mIBCSendAmount!,
+                                                          self.pageHolderVC.mIBCSendPath!,
+                                                          height!,
+                                                          self.pageHolderVC.mFee!,
+                                                          IBC_TRANSFER_MEMO,
+                                                          privateKey, publicKey,
+                                                          BaseData.instance.getChainId(self.chainType))
         }
         
         return nil

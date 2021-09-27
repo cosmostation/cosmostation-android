@@ -150,11 +150,18 @@ class IBCTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func onClickIbcSend(_ sender: UIButton) {
-//        if (!account!.account_has_private) {
-//            self.onShowAddMenomicDialog()
-//            return
-//        }
-        //TODO check Tx fee
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let stakingDenom = WUtils.getMainDenom(chainType)
+        let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_IBC_TRANSFER, 0)
+        if (BaseData.instance.getAvailableAmount_gRPC(stakingDenom).compare(feeAmount).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+            return
+        }
+        
         self.onAlertIbcTransfer()
     }
     

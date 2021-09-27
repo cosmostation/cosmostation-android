@@ -2739,6 +2739,34 @@ public class WUtils {
 
     }
     
+    static func tokenDivideDecimal(_ chain: ChainType?, _ denom: String) -> Int16 {
+        let mainDenom = getMainDenom(chain)
+        if (isGRPC(chain)) {
+            if (denom == mainDenom) {
+                return mainDivideDecimal(chain)
+            }
+            if (denom.starts(with: "ibc/")) {
+                if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")), let decimal = ibcToken.decimal  {
+                    return decimal
+                }
+                return 6
+            }
+            if (chain == ChainType.COSMOS_MAIN) {
+                return getCosmosCoinDecimal(denom)
+            } else if (chain == ChainType.OSMOSIS_MAIN) {
+                return getOsmosisCoinDecimal(denom)
+            } else if (chain == ChainType.SIF_MAIN) {
+                return getSifCoinDecimal(denom)
+            }
+            print("CHECK DECIMAL")
+            return 6
+            
+        } else {
+            //NO need without gRPC
+            return 6
+        }
+    }
+    
     static func mainDivideDecimal(_ chain:ChainType?) -> Int16 {
         if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
             return 0
@@ -3070,6 +3098,8 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_COSMOS_JOIN_POOL))
             } else if (type == LIQUIDITY_MSG_TYPE_EXIT_POOL) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_COSMOS_EXIT_POOL))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.OSMOSIS_MAIN ) {
@@ -3101,6 +3131,8 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_BEGIN_UNBONDING))
             } else if (type == OSMOSIS_MSG_TYPE_PERIOD_UNLOCK) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_UNLOCK))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IBC_SEND))
             }
         }
         
@@ -3156,6 +3188,8 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(BAND_GAS_AMOUNT_ADDRESS_CHANGE))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(BAND_GAS_AMOUNT_VOTE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(BAND_GAS_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
@@ -3183,10 +3217,12 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_RENEW))
             } else if (type == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_REPLACE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
-            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == TASK_IBC_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(OK_GAS_AMOUNT_SEND))
             } else if (type == OK_MSG_TYPE_DEPOSIT || type == OK_MSG_TYPE_WITHDRAW) {
                 result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE))
@@ -3209,10 +3245,12 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_VOTE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.SECRET_MAIN) {
-            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == TASK_IBC_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_STAKE))
@@ -3229,7 +3267,7 @@ public class WUtils {
             }
             
         } else if (chain == ChainType.SENTINEL_MAIN) {
-            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == TASK_IBC_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_STAKE))
@@ -3245,10 +3283,12 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_VOTE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.FETCH_MAIN) {
-            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == TASK_IBC_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_STAKE))
@@ -3264,10 +3304,12 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_VOTE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.SIF_MAIN) {
-            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == TASK_IBC_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_STAKE))
@@ -3283,6 +3325,8 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_VOTE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.KI_MAIN) {
@@ -3305,7 +3349,7 @@ public class WUtils {
             }
             
         } else if (chain == ChainType.MEDI_MAIN || chain == ChainType.MEDI_TEST) {
-            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == TASK_IBC_TRANSFER) {
                result = NSDecimalNumber.init(string: String(MEDI_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(MEDI_GAS_AMOUNT_STAKE))
@@ -3321,6 +3365,8 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(MEDI_GAS_AMOUNT_VOTE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(MEDI_GAS_AMOUNT_IBC_SEND))
             }
             
         }

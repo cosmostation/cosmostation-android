@@ -10,6 +10,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IBCSend2ViewController" customModule="Cosmostation" customModuleProvider="target">
             <connections>
+                <outlet property="btn01" destination="8G7-rm-kb6" id="XFP-N8-2f7"/>
+                <outlet property="btnBack" destination="565-hu-zb9" id="V2h-E3-rSE"/>
+                <outlet property="btnNext" destination="p3d-P5-sZ3" id="KcK-K0-zpO"/>
+                <outlet property="denomTitleLabel" destination="CS0-QX-jrC" id="L85-3h-nEF"/>
+                <outlet property="mAvailableAmountLabel" destination="994-Qf-mob" id="Io1-xl-guu"/>
+                <outlet property="mTargetAmountTextField" destination="Kkj-yk-plX" id="b2j-2W-wKL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -36,6 +42,9 @@
                         <constraint firstAttribute="height" constant="32" id="qTx-fu-szg"/>
                     </constraints>
                     <state key="normal" image="close_btn"/>
+                    <connections>
+                        <action selector="onClickClear:" destination="-1" eventType="touchUpInside" id="CLO-HZ-7vf"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="994-Qf-mob">
                     <rect key="frame" x="361" y="118" width="4" height="14"/>
@@ -75,6 +84,9 @@
                                     <real key="value" value="8"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickAdd01:" destination="-1" eventType="touchUpInside" id="mgg-De-J1P"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4o3-VX-0bd">
                             <rect key="frame" x="65" y="0.0" width="58.5" height="35"/>
@@ -93,6 +105,9 @@
                                     <real key="value" value="8"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickAdd1:" destination="-1" eventType="touchUpInside" id="885-6z-r7Z"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIl-jd-Kxd">
                             <rect key="frame" x="129.5" y="0.0" width="59" height="35"/>
@@ -111,6 +126,9 @@
                                     <real key="value" value="8"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickAdd10:" destination="-1" eventType="touchUpInside" id="iLr-a9-R1Z"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3F-xZ-Bxi">
                             <rect key="frame" x="194.5" y="0.0" width="59" height="35"/>
@@ -129,6 +147,9 @@
                                     <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickAdd100:" destination="-1" eventType="touchUpInside" id="A67-iX-z1J"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCJ-AJ-jy9">
                             <rect key="frame" x="259.5" y="0.0" width="58.5" height="35"/>
@@ -147,6 +168,9 @@
                                     <real key="value" value="8"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickHalf:" destination="-1" eventType="touchUpInside" id="tIT-tp-yOn"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSa-gR-un3">
                             <rect key="frame" x="324" y="0.0" width="59" height="35"/>
@@ -165,6 +189,9 @@
                                     <real key="value" value="0.5"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickMax:" destination="-1" eventType="touchUpInside" id="VMN-IH-O4b"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>
@@ -194,6 +221,9 @@
                                     <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickBack:" destination="-1" eventType="touchUpInside" id="sIk-bn-8D3"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3d-P5-sZ3">
                             <rect key="frame" x="196" y="0.0" width="186" height="50"/>
@@ -215,6 +245,9 @@
                                     <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickNext:" destination="-1" eventType="touchUpInside" id="zn6-SQ-fnj"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>
