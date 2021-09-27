@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:text="@string/tx_remove_liquidity"
+                    android:text="@string/tx_sif_exit_pool"
                     style="@style/font_ss_15_white"/>
             </LinearLayout>
             <LinearLayout
@@ -62,7 +62,39 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">
                 <TextView
-                    android:id="@+id/tx_remove_liquidity_title"
+                    android:id="@+id/tx_liquidity_native_asset_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_liquidity_native_asset"
+                    style="@style/font_ss_12_gray1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tx_liquidity_native_asset_title">
+                    <TextView
+                        android:id="@+id/tx_liquidity_native_symbol"
+                        android:layout_width="@dimen/space_60"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="end"
+                        style="@style/font_ss_12_white"/>
+                    <TextView
+                        android:id="@+id/tx_liquidity_native_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/tx_liquidity_native_symbol"
+                        android:layout_toLeftOf="@+id/tx_liquidity_native_symbol"
+                        android:layout_marginRight="@dimen/space_2"
+                        android:text="-"
+                        style="@style/font_ss_12_white"/>
+                </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16">
+                <TextView
+                    android:id="@+id/tx_iquidity_exteranl_asset_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/str_liquidity_external_asset"
@@ -70,20 +102,21 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tx_remove_liquidity_title">
+                    android:layout_toRightOf="@+id/tx_iquidity_exteranl_asset_title">
                     <TextView
-                        android:id="@+id/tx_remove_liquidity_symbol"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tx_liquidity_exteranl_symbol"
+                        android:layout_width="@dimen/space_60"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="end"
+                        android:text=""
                         style="@style/font_ss_12_white"/>
                     <TextView
-                        android:id="@+id/tx_remove_liquidity_amount"
+                        android:id="@+id/tx_liquidity_exteranl_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_remove_liquidity_symbol"
-                        android:layout_toLeftOf="@+id/tx_remove_liquidity_symbol"
+                        android:layout_alignBaseline="@+id/tx_liquidity_exteranl_symbol"
+                        android:layout_toLeftOf="@+id/tx_liquidity_exteranl_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
                         style="@style/font_ss_12_white"/>

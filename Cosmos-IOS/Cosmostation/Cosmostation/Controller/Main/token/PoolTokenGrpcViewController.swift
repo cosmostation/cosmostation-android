@@ -120,13 +120,7 @@ class PoolTokenGrpcViewController: BaseViewController, UITableViewDelegate, UITa
     
     
     @objc func onClickActionShare() {
-        var nickName:String?
-        if (account?.account_nick_name == "") {
-            nickName = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
-        } else {
-            nickName = account?.account_nick_name
-        }
-        self.shareAddress(account!.account_address, nickName!)
+        self.shareAddress(account!.account_address, WUtils.getWalletName(account))
     }
     
     

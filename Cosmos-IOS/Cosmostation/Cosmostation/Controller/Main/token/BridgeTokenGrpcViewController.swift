@@ -112,17 +112,11 @@ class BridgeTokenGrpcViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     @objc func onClickActionShare() {
-        var nickName:String?
-        if (account?.account_nick_name == "") {
-            nickName = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
-        } else {
-            nickName = account?.account_nick_name
-        }
         var address = account!.account_address
         if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             address = WKey.convertAddressOkexToEth(address)
         }
-        self.shareAddress(address, nickName!)
+        self.shareAddress(address, WUtils.getWalletName(account))
     }
     
     @IBAction func onClickBack(_ sender: UIButton) {
@@ -130,7 +124,42 @@ class BridgeTokenGrpcViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     @IBAction func onClickIbcSend(_ sender: UIButton) {
-        self.onShowToast(NSLocalizedString("prepare", comment: ""))
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let stakingDenom = WUtils.getMainDenom(chainType)
+        let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_IBC_TRANSFER, 0)
+        if (BaseData.instance.getAvailableAmount_gRPC(stakingDenom).compare(feeAmount).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+            return
+        }
+        
+        self.onAlertIbcTransfer()
+    }
+    
+    func onAlertIbcTransfer() {
+        let unAuthTitle = NSLocalizedString("str_notice", comment: "")
+        let unAuthMsg = NSLocalizedString("str_msg_ibc", comment: "")
+        let noticeAlert = UIAlertController(title: unAuthTitle, message: unAuthMsg, preferredStyle: .alert)
+        noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
+            self.onStartIbc()
+        }))
+        self.present(noticeAlert, animated: true) {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
+            noticeAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
+        }
+    }
+    
+    func onStartIbc() {
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mIBCSendDenom = bridgeDenom
+        txVC.mType = TASK_IBC_TRANSFER
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     @IBAction func onClickSend(_ sender: UIButton) {

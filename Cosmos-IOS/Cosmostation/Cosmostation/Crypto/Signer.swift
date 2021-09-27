@@ -1242,8 +1242,75 @@ class Signer {
             $0.tx = simulateTx
         }
     }
-        
     
+    static func genSignedIbcTransferMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                              _ sender: String, _ receiver: String, _ ibcSendDenom: String, _ ibcSendAmount: String, _ ibcPath: Path, _ lastHeight: Ibc_Core_Client_V1_Height,
+                                              _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let re_timeout_height = Ibc_Core_Client_V1_Height.with {
+            $0.revisionNumber = lastHeight.revisionNumber
+            $0.revisionHeight = lastHeight.revisionHeight + 100
+        }
+        let re_token = Cosmos_Base_V1beta1_Coin.with {
+            $0.denom = ibcSendDenom
+            $0.amount = ibcSendAmount
+        }
+
+        let ibcSendMsg = Ibc_Applications_Transfer_V1_MsgTransfer.with {
+            $0.sender = sender
+            $0.receiver = receiver
+            $0.sourcePort = ibcPath.port_id!
+            $0.sourceChannel = ibcPath.channel_id!
+            $0.timeoutHeight = re_timeout_height
+            $0.timeoutTimestamp = 0
+            $0.token = re_token
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/ibc.applications.transfer.v1.MsgTransfer"
+            $0.value = try! ibcSendMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSimulateIbcTransferMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                _ sender: String, _ receiver: String, _ ibcSendDenom: String, _ ibcSendAmount: String, _ ibcPath: Path, _ lastHeight: Ibc_Core_Client_V1_Height,
+                                                _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        let re_timeout_height = Ibc_Core_Client_V1_Height.with {
+            $0.revisionNumber = lastHeight.revisionNumber
+            $0.revisionHeight = lastHeight.revisionHeight + 100
+        }
+        let re_token = Cosmos_Base_V1beta1_Coin.with {
+            $0.denom = ibcSendDenom
+            $0.amount = ibcSendAmount
+        }
+
+        let ibcSendMsg = Ibc_Applications_Transfer_V1_MsgTransfer.with {
+            $0.sender = sender
+            $0.receiver = receiver
+            $0.sourcePort = ibcPath.port_id!
+            $0.sourceChannel = ibcPath.channel_id!
+            $0.timeoutHeight = re_timeout_height
+            $0.timeoutTimestamp = 0
+            $0.token = re_token
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/ibc.applications.transfer.v1.MsgTransfer"
+            $0.value = try! ibcSendMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, publicKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, privateKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
     
     
     static func getGrpcTxBody(_ msgAnys: Array<Google_Protobuf2_Any>, _ memo: String) -> Cosmos_Tx_V1beta1_TxBody {

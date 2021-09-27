@@ -140,6 +140,12 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mHdacBalance: NSDecimalNumber?
     var mHdacUTXOs: Array<HdacUtxo>?
     
+    var mIBCSendDenom: String?
+    var mIBCSendAmount: String?
+    var mIBCRecipient: String?
+    var mIBCSendRelayer: IbcPath?
+    var mIBCSendPath: Path?
+    
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
             if (WUtils.isGRPC(chainType!)) {
@@ -415,11 +421,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     StartUnlock3ViewController(nibName: "StartUnlock3ViewController", bundle: nil)]
         }
         
-        else if (mType == TASK_RIZON_EVENT_HORIZON) {
-            return [StepEventHorizon0ViewController(nibName: "StepEventHorizon0ViewController", bundle: nil),
-                    StepEventHorizon1ViewController(nibName: "StepEventHorizon1ViewController", bundle: nil)]
-        }
-        
         else if (mType == LIQUIDITY_MSG_TYPE_SWAP) {
             return [GdexSwap0ViewController(nibName: "GdexSwap0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
@@ -438,6 +439,20 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
                     GdexWithdraw3ViewController(nibName: "GdexWithdraw3ViewController", bundle: nil)]
             
+        }
+        
+        else if (mType == TASK_IBC_TRANSFER) {
+            return [IBCSend0ViewController(nibName: "IBCSend0ViewController", bundle: nil),
+                    IBCSend1ViewController(nibName: "IBCSend1ViewController", bundle: nil),
+                    IBCSend2ViewController(nibName: "IBCSend2ViewController", bundle: nil),
+                    StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                    IBCSend4ViewController(nibName: "IBCSend4ViewController", bundle: nil)]
+            
+        }
+        
+        else if (mType == TASK_RIZON_EVENT_HORIZON) {
+            return [StepEventHorizon0ViewController(nibName: "StepEventHorizon0ViewController", bundle: nil),
+                    StepEventHorizon1ViewController(nibName: "StepEventHorizon1ViewController", bundle: nil)]
         }
         
         
@@ -528,7 +543,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     func onNextPage() {
         disableBounce = false
-        if ((currentIndex <= 3 && (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE || mType == IOV_MSG_TYPE_REGISTER_ACCOUNT || mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV)) || currentIndex <= 2) {
+        if ((currentIndex <= 3 && (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE ||
+                                    mType == IOV_MSG_TYPE_REGISTER_ACCOUNT || mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV) || mType == TASK_IBC_TRANSFER) || currentIndex <= 2) {
             setViewControllers([orderedViewControllers[currentIndex + 1]], direction: .forward, animated: true, completion: { (finished) -> Void in
                 self.currentIndex = self.currentIndex + 1
                 let value:[String: Int] = ["step": self.currentIndex ]

@@ -136,17 +136,11 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
     
     
     @objc func onClickActionShare() {
-        var nickName:String?
-        if (account?.account_nick_name == "") {
-            nickName = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
-        } else {
-            nickName = account?.account_nick_name
-        }
         var address = account!.account_address
         if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             address = WKey.convertAddressOkexToEth(address)
         }
-        self.shareAddress(address, nickName!)
+        self.shareAddress(address, WUtils.getWalletName(account))
     }
     
     

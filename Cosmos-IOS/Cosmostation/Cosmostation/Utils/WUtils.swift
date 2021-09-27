@@ -2739,6 +2739,34 @@ public class WUtils {
 
     }
     
+    static func tokenDivideDecimal(_ chain: ChainType?, _ denom: String) -> Int16 {
+        let mainDenom = getMainDenom(chain)
+        if (isGRPC(chain)) {
+            if (denom == mainDenom) {
+                return mainDivideDecimal(chain)
+            }
+            if (denom.starts(with: "ibc/")) {
+                if let ibcToken = BaseData.instance.getIbcToken(denom.replacingOccurrences(of: "ibc/", with: "")), let decimal = ibcToken.decimal  {
+                    return decimal
+                }
+                return 6
+            }
+            if (chain == ChainType.COSMOS_MAIN) {
+                return getCosmosCoinDecimal(denom)
+            } else if (chain == ChainType.OSMOSIS_MAIN) {
+                return getOsmosisCoinDecimal(denom)
+            } else if (chain == ChainType.SIF_MAIN) {
+                return getSifCoinDecimal(denom)
+            }
+            print("CHECK DECIMAL")
+            return 6
+            
+        } else {
+            //NO need without gRPC
+            return 6
+        }
+    }
+    
     static func mainDivideDecimal(_ chain:ChainType?) -> Int16 {
         if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
             return 0
@@ -3070,6 +3098,8 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_COSMOS_JOIN_POOL))
             } else if (type == LIQUIDITY_MSG_TYPE_EXIT_POOL) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_COSMOS_EXIT_POOL))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.OSMOSIS_MAIN ) {
@@ -3101,6 +3131,8 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_BEGIN_UNBONDING))
             } else if (type == OSMOSIS_MSG_TYPE_PERIOD_UNLOCK) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_OSMOS_UNLOCK))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IBC_SEND))
             }
         }
         
@@ -3156,6 +3188,8 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(BAND_GAS_AMOUNT_ADDRESS_CHANGE))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(BAND_GAS_AMOUNT_VOTE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(BAND_GAS_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
@@ -3183,10 +3217,12 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_RENEW))
             } else if (type == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_REPLACE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
-            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == TASK_IBC_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(OK_GAS_AMOUNT_SEND))
             } else if (type == OK_MSG_TYPE_DEPOSIT || type == OK_MSG_TYPE_WITHDRAW) {
                 result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE))
@@ -3209,10 +3245,12 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_VOTE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.SECRET_MAIN) {
-            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == TASK_IBC_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_STAKE))
@@ -3229,7 +3267,7 @@ public class WUtils {
             }
             
         } else if (chain == ChainType.SENTINEL_MAIN) {
-            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == TASK_IBC_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_STAKE))
@@ -3245,10 +3283,12 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_VOTE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.FETCH_MAIN) {
-            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == TASK_IBC_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_STAKE))
@@ -3264,10 +3304,12 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_VOTE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.SIF_MAIN) {
-            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == TASK_IBC_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_STAKE))
@@ -3283,6 +3325,8 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_VOTE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_IBC_SEND))
             }
             
         } else if (chain == ChainType.KI_MAIN) {
@@ -3305,7 +3349,7 @@ public class WUtils {
             }
             
         } else if (chain == ChainType.MEDI_MAIN || chain == ChainType.MEDI_TEST) {
-            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == TASK_IBC_TRANSFER) {
                result = NSDecimalNumber.init(string: String(MEDI_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(MEDI_GAS_AMOUNT_STAKE))
@@ -3321,6 +3365,8 @@ public class WUtils {
                 result = NSDecimalNumber.init(string: String(MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(MEDI_GAS_AMOUNT_VOTE))
+            } else if (type == TASK_IBC_TRANSFER) {
+                result = NSDecimalNumber.init(string: String(MEDI_GAS_AMOUNT_IBC_SEND))
             }
             
         }
@@ -4539,6 +4585,226 @@ public class WUtils {
         }
         return UIImage(named: "tokenIc")
         
+    }
+    
+    static func getChainImg(_ chain: ChainType?) -> UIImage? {
+        if (chain == ChainType.COSMOS_MAIN) { return UIImage(named: "cosmosWhMain") }
+        else if (chain == ChainType.IRIS_MAIN) { return UIImage(named: "irisWh") }
+        else if (chain == ChainType.BINANCE_MAIN) { return UIImage(named: "binanceChImg") }
+        else if (chain == ChainType.OKEX_MAIN) { return UIImage(named: "okexChainImg") }
+        else if (chain == ChainType.AKASH_MAIN) { return UIImage(named: "akashChainImg") }
+        else if (chain == ChainType.KAVA_MAIN) { return UIImage(named: "kavaImg") }
+        else if (chain == ChainType.BAND_MAIN) { return UIImage(named: "chainBandprotocal") }
+        else if (chain == ChainType.SECRET_MAIN) { return UIImage(named: "secretChainImg") }
+        else if (chain == ChainType.CERTIK_MAIN) { return UIImage(named: "certikChainImg") }
+        else if (chain == ChainType.IOV_MAIN) { return UIImage(named: "iovChainImg") }
+        else if (chain == ChainType.PERSIS_MAIN) { return UIImage(named: "chainpersistence") }
+        else if (chain == ChainType.SENTINEL_MAIN) { return UIImage(named: "chainsentinel") }
+        else if (chain == ChainType.FETCH_MAIN) { return UIImage(named: "chainfetchai") }
+        else if (chain == ChainType.CRYPTO_MAIN) { return UIImage(named: "chaincrypto") }
+        else if (chain == ChainType.SIF_MAIN) { return UIImage(named: "chainsifchain") }
+        else if (chain == ChainType.KI_MAIN) { return UIImage(named: "chainKifoundation") }
+        else if (chain == ChainType.OSMOSIS_MAIN) { return UIImage(named: "chainOsmosis") }
+        else if (chain == ChainType.MEDI_MAIN) { return UIImage(named: "chainMedibloc") }
+        else if (chain == ChainType.EMONEY_MAIN) { return UIImage(named: "chainEmoney") }
+        
+        else if (chain == ChainType.REGEN_MAIN) { return UIImage(named: "chainRegen") }
+        
+        else if (chain == ChainType.COSMOS_TEST) { return UIImage(named: "cosmosTestChainImg") }
+        else if (chain == ChainType.IRIS_TEST) { return UIImage(named: "irisTestChainImg") }
+        else if (chain == ChainType.BINANCE_TEST) { return UIImage(named: "binancetestnet") }
+        else if (chain == ChainType.KAVA_TEST) { return UIImage(named: "kavaTestImg") }
+        else if (chain == ChainType.RIZON_TEST) { return UIImage(named: "testnetRizon") }
+        else if (chain == ChainType.ALTHEA_TEST) { return UIImage(named: "testnetAlthea") }
+        else if (chain == ChainType.UMEE_TEST) { return UIImage(named: "testnetUmee") }
+        else if (chain == ChainType.AXELAR_TEST) { return UIImage(named: "testnetAxelar") }
+        return UIImage(named: "cosmosTestChainImg")
+    }
+    
+    static func getChainTitle(_ chain: ChainType?) -> String {
+        if (chain == ChainType.COSMOS_MAIN) { return "(Cosmos Mainnet)" }
+        else if (chain == ChainType.IRIS_MAIN) { return "(Iris Mainnet)" }
+        else if (chain == ChainType.BINANCE_MAIN) { return "(Binance Mainnet)" }
+        else if (chain == ChainType.OKEX_MAIN) { return "(ExChain Mainnet)" }
+        else if (chain == ChainType.AKASH_MAIN) { return "(Akash Mainnet)" }
+        else if (chain == ChainType.KAVA_MAIN) { return "(Kava Mainnet)" }
+        else if (chain == ChainType.BAND_MAIN) { return "(Band Mainnet)" }
+        else if (chain == ChainType.SECRET_MAIN) { return "(Secret Mainnet)" }
+        else if (chain == ChainType.CERTIK_MAIN) { return "(Certik Mainnet)" }
+        else if (chain == ChainType.IOV_MAIN) { return "(Starname Mainnet)" }
+        else if (chain == ChainType.PERSIS_MAIN) { return "(Persistence Mainnet)" }
+        else if (chain == ChainType.SENTINEL_MAIN) { return "(Sentinel Mainnet)" }
+        else if (chain == ChainType.FETCH_MAIN) { return "(Fetch.Ai Mainnet)" }
+        else if (chain == ChainType.CRYPTO_MAIN) { return "(Crypto.org Mainnet)" }
+        else if (chain == ChainType.SIF_MAIN) { return "(SifChain Mainnet)" }
+        else if (chain == ChainType.KI_MAIN) { return "(KiChain Mainnet)" }
+        else if (chain == ChainType.OSMOSIS_MAIN) { return "(Osmosis Mainnet)" }
+        else if (chain == ChainType.MEDI_MAIN) { return "(Medibloc Mainnet)" }
+        else if (chain == ChainType.EMONEY_MAIN) { return "(E-Money Mainnet)" }
+        
+        else if (chain == ChainType.REGEN_MAIN) { return "(Regen Mainnet)" }
+        
+        else if (chain == ChainType.COSMOS_TEST) { return "(StarGate Testnet)" }
+        else if (chain == ChainType.IRIS_TEST) { return "(Bifrost Testnet)" }
+        else if (chain == ChainType.BINANCE_TEST) { return "(Binance Testnet)" }
+        else if (chain == ChainType.KAVA_TEST) { return "(Kava Testnet)" }
+        else if (chain == ChainType.RIZON_TEST) { return "(Rizon Testnet)" }
+        else if (chain == ChainType.ALTHEA_TEST) { return "(Althea Testnet)" }
+        else if (chain == ChainType.UMEE_TEST) { return "(Umee Testnet)" }
+        else if (chain == ChainType.AXELAR_TEST) { return "(Axelar Testnet)" }
+        
+        return "Unknown"
+    }
+    
+    static func getChainTitle2(_ chain: ChainType?) -> String {
+        if (chain == ChainType.COSMOS_MAIN) { return "COSMOS" }
+        else if (chain == ChainType.IRIS_MAIN) { return "IRIS" }
+        else if (chain == ChainType.BINANCE_MAIN) { return "BINANCE" }
+        else if (chain == ChainType.OKEX_MAIN) { return "EX" }
+        else if (chain == ChainType.AKASH_MAIN) { return "AKASH" }
+        else if (chain == ChainType.KAVA_MAIN) { return "KAVA" }
+        else if (chain == ChainType.BAND_MAIN) { return "BAND" }
+        else if (chain == ChainType.SECRET_MAIN) { return "SECRET" }
+        else if (chain == ChainType.CERTIK_MAIN) { return "CERTIK" }
+        else if (chain == ChainType.IOV_MAIN) { return "STARNAME" }
+        else if (chain == ChainType.PERSIS_MAIN) { return "PERSISTENCE" }
+        else if (chain == ChainType.SENTINEL_MAIN) { return "SENTINEL" }
+        else if (chain == ChainType.FETCH_MAIN) { return "FETCH.AI" }
+        else if (chain == ChainType.CRYPTO_MAIN) { return "CRYPTO.ORG" }
+        else if (chain == ChainType.SIF_MAIN) { return "SIF" }
+        else if (chain == ChainType.KI_MAIN) { return "KI" }
+        else if (chain == ChainType.OSMOSIS_MAIN) { return "OSMOSIS" }
+        else if (chain == ChainType.MEDI_MAIN) { return "MEDIBLOC" }
+        else if (chain == ChainType.EMONEY_MAIN) { return "E-MONEY" }
+        
+        else if (chain == ChainType.REGEN_MAIN) { return "REGEN" }
+        
+        else if (chain == ChainType.COSMOS_TEST) { return "STARGATE" }
+        else if (chain == ChainType.IRIS_TEST) { return "BIFROST" }
+        else if (chain == ChainType.BINANCE_TEST) { return "BINANCE TEST" }
+        else if (chain == ChainType.KAVA_TEST) { return "KAVA TEST" }
+        else if (chain == ChainType.RIZON_TEST) { return "RIZON TEST" }
+        else if (chain == ChainType.ALTHEA_TEST) { return "ALTHEA TEST" }
+        else if (chain == ChainType.UMEE_TEST) { return "UMEE TEST" }
+        else if (chain == ChainType.AXELAR_TEST) { return "AXELAR TEST" }
+        
+        return "Unknown"
+    }
+    
+    static func getChainTypeByChainId(_ chainId: String?) -> ChainType? {
+        if (chainId?.contains("cosmoshub-") == true) {
+            return ChainType.COSMOS_MAIN
+        } else if (chainId?.contains("irishub-") == true) {
+            return ChainType.IRIS_MAIN
+        } else if (chainId?.contains("iov-") == true) {
+            return ChainType.IOV_MAIN
+        } else if (chainId?.contains("akashnet-") == true) {
+            return ChainType.AKASH_MAIN
+        } else if (chainId?.contains("sentinelhub-") == true) {
+            return ChainType.SENTINEL_MAIN
+        } else if (chainId?.contains("core-") == true) {
+            return ChainType.PERSIS_MAIN
+        } else if (chainId?.contains("sifchain-") == true) {
+            return ChainType.SIF_MAIN
+        } else if (chainId?.contains("osmosis-") == true) {
+            return ChainType.OSMOSIS_MAIN
+        } else if (chainId?.contains("crypto-org-") == true) {
+            return ChainType.CRYPTO_MAIN
+        } else if (chainId?.contains("laozi-mainnet") == true) {
+            return ChainType.BAND_MAIN
+        } else if (chainId?.contains("shentu-") == true) {
+            return ChainType.CERTIK_MAIN
+        } else if (chainId?.contains("fetchhub-") == true) {
+            return ChainType.FETCH_MAIN
+        } else if (chainId?.contains("panacea-") == true) {
+            return ChainType.MEDI_MAIN
+        } else if (chainId?.contains("emoney-") == true) {
+            return ChainType.EMONEY_MAIN
+        }
+        
+        else if (chainId?.contains("regen-") == true) {
+            return ChainType.REGEN_MAIN
+        }
+        return nil
+    }
+    
+    //check with only mainnet
+    static func isValidChainAddress(_ chain: ChainType?, _ address: String?) -> Bool {
+        if (address?.starts(with: "0x") == true) {
+            if (!WKey.isValidEthAddress(address!)) { return false }
+            if (chain == ChainType.OKEX_MAIN) { return true }
+            return false
+        }
+        
+        if (!WKey.isValidateBech32(address ?? "")) { return false }
+        if (address?.starts(with: "cosmos1") == true && chain == ChainType.COSMOS_MAIN) { return true }
+        else if (address?.starts(with: "iaa1") == true && chain == ChainType.IRIS_MAIN) { return true }
+        else if (address?.starts(with: "bnb1") == true && chain == ChainType.BINANCE_MAIN) { return true }
+        else if (address?.starts(with: "kava1") == true && chain == ChainType.KAVA_MAIN) { return true }
+        else if (address?.starts(with: "star1") == true && chain == ChainType.IOV_MAIN) { return true }
+        else if (address?.starts(with: "band1") == true && chain == ChainType.BAND_MAIN) { return true }
+        else if (address?.starts(with: "secret1") == true && chain == ChainType.SECRET_MAIN) { return true }
+        else if (address?.starts(with: "ex1") == true && chain == ChainType.OKEX_MAIN) { return true }
+        else if (address?.starts(with: "certik1") == true && chain == ChainType.CERTIK_MAIN) { return true }
+        else if (address?.starts(with: "akash1") == true && chain == ChainType.AKASH_MAIN) { return true }
+        else if (address?.starts(with: "persistence1") == true && chain == ChainType.PERSIS_MAIN) { return true }
+        else if (address?.starts(with: "sent1") == true && chain == ChainType.SENTINEL_MAIN) { return true }
+        else if (address?.starts(with: "fetch1") == true && chain == ChainType.FETCH_MAIN) { return true }
+        else if (address?.starts(with: "cro1") == true && chain == ChainType.CRYPTO_MAIN) { return true }
+        else if (address?.starts(with: "sif1") == true && chain == ChainType.SIF_MAIN) { return true }
+        else if (address?.starts(with: "ki1") == true && chain == ChainType.KI_MAIN) { return true }
+        else if (address?.starts(with: "panacea1") == true && chain == ChainType.MEDI_MAIN) { return true }
+        else if (address?.starts(with: "osmo1") == true && chain == ChainType.OSMOSIS_MAIN) { return true }
+        else if (address?.starts(with: "emoney1") == true && chain == ChainType.EMONEY_MAIN) { return true }
+        
+        else if (address?.starts(with: "regen1") == true && chain == ChainType.REGEN_MAIN) { return true }
+        
+        return false
+    }
+    
+    static func getChainWithPrefix(_ address: String?) -> Array<ChainType>? {
+        if (address?.starts(with: "0x") == true) {
+            return [ChainType.OKEX_MAIN, ChainType.OKEX_TEST]
+        }
+        
+        if (!WKey.isValidateBech32(address ?? "")) { return nil }
+        if (address?.starts(with: "cosmos1") == true) { return [ChainType.COSMOS_MAIN, ChainType.COSMOS_TEST] }
+        else if (address?.starts(with: "iaa1") == true) { return [ChainType.IRIS_MAIN, ChainType.IRIS_TEST] }
+        else if (address?.starts(with: "bnb1") == true) { return [ChainType.BINANCE_MAIN] }
+        else if (address?.starts(with: "kava1") == true) { return [ChainType.KAVA_MAIN, ChainType.KAVA_TEST] }
+        else if (address?.starts(with: "star1") == true) { return [ChainType.IOV_MAIN, ChainType.IOV_TEST] }
+        else if (address?.starts(with: "band1") == true) { return [ChainType.BAND_MAIN] }
+        else if (address?.starts(with: "secret1") == true) { return [ChainType.SECRET_MAIN] }
+        else if (address?.starts(with: "ex1") == true) { return [ChainType.OKEX_MAIN, ChainType.OKEX_TEST] }
+        else if (address?.starts(with: "certik1") == true) { return [ChainType.CERTIK_MAIN, ChainType.CERTIK_TEST] }
+        else if (address?.starts(with: "akash1") == true) { return [ChainType.AKASH_MAIN] }
+        else if (address?.starts(with: "persistence1") == true) { return [ChainType.PERSIS_MAIN] }
+        else if (address?.starts(with: "sent1") == true) { return [ChainType.SENTINEL_MAIN] }
+        else if (address?.starts(with: "fetch1") == true) { return [ChainType.FETCH_MAIN] }
+        else if (address?.starts(with: "cro1") == true) { return [ChainType.CRYPTO_MAIN] }
+        else if (address?.starts(with: "sif1") == true) { return [ChainType.SIF_MAIN] }
+        else if (address?.starts(with: "ki1") == true) { return [ChainType.KI_MAIN] }
+        else if (address?.starts(with: "panacea1") == true) { return [ChainType.MEDI_MAIN] }
+        else if (address?.starts(with: "osmo1") == true) { return [ChainType.OSMOSIS_MAIN] }
+        else if (address?.starts(with: "emoney1") == true) { return [ChainType.EMONEY_MAIN] }
+        
+        else if (address?.starts(with: "tbnb1") == true) { return [ChainType.BINANCE_TEST] }
+        else if (address?.starts(with: "rizon1") == true) { return [ChainType.RIZON_TEST] }
+        else if (address?.starts(with: "althea1") == true) { return [ChainType.ALTHEA_TEST] }
+        else if (address?.starts(with: "umee1") == true) { return [ChainType.UMEE_TEST] }
+        else if (address?.starts(with: "axelar1") == true) { return [ChainType.AXELAR_TEST] }
+        
+        return nil
+    }
+    
+    static func getWalletName(_ account: Account?) -> String? {
+        if (account == nil) {
+            return  ""
+        } else if (account!.account_nick_name == "") {
+            return NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
+        } else {
+            return account!.account_nick_name
+        }
     }
     
     static func systemQuorum(_ chain: ChainType?) -> NSDecimalNumber {

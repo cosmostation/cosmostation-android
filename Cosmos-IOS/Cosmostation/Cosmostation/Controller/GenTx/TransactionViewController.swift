@@ -54,6 +54,8 @@ class TransactionViewController: UIViewController {
     var mLockupDuration: Int64?
     var mLockups: Array<Osmosis_Lockup_PeriodLock>?
     
+    var mIBCSendDenom: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         mAccount = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
@@ -264,6 +266,10 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_unlock_osmosis", comment: "")
             
+        } else if (mType == TASK_IBC_TRANSFER) {
+            stepDescription.text = NSLocalizedString("str_ibc_transfer_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "step1Img")
+            self.titleLabel.text =  NSLocalizedString("title_ibc_transfer", comment: "")
         }
         
         else if (mType == TASK_RIZON_EVENT_HORIZON) {
@@ -332,6 +338,9 @@ class TransactionViewController: UIViewController {
             StepVc.mPool = self.mPool
             StepVc.mLockupDuration = self.mLockupDuration
             StepVc.mLockups = self.mLockups
+            
+            
+            StepVc.mIBCSendDenom = self.mIBCSendDenom
         }
     }
     
@@ -495,6 +504,9 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("str_osmosis_unlock_token_step_0", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     
+                } else if (mType == TASK_IBC_TRANSFER) {
+                    stepDescription.text = NSLocalizedString("str_ibc_transfer_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "step1Img")
                 }
                 
                 else if (mType == TASK_RIZON_EVENT_HORIZON) {
@@ -661,6 +673,9 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("str_osmosis_unlock_token_step_1", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     
+                } else if (mType == TASK_IBC_TRANSFER) {
+                    stepDescription.text = NSLocalizedString("str_ibc_transfer_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "step2Img")
                 }
                 
                 else if (mType == TASK_RIZON_EVENT_HORIZON) {
@@ -827,6 +842,9 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("str_osmosis_unlock_token_step_2", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     
+                } else if (mType == TASK_IBC_TRANSFER) {
+                    stepDescription.text = NSLocalizedString("str_ibc_transfer_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "step3Img")
                 }
                 
                 
@@ -987,6 +1005,9 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("str_osmosis_unlock_token_step_3", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     
+                } else if (mType == TASK_IBC_TRANSFER) {
+                    stepDescription.text = NSLocalizedString("str_ibc_transfer_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "step4Img")
                 }
                 
             } else if (step == 4) {
@@ -1002,6 +1023,9 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step5Img")
                     stepDescription.text = NSLocalizedString("str_starname_register_account_step_4", comment: "")
                     
+                } else if (mType == TASK_IBC_TRANSFER) {
+                    stepDescription.text = NSLocalizedString("str_ibc_transfer_step_4", comment: "")
+                    stepImg.image = UIImage.init(named: "step5Img")
                 }
 //                else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE_VV) {
 //                    stepImg.image = UIImage.init(named: "step5Img")

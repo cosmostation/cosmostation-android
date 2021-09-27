@@ -95,6 +95,7 @@
 
     <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
     <string name="url_rizon_swap_status_mainnet" translatable="false">https://swap-api.rizon.world/</string>
+    <string name="url_api_rizon" translatable="false">https://api-rizon-testnet.cosmostation.io/</string>
 
     <string name="url_hdac_testnet" translatable="false">https://insight-api.testnet.rizon.world/insight-api/</string>
     <string name="url_rizon_swap_status_testnet" translatable="false">https://swap-api.testnet.rizon.world/</string>
@@ -170,6 +171,7 @@
     <string name="str_osmosis_main_net">Osmosis Mainnet</string>
     <string name="str_medi_main_net">Medibloc Mainnet</string>
     <string name="str_emoney_main_net">Emoney Mainnet</string>
+    <string name="str_rizon_main_net">Rizon Mainnet</string>
     <string name="str_cosmos_test_net">StarGate Testnet</string>
     <string name="str_iris_test_net">Bifrost Testnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
@@ -439,6 +441,8 @@
     <string name="str_osmosis_net2" translatable="false">Osmosis Mainnet</string>
     <string name="str_medi_net" translatable="false">(Medibloc Mainnet)</string>
     <string name="str_medi_net2" translatable="false">Medibloc Mainnet</string>
+    <string name="str_rizon_net" translatable="false">(Rizon Mainnet)</string>
+    <string name="str_rizon_net2" translatable="false">Rizon Mainnet</string>
     <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
@@ -477,6 +481,7 @@
     <string name="str_osmosis_main" translatable="false">OSMOSIS</string>
     <string name="str_medi_main" translatable="false">MEDIBLOC</string>
     <string name="str_emoney_main" translatable="false">EMONEY</string>
+    <string name="str_rizon_main" translatable="false">RIZON</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
@@ -1805,9 +1810,9 @@
     <string name="tx_add_record">Add Record</string>
     <string name="tx_create_did">Create Did</string>
 
-    <string name="tx_add_liquidity">Add Liquidity</string>
-    <string name="tx_remove_liquidity">Remove Liquidity</string>
-    <string name="tx_swap">Swap</string>
+    <string name="tx_sif_join_pool">Join Pool</string>
+    <string name="tx_sif_exit_pool">Exit Pool</string>
+    <string name="tx_sif_swap">Swap Coin</string>
     <string name="tx_create_ethereum_bridge">Create Ethereum Bridge</string>
 
     <string name="tx_task_response">Task Response</string>

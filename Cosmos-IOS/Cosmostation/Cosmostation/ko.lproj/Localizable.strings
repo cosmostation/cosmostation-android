@@ -303,6 +303,11 @@
 "str_select_osmo_lockup_duration_title" = "락업 종류룰 선택하세요.";
 "str_select_osmo_unbonding_all" = "같은 기간의 본딩을 모두 해제하시겠습니까?";
 "str_select_osmo_unlock_all" = "모두 언락 하시겠습니까?";
+"str_select_ibc_destination" = "IBC 전송할 체인을 골라주세요.";
+"str_select_ibc_relayer" = "IBC 전송할 릴레이어를 선택하세요.";
+"str_notice" = "경고";
+"str_msg_ibc" = "IBC 전송은 거래소 입금을 지원 하지 않습니다.\n거래소로 전송을 원하실 경우 반드시 해당 체인의 본인 계정으로 IBC 전송 후에 다시 일반 전송으로 입금해야합니다.\n\n또한 본 지갑은 현재 활성화된 릴레이어의 IBC 전송을 중계를 지원할뿐 IBC 전송간 일어나는 내제적은 문제에 대해서는 책임을 지지 않습니다.\nIBC 전송 진행하기전에 선택한 릴레이어에 대한 안정성은 사용자가 직접 검토해야 합니다.";
+"str_msg_relayer_unauthed" = "선택하신 릴레이어는 확인되지 않았습니다.\n해당 릴레이어를 통해 IBC 전송을 실행할 경우 자산이 손실될 수 있습니다.(해당 체인의 커뮤니티 등을 통해 안전성을 확인하고 진행하시는것을 권장합니다.)\n계속 진행 하시겠습니까?";
 
 "current_price_format" = "현재 %@ 가격";
 "liquidation_price_format" = "청산 %@ 가격";
@@ -464,10 +469,15 @@
 "str_osmosis_begin_unbonding_step_1" = "메모를 입력하세요 (선택사항)";
 "str_osmosis_begin_unbonding_step_2" = "Tx 수수료를 선택하세요";
 "str_osmosis_begin_unbonding_step_3" = "입력하신 정보를 확인하세요";
-"str_osmosis_unlock_token_step_0" = "안락 하실 수량을 입력해주세요";
+"str_osmosis_unlock_token_step_0" = "언락 하실 수량을 입력해주세요";
 "str_osmosis_unlock_token_step_1" = "메모를 입력하세요 (선택사항)";
 "str_osmosis_unlock_token_step_2" = "Tx 수수료를 선택하세요";
 "str_osmosis_unlock_token_step_3" = "입력하신 정보를 확인하세요";
+"str_ibc_transfer_step_0" = "받을 체인과 릴레이어를 선택하세요";
+"str_ibc_transfer_step_1" = "받을 지갑 주소를 입력하세요";
+"str_ibc_transfer_step_2" = "전송하실 토큰과 수량을 입력하세요";
+"str_ibc_transfer_step_3" = "Tx 수수료를 선택하세요";
+"str_ibc_transfer_step_4" = "입력하신 정보를 확인하세요";
 
 "str_rizon_swap_step_0" = "Hdac의 니모닉을 입력하세요";
 "str_rizon_swap_step_1" = "입력하신 정보를 확인하세요";
@@ -582,6 +592,7 @@ support@cosmostation.io";
 "title_rizon_swap_status" = "스왑 상태 확인";
 "title_rizon_swap" = "이벤트 호라이즌";
 "title_dapp_gravity" = "그래비티 덱스";
+"title_ibc_transfer" = "IBC 전송";
 
 
 "proposal_type_basic" = "기본";

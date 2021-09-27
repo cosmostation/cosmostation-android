@@ -385,9 +385,6 @@ public class BaseData {
     public ArrayList<Staking.UnbondingDelegation>               mGrpcUndelegations = new ArrayList<>();
     public ArrayList<Distribution.DelegationDelegatorReward>    mGrpcRewards = new ArrayList<>();
 
-    //COMMON DATA FOR BAND
-    public ArrayList<Oracle.ActiveValidator>                    mGrpcBandOracles = new ArrayList<>();
-
     //COMMON DATA FOR STARNAME
     public starnamed.x.configuration.v1beta1.Types.Fees         mGrpcStarNameFee;
     public starnamed.x.configuration.v1beta1.Types.Config       mGrpcStarNameConfig;
@@ -432,13 +429,13 @@ public class BaseData {
 
     public ArrayList<Vesting.Period> onParseRemainVestingsByDenom(String denom) {
         ArrayList<Vesting.Period> result = new ArrayList<>();
-        if (mGRpcAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
+        if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
             try {
                 Vesting.PeriodicVestingAccount vestingAccount = Vesting.PeriodicVestingAccount.parseFrom(mGRpcAccount.getValue());
                 return WDp.onParsePeriodicRemainVestingsByDenom(vestingAccount, denom);
             } catch (InvalidProtocolBufferException e) { }
 
-        } else if (mGRpcAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
+        } else if (mGRpcAccount != null && mGRpcAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
             try {
                 Vesting.ContinuousVestingAccount vestingAccount = Vesting.ContinuousVestingAccount.parseFrom(mGRpcAccount.getValue());
                 long cTime = Calendar.getInstance().getTime().getTime();
@@ -582,17 +579,6 @@ public class BaseData {
             }
         }
         return null;
-    }
-
-    // Band oracle Status
-    public boolean isOracleEnable(String valOpAddress) {
-        if (mGrpcBandOracles == null) { return true; }
-        for (Oracle.ActiveValidator validator: mGrpcBandOracles) {
-            if (validator.getAddress().equals(valOpAddress)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     // for starname funcs

@@ -22,6 +22,7 @@
     <string name="str_osmosis_main_net">오스모시스 메인넷</string>
     <string name="str_medi_main_net">메디블록 메인넷</string>
     <string name="str_emoney_main_net">이머니 메인넷</string>
+    <string name="str_rizon_main_net">라이젠 메인넷</string>
     <string name="str_cosmos_test_net">스타게이트 테스트넷</string>
     <string name="str_iris_test_net">바이프로스트 테스트넷</string>
     <string name="str_bnb_test_net">바이낸스 테스트넷</string>
@@ -1527,9 +1528,9 @@
     <string name="tx_add_record">Add Record</string>
     <string name="tx_create_did">Create Did</string>
 
-    <string name="tx_add_liquidity">Add Liquidity</string>
-    <string name="tx_remove_liquidity">Remove Liquidity</string>
-    <string name="tx_swap">Swap</string>
+    <string name="tx_sif_join_pool">풀 참가</string>
+    <string name="tx_sif_exit_pool">풀 나가기</string>
+    <string name="tx_sif_swap">코인 스왑</string>
     <string name="tx_create_ethereum_bridge">Create Ethereum Bridge</string>
 
     <string name="tx_task_response">Task Response</string>
