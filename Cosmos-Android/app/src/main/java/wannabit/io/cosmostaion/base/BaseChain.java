@@ -179,6 +179,9 @@ public enum BaseChain {
         if (chainName.equals(EMONEY_MAIN.chainName)) {
             return EMONEY_MAIN;
         }
+        if (chainName.equals(RIZON_MAIN.chainName)) {
+            return RIZON_MAIN;
+        }
 
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
@@ -259,6 +262,7 @@ public enum BaseChain {
         result.add(OSMOSIS_MAIN);
         result.add(MEDI_MAIN);
         result.add(EMONEY_MAIN);
+        result.add(RIZON_MAIN);
         result.add(SECRET_MAIN);
 
 

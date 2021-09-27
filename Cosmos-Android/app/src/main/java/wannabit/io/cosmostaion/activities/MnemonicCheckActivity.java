@@ -52,6 +52,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
@@ -132,9 +133,7 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_medi));
             } else if (getChain(toCheck.baseChain).equals(EMONEY_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_emoney));
-            } else if (getChain(toCheck.baseChain).equals(RIZON_TEST)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_rizon));
-            } else if (getChain(toCheck.baseChain).equals(RIZON_TEST)) {
+            } else if (getChain(toCheck.baseChain).equals(RIZON_MAIN) || getChain(toCheck.baseChain).equals(RIZON_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_rizon));
             } else if (getChain(toCheck.baseChain).equals(ALTHEA_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_althea));

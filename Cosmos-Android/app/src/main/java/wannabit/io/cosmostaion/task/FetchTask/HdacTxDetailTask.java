@@ -27,17 +27,16 @@ public class HdacTxDetailTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
+            Response<HdacTxInfo> response;
             if (baseChain.equals(BaseChain.RIZON_TEST)) {
-                Response<HdacTxInfo> response = ApiClient.getTestHdac(mApp).gethdacTxDetail(mTxHash).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.isSuccess = true;
-                    mResult.resultData = response.body();
-                }
-
+                response = ApiClient.getTestHdac(mApp).gethdacTxDetail(mTxHash).execute();
             } else {
-
+                response = ApiClient.getMainHdac(mApp).gethdacTxDetail(mTxHash).execute();
             }
-
+            if (response.isSuccessful() && response.body() != null) {
+                mResult.isSuccess = true;
+                mResult.resultData = response.body();
+            }
 
         } catch (Exception e) {
             WLog.w("HdacNodeStatusTask Error " + e.getMessage());
