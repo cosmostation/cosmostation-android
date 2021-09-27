@@ -57,6 +57,7 @@ public enum BaseChain {
     OSMOSIS_MAIN("osmosis-mainnet"),
     MEDI_MAIN("medibloc-mainnet"),
     EMONEY_MAIN("emoney-mainnet"),
+    RIZON_MAIN("rizon-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
