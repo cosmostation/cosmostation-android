@@ -749,10 +749,9 @@ class BaseNetWork {
     
     //rizon
     static func rizonSwapStatus(_ chain: ChainType?, _ address: String) -> String {
-//        if (chain == ChainType.RIZON_MAIN) {
-//            return RIZON_SWAP_STATUS_MAINNET + "swaps/rizon/" + address
-//        } else
-        if (chain == ChainType.RIZON_TEST) {
+        if (chain == ChainType.RIZON_MAIN) {
+            return RIZON_SWAP_STATUS + "swaps/rizon/" + address
+        } else if (chain == ChainType.RIZON_TEST) {
             return RIZON_SWAP_STATUS_TESTNET + "swaps/rizon/" + address
         }
         return ""
@@ -761,24 +760,27 @@ class BaseNetWork {
     
     //hdac
     static func hdacTxDetail(_ chain: ChainType?, _ hash: String) -> String {
-//        if (chain == ChainType.RIZON_MAIN) {
-//            return HDAC_MAINNET + "tx/" + hash
-//        } else
-        if (chain == ChainType.RIZON_TEST) {
+        if (chain == ChainType.RIZON_MAIN) {
+            return HDAC_MAINNET + "tx/" + hash
+        } else if (chain == ChainType.RIZON_TEST) {
             return HDAC_TESTNET + "tx/" + hash
         }
         return ""
     }
     
     static func hdacBalance(_ chain: ChainType?, _ address: String) -> String {
-        if (chain == ChainType.RIZON_TEST) {
+        if (chain == ChainType.RIZON_MAIN) {
+            return HDAC_MAINNET + "addr/" + address + "/utxo"
+        } else if (chain == ChainType.RIZON_TEST) {
             return HDAC_TESTNET + "addr/" + address + "/utxo"
         }
         return ""
     }
     
     static func hdacBroadcast(_ chain: ChainType?) -> String {
-        if (chain == ChainType.RIZON_TEST) {
+        if (chain == ChainType.RIZON_MAIN) {
+            return HDAC_MAINNET + "tx/send"
+        } else if (chain == ChainType.RIZON_TEST) {
             return HDAC_TESTNET + "tx/send"
         }
         return ""
