@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_Choice_Iov;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Iris;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Kava;
 import wannabit.io.cosmostaion.dialog.Dialog_Choice_Okex;
+import wannabit.io.cosmostaion.dialog.Dialog_Choice_Rizon;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateEmptyAccountTask;
@@ -343,7 +344,17 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
             } else if (mUserInput.startsWith("rizon1")) {
                 if (WKey.isValidBech32(mUserInput)) {
-                    onGenNewAccount(RIZON_MAIN, mUserInput);
+                    if (SUPPORT_CHAINS().contains(RIZON_TEST)) {
+                        Dialog_Choice_Rizon dialog = Dialog_Choice_Rizon.newInstance(null);
+                        dialog.setCancelable(false);
+                        getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                        return;
+
+                    } else {
+                        onGenNewAccount(RIZON_MAIN, mUserInput);
+                        return;
+                    }
+
                 } else {
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 }
