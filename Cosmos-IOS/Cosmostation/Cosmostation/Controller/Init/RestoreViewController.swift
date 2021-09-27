@@ -252,6 +252,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         emoneyAction.setValue(UIImage(named: "chainEmoney")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let rizonAction = UIAlertAction(title: NSLocalizedString("chain_title_rizon", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.RIZON_MAIN
+            self.initViewUpdate()
+        })
+        rizonAction.setValue(UIImage(named: "chainRizon")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         
         let cosmosTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_cosmos", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.COSMOS_TEST
@@ -340,6 +346,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         showAlert.addAction(cryptoAction)
         showAlert.addAction(sifAction)
         showAlert.addAction(kiAction)
+        showAlert.addAction(rizonAction)
         showAlert.addAction(osmosisAction)
         showAlert.addAction(mediAction)
         showAlert.addAction(emoneyAction)

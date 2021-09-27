@@ -325,10 +325,10 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(cryptoAction)
         showAlert.addAction(sifAction)
         showAlert.addAction(kiAction)
+        showAlert.addAction(rizonAction)
         showAlert.addAction(osmosisAction)
         showAlert.addAction(mediAction)
         showAlert.addAction(emoneyAction)
-        showAlert.addAction(rizonAction)
         showAlert.addAction(secretAction)
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {

@@ -279,8 +279,14 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
             
         } else if (userInput.starts(with: "rizon1")) {
             if (WKey.isValidateBech32(userInput)) {
-                self.onGenWatchAccount(ChainType.RIZON_TEST, userInput)
-                return;
+                if (ChainType.SUPPRT_CHAIN().contains(ChainType.RIZON_TEST)) {
+                    self.onShowRizonChainSelect(userInput)
+                    return;
+                } else {
+                    self.onGenWatchAccount(ChainType.RIZON_MAIN, userInput)
+                    return;
+                }
+                
             } else {
                 self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
                 self.addAddressInputText.text = ""
@@ -479,7 +485,22 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
         showAlert.addAction(okAction)
         showAlert.addAction(okTestAction)
         self.present(showAlert, animated: true, completion: nil)
+    }
+    
+    func onShowRizonChainSelect(_ input:String) {
+        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let rizonAction = UIAlertAction(title: NSLocalizedString("chain_title_rizon", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.RIZON_MAIN, input)
+        })
+        rizonAction.setValue(UIImage(named: "chainRizon")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        let rizonTestAction = UIAlertAction(title: NSLocalizedString("chain_title_rizon_test", comment: ""), style: .default, handler: {_ in
+            self.onGenWatchAccount(ChainType.RIZON_TEST, input)
+        })
+        rizonTestAction.setValue(UIImage(named: "testnetRizon")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        showAlert.addAction(rizonAction)
+        showAlert.addAction(rizonTestAction)
+        self.present(showAlert, animated: true, completion: nil)
     }
     
     

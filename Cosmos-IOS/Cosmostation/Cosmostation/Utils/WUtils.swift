@@ -4620,6 +4620,7 @@ public class WUtils {
         else if (chain == ChainType.OSMOSIS_MAIN) { return UIImage(named: "chainOsmosis") }
         else if (chain == ChainType.MEDI_MAIN) { return UIImage(named: "chainMedibloc") }
         else if (chain == ChainType.EMONEY_MAIN) { return UIImage(named: "chainEmoney") }
+        else if (chain == ChainType.RIZON_MAIN) { return UIImage(named: "chainRizon") }
         
         else if (chain == ChainType.REGEN_MAIN) { return UIImage(named: "chainRegen") }
         
@@ -4654,6 +4655,7 @@ public class WUtils {
         else if (chain == ChainType.OSMOSIS_MAIN) { return "(Osmosis Mainnet)" }
         else if (chain == ChainType.MEDI_MAIN) { return "(Medibloc Mainnet)" }
         else if (chain == ChainType.EMONEY_MAIN) { return "(E-Money Mainnet)" }
+        else if (chain == ChainType.RIZON_MAIN) { return "(Rizon Mainnet)" }
         
         else if (chain == ChainType.REGEN_MAIN) { return "(Regen Mainnet)" }
         
@@ -4689,6 +4691,7 @@ public class WUtils {
         else if (chain == ChainType.OSMOSIS_MAIN) { return "OSMOSIS" }
         else if (chain == ChainType.MEDI_MAIN) { return "MEDIBLOC" }
         else if (chain == ChainType.EMONEY_MAIN) { return "E-MONEY" }
+        else if (chain == ChainType.RIZON_MAIN) { return "RIZON" }
         
         else if (chain == ChainType.REGEN_MAIN) { return "REGEN" }
         
@@ -4733,6 +4736,8 @@ public class WUtils {
             return ChainType.MEDI_MAIN
         } else if (chainId?.contains("emoney-") == true) {
             return ChainType.EMONEY_MAIN
+        } else if (chainId?.contains("titan-") == true) {
+            return ChainType.RIZON_MAIN
         }
         
         else if (chainId?.contains("regen-") == true) {
@@ -4769,6 +4774,7 @@ public class WUtils {
         else if (address?.starts(with: "panacea1") == true && chain == ChainType.MEDI_MAIN) { return true }
         else if (address?.starts(with: "osmo1") == true && chain == ChainType.OSMOSIS_MAIN) { return true }
         else if (address?.starts(with: "emoney1") == true && chain == ChainType.EMONEY_MAIN) { return true }
+        else if (address?.starts(with: "rizon1") == true && chain == ChainType.RIZON_MAIN) { return true }
         
         else if (address?.starts(with: "regen1") == true && chain == ChainType.REGEN_MAIN) { return true }
         
@@ -4800,6 +4806,7 @@ public class WUtils {
         else if (address?.starts(with: "panacea1") == true) { return [ChainType.MEDI_MAIN] }
         else if (address?.starts(with: "osmo1") == true) { return [ChainType.OSMOSIS_MAIN] }
         else if (address?.starts(with: "emoney1") == true) { return [ChainType.EMONEY_MAIN] }
+        else if (address?.starts(with: "rizon1") == true) { return [ChainType.RIZON_MAIN] }
         
         else if (address?.starts(with: "tbnb1") == true) { return [ChainType.BINANCE_TEST] }
         else if (address?.starts(with: "rizon1") == true) { return [ChainType.RIZON_TEST] }
