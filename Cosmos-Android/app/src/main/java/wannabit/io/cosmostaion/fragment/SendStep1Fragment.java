@@ -26,7 +26,6 @@ import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
@@ -103,7 +102,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         final String toSendDenom = getSActivity().mDenom;
         final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
         if (isGRPC(getSActivity().mBaseChain)) {
-            if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
+            if (getSActivity().mDenom.startsWith("ibc/")) {
+                mDpDecimal = WUtil.getIbcDecimal(getSActivity().mDenom);
+            } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
                 mDpDecimal = WUtil.getSifCoinDecimal(getSActivity().mDenom);
             } else {
                 mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);

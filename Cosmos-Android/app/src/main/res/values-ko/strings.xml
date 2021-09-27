@@ -1528,9 +1528,9 @@
     <string name="tx_add_record">Add Record</string>
     <string name="tx_create_did">Create Did</string>
 
-    <string name="tx_add_liquidity">Add Liquidity</string>
-    <string name="tx_remove_liquidity">Remove Liquidity</string>
-    <string name="tx_swap">Swap</string>
+    <string name="tx_sif_join_pool">풀 참가</string>
+    <string name="tx_sif_exit_pool">풀 나가기</string>
+    <string name="tx_sif_swap">코인 스왑</string>
     <string name="tx_create_ethereum_bridge">Create Ethereum Bridge</string>
 
     <string name="tx_task_response">Task Response</string>
