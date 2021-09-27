@@ -106,6 +106,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
@@ -1300,12 +1301,7 @@ public class WUtil {
                 }
             }
 
-        } else if (basechain.equals(RIZON_TEST)) {
-
-        } else if (basechain.equals(ALTHEA_TEST)) {
-
         }
-
         else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {
             result = result + ",bnb";
 
@@ -2322,6 +2318,9 @@ public class WUtil {
         } else if (chain.equals(EMONEY_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.e-money.com/"));
 
+        } else if (chain.equals(RIZON_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.hdactech.com/en/index.do"));
+
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
 
@@ -2397,6 +2396,9 @@ public class WUtil {
         } else if (chain.equals(EMONEY_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://emoneytokenstandard.org/"));
 
+        } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/hdac"));
+
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
 
@@ -2410,7 +2412,8 @@ public class WUtil {
 
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(CRYPTO_MAIN) || basechain.equals(EMONEY_MAIN) ||
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) ||
+                basechain.equals(CRYPTO_MAIN) || basechain.equals(EMONEY_MAIN) || basechain.equals(RIZON_MAIN) ||
                 basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
@@ -2772,7 +2775,7 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(RIZON_TEST)) {
+        } else if (basechain.equals(RIZON_MAIN) || basechain.equals(RIZON_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -2821,7 +2824,7 @@ public class WUtil {
     }
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) ||
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) ||
                 basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
@@ -3296,6 +3299,9 @@ public class WUtil {
         } else if (basechain.equals(FETCHAI_MAIN)) {
             return EXPLORER_FETCHAI_MAIN;
 
+        } else if (basechain.equals(RIZON_MAIN)) {
+            return EXPLORER_RIZON_MAIN;
+
         }
 
         else if (basechain.equals(COSMOS_TEST)) {
@@ -3304,11 +3310,11 @@ public class WUtil {
         } else if (basechain.equals(IRIS_TEST)) {
             return EXPLORER_IRIS_TEST;
 
-        } else if (basechain.equals(RIZON_TEST)) {
-            return EXPLORER_RIZON_TEST;
-
         } else if (basechain.equals(ALTHEA_TEST)) {
             return EXPLORER_ALTHEA_TEST;
+
+        } else if (basechain.equals(RIZON_TEST)) {
+            return EXPLORER_RIZON_TEST;
 
         } else if (basechain.equals(UMEE_TEST)) {
             return EXPLORER_UMEE_TEST;
@@ -3388,6 +3394,9 @@ public class WUtil {
 
         } else if (basechain.equals(FETCHAI_MAIN)) {
             return EXPLORER_FETCHAI_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(RIZON_MAIN)) {
+            return EXPLORER_RIZON_MAIN + "txs/" + hash;
 
         }
 

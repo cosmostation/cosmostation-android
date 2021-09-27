@@ -72,6 +72,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
@@ -779,7 +780,7 @@ public class MainTokensFragment extends BaseFragment {
 
         } else if (coin.denom.equals(TOKEN_RIZON)) {
             holder.itemSymbol.setText(getString(R.string.str_rizon_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), RIZON_TEST));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), RIZON_MAIN));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Rizon Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
@@ -895,6 +896,7 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_IRIS_TEST);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
         }
 
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {

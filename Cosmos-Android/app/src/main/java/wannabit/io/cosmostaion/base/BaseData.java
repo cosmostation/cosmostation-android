@@ -385,9 +385,6 @@ public class BaseData {
     public ArrayList<Staking.UnbondingDelegation>               mGrpcUndelegations = new ArrayList<>();
     public ArrayList<Distribution.DelegationDelegatorReward>    mGrpcRewards = new ArrayList<>();
 
-    //COMMON DATA FOR BAND
-    public ArrayList<Oracle.ActiveValidator>                    mGrpcBandOracles = new ArrayList<>();
-
     //COMMON DATA FOR STARNAME
     public starnamed.x.configuration.v1beta1.Types.Fees         mGrpcStarNameFee;
     public starnamed.x.configuration.v1beta1.Types.Config       mGrpcStarNameConfig;
@@ -582,17 +579,6 @@ public class BaseData {
             }
         }
         return null;
-    }
-
-    // Band oracle Status
-    public boolean isOracleEnable(String valOpAddress) {
-        if (mGrpcBandOracles == null) { return true; }
-        for (Oracle.ActiveValidator validator: mGrpcBandOracles) {
-            if (validator.getAddress().equals(valOpAddress)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     // for starname funcs

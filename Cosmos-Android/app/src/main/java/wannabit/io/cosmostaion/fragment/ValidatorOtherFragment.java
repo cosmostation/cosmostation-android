@@ -148,14 +148,6 @@ public class ValidatorOtherFragment extends BaseFragment {
                     holder.itemTvCommission.setText("--");
                 }
 
-                if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                    if (getBaseDao().mGrpcBandOracles != null && !getBaseDao().isOracleEnable(validator.getOperatorAddress())) {
-                        holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-                    }
-                }
-
             } else {
                 final Validator validator  = getBaseDao().mOtherValidators.get(position);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), dpDecimal, 6));

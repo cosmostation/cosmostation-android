@@ -160,58 +160,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         onHideWaitDialog();
         mCardMnemonics.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mChain));
 
-        for(int i = 0; i < mWordsLayer.length; i++) {
-            if (mChain.equals(COSMOS_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_atom));
-            } else if (mChain.equals(IRIS_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iris));
-            } else if (mChain.equals(BNB_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_bnb));
-            } else if (mChain.equals(KAVA_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_kava));
-            } else if (mChain.equals(IOV_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iov));
-            } else if (mChain.equals(BAND_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_band));
-            } else if (mChain.equals(CERTIK_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_certik));
-            } else if (mChain.equals(BNB_TEST) || mChain.equals(KAVA_TEST) || mChain.equals(IOV_TEST) || mChain.equals(OK_TEST) ||
-                    mChain.equals(CERTIK_TEST) || mChain.equals(COSMOS_TEST) || mChain.equals(IRIS_TEST) || mChain.equals(MEDI_TEST)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_darkgray));
-            } else if (mChain.equals(AKASH_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_akash));
-            } else if (mChain.equals(SECRET_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_secret));
-            } else if (mChain.equals(OKEX_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_okex));
-            } else if (mChain.equals(PERSIS_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_persis));
-            } else if (mChain.equals(SENTINEL_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_sentinel));
-            } else if (mChain.equals(FETCHAI_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_fetch));
-            } else if (mChain.equals(CRYPTO_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_cryto));
-            } else if (mChain.equals(SIF_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_sif));
-            } else if (mChain.equals(KI_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_ki));
-            } else if (mChain.equals(OSMOSIS_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_osmosis));
-            } else if (mChain.equals(MEDI_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_medi));
-            } else if (mChain.equals(EMONEY_MAIN)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_emoney));
-            } else if (mChain.equals(ALTHEA_TEST)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_althea));
-            } else if (mChain.equals(RIZON_TEST)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_rizon));
-            } else if (mChain.equals(UMEE_TEST)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_umee));
-            } else if (mChain.equals(AXELAR_TEST)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_axelar));
-            }
-        }
+        WDp.getLayoutColor(CreateActivity.this, mChain, mWordsLayer);
 
         mCardAddress.setVisibility(View.VISIBLE);
         mCardMnemonics.setVisibility(View.VISIBLE);
