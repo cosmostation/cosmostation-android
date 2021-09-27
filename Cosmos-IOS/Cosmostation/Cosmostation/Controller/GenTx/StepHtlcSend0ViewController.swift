@@ -56,7 +56,10 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
         self.toChainCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onClickToChain (_:))))
         self.sendCoinCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onClickToSendCoin (_:))))
         self.toChainList = ChainType.getHtlcSendable(pageHolderVC.chainType!)
-        if (self.toChainList.count <= 0) { pageHolderVC.onBeforePage() }
+        if (self.toChainList.count <= 0) {
+            pageHolderVC.onBeforePage()
+            return
+        }
         self.toChain = self.toChainList[0]
         
         self.toSwapableCoinList = ChainType.getHtlcSwappableCoin(pageHolderVC.chainType!)

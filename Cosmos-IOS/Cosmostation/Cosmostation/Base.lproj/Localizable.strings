@@ -329,6 +329,11 @@
 "str_select_osmo_lockup_duration_title" = "Select Lockup Type.";
 "str_select_osmo_unbonding_all" = "Unbonding all for same durations?";
 "str_select_osmo_unlock_all" = "Unlock all?";
+"str_select_ibc_destination" = "Select Destination Chain.";
+"str_select_ibc_relayer" = "Select Realyer for IBC Transfer.";
+"str_notice" = "Notice";
+"str_msg_ibc" = "IBC transactions are not supported on centralized exchanges.\nIf you wish to transfer to an exchange, you must send back the asset to its original chain before depositing it via a regular send transaction.\n\nThis wallet only supports the broadcasting of txs through active IBC relayers and therefore is not responsible for intrinsic issues that may exist in IBC txs.\nUser must perform due diligence on the stability and security of the selected relayer before executing IBC txs.";
+"str_msg_relayer_unauthed" = "This is an unconfirmed relayer.\nIBC transfers through an inoperable relayer may result in loss of assets.\nDo you wish to continue?";
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";
 "creat_cdp_step_1" = "Insert memo (optional)";
@@ -464,6 +469,11 @@
 "str_osmosis_unlock_token_step_1" = "Insert memo (optional)";
 "str_osmosis_unlock_token_step_2" = "Select transaction fee";
 "str_osmosis_unlock_token_step_3" = "Check transaction detail";
+"str_ibc_transfer_step_0" = "Select destination chain & relayer";
+"str_ibc_transfer_step_1" = "Enter recipient address";
+"str_ibc_transfer_step_2" = "Enter to send amount";
+"str_ibc_transfer_step_3" = "Select transaction fee";
+"str_ibc_transfer_step_4" = "Check transaction detail";
 
 
 
@@ -581,6 +591,7 @@ support@cosmostation.io";
 "title_rizon_swap_status" = "Event Horizon Status";
 "title_rizon_swap" = "Event Horizon";
 "title_dapp_gravity" = "Gravity Dex";
+"title_ibc_transfer" = "IBC Send";
 
 
 "proposal_type_basic" = "Basic";

@@ -27,6 +27,7 @@ public struct Path {
     var channel_id: String?
     var port_id: String?
     var counter_party: CounterParty?
+    var description: String?
     
     init(_ dictionary: NSDictionary?) {
         self.auth = dictionary?["auth"] as? Bool
@@ -35,6 +36,7 @@ public struct Path {
         if let rawCounterParty = dictionary?["counter_party"] as? NSDictionary {
             self.counter_party = CounterParty.init(rawCounterParty)
         }
+        self.description = dictionary?["description"] as? String
     }
 }
 

@@ -67,7 +67,6 @@ class BaseViewController: UIViewController {
     }
     
     func onStartMainTab() {
-//        print("onStartMainTab")
         let mainTabVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "MainTabViewController") as! MainTabViewController
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = mainTabVC
@@ -76,7 +75,6 @@ class BaseViewController: UIViewController {
     
     
     func onStartImportMnemonic() {
-//        print("onStartImportMnemonic")
         let restoreVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "RestoreViewController") as! RestoreViewController
         restoreVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
@@ -84,7 +82,6 @@ class BaseViewController: UIViewController {
     }
     
     func onStartImportAddress() {
-//        print("onStartImportAddress")
         let addAddressVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "AddAddressViewController") as! AddAddressViewController
         addAddressVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
@@ -92,7 +89,6 @@ class BaseViewController: UIViewController {
     }
     
     func onStartCreate() {
-//        print("onStartCreate")
         let createVC = UIStoryboard(name: "Init", bundle: nil).instantiateViewController(withIdentifier: "CreateViewController") as! CreateViewController
         createVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
@@ -151,22 +147,27 @@ class BaseViewController: UIViewController {
         self.view.makeToast(text, duration: 2.0, position: .bottom, style: style)
     }
     
-    func shareAddress(_ address:String, _ nickName:String) {
+    func shareAddress(_ address: String, _ nickName: String?) {
         var qrCode = QRCode(address)
         qrCode?.backgroundColor = CIColor(rgba: "EEEEEE")
         qrCode?.size = CGSize(width: 200, height: 200)
         
+        let attributedString = NSAttributedString(string: nickName ?? "", attributes: [
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18),
+            NSAttributedString.Key.foregroundColor : UIColor.black
+        ])
         let alert = UIAlertController(title: nickName, message: "\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+        alert.setValue(attributedString, forKey: "attributedTitle")
         alert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.init(hexString: "EEEEEE")
-        alert.addAction(UIAlertAction(title: NSLocalizedString("share", comment: ""), style: .default, handler:  { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("share", comment: ""), style: .default, handler:  { _ in
             let shareTypeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_text", comment: ""), style: .default, handler: { [weak shareTypeAlert] (_) in
+            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_text", comment: ""), style: .default, handler: { _ in
                 let textToShare = [ address ]
                 let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
                 activityViewController.popoverPresentationController?.sourceView = self.view
                 self.present(activityViewController, animated: true, completion: nil)
             }))
-            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_qr", comment: ""), style: .default, handler: { [weak shareTypeAlert] (_) in
+            shareTypeAlert.addAction(UIAlertAction(title: NSLocalizedString("share_qr", comment: ""), style: .default, handler: { _ in
                 let image = qrCode?.image
                 let imageToShare = [ image! ]
                 let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
@@ -179,7 +180,7 @@ class BaseViewController: UIViewController {
             }
         }))
         
-        alert.addAction(UIAlertAction(title: NSLocalizedString("copy", comment: ""), style: .default, handler: { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("copy", comment: ""), style: .default, handler: { _ in
             UIPasteboard.general.string = address
             self.onShowToast(NSLocalizedString("address_copied", comment: ""))
         }))
@@ -204,7 +205,7 @@ class BaseViewController: UIViewController {
     
     func onShowAddMenomicDialog() {
         let alert = UIAlertController(title: NSLocalizedString("alert_title_no_private_key", comment: ""), message: NSLocalizedString("alert_msg_no_private_key", comment: ""), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("add_mnemonic", comment: ""), style: .default, handler: { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("add_mnemonic", comment: ""), style: .default, handler: { _ in
             self.onStartImportMnemonic()
         }))
         alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
