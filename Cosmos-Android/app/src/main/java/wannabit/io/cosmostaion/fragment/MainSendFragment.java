@@ -69,6 +69,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
@@ -368,7 +369,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(EMONEY_MAIN)) { return TYPE_EMONEY; }
                     else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) { return TYPE_FETCH; }
                     else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
-                    else if (getMainActivity().mBaseChain.equals(RIZON_TEST)) { return TYPE_RIZON; }
+                    else if (getMainActivity().mBaseChain.equals(RIZON_MAIN) || getMainActivity().mBaseChain.equals(RIZON_TEST)) { return TYPE_RIZON; }
                     else if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) { return TYPE_ALTHEA; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
                     else if (getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }

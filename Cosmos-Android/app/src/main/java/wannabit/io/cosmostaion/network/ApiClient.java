@@ -454,6 +454,36 @@ public class ApiClient {
         return api_emoney;
     }
 
+    //Services for Rizon mainnet api
+    private static HistoryApi api_rizon = null;
+    public static HistoryApi getRizonApi(Context c) {
+        if (api_rizon == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_rizon))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_rizon = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_rizon;
+    }
+
+    //Services for Rizon swap_status api
+    private static HdacChain api_rizon_swap_status = null;
+    public static HdacChain getRizonSwapStatus(Context c) {
+        if (api_rizon_swap_status == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_rizon_swap_status_mainnet))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_rizon_swap_status = retrofit.create(HdacChain.class);
+            }
+        }
+        return api_rizon_swap_status;
+    }
+
     //Services for Rizon test api
     private static HistoryApi api_rizon_test = null;
     public static HistoryApi getRizonTestApi(Context c) {
@@ -566,7 +596,7 @@ public class ApiClient {
 
 
 
-    //Services for hdac testnet chain
+    //Services for hdac mainnet chain
     private static HdacChain service_hdac_mainnet = null;
     public static HdacChain getMainHdac(Context c) {
         if (service_hdac_mainnet == null) {

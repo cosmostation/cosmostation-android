@@ -20,6 +20,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -68,7 +69,8 @@ public class ChannelBuilder {
     private final static String GRPC_BAND_MAIN = "lcd-band-app.cosmostation.io";
     private final static int PORT_BAND_MAIN = 9090;
 
-
+    private final static String GRPC_RIZON_MAIN = "lcd-rizon-testnet.cosmostation.io";
+    private final static int PORT_RIZON_MAIN = 9090;
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
@@ -77,11 +79,11 @@ public class ChannelBuilder {
     private final static String GRPC_IRIS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_IRIS_TEST = 9095;
 
-    private final static String GRPC_RIZON_TEST = "lcd-rizon-testnet.cosmostation.io";
-    private final static int PORT_RIZON_TEST = 9090;
-
     private final static String GRPC_ALTHEA_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_ALTHEA_TEST = 20100;
+
+    private final static String GRPC_RIZON_TEST = "lcd-rizon-testnet.cosmostation.io";
+    private final static int PORT_RIZON_TEST = 9090;
 
     private final static String GRPC_UMEE_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_UMEE_TEST = 40800;
@@ -122,6 +124,8 @@ public class ChannelBuilder {
             return getFetchMain();
         } else if (chain.equals(BAND_MAIN)) {
             return getBandMain();
+        } else if (chain.equals(RIZON_MAIN)) {
+            return getRizonMain();
 
         } else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
@@ -321,6 +325,19 @@ public class ChannelBuilder {
             }
         }
         return channel_band_main;
+    }
+
+    //Channel for rizon main
+    private static ManagedChannel channel_rizon_main = null;
+    public static ManagedChannel getRizonMain() {
+        if (channel_rizon_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_rizon_main = ManagedChannelBuilder.forAddress(GRPC_RIZON_MAIN, PORT_RIZON_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_rizon_main;
     }
 
 

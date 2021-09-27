@@ -34,7 +34,9 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_HDAC_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_HDAC_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_TX_DETAIL;
@@ -111,7 +113,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
     }
 
     public void onRizonStatus() {
-        new RizonSwapStatusTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new RizonSwapStatusTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -178,7 +180,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
             } else {
                 holder.swap_burn_tx_hash.setText(rizonSwapStatus.hdacTxId);
                 holder.swap_burn_amount.setText("" + rizonSwapStatus.amount);
-                if (mBaseChain.equals(RIZON_TEST) && matchedHdacTxInfo.confirmations >= 1 ) {
+                if (mBaseChain.equals(RIZON_TEST) && matchedHdacTxInfo.confirmations >= 1 || mBaseChain.equals(RIZON_MAIN) && matchedHdacTxInfo.confirmations >= 8) {
                     holder.swap_hdac_status_icon.setVisibility(View.GONE);
                     holder.swap_hdac_status.setText("Success");
                 } else {
@@ -251,19 +253,19 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
 
     private void onExplorerHdac(RizonSwapStatus rizonSwapStatus) {
         String hash = rizonSwapStatus.hdacTxId;
-        if (mBaseChain.equals(RIZON_TEST)) {
-            String url  = EXPLORER_HDAC_TEST + "tx/" + hash;
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(intent);
-        }
+        String url = "";
+        if (mBaseChain.equals(RIZON_TEST)) { url  = EXPLORER_HDAC_TEST + "tx/" + hash; }
+        else { url  = EXPLORER_HDAC_MAIN + "tx/" + hash; }
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 
     private void onExplorerRizon(RizonSwapStatus rizonSwapStatus) {
         String hash = rizonSwapStatus.rizonTxId;
-        if (mBaseChain.equals(RIZON_TEST)) {
-            String url  = EXPLORER_RIZON_TEST + "txs/" + hash;
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(intent);
-        }
+        String url = "";
+        if (mBaseChain.equals(RIZON_TEST)) { url  = EXPLORER_RIZON_TEST + "txs/" + hash; }
+        else { url  = EXPLORER_HDAC_MAIN + "tx/" + hash; }
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 }

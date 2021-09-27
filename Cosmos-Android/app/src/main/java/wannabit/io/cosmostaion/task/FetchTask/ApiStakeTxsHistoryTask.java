@@ -187,6 +187,13 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }
+
+            } else if (mChain.equals(BaseChain.RIZON_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getRizonApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
             }
 
             else if (mChain.equals(BaseChain.COSMOS_TEST)) {

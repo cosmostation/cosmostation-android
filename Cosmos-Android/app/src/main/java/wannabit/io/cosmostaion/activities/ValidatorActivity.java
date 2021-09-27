@@ -32,7 +32,6 @@ import java.util.List;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import de.hdodenhof.circleimageview.CircleImageView;
-import oracle.v1.Oracle;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -98,7 +97,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private RecyclerView                                mRecyclerView;
     private SpannableString                             mSelfBondingRate;
     private int                                         mTaskCount;
-    private ArrayList<Oracle.ActiveValidator>           mGrpcBandOracles;
 
     private ValidatorAdapter                            mValidatorAdapter;
 
@@ -133,7 +131,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mValidator = getIntent().getParcelableExtra("validator");
         mValOpAddress = getIntent().getStringExtra("valOpAddress");
-        mGrpcBandOracles = getBaseDao().mGrpcBandOracles;
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -943,7 +940,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             if (mBaseChain.equals(BAND_MAIN)) {
-                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
+                if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(mGrpcValidator.getOperatorAddress())) {
                     holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 } else {
@@ -1008,7 +1005,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             if (mBaseChain.equals(BAND_MAIN)) {
-                if (mGrpcBandOracles != null && !getBaseDao().isOracleEnable(mGrpcValidator.getOperatorAddress())) {
+                if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(mGrpcValidator.getOperatorAddress())) {
                     holder.itemBandOracleOff.setImageDrawable(getDrawable(R.drawable.band_oracleoff_l));
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 } else {

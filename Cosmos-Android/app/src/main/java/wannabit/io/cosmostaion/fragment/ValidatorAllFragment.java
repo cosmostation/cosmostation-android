@@ -155,7 +155,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
                 if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                     holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorGray1));
-                    if (getBaseDao().mGrpcBandOracles != null && !getBaseDao().isOracleEnable(validator.getOperatorAddress())) {
+                    if (getBaseDao().mChainParam != null && !getBaseDao().mChainParam.isOracleEnable(validator.getOperatorAddress())) {
                         holder.itemBandOracleOff.setVisibility(View.VISIBLE);
                         holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorRed));
                     } else {
