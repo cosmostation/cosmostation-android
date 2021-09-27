@@ -276,7 +276,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             
         } else if (chainType == ChainType.RIZON_TEST) {
             chainImg.image = UIImage(named: "testnetRizon")
-            keyPath.text = RIZON_BASE_PATH.appending(account!.account_path)
+            keyPath.text = BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow

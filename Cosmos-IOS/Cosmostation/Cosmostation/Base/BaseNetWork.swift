@@ -814,6 +814,8 @@ class BaseNetWork {
             result = EMONEY_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.FETCH_MAIN) {
             result = FETCH_API + "v1/account/new_txs/" + address
+        } else if (chain == ChainType.RIZON_MAIN) {
+            result = RIZON_API + "v1/account/new_txs/" + address
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
@@ -876,6 +878,8 @@ class BaseNetWork {
             result = EMONEY_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.FETCH_MAIN) {
             result = FETCH_API + "v1/account/new_txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.RIZON_MAIN) {
+            result = RIZON_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
@@ -892,8 +896,7 @@ class BaseNetWork {
             result = IRIS_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.RIZON_TEST) {
             result = RIZON_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
-        }
-        else if (chain == ChainType.KAVA_TEST) {
+        } else if (chain == ChainType.KAVA_TEST) {
             result = KAVA_TEST_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.CERTIK_TEST) {
             result = CERTIK_TEST_API + "v1/account/txs/" + address + "/" + valAddress
@@ -977,6 +980,10 @@ class BaseNetWork {
             
         } else if (chain == ChainType.FETCH_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-fetchai-app.cosmostation.io", port: 9090)
+            
+        } else if (chain == ChainType.RIZON_MAIN) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-rizon-testnet.cosmostation.io", port: 9090)
+            
         }
         
         
