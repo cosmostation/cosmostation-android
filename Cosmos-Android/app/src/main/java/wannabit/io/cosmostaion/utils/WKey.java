@@ -30,7 +30,6 @@ import java.util.List;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
-import wannabit.io.cosmostaion.dao.Account;
 
 import static org.bitcoinj.core.ECKey.CURVE;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -124,8 +123,8 @@ public class WKey {
 
     public static List<ChildNumber> getParentPath(BaseChain chain, boolean newBip) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SENTINEL_MAIN) ||
-                chain.equals(SIF_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST) || chain.equals(KI_MAIN) || chain.equals(OSMOSIS_MAIN) || chain.equals(EMONEY_MAIN) ||
-                chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST) || chain.equals(UMEE_TEST) || chain.equals(AXELAR_TEST)) {
+                chain.equals(SIF_MAIN) || chain.equals(KI_MAIN) || chain.equals(OSMOSIS_MAIN) || chain.equals(EMONEY_MAIN) || chain.equals(RIZON_MAIN) ||
+                chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST) || chain.equals(RIZON_TEST) || chain.equals(UMEE_TEST) || chain.equals(AXELAR_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
