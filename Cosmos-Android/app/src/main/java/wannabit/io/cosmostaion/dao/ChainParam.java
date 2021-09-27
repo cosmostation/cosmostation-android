@@ -11,13 +11,10 @@ import java.util.List;
 
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
@@ -25,7 +22,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 public class ChainParam {
     @SerializedName("chain_id")
     public String chain_id;
-    
+
     @SerializedName("Params")
     public Params params;
 
@@ -69,6 +66,9 @@ public class ChainParam {
         @SerializedName("enabled_pools")
         public ArrayList<Integer> mEnabledPools;
 
+        @SerializedName("active_validators")
+        public ActiveValidators activeValidators;
+
 
         public BigDecimal getMintInflation(BaseChain baseChain) {
             if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {
@@ -77,7 +77,7 @@ public class ChainParam {
             } else if (baseChain.equals(BaseChain.OSMOSIS_MAIN)) {
                 BigDecimal epochProvisions = new BigDecimal(mintingEpochProvision.epoch_provisions);
                 BigDecimal epochPeriods = new BigDecimal(osmosisMingtingParams.params.reduction_period_in_epochs);
-                BigDecimal osmoSupply =getMainSupply(baseChain);
+                BigDecimal osmoSupply = getMainSupply(baseChain);
                 return epochProvisions.multiply(epochPeriods).divide(osmoSupply, 18, RoundingMode.DOWN);
             } else {
                 try {
@@ -105,7 +105,7 @@ public class ChainParam {
             }
         }
 
-        public BigDecimal getTax (BaseChain baseChain) {
+        public BigDecimal getTax(BaseChain baseChain) {
             if (isGRPC(baseChain)) {
                 return new BigDecimal(mDistributionParams.params.community_tax);
             } else {
@@ -115,8 +115,8 @@ public class ChainParam {
 
         public BigDecimal getMainSupply(BaseChain baseChain) {
             String denom = getMainDenom(baseChain);
-            for (Coin coin:getSupplys()) {
-                if (coin.denom.equals(denom)){
+            for (Coin coin : getSupplys()) {
+                if (coin.denom.equals(denom)) {
                     return new BigDecimal(coin.amount);
                 }
             }
@@ -127,7 +127,7 @@ public class ChainParam {
             BigDecimal inflation = getMintInflation(baseChain);
             BigDecimal calTax = BigDecimal.ONE.subtract(getTax(baseChain));
             if (getMainSupply(baseChain) == null || getMainSupply(baseChain).equals(BigDecimal.ZERO)) {
-                   return BigDecimal.ZERO;
+                return BigDecimal.ZERO;
             } else {
                 BigDecimal bondingRate = getBondedAmount(baseChain).divide(getMainSupply(baseChain), 6, RoundingMode.DOWN);
                 if (bondingRate.equals(BigDecimal.ZERO)) return BigDecimal.ZERO;
@@ -191,7 +191,7 @@ public class ChainParam {
             }
         }
 
-        public BigDecimal getQuorum (BaseChain baseChain) {
+        public BigDecimal getQuorum(BaseChain baseChain) {
             if (baseChain.equals(CERTIK_MAIN) || baseChain.equals(CERTIK_TEST)) {
                 return new BigDecimal(govTallyings.tallyparams.defaultTally.quorum).movePointRight(2);
             } else if (isGRPC(baseChain)) {
@@ -201,10 +201,20 @@ public class ChainParam {
             }
         }
 
-        public boolean isPoolEnabled(long id) { return mEnabledPools.contains(Integer.parseInt(""+id)); }
+        public boolean isPoolEnabled(long id) {
+            return mEnabledPools.contains(Integer.parseInt("" + id));
+        }
+
+        public boolean isOracleEnable(String valOpAddress) {
+            if (activeValidators == null) { return true; }
+            for (ActiveValidators.ActiveValidator.Oracle oracle : activeValidators.activeValidator.oracles) {
+                if (oracle.address.equalsIgnoreCase(valOpAddress)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
-
-
 
 
     public class IbcParams {
@@ -487,6 +497,24 @@ public class ChainParam {
         public String epoch_provisions;
     }
 
+    public class ActiveValidators {
+        @SerializedName("result")
+        public ActiveValidator activeValidator;
+
+        public class ActiveValidator {
+            @SerializedName("result")
+            public ArrayList<Oracle> oracles;
+
+            public class Oracle {
+                @SerializedName("power")
+                public String power;
+
+                @SerializedName("address")
+                public String address;
+            }
+        }
+    }
 }
+
 
 
