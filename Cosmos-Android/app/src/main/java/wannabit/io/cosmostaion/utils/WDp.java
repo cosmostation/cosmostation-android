@@ -95,6 +95,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -1198,6 +1199,40 @@ public class WDp {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_darkgray));
             }
         }
+    }
+
+    public static BaseChain getChainTypeByChainId(String chainId) {
+        if (chainId.contains("cosmoshub-")) {
+            return COSMOS_MAIN;
+        } else if (chainId.contains("irishub-")) {
+            return IRIS_MAIN;
+        } else if (chainId.contains("iov-")) {
+            return IOV_MAIN;
+        } else if (chainId.contains("akashnet-")) {
+            return AKASH_MAIN;
+        } else if (chainId.contains("sentinelhub-")) {
+            return SENTINEL_MAIN;
+        } else if (chainId.contains("core-")) {
+            return PERSIS_MAIN;
+        } else if (chainId.contains("sifchain-")) {
+            return SIF_MAIN;
+        } else if (chainId.contains("osmosis-")) {
+            return OSMOSIS_MAIN;
+        } else if (chainId.contains("crypto-org-")) {
+            return CRYPTO_MAIN;
+        } else if (chainId.contains("laozi-mainnet-")) {
+            return BAND_MAIN;
+        } else if (chainId.contains("shentu-")) {
+            return CERTIK_MAIN;
+        } else if (chainId.contains("panacea-")) {
+            return MEDI_MAIN;
+        } else if (chainId.contains("emoney-")) {
+            return EMONEY_MAIN;
+        }
+        else if (chainId.contains("regen-")) {
+            return REGEN_MAIN;
+        }
+        return null;
     }
 
     public static SpannableString getDpEstAprCommission(BaseData baseData, BaseChain chain, BigDecimal commission) {

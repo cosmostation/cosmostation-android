@@ -262,11 +262,19 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             } else {
                 holder.itemIbcInfo.setVisibility(View.VISIBLE);
             }
+
+            BaseChain toChain = WDp.getChainTypeByChainId(mIbcToken.counter_party.chain_id);
+            WDp.getChainImg(IBCTokenDetailActivity.this, toChain, holder.itemOppositeImg);
+            WDp.getChainTitle2(IBCTokenDetailActivity.this, toChain, holder.itemOppositeChain);
             holder.itemOppositeChainId.setText(mIbcToken.counter_party.chain_id);
-            holder.itemChannel.setText(mIbcToken.channel_id);
             holder.itemOppositeChannel.setText(mIbcToken.counter_party.channel_id);
-            holder.itemDenom.setText("ibc/" + mIbcToken.hash);
             holder.itemOppositeDenom.setText(mIbcToken.base_denom);
+
+            WDp.getChainImg(IBCTokenDetailActivity.this, mBaseChain, holder.itemCurrentImg);
+            WDp.getChainTitle2(IBCTokenDetailActivity.this, mBaseChain, holder.itemCurrentChain);
+            holder.itemCurrentChainId.setText(getBaseDao().getChainIdGrpc());
+            holder.itemCurrentChannel.setText(mIbcToken.channel_id);
+            holder.itemCurrentDenom.setText("ibc/" + mIbcToken.hash);
         }
 
         public class AmountHolder extends RecyclerView.ViewHolder {
@@ -282,20 +290,33 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
 
         public class IbcStatusHolder extends RecyclerView.ViewHolder {
             private ImageView           itemIbcInfo;
+
+            private ImageView           itemOppositeImg;
+            private TextView            itemOppositeChain;
             private TextView            itemOppositeChainId;
-            private TextView            itemChannel;
             private TextView            itemOppositeChannel;
-            private TextView            itemDenom;
             private TextView            itemOppositeDenom;
+
+            private ImageView           itemCurrentImg;
+            private TextView            itemCurrentChain;
+            private TextView            itemCurrentChainId;
+            private TextView            itemCurrentChannel;
+            private TextView            itemCurrentDenom;
 
             public IbcStatusHolder(View v) {
                 super(v);
                 itemIbcInfo             = itemView.findViewById(R.id.ibc_info);
-                itemOppositeChainId     = itemView.findViewById(R.id.ibc_opposit_chain_id);
-                itemChannel             = itemView.findViewById(R.id.ibc_channel);
-                itemOppositeChannel     = itemView.findViewById(R.id.ibc_opposite_channel);
-                itemDenom               = itemView.findViewById(R.id.ibc_denom);
-                itemOppositeDenom       = itemView.findViewById(R.id.ibc_opposite_denom);
+                itemOppositeImg         = itemView.findViewById(R.id.opposite_chain_img);
+                itemOppositeChain       = itemView.findViewById(R.id.opposite_chain);
+                itemOppositeChainId     = itemView.findViewById(R.id.opposite_chain_id);
+                itemOppositeChannel     = itemView.findViewById(R.id.opposite_channel);
+                itemOppositeDenom       = itemView.findViewById(R.id.opposite_denom);
+
+                itemCurrentImg          = itemView.findViewById(R.id.current_chain_img);
+                itemCurrentChain        = itemView.findViewById(R.id.current_chain);
+                itemCurrentChainId      = itemView.findViewById(R.id.current_chain_id);
+                itemCurrentChannel      = itemView.findViewById(R.id.current_channel);
+                itemCurrentDenom        = itemView.findViewById(R.id.current_denom);
             }
         }
     }

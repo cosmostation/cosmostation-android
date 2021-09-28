@@ -59,6 +59,8 @@ public enum BaseChain {
     EMONEY_MAIN("emoney-mainnet"),
     RIZON_MAIN("rizon-mainnet"),
 
+    REGEN_MAIN("regen-mainnet"),
+
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
     IRIS_TEST_LEGACY1("bifrost-2"),
@@ -183,6 +185,9 @@ public enum BaseChain {
             return RIZON_MAIN;
         }
 
+        if(chainName.equals(REGEN_MAIN.chainName)) {
+            return REGEN_MAIN;
+        }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
