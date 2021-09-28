@@ -32,7 +32,6 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
@@ -48,8 +47,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
@@ -219,7 +217,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(mDenom);
             final BnbToken bnbToken = getBaseDao().getBnbToken(mDenom);
-            Picasso.get().load(TOKEN_IMG_URL+bnbToken.original_symbol+".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
+            Picasso.get().load(BINANCE_TOKEN_IMG_URL +bnbToken.original_symbol+".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(mToolbarSymbolImg);
             mToolbarSymbol.setText(bnbToken.original_symbol.toUpperCase());
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
 

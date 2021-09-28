@@ -47,7 +47,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 
 public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_DESTINATION_CHAIN = 9100;
@@ -150,19 +150,19 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BTCB)) {
                 onSetDpDenom("BTC");
                 try {
-                    Picasso.get().load(TOKEN_IMG_URL + "BTCB.png").into(mToSendCoinImg);
+                    Picasso.get().load(BINANCE_TOKEN_IMG_URL + "BTCB.png").into(mToSendCoinImg);
                 } catch (Exception e){}
 
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_XRPB)) {
                 onSetDpDenom("XRP");
                 try {
-                    Picasso.get().load(TOKEN_IMG_URL + "XRP.png").into(mToSendCoinImg);
+                    Picasso.get().load(BINANCE_TOKEN_IMG_URL + "XRP.png").into(mToSendCoinImg);
                 } catch (Exception e){}
 
             } else if (mToSwapDenom.equals(TOKEN_HTLC_BINANCE_BUSD)) {
                 onSetDpDenom("BUSD");
                 try {
-                    Picasso.get().load(TOKEN_IMG_URL + "BUSD.png").into(mToSendCoinImg);
+                    Picasso.get().load(BINANCE_TOKEN_IMG_URL + "BUSD.png").into(mToSendCoinImg);
                 } catch (Exception e){}
 
             }

@@ -32,7 +32,7 @@ class WcTransferPopup: BaseViewController, SBCardPopupContent {
         let firstMsg = bnbOrder?.msgs[0]
         let dpDenom = firstMsg?.outputs[0].coins[0].denom.split(separator: "-")[0]
         let dpAmount = NSDecimalNumber.init(value: firstMsg?.outputs[0].coins[0].amount ?? 0).multiplying(byPowerOf10: -8, withBehavior: WUtils.handler8)
-        let url = TOKEN_IMG_URL + String(dpDenom!) + ".png"
+        let url = BINANCE_TOKEN_IMG_URL + String(dpDenom!) + ".png"
         WcSendCoinIcon.af_setImage(withURL: URL(string: url)!)
         
         WcRecipientAddress.text = firstMsg?.outputs[0].address

@@ -82,13 +82,13 @@ class StepHtlcSend0ViewController: BaseViewController, SBCardPopupDelegate {
                 sendCoinImg.image = UIImage(named: "bnbTokenImg")
                 self.onSetDpDenom("BNB")
             } else if (toSwapDenom == TOKEN_HTLC_BINANCE_BTCB) {
-                sendCoinImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + "BTCB.png")!)
+                sendCoinImg.af_setImage(withURL: URL(string: BINANCE_TOKEN_IMG_URL + "BTCB.png")!)
                 self.onSetDpDenom("BTC")
             } else if (toSwapDenom == TOKEN_HTLC_BINANCE_XRPB) {
-                sendCoinImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + "XRP.png")!)
+                sendCoinImg.af_setImage(withURL: URL(string: BINANCE_TOKEN_IMG_URL + "XRP.png")!)
                 self.onSetDpDenom("XRP")
             } else if (toSwapDenom == TOKEN_HTLC_BINANCE_BUSD) {
-                sendCoinImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + "BUSD.png")!)
+                sendCoinImg.af_setImage(withURL: URL(string: BINANCE_TOKEN_IMG_URL + "BUSD.png")!)
                 self.onSetDpDenom("BUSD")
             }
             availableAmount = pageHolderVC.mAccount!.getTokenBalance(toSwapDenom!)

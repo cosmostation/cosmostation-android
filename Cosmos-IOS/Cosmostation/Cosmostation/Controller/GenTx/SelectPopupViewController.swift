@@ -129,13 +129,13 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
                     cell!.coinImg.image = UIImage(named: "bnbTokenImg")
                     cell!.coinTitle.text = "BNB"
                 } else if (toSendCoin == TOKEN_HTLC_BINANCE_BTCB) {
-                    cell?.coinImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + "BTCB.png")!)
+                    cell?.coinImg.af_setImage(withURL: URL(string: BINANCE_TOKEN_IMG_URL + "BTCB.png")!)
                     cell!.coinTitle.text = "BTC"
                 } else if (toSendCoin == TOKEN_HTLC_BINANCE_XRPB) {
-                    cell?.coinImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + "XRP.png")!)
+                    cell?.coinImg.af_setImage(withURL: URL(string: BINANCE_TOKEN_IMG_URL + "XRP.png")!)
                     cell!.coinTitle.text = "XRP"
                 } else if (toSendCoin == TOKEN_HTLC_BINANCE_BUSD) {
-                    cell?.coinImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + "BUSD.png")!)
+                    cell?.coinImg.af_setImage(withURL: URL(string: BINANCE_TOKEN_IMG_URL + "BUSD.png")!)
                     cell!.coinTitle.text = "BUSD"
                 }
                 

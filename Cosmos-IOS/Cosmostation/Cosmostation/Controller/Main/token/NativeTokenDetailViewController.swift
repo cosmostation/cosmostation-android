@@ -96,7 +96,7 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
                 self.navigationController?.popViewController(animated: true)
                 return
             }
-            naviTokenImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + bnbToken.original_symbol + ".png")!)
+            naviTokenImg.af_setImage(withURL: URL(string: BINANCE_TOKEN_IMG_URL + bnbToken.original_symbol + ".png")!)
             naviTokenSymbol.text = bnbToken.original_symbol.uppercased()
             
             let convertedBnbAmount = WUtils.getBnbConvertAmount(denom!)

@@ -781,7 +781,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
 
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             if let bnbToken = WUtils.getBnbToken(balance.balance_denom) {
-                cell?.tokenImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + bnbToken.original_symbol + ".png")!)
+                cell?.tokenImg.af_setImage(withURL: URL(string: BINANCE_TOKEN_IMG_URL + bnbToken.original_symbol + ".png")!)
                 cell?.tokenSymbol.text = bnbToken.original_symbol.uppercased()
                 cell?.tokenSymbol.textColor = .white
                 cell?.tokenTitle.text = "(" + bnbToken.symbol + ")"

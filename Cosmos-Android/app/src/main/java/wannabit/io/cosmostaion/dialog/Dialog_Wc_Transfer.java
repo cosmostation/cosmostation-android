@@ -24,7 +24,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.WalletConnectActivity;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 
 public class Dialog_Wc_Transfer extends DialogFragment {
 
@@ -62,7 +62,7 @@ public class Dialog_Wc_Transfer extends DialogFragment {
             String dpDenom = msg.getOutputs().get(0).getCoins().get(0).getDenom().split("-")[0];
             BigDecimal dpAmount = new BigDecimal(msg.getOutputs().get(0).getCoins().get(0).getAmount()).movePointLeft(8);
 
-            Picasso.get().load(TOKEN_IMG_URL+dpDenom+".png")
+            Picasso.get().load(BINANCE_TOKEN_IMG_URL +dpDenom+".png")
                     .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
                     .into(send_coin_icon);
             send_coin_symbol.setText(dpDenom);

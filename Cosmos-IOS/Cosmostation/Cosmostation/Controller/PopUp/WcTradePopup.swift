@@ -54,10 +54,10 @@ class WcTradePopup: BaseViewController, SBCardPopupContent {
             WcSideLabel.text = "BUY"
             WcSideLabel.textColor = COLOR_WC_TRADE_BUY
             
-            let fromUrl = TOKEN_IMG_URL + pair_denom[1] + ".png"
+            let fromUrl = BINANCE_TOKEN_IMG_URL + pair_denom[1] + ".png"
             WcFromIcon.af_setImage(withURL: URL(string: fromUrl)!)
             
-            let toUrl = TOKEN_IMG_URL + pair_denom[0] + ".png"
+            let toUrl = BINANCE_TOKEN_IMG_URL + pair_denom[0] + ".png"
             WcToIcon.af_setImage(withURL: URL(string: toUrl)!)
             
             WcFromSymbol.text = String(pair_denom[1].split(separator: "-")[0])
@@ -70,10 +70,10 @@ class WcTradePopup: BaseViewController, SBCardPopupContent {
             WcSideLabel.text = "SELL"
             WcSideLabel.textColor = COLOR_WC_TRADE_SELL
             
-            let fromUrl = TOKEN_IMG_URL + pair_denom[0] + ".png"
+            let fromUrl = BINANCE_TOKEN_IMG_URL + pair_denom[0] + ".png"
             WcFromIcon.af_setImage(withURL: URL(string: fromUrl)!)
             
-            let toUrl = TOKEN_IMG_URL + pair_denom[1] + ".png"
+            let toUrl = BINANCE_TOKEN_IMG_URL + pair_denom[1] + ".png"
             WcToIcon.af_setImage(withURL: URL(string: toUrl)!)
             
             WcFromSymbol.text = String(pair_denom[0].split(separator: "-")[0])

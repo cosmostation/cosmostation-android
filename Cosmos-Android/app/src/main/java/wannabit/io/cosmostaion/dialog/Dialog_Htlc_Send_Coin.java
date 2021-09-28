@@ -38,7 +38,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 
 public class Dialog_Htlc_Send_Coin extends DialogFragment {
 
@@ -95,19 +95,19 @@ public class Dialog_Htlc_Send_Coin extends DialogFragment {
                 } else if (tosendCoin.equals(TOKEN_HTLC_BINANCE_BTCB)) {
                     holder.coinName.setText("BTC");
                     try {
-                        Picasso.get().load(TOKEN_IMG_URL + "BTCB.png").into(holder.coinImg);
+                        Picasso.get().load(BINANCE_TOKEN_IMG_URL + "BTCB.png").into(holder.coinImg);
                     } catch (Exception e){}
 
                 } else if (tosendCoin.equals(TOKEN_HTLC_BINANCE_XRPB)) {
                     holder.coinName.setText("XRP");
                     try {
-                        Picasso.get().load(TOKEN_IMG_URL + "XRP.png").into(holder.coinImg);
+                        Picasso.get().load(BINANCE_TOKEN_IMG_URL + "XRP.png").into(holder.coinImg);
                     } catch (Exception e){}
 
                 } else if (tosendCoin.equals(TOKEN_HTLC_BINANCE_BUSD)) {
                     holder.coinName.setText("BUSD");
                     try {
-                        Picasso.get().load(TOKEN_IMG_URL + "BUSD.png").into(holder.coinImg);
+                        Picasso.get().load(BINANCE_TOKEN_IMG_URL + "BUSD.png").into(holder.coinImg);
                     } catch (Exception e){}
 
                 }
