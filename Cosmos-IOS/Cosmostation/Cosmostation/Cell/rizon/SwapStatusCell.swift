@@ -81,7 +81,11 @@ class SwapStatusCell: UITableViewCell {
                 case .success(let res):
                     if let rawTxDetail = res as? NSDictionary {
                         let txDetail = HdacTx.init(rawTxDetail)
-                        if (chainType == ChainType.RIZON_TEST && txDetail.confirmations ?? 0 >= 1) {
+                        if (chainType == ChainType.RIZON_MAIN && txDetail.confirmations ?? 0 >= 8) {
+                            self.burnStatusImg.isHidden = true
+                            self.burnStatusTxtLabel.text = "Success"
+                            
+                        } else if (chainType == ChainType.RIZON_TEST && txDetail.confirmations ?? 0 >= 1) {
                             self.burnStatusImg.isHidden = true
                             self.burnStatusTxtLabel.text = "Success"
                             

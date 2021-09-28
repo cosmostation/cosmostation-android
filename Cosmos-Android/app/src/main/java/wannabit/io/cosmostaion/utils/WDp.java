@@ -933,6 +933,8 @@ public class WDp {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_umee));
         } else if (baseChain.equals(AXELAR_TEST)) {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_axelar));
+        } else if (baseChain.equals(RIZON_TEST)) {
+            chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_rizon));
         }
     }
 

@@ -99,8 +99,8 @@ let KI_API                              = "https://api-kichain.cosmostation.io/"
 
 
 let HDAC_MAINNET                        = "https://insight-api.rizon.world/insight-api/";
-let RIZON_SWAP_STATUS_MAINNET           = "https://swap-api.rizon.world/";
-let RIZON_MAINET_API                    = "";
+let RIZON_SWAP_STATUS                   = "https://swap-api.rizon.world/";
+let RIZON_API                           = "https://api-rizon-testnet.cosmostation.io/";
 
 let HDAC_TESTNET                        = "https://insight-api.testnet.rizon.world/insight-api/";
 let RIZON_SWAP_STATUS_TESTNET           = "https://swap-api.testnet.rizon.world/";
@@ -394,7 +394,6 @@ let SECRET_BASE_PATH                        = "m/44'/529'/0'/0/"
 let OK_BASE_PATH                            = "m/44'/996'/0'/0/"
 let PERSIS_BASE_PATH                        = "m/44'/750'/0'/0/"
 let CRYPTO_BASE_PATH                        = "m/44'/394'/0'/0/"
-let RIZON_BASE_PATH                         = "m/44'/1217'/0'/0/"
 let MEDI_BASE_PATH                          = "m/44'/371'/0'/0/"
 let ALTHEA_BASE_PATH                        = "m/44'/60'/0'/0/"
 let FETCH_BASE_PATH                         = "m/44'/118'/0'/0/"
@@ -819,6 +818,7 @@ public enum ChainType: String {
     case OSMOSIS_MAIN
     case MEDI_MAIN
     case EMONEY_MAIN
+    case RIZON_MAIN
     
     case REGEN_MAIN
     
@@ -852,6 +852,7 @@ public enum ChainType: String {
         result.append(CRYPTO_MAIN)
         result.append(SIF_MAIN)
         result.append(KI_MAIN)
+        result.append(RIZON_MAIN)
         result.append(OSMOSIS_MAIN)
         result.append(MEDI_MAIN)
         result.append(EMONEY_MAIN)
@@ -864,7 +865,7 @@ public enum ChainType: String {
 //        result.append(IOV_TEST)
 //        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
-//        result.append(RIZON_TEST)
+        result.append(RIZON_TEST)
 //        result.append(MEDI_TEST)
 //        result.append(ALTHEA_TEST)
         result.append(UMEE_TEST)
@@ -964,6 +965,7 @@ let CHAIN_KI_S = "SUPPORT_CHAIN_KI_MAIN"
 let CHAIN_OSMOSIS_S = "SUPPORT_CHAIN_OSMOSIS_MAIN"
 let CHAIN_MEDI_S = "SUPPORT_CHAIN_MEDI"
 let CHAIN_EMONEY_S = "SUPPORT_CHAIN_EMONEY"
+let CHAIN_RIZON_S = "SUPPORT_CHAIN_RIZON"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_IRIS_TEST_S = "SUPPORT_CHAIN_IRIS_TEST"
@@ -972,7 +974,7 @@ let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
 let CHAIN_OKEX_TEST_S = "SUPPORT_CHAIN_OKEX_TEST"
 let CHAIN_CERTIK_TEST_S = "SUPPORT_CHAIN_CERTIK_TEST"
-let CHAIN_RIZON_TEST_S = "SUPPORT_CHAIN_RIZON_TEST"
+let CHAIN_RIZON_TEST_S = "SUPPORT_CHAIN_RIZON_TEST2"
 let CHAIN_MEDI_TEST_S = "SUPPORT_CHAIN_MEDI_TEST"
 let CHAIN_ALTHEA_TEST_S = "SUPPORT_CHAIN_ALTHEA_TEST"
 let CHAIN_UMEE_TEST_S = "SUPPORT_CHAIN_UMEE_TEST"
@@ -1074,6 +1076,7 @@ let EXPLORER_OSMOSIS_MAIN   = "https://www.mintscan.io/osmosis/";
 let EXPLORER_MEDI_MAIN      = "https://www.mintscan.io/medibloc/";
 let EXPLORER_CERTIK         = "https://www.mintscan.io/certik/";
 let EXPLORER_EMONEY         = "https://www.mintscan.io/emoney/";
+let EXPLORER_RIZON          = "https://www.mintscan.io/rizon/";
 let EXPLORER_HDAC_MAIN      = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";

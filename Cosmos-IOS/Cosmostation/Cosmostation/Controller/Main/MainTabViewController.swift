@@ -302,7 +302,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (self.mChainType == ChainType.IRIS_MAIN || self.mChainType == ChainType.AKASH_MAIN || self.mChainType == ChainType.PERSIS_MAIN ||
                     self.mChainType == ChainType.CRYPTO_MAIN || self.mChainType == ChainType.SENTINEL_MAIN || self.mChainType == ChainType.MEDI_MAIN ||
-                    self.mChainType == ChainType.CERTIK_MAIN  || self.mChainType == ChainType.EMONEY_MAIN || self.mChainType == ChainType.FETCH_MAIN) {
+                    self.mChainType == ChainType.CERTIK_MAIN  || self.mChainType == ChainType.EMONEY_MAIN || self.mChainType == ChainType.FETCH_MAIN ||
+                    self.mChainType == ChainType.RIZON_MAIN) {
             self.mFetchCnt = 9
             self.onFetchgRPCNodeInfo()
             self.onFetchgRPCAuth(self.mAccount.account_address)

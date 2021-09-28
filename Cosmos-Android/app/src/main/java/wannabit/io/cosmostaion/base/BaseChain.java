@@ -84,7 +84,7 @@ public enum BaseChain {
     OK_TEST("okexchain-testnet"),
     CERTIK_TEST_LEGACY1("shentu-incentivized-3"),
     CERTIK_TEST("certik-testnet"),
-    RIZON_TEST("rizon-testnet"),
+    RIZON_TEST("rizon-testnet2"),
     MEDI_TEST("medi-testnet"),
     ALTHEA_TEST("althea-testnet"),
     UMEE_TEST("umee-testnet"),
@@ -258,11 +258,11 @@ public enum BaseChain {
         result.add(FETCHAI_MAIN);
         result.add(CRYPTO_MAIN);
         result.add(SIF_MAIN);
+        result.add(RIZON_MAIN);
         result.add(KI_MAIN);
         result.add(OSMOSIS_MAIN);
         result.add(MEDI_MAIN);
         result.add(EMONEY_MAIN);
-        result.add(RIZON_MAIN);
         result.add(SECRET_MAIN);
 
 
@@ -273,7 +273,7 @@ public enum BaseChain {
 //        result.add(IOV_TEST);
 //        result.add(OK_TEST);
 //        result.add(CERTIK_TEST);
-//        result.add(RIZON_TEST);
+        result.add(RIZON_TEST);
 //        result.add(MEDI_TEST);
 //        result.add(ALTHEA_TEST);
         result.add(UMEE_TEST);

@@ -192,7 +192,7 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.RIZON_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.RIZON_MAIN || pageHolderVC.chainType! == ChainType.RIZON_TEST) {
             if (!userInput!.starts(with: "rizon1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;

@@ -109,7 +109,12 @@ class RizonSwapStatusViewController: BaseViewController, UITableViewDelegate, UI
     
     func onExplorerHdac(_ swapInfo: RizonSwapStatus) {
         if let hash = swapInfo.hdacTxId {
-            if (chainType == ChainType.RIZON_TEST) {
+            if (chainType == ChainType.RIZON_MAIN) {
+                let link = EXPLORER_HDAC_MAIN + "tx/" + hash
+                guard let url = URL(string: link) else { return }
+                self.onShowSafariWeb(url)
+                
+            } else if (chainType == ChainType.RIZON_TEST) {
                 let link = EXPLORER_HDAC_TEST + "tx/" + hash
                 guard let url = URL(string: link) else { return }
                 self.onShowSafariWeb(url)
@@ -119,7 +124,12 @@ class RizonSwapStatusViewController: BaseViewController, UITableViewDelegate, UI
     
     func onExplorerRizon(_ swapInfo: RizonSwapStatus) {
         if let hash = swapInfo.rizonTxId {
-            if (chainType == ChainType.RIZON_TEST) {
+            if (chainType == ChainType.RIZON_MAIN) {
+                let link = EXPLORER_RIZON + "txs/" + hash
+                guard let url = URL(string: link) else { return }
+                self.onShowSafariWeb(url)
+                
+            } else if (chainType == ChainType.RIZON_TEST) {
                 let link = EXPLORER_RIZON_TEST + "txs/" + hash
                 guard let url = URL(string: link) else { return }
                 self.onShowSafariWeb(url)

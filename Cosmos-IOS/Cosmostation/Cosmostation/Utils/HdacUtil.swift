@@ -25,12 +25,12 @@ class HdacUtil {
         var result = NSDecimalNumber.zero
         utxos.forEach { utxo in
             if let satoshis = utxo.satoshis, let confirmations = utxo.confirmations {
-                if (chain == ChainType.RIZON_TEST) {
-                    if (satoshis > 0 && confirmations >= 1) {
+                if (chain == ChainType.RIZON_MAIN) {
+                    if (satoshis > 0 && confirmations >= 8) {
                         result = result.adding(NSDecimalNumber.init(string: utxo.amount))
                     }
-                } else {
-                    if (satoshis > 0 && confirmations >= 8) {
+                } else if (chain == ChainType.RIZON_TEST) {
+                    if (satoshis > 0 && confirmations >= 1) {
                         result = result.adding(NSDecimalNumber.init(string: utxo.amount))
                     }
                 }
@@ -43,12 +43,13 @@ class HdacUtil {
         var result = Array<HdacUtxo>()
         utxos.forEach { utxo in
             if let satoshis = utxo.satoshis, let confirmations = utxo.confirmations {
-                if (chain == ChainType.RIZON_TEST) {
-                    if (satoshis > 0 && confirmations >= 1) {
+                if (chain == ChainType.RIZON_MAIN) {
+                    if (satoshis > 0 && confirmations >= 8) {
                         result.append(utxo)
                     }
-                } else {
-                    if (satoshis > 0 && confirmations >= 8) {
+                    
+                } else if (chain == ChainType.RIZON_TEST) {
+                    if (satoshis > 0 && confirmations >= 1) {
                         result.append(utxo)
                     }
                 }
@@ -59,10 +60,10 @@ class HdacUtil {
     
     static func generateHdacAddress(_ chain: ChainType?, _ publickey: HDWalletKit.PublicKey) -> String {
         var prefix: Data?
-        if (chain == ChainType.RIZON_TEST) {
-            prefix = Data([0x64])
-        } else {
+        if (chain == ChainType.RIZON_MAIN) {
             prefix = Data([0x28])
+        } else if (chain == ChainType.RIZON_TEST) {
+            prefix = Data([0x64])
         }
         
         let publicKeyy = publickey.compressedPublicKey
@@ -71,10 +72,11 @@ class HdacUtil {
         var checksum = (prefix! + payload).sha256().sha256().prefix(4)
         checksum = swapUInt32Data(checksum)
         var hdacChecksum: Data?
-        if (chain == ChainType.RIZON_TEST) {
-            hdacChecksum = dataWithHexString(hex: "48545354")
-        } else {
+        
+        if (chain == ChainType.RIZON_MAIN) {
             hdacChecksum = dataWithHexString(hex: "48444143")
+        } else  if (chain == ChainType.RIZON_TEST) {
+            hdacChecksum = dataWithHexString(hex: "48545354")
         }
         hdacChecksum = swapUInt32Data(hdacChecksum!)
         var result = Data.getxor(left: checksum, right: hdacChecksum!)
@@ -112,10 +114,10 @@ class HdacUtil {
     static func createSwapTx(_ chain: ChainType?, _ utxos: [UnspentTransaction], _ rizonAddress: String, _ key: PrivateKey) throws -> String {
         let utoxTransactionSigner = UtxoTransactionSigner()
         var burnAddress: Address
-        if (chain == ChainType.RIZON_TEST) {
-            burnAddress = try! HdacAddress.init(HDAC_BURN_ADDRESS_TEST, coin: .hdacTest)
-        } else {
+        if (chain == ChainType.RIZON_MAIN) {
             burnAddress = try! HdacAddress.init(HDAC_BURN_ADDRESS_MAIN, coin: .hdac)
+        } else {
+            burnAddress = try! HdacAddress.init(HDAC_BURN_ADDRESS_TEST, coin: .hdacTest)
         }
         
         let totalAmount: UInt64 = utxos.sum()

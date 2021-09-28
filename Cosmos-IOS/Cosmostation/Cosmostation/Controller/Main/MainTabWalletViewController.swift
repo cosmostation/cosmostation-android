@@ -235,14 +235,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetMediItems(tableView, indexPath);
         } else if (chainType == ChainType.EMONEY_MAIN) {
             return onSetEmoneyItems(tableView, indexPath);
+        } else if (chainType == ChainType.RIZON_MAIN || chainType == ChainType.RIZON_TEST) {
+            return onSetRizonItems(tableView, indexPath);
         }
         
         else if (chainType == ChainType.COSMOS_TEST) {
             return onSetCosmosTestItems(tableView, indexPath);
         } else if (chainType == ChainType.IRIS_TEST) {
             return onSetIrisTestItems(tableView, indexPath);
-        } else if (chainType == ChainType.RIZON_TEST) {
-            return onSetRizonItems(tableView, indexPath);
         } else if (chainType == ChainType.ALTHEA_TEST) {
             return onSetAltheaItems(tableView, indexPath);
         } else if (chainType == ChainType.UMEE_TEST) {

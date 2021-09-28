@@ -22,9 +22,9 @@ class WKey {
         
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.AKASH_MAIN ||
                 chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.SIF_MAIN || chainType == ChainType.KI_MAIN || chainType == ChainType.OSMOSIS_MAIN ||
-                chainType == ChainType.EMONEY_MAIN ||
+                chainType == ChainType.EMONEY_MAIN || chainType == ChainType.RIZON_MAIN ||
                 chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.UMEE_TEST ||
-                chainType == ChainType.AXELAR_TEST) {
+                chainType == ChainType.AXELAR_TEST || chainType == ChainType.RIZON_TEST) {
             return masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(account.account_path)!))
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
@@ -58,9 +58,6 @@ class WKey {
             
         } else if (chainType == ChainType.CRYPTO_MAIN) {
             return masterKey.derived(at: .hardened(44)).derived(at: .hardened(394)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(account.account_path)!))
-
-        } else if (chainType == ChainType.RIZON_TEST) {
-            return masterKey.derived(at: .hardened(44)).derived(at: .hardened(1217)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(account.account_path)!))
 
         } else if (chainType == ChainType.MEDI_MAIN || chainType == ChainType.MEDI_TEST) {
             return masterKey.derived(at: .hardened(44)).derived(at: .hardened(371)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(account.account_path)!))
@@ -126,7 +123,7 @@ class WKey {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "sif", program: ripemd160)
         } else if (chain == ChainType.KI_MAIN) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "ki", program: ripemd160)
-        } else if (chain == ChainType.RIZON_TEST) {
+        } else if (chain == ChainType.RIZON_MAIN || chain == ChainType.RIZON_TEST) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "rizon", program: ripemd160)
         } else if (chain == ChainType.MEDI_MAIN || chain == ChainType.MEDI_TEST) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "panacea", program: ripemd160)
@@ -148,9 +145,9 @@ class WKey {
         var childKey:PrivateKey?
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.AKASH_MAIN ||
                 chain == ChainType.SENTINEL_MAIN || chain == ChainType.SIF_MAIN || chain == ChainType.KI_MAIN || chain == ChainType.OSMOSIS_MAIN ||
-                chain == ChainType.EMONEY_MAIN ||
+                chain == ChainType.EMONEY_MAIN || chain == ChainType.RIZON_MAIN ||
                 chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.CERTIK_TEST || chain == ChainType.UMEE_TEST ||
-                chain == ChainType.AXELAR_TEST) {
+                chain == ChainType.AXELAR_TEST || chain == ChainType.RIZON_TEST) {
             childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
             
         } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -184,9 +181,6 @@ class WKey {
             
         } else if (chain == ChainType.CRYPTO_MAIN) {
             childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(394)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-            
-        } else if (chain == ChainType.RIZON_TEST) {
-            childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(1217)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
             
         } else if (chain == ChainType.MEDI_MAIN || chain == ChainType.MEDI_TEST) {
             childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(371)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
@@ -291,7 +285,7 @@ class WKey {
             result = bech32.encode("sif", values: data)
         } else if (chain == ChainType.KI_MAIN) {
             result = bech32.encode("ki", values: data)
-        } else if (chain == ChainType.RIZON_TEST) {
+        } else if (chain == ChainType.RIZON_MAIN || chain == ChainType.RIZON_TEST) {
             result = bech32.encode("rizon", values: data)
         } else if (chain == ChainType.MEDI_MAIN || chain == ChainType.MEDI_TEST) {
             result = bech32.encode("panacea", values: data)

@@ -56,10 +56,10 @@ class EventHorizonResultViewController: BaseViewController {
     @IBAction func onClickExplorer(_ sender: UIButton) {
         if (txDetail?.txid == nil) { return }
         var urlLink = ""
-        if (chainType == ChainType.RIZON_TEST) {
-            urlLink = EXPLORER_HDAC_TEST + "tx/" + txDetail!.txid!
-        } else {
+        if (chainType == ChainType.RIZON_MAIN) {
             urlLink = EXPLORER_HDAC_MAIN + "tx/" + txDetail!.txid!
+        } else if (chainType == ChainType.RIZON_TEST) {
+            urlLink = EXPLORER_HDAC_TEST + "tx/" + txDetail!.txid!
         }
         guard let url = URL(string: urlLink) else { return }
         self.onShowSafariWeb(url)
