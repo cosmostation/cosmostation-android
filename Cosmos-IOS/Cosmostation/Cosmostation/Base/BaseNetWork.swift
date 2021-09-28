@@ -984,7 +984,7 @@ class BaseNetWork {
             return ClientConnection.insecure(group: group).connect(host: "lcd-fetchai-app.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.RIZON_MAIN) {
-            return ClientConnection.insecure(group: group).connect(host: "lcd-rizon-testnet.cosmostation.io", port: 9090)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-rizon-app.cosmostation.io", port: 9090)
             
         }
         

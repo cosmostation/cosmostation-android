@@ -69,7 +69,7 @@ public class ChannelBuilder {
     private final static String GRPC_BAND_MAIN = "lcd-band-app.cosmostation.io";
     private final static int PORT_BAND_MAIN = 9090;
 
-    private final static String GRPC_RIZON_MAIN = "lcd-rizon-testnet.cosmostation.io";
+    private final static String GRPC_RIZON_MAIN = "lcd-rizon-app.cosmostation.io";
     private final static int PORT_RIZON_MAIN = 9090;
 
 

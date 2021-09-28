@@ -100,7 +100,7 @@ let KI_API                              = "https://api-kichain.cosmostation.io/"
 
 let HDAC_MAINNET                        = "https://insight-api.rizon.world/insight-api/";
 let RIZON_SWAP_STATUS                   = "https://swap-api.rizon.world/";
-let RIZON_API                           = "https://api-rizon-testnet.cosmostation.io/";
+let RIZON_API                           = "https://api-rizon.cosmostation.io/";
 
 let HDAC_TESTNET                        = "https://insight-api.testnet.rizon.world/insight-api/";
 let RIZON_SWAP_STATUS_TESTNET           = "https://swap-api.testnet.rizon.world/";
