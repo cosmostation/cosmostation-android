@@ -579,7 +579,6 @@ public class BaseConstant {
     public final static String KEY_NEW_SECRET_PATH          = "44'/529'/0'/0/";
     public final static String KEY_PERSIS_PATH              = "44'/750'/0'/0/";
     public final static String KEY_CRYPTO_PATH              = "44'/394'/0'/0/";
-    public final static String KEY_RIZON_PATH               = "44'/1217'/0'/0/";
     public final static String KEY_MEDI_PATH                = "44'/371'/0'/0/";
     public final static String KEY_ALTHEA_PATH              = "44'/60'/0'/0/";
     public final static String KEY_FETCH_BASE_PATH          = "44'/118'/0'/0/";

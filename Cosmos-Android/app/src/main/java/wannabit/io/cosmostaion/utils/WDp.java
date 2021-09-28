@@ -120,7 +120,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LIVE_PATH
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LIVE_PATH_2;
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_NON_LEDGER_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_MEDI_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_RIZON_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.KI_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MEDI_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_VAL_URL;
@@ -1967,9 +1966,6 @@ public class WDp {
 
         } else if (chain.equals(CRYPTO_MAIN)) {
             return BaseConstant.KEY_CRYPTO_PATH + String.valueOf(position);
-
-        } else if (chain.equals(RIZON_TEST)) {
-            return KEY_RIZON_PATH + String.valueOf(position);
 
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
             return KEY_MEDI_PATH + String.valueOf(position);
