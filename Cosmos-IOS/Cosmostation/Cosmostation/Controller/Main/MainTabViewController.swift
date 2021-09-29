@@ -207,9 +207,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mMyBalances_gRPC.removeAll()
         BaseData.instance.mMyVestings_gRPC.removeAll()
         BaseData.instance.mMyReward_gRPC.removeAll()
-        
-        BaseData.instance.mBandOracle_gRPC.removeAll()
-        
+                
         BaseData.instance.mStarNameFee_gRPC = nil
         BaseData.instance.mStarNameConfig_gRPC = nil
         
@@ -303,7 +301,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (self.mChainType == ChainType.IRIS_MAIN || self.mChainType == ChainType.AKASH_MAIN || self.mChainType == ChainType.PERSIS_MAIN ||
                     self.mChainType == ChainType.CRYPTO_MAIN || self.mChainType == ChainType.SENTINEL_MAIN || self.mChainType == ChainType.MEDI_MAIN ||
                     self.mChainType == ChainType.CERTIK_MAIN  || self.mChainType == ChainType.EMONEY_MAIN || self.mChainType == ChainType.FETCH_MAIN ||
-                    self.mChainType == ChainType.RIZON_MAIN) {
+                    self.mChainType == ChainType.RIZON_MAIN || mChainType == ChainType.BAND_MAIN) {
             self.mFetchCnt = 9
             self.onFetchgRPCNodeInfo()
             self.onFetchgRPCAuth(self.mAccount.account_address)
@@ -316,22 +314,24 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.onFetchgRPCUndelegations(self.mAccount.account_address, 0)
             self.onFetchgRPCRewards(self.mAccount.account_address, 0)
             
-        } else if (mChainType == ChainType.BAND_MAIN) {
-            self.mFetchCnt = 10
-            onFetchgRPCNodeInfo()
-            onFetchgRPCAuth(mAccount.account_address)
-            onFetchgRPCBondedValidators(0)
-            onFetchgRPCUnbondedValidators(0)
-            onFetchgRPCUnbondingValidators(0)
-
-            onFetchgRPCBalance(mAccount.account_address, 0)
-            onFetchgRPCDelegations(mAccount.account_address, 0)
-            onFetchgRPCUndelegations(mAccount.account_address, 0)
-            onFetchgRPCRewards(mAccount.account_address, 0)
-
-            onFetchgRPCBandOracleStatus()
-
-        } else if (self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.IOV_TEST) {
+        }
+//        else if (mChainType == ChainType.BAND_MAIN) {
+//            self.mFetchCnt = 10
+//            onFetchgRPCNodeInfo()
+//            onFetchgRPCAuth(mAccount.account_address)
+//            onFetchgRPCBondedValidators(0)
+//            onFetchgRPCUnbondedValidators(0)
+//            onFetchgRPCUnbondingValidators(0)
+//
+//            onFetchgRPCBalance(mAccount.account_address, 0)
+//            onFetchgRPCDelegations(mAccount.account_address, 0)
+//            onFetchgRPCUndelegations(mAccount.account_address, 0)
+//            onFetchgRPCRewards(mAccount.account_address, 0)
+//
+//            onFetchgRPCBandOracleStatus()
+//
+//        }
+        else if (self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.IOV_TEST) {
             self.mFetchCnt = 11
             self.onFetchgRPCNodeInfo()
             self.onFetchgRPCAuth(self.mAccount.account_address)
@@ -1238,24 +1238,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 
             } catch {
                 print("onFetchgRPCRewards failed: \(error)")
-            }
-            DispatchQueue.main.async(execute: { self.onFetchFinished() });
-        }
-    }
-    
-    func onFetchgRPCBandOracleStatus() {
-        DispatchQueue.global().async {
-            do {
-                let channel = BaseNetWork.getConnection(self.mChainType!, MultiThreadedEventLoopGroup(numberOfThreads: 1))!
-                let req = Oracle_V1_QueryActiveValidatorsRequest.init()
-                let response = try Oracle_V1_QueryClient(channel: channel).activeValidators(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
-                response.validators.forEach { validator in
-                    BaseData.instance.mBandOracle_gRPC.append(validator)
-                }
-                try channel.close().wait()
-                
-            } catch {
-                print("onFetchgRPCBandOracleStatus failed: \(error)")
             }
             DispatchQueue.main.async(execute: { self.onFetchFinished() });
         }

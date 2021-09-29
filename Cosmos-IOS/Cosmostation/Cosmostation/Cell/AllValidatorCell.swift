@@ -72,7 +72,7 @@ class AllValidatorCell: UITableViewCell {
         
         //display for band oracle status
         if (chainType == ChainType.BAND_MAIN) {
-            if (!BaseData.instance.mBandOracle_gRPC.contains { $0.address == validator.operatorAddress}) {
+            if (BaseData.instance.mParam?.params?.band_active_validators?.addresses.contains(validator.operatorAddress) == false) {
                 bandOracleOffImg.isHidden = false
             }
         }
