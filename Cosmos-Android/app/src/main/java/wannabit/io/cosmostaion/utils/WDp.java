@@ -911,6 +911,9 @@ public class WDp {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_emoney));
         } else if (baseChain.equals(RIZON_MAIN)) {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_rizon));
+
+        } else if (baseChain.equals(REGEN_MAIN)) {
+            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_regen));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -980,6 +983,9 @@ public class WDp {
         } else if (baseChain.equals(RIZON_MAIN)) {
             chainName.setText(c.getString(R.string.str_rizon_net));
 
+        } else if (baseChain.equals(REGEN_MAIN)) {
+            chainName.setText(c.getString(R.string.str_regen_net));
+
         }
         else if (baseChain.equals(COSMOS_TEST)) {
             chainName.setText(c.getString(R.string.str_cosmos_testnet));
@@ -1047,6 +1053,9 @@ public class WDp {
             chainName.setText(c.getString(R.string.str_emoney_main));
         } else if (baseChain.equals(RIZON_MAIN)) {
             chainName.setText(c.getString(R.string.str_rizon_main));
+
+        } else if (baseChain.equals(REGEN_MAIN)) {
+            chainName.setText(c.getString(R.string.str_regen_main));
 
         }
         else if (baseChain.equals(COSMOS_TEST)) {

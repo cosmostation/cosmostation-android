@@ -58,6 +58,7 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
 import wannabit.io.cosmostaion.activities.SendActivity;
+import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.activities.chains.rizon.EventHorizonActivity;
 import wannabit.io.cosmostaion.activities.chains.rizon.RizonSwapStatusActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
@@ -447,6 +448,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onUpdateUserAlarm(Account account, boolean useAlarm) {
         new PushUpdateTask(getBaseApplication(), this, account, getBaseDao().getFCMToken(), useAlarm).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    public void onCheckIbcTransfer(String denom) {
+        Intent intent = new Intent(BaseActivity.this, IBCSendActivity.class);
+        intent.putExtra("sendTokenDenom", denom);
+        startActivity(intent);
     }
 
 

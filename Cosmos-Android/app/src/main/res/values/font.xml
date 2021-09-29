@@ -798,4 +798,10 @@
         <item name="android:textSize">@dimen/text_size_17</item>
     </style>
 
+    <style name="font_ssm_14_dialog" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorDialog</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
 </resources>
