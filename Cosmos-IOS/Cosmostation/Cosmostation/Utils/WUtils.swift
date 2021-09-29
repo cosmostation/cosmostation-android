@@ -4985,7 +4985,7 @@ public class WUtils {
         return (nil, nil, nil)
     }
     
-    static func onParseVestingAccount() {
+    static func onParseVestingAccount(_ chain: ChainType) {
         print("onParseVestingAccount")
         guard let account = BaseData.instance.mAccount_gRPC else { return }
         var sBalace = Array<Coin>()
@@ -5136,11 +5136,12 @@ public class WUtils {
                 })
 //                print("originalVesting ", denom, "  ", originalVesting)
                 
-                vestingAccount.baseVestingAccount.delegatedVesting.forEach({ (coin) in
-                    if (coin.denom == denom) {
-                        delegatedVesting = delegatedVesting.adding(NSDecimalNumber.init(string: coin.amount))
-                    }
-                })
+                //looks bug for delegatedVesting with delayedVesting
+//                vestingAccount.baseVestingAccount.delegatedVesting.forEach({ (coin) in
+//                    if (coin.denom == denom) {
+//                        delegatedVesting = delegatedVesting.adding(NSDecimalNumber.init(string: coin.amount))
+//                    }
+//                })
 //                print("delegatedVesting ", denom, "  ", delegatedVesting)
                 
                 let cTime = Date().millisecondsSince1970
@@ -5149,6 +5150,16 @@ public class WUtils {
                     remainVesting = originalVesting
                 }
 //                print("remainVesting ", denom, "  ", remainVesting)
+                
+                if (coin.denom == getMainDenom(chain)) {
+                    let stakedAmount = BaseData.instance.getDelegatedSumAmount_gRPC()
+                    if (remainVesting.compare(stakedAmount).rawValue >= 0){
+                        delegatedVesting = stakedAmount
+                    } else {
+                        delegatedVesting = remainVesting
+                    }
+                }
+//                print("delegatedVesting ", denom, "  ", delegatedVesting)
                 
                 dpVesting = remainVesting.subtracting(delegatedVesting);
 //                print("dpVestingA ", denom, "  ", dpVesting)

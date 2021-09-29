@@ -438,7 +438,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     if (self.mChainType == ChainType.PERSIS_MAIN) {
                         WUtils.onParsePersisVestingAccount()
                     } else {
-                        WUtils.onParseVestingAccount()
+                        WUtils.onParseVestingAccount(self.mChainType)
                     }
                 }
             }

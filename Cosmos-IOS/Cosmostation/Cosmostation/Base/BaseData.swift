@@ -402,12 +402,16 @@ final class BaseData : NSObject{
         return getAvailableAmount_gRPC(symbol).adding(getVestingAmount_gRPC(symbol))
     }
     
-    func getDelegatedSum_gRPC() -> String {
+    func getDelegatedSumAmount_gRPC() -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for delegation in mMyDelegations_gRPC {
             amount = amount.adding(WUtils.plainStringToDecimal(delegation.balance.amount))
         }
-        return amount.stringValue;
+        return amount;
+    }
+    
+    func getDelegatedSum_gRPC() -> String {
+        return getDelegatedSumAmount_gRPC().stringValue;
     }
     
     func getDelegated_gRPC(_ opAddress: String?) -> NSDecimalNumber {
