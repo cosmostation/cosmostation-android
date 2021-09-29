@@ -669,7 +669,7 @@
                                             <constraint firstAttribute="height" constant="35" id="a41-st-ORA"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title=" QR Scan" image="qrIc">
+                                        <state key="normal" title=" QR Scan" image="iconQrcode">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -1246,7 +1246,7 @@
                                             <constraint firstAttribute="height" constant="35" id="B1R-9I-3Em"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title=" QR Scan" image="qrIc">
+                                        <state key="normal" title=" QR Scan" image="iconQrcode">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -7132,7 +7132,7 @@ The actual amount of rewards you receive may be equal to or greater than what is
                                             <constraint firstAttribute="height" constant="35" id="jZP-CA-4xM"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title=" QR Scan" image="qrIc">
+                                        <state key="normal" title=" QR Scan" image="iconQrcode">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -10581,11 +10581,11 @@ All deposits will be returned to each depositor.</string>
         <image name="copyIc" width="18" height="18"/>
         <image name="cosmosWhMain" width="42" height="42"/>
         <image name="dropdown_btn" width="24" height="24"/>
+        <image name="iconQrcode" width="18" height="18"/>
         <image name="interchainArrow" width="20" height="20"/>
         <image name="key_off" width="20" height="20"/>
         <image name="listIc" width="18" height="18"/>
         <image name="loading_1" width="144" height="144"/>
-        <image name="qrIc" width="18" height="18"/>
         <image name="riskArrow" width="20" height="20"/>
         <image name="starnameImg" width="60" height="60"/>
         <image name="tokenIc" width="22" height="22"/>

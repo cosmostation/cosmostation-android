@@ -1,8 +1,8 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "filename" : "qrIc.pdf"
+      "filename" : "iconQrcode.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

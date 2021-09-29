@@ -2519,7 +2519,7 @@ public class WUtils {
         } else if (chain == ChainType.EMONEY_MAIN) {
             return COLOR_EMONEY
         }
-        return COLOR_ATOM
+        return COLOR_DARK_GRAY
     }
     
     static func getChainDarkColor(_ chain:ChainType) -> UIColor {

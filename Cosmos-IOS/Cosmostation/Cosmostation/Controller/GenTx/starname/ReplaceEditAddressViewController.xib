@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,13 +25,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address to Connect" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jy0-Xp-hvg">
-                    <rect key="frame" x="16" y="79" width="151" height="20.5"/>
+                    <rect key="frame" x="16" y="79" width="128" height="17"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZqX-Qt-kma" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                    <rect key="frame" x="16" y="115.5" width="382" height="50"/>
+                    <rect key="frame" x="16" y="112" width="382" height="50"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultChainImg" translatesAutoresizingMaskIntoConstraints="NO" id="Cdx-Rd-ybl">
                             <rect key="frame" x="12" y="4" width="42" height="42"/>
@@ -41,7 +41,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Chain Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="USx-KT-RFb">
-                            <rect key="frame" x="58" y="16" width="83.5" height="18"/>
+                            <rect key="frame" x="58" y="16" width="68.5" height="18"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -72,7 +72,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Insert Address" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="15H-6s-s9q" customClass="AddressInputTextField" customModule="Cosmostation" customModuleProvider="target">
-                    <rect key="frame" x="16" y="173.5" width="382" height="50"/>
+                    <rect key="frame" x="16" y="170" width="382" height="50"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -83,7 +83,7 @@
                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="alphabet" returnKeyType="done" smartInsertDeleteType="no"/>
                 </textField>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="a4s-ed-pMd">
-                    <rect key="frame" x="142" y="235.5" width="256" height="35"/>
+                    <rect key="frame" x="142" y="232" width="256" height="35"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X5R-uF-1eY">
                             <rect key="frame" x="0.0" y="0.0" width="80" height="35"/>
@@ -118,7 +118,7 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="tintColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" title="  Scan" image="qrIc">
+                            <state key="normal" title="  Scan" image="iconQrcode">
                                 <color key="titleColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -240,7 +240,7 @@
     <resources>
         <image name="copyIc" width="18" height="18"/>
         <image name="defaultChainImg" width="42" height="42"/>
+        <image name="iconQrcode" width="18" height="18"/>
         <image name="listIc" width="18" height="18"/>
-        <image name="qrIc" width="18" height="18"/>
     </resources>
 </document>
