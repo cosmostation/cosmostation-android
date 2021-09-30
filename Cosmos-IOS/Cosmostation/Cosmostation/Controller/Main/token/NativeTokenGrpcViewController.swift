@@ -70,7 +70,7 @@ class NativeTokenGrpcViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (chainType == ChainType.EMONEY_MAIN) {
-            naviTokenSymbol.text = nativeDenom.substring(from: 1).uppercased()
+            naviTokenSymbol.text = nativeDenom.uppercased()
             naviTokenImg.af_setImage(withURL: URL(string: EMONEY_COIN_IMG_URL + nativeDenom + ".png")!)
             nativeDivideDecimal = 6
             nativeDisplayDecimal = 6

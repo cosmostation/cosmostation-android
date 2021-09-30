@@ -525,7 +525,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (coin.denom == EMONEY_EUR_DENOM || coin.denom == EMONEY_CHF_DENOM || coin.denom == EMONEY_DKK_DENOM ||
                     coin.denom == EMONEY_NOK_DENOM || coin.denom == EMONEY_SEK_DENOM) {
             cell?.tokenImg.af_setImage(withURL: URL(string: EMONEY_COIN_IMG_URL + coin.denom + ".png")!)
-            cell?.tokenSymbol.text = coin.denom.substring(from: 1).uppercased()
+            cell?.tokenSymbol.text = coin.denom.uppercased()
             cell?.tokenSymbol.textColor = .white
             cell?.tokenTitle.text = ""
             cell?.tokenDescription.text = coin.denom.substring(from: 1).uppercased() + " on E-Money Network"

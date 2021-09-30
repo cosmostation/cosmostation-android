@@ -2143,7 +2143,7 @@ public class WUtils {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else if (coin.denom.starts(with: "e")) {
                 denomLabel.textColor = .white
-                denomLabel.text = coin.denom.substring(from: 1).uppercased()
+                denomLabel.text = coin.denom.uppercased()
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = coin.denom.uppercased()
