@@ -828,7 +828,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             holder.itemInnerSymbol.setText("");
-            holder.itemFullName.setText(coin.denom.toUpperCase() + " on E-Money Network");
+            holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on E-Money Network");
             Picasso.get().load(EMONEY_COIN_IMG_URL + coin.denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.itemImg);
 
             BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);

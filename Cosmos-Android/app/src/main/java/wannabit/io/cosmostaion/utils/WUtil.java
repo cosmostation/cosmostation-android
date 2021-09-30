@@ -3444,7 +3444,7 @@ public class WUtil {
     }
 
     //parse & check vesting account
-    public static void onParseVestingAccount(BaseData baseData) {
+    public static void onParseVestingAccount(BaseData baseData, BaseChain baseChain) {
         WLog.w("onParseVestingAccount");
         Any account = baseData.mGRpcAccount;
         if (account == null ) return;
@@ -3610,12 +3610,11 @@ public class WUtil {
                 }
                 WLog.w("originalVesting " +  denom + "  " +  originalVesting);
 
-                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
-                    if (vesting.getDenom().equals(denom)) {
-                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
-                    }
-                }
-                WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
+//                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
+//                    if (vesting.getDenom().equals(denom)) {
+//                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
+//                    }
+//                }
 
                 long cTime = Calendar.getInstance().getTime().getTime();
                 long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
@@ -3623,6 +3622,17 @@ public class WUtil {
                     remainVesting = originalVesting;
                 }
                 WLog.w("remainVesting " +  denom + "  " +  remainVesting);
+
+                if (coin.denom.equalsIgnoreCase(WDp.mainDenom(baseChain))) {
+                    BigDecimal stakedAmount = baseData.getDelegationSum();
+                    if (remainVesting.compareTo(stakedAmount) >= 0) {
+                        delegatedVesting = stakedAmount;
+                    } else {
+                        delegatedVesting = remainVesting;
+                    }
+                }
+
+                WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
 
                 dpVesting = remainVesting.subtract(delegatedVesting);
                 WLog.w("dpVestingA " +  denom + "  " +  dpVesting);

@@ -966,7 +966,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         if (mBaseChain.equals(PERSIS_MAIN)) {
                             WUtil.onParsePersisVestingAccount(getBaseDao());
                         } else {
-                            WUtil.onParseVestingAccount(getBaseDao());
+                            WUtil.onParseVestingAccount(getBaseDao(), mBaseChain);
                         }
                     }
 //                    WLog.w("getBaseDao().mGRpcNodeInfo " + getBaseDao().mGRpcNodeInfo.getNetwork());
