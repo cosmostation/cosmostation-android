@@ -443,6 +443,8 @@
     <string name="str_medi_net2" translatable="false">Medibloc Mainnet</string>
     <string name="str_rizon_net" translatable="false">(Rizon Mainnet)</string>
     <string name="str_rizon_net2" translatable="false">Rizon Mainnet</string>
+    <string name="str_regen_net" translatable="false">(Regen Mainnet)</string>
+    <string name="str_regen_net2" translatable="false">Regen Mainnet</string>
     <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
@@ -482,6 +484,7 @@
     <string name="str_medi_main" translatable="false">MEDIBLOC</string>
     <string name="str_emoney_main" translatable="false">EMONEY</string>
     <string name="str_rizon_main" translatable="false">RIZON</string>
+    <string name="str_regen_main" translatable="false">REGEN</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
@@ -1373,7 +1376,7 @@
     <string name="str_mnemonics_warning_msg"><b>Entering your mnemonics in\n the memo field may lead to loss of your funds.</b>\nPlease do not share your mnemonics with others. \nYou are soley responsible for the exposure or loss of your keys.</string>
     <string name="str_ibc_sender">Sender</string>
     <string name="str_ibc_receiver">Receiver</string>
-    <string name="str_ibc_recipent">Recipent</string>
+    <string name="str_ibc_recipent">Recipient</string>
     <string name="str_ibc_siner">Siner</string>
     <string name="str_ibc_client_id">Client ID</string>
     <string name="str_ibc_send_amount">Send Amount</string>
@@ -1552,6 +1555,23 @@
     <string name="str_gravity_deposit_batch">Join Pool(Batch Deposit)</string>
     <string name="str_gravity_withdraw_batch">Exit Pool(Batch Withdraw)</string>
 
+    <string name="str_ibc_send_c">IBC SEND</string>
+    <string name="str_ibc_warning_c">Notice</string>
+    <string name="str_ibc_warning_msg1">IBC transactions are not supported on centralized exchanges. \nIf you wish to transfer to an exchange, you must send back the asset to its original chain before depositing it via a regular send transaction.</string>
+    <string name="str_ibc_warning_msg2">This wallet only supports the broadcasting of txs through active IBC relayers and therefore is not responsible for intrinsic issues that may exist in IBC txs. \nUser must perform due diligence on the stability and security of the selected relayer before executing IBC txs.</string>
+    <string name="str_ibc_continue_c">Continue</string>
+    <string name="str_ibc_send_channel">Relayer Channel</string>
+    <string name="str_ibc_transfer_step_0">Select destination chain <![CDATA[&]]> relayer</string>
+    <string name="str_ibc_transfer_step_1">Enter recipient address</string>
+    <string name="str_ibc_transfer_step_2">Enter to send amount</string>
+    <string name="str_ibc_transfer_step_3">Select transaction fee</string>
+    <string name="str_ibc_transfer_step_4">Check transaction detail</string>
+    <string name="str_select_ibc_destination">Select Destination Chain</string>
+    <string name="str_select_ibc_relayer">Select Realyer for IBC Transfer</string>
+    <string name="str_ibc_unknown_relayer_msg">This is an unconfirmed relayer. \nIBC transfers through an inoperable relayer may result in loss of assets. \nDo you wish to continue?</string>
+    <string name="str_select_ibc_address">Recipient Address</string>
+    <string name="str_ibc_recipient_chain">Recipient Chain</string>
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1659,6 +1679,7 @@
     <string name="error_waste_fee">Fee is bigger than reward.</string>
     <string name="error_not_enough_to_pool">Not enough balance to deposit.</string>
     <string name="error_already_rizon_swap">There is already a swap request in progress.</string>
+    <string name="error_no_relayer_channel">No Connected Relayer Channel</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>

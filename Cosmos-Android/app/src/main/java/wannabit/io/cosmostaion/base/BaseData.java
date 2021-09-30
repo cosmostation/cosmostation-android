@@ -147,6 +147,31 @@ public class BaseData {
         return denom;
     }
 
+    public ArrayList<IbcPath> getIbcSendableRelayers() {
+        ArrayList<IbcPath> result = new ArrayList<>();
+        for (IbcPath ibcPath: mIbcPaths) {
+            for (IbcPath.Path path: ibcPath.paths) {
+                if (path.auth != null && path.auth) {
+                    result.add(ibcPath);
+                }
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<IbcPath> getIbcRollbackRelayer(String denom) {
+        ArrayList<IbcPath> result = new ArrayList<>();
+        IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
+        for (IbcPath ibcPath: mIbcPaths) {
+            for (IbcPath.Path path: ibcPath.paths) {
+                if (path.channel_id != null && path.channel_id.equalsIgnoreCase(ibcToken.channel_id)) {
+                    result.add(ibcPath);
+                }
+            }
+        }
+        return result;
+    }
+
     //COMMON DATA
     public NodeInfo                     mNodeInfo;
     public ArrayList<Validator>         mAllValidators = new ArrayList<>();

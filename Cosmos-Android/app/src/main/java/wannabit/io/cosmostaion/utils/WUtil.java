@@ -2438,6 +2438,8 @@ public class WUtil {
                 return new BigDecimal(COSMOS_GAS_AMOUNT_JOIN_POOL);
             } else if (txType == CONST_PW_TX_GDEX_WITHDRAW) {
                 return new BigDecimal(COSMOS_GAS_AMOUNT_EXIT_POOL);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(COSMOS_GAS_AMOUNT_IBC_SEND);
             }
 
         } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
@@ -2466,6 +2468,8 @@ public class WUtil {
                 return new BigDecimal(IOV_GAS_AMOUNT_RENEW);
             } else if (txType == CONST_PW_TX_REPLACE_STARNAME) {
                 return new BigDecimal(IOV_GAS_AMOUNT_REPLACE);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(IOV_GAS_AMOUNT_IBC_SEND);
             }
 
         } else if (basechain.equals(OSMOSIS_MAIN)) {
@@ -2496,6 +2500,8 @@ public class WUtil {
                 return new BigDecimal(OSMOSIS_GAS_AMOUNT_BEGIN_UNBONDING);
             } else if (txType == CONST_PW_TX_OSMOSIS_UNLOCK) {
                 return new BigDecimal(OSMOSIS_GAS_AMOUNT_UNLOCK);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(OSMOSIS_GAS_AMOUNT_IBC_SEND);
             }
         }
 
@@ -2549,6 +2555,8 @@ public class WUtil {
                 return new BigDecimal(BAND_GAS_AMOUNT_ADDRESS_CHANGE);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(BAND_GAS_AMOUNT_VOTE);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(BAND_GAS_AMOUNT_IBC_SEND);
             }
 
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
@@ -2578,6 +2586,8 @@ public class WUtil {
                 return new BigDecimal(CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(CERTIK_GAS_AMOUNT_VOTE);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(CERTIK_GAS_AMOUNT_IBC_SEND);
             }
 
         } else if (basechain.equals(SECRET_MAIN)) {
@@ -2618,6 +2628,8 @@ public class WUtil {
                 return new BigDecimal(SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(SENTINEL_GAS_AMOUNT_VOTE);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(SENTINEL_GAS_AMOUNT_IBC_SEND);
             }
 
         } else if (basechain.equals(FETCHAI_MAIN)) {
@@ -2638,6 +2650,8 @@ public class WUtil {
                 return new BigDecimal(FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(FETCH_GAS_AMOUNT_VOTE);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(FETCH_GAS_AMOUNT_IBC_SEND);
             }
 
         } else if (basechain.equals(SIF_MAIN)) {
@@ -2658,6 +2672,8 @@ public class WUtil {
                 return new BigDecimal(SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(SIF_GAS_AMOUNT_VOTE);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(SIF_GAS_AMOUNT_IBC_SEND);
             }
 
         } else if (basechain.equals(KI_MAIN)) {
@@ -2698,6 +2714,8 @@ public class WUtil {
                 return new BigDecimal(MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(MEDI_GAS_AMOUNT_VOTE);
+            } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
+                return new BigDecimal(MEDI_GAS_AMOUNT_IBC_SEND);
             }
 
         }
@@ -3426,7 +3444,7 @@ public class WUtil {
     }
 
     //parse & check vesting account
-    public static void onParseVestingAccount(BaseData baseData) {
+    public static void onParseVestingAccount(BaseData baseData, BaseChain baseChain) {
         WLog.w("onParseVestingAccount");
         Any account = baseData.mGRpcAccount;
         if (account == null ) return;
@@ -3592,12 +3610,11 @@ public class WUtil {
                 }
                 WLog.w("originalVesting " +  denom + "  " +  originalVesting);
 
-                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
-                    if (vesting.getDenom().equals(denom)) {
-                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
-                    }
-                }
-                WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
+//                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
+//                    if (vesting.getDenom().equals(denom)) {
+//                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
+//                    }
+//                }
 
                 long cTime = Calendar.getInstance().getTime().getTime();
                 long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
@@ -3605,6 +3622,17 @@ public class WUtil {
                     remainVesting = originalVesting;
                 }
                 WLog.w("remainVesting " +  denom + "  " +  remainVesting);
+
+                if (coin.denom.equalsIgnoreCase(WDp.mainDenom(baseChain))) {
+                    BigDecimal stakedAmount = baseData.getDelegationSum();
+                    if (remainVesting.compareTo(stakedAmount) >= 0) {
+                        delegatedVesting = stakedAmount;
+                    } else {
+                        delegatedVesting = remainVesting;
+                    }
+                }
+
+                WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
 
                 dpVesting = remainVesting.subtract(delegatedVesting);
                 WLog.w("dpVestingA " +  denom + "  " +  dpVesting);

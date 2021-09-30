@@ -825,7 +825,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
         } else if (coin.denom.startsWith("e")) {
-            holder.itemSymbol.setText(coin.denom.substring(1).toUpperCase());
+            holder.itemSymbol.setText(coin.denom.toUpperCase());
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on E-Money Network");

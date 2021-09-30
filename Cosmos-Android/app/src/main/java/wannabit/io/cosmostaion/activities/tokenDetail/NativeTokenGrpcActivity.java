@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.Dialog_IBC_Send_Warning;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -137,7 +138,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             mBtnIbcSend.setVisibility(View.VISIBLE);
 
         } else if (mBaseChain.equals(BaseChain.EMONEY_MAIN)) {
-            mToolbarSymbol.setText(mNativeGrpcDenom.substring(1).toUpperCase());
+            mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
             Picasso.get().load(EMONEY_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
         }
@@ -178,8 +179,17 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnIbcSend)) {
-            Toast.makeText(getBaseContext(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
-            return;
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+            Bundle bundle = new Bundle();
+            bundle.putString("sendTokenDenom", mNativeGrpcDenom);
+            Dialog_IBC_Send_Warning warning = Dialog_IBC_Send_Warning.newInstance(bundle);
+            warning.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(warning, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnSend)) {
             Intent intent = new Intent(getBaseContext(), SendActivity.class);

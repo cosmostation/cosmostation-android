@@ -253,6 +253,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_GRAVITY_SWAP               = 4321;
     public final static int TASK_GRPC_GEN_TX_GRAVITY_JOIN_POOL          = 4322;
     public final static int TASK_GRPC_GEN_TX_GRAVITY_EXIT_POOL          = 4323;
+    public final static int TASK_GRPC_GEN_TX_IBC_TRANSFER               = 4324;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -278,6 +279,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_GRAVITY_SWAP             = 4521;
     public final static int TASK_GRPC_SIMULATE_GRAVITY_JOIN_POOL        = 4522;
     public final static int TASK_GRPC_SIMULATE_GRAVITY_EXIT_POOL        = 4523;
+    public final static int TASK_GRPC_SIMULATE_IBC_TRANSFER             = 4524;
 
 
 
@@ -455,6 +457,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_GDEX_SWAP                           = 5046;
     public final static int CONST_PW_TX_GDEX_DEPOSIT                        = 5047;
     public final static int CONST_PW_TX_GDEX_WITHDRAW                       = 5048;
+    public final static int CONST_PW_TX_IBC_TRANSFER                        = 5049;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
@@ -627,6 +630,7 @@ public class BaseConstant {
     public final static String BAND_GAS_AMOUNT_REINVEST                 = "220000";
     public final static String BAND_GAS_AMOUNT_ADDRESS_CHANGE           = "100000";
     public final static String BAND_GAS_AMOUNT_VOTE                     = "100000";
+    public final static String BAND_GAS_AMOUNT_IBC_SEND                 = "500000";
 
 //    public final static String IOV_GAS_RATE_AVERAGE                     = "1.00";
     public final static String IOV_GAS_AMOUNT_SEND                      = "100000";
@@ -638,6 +642,7 @@ public class BaseConstant {
     public final static String IOV_GAS_AMOUNT_DELETE                    = "150000";
     public final static String IOV_GAS_AMOUNT_RENEW                     = "300000";
     public final static String IOV_GAS_AMOUNT_REPLACE                   = "300000";
+    public final static String IOV_GAS_AMOUNT_IBC_SEND                  = "500000";
 
     public final static String OK_GAS_RATE_AVERAGE                      = "0.000000001";
     public final static String OK_GAS_AMOUNT_SEND                       = "200000";
@@ -652,6 +657,7 @@ public class BaseConstant {
     public final static String CERTIK_GAS_AMOUNT_REINVEST               = "300000";
     public final static String CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000";
     public final static String CERTIK_GAS_AMOUNT_VOTE                   = "100000";
+    public final static String CERTIK_GAS_AMOUNT_IBC_SEND               = "500000";
 
     public final static String SECRET_GAS_FEE_RATE_AVERAGE              = "0.25";
     public final static String SECRET_GAS_AMOUNT_SEND                   = "80000";
@@ -667,6 +673,7 @@ public class BaseConstant {
     public final static String SENTINEL_GAS_AMOUNT_REINVEST               = "350000";
     public final static String SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000";
     public final static String SENTINEL_GAS_AMOUNT_VOTE                   = "100000";
+    public final static String SENTINEL_GAS_AMOUNT_IBC_SEND               = "500000";
 
     public final static String FETCH_GAS_AMOUNT_SEND                    = "100000";
     public final static String FETCH_GAS_AMOUNT_STAKE                   = "200000";
@@ -674,6 +681,7 @@ public class BaseConstant {
     public final static String FETCH_GAS_AMOUNT_REINVEST                = "350000";
     public final static String FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE   = "100000";
     public final static String FETCH_GAS_AMOUNT_VOTE                    = "100000";
+    public final static String FETCH_GAS_AMOUNT_IBC_SEND                = "500000";
 
     public final static String SIF_GAS_AMOUNT_SEND                      = "100000";
     public final static String SIF_GAS_AMOUNT_STAKE                     = "200000";
@@ -681,6 +689,7 @@ public class BaseConstant {
     public final static String SIF_GAS_AMOUNT_REINVEST                  = "350000";
     public final static String SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE     = "100000";
     public final static String SIF_GAS_AMOUNT_VOTE                      = "100000";
+    public final static String SIF_GAS_AMOUNT_IBC_SEND                 = "500000";
 
     public final static String KI_GAS_FEE_RATE_AVERAGE                  = "0.025";
     public final static String KI_GAS_AMOUNT_SEND                       = "100000";
@@ -696,6 +705,7 @@ public class BaseConstant {
     public final static String MEDI_GAS_AMOUNT_REINVEST                 = "350000";
     public final static String MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE    = "100000";
     public final static String MEDI_GAS_AMOUNT_VOTE                     = "100000";
+    public final static String MEDI_GAS_AMOUNT_IBC_SEND                 = "500000";
 
     public final static String OSMOSIS_GAS_AMOUNT_SEND                  = "100000";
     public final static String OSMOSIS_GAS_AMOUNT_STAKE                 = "200000";
@@ -707,10 +717,12 @@ public class BaseConstant {
     public final static String OSMOSIS_GAS_AMOUNT_LOCK                  = "20000000";
     public final static String OSMOSIS_GAS_AMOUNT_BEGIN_UNBONDING       = "30000000";
     public final static String OSMOSIS_GAS_AMOUNT_UNLOCK                = "10000000";
+    public final static String OSMOSIS_GAS_AMOUNT_IBC_SEND              = "500000";
 
     public final static String COSMOS_GAS_AMOUNT_SWAP                   = "200000";
     public final static String COSMOS_GAS_AMOUNT_JOIN_POOL              = "300000";
     public final static String COSMOS_GAS_AMOUNT_EXIT_POOL              = "300000";
+    public final static String COSMOS_GAS_AMOUNT_IBC_SEND               = "500000";
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
     public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";

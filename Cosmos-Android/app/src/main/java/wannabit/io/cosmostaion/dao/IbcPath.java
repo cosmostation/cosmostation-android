@@ -2,14 +2,30 @@ package wannabit.io.cosmostaion.dao;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 
-public class IbcPath {
+public class IbcPath implements SerializedName{
     @SerializedName("chain_id")
     public String chain_id;
 
     @SerializedName("paths")
     public ArrayList<Path> paths;
+
+    @Override
+    public String value() {
+        return null;
+    }
+
+    @Override
+    public String[] alternate() {
+        return new String[0];
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return null;
+    }
 
     public class Path {
         @SerializedName("auth")

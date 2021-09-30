@@ -25,10 +25,13 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
+import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.Dialog_IBC_Send_Warning;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -187,10 +190,25 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnIbcSend)) {
-            Toast.makeText(getBaseContext(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
-            return;
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+            Bundle bundle = new Bundle();
+            bundle.putString("sendTokenDenom", mIbcDenom);
+            Dialog_IBC_Send_Warning warning = Dialog_IBC_Send_Warning.newInstance(bundle);
+            warning.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(warning, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnSend)) {
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
             BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
@@ -262,11 +280,19 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             } else {
                 holder.itemIbcInfo.setVisibility(View.VISIBLE);
             }
+
+            BaseChain toChain = WDp.getChainTypeByChainId(mIbcToken.counter_party.chain_id);
+            WDp.getChainImg(IBCTokenDetailActivity.this, toChain, holder.itemOppositeImg);
+            WDp.getChainTitle2(IBCTokenDetailActivity.this, toChain, holder.itemOppositeChain);
             holder.itemOppositeChainId.setText(mIbcToken.counter_party.chain_id);
-            holder.itemChannel.setText(mIbcToken.channel_id);
             holder.itemOppositeChannel.setText(mIbcToken.counter_party.channel_id);
-            holder.itemDenom.setText("ibc/" + mIbcToken.hash);
             holder.itemOppositeDenom.setText(mIbcToken.base_denom);
+
+            WDp.getChainImg(IBCTokenDetailActivity.this, mBaseChain, holder.itemCurrentImg);
+            WDp.getChainTitle2(IBCTokenDetailActivity.this, mBaseChain, holder.itemCurrentChain);
+            holder.itemCurrentChainId.setText(getBaseDao().getChainIdGrpc());
+            holder.itemCurrentChannel.setText(mIbcToken.channel_id);
+            holder.itemCurrentDenom.setText("ibc/" + mIbcToken.hash);
         }
 
         public class AmountHolder extends RecyclerView.ViewHolder {
@@ -282,20 +308,33 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
 
         public class IbcStatusHolder extends RecyclerView.ViewHolder {
             private ImageView           itemIbcInfo;
+
+            private ImageView           itemOppositeImg;
+            private TextView            itemOppositeChain;
             private TextView            itemOppositeChainId;
-            private TextView            itemChannel;
             private TextView            itemOppositeChannel;
-            private TextView            itemDenom;
             private TextView            itemOppositeDenom;
+
+            private ImageView           itemCurrentImg;
+            private TextView            itemCurrentChain;
+            private TextView            itemCurrentChainId;
+            private TextView            itemCurrentChannel;
+            private TextView            itemCurrentDenom;
 
             public IbcStatusHolder(View v) {
                 super(v);
                 itemIbcInfo             = itemView.findViewById(R.id.ibc_info);
-                itemOppositeChainId     = itemView.findViewById(R.id.ibc_opposit_chain_id);
-                itemChannel             = itemView.findViewById(R.id.ibc_channel);
-                itemOppositeChannel     = itemView.findViewById(R.id.ibc_opposite_channel);
-                itemDenom               = itemView.findViewById(R.id.ibc_denom);
-                itemOppositeDenom       = itemView.findViewById(R.id.ibc_opposite_denom);
+                itemOppositeImg         = itemView.findViewById(R.id.opposite_chain_img);
+                itemOppositeChain       = itemView.findViewById(R.id.opposite_chain);
+                itemOppositeChainId     = itemView.findViewById(R.id.opposite_chain_id);
+                itemOppositeChannel     = itemView.findViewById(R.id.opposite_channel);
+                itemOppositeDenom       = itemView.findViewById(R.id.opposite_denom);
+
+                itemCurrentImg          = itemView.findViewById(R.id.current_chain_img);
+                itemCurrentChain        = itemView.findViewById(R.id.current_chain);
+                itemCurrentChainId      = itemView.findViewById(R.id.current_chain_id);
+                itemCurrentChannel      = itemView.findViewById(R.id.current_channel);
+                itemCurrentDenom        = itemView.findViewById(R.id.current_denom);
             }
         }
     }
