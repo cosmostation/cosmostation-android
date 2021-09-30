@@ -214,7 +214,6 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_GRAVITY_MANAGER             = 4028;
     public final static int TASK_GRPC_FETCH_TOTAL_SUPPLY                = 4029;
     public final static int TASK_GRPC_FETCH_GRAVITY_POOL_INFO           = 4030;
-    public final static int TASK_GRPC_FETCH_IBC_CLIENT_STATE            = 4031;
 
     public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4100;
     public final static int TASK_GRPC_FETCH_STARNAME_FEE                = 4101;
@@ -254,6 +253,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_GRAVITY_SWAP               = 4321;
     public final static int TASK_GRPC_GEN_TX_GRAVITY_JOIN_POOL          = 4322;
     public final static int TASK_GRPC_GEN_TX_GRAVITY_EXIT_POOL          = 4323;
+    public final static int TASK_GRPC_GEN_TX_IBC_TRANSFER               = 4324;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;

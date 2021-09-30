@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.activities.chains.ibc;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -158,6 +160,12 @@ public class IBCSendActivity extends BaseBroadCastActivity {
     public void onStartIbcSend() {
         Intent intent = new Intent(IBCSendActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_IBC_TRANSFER);
+        intent.putExtra("toAddress", mToAddress);
+        intent.putParcelableArrayListExtra("amount", mAmounts);
+        intent.putExtra("channelId", mPath.channel_id);
+        intent.putExtra("portId", mPath.port_id);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
