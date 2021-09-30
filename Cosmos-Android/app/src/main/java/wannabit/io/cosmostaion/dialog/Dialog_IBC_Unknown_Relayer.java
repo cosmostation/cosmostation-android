@@ -46,7 +46,9 @@ public class Dialog_IBC_Unknown_Relayer extends DialogFragment {
         btn_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((IBCSendActivity)getActivity()).onNextStep();
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("continue", 0);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                 getDialog().dismiss();
             }
         });

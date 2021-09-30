@@ -8,6 +8,7 @@ import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
 import starnamed.x.starname.v1beta1.Types;
 import tendermint.liquidity.v1beta1.Liquidity;
+import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.model.GDexManager;
 import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
 import wannabit.io.cosmostaion.model.kava.SwapDeposit;
@@ -60,6 +61,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     public SwapDeposit                  mKavaSwapDeposit;
     public BigDecimal                   mKavaShareAmount = BigDecimal.ZERO;
     public String                       mIncentiveMultiplier;
+
+    public IbcPath.Path                 mPath;
 
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap
     public BigDecimal                   mHdacBalance;                               //rizon swap amount

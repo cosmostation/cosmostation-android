@@ -1,11 +1,11 @@
 package wannabit.io.cosmostaion.activities.chains.ibc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -15,9 +15,13 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.chains.ibc.IBCSendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.ibc.IBCSendStep1Fragment;
@@ -26,22 +30,26 @@ import wannabit.io.cosmostaion.fragment.chains.ibc.IBCSendStep4Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 
 public class IBCSendActivity extends BaseBroadCastActivity {
 
-    private ImageView mChainBg;
-    private Toolbar mToolbar;
-    private TextView mTitle;
+    private ImageView               mChainBg;
+    private Toolbar                 mToolbar;
+    private TextView                mTitle;
     private ImageView               mIvStep;
     private TextView                mTvStep;
-    private ViewPager mViewPager;
+    private ViewPager               mViewPager;
     private IbcSendPageAdapter      mPageAdapter;
 
     public String                   mToIbcDenom;
-    public ArrayList<Coin> mToSendCoins;
-    public Fee mSendFee;
+    public ArrayList<Coin>          mToSendCoins;
+    public Fee                      mSendFee;
 
+    public Account                  mRecipientAccount;
+    public IbcPath                  mIbcSelectedRelayer;
+    public IbcPath.Path             mIbcSelectedPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +71,7 @@ public class IBCSendActivity extends BaseBroadCastActivity {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mToIbcDenom = getIntent().getStringExtra("sendTokenDenom");
-        mTxType = CONST_PW_TX_SIMPLE_SEND;
+        mTxType = CONST_PW_TX_IBC_TRANSFER;
 
         mPageAdapter = new IbcSendPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(4);
@@ -85,6 +93,7 @@ public class IBCSendActivity extends BaseBroadCastActivity {
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_3_img));
                     mTvStep.setText(getString(R.string.str_ibc_transfer_step_2));
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img));
                     mTvStep.setText(getString(R.string.str_ibc_transfer_step_3));
@@ -144,6 +153,13 @@ public class IBCSendActivity extends BaseBroadCastActivity {
         } else {
             onBackPressed();
         }
+    }
+
+    public void onStartIbcSend() {
+        Intent intent = new Intent(IBCSendActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_IBC_TRANSFER);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     @Override

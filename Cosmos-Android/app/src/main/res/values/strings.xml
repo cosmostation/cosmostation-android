@@ -1376,7 +1376,7 @@
     <string name="str_mnemonics_warning_msg"><b>Entering your mnemonics in\n the memo field may lead to loss of your funds.</b>\nPlease do not share your mnemonics with others. \nYou are soley responsible for the exposure or loss of your keys.</string>
     <string name="str_ibc_sender">Sender</string>
     <string name="str_ibc_receiver">Receiver</string>
-    <string name="str_ibc_recipent">Recipent</string>
+    <string name="str_ibc_recipent">Recipient</string>
     <string name="str_ibc_siner">Siner</string>
     <string name="str_ibc_client_id">Client ID</string>
     <string name="str_ibc_send_amount">Send Amount</string>
@@ -1569,6 +1569,8 @@
     <string name="str_select_ibc_destination">Select Destination Chain</string>
     <string name="str_select_ibc_relayer">Select Realyer for IBC Transfer</string>
     <string name="str_ibc_unknown_relayer_msg">This is an unconfirmed relayer. \nIBC transfers through an inoperable relayer may result in loss of assets. \nDo you wish to continue?</string>
+    <string name="str_select_ibc_address">Recipient Address</string>
+    <string name="str_ibc_recipient_chain">Recipient Chain</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>

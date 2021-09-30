@@ -81,7 +81,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_50"
                         android:orientation="horizontal"
-                        android:background="@drawable/box_gray"/>
+                        android:background="@drawable/btn_trans_with_border"/>
                     <ImageView
                         android:id="@+id/img_to_chain"
                         android:layout_width="@dimen/space_32"
@@ -128,7 +128,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_50"
-                android:background="@drawable/edittext_box"/>
+                android:background="@drawable/btn_trans_with_border"/>
             <TextView
                 android:id="@+id/txt_to_relayer_channel"
                 android:layout_width="wrap_content"
@@ -141,15 +141,15 @@
                 android:id="@+id/relayer_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/txt_to_relayer_channel"
+                android:layout_toLeftOf="@+id/img_send_arrow"
                 android:layout_centerVertical="true"
-                android:src="@drawable/authed"
-                android:layout_marginLeft="@dimen/space_8"/>
+                android:src="@drawable/authed" />
             <ImageView
                 android:id="@+id/img_send_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/space_16"
+                android:layout_marginLeft="@dimen/space_8"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/arrow_down_gr"/>

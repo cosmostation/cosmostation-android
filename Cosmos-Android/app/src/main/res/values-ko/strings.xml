@@ -1309,6 +1309,8 @@
     <string name="str_select_ibc_destination">IBC 전송 체인 선택</string>
     <string name="str_select_ibc_relayer">IBC 전송 릴레이어 선택</string>
     <string name="str_ibc_unknown_relayer_msg">선택하신 릴레이어는 아직 확인되지 않았습니다. \n동작 하지 않는 릴레이어를 통한 IBC 전송은 자산의 손실을 초래할 수 있습니다. \n계속 하시겠습니까?</string>
+    <string name="str_select_ibc_address">받는 주소</string>
+    <string name="str_ibc_recipient_chain">받는 체인</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -29,12 +30,14 @@ import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receive_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Relayer_Channel;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Unknown_Relayer;
+import wannabit.io.cosmostaion.dialog.Dialog_Mnemonics_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
 
 public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     public final static int             SELECT_POPUP_IBC_CHAIN              = 1000;
     public final static int             SELECT_POPUP_IBC_RELAYER            = 2000;
+    public final static int             SELECT_POPUP_IBC_UNKNOWN_RELAYER    = 3000;
 
     private Button          mBtnCancel, mBtnNext;
 
@@ -151,8 +154,11 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
             if (mIbcSelectedPath.auth == null) {
                 Dialog_IBC_Unknown_Relayer warning = Dialog_IBC_Unknown_Relayer.newInstance();
                 warning.setCancelable(true);
+                warning.setTargetFragment(this, SELECT_POPUP_IBC_UNKNOWN_RELAYER);
                 getFragmentManager().beginTransaction().add(warning, "dialog").commitNowAllowingStateLoss();
             } else if (mIbcSelectedPath.auth) {
+                getSActivity().mIbcSelectedRelayer = mIbcSelectedRelayer;
+                getSActivity().mPath = mIbcSelectedPath;
                 getSActivity().onNextStep();
             }
 
@@ -223,6 +229,12 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
             mIbcSelectedPath = mIbcSendablePaths.get(data.getIntExtra("position", 0));
             onUpdateView();
 
+        } else if (requestCode == SELECT_POPUP_IBC_UNKNOWN_RELAYER && resultCode == Activity.RESULT_OK) {
+            if (data.getIntExtra("continue", -1) == 0) {
+                getSActivity().mIbcSelectedRelayer = mIbcSelectedRelayer;
+                getSActivity().mPath = mIbcSelectedPath;
+                getSActivity().onNextStep();
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
