@@ -38,7 +38,6 @@ public class IBCTransferGrpcTask extends CommonTask {
     private String                  mReceiver;
     private String                  mTokenDenom, mTokenAmount;
     private String                  mPortId, mChannelId;
-    private String                  mMemo;
     private Fee                     mFees;
     private String                  mChainId;
 
@@ -47,7 +46,7 @@ public class IBCTransferGrpcTask extends CommonTask {
     private ibc.core.channel.v1.QueryGrpc.QueryBlockingStub mStub;
 
     public IBCTransferGrpcTask(BaseApplication app, TaskListener listener, Account account, BaseChain basechain, String sender, String recevier, String tokenDenom, String tokenAmount,
-                               String portId, String channelId, String memo, Fee fee, String chainId) {
+                               String portId, String channelId, Fee fee, String chainId) {
         super(app, listener);
         this.mAccount = account;
         this.mBaseChain = basechain;
@@ -57,7 +56,6 @@ public class IBCTransferGrpcTask extends CommonTask {
         this.mTokenAmount = tokenAmount;
         this.mPortId = portId;
         this.mChannelId = channelId;
-        this.mMemo = memo;
         this.mFees = fee;
         this.mChainId = chainId;
         this.mResult.taskType = TASK_GRPC_SIMULATE_IBC_TRANSFER;
@@ -87,7 +85,7 @@ public class IBCTransferGrpcTask extends CommonTask {
 
             //broadCast
             ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
-            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcIbcTransferReq(mAuthResponse, mSender, mReceiver, mTokenDenom, mTokenAmount, mPortId, mChannelId, value.getLatestHeight(), mFees, mMemo, deterministicKey, mChainId);
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcIbcTransferReq(mAuthResponse, mSender, mReceiver, mTokenDenom, mTokenAmount, mPortId, mChannelId, value.getLatestHeight(), mFees, "", deterministicKey, mChainId);
             ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
             mResult.resultData = response.getTxResponse().getTxhash();
             if (response.getTxResponse().getCode() > 0) {

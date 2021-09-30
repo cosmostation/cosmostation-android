@@ -691,7 +691,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_IBC_TRANSFER) {
             new IBCTransferGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mTargetAddress, mTargetCoins.get(0).denom, mTargetCoins.get(0).amount,
-                    mPortId, mChannelId,  mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mPortId, mChannelId, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         }
 

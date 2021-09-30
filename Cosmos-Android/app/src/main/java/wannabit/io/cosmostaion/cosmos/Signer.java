@@ -22,7 +22,6 @@ import cosmos.vesting.v1beta1.Vesting;
 import ibc.core.client.v1.Client;
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.crypto.Sha256;
-import wannabit.io.cosmostaion.dao.IbcPath;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WKey;
