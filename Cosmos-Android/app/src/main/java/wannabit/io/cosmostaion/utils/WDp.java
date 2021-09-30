@@ -354,7 +354,7 @@ public class WDp {
             if (coin.denom.equals(TOKEN_NGM)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
-                denomTv.setText(coin.denom.substring(1).toUpperCase());
+                denomTv.setText(coin.denom.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
@@ -562,7 +562,7 @@ public class WDp {
             if (symbol.equalsIgnoreCase(TOKEN_NGM)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
-                denomTv.setText(symbol.substring(1).toUpperCase());
+                denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));

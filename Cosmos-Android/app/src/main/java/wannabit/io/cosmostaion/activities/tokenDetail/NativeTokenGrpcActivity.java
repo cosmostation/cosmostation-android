@@ -138,7 +138,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
             mBtnIbcSend.setVisibility(View.VISIBLE);
 
         } else if (mBaseChain.equals(BaseChain.EMONEY_MAIN)) {
-            mToolbarSymbol.setText(mNativeGrpcDenom.substring(1).toUpperCase());
+            mToolbarSymbol.setText(mNativeGrpcDenom.toUpperCase());
             Picasso.get().load(EMONEY_COIN_IMG_URL + mNativeGrpcDenom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mToolbarSymbolImg);
             mTotalAmount = getBaseDao().getAvailable(mNativeGrpcDenom);
         }
