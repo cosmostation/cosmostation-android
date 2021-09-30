@@ -150,6 +150,8 @@ public struct Params {
     
     var emoney_minting_inflation: EmoneyMintingInflation?
     
+    var band_active_validators: BandOrcleActiveValidators?
+    
     init(_ dictionary: NSDictionary?) {
         if let rawIbcParams = dictionary?["ibc_params"] as? NSDictionary {
             self.ibc_params = IbcParams.init(rawIbcParams)
@@ -213,6 +215,10 @@ public struct Params {
         
         if let rawEmoneyMintingInflation = dictionary?["emoney_minting_inflation"] as? NSDictionary {
             self.emoney_minting_inflation = EmoneyMintingInflation.init(rawEmoneyMintingInflation)
+        }
+        
+        if let rawActiveValidators = dictionary?["active_validators"] as? NSDictionary {
+            self.band_active_validators = BandOrcleActiveValidators.init(rawActiveValidators)
         }
     }
 }
@@ -574,5 +580,19 @@ public struct EmoneyMintingAsset {
         self.accum = dictionary?["accum"] as? String
         self.denom = dictionary?["denom"] as? String
         self.inflation = dictionary?["inflation"] as? String
+    }
+}
+
+public struct BandOrcleActiveValidators {
+    var addresses = Array<String>()
+    
+    init(_ dictionary: NSDictionary?) {
+        let result = dictionary?["result"] as? NSDictionary
+        let result2 = result?["result"] as? Array<NSDictionary>
+        result2?.forEach({ rawResult in
+            if let rawAddress = rawResult["address"] as? String {
+                addresses.append(rawAddress)
+            }
+        })
     }
 }

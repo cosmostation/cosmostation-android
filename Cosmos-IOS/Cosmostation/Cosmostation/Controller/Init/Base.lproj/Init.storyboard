@@ -2618,7 +2618,7 @@ To make transaction can add private information with later.</string>
                                     <constraint firstAttribute="height" constant="30" id="eG0-6f-Omn"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
-                                <state key="normal" title=" QR Scan" image="qrIc"/>
+                                <state key="normal" title=" QR Scan" image="iconQrcode"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="0.80000000000000004"/>
@@ -2777,9 +2777,9 @@ To make transaction can add private information with later.</string>
         <image name="copyIc" width="18" height="18"/>
         <image name="cosmostaion" width="236" height="41"/>
         <image name="cosmostationLogo" width="129" height="46"/>
+        <image name="iconQrcode" width="18" height="18"/>
         <image name="mnemonicsIc" width="25" height="25"/>
         <image name="passwordDelete" width="33" height="23"/>
-        <image name="qrIc" width="18" height="18"/>
         <image name="warning_ic" width="38" height="38"/>
     </resources>
 </document>

@@ -77,9 +77,7 @@ final class BaseData : NSObject{
     var mMyBalances_gRPC = Array<Coin>()
     var mMyVestings_gRPC = Array<Coin>()
     var mMyReward_gRPC = Array<Cosmos_Distribution_V1beta1_DelegationDelegatorReward>()
-    
-    var mBandOracle_gRPC = Array<Oracle_V1_ActiveValidator>()
-    
+        
     var mStarNameFee_gRPC: Starnamed_X_Configuration_V1beta1_Fees?
     var mStarNameConfig_gRPC: Starnamed_X_Configuration_V1beta1_Config?
     
@@ -402,12 +400,16 @@ final class BaseData : NSObject{
         return getAvailableAmount_gRPC(symbol).adding(getVestingAmount_gRPC(symbol))
     }
     
-    func getDelegatedSum_gRPC() -> String {
+    func getDelegatedSumAmount_gRPC() -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for delegation in mMyDelegations_gRPC {
             amount = amount.adding(WUtils.plainStringToDecimal(delegation.balance.amount))
         }
-        return amount.stringValue;
+        return amount;
+    }
+    
+    func getDelegatedSum_gRPC() -> String {
+        return getDelegatedSumAmount_gRPC().stringValue;
     }
     
     func getDelegated_gRPC(_ opAddress: String?) -> NSDecimalNumber {

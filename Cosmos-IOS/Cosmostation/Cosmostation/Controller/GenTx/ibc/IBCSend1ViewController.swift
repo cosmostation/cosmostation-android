@@ -38,6 +38,7 @@ class IBCSend1ViewController: BaseViewController, QrScannerDelegate, SBCardPopup
     func onUpdateView() {
         self.toChain = WUtils.getChainTypeByChainId(pageHolderVC.mIBCSendRelayer?.chain_id)
         self.detinationChainLabel.text = WUtils.getChainTitle(toChain)
+        self.detinationChainLabel.textColor = WUtils.getChainColor(toChain)
     }
     
     @IBAction func onClickWallet(_ sender: UIButton) {

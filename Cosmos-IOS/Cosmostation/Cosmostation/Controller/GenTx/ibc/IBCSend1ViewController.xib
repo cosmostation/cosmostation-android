@@ -131,7 +131,7 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="tintColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" title="  Scan" image="qrIc">
+                            <state key="normal" title="  Scan" image="iconQrcode">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -176,7 +176,7 @@
                         </button>
                     </subviews>
                 </stackView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tAR-Ba-vio">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tAR-Ba-vio">
                     <rect key="frame" x="16" y="651.5" width="382" height="136.5"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starnameImg" translatesAutoresizingMaskIntoConstraints="NO" id="HGm-Yo-F5S">
@@ -247,8 +247,8 @@
     </objects>
     <resources>
         <image name="copyIc" width="18" height="18"/>
+        <image name="iconQrcode" width="18" height="18"/>
         <image name="listIc" width="18" height="18"/>
-        <image name="qrIc" width="18" height="18"/>
         <image name="starnameImg" width="60" height="60"/>
     </resources>
 </document>
