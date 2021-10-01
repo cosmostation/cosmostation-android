@@ -1181,6 +1181,13 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SECRET);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
+                    startActivity(intent);
+                }
+            });
 
         } else if (balance.symbol.equals(TOKEN_KI)) {
             holder.itemSymbol.setText(getString(R.string.str_ki_c));
@@ -1192,6 +1199,13 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KI);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
