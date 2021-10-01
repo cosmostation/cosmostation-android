@@ -67,7 +67,6 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
     private IbcToken                        mIbcToken;
     private int                             mIbcDivideDecimal = 6;
     private int                             mIbcDisplayDecimal = 6;
-    private BigDecimal                      mTotalAmount = BigDecimal.ZERO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -282,8 +281,13 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             }
 
             BaseChain toChain = WDp.getChainTypeByChainId(mIbcToken.counter_party.chain_id);
-            WDp.getChainImg(IBCTokenDetailActivity.this, toChain, holder.itemOppositeImg);
-            WDp.getChainTitle2(IBCTokenDetailActivity.this, toChain, holder.itemOppositeChain);
+            if (toChain != null) {
+                WDp.getChainImg(IBCTokenDetailActivity.this, toChain, holder.itemOppositeImg);
+                WDp.getChainTitle2(IBCTokenDetailActivity.this, toChain, holder.itemOppositeChain);
+            } else {
+                holder.itemOppositeImg.setVisibility(View.GONE);
+                holder.itemOppositeChain.setText("UNKNOWN");
+            }
             holder.itemOppositeChainId.setText(mIbcToken.counter_party.chain_id);
             holder.itemOppositeChannel.setText(mIbcToken.counter_party.channel_id);
             holder.itemOppositeDenom.setText(mIbcToken.base_denom);
