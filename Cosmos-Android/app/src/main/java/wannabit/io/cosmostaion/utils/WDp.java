@@ -1504,13 +1504,6 @@ public class WDp {
 
 
     //Token & Price
-    public static String tokenCnt(BaseChain baseChain, BaseData baseData) {
-        if (isGRPC(baseChain)) {
-            return "" + baseData.mGrpcBalance.size();
-        } else {
-            return "" + baseData.mBalances.size();
-        }
-    }
 
     public static BigDecimal valueChange(BaseData baseData, String denom) {
         if (baseData.getPrice(denom) != null) {
