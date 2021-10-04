@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.widget.tokenDetail.TokenStakingNewHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.UnBondingHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class StakingTokenGrpcActivity extends BaseActivity implements View.OnClickListener {
@@ -174,6 +175,17 @@ public class StakingTokenGrpcActivity extends BaseActivity implements View.OnCli
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 add.setCancelable(true);
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+            final String mainDenom = WDp.mainDenom(mBaseChain);
+            final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
+
+            mTotalAmount = getBaseDao().getAvailable(mMainDenom);
+            if (mainDenom.equalsIgnoreCase(mMainDenom)) {
+                mTotalAmount = mTotalAmount.subtract(feeAmount);
+            }
+            if (mTotalAmount.compareTo(BigDecimal.ZERO) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
             Bundle bundle = new Bundle();
