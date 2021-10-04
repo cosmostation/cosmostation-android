@@ -70,7 +70,7 @@ public class EarningMyHolder extends RecyclerView.ViewHolder {
         BigDecimal apr = WUtil.getPoolArp(baseData, pool, gauges, 2);
         BigDecimal totalShare = new BigDecimal(pool.getTotalShares().getAmount());
 
-        itemPoolId.setText("MY EARNING #" + pool.getId());
+        itemPoolId.setText("#" + pool.getId() + " MY EARNING");
         itemPoolCoinPair.setText(WUtil.dpOsmosisTokenName(coin0.denom) + " / " + WUtil.dpOsmosisTokenName(coin1.denom));
         itemPoolApr.setText(WDp.getPercentDp(apr));
 
