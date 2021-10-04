@@ -86,6 +86,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
@@ -914,6 +915,8 @@ public class WDp {
 
         } else if (baseChain.equals(REGEN_MAIN)) {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_regen));
+        } else if (baseChain.equals(JUNO_MAIN)) {
+            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_juno));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -985,8 +988,10 @@ public class WDp {
 
         } else if (baseChain.equals(REGEN_MAIN)) {
             chainName.setText(c.getString(R.string.str_regen_net));
-
+        } else if (baseChain.equals(JUNO_MAIN)) {
+            chainName.setText(c.getString(R.string.str_regen_net));
         }
+
         else if (baseChain.equals(COSMOS_TEST)) {
             chainName.setText(c.getString(R.string.str_cosmos_testnet));
         } else if (baseChain.equals(IRIS_TEST)) {
@@ -1056,8 +1061,10 @@ public class WDp {
 
         } else if (baseChain.equals(REGEN_MAIN)) {
             chainName.setText(c.getString(R.string.str_regen_main));
-
+        } else if (baseChain.equals(JUNO_MAIN)) {
+            chainName.setText(c.getString(R.string.str_juno_main));
         }
+
         else if (baseChain.equals(COSMOS_TEST)) {
             chainName.setText(c.getString(R.string.str_cosmos_test));
         } else if (baseChain.equals(IRIS_TEST)) {
@@ -1240,6 +1247,8 @@ public class WDp {
         }
         else if (chainId.contains("regen-")) {
             return REGEN_MAIN;
+        } else if (chainId.contains("juno-")) {
+            return JUNO_MAIN;
         }
         return null;
     }
@@ -1301,6 +1310,10 @@ public class WDp {
             if (!address.startsWith("regen1")) {
                 textView.setText("");
             }
+        } else if (baseChain.equals(JUNO_MAIN)) {
+            if (!address.startsWith("juno1")) {
+                textView.setText("");
+            }
         }
     }
 
@@ -1333,6 +1346,7 @@ public class WDp {
         else if (address.startsWith("emoney1") && baseChain.equals(EMONEY_MAIN)) { return true; }
 
         else if (address.startsWith("regen1") && baseChain.equals(REGEN_MAIN)) { return true; }
+        else if (address.startsWith("juno1") && baseChain.equals(JUNO_MAIN)) { return true; }
 
         return false;
     }
