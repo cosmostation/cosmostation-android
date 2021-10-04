@@ -254,9 +254,12 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
     }
 
     private void onShowEmptyBalanceWarnDialog() {
-        Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
-        dialog.setCancelable(true);
-        dialog.show(getFragmentManager().beginTransaction(), "dialog");
+        if (WDp.mainDenom(getSActivity().mBaseChain).equalsIgnoreCase(getSActivity().mToIbcDenom)) {
+            Dialog_Empty_Warnning dialog = Dialog_Empty_Warnning.newInstance();
+            dialog.setCancelable(true);
+            dialog.show(getFragmentManager().beginTransaction(), "dialog");
+            return;
+        }
     }
 
     private void setDisplayDecimals(int decimals) {
