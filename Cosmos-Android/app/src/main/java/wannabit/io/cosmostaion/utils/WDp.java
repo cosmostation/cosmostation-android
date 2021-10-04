@@ -989,7 +989,7 @@ public class WDp {
         } else if (baseChain.equals(REGEN_MAIN)) {
             chainName.setText(c.getString(R.string.str_regen_net));
         } else if (baseChain.equals(JUNO_MAIN)) {
-            chainName.setText(c.getString(R.string.str_regen_net));
+            chainName.setText(c.getString(R.string.str_juno_net));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
