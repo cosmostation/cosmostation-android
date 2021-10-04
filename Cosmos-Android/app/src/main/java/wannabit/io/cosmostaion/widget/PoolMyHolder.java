@@ -64,7 +64,7 @@ public class PoolMyHolder extends BaseHolder {
         Coin coin0 = new Coin(myPool.getPoolAssets(0).getToken().getDenom(), myPool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(myPool.getPoolAssets(1).getToken().getDenom(), myPool.getPoolAssets(1).getToken().getAmount());
 
-        itemMyPoolType.setText(WUtil.dpOsmosisTokenName(coin0.denom) + " / " + WUtil.dpOsmosisTokenName(coin1.denom));
+        itemMyPoolType.setText("#" + myPool.getId() + " " + WUtil.dpOsmosisTokenName(coin0.denom) + "/" + WUtil.dpOsmosisTokenName(coin1.denom));
 
         // Total deposit
         BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(coin0.denom));

@@ -30,7 +30,7 @@ public class ListFarmingFragment extends BaseFragment {
     private RecyclerView        mRecyclerView;
     private EarningListAdapter  mAdapter;
 
-    public ArrayList<PoolOuterClass.Pool>               mPoolList = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>               mFarmingList = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>               mMyIncentivizedPool = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>               mOtherIncentivizedPool = new ArrayList<>();
 
@@ -73,7 +73,7 @@ public class ListFarmingFragment extends BaseFragment {
     public void onRefreshTab() {
         mMyIncentivizedPool.clear();
         mOtherIncentivizedPool.clear();
-        mPoolList = getSActivity().mPoolList;
+        mFarmingList = getSActivity().mFarmingList;
         mIncentivizedPool = getSActivity().mIncentivizedPool;
         mActiveGauges = getSActivity().mActiveGauges;
         mPeriodLockUps = getSActivity().mPeriodLockUps;
@@ -110,7 +110,7 @@ public class ListFarmingFragment extends BaseFragment {
     }
 
     public PoolOuterClass.Pool getPoolwithID(long id){
-        for (PoolOuterClass.Pool pool: mPoolList) {
+        for (PoolOuterClass.Pool pool: mFarmingList) {
             if (pool.getId() == id) {
                 return pool;
             }
