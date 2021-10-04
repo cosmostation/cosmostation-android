@@ -314,24 +314,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.onFetchgRPCUndelegations(self.mAccount.account_address, 0)
             self.onFetchgRPCRewards(self.mAccount.account_address, 0)
             
-        }
-//        else if (mChainType == ChainType.BAND_MAIN) {
-//            self.mFetchCnt = 10
-//            onFetchgRPCNodeInfo()
-//            onFetchgRPCAuth(mAccount.account_address)
-//            onFetchgRPCBondedValidators(0)
-//            onFetchgRPCUnbondedValidators(0)
-//            onFetchgRPCUnbondingValidators(0)
-//
-//            onFetchgRPCBalance(mAccount.account_address, 0)
-//            onFetchgRPCDelegations(mAccount.account_address, 0)
-//            onFetchgRPCUndelegations(mAccount.account_address, 0)
-//            onFetchgRPCRewards(mAccount.account_address, 0)
-//
-//            onFetchgRPCBandOracleStatus()
-//
-//        }
-        else if (self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.IOV_TEST) {
+        } else if (self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.IOV_TEST) {
             self.mFetchCnt = 11
             self.onFetchgRPCNodeInfo()
             self.onFetchgRPCAuth(self.mAccount.account_address)
@@ -360,7 +343,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.onFetchgRPCUndelegations(self.mAccount.account_address, 0)
             self.onFetchgRPCRewards(self.mAccount.account_address, 0)
             
-//            self.onFetchSifVsIncentive(self.mAccount.account_address)
             self.onFetchSifLmIncentive(self.mAccount.account_address)
             
         } else if (self.mChainType == ChainType.OSMOSIS_MAIN) {
@@ -1011,31 +993,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchOkDexTicker ", error) }
-            }
-            self.onFetchFinished()
-        }
-        
-    }
-    
-    func onFetchSifVsIncentive(_ address: String) {
-        print("onFetchSifVsIncentive url ", BaseNetWork.vsIncentiveUrl(address))
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 8
-        configuration.timeoutIntervalForResource = 8
-        let request = Alamofire.SessionManager(configuration: configuration).request(BaseNetWork.vsIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-//        let request = Alamofire.request(BaseNetWork.vsIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let resData = res as? NSDictionary else {
-                    self.onFetchFinished()
-                    return
-                }
-                BaseData.instance.mSifVsIncentive = SifIncentive.init(resData)
-//                print("mSifVsIncentive ", BaseData.instance.mSifVsIncentive?.user?.totalClaimableCommissionsAndClaimableRewards)
-                
-            case .failure(let error):
-                print("onFetchSifVsIncentive ", error)
             }
             self.onFetchFinished()
         }

@@ -47,7 +47,7 @@ class MyFarmCell: UITableViewCell {
         let apr = WUtils.getPoolArp(pool, gauges, 2)
         let totalShares = NSDecimalNumber.init(string: pool.totalShares.amount)
         
-        poolIDLabel.text = "MY EARNING #" + String(pool.id)
+        poolIDLabel.text = "#" + String(pool.id) + " MY EARNING"
         poolPairLabel.text = WUtils.getOsmosisTokenName(coin0.denom) + " / " + WUtils.getOsmosisTokenName(coin1.denom)
         poolArpLabel.attributedText = WUtils.displayPercent(apr, poolArpLabel.font)
         

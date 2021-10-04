@@ -43,7 +43,7 @@ class CommonPoolCell: UITableViewCell {
         let coin0Decimal = WUtils.getOsmosisCoinDecimal(coin0.denom)
         let coin1Decimal = WUtils.getOsmosisCoinDecimal(coin1.denom)
         
-        poolPairLabel.text = coin0Symbol + " / " + coin1Symbol
+        poolPairLabel.text = "#" + String(pool.id) + " " + coin0Symbol + "/" + coin1Symbol
         
         let coin0Value = WUtils.usdValue(coin0BaseDenom, NSDecimalNumber.init(string: coin0.amount), coin0Decimal)
         let coin1Value = WUtils.usdValue(coin1BaseDenom, NSDecimalNumber.init(string: coin1.amount), coin1Decimal)

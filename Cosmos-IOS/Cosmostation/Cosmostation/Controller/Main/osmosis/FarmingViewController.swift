@@ -173,7 +173,7 @@ class FarmingViewController: BaseViewController, UITableViewDelegate, UITableVie
                 //filter pool
                 response.pools.forEach { pool in
                     let rawPool = try! Osmosis_Gamm_V1beta1_Pool.init(serializedData: pool.value)
-                    if (BaseData.instance.mParam?.isPoolEnabled(Int(rawPool.id)) == true) {
+                    if (BaseData.instance.mParam?.isFarmEnabled(Int(rawPool.id)) == true) {
                         self.mPoolList.append(rawPool)
                     }
                 }
