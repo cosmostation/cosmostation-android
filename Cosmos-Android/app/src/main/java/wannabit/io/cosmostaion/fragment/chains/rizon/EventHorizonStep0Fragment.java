@@ -154,8 +154,8 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
             } else {
                 ClipboardManager clipboard = (ClipboardManager) getSActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                 if (clipboard.getPrimaryClip() != null && clipboard.getPrimaryClip().getItemCount() > 0) {
-                    String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity().getBaseContext()).toString().trim();
-                    if (TextUtils.isEmpty(userPaste)) {
+                    String userPaste = clipboard.getPrimaryClip().getItemAt(0).coerceToText(getSActivity()).toString().trim();
+                    if(TextUtils.isEmpty(userPaste)) {
                         Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -177,8 +177,8 @@ public class EventHorizonStep0Fragment extends BaseFragment implements View.OnCl
                 } else {
                     Toast.makeText(getSActivity(), R.string.error_clipboard_no_data, Toast.LENGTH_SHORT).show();
                 }
-                return;
             }
+            return;
 
         } else if (v.equals(mBtnConfirm)) {
             mUtxo = null;
