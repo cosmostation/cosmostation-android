@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class IBCTokenDetailActivity extends BaseActivity implements View.OnClickListener{
@@ -65,6 +66,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
 
     private String                          mIbcDenom;
     private IbcToken                        mIbcToken;
+    private BigDecimal                      mMaxAvailable = BigDecimal.ZERO;
     private int                             mIbcDivideDecimal = 6;
     private int                             mIbcDisplayDecimal = 6;
 
@@ -193,6 +195,17 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
                 add.setCancelable(true);
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+            final String mainDenom = WDp.mainDenom(mBaseChain);
+            final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_IBC_TRANSFER, 0);
+
+            mMaxAvailable = getBaseDao().getAvailable(mIbcDenom);
+            if (mainDenom.equalsIgnoreCase(mIbcDenom)) {
+                mMaxAvailable = mMaxAvailable.subtract(feeAmount);
+            }
+            if (mMaxAvailable.compareTo(BigDecimal.ZERO) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
             Bundle bundle = new Bundle();

@@ -102,6 +102,7 @@ public class IBCSendStep2Fragment extends BaseFragment implements View.OnClickLi
         super.onRefreshTab();
         mToIbcDenom = getSActivity().mToIbcDenom;
         mDpDecimal = WDp.tokenDivideDecimal(getBaseDao(), getSActivity().mBaseChain, mToIbcDenom);
+        setDisplayDecimals(mDpDecimal);
         onUpdateInitInfo();
     }
 
