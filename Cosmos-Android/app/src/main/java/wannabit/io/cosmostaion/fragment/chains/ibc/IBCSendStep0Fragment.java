@@ -188,7 +188,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
                 if(o2.chain_id.contains("cosmoshub-")) return 1;
                 if(o1.chain_id.contains("osmosis-")) return -1;
                 if(o2.chain_id.contains("osmosis-")) return 1;
-                else return 0;
+                return o1.chain_id.compareTo(o2.chain_id);
             }
         });
     }

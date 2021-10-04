@@ -32,12 +32,12 @@ import wannabit.io.cosmostaion.task.FetchTask.RizonSwapStatusTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_HDAC_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_HDAC_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_HDAC_TX_DETAIL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_RIZON_SWAP_STATUS;
@@ -264,7 +264,7 @@ public class RizonSwapStatusActivity extends BaseBroadCastActivity implements Vi
         String hash = rizonSwapStatus.rizonTxId;
         String url = "";
         if (mBaseChain.equals(RIZON_TEST)) { url  = EXPLORER_RIZON_TEST + "txs/" + hash; }
-        else { url  = EXPLORER_HDAC_MAIN + "tx/" + hash; }
+        else { url  = EXPLORER_RIZON_MAIN + "txs/" + hash; }
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
     }
