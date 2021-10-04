@@ -180,7 +180,7 @@
                             <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vnf-NT-Cu3">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vnf-NT-Cu3">
                             <rect key="frame" x="369" y="140.5" width="5" height="16.5"/>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -216,6 +216,7 @@
                         <constraint firstItem="Q01-yb-JkX" firstAttribute="leading" secondItem="o6K-qo-IRz" secondAttribute="trailing" constant="4" id="kuj-mw-4gU"/>
                         <constraint firstItem="Q01-yb-JkX" firstAttribute="trailing" secondItem="IQO-DT-MEd" secondAttribute="trailing" id="kzQ-3g-JkC"/>
                         <constraint firstItem="aPH-LG-xg1" firstAttribute="top" secondItem="xAD-oI-uNF" secondAttribute="top" constant="16" id="n8w-2J-TAR"/>
+                        <constraint firstItem="Vnf-NT-Cu3" firstAttribute="trailing" secondItem="fhU-ah-Frs" secondAttribute="trailing" id="osn-RZ-Zof"/>
                         <constraint firstItem="HgO-NH-Flg" firstAttribute="top" secondItem="Q01-yb-JkX" secondAttribute="bottom" constant="8" id="oxw-CX-Hhw"/>
                         <constraint firstItem="IQO-DT-MEd" firstAttribute="leading" secondItem="nPO-uE-DIw" secondAttribute="trailing" constant="4" id="sa8-lD-AsT"/>
                         <constraint firstItem="gcA-w3-LM4" firstAttribute="top" secondItem="60G-IM-rW1" secondAttribute="bottom" constant="8" id="te9-GE-otg"/>

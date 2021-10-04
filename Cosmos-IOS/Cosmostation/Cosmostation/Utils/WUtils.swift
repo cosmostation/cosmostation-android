@@ -4623,6 +4623,7 @@ public class WUtils {
         else if (chain == ChainType.RIZON_MAIN) { return UIImage(named: "chainRizon") }
         
         else if (chain == ChainType.REGEN_MAIN) { return UIImage(named: "chainRegen") }
+        else if (chain == ChainType.JUNO_MAIN) { return UIImage(named: "chainJuno") }
         
         else if (chain == ChainType.COSMOS_TEST) { return UIImage(named: "cosmosTestChainImg") }
         else if (chain == ChainType.IRIS_TEST) { return UIImage(named: "irisTestChainImg") }
@@ -4658,6 +4659,7 @@ public class WUtils {
         else if (chain == ChainType.RIZON_MAIN) { return "(Rizon Mainnet)" }
         
         else if (chain == ChainType.REGEN_MAIN) { return "(Regen Mainnet)" }
+        else if (chain == ChainType.JUNO_MAIN) { return "(Juno Mainnet)" }
         
         else if (chain == ChainType.COSMOS_TEST) { return "(StarGate Testnet)" }
         else if (chain == ChainType.IRIS_TEST) { return "(Bifrost Testnet)" }
@@ -4694,6 +4696,7 @@ public class WUtils {
         else if (chain == ChainType.RIZON_MAIN) { return "RIZON" }
         
         else if (chain == ChainType.REGEN_MAIN) { return "REGEN" }
+        else if (chain == ChainType.JUNO_MAIN) { return "JUNO" }
         
         else if (chain == ChainType.COSMOS_TEST) { return "STARGATE" }
         else if (chain == ChainType.IRIS_TEST) { return "BIFROST" }
@@ -4742,6 +4745,8 @@ public class WUtils {
         
         else if (chainId?.contains("regen-") == true) {
             return ChainType.REGEN_MAIN
+        }else if (chainId?.contains("juno-") == true) {
+            return ChainType.JUNO_MAIN
         }
         return nil
     }
@@ -4777,6 +4782,7 @@ public class WUtils {
         else if (address?.starts(with: "rizon1") == true && chain == ChainType.RIZON_MAIN) { return true }
         
         else if (address?.starts(with: "regen1") == true && chain == ChainType.REGEN_MAIN) { return true }
+        else if (address?.starts(with: "juno1") == true && chain == ChainType.JUNO_MAIN) { return true }
         
         return false
     }

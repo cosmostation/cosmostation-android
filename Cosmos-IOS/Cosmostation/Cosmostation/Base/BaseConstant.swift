@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = true;
+let SHOW_LOG                            = false;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -497,7 +497,7 @@ let GAS_FEE_AMOUNT_MID                      = "200000"
 let GAS_FEE_AMOUNT_HIGH                     = "300000"
 let GAS_FEE_AMOUNT_REINVEST                 = "220000"
 let GAS_FEE_AMOUNT_REDELE                   = "240000"
-let GAS_FEE_AMOUNT_IBC_SEND                 = "400000"
+let GAS_FEE_AMOUNT_IBC_SEND                 = "500000"
 
 let GAS_FEE_AMOUNT_COSMOS_SWAP              = "200000"
 let GAS_FEE_AMOUNT_COSMOS_JOIN_POOL         = "300000"
@@ -822,6 +822,7 @@ public enum ChainType: String {
     case RIZON_MAIN
     
     case REGEN_MAIN
+    case JUNO_MAIN
     
     case COSMOS_TEST
     case IRIS_TEST
@@ -866,7 +867,7 @@ public enum ChainType: String {
 //        result.append(IOV_TEST)
 //        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
-        result.append(RIZON_TEST)
+//        result.append(RIZON_TEST)
 //        result.append(MEDI_TEST)
 //        result.append(ALTHEA_TEST)
         result.append(UMEE_TEST)
