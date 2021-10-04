@@ -2,16 +2,12 @@ package wannabit.io.cosmostaion.model.type;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import wannabit.io.cosmostaion.model.StarNameResource;
-import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
 import wannabit.io.cosmostaion.model.kava.DenomsToClaim;
 
 public class Msg {
@@ -317,64 +313,6 @@ public class Msg {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("validator_addresses")
         public ArrayList<String> validator_addresses;
-
-
-
-
-
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        @SerializedName("domain")
-        public String domain;
-
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        @SerializedName("name")
-        public String name;
-
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        @SerializedName("admin")
-        public String admin;
-
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        @SerializedName("registerer")
-        public String registerer;
-
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        @SerializedName("type")
-        public String type;
-
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        @SerializedName("new_resources")
-        public ArrayList<StarNameResource> new_resources;
-
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        @SerializedName("resources")
-        public ArrayList<StarNameResource> resources;
-//        public Object resources;
-//
-//        public ArrayList<StarNameResource> getStarNameResource() {
-//            ArrayList<StarNameResource> result = new ArrayList<>();
-//            try {
-//                result = new Gson().fromJson(new Gson().toJson(resources), new TypeToken<List<StarNameResource>>(){}.getType());
-//            } catch (Exception e) { }
-//            return result;
-//        }
-
-
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        @SerializedName("broker")
-        public String broker;
-
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        @SerializedName("fee_payer")
-        public String fee_payer;
-
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        @SerializedName("signer")
-        public String signer;
-
-
-
-
 
     }
 

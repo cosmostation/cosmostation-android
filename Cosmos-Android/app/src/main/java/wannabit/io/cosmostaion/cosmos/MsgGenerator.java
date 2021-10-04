@@ -24,7 +24,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.kava.DenomsToClaim;
@@ -38,20 +37,12 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
@@ -639,146 +630,6 @@ public class MsgGenerator {
         }
         return result;
 
-    }
-
-    public static Msg genDomainRegister(String domain, String admin, String type, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            value.domain = domain;
-            value.admin = admin;
-            value.type = type;
-            value.broker = "";
-            value.fee_payer = "";
-
-            result.type = BaseConstant.IOV_MSG_TYPE_REGISTER_DOMAIN;
-            result.value = value;
-        }
-        return result;
-    }
-
-
-    public static Msg genAccountRegister(String domain, String name, String owner, String registerer, ArrayList<StarNameResource> resources, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            value.domain = domain;
-            value.name = name;
-            value.owner = owner;
-            value.registerer = registerer;
-            value.resources = resources;
-            value.broker = "";
-            value.fee_payer = "";
-
-            result.type = BaseConstant.IOV_MSG_TYPE_REGISTER_ACCOUNT;
-            result.value = value;
-        }
-        return result;
-    }
-
-    public static Msg genDomainDelete(String domain, String owner, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            value.domain = domain;
-            value.owner = owner;
-            value.fee_payer = "";
-
-            result.type = BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
-            result.value = value;
-        }
-        return result;
-    }
-
-    public static Msg genAccountDelete(String domain, String name, String owner, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            value.domain = domain;
-            value.name = name;
-            value.owner = owner;
-            value.fee_payer = "";
-
-            result.type = BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
-            result.value = value;
-        }
-        return result;
-    }
-
-    public static Msg genDomainRenew(String domain, String signer, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            value.domain = domain;
-            value.signer = signer;
-            value.fee_payer = "";
-
-            result.type = BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
-            result.value = value;
-        }
-        return result;
-
-    }
-
-    public static Msg genAccountRenew(String domain, String name, String signer, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            value.domain = domain;
-            value.name = name;
-            value.signer = signer;
-            value.fee_payer = "";
-
-            result.type = BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
-            result.value = value;
-        }
-        return result;
-    }
-
-    public static Msg genReplaceStarName(String domain, String name, String owner, ArrayList<StarNameResource> resources, BaseChain chain) {
-        Msg result  = new Msg();
-        Msg.Value value = new Msg.Value();
-        if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            value.domain = domain;
-            value.name = name;
-            value.owner = owner;
-            value.new_resources = resources;
-            value.fee_payer = "";
-
-            result.type = BaseConstant.IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE;
-            result.value = value;
-        }
-        return result;
-    }
-
-
-
-    public static StdTx genUnsignedTransferTx(ArrayList<Msg> msgs, Fee fee, String memo) {
-        StdTx result = new StdTx();
-        StdTx.Value value = new StdTx.Value();
-
-        value.msg = msgs;
-        value.fee = fee;
-        value.signatures = null;
-        value.memo = memo;
-
-        result.type = BaseConstant.COSMOS_AUTH_TYPE_STDTX;
-        result.value = value;
-        return result;
-    }
-
-    public static StdTx genSignedTransferTx(ArrayList<Msg> msgs, Fee fee, String memo, ArrayList<Signature> signatures) {
-        StdTx result = new StdTx();
-        StdTx.Value value = new StdTx.Value();
-
-        value.msg = msgs;
-        value.fee = fee;
-        value.signatures = signatures;
-        value.memo = memo;
-
-        result.type = BaseConstant.COSMOS_AUTH_TYPE_STDTX;
-        result.value = value;
-        return result;
     }
 
     public static StdTx genStakeSignedTransferTx(ArrayList<Msg> msgs, Fee fee, String memo, ArrayList<Signature> signatures) {
