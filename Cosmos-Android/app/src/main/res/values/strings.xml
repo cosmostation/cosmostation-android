@@ -445,6 +445,8 @@
     <string name="str_rizon_net2" translatable="false">Rizon Mainnet</string>
     <string name="str_regen_net" translatable="false">(Regen Mainnet)</string>
     <string name="str_regen_net2" translatable="false">Regen Mainnet</string>
+    <string name="str_juno_net" translatable="false">(Juno Mainnet)</string>
+    <string name="str_juno_net2" translatable="false">Juno Mainnet</string>
     <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
@@ -485,6 +487,7 @@
     <string name="str_emoney_main" translatable="false">EMONEY</string>
     <string name="str_rizon_main" translatable="false">RIZON</string>
     <string name="str_regen_main" translatable="false">REGEN</string>
+    <string name="str_juno_main" translatable="false">JUNO</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
