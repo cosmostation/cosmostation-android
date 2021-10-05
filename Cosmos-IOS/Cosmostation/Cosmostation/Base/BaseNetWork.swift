@@ -986,6 +986,9 @@ class BaseNetWork {
         } else if (chain == ChainType.RIZON_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-rizon-app.cosmostation.io", port: 9090)
             
+        } else if (chain == ChainType.JUNO_MAIN) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-juno-app.cosmostation.io", port: 9090)
+            
         }
         
         
