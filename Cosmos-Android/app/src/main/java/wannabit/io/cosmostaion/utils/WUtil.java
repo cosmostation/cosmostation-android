@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.SpannableString;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,6 +54,7 @@ import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import starnamed.x.starname.v1beta1.Types;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
@@ -96,6 +98,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
@@ -1316,9 +1319,6 @@ public class WUtil {
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
             result = result + ",okb,okt";
 
-        } else if (basechain.equals(BAND_MAIN)) {
-            result = result + ",uband";
-
         } else if (basechain.equals(SECRET_MAIN)) {
             result = result + ",uscrt";
 
@@ -2160,8 +2160,244 @@ public class WUtil {
     }
 
     /**
+     * coingeko
+     */
+    public static Intent getCoingekoIntent(MainActivity mainActivity) {
+        if (mainActivity.mBaseChain.equals(COSMOS_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/cosmos")));
+
+        } else if (mainActivity.mBaseChain.equals(IRIS_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/irisnet")));
+
+        } else if (mainActivity.mBaseChain.equals(IOV_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/starname")));
+
+        } else if (mainActivity.mBaseChain.equals(BNB_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/binancecoin")));
+
+        } else if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/kava")));
+
+        } else if (mainActivity.mBaseChain.equals(BAND_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/band-protocol")));
+
+        } else if (mainActivity.mBaseChain.equals(CERTIK_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/certik")));
+
+        } else if (mainActivity.mBaseChain.equals(SECRET_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/secret")));
+
+        } else if (mainActivity.mBaseChain.equals(AKASH_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/akash-network")));
+
+        } else if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/okexchain")));
+
+        } else if (mainActivity.mBaseChain.equals(SENTINEL_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/sentinel")));
+
+        } else if (mainActivity.mBaseChain.equals(PERSIS_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/persistence")));
+
+        } else if (mainActivity.mBaseChain.equals(FETCHAI_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/fetch-ai")));
+
+        } else if (mainActivity.mBaseChain.equals(CRYPTO_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/crypto-com-chain")));
+
+        } else if (mainActivity.mBaseChain.equals(SIF_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/sifchain")));
+
+        } else if (mainActivity.mBaseChain.equals(KI_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/ki")));
+
+        } else if (mainActivity.mBaseChain.equals(OSMOSIS_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/osmosis")));
+
+        } else if (mainActivity.mBaseChain.equals(MEDI_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/medibloc")));
+
+        } else if (mainActivity.mBaseChain.equals(EMONEY_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/e-money")));
+        }
+        return null;
+    }
+
+    /**
      * Main Guide
      */
+    public static void getGuide(MainActivity mainActivity, ImageView guideImg, TextView guideTitle, TextView guideMsg, Button guideBtn1, Button guideBtn2) {
+        if (mainActivity.mBaseChain.equals(COSMOS_MAIN) || mainActivity.mBaseChain.equals(COSMOS_TEST)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.guide_img));
+            guideTitle.setText(R.string.str_front_guide_title);
+            guideMsg.setText(R.string.str_front_guide_msg);
+            guideBtn1.setText(R.string.str_guide);
+            guideBtn2.setText(R.string.str_faq);
+        
+        } else if (mainActivity.mBaseChain.equals(IRIS_MAIN) || mainActivity.mBaseChain.equals(IRIS_TEST)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.irisnet_img));
+            guideTitle.setText(R.string.str_front_guide_title_iris);
+            guideMsg.setText(R.string.str_front_guide_msg_iris);
+            guideBtn1.setText(R.string.str_faq_iris);
+            guideBtn2.setText(R.string.str_guide_iris);
+
+        } else if (mainActivity.mBaseChain.equals(BNB_MAIN) || mainActivity.mBaseChain.equals(BNB_TEST)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.binance_img));
+            guideTitle.setText(R.string.str_front_guide_title_binance);
+            guideMsg.setText(R.string.str_front_guide_msg_bnb);
+            guideBtn1.setText(R.string.str_faq_bnb);
+            guideBtn2.setText(R.string.str_guide_bnb);
+
+        } else if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.kavamain_img));
+            guideTitle.setText(R.string.str_front_guide_title_kava);
+            guideMsg.setText(R.string.str_front_guide_msg_kava);
+            guideBtn1.setText(R.string.str_faq_kava);
+            guideBtn2.setText(R.string.str_guide_kava);
+
+        } else if (mainActivity.mBaseChain.equals(IOV_MAIN) || mainActivity.mBaseChain.equals(IOV_TEST)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.iov_img));
+            guideTitle.setText(R.string.str_front_guide_title_iov);
+            guideMsg.setText(R.string.str_front_guide_msg_iov);
+            guideBtn1.setText(R.string.str_faq_iov);
+            guideBtn2.setText(R.string.str_guide_iov);
+
+        } else if (mainActivity.mBaseChain.equals(BAND_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_bandprotocol));
+            guideTitle.setText(R.string.str_front_guide_title_band);
+            guideMsg.setText(R.string.str_front_guide_msg_band);
+            guideBtn1.setText(R.string.str_faq_band);
+            guideBtn2.setText(R.string.str_guide_band);
+
+        } else if (mainActivity.mBaseChain.equals(OKEX_MAIN) || mainActivity.mBaseChain.equals(OK_TEST)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.okex_img));
+            guideTitle.setText(R.string.str_front_guide_title_ok);
+            guideMsg.setText(R.string.str_front_guide_msg_ok);
+            guideBtn1.setText(R.string.str_faq_ok);
+            guideBtn2.setText(R.string.str_guide_ok);
+
+        } else if (mainActivity.mBaseChain.equals(CERTIK_MAIN) || mainActivity.mBaseChain.equals(CERTIK_TEST)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.certik_img));
+            guideTitle.setText(R.string.str_front_guide_title_certik);
+            guideMsg.setText(R.string.str_front_guide_msg_certik);
+            guideBtn1.setText(R.string.str_faq_certik);
+            guideBtn2.setText(R.string.str_guide_certik);
+
+        } else if (mainActivity.mBaseChain.equals(AKASH_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.akash_img));
+            guideTitle.setText(R.string.str_front_guide_title_akash);
+            guideMsg.setText(R.string.str_front_guide_msg_akash);
+            guideBtn1.setText(R.string.str_faq_akash);
+            guideBtn2.setText(R.string.str_guide_akash);
+
+        } else if (mainActivity.mBaseChain.equals(SECRET_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.secret_img));
+            guideTitle.setText(R.string.str_front_guide_title_secret);
+            guideMsg.setText(R.string.str_front_guide_msg_secret);
+            guideBtn1.setText(R.string.str_faq_secret);
+            guideBtn2.setText(R.string.str_guide_secret);
+
+        } else if (mainActivity.mBaseChain.equals(PERSIS_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.persistence_img));
+            guideTitle.setText(R.string.str_front_guide_title_persis);
+            guideMsg.setText(R.string.str_front_guide_msg_persis);
+            guideBtn1.setText(R.string.str_faq_persis);
+            guideBtn2.setText(R.string.str_guide_persis);
+
+        } else if (mainActivity.mBaseChain.equals(SENTINEL_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.sentinel_img));
+            guideTitle.setText(R.string.str_front_guide_title_sentinel);
+            guideMsg.setText(R.string.str_front_guide_msg_sentinel);
+            guideBtn1.setText(R.string.str_faq_sentinel);
+            guideBtn2.setText(R.string.str_guide_sentinel);
+
+        } else if (mainActivity.mBaseChain.equals(FETCHAI_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.fetchai_img));
+            guideTitle.setText(R.string.str_front_guide_title_fetch);
+            guideMsg.setText(R.string.str_front_guide_msg_fetch);
+            guideBtn1.setText(R.string.str_faq_fetch);
+            guideBtn2.setText(R.string.str_guide_fetch);
+
+        } else if (mainActivity.mBaseChain.equals(CRYPTO_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.cryptochain_img));
+            guideTitle.setText(R.string.str_front_guide_title_crypto);
+            guideMsg.setText(R.string.str_front_guide_msg_crypto);
+            guideBtn1.setText(R.string.str_faq_crypto);
+            guideBtn2.setText(R.string.str_guide_crypto);
+
+        } else if (mainActivity.mBaseChain.equals(SIF_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.sifchain_img));
+            guideTitle.setText(R.string.str_front_guide_title_sif);
+            guideMsg.setText(R.string.str_front_guide_msg_sif);
+            guideBtn1.setText(R.string.str_guide_sif);
+            guideBtn2.setText(R.string.str_faq_sif);
+
+        } else if (mainActivity.mBaseChain.equals(KI_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.kifoundation_img));
+            guideTitle.setText(R.string.str_front_guide_title_ki);
+            guideMsg.setText(R.string.str_front_guide_msg_ki);
+            guideBtn1.setText(R.string.str_faq_ki);
+            guideBtn2.setText(R.string.str_guide_ki);
+
+        } else if (mainActivity.mBaseChain.equals(OSMOSIS_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_osmosis));
+            guideTitle.setText(R.string.str_front_guide_title_osmosis);
+            guideMsg.setText(R.string.str_front_guide_msg_osmosis);
+            guideBtn1.setText(R.string.str_faq_osmosis);
+            guideBtn2.setText(R.string.str_guide_osmosis);
+
+        } else if (mainActivity.mBaseChain.equals(RIZON_MAIN) || mainActivity.mBaseChain.equals(RIZON_TEST)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_rizon));
+            guideTitle.setText(R.string.str_front_guide_title_rizon);
+            guideMsg.setText(R.string.str_front_guide_msg_rizon);
+            guideBtn1.setText(R.string.str_guide_rizon);
+            guideBtn2.setText(R.string.str_faq_rizon);
+
+        } else if (mainActivity.mBaseChain.equals(MEDI_MAIN) || mainActivity.mBaseChain.equals(MEDI_TEST)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.medibloc_img));
+            guideTitle.setText(R.string.str_front_guide_title_medi);
+            guideMsg.setText(R.string.str_front_guide_msg_medi);
+            guideBtn1.setText(R.string.str_faq_medi);
+            guideBtn2.setText(R.string.str_guide_medi);
+
+        } else if (mainActivity.mBaseChain.equals(EMONEY_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_emoney));
+            guideTitle.setText(R.string.str_front_guide_title_emoney);
+            guideMsg.setText(R.string.str_front_guide_msg_emoney);
+            guideBtn1.setText(R.string.str_faq_emoney);
+            guideBtn2.setText(R.string.str_guide_emoney);
+
+        } else if (mainActivity.mBaseChain.equals(JUNO_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_juno));
+            guideTitle.setText(R.string.str_front_guide_title_juno);
+            guideMsg.setText(R.string.str_front_guide_msg_juno);
+            guideBtn1.setText(R.string.str_faq_juno);
+            guideBtn2.setText(R.string.str_guide_juno);
+
+        } else if (mainActivity.mBaseChain.equals(ALTHEA_TEST)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.althea_img));
+            guideTitle.setText(R.string.str_front_guide_title_althea);
+            guideMsg.setText(R.string.str_front_guide_msg_althea);
+            guideBtn1.setText(R.string.str_faq_althea);
+            guideBtn2.setText(R.string.str_guide_althea);
+
+        } else if (mainActivity.mBaseChain.equals(UMEE_TEST)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_umee));
+            guideTitle.setText(R.string.str_front_guide_title_umee);
+            guideMsg.setText(R.string.str_front_guide_msg_umee);
+            guideBtn1.setText(R.string.str_faq_umee);
+            guideBtn2.setText(R.string.str_guide_umee);
+
+        } else if (mainActivity.mBaseChain.equals(AXELAR_TEST)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_axelar));
+            guideTitle.setText(R.string.str_front_guide_title_axelar);
+            guideMsg.setText(R.string.str_front_guide_msg_axelar);
+            guideBtn1.setText(R.string.str_faq_axelar);
+            guideBtn2.setText(R.string.str_guide_axelar);
+
+        } 
+    }
+    
     public static Intent getGuide1Intent(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN)) {
             if (Locale.getDefault().getLanguage().toLowerCase().equals("ko")) {
@@ -2176,7 +2412,7 @@ public class WUtil {
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.binance.org"));
 
-        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+        } else if (chain.equals(KAVA_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.kava.io/registration/"));
 
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
@@ -2231,6 +2467,9 @@ public class WUtil {
         } else if (chain.equals(RIZON_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.hdactech.com/en/index.do"));
 
+        } else if (chain.equals(JUNO_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://junochain.com/"));
+
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
 
@@ -2254,7 +2493,7 @@ public class WUtil {
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@binance"));
 
-        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+        } else if (chain.equals(KAVA_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/kava-labs"));
 
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
@@ -2309,6 +2548,9 @@ public class WUtil {
         } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/hdac"));
 
+        } else if (chain.equals(JUNO_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@JunoNetwork"));
+
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
 
@@ -2328,9 +2570,6 @@ public class WUtil {
 
         } else if (basechain.equals(KAVA_MAIN)) {
             return EXPLORER_KAVA_MAIN;
-
-        } else if (basechain.equals(KAVA_TEST)) {
-            return EXPLORER_KAVA_TEST;
 
         } else if (basechain.equals(OKEX_MAIN)) {
             return EXPLORER_OKEX_MAIN;
@@ -2394,6 +2633,9 @@ public class WUtil {
         } else if (basechain.equals(RIZON_MAIN)) {
             return EXPLORER_RIZON_MAIN;
 
+        } else if (basechain.equals(JUNO_MAIN)) {
+            return EXPLORER_JUNO_MAIN;
+
         }
 
         else if (basechain.equals(COSMOS_TEST)) {
@@ -2427,9 +2669,6 @@ public class WUtil {
 
         } else if (basechain.equals(KAVA_MAIN)) {
             return EXPLORER_KAVA_MAIN + "txs/" + hash;
-
-        } else if (basechain.equals(KAVA_TEST)) {
-            return EXPLORER_KAVA_TEST + "txs/" + hash;
 
         } else if (basechain.equals(OKEX_MAIN)) {
             return EXPLORER_OKEX_MAIN + "tx/0x" + hash;
@@ -2490,6 +2729,9 @@ public class WUtil {
         } else if (basechain.equals(RIZON_MAIN)) {
             return EXPLORER_RIZON_MAIN + "txs/" + hash;
 
+        } else if (basechain.equals(JUNO_MAIN)) {
+            return EXPLORER_JUNO_MAIN + "txs/" + hash;
+
         }
 
         else if (basechain.equals(COSMOS_TEST)) {
@@ -2523,7 +2765,7 @@ public class WUtil {
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) ||
-                basechain.equals(CRYPTO_MAIN) || basechain.equals(EMONEY_MAIN) || basechain.equals(RIZON_MAIN) ||
+                basechain.equals(CRYPTO_MAIN) || basechain.equals(EMONEY_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(JUNO_MAIN) ||
                 basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
@@ -2615,7 +2857,7 @@ public class WUtil {
             }
         }
 
-        else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
+        else if (basechain.equals(KAVA_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(KAVA_GAS_AMOUNT_SEND);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -2912,6 +3154,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(JUNO_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(JUNO_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         } else if (basechain.equals(ALTHEA_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
@@ -2938,7 +3185,7 @@ public class WUtil {
             return gasRate.multiply(gasAmount).setScale(18, RoundingMode.DOWN);
         }
 
-        else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
+        else if (basechain.equals(KAVA_MAIN)) {
             return BigDecimal.ZERO;
 
         } else if (basechain.equals(SECRET_MAIN)) {
@@ -3060,9 +3307,17 @@ public class WUtil {
                 return new BigDecimal(FETCH_GAS_RATE_LOW);
             }
             return new BigDecimal(FETCH_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(JUNO_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(JUNO_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(JUNO_GAS_RATE_LOW);
+            }
+            return new BigDecimal(JUNO_GAS_RATE_AVERAGE);
         }
 
-        else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
+        else if (basechain.equals(KAVA_MAIN)) {
             if (position == 0) {
                 return BigDecimal.ZERO.setScale(3);
             } else if (position == 1) {

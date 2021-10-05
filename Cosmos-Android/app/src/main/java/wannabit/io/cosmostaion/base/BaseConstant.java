@@ -540,6 +540,7 @@ public class BaseConstant {
     public final static String TOKEN_UMEE           = "uumee";
     public final static String TOKEN_NGM            = "ungm";
     public final static String TOKEN_AXELAR         = "uaxl";
+    public final static String TOKEN_JUNO           = "ujuno";
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";
@@ -776,6 +777,10 @@ public class BaseConstant {
     public final static String FETCH_GAS_RATE_LOW                       = "0.00";
     public final static String FETCH_GAS_RATE_AVERAGE                   = "0.00";
 
+    public final static String JUNO_GAS_RATE_TINY                       = "0.025";
+    public final static String JUNO_GAS_RATE_LOW                        = "0.025";
+    public final static String JUNO_GAS_RATE_AVERAGE                    = "0.025";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -820,6 +825,7 @@ public class BaseConstant {
     public final static String EMONEY_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/emoney/";
     public final static String UMEE_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/umee/";
     public final static String AXELAR_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/axelar/";
+    public final static String JUNO_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/juno/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -853,6 +859,7 @@ public class BaseConstant {
     public final static String EXPLORER_CERTIK_MAIN     = "https://www.mintscan.io/certik/";
     public final static String EXPLORER_EMONEY_MAIN     = "https://www.mintscan.io/emoney/";
     public final static String EXPLORER_RIZON_MAIN      = "https://www.mintscan.io/rizon/";
+    public final static String EXPLORER_JUNO_MAIN       = "https://www.mintscan.io/juno/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 

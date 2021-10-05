@@ -454,6 +454,21 @@ public class ApiClient {
         return api_emoney;
     }
 
+    //Services for Juno mainnet api
+    private static HistoryApi api_juno = null;
+    public static HistoryApi getJunoApi(Context c) {
+        if (api_juno == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_juno))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_juno = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_juno;
+    }
+
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;
     public static HistoryApi getRizonApi(Context c) {

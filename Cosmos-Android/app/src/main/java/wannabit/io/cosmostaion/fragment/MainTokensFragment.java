@@ -64,6 +64,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
@@ -103,6 +104,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_JUNO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MEDI;
@@ -868,6 +870,18 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_axelar));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_AXELAR);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
+        } else if (coin.denom.equals(TOKEN_JUNO)) {
+            holder.itemSymbol.setText(getString(R.string.str_juno_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), JUNO_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Juno Staking Token");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_juno));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_JUNO);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
