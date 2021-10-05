@@ -23,7 +23,7 @@
     <string name="str_medi_main_net">메디블록 메인넷</string>
     <string name="str_emoney_main_net">이머니 메인넷</string>
     <string name="str_juno_main_net">주노 메인넷</string>
-    <string name="str_rizon_main_net">라이젠 메인넷</string>
+    <string name="str_rizon_main_net">라이즌 메인넷</string>
     <string name="str_cosmos_test_net">스타게이트 테스트넷</string>
     <string name="str_iris_test_net">바이프로스트 테스트넷</string>
     <string name="str_bnb_test_net">바이낸스 테스트넷</string>
@@ -322,7 +322,7 @@
     <string name="str_front_guide_title_crypto"><![CDATA[CRYPTO.ORG 체인]]></string>
     <string name="str_front_guide_title_sif"><![CDATA[시프 체인]]></string>
     <string name="str_front_guide_title_ki"><![CDATA[키 파운데이션]]></string>
-    <string name="str_front_guide_title_rizon"><![CDATA[라이젠 네트워크]]></string>
+    <string name="str_front_guide_title_rizon"><![CDATA[라이즌 네트워크]]></string>
     <string name="str_front_guide_title_medi"><![CDATA[메디블록]]></string>
     <string name="str_front_guide_title_althea"><![CDATA[알테아 네트워크]]></string>
     <string name="str_front_guide_title_osmosis"><![CDATA[오스모시스 존]]></string>
@@ -1220,7 +1220,7 @@
     <string name="str_exit_insert_lp_coin">Insert LP Coin</string>
     <string name="str_osmosis_exit_to_withdraw_coin">To Withdraw Coins (MG)</string>
     <string name="str_rizon_event_horizon_msg_title">이벤트 호라이즌</string>
-    <string name="str_rizon_event_horizon_msg">에이치닥 체인의 자산을 라이젠 체인으로 스왑을 진행합니다.\n스왑 특성상 되돌릴 수 없으며, 두 체인간의 비동기적 작동으로 인해 실제 스왑 완료시까지 시간이 걸릴 수 있습니다.</string>
+    <string name="str_rizon_event_horizon_msg">에이치닥 체인의 자산을 라이즌 체인으로 스왑을 진행합니다.\n스왑 특성상 되돌릴 수 없으며, 두 체인간의 비동기적 작동으로 인해 실제 스왑 완료시까지 시간이 걸릴 수 있습니다.</string>
     <string name="str_rizon_event_horizon_status">스왑 상태 확인</string>
     <string name="str_rizon_event_horizon_status_title">전체 결과</string>
     <string name="str_rizon_event_horizon_request_time">요청 시간</string>
