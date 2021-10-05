@@ -219,8 +219,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
     private class NativeTokenGrpcAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_UNKNOWN               = -1;
-        private static final int TYPE_OSMOSIS               = 0;
-        private static final int TYPE_EMONEY                = 1;
+        private static final int TYPE_NATIVE                = 0;
 
         private static final int TYPE_HISTORY               = 100;
 
@@ -229,13 +228,10 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_UNKNOWN) {
 
-            } else if (viewType == TYPE_OSMOSIS) {
+            } else if (viewType == TYPE_NATIVE) {
                 return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
 
-            } else if (viewType == TYPE_EMONEY) {
-                return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
             }
-
 //            } else if (viewType == TYPE_HISTORY) {
 //                return new HistoryHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
 //            }
@@ -244,15 +240,8 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            if (getItemViewType(position) == TYPE_OSMOSIS) {
-                TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, mBaseChain, getBaseDao(), mNativeGrpcDenom);
-
-            } else if (getItemViewType(position) == TYPE_EMONEY) {
-                TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, mBaseChain, getBaseDao(), mNativeGrpcDenom);
-            }
-//
+            TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
+            holder.onBindNativeTokengRPC(NativeTokenGrpcActivity.this, mBaseChain, getBaseDao(), mNativeGrpcDenom);
 //            } else if (getItemViewType(position) == TYPE_HISTORY) {
 //
 //            } else if (getItemViewType(position) == TYPE_UNKNOWN) {
@@ -266,8 +255,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
         @Override
         public int getItemViewType(int position) {
             if (position == 0) {
-                if (mBaseChain.equals(OSMOSIS_MAIN)) { return TYPE_OSMOSIS; }
-                else if (mBaseChain.equals(EMONEY_MAIN)) { return TYPE_EMONEY; }
+                return TYPE_NATIVE;
             }
             return TYPE_UNKNOWN;
         }

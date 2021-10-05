@@ -282,9 +282,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
     private class NativeTokenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_UNKNOWN               = -1;
-        private static final int TYPE_KAVA                  = 0;
-        private static final int TYPE_BNB                   = 1;
-        private static final int TYPE_OKEX                  = 2;
+        private static final int TYPE_NATIVE                = 0;
 
         private static final int TYPE_VESTING               = 99;
         private static final int TYPE_HISTORY               = 100;
@@ -294,17 +292,10 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_UNKNOWN) {
 
-            } else if (viewType == TYPE_KAVA) {
+            } else if (viewType == TYPE_NATIVE) {
                 return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
 
-            } else if (viewType == TYPE_BNB) {
-                return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
-
-            } else if (viewType == TYPE_OKEX) {
-                return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
-            }
-
-            else if (viewType == TYPE_VESTING) {
+            } else if (viewType == TYPE_VESTING) {
                 return new VestingHolder(getLayoutInflater().inflate(R.layout.layout_vesting_schedule, viewGroup, false));
             }
 
@@ -316,20 +307,17 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            if (getItemViewType(position) == TYPE_KAVA) {
+            if (getItemViewType(position) == TYPE_NATIVE) {
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                holder.onBindKavaToken(NativeTokenDetailActivity.this, getBaseDao(), mDenom);
+                if (mBaseChain.equals(KAVA_MAIN)) {
+                    holder.onBindKavaToken(NativeTokenDetailActivity.this, getBaseDao(), mDenom);
+                } else if (mBaseChain.equals(BNB_MAIN)) {
+                    holder.onBindBNBTokens(NativeTokenDetailActivity.this, getBaseDao(), mDenom);
+                } else if (mBaseChain.equals(OKEX_MAIN)) {
+                    holder.onBindOKTokens(NativeTokenDetailActivity.this, getBaseDao(), mDenom);
+                }
 
-            } else if (getItemViewType(position) == TYPE_BNB) {
-                TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                holder.onBindBNBTokens(NativeTokenDetailActivity.this, getBaseDao(), mDenom);
-
-            } else if (getItemViewType(position) == TYPE_OKEX) {
-                TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
-                holder.onBindOKTokens(NativeTokenDetailActivity.this, getBaseDao(), mDenom);
-            }
-
-            else if (getItemViewType(position) == TYPE_VESTING) {
+            } else if (getItemViewType(position) == TYPE_VESTING) {
                 VestingHolder holder = (VestingHolder) viewHolder;
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mDenom);
 //
@@ -361,27 +349,27 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
         @Override
         public int getItemViewType(int position) {
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN)) {
                 if (mDenom.equalsIgnoreCase(TOKEN_HARD) || mDenom.equalsIgnoreCase(TOKEN_SWP)) {
                     if (mHasVesting) {
-                        if (position == 0) return TYPE_KAVA;
+                        if (position == 0) return TYPE_NATIVE;
                         if (position == 1) return TYPE_VESTING;
                         else return TYPE_HISTORY;
                     } else {
-                        if (position == 0) return TYPE_KAVA;
+                        if (position == 0) return TYPE_NATIVE;
                         else return TYPE_HISTORY;
                     }
                 } else {
-                    if (position == 0) return TYPE_KAVA;
+                    if (position == 0) return TYPE_NATIVE;
                     else return TYPE_HISTORY;
                 }
 
             } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
-                if (position == 0) return TYPE_BNB;
+                if (position == 0) return TYPE_NATIVE;
                 else return TYPE_HISTORY;
 
             } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-                if (position == 0) return TYPE_OKEX;
+                if (position == 0) return TYPE_NATIVE;
                 else return TYPE_HISTORY;
             }
             return TYPE_UNKNOWN;
