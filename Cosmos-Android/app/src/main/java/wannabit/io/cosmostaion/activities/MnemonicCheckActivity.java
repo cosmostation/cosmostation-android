@@ -43,6 +43,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
@@ -135,6 +136,8 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_emoney));
             } else if (getChain(toCheck.baseChain).equals(RIZON_MAIN) || getChain(toCheck.baseChain).equals(RIZON_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_rizon));
+            } else if (getChain(toCheck.baseChain).equals(JUNO_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_juno));
             } else if (getChain(toCheck.baseChain).equals(ALTHEA_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_althea));
             } else if (getChain(toCheck.baseChain).equals(UMEE_TEST)) {

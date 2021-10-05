@@ -30,6 +30,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
@@ -218,6 +219,14 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
 
             } else if (getSActivity().mBaseChain.equals(RIZON_MAIN) || getSActivity().mBaseChain.equals(RIZON_TEST)) {
                 if (targetAddress.startsWith("rizon1") && WKey.isValidBech32(targetAddress)) {
+                    getSActivity().mNewRewardAddress = targetAddress;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(JUNO_MAIN)) {
+                if (targetAddress.startsWith("juno1") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {

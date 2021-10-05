@@ -49,6 +49,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
@@ -122,12 +123,7 @@ public class WKey {
     }
 
     public static List<ChildNumber> getParentPath(BaseChain chain, boolean newBip) {
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SENTINEL_MAIN) ||
-                chain.equals(SIF_MAIN) || chain.equals(KI_MAIN) || chain.equals(OSMOSIS_MAIN) || chain.equals(EMONEY_MAIN) || chain.equals(RIZON_MAIN) ||
-                chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST) || chain.equals(RIZON_TEST) || chain.equals(UMEE_TEST) || chain.equals(AXELAR_TEST)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-
-        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+        if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
@@ -165,8 +161,9 @@ public class WKey {
         } else if (chain.equals(ALTHEA_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
+        } else {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
         }
-        return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }
 
     public static List<ChildNumber> getFetchParentPath(int customPath) {
@@ -376,6 +373,8 @@ public class WKey {
                 result = bech32Encode("emoney".getBytes(), converted);
             } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)){
                 result = bech32Encode("rizon".getBytes(), converted);
+            } else if (chain.equals(JUNO_MAIN)){
+                result = bech32Encode("juno".getBytes(), converted);
             } else if (chain.equals(ALTHEA_TEST)){
                 result = bech32Encode("althea".getBytes(), converted);
             } else if (chain.equals(UMEE_TEST)){
@@ -433,6 +432,8 @@ public class WKey {
             return bech32Encode("emoney".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
             return bech32Encode("rizon".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(JUNO_MAIN)) {
+            return bech32Encode("juno".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(ALTHEA_TEST)) {
             return bech32Encode("althea".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
@@ -483,6 +484,8 @@ public class WKey {
             return bech32Encode("panaceavaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(EMONEY_MAIN)) {
             return bech32Encode("emoneyvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(JUNO_MAIN)) {
+            return bech32Encode("junovaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(ALTHEA_TEST)) {
             return bech32Encode("altheavaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {

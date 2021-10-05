@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.widget.mainWallet;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,26 +17,12 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
 
 public class WalletPriceHolder extends BaseHolder {
@@ -107,61 +91,7 @@ public class WalletPriceHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivity.mBaseChain.equals(COSMOS_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/cosmos")));
-
-                } else if (mainActivity.mBaseChain.equals(IRIS_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/irisnet")));
-
-                } else if (mainActivity.mBaseChain.equals(IOV_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/starname")));
-
-                } else if (mainActivity.mBaseChain.equals(BNB_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/binancecoin")));
-
-                } else if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/kava")));
-
-                } else if (mainActivity.mBaseChain.equals(BAND_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/band-protocol")));
-
-                } else if (mainActivity.mBaseChain.equals(CERTIK_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/certik")));
-
-                } else if (mainActivity.mBaseChain.equals(SECRET_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/secret")));
-
-                } else if (mainActivity.mBaseChain.equals(AKASH_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/akash-network")));
-
-                } else if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/okexchain")));
-
-                } else if (mainActivity.mBaseChain.equals(SENTINEL_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/sentinel")));
-
-                } else if (mainActivity.mBaseChain.equals(PERSIS_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/persistence")));
-
-                } else if (mainActivity.mBaseChain.equals(FETCHAI_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/fetch-ai")));
-
-                } else if (mainActivity.mBaseChain.equals(CRYPTO_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/crypto-com-chain")));
-
-                } else if (mainActivity.mBaseChain.equals(SIF_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/sifchain")));
-
-                } else if (mainActivity.mBaseChain.equals(KI_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/ki")));
-
-                } else if (mainActivity.mBaseChain.equals(OSMOSIS_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/osmosis")));
-
-                } else if (mainActivity.mBaseChain.equals(MEDI_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/medibloc")));
-
-                }
+                WUtil.getCoingekoIntent(mainActivity);
             }
         });
 

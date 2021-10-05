@@ -194,6 +194,13 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }
+
+            } else if (mChain.equals(BaseChain.JUNO_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getJunoApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
             }
 
             else if (mChain.equals(BaseChain.COSMOS_TEST)) {

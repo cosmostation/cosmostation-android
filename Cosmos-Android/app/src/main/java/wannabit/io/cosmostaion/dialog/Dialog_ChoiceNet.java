@@ -40,7 +40,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
 
     private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
-    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi, mEmoney, mRizon, mSecret, mCosmosTest, mIrisTest;
+    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi, mEmoney, mRizon, mJuno, mSecret, mCosmosTest, mIrisTest;
     private LinearLayout mRizonTestLayer, mMediTestLayer, mAltheaTestLayer, mUmeeTestLayer, mAxelarTestLayer;
     private LinearLayout mRizonTest, mMediTest, mAltheaTest, mUmeeTest, mAxelarTest;
 
@@ -98,6 +98,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mMedi = view.findViewById(R.id.medi_chain);
         mEmoney = view.findViewById(R.id.emoney_chain);
         mRizon = view.findViewById(R.id.rizon_chain);
+        mJuno = view.findViewById(R.id.juno_chain);
 
         mRizonTestLayer = view.findViewById(R.id.rizon_test_layer);
         mRizonTest = view.findViewById(R.id.rizon_test_net);
@@ -269,6 +270,14 @@ public class Dialog_ChoiceNet extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity)getActivity()).onChoiceNet(BaseChain.SECRET_MAIN);
+                getDialog().dismiss();
+            }
+        });
+
+        mJuno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.JUNO_MAIN);
                 getDialog().dismiss();
             }
         });
