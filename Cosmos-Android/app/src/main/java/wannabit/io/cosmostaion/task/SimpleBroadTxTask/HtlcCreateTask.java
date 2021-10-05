@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Response;
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -45,7 +46,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_XRPB_DEPUTY
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TEST_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TEST_BTC_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
+
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BTCB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MAIN_BUSD_DEPUTY;
@@ -139,14 +140,14 @@ public class HtlcCreateTask extends CommonTask {
                 BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.PROD.getBaseUrl());
                 List<TransactionMetadata> resp = client.htlt(htltReq, wallet, options, true);
                 if (resp.get(0).isOk()) {
-                    if (IS_SHOWLOG) WLog.w("Send suceess txhash " + resp.get(0).getHash());
+                    if (BuildConfig.DEBUG) WLog.w("Send suceess txhash " + resp.get(0).getHash());
                     mResult.resultData = resp.get(0).getHash();
                     mResult.resultData2 = mExpectedSwapId;
                     mResult.resultData3 = mRandomNumber;
                     mResult.isSuccess = true;
 
                 } else {
-                    if (IS_SHOWLOG) WLog.w("Send error " + resp.get(0).getCode() + "  " + resp.get(0).getLog());
+                    if (BuildConfig.DEBUG) WLog.w("Send error " + resp.get(0).getCode() + "  " + resp.get(0).getLog());
                     mResult.errorCode = resp.get(0).getCode();
                     mResult.errorMsg = resp.get(0).getLog();
                     mResult.isSuccess = false;
@@ -190,14 +191,14 @@ public class HtlcCreateTask extends CommonTask {
                 BinanceDexApiRestClient client = BinanceDexApiClientFactory.newInstance().newRestClient(BinanceDexEnvironment.TEST_NET.getBaseUrl());
                 List<TransactionMetadata> resp = client.htlt(htltReq, wallet, options, true);
                 if (resp.get(0).isOk()) {
-                    if (IS_SHOWLOG) WLog.w("Send suceess txhash " + resp.get(0).getHash());
+                    if (BuildConfig.DEBUG) WLog.w("Send suceess txhash " + resp.get(0).getHash());
                     mResult.resultData = resp.get(0).getHash();
                     mResult.resultData2 = mExpectedSwapId;
                     mResult.resultData3 = mRandomNumber;
                     mResult.isSuccess = true;
 
                 } else {
-                    if (IS_SHOWLOG) WLog.w("Send error " + resp.get(0).getCode() + "  " + resp.get(0).getLog());
+                    if (BuildConfig.DEBUG) WLog.w("Send error " + resp.get(0).getCode() + "  " + resp.get(0).getLog());
                     mResult.errorCode = resp.get(0).getCode();
                     mResult.errorMsg = resp.get(0).getLog();
                     mResult.isSuccess = false;
@@ -328,7 +329,7 @@ public class HtlcCreateTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            if(IS_SHOWLOG) e.printStackTrace();
+            if(BuildConfig.DEBUG) e.printStackTrace();
         }
         return mResult;
     }

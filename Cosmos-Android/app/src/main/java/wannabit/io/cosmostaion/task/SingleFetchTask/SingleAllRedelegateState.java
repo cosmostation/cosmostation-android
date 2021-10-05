@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.task.SingleFetchTask;
 import java.util.ArrayList;
 
 import retrofit2.Response;
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -76,7 +77,7 @@ public class SingleAllRedelegateState extends CommonTask {
 
         } catch (Exception e) {
             WLog.w("SingleAllRedelegateState Error " + e.getMessage());
-            if(BaseConstant.IS_SHOWLOG) e.printStackTrace();
+            if(BuildConfig.DEBUG) e.printStackTrace();
         }
         return mResult;
     }

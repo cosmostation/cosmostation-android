@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
@@ -82,7 +83,7 @@ public class WKey {
             result = MnemonicCode.INSTANCE.toMnemonic(entropy);
 
         } catch (MnemonicException.MnemonicLengthException e) {
-            if(BaseConstant.IS_SHOWLOG)
+            if(BuildConfig.DEBUG)
                 e.printStackTrace();
 
         }

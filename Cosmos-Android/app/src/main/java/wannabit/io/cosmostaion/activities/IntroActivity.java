@@ -34,7 +34,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResVersionCheck;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
+
 
 public class IntroActivity extends BaseActivity implements View.OnClickListener {
 
@@ -203,7 +203,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
             @Override
             public void onFailure(Call<ResVersionCheck> call, Throwable t) {
-                if(IS_SHOWLOG) { WLog.w("onCheckAppVersion onFailure " + t.getMessage()); }
+                if(BuildConfig.DEBUG) { WLog.w("onCheckAppVersion onFailure " + t.getMessage()); }
                 onNetworkDialog();
 
             }
