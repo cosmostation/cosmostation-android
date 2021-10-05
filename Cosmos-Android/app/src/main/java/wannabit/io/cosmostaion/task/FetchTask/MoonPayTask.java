@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
 import retrofit2.Response;
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -32,7 +33,7 @@ public class MoonPayTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            if(BaseConstant.IS_SHOWLOG) e.printStackTrace();
+            if(BuildConfig.DEBUG) e.printStackTrace();
 
         }
         return mResult;

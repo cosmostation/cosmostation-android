@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
@@ -93,7 +94,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_MSG_TYPE_WITHDRAW_MIDIFY;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
+
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
@@ -2001,7 +2002,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("BNB onFailure");
-                    if (IS_SHOWLOG) t.printStackTrace();
+                    if (BuildConfig.DEBUG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
@@ -2040,7 +2041,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("BNB onFailure");
-                    if (IS_SHOWLOG) t.printStackTrace();
+                    if (BuildConfig.DEBUG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
@@ -2078,7 +2079,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (IS_SHOWLOG) t.printStackTrace();
+                    if (BuildConfig.DEBUG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
@@ -2111,7 +2112,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (IS_SHOWLOG) t.printStackTrace();
+                    if (BuildConfig.DEBUG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
@@ -2144,7 +2145,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (IS_SHOWLOG) t.printStackTrace();
+                    if (BuildConfig.DEBUG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
@@ -2177,7 +2178,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (IS_SHOWLOG) t.printStackTrace();
+                    if (BuildConfig.DEBUG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });
@@ -2210,7 +2211,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (IS_SHOWLOG) t.printStackTrace();
+                    if (BuildConfig.DEBUG) t.printStackTrace();
                     if (isFinishing()) return;
                 }
             });

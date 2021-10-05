@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import retrofit2.Response;
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -99,7 +100,7 @@ public class SimpleKavaWithdrawTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            if(BaseConstant.IS_SHOWLOG) e.printStackTrace();
+            if(BuildConfig.DEBUG) e.printStackTrace();
         }
         return mResult;
     }

@@ -28,7 +28,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
+
 
 public class EventHorizonDetailActivity extends BaseBroadCastActivity implements View.OnClickListener, TaskListener {
 

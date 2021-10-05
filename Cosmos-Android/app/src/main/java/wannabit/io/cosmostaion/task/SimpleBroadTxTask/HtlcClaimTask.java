@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Response;
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -39,7 +40,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
+
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_HTLC_CLAIM;
 
 public class HtlcClaimTask extends CommonTask {
@@ -90,12 +91,12 @@ public class HtlcClaimTask extends CommonTask {
                 TransactionOption options = new TransactionOption(mApp.getString(R.string.str_claim_swap_memo_c)  , 82, null);
                 List<TransactionMetadata> resp = client.claimHtlt(mExpectedSwapId, WUtil.HexStringToByteArray(mRandomNumber), wallet, options, true);
                 if (resp.get(0).isOk()) {
-                    if (IS_SHOWLOG) WLog.w("BNB_MAIN Claim suceess txhash " + resp.get(0).getHash());
+                    if (BuildConfig.DEBUG) WLog.w("BNB_MAIN Claim suceess txhash " + resp.get(0).getHash());
                     mResult.resultData = resp.get(0).getHash();
                     mResult.isSuccess = true;
 
                 } else {
-                    if (IS_SHOWLOG) WLog.w("BNB_MAIN Claim error " + resp.get(0).getCode() + "  " + resp.get(0).getLog());
+                    if (BuildConfig.DEBUG) WLog.w("BNB_MAIN Claim error " + resp.get(0).getCode() + "  " + resp.get(0).getLog());
                     mResult.errorCode = resp.get(0).getCode();
                     mResult.errorMsg = resp.get(0).getLog();
                     mResult.isSuccess = false;
@@ -124,12 +125,12 @@ public class HtlcClaimTask extends CommonTask {
                 TransactionOption options = new TransactionOption(mApp.getString(R.string.str_claim_swap_memo_c)  , 82, null);
                 List<TransactionMetadata> resp = client.claimHtlt(mExpectedSwapId, WUtil.HexStringToByteArray(mRandomNumber), wallet, options, true);
                 if (resp.get(0).isOk()) {
-                    if (IS_SHOWLOG) WLog.w("BNB_TEST Claim suceess txhash " + resp.get(0).getHash());
+                    if (BuildConfig.DEBUG) WLog.w("BNB_TEST Claim suceess txhash " + resp.get(0).getHash());
                     mResult.resultData = resp.get(0).getHash();
                     mResult.isSuccess = true;
 
                 } else {
-                    if (IS_SHOWLOG) WLog.w("BNB_TEST Claim error " + resp.get(0).getCode() + "  " + resp.get(0).getLog());
+                    if (BuildConfig.DEBUG) WLog.w("BNB_TEST Claim error " + resp.get(0).getCode() + "  " + resp.get(0).getLog());
                     mResult.errorCode = resp.get(0).getCode();
                     mResult.errorMsg = resp.get(0).getLog();
                     mResult.isSuccess = false;
@@ -166,12 +167,12 @@ public class HtlcClaimTask extends CommonTask {
                 Response<ResBroadTx> claimRes = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
                 if(claimRes.isSuccessful() && claimRes.body() != null) {
                     if (claimRes.body().txhash != null) {
-                        if (IS_SHOWLOG) WLog.w("KAVA_MAIN Claim suceess txhash " + claimRes.body().txhash);
+                        if (BuildConfig.DEBUG) WLog.w("KAVA_MAIN Claim suceess txhash " + claimRes.body().txhash);
                         mResult.resultData = claimRes.body().txhash;
                         mResult.isSuccess = true;
                     }
                     if(claimRes.body().code != null) {
-                        if (IS_SHOWLOG) WLog.w("KAVA_MAIN Claim error " + mResult.errorCode + "  " + mResult.errorMsg);
+                        if (BuildConfig.DEBUG) WLog.w("KAVA_MAIN Claim error " + mResult.errorCode + "  " + mResult.errorMsg);
                         mResult.errorCode = claimRes.body().code;
                         mResult.errorMsg = claimRes.body().raw_log;
                         mResult.isSuccess = false;
@@ -212,12 +213,12 @@ public class HtlcClaimTask extends CommonTask {
                 Response<ResBroadTx> claimRes = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(claimRes.isSuccessful() && claimRes.body() != null) {
                     if (claimRes.body().txhash != null) {
-                        if (IS_SHOWLOG) WLog.w("KAVA_TEST Claim suceess txhash " + claimRes.body().txhash);
+                        if (BuildConfig.DEBUG) WLog.w("KAVA_TEST Claim suceess txhash " + claimRes.body().txhash);
                         mResult.resultData = claimRes.body().txhash;
                         mResult.isSuccess = true;
                     }
                     if(claimRes.body().code != null) {
-                        if (IS_SHOWLOG) WLog.w("KAVA_TEST Claim error " + mResult.errorCode + "  " + mResult.errorMsg);
+                        if (BuildConfig.DEBUG) WLog.w("KAVA_TEST Claim error " + mResult.errorCode + "  " + mResult.errorMsg);
                         mResult.errorCode = claimRes.body().code;
                         mResult.errorMsg = claimRes.body().raw_log;
                         mResult.isSuccess = false;
@@ -230,7 +231,7 @@ public class HtlcClaimTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            if(IS_SHOWLOG) e.printStackTrace();
+            if(BuildConfig.DEBUG) e.printStackTrace();
         }
         return mResult;
     }

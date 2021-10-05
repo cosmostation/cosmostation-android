@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Response;
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -132,7 +133,7 @@ public class SimpleBnbSendTask extends CommonTask {
 
 
         } catch (Exception e) {
-            if(BaseConstant.IS_SHOWLOG) {
+            if(BuildConfig.DEBUG) {
                 e.printStackTrace();
             }
 

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -350,7 +351,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("onFetchSendTx BNB onFailure");
-                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if(BuildConfig.DEBUG) t.printStackTrace();
                 }
             });
 
@@ -369,7 +370,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("onFetchSendTx BNB onFailure");
-                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if(BuildConfig.DEBUG) t.printStackTrace();
                 }
             });
 
@@ -388,7 +389,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
                     WLog.w("onFetchSendTx KAVA onFailure");
-                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if(BuildConfig.DEBUG) t.printStackTrace();
                 }
             });
 
@@ -407,7 +408,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
                     WLog.w("onFetchSendTx KAVA onFailure");
-                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if(BuildConfig.DEBUG) t.printStackTrace();
                 }
             });
 
@@ -445,7 +446,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("onFetchClaimTx BNB onFailure");
-                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if(BuildConfig.DEBUG) t.printStackTrace();
                     onUpdateView();
                 }
             });
@@ -478,7 +479,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onFailure(Call<ResBnbTxInfo> call, Throwable t) {
                     WLog.w("onFetchClaimTx BNB onFailure");
-                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if(BuildConfig.DEBUG) t.printStackTrace();
                     onUpdateView();
                 }
             });
@@ -511,7 +512,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
                     WLog.w("onFetchClaimTx KAVA onFailure");
-                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if(BuildConfig.DEBUG) t.printStackTrace();
                     onUpdateView();
                 }
             });
@@ -544,7 +545,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onFailure(Call<ResTxInfo> call, Throwable t) {
                     WLog.w("onFetchClaimTx KAVA onFailure");
-                    if(BaseConstant.IS_SHOWLOG) t.printStackTrace();
+                    if(BuildConfig.DEBUG) t.printStackTrace();
                     onUpdateView();
                 }
             });

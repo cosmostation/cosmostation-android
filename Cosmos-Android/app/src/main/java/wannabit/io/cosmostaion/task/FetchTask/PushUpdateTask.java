@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
 import retrofit2.Response;
+import wannabit.io.cosmostaion.BuildConfig;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -50,7 +51,7 @@ public class PushUpdateTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            if(BaseConstant.IS_SHOWLOG) e.printStackTrace();
+            if(BuildConfig.DEBUG) e.printStackTrace();
 
         }
         return mResult;
