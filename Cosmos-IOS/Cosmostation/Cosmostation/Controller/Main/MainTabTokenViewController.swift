@@ -554,6 +554,17 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allBand = WUtils.getAllMainAsset(BAND_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(BAND_MAIN_DENOM, allBand, 6, cell!.tokenValue.font)
+            
+        } else if (coin.denom == JUNO_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenJuno")
+            cell?.tokenSymbol.text = "JUNO"
+            cell?.tokenSymbol.textColor = COLOR_JUNO
+            cell?.tokenTitle.text = ""
+            cell?.tokenDescription.text = "Juno Staking Token"
+            
+            let alljuno = WUtils.getAllMainAsset(JUNO_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(alljuno.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(JUNO_MAIN_DENOM, alljuno, 6, cell!.tokenValue.font)
         }
         
         

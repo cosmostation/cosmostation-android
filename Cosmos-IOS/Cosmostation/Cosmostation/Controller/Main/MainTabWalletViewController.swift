@@ -65,6 +65,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletUmeeCell", bundle: nil), forCellReuseIdentifier: "WalletUmeeCell")
         self.walletTableView.register(UINib(nibName: "WalletAxelarCell", bundle: nil), forCellReuseIdentifier: "WalletAxelarCell")
         self.walletTableView.register(UINib(nibName: "WalletEmoneyCell", bundle: nil), forCellReuseIdentifier: "WalletEmoneyCell")
+        self.walletTableView.register(UINib(nibName: "WalletJunoCell", bundle: nil), forCellReuseIdentifier: "WalletJunoCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
@@ -237,6 +238,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetEmoneyItems(tableView, indexPath);
         } else if (chainType == ChainType.RIZON_MAIN || chainType == ChainType.RIZON_TEST) {
             return onSetRizonItems(tableView, indexPath);
+        } else if (chainType == ChainType.JUNO_MAIN) {
+            return onSetJunoItems(tableView, indexPath);
         }
         
         else if (chainType == ChainType.COSMOS_TEST) {
@@ -815,6 +818,36 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func onSetEmoneyItems(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletEmoneyCell") as? WalletEmoneyCell
+            cell?.updateView(account, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            return cell!
+
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(account, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            return cell!
+
+        } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(account, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(account, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+        }
+        
+    }
+    
+    func onSetJunoItems(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletJunoCell") as? WalletJunoCell
             cell?.updateView(account, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
@@ -1429,6 +1462,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://e-money.com/") else { return }
             self.onShowSafariWeb(url)
             
+        } else if (chainType! == ChainType.JUNO_MAIN) {
+            guard let url = URL(string: "https://junochain.com/") else { return }
+            self.onShowSafariWeb(url)
+            
         }
         
     }
@@ -1525,6 +1562,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (chainType! == ChainType.EMONEY_MAIN) {
             guard let url = URL(string: "https://medium.com/e-money-com") else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.JUNO_MAIN) {
+            guard let url = URL(string: "https://medium.com/@JunoNetwork/") else { return }
             self.onShowSafariWeb(url)
             
         }

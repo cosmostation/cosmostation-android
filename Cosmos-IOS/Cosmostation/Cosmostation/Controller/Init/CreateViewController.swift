@@ -231,6 +231,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         rizonAction.setValue(UIImage(named: "chainRizon")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let junoAction = UIAlertAction(title: NSLocalizedString("chain_title_juno", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.JUNO_MAIN
+            self.onGenNewKey()
+        })
+        junoAction.setValue(UIImage(named: "chainJuno")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         let secretAction = UIAlertAction(title: NSLocalizedString("chain_title_secret", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SECRET_MAIN
             self.onGenNewKey()
@@ -329,6 +335,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(osmosisAction)
         showAlert.addAction(mediAction)
         showAlert.addAction(emoneyAction)
+        showAlert.addAction(junoAction)
         showAlert.addAction(secretAction)
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {

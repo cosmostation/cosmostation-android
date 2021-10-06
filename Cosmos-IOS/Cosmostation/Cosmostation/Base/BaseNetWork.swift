@@ -818,6 +818,8 @@ class BaseNetWork {
             result = FETCH_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.RIZON_MAIN) {
             result = RIZON_API + "v1/account/new_txs/" + address
+        } else if (chain == ChainType.JUNO_MAIN) {
+            result = JUNO_API + "v1/account/new_txs/" + address
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
@@ -882,6 +884,8 @@ class BaseNetWork {
             result = FETCH_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.RIZON_MAIN) {
             result = RIZON_API + "v1/account/new_txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.JUNO_MAIN) {
+            result = JUNO_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
@@ -985,6 +989,9 @@ class BaseNetWork {
             
         } else if (chain == ChainType.RIZON_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-rizon-app.cosmostation.io", port: 9090)
+            
+        } else if (chain == ChainType.JUNO_MAIN) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-juno-app.cosmostation.io", port: 9090)
             
         }
         

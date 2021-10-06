@@ -164,6 +164,8 @@
 "send_guide_msg_axelar" = "Axelar is a decentralized multi-chain network that enables cross chain communication with a simple pegging mechanism.";
 "send_guide_title_emoney" = "e-Money";
 "send_guide_msg_emoney" = "A network for the next generation fiat-backed stablecoins for the Internet of Money.";
+"send_guide_title_juno" = "Juno Chain";
+"send_guide_msg_juno" = "Interoperable smart contract network built with the Cosmos SDK. Highly scalable, robust, secure and easy to deploy.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -850,6 +852,7 @@ support@cosmostation.io";
 "chain_title_medi" = "Medibloc Mainnet";
 "chain_title_emoney" = "E-Money Mainnet";
 "chain_title_rizon" = "Rizon Mainnet";
+"chain_title_juno" = "Juno Mainnet";
 "chain_title_test_cosmos" = "StarGate Testnet";
 "chain_title_test_iris" = "Bifrost Testnet";
 "chain_title_test_bnb" = "Binance Testnet";

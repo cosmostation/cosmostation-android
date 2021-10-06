@@ -673,6 +673,8 @@
 		288D2501268326060093121A /* NewHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 288D24FF268326060093121A /* NewHistoryCell.xib */; };
 		288D250426834E980093121A /* TxIbcSendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288D250226834E980093121A /* TxIbcSendCell.swift */; };
 		288D250526834E980093121A /* TxIbcSendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 288D250326834E980093121A /* TxIbcSendCell.xib */; };
+		288F8069270D431C009825B5 /* WalletJunoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288F8067270D431C009825B5 /* WalletJunoCell.swift */; };
+		288F806A270D431C009825B5 /* WalletJunoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 288F8068270D431C009825B5 /* WalletJunoCell.xib */; };
 		28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908F6823F69BD100164030 /* EdgeInsetLabel.swift */; };
 		2894105126FDBE8A005BCBE4 /* IBCSend0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2894104F26FDBE8A005BCBE4 /* IBCSend0ViewController.swift */; };
 		2894105226FDBE8A005BCBE4 /* IBCSend0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2894105026FDBE8A005BCBE4 /* IBCSend0ViewController.xib */; };
@@ -1834,6 +1836,8 @@
 		288D24FF268326060093121A /* NewHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewHistoryCell.xib; sourceTree = "<group>"; };
 		288D250226834E980093121A /* TxIbcSendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxIbcSendCell.swift; sourceTree = "<group>"; };
 		288D250326834E980093121A /* TxIbcSendCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxIbcSendCell.xib; sourceTree = "<group>"; };
+		288F8067270D431C009825B5 /* WalletJunoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletJunoCell.swift; sourceTree = "<group>"; };
+		288F8068270D431C009825B5 /* WalletJunoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletJunoCell.xib; sourceTree = "<group>"; };
 		28908F6823F69BD100164030 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
 		2894104F26FDBE8A005BCBE4 /* IBCSend0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBCSend0ViewController.swift; sourceTree = "<group>"; };
 		2894105026FDBE8A005BCBE4 /* IBCSend0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IBCSend0ViewController.xib; sourceTree = "<group>"; };
@@ -2926,6 +2930,8 @@
 				287E0AA326EDC6F300F8C242 /* WalletAxelarCell.xib */,
 				287E0AA626EDEEE400F8C242 /* WalletEmoneyCell.swift */,
 				287E0AA726EDEEE400F8C242 /* WalletEmoneyCell.xib */,
+				288F8067270D431C009825B5 /* WalletJunoCell.swift */,
+				288F8068270D431C009825B5 /* WalletJunoCell.xib */,
 				E1FD2332233E1C16009327FE /* WalletPriceCell.swift */,
 				E126CF9D2387A60D002A546F /* WalletPriceCell.xib */,
 				E1FD2336233E1C30009327FE /* WalletInflationCell.swift */,
@@ -4116,6 +4122,7 @@
 				282BDFE324A5992600D3A5D4 /* WcTradePopup.xib in Resources */,
 				2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */,
 				28DB56F325FA3B7100B2F0E5 /* HardPoolDeposit0ViewController.xib in Resources */,
+				288F806A270D431C009825B5 /* WalletJunoCell.xib in Resources */,
 				283A80DC24514AB8008FF813 /* RiskCheckPopupViewController.xib in Resources */,
 				E16B89162341C558003E0922 /* TokenCell.xib in Resources */,
 				2868559424989AA50099D18F /* Bep3WarnPopup.xib in Resources */,
@@ -4701,6 +4708,7 @@
 				283F3ADE265E283800DF1D93 /* tokenswap_query.pb.swift in Sources */,
 				287AC60825FDF7260070837E /* nft_query.pb.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
+				288F8069270D431C009825B5 /* WalletJunoCell.swift in Sources */,
 				0497586B2685AA0E0039872C /* cosmwasm_wasm_v1beta1_tx.pb.swift in Sources */,
 				289EF83626824E4700F90AC1 /* osmosis_epochs_query.pb.swift in Sources */,
 				28A209DF248897F400C2C078 /* TokenDetailVestingDetailCell.swift in Sources */,

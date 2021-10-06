@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -127,6 +127,8 @@ let AXELAR_TEST_API                     = "https://api-office.cosmostation.io/ax
 
 let EMONEY_API                          = "https://api-emoney.cosmostation.io/";
 
+let JUNO_API                            = "https://api-juno.cosmostation.io/";
+
 
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
 let MOON_PAY_PUBLICK                    = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn";
@@ -158,6 +160,7 @@ let OSMOSIS_VAL_URL                     = "https://raw.githubusercontent.com/cos
 let UMEE_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/umee/";
 let AXELAR_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/axelar/";
 let EMONEY_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/emoney/";
+let JUNO_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/juno/";
 
 
 let KAVA_CDP_IMG_URL                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
@@ -787,6 +790,11 @@ let TRANS_BG_COLOR_EMONEY2                  = UIColor.init(hexString: "86ccba", 
 let COLOR_EMONEY                            = UIColor.init(hexString: "86ccba")
 let COLOR_EMONEY_DARK                       = UIColor.init(hexString: "43655c")
 
+let TRANS_BG_COLOR_JUNO                     = UIColor.init(hexString: "f0827d", alpha: 0.15)
+let TRANS_BG_COLOR_JUNO2                    = UIColor.init(hexString: "f0827d", alpha: 0.4)
+let COLOR_JUNO                              = UIColor.init(hexString: "f0827d")
+let COLOR_JUNO_DARK                         = UIColor.init(hexString: "854947")
+
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
@@ -820,9 +828,9 @@ public enum ChainType: String {
     case MEDI_MAIN
     case EMONEY_MAIN
     case RIZON_MAIN
+    case JUNO_MAIN
     
     case REGEN_MAIN
-    case JUNO_MAIN
     
     case COSMOS_TEST
     case IRIS_TEST
@@ -858,6 +866,7 @@ public enum ChainType: String {
         result.append(OSMOSIS_MAIN)
         result.append(MEDI_MAIN)
         result.append(EMONEY_MAIN)
+        result.append(JUNO_MAIN)
         result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)
@@ -968,6 +977,7 @@ let CHAIN_OSMOSIS_S = "SUPPORT_CHAIN_OSMOSIS_MAIN"
 let CHAIN_MEDI_S = "SUPPORT_CHAIN_MEDI"
 let CHAIN_EMONEY_S = "SUPPORT_CHAIN_EMONEY"
 let CHAIN_RIZON_S = "SUPPORT_CHAIN_RIZON"
+let CHAIN_JUNO_S = "SUPPORT_CHAIN_JUNO"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_IRIS_TEST_S = "SUPPORT_CHAIN_IRIS_TEST"
@@ -1006,6 +1016,7 @@ let OSMOSIS_MAIN_DENOM = "uosmo"
 let UMEE_MAIN_DENOM = "uumee"
 let AXELAR_MAIN_DENOM = "uaxl"
 let EMONEY_MAIN_DENOM = "ungm"
+let JUNO_MAIN_DENOM = "ujuno"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
@@ -1080,6 +1091,7 @@ let EXPLORER_CERTIK         = "https://www.mintscan.io/certik/";
 let EXPLORER_EMONEY         = "https://www.mintscan.io/emoney/";
 let EXPLORER_RIZON          = "https://www.mintscan.io/rizon/";
 let EXPLORER_HDAC_MAIN      = "https://explorer.as.hdactech.com/hdac-explorer/";
+let EXPLORER_JUNO           = "https://www.mintscan.io/juno/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";
