@@ -818,6 +818,8 @@ class BaseNetWork {
             result = FETCH_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.RIZON_MAIN) {
             result = RIZON_API + "v1/account/new_txs/" + address
+        } else if (chain == ChainType.JUNO_MAIN) {
+            result = JUNO_API + "v1/account/new_txs/" + address
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
@@ -882,6 +884,8 @@ class BaseNetWork {
             result = FETCH_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.RIZON_MAIN) {
             result = RIZON_API + "v1/account/new_txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.JUNO_MAIN) {
+            result = JUNO_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
         
         else if (chain == ChainType.KAVA_MAIN) {
