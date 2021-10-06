@@ -200,7 +200,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                     self.mProposals.append(Proposal(proposal as! [String : Any]))
                 }
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchProposals ", error) }
+                print("onFetchProposals ", error)
             }
             self.onUpdateViews()
         }

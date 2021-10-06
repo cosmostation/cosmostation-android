@@ -130,12 +130,12 @@ class HardPoolBorrow3ViewController: BaseViewController, PasswordViewDelegate {
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            if(SHOW_LOG) { print("HardPoolBorrow ", res) }
+                            print("HardPoolBorrow ", res)
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
-                            if(SHOW_LOG) { print("HardPoolBorrow error ", error) }
+                            print("HardPoolBorrow error ", error)
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500
                             }
@@ -152,7 +152,7 @@ class HardPoolBorrow3ViewController: BaseViewController, PasswordViewDelegate {
                     }
 
                 } catch {
-                    if (SHOW_LOG) { print(error) }
+                    print(error)
                 }
             });
         }

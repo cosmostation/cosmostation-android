@@ -388,14 +388,14 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             case .success(let res):
                 self.mApiHistories.removeAll()
                 guard let histories = res as? Array<NSDictionary> else {
-                    if (SHOW_LOG) { print("no history!!") }
+                    print("no history!!")
                     self.emptyLabel.isHidden = false
                     return;
                 }
                 for rawHistory in histories {
                     self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
                 }
-                if (SHOW_LOG) { print("onFetchLegacyOldApiHistory ", self.mApiHistories.count) }
+                print("onFetchLegacyOldApiHistory ", self.mApiHistories.count)
                 if (self.mApiHistories.count > 0) {
                     self.historyTableView.reloadData()
                     self.emptyLabel.isHidden = true
@@ -405,7 +405,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                 
             case .failure(let error):
                 self.emptyLabel.isHidden = false
-                if (SHOW_LOG) { print("onFetchLegacyOldApiHistory ", error) }
+                print("onFetchLegacyOldApiHistory ", error)
             }
         }
         self.refresher.endRefreshing()
@@ -436,7 +436,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
 
             case .failure(let error):
                 self.emptyLabel.isHidden = false
-                if (SHOW_LOG) { print("onFetchNewApiHistoryCustom ", error) }
+                print("onFetchNewApiHistoryCustom ", error)
             }
             self.refresher.endRefreshing()
         }
@@ -451,7 +451,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             case .success(let res):
                 self.mApiCustomHistories.removeAll()
                 guard let responseDatas = res as? Array<NSDictionary> else {
-                    if (SHOW_LOG) { print("no history!!") }
+                    print("no history!!")
                     self.emptyLabel.isHidden = false
                     return;
                 }
@@ -467,7 +467,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
 
             case .failure(let error):
                 self.emptyLabel.isHidden = false
-                if (SHOW_LOG) { print("onFetchApiHistoryCustom ", error) }
+                print("onFetchApiHistoryCustom ", error)
             }
             self.refresher.endRefreshing()
         }

@@ -596,7 +596,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 self.rewardAddress.adjustsFontSizeToFitWidth = true
                 
             case .failure(let error):
-                if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
+                print("onFetchRewardAddress ", error)
             }
         }
     }
@@ -641,7 +641,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 }
                 self.chainName.text = NodeInfo.init(nodeInfo).network
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
+                print("onFetchTopValidatorsInfo ", error)
             }
         }
     }

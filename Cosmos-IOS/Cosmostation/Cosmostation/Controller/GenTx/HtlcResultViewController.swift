@@ -344,7 +344,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                             switch response.result {
                             case .success(let res):
                                 if let result = res as? [String : Any], let hash = result["txhash"] as? String  {
-                                    if (SHOW_LOG) { print("onCreateHtlcSwap ok ", hash) }
+                                    print("onCreateHtlcSwap ok ", hash)
                                     self.mSendHash = hash
                                     DispatchQueue.main.async(execute: {
                                         self.onFetchSwapId()
@@ -353,14 +353,14 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                                 
                             case .failure(let error):
                                 //TODO error handle
-                                if(SHOW_LOG) { print("onCreateHtlcSwap error ", error) }
+                                print("onCreateHtlcSwap error ", error)
                                 self.onUpdateView(error.localizedDescription)
                             }
                         }
 
                     } catch {
                         //TODO error handle
-                        if (SHOW_LOG) { print(error) }
+                        print(error)
                         self.onUpdateView(error.localizedDescription)
                     }
                 });
@@ -554,7 +554,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                             }
                         }
                     } catch {
-                        if (SHOW_LOG) { print(error) }
+                        print(error)
                         self.onUpdateView(error.localizedDescription)
                     }
                 });
@@ -589,16 +589,16 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             switch response.result {
             case .success(let res):
                 guard let info = res as? [String : Any], info["error"] == nil else {
-                    if (SHOW_LOG) { print("onFetchSendTx error") }
+                    print("onFetchSendTx error")
                     self.onUpdateView(NSLocalizedString("error_network", comment: ""))
                     return
                 }
-                if (SHOW_LOG) { print("onFetchSendTx OK", res) }
+                print("onFetchSendTx OK", res)
                 self.mSendTxInfo = TxInfo.init(info)
                 self.onUpdateView("")
                 
             case .failure(let error):
-                if (SHOW_LOG) {  print("onFetchSendTx failure", error) }
+                print("onFetchSendTx failure", error)
                 self.onUpdateView(error.localizedDescription)
                 return
             }
@@ -619,7 +619,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (SHOW_LOG) { print("onFetchClaimTx OK", res) }
+                print("onFetchClaimTx OK", res)
                 self.mClaimTxFetchCnt = self.mClaimTxFetchCnt - 1
                 guard let info = res as? [String : Any], info["error"] == nil else {
                     if (self.mClaimTxFetchCnt > 0) {
@@ -641,7 +641,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 } else {
                     self.onUpdateView(error.localizedDescription)
                 }
-                if (SHOW_LOG) { print("onFetchClaimTx failure", error) }
+                print("onFetchClaimTx failure", error)
                 return
             }
         }

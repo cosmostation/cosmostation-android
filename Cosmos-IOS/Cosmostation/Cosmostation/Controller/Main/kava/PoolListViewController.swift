@@ -172,7 +172,7 @@ class PoolListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchSwapPoolParam ", error) }
+                print("onFetchSwapPoolParam ", error)
             }
             self.onFetchFinished()
         }
@@ -212,7 +212,7 @@ class PoolListViewController: BaseViewController, UITableViewDelegate, UITableVi
 //                print("mSwapPools ", self.mSwapPools.count)
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchSwapPoolParam ", error) }
+                print("onFetchSwapPoolParam ", error)
             }
             self.onFetchFinished()
         }
@@ -232,7 +232,7 @@ class PoolListViewController: BaseViewController, UITableViewDelegate, UITableVi
 //                print("mMySwapPoolDeposits ", self.mMySwapPoolDeposits.count)
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchSwapPoolDeposit ", error) }
+                print("onFetchSwapPoolDeposit ", error)
             }
             self.onFetchFinished()
         }

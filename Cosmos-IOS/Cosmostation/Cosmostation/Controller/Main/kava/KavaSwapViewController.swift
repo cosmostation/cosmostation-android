@@ -237,7 +237,7 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchSwapPoolParam ", error) }
+                print("onFetchSwapPoolParam ", error)
             }
             self.onFetchFinished()
         }
@@ -294,7 +294,7 @@ class KavaSwapViewController: BaseViewController, SBCardPopupDelegate{
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchSwapPoolList ", error) }
+                print("onFetchSwapPoolList ", error)
             }
             self.onFetchFinished()
         }

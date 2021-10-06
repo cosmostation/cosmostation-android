@@ -86,7 +86,7 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
             case .failure(let error):
                 self.hideWaittingAlert()
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                print("onFetchAccountInfo ", error)
             }
         }
     }
@@ -154,7 +154,7 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
                 }
                 
             } catch {
-                if(SHOW_LOG) { print(error) }
+                print(error)
             }
             
             DispatchQueue.main.async(execute: {
@@ -187,7 +187,7 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
                     }
 
                 } catch {
-                    if(SHOW_LOG) { print(error) }
+                    print(error)
                 }
             });
         }

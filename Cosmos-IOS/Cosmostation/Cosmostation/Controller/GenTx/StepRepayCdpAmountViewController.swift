@@ -375,7 +375,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
 //                    print("mPrice ", self.mPrice)
 
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchKavaPrice ", market , " ", error) }
+                    print("onFetchKavaPrice ", market , " ", error)
                 }
             self.onFetchFinished()
         }
@@ -395,7 +395,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
 //                    print("myCdp ", self.myCdp)
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchOwenCdp ", error) }
+                    print("onFetchOwenCdp ", error)
                 }
             self.onFetchFinished()
         }
@@ -417,7 +417,7 @@ class StepRepayCdpAmountViewController: BaseViewController, UITextFieldDelegate,
 //                print("mSelfDepositAmount ", self.mSelfDepositAmount)
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchCdpDeposit ", error) }
+                print("onFetchCdpDeposit ", error)
             }
             self.onFetchFinished()
         }

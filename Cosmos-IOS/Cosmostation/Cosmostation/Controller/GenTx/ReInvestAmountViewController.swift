@@ -104,7 +104,7 @@ class ReInvestAmountViewController: BaseViewController {
                 }
                 
             case .failure(let error):
-                if(SHOW_LOG) { print("onFetchEachReward ", error) }
+                print("onFetchEachReward ", error)
             }
             self.updateView()
         }

@@ -329,7 +329,7 @@ class KavaSwapJoin0ViewController: BaseViewController, UITextFieldDelegate {
                 self.onInitView()
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchSwapPool ", error) }
+                print("onFetchSwapPool ", error)
             }
         }
     }

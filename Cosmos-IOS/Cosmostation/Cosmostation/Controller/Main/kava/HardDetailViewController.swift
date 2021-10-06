@@ -340,7 +340,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
                     self.interestRates = kavaHardInterestRate.result
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHardInterestRate ", error) }
+                    print("onFetchHardInterestRate ", error)
                 }
             self.onFetchFinished()
         }
@@ -361,7 +361,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
 //                    print("self.moduleCoins ", self.moduleCoins)
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHardModuleAccount ", error) }
+                    print("onFetchHardModuleAccount ", error)
                 }
             self.onFetchFinished()
         }
@@ -382,7 +382,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
 //                    print("self.reserveCoins ", self.reserveCoins)
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHardReserves ", error) }
+                    print("onFetchHardReserves ", error)
                 }
             self.onFetchFinished()
         }
@@ -401,7 +401,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
                     self.totalDeposit = kavaHardTotalDeposit.result
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHardTotalDeposit ", error) }
+                    print("onFetchHardTotalDeposit ", error)
                 }
             self.onFetchFinished()
         }
@@ -420,7 +420,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
                     self.totalBorrow = kavaHardTotalBorrow.result
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHardTotalBorrow ", error) }
+                    print("onFetchHardTotalBorrow ", error)
                 }
             self.onFetchFinished()
         }
@@ -440,7 +440,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
                     BaseData.instance.mMyHardDeposit = kavaHardMyDeposit.result
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHardMyDeposit ", error) }
+                    print("onFetchHardMyDeposit ", error)
                 }
             self.onFetchFinished()
         }
@@ -460,7 +460,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
                     BaseData.instance.mMyHardBorrow = kavaHardMyBorrow.result
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchHardMyBorrow ", error) }
+                    print("onFetchHardMyBorrow ", error)
                 }
             self.onFetchFinished()
         }

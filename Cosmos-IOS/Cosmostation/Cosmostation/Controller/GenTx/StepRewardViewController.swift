@@ -158,7 +158,7 @@ class StepRewardViewController: BaseViewController {
                 }
                 
             case .failure(let error):
-                if(SHOW_LOG) { print("onFetchEachReward ", error) }
+                print("onFetchEachReward ", error)
             }
             self.onFetchFinished()
         }
@@ -177,9 +177,7 @@ class StepRewardViewController: BaseViewController {
                 self.pageHolderVC.mRewardAddress = address.replacingOccurrences(of: "\"", with: "")
                 
             case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchRewardAddress ", error)
-                }
+                print("onFetchRewardAddress ", error)
             }
             self.onFetchFinished()
         }

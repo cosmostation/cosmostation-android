@@ -176,7 +176,7 @@ class StepDepositCdpCheckViewController: BaseViewController, PasswordViewDelegat
                     }
 
                 } catch {
-                    if (SHOW_LOG) { print(error) }
+                    print(error)
                 }
             });
         }

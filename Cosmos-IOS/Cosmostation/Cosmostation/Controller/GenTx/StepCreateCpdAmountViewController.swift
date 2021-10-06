@@ -413,13 +413,11 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
         liquidationPrice = rawDebtAmount.dividing(by: collateralAmount, withBehavior: WUtils.getDivideHandler(pDpDecimal))
         riskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(liquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
         
-        if (SHOW_LOG) {
-            print("toPAmount ", toPAmount)
-            print("collateralAmount ", collateralAmount)
-            print("rawDebtAmount ", rawDebtAmount)
-            print("liquidationPrice ", liquidationPrice)
-            print("riskRate ", riskRate)
-        }
+        print("toPAmount ", toPAmount)
+        print("collateralAmount ", collateralAmount)
+        print("rawDebtAmount ", rawDebtAmount)
+        print("liquidationPrice ", liquidationPrice)
+        print("riskRate ", riskRate)
         return true
     }
     
@@ -511,7 +509,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
                     self.mPrice = KavaPriceFeedPrice.init(responseData)
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchKavaPrice ", market , " ", error) }
+                    print("onFetchKavaPrice ", market , " ", error)
                 }
             self.onFetchFinished()
         }

@@ -91,7 +91,7 @@ class StepHtlcRefund0ViewController: BaseViewController {
                     self.onUpdateView()
                     
                 case .failure(let error):
-                    if(SHOW_LOG) { print("onFetchSwapId", error) }
+                    print("onFetchSwapId", error)
                     self.onUpdateView()
                     return
             }

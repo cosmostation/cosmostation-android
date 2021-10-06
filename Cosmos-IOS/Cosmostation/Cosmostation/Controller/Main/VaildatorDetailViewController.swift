@@ -520,7 +520,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.mValidator = Validator(validator as! [String : Any])
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchValidatorInfo ", error) }
+                print("onFetchValidatorInfo ", error)
             }
             self.onFetchFinished()
         }
@@ -544,7 +544,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchSignleBondingInfo ", error) }
+                print("onFetchSignleBondingInfo ", error)
             }
             self.onFetchFinished()
         }
@@ -563,7 +563,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.mUnbonding = UnbondingInfo.init(rawData)
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchSignleUnBondingInfo ", error) }
+                print("onFetchSignleUnBondingInfo ", error)
             }
             self.onFetchFinished()
         }
@@ -585,7 +585,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 
                     
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchRewardInfo ", error) }
+                print("onFetchRewardInfo ", error)
             }
             self.onFetchFinished()
         }
@@ -604,7 +604,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.mSelfBondingShare = BondingInfo.init(rawData).shares
 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchSelfBondRate ", error) }
+                print("onFetchSelfBondRate ", error)
             }
             self.onFetchFinished()
         }
@@ -651,7 +651,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 
             case .failure(let error):
-                if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
+                print("onFetchRewardAddress ", error)
             }
         }
     }
@@ -673,7 +673,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchApiHistory ", error) }
+                print("onFetchApiHistory ", error)
             }
             self.onFetchFinished()
         }
@@ -879,17 +879,17 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             case .success(let res):
                 self.mApiCustomHistories.removeAll()
                 guard let responseDatas = res as? Array<NSDictionary> else {
-                    if (SHOW_LOG) { print("no history!!") }
+                    print("no history!!")
                     self.onFetchFinished()
                     return;
                 }
                 for responseData in responseDatas {
                     self.mApiCustomHistories.append(ApiHistoryCustom(responseData))
                 }
-                if (SHOW_LOG) { print("mApiCustomHistories cnt ", self.mApiCustomHistories.count) }
+                print("mApiCustomHistories cnt ", self.mApiCustomHistories.count)
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchApiHistoryCustom ", error) }
+                print("onFetchApiHistoryCustom ", error)
             }
             self.onFetchFinished()
         }

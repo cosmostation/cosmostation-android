@@ -609,7 +609,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                 self.sortByPower()
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
+                print("onFetchTopValidatorsInfo ", error)
             }
         }
     }
