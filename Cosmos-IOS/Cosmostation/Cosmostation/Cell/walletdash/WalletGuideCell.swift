@@ -193,6 +193,13 @@ class WalletGuideCell: UITableViewCell {
             guideMsg.text = NSLocalizedString("send_guide_msg_emoney", comment: "")
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_emoney", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_emoney", comment: ""), for: .normal)
+            
+        } else if (chainType == ChainType.JUNO_MAIN) {
+            guideImg.image = UIImage(named: "infoiconJuno")
+            guideTitle.text = NSLocalizedString("send_guide_title_juno", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_juno", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_emoney", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_emoney", comment: ""), for: .normal)
         }
         
     }
