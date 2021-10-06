@@ -147,7 +147,7 @@ public class GravitySwapFragment extends BaseFragment implements View.OnClickLis
 
         mPoolSwapRate = BigDecimal.ZERO;
         if (lpInputAmount != BigDecimal.ZERO && lpOutputAmount != BigDecimal.ZERO) {
-            mPoolSwapRate = lpOutputAmount.divide(lpInputAmount, 6, RoundingMode.DOWN).movePointLeft(mInPutDecimal - mOutPutDecimal);
+            mPoolSwapRate = lpOutputAmount.divide(lpInputAmount, 6, RoundingMode.DOWN).movePointRight(mInPutDecimal - mOutPutDecimal);
         }
         mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), mPoolSwapRate, 0, mOutPutDecimal));
 
