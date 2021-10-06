@@ -185,7 +185,7 @@ class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate
                     }
 
                 } catch {
-                    if (SHOW_LOG) { print(error) }
+                    print(error)
                 }
             });
         }

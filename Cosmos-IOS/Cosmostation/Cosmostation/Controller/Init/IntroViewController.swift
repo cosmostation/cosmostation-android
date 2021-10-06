@@ -173,7 +173,7 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onCheckAppVersion ", error) }
+                print("onCheckAppVersion ", error)
                 self.onShowNetworkAlert()
             }
         }

@@ -96,7 +96,7 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
             case .failure(let error):
                 self.hideWaittingAlert()
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                print("onFetchAccountInfo ", error)
             }
         }
     }
@@ -167,7 +167,7 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
                 
                 
             } catch {
-                if(SHOW_LOG) { print(error) }
+                print(error)
             }
             
             
@@ -201,7 +201,7 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
                     }
 
                 } catch {
-                    if(SHOW_LOG) { print(error) }
+                    print(error)
                 }
             });
         }

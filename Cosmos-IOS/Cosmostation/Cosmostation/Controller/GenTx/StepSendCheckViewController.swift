@@ -205,7 +205,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             case .failure(let error):
                 self.hideWaittingAlert()
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                print("onFetchAccountInfo ", error)
             }
         }
     }
@@ -287,7 +287,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 
                 
             } catch {
-                if(SHOW_LOG) { print(error) }
+                print(error)
             }
             
             DispatchQueue.main.async(execute: {
@@ -321,7 +321,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     }
 
                 } catch {
-                    if(SHOW_LOG) { print(error) }
+                    print(error)
                 }
             });
         }
@@ -370,7 +370,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     }
 
                 } catch {
-                    if(SHOW_LOG) { print(error) }
+                    print(error)
                 }
             });
         }

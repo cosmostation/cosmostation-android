@@ -92,7 +92,7 @@ class StepOkVoteCheckViewController: BaseViewController, PasswordViewDelegate {
             case .failure(let error):
                 self.hideWaittingAlert()
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                print("onFetchAccountInfo ", error)
             }
         }
     }
@@ -159,7 +159,7 @@ class StepOkVoteCheckViewController: BaseViewController, PasswordViewDelegate {
                 }
                 
             } catch {
-                if(SHOW_LOG) { print(error) }
+                print(error)
             }
             
             
@@ -193,7 +193,7 @@ class StepOkVoteCheckViewController: BaseViewController, PasswordViewDelegate {
                     }
 
                 } catch {
-                    if(SHOW_LOG) { print(error) }
+                    print(error)
                 }
             });
         }

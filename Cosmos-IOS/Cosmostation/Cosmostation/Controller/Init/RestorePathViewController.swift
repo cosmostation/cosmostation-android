@@ -188,7 +188,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                         
                         
                         case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                            print("onFetchAccountInfo ", error)
                         }
                     }
                     

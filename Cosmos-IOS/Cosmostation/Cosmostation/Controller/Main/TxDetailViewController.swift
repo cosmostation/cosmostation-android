@@ -1022,7 +1022,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 
                 
             case .failure(let error):
-                if(SHOW_LOG) { print("onFetchTx failure", error) }
+                print("onFetchTx failure", error)
                 if (self.chainType! == ChainType.IRIS_MAIN) {
                     self.mFetchCnt = self.mFetchCnt - 1
                     if(self.mFetchCnt > 0) {
@@ -1081,7 +1081,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 }
                 
             case .failure(let error):
-                if(SHOW_LOG) { print("onFetchSwapId", error) }
+                print("onFetchSwapId", error)
                 self.onUpdateView()
                 return
             }
@@ -1099,7 +1099,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 }
                 
             case .failure(let error):
-                if(SHOW_LOG) { print("onFetchBnbNodeInfo", error) }
+                print("onFetchBnbNodeInfo", error)
                 return
             }
             self.onUpdateView()

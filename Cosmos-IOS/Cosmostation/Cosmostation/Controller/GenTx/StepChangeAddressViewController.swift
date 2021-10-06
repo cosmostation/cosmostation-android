@@ -226,7 +226,7 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                 self.pageHolderVC.mCurrentRewardAddress = trimAddress
                 
             case .failure(let error):
-                if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
+                print("onFetchRewardAddress ", error)
             }
         }
     }

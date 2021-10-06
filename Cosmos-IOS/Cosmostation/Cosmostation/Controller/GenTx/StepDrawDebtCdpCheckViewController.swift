@@ -154,14 +154,12 @@ class StepDrawDebtCdpCheckViewController: BaseViewController, PasswordViewDelega
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            if(SHOW_LOG) { print("DrawDebt ", res) }
+                            print("DrawDebt ", res)
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
-                            if(SHOW_LOG) {
-                                print("DrawDebt error ", error)
-                            }
+                            print("DrawDebt error ", error)
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500
                             }
@@ -176,7 +174,7 @@ class StepDrawDebtCdpCheckViewController: BaseViewController, PasswordViewDelega
                     }
 
                 } catch {
-                    if (SHOW_LOG) { print(error) }
+                    print(error)
                 }
             });
         }

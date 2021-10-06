@@ -195,7 +195,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchCdpParam ", error) }
+                print("onFetchCdpParam ", error)
             }
             self.onFetchFinished()
         }

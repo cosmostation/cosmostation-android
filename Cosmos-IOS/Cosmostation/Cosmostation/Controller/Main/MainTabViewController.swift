@@ -405,13 +405,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
             }
             
-            if (SHOW_LOG) {
-                print("BaseData.instance.mAllValidators_gRPC ", BaseData.instance.mAllValidators_gRPC.count)
-                print("BaseData.instance.mBondedValidators_gRPC ", BaseData.instance.mBondedValidators_gRPC.count)
-                print("BaseData.instance.mUnbondValidators_gRPC ", BaseData.instance.mUnbondValidators_gRPC.count)
-                print("BaseData.instance.mMyValidators_gRPC ", BaseData.instance.mMyValidators_gRPC.count)
-                print("BaseData.instance.mMyBalances_gRPC ", BaseData.instance.mMyBalances_gRPC.count)
-            }
+            print("BaseData.instance.mAllValidators_gRPC ", BaseData.instance.mAllValidators_gRPC.count)
+            print("BaseData.instance.mBondedValidators_gRPC ", BaseData.instance.mBondedValidators_gRPC.count)
+            print("BaseData.instance.mUnbondValidators_gRPC ", BaseData.instance.mUnbondValidators_gRPC.count)
+            print("BaseData.instance.mMyValidators_gRPC ", BaseData.instance.mMyValidators_gRPC.count)
+            print("BaseData.instance.mMyBalances_gRPC ", BaseData.instance.mMyBalances_gRPC.count)
             
             if (BaseData.instance.mNodeInfo_gRPC == nil) {
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
@@ -525,7 +523,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     BaseData.instance.mHeight = height
                 }
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
+                print("onFetchTopValidatorsInfo ", error)
             }
             self.onFetchFinished()
         }
@@ -545,7 +543,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
+                print("onFetchTopValidatorsInfo ", error)
             }
             self.onFetchFinished()
         }
@@ -565,7 +563,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchUnbondedValidatorsInfo ", error) }
+                print("onFetchUnbondedValidatorsInfo ", error)
             }
             self.onFetchFinished()
         }
@@ -585,7 +583,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchUnbondingValidatorsInfo ", error) }
+                print("onFetchUnbondingValidatorsInfo ", error)
             }
             self.onFetchFinished()
         }
@@ -606,7 +604,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchAllValidatorsInfo ", error) }
+                print("onFetchAllValidatorsInfo ", error)
             }
             self.onFetchFinished()
         }
@@ -673,7 +671,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                print("onFetchAccountInfo ", error)
             }
             self.onFetchFinished()
         }
@@ -694,7 +692,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchBondingInfo ", error) }
+                print("onFetchBondingInfo ", error)
             }
             self.onFetchFinished()
         }
@@ -715,7 +713,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchUnbondingInfo ", error) }
+                print("onFetchUnbondingInfo ", error)
             }
             self.onFetchFinished()
         }
@@ -737,7 +735,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchEachReward ", error) }
+                print("onFetchEachReward ", error)
             }
             self.onFetchFinished()
         }
@@ -756,7 +754,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                 }
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchBnbTokens ", error) }
+                print("onFetchBnbTokens ", error)
             }
             self.onFetchFinished()
         }
@@ -775,7 +773,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                 }
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchBnbMiniTokens ", error) }
+                print("onFetchBnbMiniTokens ", error)
             }
             self.onFetchFinished()
         }
@@ -794,7 +792,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                 }
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchBnbTokenTickers ", error) }
+                print("onFetchBnbTokenTickers ", error)
             }
             self.onFetchFinished()
         }
@@ -812,7 +810,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                 }
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchBnbMiniTokenTickers ", error) }
+                print("onFetchBnbMiniTokenTickers ", error)
             }
             self.onFetchFinished()
         }
@@ -833,7 +831,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 print("BaseData.instance.mKavaPriceMarkets ", BaseData.instance.mKavaPriceMarkets.count)
             
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchPriceFeedParam ", error) }
+                print("onFetchPriceFeedParam ", error)
             }
             self.onFetchFinished()
         }
@@ -854,7 +852,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 BaseData.instance.mKavaPrice[priceParam.result.market_id] = priceParam
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchKavaPrice ", market , " ", error) }
+                print("onFetchKavaPrice ", market , " ", error)
             }
             self.onFetchFinished()
         }
@@ -876,7 +874,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //                    print("mIncentiveParam ", BaseData.instance.mIncentiveParam)
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchIncentiveParam ", error) }
+                    print("onFetchIncentiveParam ", error)
                 }
             self.onFetchFinished()
         }
@@ -896,7 +894,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //                    print("mIncentiveRewards ", BaseData.instance.mIncentiveRewards?.getAllIncentives().count)
 
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchKavaIncentiveReward ", error) }
+                    print("onFetchKavaIncentiveReward ", error)
                 }
             self.onFetchFinished()
         }
@@ -916,7 +914,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithOkAccountInfo(account, okAccountBalances))
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchOkAccountBalance ", error) }
+                print("onFetchOkAccountBalance ", error)
             }
             self.onFetchFinished()
         }
@@ -934,7 +932,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 BaseData.instance.mOkStaking = OkStaking.init(info)
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchOkStakingInfo ", error) }
+                print("onFetchOkStakingInfo ", error)
             }
             self.onFetchFinished()
         }
@@ -953,7 +951,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 BaseData.instance.mOkUnbonding = OkUnbonding.init(info)
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchOkWithdraw ", error) }
+                print("onFetchOkWithdraw ", error)
             }
             self.onFetchFinished()
         }
@@ -973,7 +971,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 BaseData.instance.mOkTokenList = OkTokenList.init(tokenList)
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchOkTokenList ", error) }
+                print("onFetchOkTokenList ", error)
             }
             self.onFetchFinished()
         }
@@ -992,7 +990,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 BaseData.instance.mOkTickerList = OkTickerList.init(tickerList)
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchOkDexTicker ", error) }
+                print("onFetchOkDexTicker ", error)
             }
             self.onFetchFinished()
         }
@@ -1289,7 +1287,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 NotificationCenter.default.post(name: Notification.Name("onFetchPrice"), object: nil, userInfo: nil)
             
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchPriceInfo ", error) }
+                print("onFetchPriceInfo ", error)
             }
         }
     }

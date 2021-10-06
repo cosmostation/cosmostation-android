@@ -62,9 +62,8 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         self.refresher.tintColor = UIColor.white
         self.cdpDetailTableView.addSubview(refresher)
         
-        if (SHOW_LOG) {
-            print("mCollateralParamType ", mCollateralParamType)
-        }
+        print("mCollateralParamType ", mCollateralParamType)
+        
         cdpParam = BaseData.instance.mCdpParam
         
         self.loadingImg.onStartAnimation()
@@ -144,11 +143,9 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         liquidationPrice = myCdp!.getLiquidationPrice(mCDenom, mPDenom, mCollateralParam!)
         riskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(liquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
 
-        if (SHOW_LOG) {
-            print("currentPrice ", currentPrice)
-            print("liquidationPrice ", liquidationPrice)
-            print("riskRate ", riskRate)
-        }
+        print("currentPrice ", currentPrice)
+        print("liquidationPrice ", liquidationPrice)
+        print("riskRate ", riskRate)
 
         cell?.marketTitle.text = mCollateralParam!.getDpMarketId()
         cell?.marketType.text = mCollateralParam!.type!.uppercased()
@@ -501,7 +498,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
                     print("myCdp ", self.myCdp)
                     
                 case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchOwenCdp ", error) }
+                    print("onFetchOwenCdp ", error)
                 }
             self.onFetchFinished()
         }
@@ -523,7 +520,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
                 print("mSelfDepositAmount ", self.mSelfDepositAmount)
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchCdpDeposit ", error) }
+                print("onFetchCdpDeposit ", error)
             }
             self.onFetchFinished()
         }

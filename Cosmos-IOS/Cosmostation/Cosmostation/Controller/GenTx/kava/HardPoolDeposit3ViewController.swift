@@ -148,7 +148,7 @@ class HardPoolDeposit3ViewController: BaseViewController, PasswordViewDelegate {
                     }
 
                 } catch {
-                    if (SHOW_LOG) { print(error) }
+                    print(error)
                 }
             });
         }

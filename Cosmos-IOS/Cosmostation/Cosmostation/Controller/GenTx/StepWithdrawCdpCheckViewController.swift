@@ -153,14 +153,12 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            if(SHOW_LOG) { print("WithdrawCdp ", res) }
+                            print("WithdrawCdp ", res)
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
-                            if(SHOW_LOG) {
-                                print("WithdrawCdp error ", error)
-                            }
+                            print("WithdrawCdp error ", error)
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500
                             }
@@ -175,7 +173,7 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
                     }
 
                 } catch {
-                    if (SHOW_LOG) { print(error) }
+                    print(error)
                 }
             });
         }

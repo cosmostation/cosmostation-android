@@ -328,7 +328,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.mProposal = Proposal.init(rawProposal)
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchProposalDetail ", error) }
+                print("onFetchProposalDetail ", error)
             }
             self.onFetchFinished()
         }
@@ -347,7 +347,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.mTally = cosmosTally.result
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchTally ", error) }
+                print("onFetchTally ", error)
             }
             self.onFetchFinished()
         }
@@ -366,7 +366,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.mMyVote = cosmosVote.result
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchMyVote ", error) }
+                print("onFetchMyVote ", error)
             }
             self.onFetchFinished()
         }
@@ -385,7 +385,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.mProposer = cosmosProposer.result.proposer
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchProposer ", error) }
+                print("onFetchProposer ", error)
             }
             self.onFetchFinished()
         }
@@ -405,7 +405,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 }
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchVoteList ", error) }
+                print("onFetchVoteList ", error)
             }
             self.onFetchFinished()
         }

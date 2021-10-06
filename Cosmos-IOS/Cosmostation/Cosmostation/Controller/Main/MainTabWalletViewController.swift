@@ -1718,7 +1718,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onStartMoonPay(MOON_PAY_URL + query + "&signature=" + signauture!)
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onStartMoonpaySignature ", error) }
+                print("onStartMoonpaySignature ", error)
                 self.onShowToast(NSLocalizedString("error_network_msg", comment: ""))
             }
         }

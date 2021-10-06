@@ -721,30 +721,30 @@ final class BaseData : NSObject{
             do {
                 try self.database.run(DB_ACCOUNT.addColumn(DB_ACCOUNT_LAST_TOTAL, defaultValue: ""))
             } catch {
-                if (SHOW_LOG) { print(error) }
+                print(error)
             }
             
             do {
                 try self.database.run(DB_ACCOUNT.addColumn(DB_ACCOUNT_SORT_ORDER, defaultValue: 0))
             } catch {
-                if (SHOW_LOG) { print(error) }
+                print(error)
             }
             
             do {
                 try self.database.run(DB_ACCOUNT.addColumn(DB_ACCOUNT_PUSHALARM, defaultValue: false))
             } catch {
-                if (SHOW_LOG) { print(error) }
+                print(error)
             }
             
             do {
                 try self.database.run(DB_ACCOUNT.addColumn(DB_ACCOUNT_NEW_BIP, defaultValue: false))
             } catch {
-                if (SHOW_LOG) { print(error) }
+                print(error)
             }
             do {
                 try self.database.run(DB_ACCOUNT.addColumn(DB_ACCOUNT_CUSTOM_PATH, defaultValue: 0))
             } catch {
-                if (SHOW_LOG) { print(error) }
+                print(error)
             }
             
 //            let createPasswordTable = DB_PASSWORD.create { (table) in
@@ -766,12 +766,12 @@ final class BaseData : NSObject{
             do {
                 try self.database.run(DB_BALANCE.addColumn(DB_BALANCE_FROZEN, defaultValue: ""))
             } catch {
-                if (SHOW_LOG) { print(error) }
+                print(error)
             }
             do {
                 try self.database.run(DB_BALANCE.addColumn(DB_BALANCE_LOCKED, defaultValue: ""))
             } catch {
-                if (SHOW_LOG) { print(error) }
+                print(error)
             }
 
             
@@ -797,7 +797,7 @@ final class BaseData : NSObject{
             try self.database.run(createUnBondingTable)
             
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
         }
     }
     
@@ -811,7 +811,7 @@ final class BaseData : NSObject{
                 result.append(account);
             }
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
         }
         var result2 = Array<Account>()
         for account in result {
@@ -868,7 +868,7 @@ final class BaseData : NSObject{
             }
             return nil
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
         }
         return nil
     }
@@ -881,7 +881,7 @@ final class BaseData : NSObject{
             }
             return nil
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
         }
         return nil
     }
@@ -894,7 +894,7 @@ final class BaseData : NSObject{
             }
             return nil
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
         }
         return nil
     }
@@ -909,7 +909,7 @@ final class BaseData : NSObject{
             }
             
         } catch {
-             if(SHOW_LOG) { print(error) }
+            print(error)
         }
         return true;
     }
@@ -938,7 +938,7 @@ final class BaseData : NSObject{
         do {
             return try database.run(insertAccount)
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
             return -1
         }
     }
@@ -954,7 +954,7 @@ final class BaseData : NSObject{
                                                         DB_ACCOUNT_RESOURCE <- account.account_resource,
                                                         DB_ACCOUNT_FETCH_TIME <- account.account_fetch_time)))
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
             return -1
         }
     }
@@ -969,7 +969,7 @@ final class BaseData : NSObject{
                                                         DB_ACCOUNT_NEW_BIP <- account.account_new_bip44,
                                                         DB_ACCOUNT_CUSTOM_PATH <- account.account_custom_path)))
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
             return -1
         }
     }
@@ -998,7 +998,7 @@ final class BaseData : NSObject{
         do {
             return try Int64(database.run(target.update(DB_ACCOUNT_ADDRESS <- account.account_address)))
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
             return -1
         }
     }
@@ -1009,7 +1009,7 @@ final class BaseData : NSObject{
         do {
             try database.run(target.update(DB_ACCOUNT_LAST_TOTAL <- amount))
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
         }
     }
     
@@ -1019,7 +1019,7 @@ final class BaseData : NSObject{
             do {
                 try database.run(target.update(DB_ACCOUNT_SORT_ORDER <- account.account_sort_order))
             } catch {
-                if(SHOW_LOG) { print(error) }
+                print(error)
             }
         }
    }
@@ -1029,7 +1029,7 @@ final class BaseData : NSObject{
         do {
             try database.run(target.update(DB_ACCOUNT_PUSHALARM <- enable))
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
         }
     }
     
@@ -1038,7 +1038,7 @@ final class BaseData : NSObject{
         do {
             return  try database.run(query.delete())
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
             return -1
         }
     }
@@ -1107,7 +1107,7 @@ final class BaseData : NSObject{
                 result.append(balance);
             }
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
         }
         return result;
     }
@@ -1123,7 +1123,7 @@ final class BaseData : NSObject{
                 result.append(balance);
             }
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
         }
         return result
     }
@@ -1133,7 +1133,7 @@ final class BaseData : NSObject{
         do {
             return  try database.run(query.delete())
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
             return -1
         }
     }
@@ -1143,7 +1143,7 @@ final class BaseData : NSObject{
         do {
             return  try database.run(query.delete())
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
             return -1
         }
     }
@@ -1158,7 +1158,7 @@ final class BaseData : NSObject{
         do {
             return try database.run(insertBalance)
         } catch {
-            if(SHOW_LOG) { print(error) }
+            print(error)
             return -1
         }
     }
