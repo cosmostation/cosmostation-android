@@ -148,7 +148,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
         }
         
         //temp hide apr for no mint param chain
-        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.ALTHEA_TEST) {
+        if (chainType == ChainType.ALTHEA_TEST) {
             cell.commissionLabel.text = "--"
         }
     }
