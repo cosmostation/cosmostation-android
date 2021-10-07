@@ -335,7 +335,9 @@ public class MainSendFragment extends BaseFragment {
         @Override
         public int getItemCount() {
             if (getMainActivity().mBaseChain == null) { return 0; }
-            if (isGRPC(getMainActivity().mBaseChain )) {
+            if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
+                return 5;
+            } else if (isGRPC(getMainActivity().mBaseChain )) {
                 return 4;
             } else {
                 if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain .equals(BNB_TEST) ||
@@ -357,6 +359,8 @@ public class MainSendFragment extends BaseFragment {
                 } else if (position == 2) {
                     return TYPE_PRICE;
                 } else if (position == 3) {
+                    return TYPE_MINT;
+                } else if (position == 4) {
                     return TYPE_GIUDE;
                 }
 

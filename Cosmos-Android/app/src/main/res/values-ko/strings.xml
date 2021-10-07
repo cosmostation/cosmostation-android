@@ -1279,10 +1279,8 @@
     <string name="str_incentive_amount_title">Incentive Amounts</string>
     <string name="str_gravity_dex">그래비티 덱스</string>
     <string name="str_add_liquidity_external_symbol">External Symbol</string>
-    <string name="str_liquidity_native_asset">Native Asset</string>
-    <string name="str_liquidity_external_asset">External Asset</string>
-    <string name="str_swap_send_asset">Send Asset</string>
-    <string name="str_swap_receive_asset">Received Asset</string>
+    <string name="str_liquidity_deposit_coins">Deposit Coins</string>
+    <string name="str_liquidity_withdraw_coins">Withdraw Coins</string>
     <string name="str_bridge_claim_type">Claim Type</string>
     <string name="str_bridge_contract_address">Bridge Contract Address</string>
     <string name="str_token_contract_address">Token Contract Address</string>
@@ -1299,6 +1297,8 @@
     <string name="str_task_response_score">Score</string>
     <string name="str_gravity_deposit_batch">풀 참가(Batch Deposit)</string>
     <string name="str_gravity_withdraw_batch">풀 나가기(Batch Withdraw)</string>
+    <string name="str_create_user_claim_address">User Claim Address</string>
+    <string name="str_create_user_claim_type">User Claim Type</string>
 
     <string name="str_ibc_send_c">IBC 보내기</string>
     <string name="str_ibc_warning_c">Notice</string>
@@ -1555,6 +1555,7 @@
     <string name="tx_sif_exit_pool">풀 나가기</string>
     <string name="tx_sif_swap">코인 스왑</string>
     <string name="tx_create_ethereum_bridge">Create Ethereum Bridge</string>
+    <string name="tx_create_user_claim">인센티브 받기</string>
 
     <string name="tx_task_response">Task Response</string>
     <string name="tx_create_task">Create Task </string>

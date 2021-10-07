@@ -83,6 +83,7 @@ import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxUnlockPeriodHolder;
 import wannabit.io.cosmostaion.widget.txDetail.osmosis.TxBeginUnlockTokenHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxAddLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateEthBridgeHolder;
+import wannabit.io.cosmostaion.widget.txDetail.sif.TxCreateUserClaimHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxRemoveLiquidityHolder;
 import wannabit.io.cosmostaion.widget.txDetail.sif.TxSwapHolder;
 
@@ -263,6 +264,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_REMOVE_LIQUIDITY = 71;
         private static final int TYPE_TX_SWAP = 72;
         private static final int TYPE_TX_CREATE_ETH_BRIDGE = 73;
+        private static final int TYPE_TX_CREATE_USER_CLAIM = 74;
 
         private static final int TYPE_TX_CREATE_TASK = 80;
         private static final int TYPE_TX_TASK_RESPONSE = 81;
@@ -420,6 +422,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             } else if (viewType == TYPE_TX_CREATE_ETH_BRIDGE) {
                 return new TxCreateEthBridgeHolder(getLayoutInflater().inflate(R.layout.item_tx_create_eth_bridge, viewGroup, false));
 
+            } else if (viewType == TYPE_TX_CREATE_USER_CLAIM) {
+                return new TxCreateUserClaimHolder(getLayoutInflater().inflate(R.layout.item_tx_create_user_claim, viewGroup, false));
+
             }
 
             // certik
@@ -566,6 +571,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_SWAP;
                 } else if (msg.getTypeUrl().contains(sifnode.ethbridge.v1.Tx.MsgCreateEthBridgeClaim.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_ETH_BRIDGE;
+                } else if (msg.getTypeUrl().contains(sifnode.dispensation.v1.Tx.MsgCreateUserClaim.getDescriptor().getFullName())) {
+                    return TYPE_TX_CREATE_USER_CLAIM;
                 }
 
                 // certik msg
