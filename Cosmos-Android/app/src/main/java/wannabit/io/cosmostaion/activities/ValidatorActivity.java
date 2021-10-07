@@ -73,7 +73,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
@@ -961,7 +960,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e){}
 
-            if (mBaseChain.equals(SIF_MAIN) || mBaseChain.equals(ALTHEA_TEST)) {
+            if (mBaseChain.equals(ALTHEA_TEST)) {
                 holder.itemTvYieldRate.setText("--");
             }
 
@@ -1026,7 +1025,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValOpAddress)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
             } catch (Exception e){}
 
-            if (mBaseChain.equals(SIF_MAIN) || mBaseChain.equals(ALTHEA_TEST)) {
+            if (mBaseChain.equals(ALTHEA_TEST)) {
                 holder.itemTvYieldRate.setText("--");
             }
         }
@@ -1052,7 +1051,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             }
 
-            if (mBaseChain.equals(SIF_MAIN) || mBaseChain.equals(ALTHEA_TEST)) {
+            if (mBaseChain.equals(ALTHEA_TEST)) {
                 holder.itemDailyReturn.setText("--");
                 holder.itemMonthlyReturn.setText("--");
             }

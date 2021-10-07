@@ -36,7 +36,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class ValidatorAllFragment extends BaseFragment implements View.OnClickListener {
@@ -163,7 +162,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     }
                 }
 
-                if (getMainActivity().mBaseChain.equals(SIF_MAIN) || getMainActivity().mBaseChain.equals(ALTHEA_TEST)) {
+                if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) {
                     holder.itemTvCommission.setText("--");
                 }
 
