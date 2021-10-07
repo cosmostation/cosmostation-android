@@ -67,13 +67,8 @@ class OtherValidatorCell: UITableViewCell {
             cardView.backgroundColor = COLOR_BG_GRAY
         }
         
-//        //display for band oracle status
-//        if (chainType == ChainType.BAND_MAIN) {
-//            bandOracleOffImg.isHidden = false
-//        }
-        
         //temp hide apr for no mint param chain
-        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.ALTHEA_TEST) {
+        if (chainType == ChainType.ALTHEA_TEST) {
             commissionLabel.text = "--"
         }
     }

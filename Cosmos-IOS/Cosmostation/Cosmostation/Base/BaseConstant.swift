@@ -1132,7 +1132,7 @@ let BLOCK_TIME_SENTINEL     = NSDecimalNumber.init(string: "6.0418")
 let BLOCK_TIME_PERSISTENCE  = NSDecimalNumber.init(string: "5.6381")
 let BLOCK_TIME_FETCH        = NSDecimalNumber.init(string: "5.8956")
 let BLOCK_TIME_CRYPTO       = NSDecimalNumber.init(string: "6.4383")
-let BLOCK_TIME_SIF          = NSDecimalNumber.init(string: "5.6577")
+let BLOCK_TIME_SIF          = NSDecimalNumber.init(string: "5.6877")
 let BLOCK_TIME_KI           = NSDecimalNumber.init(string: "5.6524")
 let BLOCK_TIME_MEDI         = NSDecimalNumber.init(string: "6.0247")
 

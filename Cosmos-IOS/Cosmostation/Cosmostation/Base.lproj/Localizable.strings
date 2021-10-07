@@ -830,6 +830,10 @@ support@cosmostation.io";
 "tx_med_add_record" = "Add Record";
 "tx_med_create_did" = "Create DID";
 
+"tx_add_liquidity" = "Add Liquidity";
+"tx_remove_liquidity" = "Remove Liquidity";
+"tx_despensation_claim" = "Claim Incentive";
+
 "tx_known" = "Unknown";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

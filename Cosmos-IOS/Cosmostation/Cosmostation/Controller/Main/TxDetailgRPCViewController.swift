@@ -76,6 +76,12 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
         //for rizon
         self.txTableView.register(UINib(nibName: "TxRizonEventHorizonCell", bundle: nil), forCellReuseIdentifier: "TxRizonEventHorizonCell")
         
+        //for sif msg type
+        self.txTableView.register(UINib(nibName: "TxSifIncentiveCell", bundle: nil), forCellReuseIdentifier: "TxSifIncentiveCell")
+        self.txTableView.register(UINib(nibName: "TxSifAddLpCell", bundle: nil), forCellReuseIdentifier: "TxSifAddLpCell")
+        self.txTableView.register(UINib(nibName: "TxSifRemoveLpCell", bundle: nil), forCellReuseIdentifier: "TxSifRemoveLpCell")
+        self.txTableView.register(UINib(nibName: "TxSifSwapCell", bundle: nil), forCellReuseIdentifier: "TxSifSwapCell")
+        
         //for unknown msg type
         self.txTableView.register(UINib(nibName: "TxUnknownCell", bundle: nil), forCellReuseIdentifier: "TxUnknownCell")
         
@@ -287,6 +293,28 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
                 
             } else if (msg.typeURL.contains(Tendermint_Liquidity_V1beta1_MsgSwapWithinBatch.protoMessageName)) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TxGravitySwapCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            }
+            
+            else if (msg.typeURL.contains(Sifnode_Clp_V1_MsgAddLiquidity.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxSifAddLpCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Sifnode_Clp_V1_MsgRemoveLiquidity.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxSifRemoveLpCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Sifnode_Clp_V1_MsgSwap.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxSifSwapCell") as? TxCell
+                cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
+                return cell!
+                
+            } else if (msg.typeURL.contains(Sifnode_Dispensation_V1_MsgCreateUserClaim.protoMessageName)) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TxSifIncentiveCell") as? TxCell
                 cell?.onBindMsg(chainType!, mTxRespose!, indexPath.row - 1)
                 return cell!
                 

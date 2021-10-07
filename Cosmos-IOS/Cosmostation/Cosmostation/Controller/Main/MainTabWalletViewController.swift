@@ -187,7 +187,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.SIF_MAIN) {
             return 5;
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return 3;
@@ -713,6 +713,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.updateView(account, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(account, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
