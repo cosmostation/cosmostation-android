@@ -2911,6 +2911,8 @@ public class WDp {
             imageView.setImageResource(R.drawable.kava_token_img);
         } else if (baseChain.equals(BAND_MAIN)) {
             imageView.setImageResource(R.drawable.band_token_img);
+        } else if (baseChain.equals(IOV_MAIN)) {
+            imageView.setImageResource(R.drawable.iov_token_img);
         } else if (baseChain.equals(SECRET_MAIN)) {
             imageView.setImageResource(R.drawable.tokensecret);
         } else if (baseChain.equals(CERTIK_MAIN) || baseChain.equals(CERTIK_TEST)) {
