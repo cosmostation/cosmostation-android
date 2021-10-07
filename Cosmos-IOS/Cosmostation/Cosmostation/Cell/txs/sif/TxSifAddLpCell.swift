@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TxSifAddLpCell: UITableViewCell {
+class TxSifAddLpCell: TxCell {
     
     @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var txSingerLabel: UILabel!
@@ -25,7 +25,19 @@ class TxSifAddLpCell: UITableViewCell {
         txDeposit2AmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
     
-    func onBind(_ chaintype: ChainType, _ msg: Msg, _ tx: TxInfo, _ position: Int) {
+    override func onBindMsg(_ chain: ChainType, _ response: Cosmos_Tx_V1beta1_GetTxResponse, _ position: Int) {
+        txIcon.image = txIcon.image?.withRenderingMode(.alwaysTemplate)
+        txIcon.tintColor = WUtils.getChainColor(chain)
+        
+        let msg = try! Sifnode_Clp_V1_MsgAddLiquidity.init(serializedData: response.tx.body.messages[position].value)
+        txSingerLabel.text = msg.signer
+        txSingerLabel.adjustsFontSizeToFitWidth = true
+        
+        let depositRowan = Coin.init(SIF_MAIN_DENOM, msg.nativeAssetAmount)
+        let depositOther = Coin.init(msg.externalAsset.symbol, msg.externalAssetAmount)
+        WUtils.showCoinDp(depositRowan, txDeposit1DenomLabel, txDeposit1AmountLabel, chain)
+        WUtils.showCoinDp(depositOther, txDeposit2DenomLabel, txDeposit2AmountLabel, chain)
+        
     }
     
 }

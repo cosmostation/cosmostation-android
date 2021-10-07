@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TxSifRemoveLpCell: UITableViewCell {
+class TxSifRemoveLpCell: TxCell {
     
     @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var txSignerLabel: UILabel!
@@ -25,7 +25,48 @@ class TxSifRemoveLpCell: UITableViewCell {
         txWithdraw2AmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
     
-    func onBind(_ chaintype: ChainType, _ msg: Msg, _ tx: TxInfo, _ position: Int) {
+    override func onBindMsg(_ chain: ChainType, _ response: Cosmos_Tx_V1beta1_GetTxResponse, _ position: Int) {
+        txIcon.image = txIcon.image?.withRenderingMode(.alwaysTemplate)
+        txIcon.tintColor = WUtils.getChainColor(chain)
+        
+        let msg = try! Sifnode_Clp_V1_MsgRemoveLiquidity.init(serializedData: response.tx.body.messages[position].value)
+        txSignerLabel.text = msg.signer
+        txSignerLabel.adjustsFontSizeToFitWidth = true
+        
+        var removeCoins = Array<Coin>()
+        if response.txResponse.logs.count > position {
+            response.txResponse.logs[position].events.forEach { event in
+                if (event.type == "transfer") {
+                    event.attributes.forEach { attribute in
+                        if (attribute.key == "amount") {
+                            let rawCoins = attribute.value.split(separator: ",")
+                            rawCoins.forEach { rawCoin in
+                                if let range = rawCoin.range(of: "[0-9]*", options: .regularExpression) {
+                                    let amount = String(rawCoin[range])
+                                    removeCoins.append(Coin.init(rawCoin.replacingOccurrences(of: amount, with: ""), amount))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        print("removeCoins ", removeCoins)
+        
+        let removeRowan = removeCoins.filter { $0.denom == SIF_MAIN_DENOM }.first
+        if (removeRowan != nil) {
+            WUtils.showCoinDp(removeRowan!, txWithdraw1DenomLabel, txWithdraw1AmountLabel, chain)
+        } else {
+            WUtils.showCoinDp(SIF_MAIN_DENOM, "0", txWithdraw1DenomLabel, txWithdraw1AmountLabel, chain)
+        }
+        
+        let removeOther = removeCoins.filter { $0.denom != SIF_MAIN_DENOM }.first
+        if (removeOther != nil) {
+            WUtils.showCoinDp(removeOther!, txWithdraw2DenomLabel, txWithdraw2AmountLabel, chain)
+        } else {
+            txWithdraw2DenomLabel.isHidden = true
+            txWithdraw2AmountLabel.isHidden = true
+        }
     }
     
 }

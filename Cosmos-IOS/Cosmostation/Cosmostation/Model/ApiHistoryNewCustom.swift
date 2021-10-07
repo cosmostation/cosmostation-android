@@ -316,6 +316,21 @@ public struct ApiHistoryNewCustom {
                 
             }
             
+            // sif msg type
+            else if (msgType.contains("clp") && msgType.contains("MsgAddLiquidity")) {
+                result = NSLocalizedString("tx_add_liquidity", comment: "")
+                
+            } else if (msgType.contains("clp") && msgType.contains("MsgRemoveLiquidity")) {
+                result = NSLocalizedString("tx_remove_liquidity", comment: "")
+                
+            } else if (msgType.contains("clp") && msgType.contains("MsgSwap")) {
+                result = NSLocalizedString("tx_coin_swap", comment: "")
+                
+            } else if (msgType.contains("dispensation") && msgType.contains("MsgCreateUserClaim")) {
+                result = NSLocalizedString("tx_despensation_claim", comment: "")
+                
+            }
+            
             //common type
             else if (msgType.contains("MsgSubmitProposal")) {
                 result = NSLocalizedString("tx_submit_proposal", comment: "")

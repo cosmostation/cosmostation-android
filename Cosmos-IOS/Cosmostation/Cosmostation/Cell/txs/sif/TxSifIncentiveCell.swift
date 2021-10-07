@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TxSifIncentiveCell: UITableViewCell {
+class TxSifIncentiveCell: TxCell {
     @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var claimAddress: UILabel!
     @IBOutlet weak var claimType: UILabel!
@@ -18,7 +18,23 @@ class TxSifIncentiveCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
-    func onBind(_ chaintype: ChainType, _ msg: Msg, _ tx: TxInfo, _ position: Int) {
+    override func onBindMsg(_ chain: ChainType, _ response: Cosmos_Tx_V1beta1_GetTxResponse, _ position: Int) {
+        txIcon.image = txIcon.image?.withRenderingMode(.alwaysTemplate)
+        txIcon.tintColor = WUtils.getChainColor(chain)
+        
+        let msg = try! Sifnode_Dispensation_V1_MsgCreateUserClaim.init(serializedData: response.tx.body.messages[position].value)
+        claimAddress.text = msg.userClaimAddress
+        claimAddress.adjustsFontSizeToFitWidth = true
+        
+        if (msg.userClaimType.rawValue == Sifnode_Dispensation_V1_DistributionType.liquidityMining.rawValue) {
+            claimType.text = "liquidityMining"
+        } else if (msg.userClaimType.rawValue == Sifnode_Dispensation_V1_DistributionType.validatorSubsidy.rawValue) {
+            claimType.text = "validatorSubsidy"
+        } else if (msg.userClaimType.rawValue == Sifnode_Dispensation_V1_DistributionType.airdrop.rawValue) {
+            claimType.text = "airdrop"
+        } else {
+            claimType.text = "unspecified"
+        }
     }
     
 }

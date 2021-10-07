@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TxSifSwapCell: UITableViewCell {
+class TxSifSwapCell: TxCell {
     @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var txSingerLabel: UILabel!
     @IBOutlet weak var txSwapInAmountLabel: UILabel!
@@ -24,7 +24,18 @@ class TxSifSwapCell: UITableViewCell {
         txSwapOutAmountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
     
-    func onBind(_ chaintype: ChainType, _ msg: Msg, _ tx: TxInfo, _ position: Int) {
+    override func onBindMsg(_ chain: ChainType, _ response: Cosmos_Tx_V1beta1_GetTxResponse, _ position: Int) {
+        txIcon.image = txIcon.image?.withRenderingMode(.alwaysTemplate)
+        txIcon.tintColor = WUtils.getChainColor(chain)
+        
+        let msg = try! Sifnode_Clp_V1_MsgSwap.init(serializedData: response.tx.body.messages[position].value)
+        txSingerLabel.text = msg.signer
+        txSingerLabel.adjustsFontSizeToFitWidth = true
+        
+        let inCoin = Coin.init(msg.sentAsset.symbol, msg.sentAmount)
+        let outCoin = Coin.init(msg.receivedAsset.symbol, msg.minReceivingAmount)
+        WUtils.showCoinDp(inCoin, txSwapInDenomLabel, txSwapInAmountLabel, chain)
+        WUtils.showCoinDp(outCoin, txSwapOutDenomLabel, txSwapOutAmountLabel, chain)
     }
     
 }
