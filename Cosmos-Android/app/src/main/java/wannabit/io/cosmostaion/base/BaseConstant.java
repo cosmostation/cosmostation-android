@@ -902,7 +902,7 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_PERSISTENCE = new BigDecimal("5.6381");
     public final static BigDecimal BLOCK_TIME_FETCH = new BigDecimal("5.8956");
     public final static BigDecimal BLOCK_TIME_CRYPTO = new BigDecimal("6.4383");
-    public final static BigDecimal BLOCK_TIME_SIF = new BigDecimal("5.6577");
+    public final static BigDecimal BLOCK_TIME_SIF = new BigDecimal("5.6877");
     public final static BigDecimal BLOCK_TIME_KI = new BigDecimal("5.6524");
     public final static BigDecimal BLOCK_TIME_MEDI = new BigDecimal("6.0247");
 }
