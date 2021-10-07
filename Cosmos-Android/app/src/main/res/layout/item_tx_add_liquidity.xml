@@ -65,12 +65,13 @@
                     android:id="@+id/tx_liquidity_native_asset_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_liquidity_native_asset"
+                    android:text="@string/str_liquidity_deposit_coins"
                     style="@style/font_ss_12_gray1"/>
                 <RelativeLayout
+                    android:id="@+id/native_asset_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tx_liquidity_native_asset_title">
+                    android:layout_below="@+id/tx_liquidity_native_asset_title">
                     <TextView
                         android:id="@+id/tx_liquidity_native_symbol"
                         android:layout_width="@dimen/space_60"
@@ -88,28 +89,16 @@
                         android:text="-"
                         style="@style/font_ss_12_white"/>
                 </RelativeLayout>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_16">
-                <TextView
-                    android:id="@+id/tx_liquidity_exteranl_asset_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_liquidity_external_asset"
-                    style="@style/font_ss_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tx_liquidity_exteranl_asset_title">
+                    android:layout_below="@+id/native_asset_layout">
                     <TextView
                         android:id="@+id/tx_liquidity_exteranl_symbol"
                         android:layout_width="@dimen/space_60"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="end"
-                        android:text=""
                         style="@style/font_ss_12_white"/>
                     <TextView
                         android:id="@+id/tx_liquidity_exteranl_amount"

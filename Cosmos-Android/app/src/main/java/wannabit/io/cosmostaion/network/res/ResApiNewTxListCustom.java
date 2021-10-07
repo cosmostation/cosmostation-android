@@ -392,6 +392,9 @@ public class ResApiNewTxListCustom {
                 } else if (msgType.contains("RemoveLiquidity")) {
                     result = c.getString(R.string.tx_sif_exit_pool);
 
+                } else if (msgType.contains("MsgCreateUserClaim")) {
+                    result = c.getString(R.string.tx_create_user_claim);
+
                 }
 
                 // certik msg

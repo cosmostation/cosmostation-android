@@ -26,7 +26,7 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
                 <ImageView
-                    android:id="@+id/tx_swap_icon"
+                    android:id="@+id/tx_create_user_claim_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/icon_postprice"/>
@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:text="@string/tx_sif_swap"
+                    android:text="@string/tx_create_user_claim"
                     style="@style/font_ss_15_white"/>
             </LinearLayout>
             <LinearLayout
@@ -45,10 +45,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_signer"
+                    android:text="@string/str_create_user_claim_address"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/tx_swap_signer"
+                    android:id="@+id/tx_create_user_claim_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -62,61 +62,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">
                 <TextView
-                    android:id="@+id/tx_swap_send_asset_title"
+                    android:id="@+id/tx_create_user_claim_type_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_swap_in"
+                    android:text="@string/str_create_user_claim_type"
                     style="@style/font_ss_12_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tx_swap_send_asset_title">
+                    android:layout_toRightOf="@+id/tx_create_user_claim_type_title">
                     <TextView
-                        android:id="@+id/tx_swap_send_asset_symbol"
-                        android:layout_width="@dimen/space_60"
+                        android:id="@+id/tx_create_user_claim_type"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:gravity="end"
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/tx_swap_send_asset_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_swap_send_asset_symbol"
-                        android:layout_toLeftOf="@+id/tx_swap_send_asset_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ss_12_white"/>
-                </RelativeLayout>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_16">
-                <TextView
-                    android:id="@+id/tx_swap_received_asset_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_swap_out"
-                    style="@style/font_ss_12_gray1"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tx_swap_received_asset_title">
-                    <TextView
-                        android:id="@+id/tx_swap_received_asset_symbol"
-                        android:layout_width="@dimen/space_60"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:gravity="end"
-                        android:text=""
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/tx_swap_received_asset_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_swap_received_asset_symbol"
-                        android:layout_toLeftOf="@+id/tx_swap_received_asset_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
                         style="@style/font_ss_12_white"/>
