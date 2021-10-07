@@ -10,8 +10,8 @@ android {
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 120
-        versionName "1.5.20"
+        versionCode 121
+        versionName "1.5.21"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
