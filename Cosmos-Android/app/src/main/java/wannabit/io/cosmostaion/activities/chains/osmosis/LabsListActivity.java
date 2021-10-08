@@ -61,8 +61,8 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     private TabLayout               mLabTapLayer;
     private OsmoLabPageAdapter      mPageAdapter;
 
+    public ArrayList<PoolOuterClass.Pool>                   mTempPoolList = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>                   mPoolList = new ArrayList<>();
-    public ArrayList<PoolOuterClass.Pool>                   mFarmingList = new ArrayList<>();
     public ArrayList<String>                                mAllDenoms = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>                   mPoolMyList = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>                   mPoolOtherList = new ArrayList<>();
@@ -223,7 +223,6 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         WLog.w("onFetchPoolListInfo ");
         mTaskCount = 4;
         mPoolList.clear();
-        mFarmingList.clear();
         mPoolMyList.clear();
         mPoolOtherList.clear();
         mIncentivizedPool.clear();
@@ -241,8 +240,8 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
-                final ArrayList<PoolOuterClass.Pool> tempPoolList = (ArrayList<PoolOuterClass.Pool>)result.resultData;
-                for (PoolOuterClass.Pool pool: tempPoolList) {
+                mTempPoolList = (ArrayList<PoolOuterClass.Pool>)result.resultData;
+                for (PoolOuterClass.Pool pool: mTempPoolList) {
                     if (getBaseDao().mChainParam.isPoolEnabled(pool.getId())) {
                         mPoolList.add(pool);
                         for (PoolOuterClass.Pool swap: mPoolList) {
@@ -258,9 +257,6 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
                         } else {
                             mPoolOtherList.add(pool);
                         }
-                    }
-                    if (getBaseDao().mChainParam.isFramingEnabled(pool.getId())) {
-                        mFarmingList.add(pool);
                     }
                 }
             }

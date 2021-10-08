@@ -68,9 +68,6 @@ public class ChainParam {
         @SerializedName("enabled_pools")
         public ArrayList<Integer> mEnabledPools;
 
-        @SerializedName("enabled_farming")
-        public ArrayList<Integer> mEnabledFarming;
-
         @SerializedName("emoney_minting_inflation")
         public EmoneyInflations mEmoneyInflations;
 
@@ -215,10 +212,6 @@ public class ChainParam {
 
         public boolean isPoolEnabled(long id) {
             return mEnabledPools.contains(Integer.parseInt("" + id));
-        }
-
-        public boolean isFramingEnabled(long id) {
-            return mEnabledFarming.contains(Integer.parseInt("" + id));
         }
 
         public boolean isOracleEnable(String valOpAddress) {
