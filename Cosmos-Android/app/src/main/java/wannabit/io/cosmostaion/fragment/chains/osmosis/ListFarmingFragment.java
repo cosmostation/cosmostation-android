@@ -20,6 +20,7 @@ import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.osmosis.EarningMyHolder;
 import wannabit.io.cosmostaion.widget.osmosis.EarningOtherHolder;
@@ -30,7 +31,8 @@ public class ListFarmingFragment extends BaseFragment {
     private RecyclerView        mRecyclerView;
     private EarningListAdapter  mAdapter;
 
-    public ArrayList<PoolOuterClass.Pool>               mFarmingList = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>               mTempPoolList = new ArrayList<>();
+    public ArrayList<PoolOuterClass.Pool>               mPoolList = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>               mMyIncentivizedPool = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>               mOtherIncentivizedPool = new ArrayList<>();
 
@@ -73,7 +75,8 @@ public class ListFarmingFragment extends BaseFragment {
     public void onRefreshTab() {
         mMyIncentivizedPool.clear();
         mOtherIncentivizedPool.clear();
-        mFarmingList = getSActivity().mFarmingList;
+        mTempPoolList = getSActivity().mTempPoolList;
+        mPoolList = getSActivity().mPoolList;
         mIncentivizedPool = getSActivity().mIncentivizedPool;
         mActiveGauges = getSActivity().mActiveGauges;
         mPeriodLockUps = getSActivity().mPeriodLockUps;
@@ -110,7 +113,7 @@ public class ListFarmingFragment extends BaseFragment {
     }
 
     public PoolOuterClass.Pool getPoolwithID(long id){
-        for (PoolOuterClass.Pool pool: mFarmingList) {
+        for (PoolOuterClass.Pool pool: mTempPoolList) {
             if (pool.getId() == id) {
                 return pool;
             }

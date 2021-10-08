@@ -1673,16 +1673,20 @@ public class WUtil {
 
     public static BigDecimal getNextIncentiveAmount(ArrayList<GaugeOuterClass.Gauge> gauges, int position) {
         if (gauges.size() != 3) { return BigDecimal.ZERO; }
-        BigDecimal incentive1Day = (new BigDecimal(gauges.get(0).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
-        BigDecimal incentive7Day = (new BigDecimal(gauges.get(1).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(1).getDistributedCoins(0).getAmount()));
-        BigDecimal incentive14Day = (new BigDecimal(gauges.get(2).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(2).getDistributedCoins(0).getAmount()));
+        BigDecimal incentive1Day = BigDecimal.ZERO;
+        BigDecimal incentive7Day = BigDecimal.ZERO;
+        BigDecimal incentive14Day = BigDecimal.ZERO;
+        if (gauges.get(0).getDistributedCoinsCount() == 0) {
+            return BigDecimal.ZERO;
+        } else {
+            incentive1Day = (new BigDecimal(gauges.get(0).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
+        }
+//        incentive7Day = (new BigDecimal(gauges.get(1).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(1).getDistributedCoins(0).getAmount()));
+//        incentive14Day = (new BigDecimal(gauges.get(2).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(2).getDistributedCoins(0).getAmount()));
         if (position == 0) {
             return incentive1Day;
-        } else if (position == 1) {
-            return incentive1Day.add(incentive7Day);
-        } else {
-            return incentive1Day.add(incentive7Day).add(incentive14Day);
         }
+        return BigDecimal.ZERO;
     }
 
     public static BigDecimal getPoolArp(BaseData baseData, PoolOuterClass.Pool pool, ArrayList<GaugeOuterClass.Gauge> gauges, int position) {

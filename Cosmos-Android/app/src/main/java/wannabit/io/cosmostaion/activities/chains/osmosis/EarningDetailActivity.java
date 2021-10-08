@@ -44,7 +44,7 @@ import wannabit.io.cosmostaion.widget.osmosis.EarningBondedHolder;
 import wannabit.io.cosmostaion.widget.osmosis.EarningUnbondedHolder;
 import wannabit.io.cosmostaion.widget.osmosis.EarningUnbondingHolder;
 
-public class  EarningDetailActivity extends BaseActivity implements View.OnClickListener {
+public class EarningDetailActivity extends BaseActivity implements View.OnClickListener {
     private static final int                    TYPE_BONDED        = 1;
     private static final int                    TYPE_UNBONDING     = 2;
     private static final int                    TYPE_UNBONDED      = 3;
@@ -115,7 +115,7 @@ public class  EarningDetailActivity extends BaseActivity implements View.OnClick
             mPoolIdTv.setText("#" + mPool.getId() + " MY EARNING");
             mPoolIdTv.setTextColor(getResources().getColor(R.color.colorOsmosis));
         } else {
-            mPoolIdTv.setText("#" + mPool.getId() + "EARNING");
+            mPoolIdTv.setText("#" + mPool.getId() + " EARNING");
         }
         mPoolCoinPairTv.setText(WUtil.dpOsmosisTokenName(coin0.denom) + " / " + WUtil.dpOsmosisTokenName(coin1.denom));
 
