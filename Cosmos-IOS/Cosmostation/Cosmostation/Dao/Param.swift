@@ -130,10 +130,6 @@ public struct Param {
         return params?.enabled_pools?.contains(id)
     }
     
-    func isFarmEnabled(_ id: Int) -> Bool? {
-        return params?.enabled_farmings?.contains(id)
-    }
-    
 }
 
 public struct Params {
@@ -149,7 +145,6 @@ public struct Params {
     var iris_tokens: Array<IrisToken>?
 
     var enabled_pools: Array<Int>?
-    var enabled_farmings: Array<Int>?
     
     var osmosis_minting_params: OsmosisMintingParam?
     var osmosis_minting_epoch_provisions: String?
@@ -210,12 +205,6 @@ public struct Params {
             self.enabled_pools = Array<Int>()
             for rawEnabledPool in rawEnabledPools {
                 self.enabled_pools?.append(rawEnabledPool)
-            }
-        }
-        if let rawEnabledFarmings = dictionary?["enabled_farming"] as? Array<Int> {
-            self.enabled_farmings = Array<Int>()
-            for rawEnabledFarming in rawEnabledFarmings {
-                self.enabled_farmings?.append(rawEnabledFarming)
             }
         }
         

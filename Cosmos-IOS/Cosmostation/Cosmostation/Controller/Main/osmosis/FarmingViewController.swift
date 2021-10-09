@@ -173,11 +173,9 @@ class FarmingViewController: BaseViewController, UITableViewDelegate, UITableVie
                 //filter pool
                 response.pools.forEach { pool in
                     let rawPool = try! Osmosis_Gamm_V1beta1_Pool.init(serializedData: pool.value)
-                    if (BaseData.instance.mParam?.isFarmEnabled(Int(rawPool.id)) == true) {
-                        self.mPoolList.append(rawPool)
-                    }
+                    self.mPoolList.append(rawPool)
                 }
-//                print("mPoolList ", self.mPoolList.count)
+                print("mPoolList ", self.mPoolList.count)
                 try? channel.close().wait()
                 
             } catch {
@@ -200,6 +198,7 @@ class FarmingViewController: BaseViewController, UITableViewDelegate, UITableVie
             do {
                 let req = Osmosis_Poolincentives_V1beta1_QueryIncentivizedPoolsRequest.init()
                 let response = try Osmosis_Poolincentives_V1beta1_QueryClient(channel: channel).incentivizedPools(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
+//                print("response ", response)
                 response.incentivizedPools.forEach { pool in
                     self.mIncentivizedPool.append(pool)
                 }
