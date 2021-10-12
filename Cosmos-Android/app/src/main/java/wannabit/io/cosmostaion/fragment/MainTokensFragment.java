@@ -736,7 +736,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Starname Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_token_img));
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_starname));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_IOV);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));

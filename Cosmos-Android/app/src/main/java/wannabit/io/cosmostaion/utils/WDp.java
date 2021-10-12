@@ -899,7 +899,7 @@ public class WDp {
         } else if (baseChain.equals(KAVA_MAIN)) {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.kava_img));
         } else if (baseChain.equals(IOV_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.iov_chain_img));
+            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_starname));
         } else if (baseChain.equals(BAND_MAIN)) {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.band_chain_img));
         } else if (baseChain.equals(CERTIK_MAIN)) {
@@ -2912,7 +2912,7 @@ public class WDp {
         } else if (baseChain.equals(BAND_MAIN)) {
             imageView.setImageResource(R.drawable.band_token_img);
         } else if (baseChain.equals(IOV_MAIN)) {
-            imageView.setImageResource(R.drawable.iov_token_img);
+            imageView.setImageResource(R.drawable.token_starname);
         } else if (baseChain.equals(SECRET_MAIN)) {
             imageView.setImageResource(R.drawable.tokensecret);
         } else if (baseChain.equals(CERTIK_MAIN) || baseChain.equals(CERTIK_TEST)) {
@@ -3235,7 +3235,7 @@ public class WDp {
             txtView.setText(c.getString(R.string.str_kava_net_test_2));
 
         } else if (chain.equals(IOV_MAIN)) {
-            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.iov_chain_img));
+            if (imgView != null) imgView.setImageDrawable(c.getResources().getDrawable(R.drawable.chain_starname));
             txtView.setText(c.getString(R.string.str_iov_net_2));
 
         } else if (chain.equals(BAND_MAIN)) {

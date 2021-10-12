@@ -139,7 +139,7 @@ public class StarNameWalletConnectActivity  extends BaseActivity implements View
         Picasso.get()
                 .load(sessionRequest.getPeer().getMeta().getIcons().get(0))
                 .fit()
-                .placeholder(R.drawable.iov_chain_img)
+                .placeholder(R.drawable.chain_starname)
                 .into(mWcImg);
         mWcName.setText(sessionRequest.getPeer().getMeta().getName());
         mWcUrl.setText(sessionRequest.getPeer().getMeta().getUrl());

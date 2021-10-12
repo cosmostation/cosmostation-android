@@ -437,8 +437,14 @@ public class ResApiNewTxListCustom {
                     BigDecimal totalRewardSum = BigDecimal.ZERO;
                     for (int i = 0; i < data.logs.size(); i ++) {
                         try {
-                            String value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(1).
-                                    getJSONArray("attributes").getJSONObject(2).getString("value");
+                            String value = "";
+                            if (chain.equals(BaseChain.JUNO_MAIN)) {
+                                value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(1).
+                                        getJSONArray("attributes").getJSONObject(1).getString("value");
+                            } else {
+                                value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(1).
+                                        getJSONArray("attributes").getJSONObject(2).getString("value");
+                            }
                             totalRewardSum = totalRewardSum.add(new BigDecimal(value.split("[^0-9]")[0]));
                         } catch (Exception e) { }
                     }

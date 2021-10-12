@@ -1676,17 +1676,25 @@ public class WUtil {
         BigDecimal incentive1Day = BigDecimal.ZERO;
         BigDecimal incentive7Day = BigDecimal.ZERO;
         BigDecimal incentive14Day = BigDecimal.ZERO;
-        if (gauges.get(0).getDistributedCoinsCount() == 0) {
-            return BigDecimal.ZERO;
-        } else {
+        if (gauges.get(0).getDistributedCoinsCount() == 0) { return BigDecimal.ZERO; }
+        else {
             incentive1Day = (new BigDecimal(gauges.get(0).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(0).getDistributedCoins(0).getAmount()));
         }
-//        incentive7Day = (new BigDecimal(gauges.get(1).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(1).getDistributedCoins(0).getAmount()));
-//        incentive14Day = (new BigDecimal(gauges.get(2).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(2).getDistributedCoins(0).getAmount()));
+        if (gauges.get(1).getDistributedCoinsCount() == 0) { return BigDecimal.ZERO; }
+        else {
+            incentive7Day = (new BigDecimal(gauges.get(1).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(1).getDistributedCoins(0).getAmount()));
+        }
+        if (gauges.get(2).getDistributedCoinsCount() == 0) { return BigDecimal.ZERO; }
+        else {
+            incentive14Day = (new BigDecimal(gauges.get(2).getCoins(0).getAmount())).subtract(new BigDecimal(gauges.get(2).getDistributedCoins(0).getAmount()));
+        }
         if (position == 0) {
             return incentive1Day;
+        } else if ( position == 1) {
+            return incentive1Day.add(incentive7Day);
+        } else {
+            return incentive1Day.add(incentive7Day).add(incentive14Day);
         }
-        return BigDecimal.ZERO;
     }
 
     public static BigDecimal getPoolArp(BaseData baseData, PoolOuterClass.Pool pool, ArrayList<GaugeOuterClass.Gauge> gauges, int position) {
@@ -1982,7 +1990,7 @@ public class WUtil {
             return c.getResources().getDrawable(R.drawable.ethereum_chain_img);
 
         } else if (res.getUri().equals(STARNAME)) {
-            return c.getResources().getDrawable(R.drawable.iov_chain_img);
+            return c.getResources().getDrawable(R.drawable.chain_starname);
 
         } else if (res.getUri().equals(BAND)) {
             return c.getResources().getDrawable(R.drawable.band_chain_img);
@@ -2333,8 +2341,8 @@ public class WUtil {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.sifchain_img));
             guideTitle.setText(R.string.str_front_guide_title_sif);
             guideMsg.setText(R.string.str_front_guide_msg_sif);
-            guideBtn1.setText(R.string.str_guide_sif);
-            guideBtn2.setText(R.string.str_faq_sif);
+            guideBtn1.setText(R.string.str_faq_sif);
+            guideBtn2.setText(R.string.str_guide_sif);
 
         } else if (mainActivity.mBaseChain.equals(KI_MAIN)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.kifoundation_img));
@@ -2354,8 +2362,8 @@ public class WUtil {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_rizon));
             guideTitle.setText(R.string.str_front_guide_title_rizon);
             guideMsg.setText(R.string.str_front_guide_msg_rizon);
-            guideBtn1.setText(R.string.str_guide_rizon);
-            guideBtn2.setText(R.string.str_faq_rizon);
+            guideBtn1.setText(R.string.str_faq_rizon);
+            guideBtn2.setText(R.string.str_guide_rizon);
 
         } else if (mainActivity.mBaseChain.equals(MEDI_MAIN) || mainActivity.mBaseChain.equals(MEDI_TEST)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.medibloc_img));
@@ -2420,7 +2428,7 @@ public class WUtil {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.kava.io/registration/"));
 
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.starname.network/"));
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.starname.me/"));
 
         } else if (chain.equals(BAND_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://bandprotocol.com/"));
