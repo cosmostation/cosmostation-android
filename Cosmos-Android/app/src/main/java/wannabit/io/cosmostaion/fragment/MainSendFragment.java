@@ -335,7 +335,7 @@ public class MainSendFragment extends BaseFragment {
         @Override
         public int getItemCount() {
             if (getMainActivity().mBaseChain == null) { return 0; }
-            if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 return 5;
             } else if (isGRPC(getMainActivity().mBaseChain )) {
                 return 4;

@@ -2341,8 +2341,8 @@ public class WUtil {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.sifchain_img));
             guideTitle.setText(R.string.str_front_guide_title_sif);
             guideMsg.setText(R.string.str_front_guide_msg_sif);
-            guideBtn1.setText(R.string.str_guide_sif);
-            guideBtn2.setText(R.string.str_faq_sif);
+            guideBtn1.setText(R.string.str_faq_sif);
+            guideBtn2.setText(R.string.str_guide_sif);
 
         } else if (mainActivity.mBaseChain.equals(KI_MAIN)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.kifoundation_img));
@@ -2362,8 +2362,8 @@ public class WUtil {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_rizon));
             guideTitle.setText(R.string.str_front_guide_title_rizon);
             guideMsg.setText(R.string.str_front_guide_msg_rizon);
-            guideBtn1.setText(R.string.str_guide_rizon);
-            guideBtn2.setText(R.string.str_faq_rizon);
+            guideBtn1.setText(R.string.str_faq_rizon);
+            guideBtn2.setText(R.string.str_guide_rizon);
 
         } else if (mainActivity.mBaseChain.equals(MEDI_MAIN) || mainActivity.mBaseChain.equals(MEDI_TEST)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.medibloc_img));
@@ -2428,7 +2428,7 @@ public class WUtil {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.kava.io/registration/"));
 
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.starname.network/"));
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.starname.me/"));
 
         } else if (chain.equals(BAND_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://bandprotocol.com/"));
