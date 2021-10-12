@@ -1990,7 +1990,7 @@ public class WUtil {
             return c.getResources().getDrawable(R.drawable.ethereum_chain_img);
 
         } else if (res.getUri().equals(STARNAME)) {
-            return c.getResources().getDrawable(R.drawable.iov_chain_img);
+            return c.getResources().getDrawable(R.drawable.chain_starname);
 
         } else if (res.getUri().equals(BAND)) {
             return c.getResources().getDrawable(R.drawable.band_chain_img);
