@@ -900,6 +900,7 @@
 		28D372AB254BFCE70071B136 /* RegisterAccount4ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28D372A9254BFCE70071B136 /* RegisterAccount4ViewController.xib */; };
 		28D372B0254C07470071B136 /* RegistAccountCheckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D372AE254C07470071B136 /* RegistAccountCheckCell.swift */; };
 		28D372B1254C07470071B136 /* RegistAccountCheckCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28D372AF254C07470071B136 /* RegistAccountCheckCell.xib */; };
+		28D765A2271585FA00730F47 /* StarnameAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D765A1271585FA00730F47 /* StarnameAssets.swift */; };
 		28D7BDA125F0B707006EECD7 /* KavaIncentiveParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D7BDA025F0B707006EECD7 /* KavaIncentiveParam.swift */; };
 		28D7BDA425F0B75F006EECD7 /* IncentiveParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D7BDA325F0B75F006EECD7 /* IncentiveParam.swift */; };
 		28D7BDA825F0B792006EECD7 /* ClaimMultiplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D7BDA725F0B792006EECD7 /* ClaimMultiplier.swift */; };
@@ -2072,6 +2073,7 @@
 		28D372A9254BFCE70071B136 /* RegisterAccount4ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterAccount4ViewController.xib; sourceTree = "<group>"; };
 		28D372AE254C07470071B136 /* RegistAccountCheckCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistAccountCheckCell.swift; sourceTree = "<group>"; };
 		28D372AF254C07470071B136 /* RegistAccountCheckCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegistAccountCheckCell.xib; sourceTree = "<group>"; };
+		28D765A1271585FA00730F47 /* StarnameAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarnameAssets.swift; sourceTree = "<group>"; };
 		28D7BDA025F0B707006EECD7 /* KavaIncentiveParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaIncentiveParam.swift; sourceTree = "<group>"; };
 		28D7BDA325F0B75F006EECD7 /* IncentiveParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncentiveParam.swift; sourceTree = "<group>"; };
 		28D7BDA725F0B792006EECD7 /* ClaimMultiplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimMultiplier.swift; sourceTree = "<group>"; };
@@ -3883,6 +3885,7 @@
 				E17748D82282C612003D8CD1 /* Cosmostation-Bridging-Header.h */,
 				28E3E370266D033100BA89C2 /* HdacUtil.swift */,
 				281008492696D979002986A6 /* KeyFac.swift */,
+				28D765A1271585FA00730F47 /* StarnameAssets.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -5274,6 +5277,7 @@
 				287AC5C425FDF7250070837E /* ibc_core_client_v1_genesis.pb.swift in Sources */,
 				E1317142225F352A00EE5AD0 /* PostTx.swift in Sources */,
 				E171A06D225B08A000C5756C /* StepDelegateAmountViewController.swift in Sources */,
+				28D765A2271585FA00730F47 /* StarnameAssets.swift in Sources */,
 				2842AB61242C30AA00248EEB /* KavaCdpParam.swift in Sources */,
 				287E0AA426EDC6F300F8C242 /* WalletAxelarCell.swift in Sources */,
 				E1A82DD1224220910097CAEE /* Account.swift in Sources */,
