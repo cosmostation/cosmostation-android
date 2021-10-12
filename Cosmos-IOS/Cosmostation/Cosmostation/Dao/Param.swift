@@ -153,6 +153,8 @@ public struct Params {
     
     var band_active_validators: BandOrcleActiveValidators?
     
+    var starname_domains = Array<String>()
+    
     init(_ dictionary: NSDictionary?) {
         if let rawIbcParams = dictionary?["ibc_params"] as? NSDictionary {
             self.ibc_params = IbcParams.init(rawIbcParams)
@@ -222,6 +224,13 @@ public struct Params {
         
         if let rawActiveValidators = dictionary?["active_validators"] as? NSDictionary {
             self.band_active_validators = BandOrcleActiveValidators.init(rawActiveValidators)
+        }
+        
+        
+        if let rawStarnameDomains = dictionary?["starname_domains"] as? Array<String> {
+            for rawStarnameDomain in rawStarnameDomains {
+                self.starname_domains.append(rawStarnameDomain)
+            }
         }
     }
 }
