@@ -4043,7 +4043,7 @@ public class WUtils {
         } else if (resource?.uri == ETHEREUM) {
             return UIImage.init(named: "ethereumChainImg")
         } else if (resource?.uri == STARNAME) {
-            return UIImage.init(named: "iovChainImg")
+            return UIImage.init(named: "chainStarname")
         } else if (resource?.uri == BAND) {
             return UIImage.init(named: "chainBandprotocal")
         } else if (resource?.uri == TEZOS) {
@@ -4664,7 +4664,7 @@ public class WUtils {
         else if (chain == ChainType.BAND_MAIN) { return UIImage(named: "chainBandprotocal") }
         else if (chain == ChainType.SECRET_MAIN) { return UIImage(named: "secretChainImg") }
         else if (chain == ChainType.CERTIK_MAIN) { return UIImage(named: "certikChainImg") }
-        else if (chain == ChainType.IOV_MAIN) { return UIImage(named: "iovChainImg") }
+        else if (chain == ChainType.IOV_MAIN) { return UIImage(named: "chainStarname") }
         else if (chain == ChainType.PERSIS_MAIN) { return UIImage(named: "chainpersistence") }
         else if (chain == ChainType.SENTINEL_MAIN) { return UIImage(named: "chainsentinel") }
         else if (chain == ChainType.FETCH_MAIN) { return UIImage(named: "chainfetchai") }

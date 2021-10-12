@@ -454,7 +454,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
         let iovAction = UIAlertAction(title: NSLocalizedString("chain_title_iov", comment: ""), style: .default, handler: {_ in
             self.onGenWatchAccount(ChainType.IOV_MAIN, input)
         })
-        iovAction.setValue(UIImage(named: "iovChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        iovAction.setValue(UIImage(named: "chainStarname")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         let iovTestAction = UIAlertAction(title: NSLocalizedString("chain_title_iov_test", comment: ""), style: .default, handler: {_ in
             self.onGenWatchAccount(ChainType.IOV_TEST, input)
         })

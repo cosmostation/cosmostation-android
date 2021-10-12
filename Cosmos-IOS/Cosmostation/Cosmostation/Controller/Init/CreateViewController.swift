@@ -151,7 +151,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             self.chainType = ChainType.IOV_MAIN
             self.onGenNewKey()
         })
-        iovAction.setValue(UIImage(named: "iovChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        iovAction.setValue(UIImage(named: "chainStarname")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let kavaAction = UIAlertAction(title: NSLocalizedString("chain_title_kava", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.KAVA_MAIN
