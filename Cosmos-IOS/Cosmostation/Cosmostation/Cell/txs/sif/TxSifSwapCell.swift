@@ -33,9 +33,29 @@ class TxSifSwapCell: TxCell {
         txSingerLabel.adjustsFontSizeToFitWidth = true
         
         let inCoin = Coin.init(msg.sentAsset.symbol, msg.sentAmount)
-        let outCoin = Coin.init(msg.receivedAsset.symbol, msg.minReceivingAmount)
         WUtils.showCoinDp(inCoin, txSwapInDenomLabel, txSwapInAmountLabel, chain)
-        WUtils.showCoinDp(outCoin, txSwapOutDenomLabel, txSwapOutAmountLabel, chain)
+        
+        var outCoin: Coin?
+        if response.txResponse.logs.count > position {
+            response.txResponse.logs[position].events.forEach { event in
+                if (event.type == "transfer") {
+                    event.attributes.forEach { attribute in
+                        if (event.attributes.count >= 6) {
+                            let coin = String(event.attributes[event.attributes.count - 1].value)
+                            if let range = coin.range(of: "[0-9]*", options: .regularExpression){
+                                let amount = String(coin[range])
+                                outCoin = Coin.init(coin.replacingOccurrences(of: amount, with: ""), amount)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (outCoin != nil) {
+            WUtils.showCoinDp(outCoin!, txSwapOutDenomLabel, txSwapOutAmountLabel, chain)
+        } else {
+            txSwapOutAmountLabel.text = ""
+            txSwapOutDenomLabel.text = ""
+        }
     }
-    
 }
