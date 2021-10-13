@@ -162,9 +162,9 @@ class GdexDeposit0ViewController: BaseViewController, UITextFieldDelegate {
         }
         input0TextFiled.layer.borderColor = UIColor.white.cgColor
         
-        let outputAmount = userInput.multiplying(byPowerOf10: coin0Decimal).multiplying(by: depositRate, withBehavior: WUtils.handler0)
-        input1TextFiled.text = outputAmount.multiplying(byPowerOf10: -coin1Decimal).stringValue
-        if (outputAmount.compare(available1MaxAmount).rawValue > 0) {
+        let outputAmount = userInput.multiplying(byPowerOf10: coin0Decimal - coin1Decimal).multiplying(by: depositRate, withBehavior: WUtils.handler18)
+        input1TextFiled.text = WUtils.decimalNumberToLocaleString(outputAmount, coin1Decimal)
+        if ((outputAmount.multiplying(byPowerOf10: coin1Decimal)).compare(available1MaxAmount).rawValue > 0) {
             input1TextFiled.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
         } else {
             input1TextFiled.layer.borderColor = UIColor.white.cgColor
@@ -206,9 +206,9 @@ class GdexDeposit0ViewController: BaseViewController, UITextFieldDelegate {
         }
         input1TextFiled.layer.borderColor = UIColor.white.cgColor
         
-        let outputAmount = userInput.multiplying(byPowerOf10: coin0Decimal).dividing(by: depositRate, withBehavior: WUtils.handler0)
-        input0TextFiled.text = outputAmount.multiplying(byPowerOf10: -coin0Decimal).stringValue
-        if (outputAmount.compare(available0MaxAmount).rawValue > 0) {
+        let outputAmount = userInput.multiplying(byPowerOf10: coin1Decimal - coin0Decimal).dividing(by: depositRate, withBehavior: WUtils.handler18)
+        input0TextFiled.text = WUtils.decimalNumberToLocaleString(outputAmount, coin0Decimal)
+        if ((outputAmount.multiplying(byPowerOf10: coin0Decimal)).compare(available0MaxAmount).rawValue > 0) {
             input0TextFiled.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
         } else {
             input0TextFiled.layer.borderColor = UIColor.white.cgColor
