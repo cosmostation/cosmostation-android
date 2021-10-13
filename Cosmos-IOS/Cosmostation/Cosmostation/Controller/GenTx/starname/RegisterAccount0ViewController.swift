@@ -11,16 +11,19 @@ import GRPC
 import NIO
 import SwiftProtobuf
 
-class RegisterAccount0ViewController: BaseViewController {
+class RegisterAccount0ViewController: BaseViewController, SBCardPopupDelegate {
     
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnNext: UIButton!
     @IBOutlet weak var userInput: AddressInputTextField!
+    @IBOutlet weak var domainCard: CardView!
+    @IBOutlet weak var domainLabel: UILabel!
     @IBOutlet weak var valideMsg: UILabel!
     @IBOutlet weak var starnameFeeAmount: UILabel!
     @IBOutlet weak var starnameFeeDenom: UILabel!
     
     var pageHolderVC: StepGenTxViewController!
+    var selectedDomain = "iov"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +35,7 @@ class RegisterAccount0ViewController: BaseViewController {
         self.userInput.placeholder = "Your Starname"
         
         userInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        self.domainCard.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onClickDomains (_:))))
     }
     
     override func enableUserInteraction() {
@@ -82,30 +86,39 @@ class RegisterAccount0ViewController: BaseViewController {
         }
         
         self.view.endEditing(true)
-        self.onFetchgRPCResolve(userInputData!, "iov")
+        self.onFetchgRPCResolve(userInputData!, selectedDomain)
         
     }
     
     func onGoNextPage() {
-        pageHolderVC.mStarnameDomain = "iov"
+        pageHolderVC.mStarnameDomain = selectedDomain
         pageHolderVC.mStarnameAccount = self.userInput.text?.trimmingCharacters(in: .whitespaces)
         self.btnCancel.isUserInteractionEnabled = false
         self.btnNext.isUserInteractionEnabled = false
         pageHolderVC.onNextPage()
     }
     
+    @objc func onClickDomains (_ sender: UITapGestureRecognizer) {
+        let popupVC = SelectPopupViewController(nibName: "SelectPopupViewController", bundle: nil)
+        popupVC.type = SELECT_POPUP_STARNAME_DOMAIN
+        popupVC.starnameDomains = BaseData.instance.mParam!.params!.starname_domains
+        let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
+        cardPopup.resultDelegate = self
+        cardPopup.show(onViewController: self)
+    }
+    
+    func SBCardPopupResponse(type: Int, result: Int) {
+        if (type == SELECT_POPUP_STARNAME_DOMAIN) {
+            selectedDomain = BaseData.instance.mParam!.params!.starname_domains[result]
+            domainLabel.text = selectedDomain
+        }
+    }
+    
     func onFetchgRPCResolve(_ account: String, _ doamin: String) {
         DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.chainType!, group)!
-            defer { try! channel.close().wait() }
-            
             do {
-                let req = Starnamed_X_Starname_V1beta1_QueryStarnameRequest.with {
-                    $0.starname = account + "*" + doamin
-                }
+                let channel = BaseNetWork.getConnection(self.chainType!, MultiThreadedEventLoopGroup(numberOfThreads: 1))!
+                let req = Starnamed_X_Starname_V1beta1_QueryStarnameRequest.with { $0.starname = account + "*" + doamin }
                 let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).starname(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
                 DispatchQueue.main.async(execute: {
                     self.onShowToast(NSLocalizedString("error_already_registered_account", comment: ""))
