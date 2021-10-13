@@ -60,8 +60,8 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:ResourceCell? = tableView.dequeueReusableCell(withIdentifier:"ResourceCell") as? ResourceCell
         let resource = mMyAccountResolve_gRPC?.account.resources[indexPath.row]
-        cell?.chainImg.image = WUtils.getStarNameChainImg2(resource)
-        cell?.chainName.text = WUtils.getStarNameChainName2(resource)
+        cell?.chainImg.af_setImage(withURL: getStarNameChainImgUrl(resource?.uri))
+        cell?.chainName.text = getStarNameChainName(resource?.uri)
         cell?.chainAddress.text = resource?.resource
         return cell!
     }
@@ -179,53 +179,37 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onFetchgRPCDomainInfo(_ domain: String) {
         DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.chainType!, group)!
-            defer { try! channel.close().wait() }
-            
             do {
-                let req = Starnamed_X_Starname_V1beta1_QueryDomainRequest.with {
-                    $0.name = domain
+                let channel = BaseNetWork.getConnection(self.chainType!, MultiThreadedEventLoopGroup(numberOfThreads: 1))!
+                let req = Starnamed_X_Starname_V1beta1_QueryDomainRequest.with { $0.name = domain }
+                if let response = try? Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).domain(req, callOptions:BaseNetWork.getCallOptions()).response.wait() {
+                    print("onFetchDomainInfo_gRPC ", domain, " ", response)
+                    self.mMyDomainInfo_gRPC = response.domain
                 }
-                let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).domain(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
-//                print("onFetchDomainInfo_gRPC ", domain, " ", response)
-                self.mMyDomainInfo_gRPC = response.domain
+                try channel.close().wait()
                 
             } catch {
                 print("onFetchDomainInfo_gRPC failed: \(error)")
             }
-            
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
+            DispatchQueue.main.async(execute: { self.onFetchFinished() });
         }
     }
     
     func onFetchgRPCResolve(_ account: String, _ doamin: String) {
         DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.chainType!, group)!
-            defer { try! channel.close().wait() }
-            
             do {
-                let req = Starnamed_X_Starname_V1beta1_QueryStarnameRequest.with {
-                    $0.starname = account + "*" + doamin
+                let channel = BaseNetWork.getConnection(self.chainType!, MultiThreadedEventLoopGroup(numberOfThreads: 1))!
+                let req = Starnamed_X_Starname_V1beta1_QueryStarnameRequest.with { $0.starname = account + "*" + doamin }
+                if let response = try? Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).starname(req, callOptions:BaseNetWork.getCallOptions()).response.wait() {
+                    print("onFetchgRPCResolve ", response)
+                    self.mMyAccountResolve_gRPC = response
                 }
-                let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).starname(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
-//                print("onFetchgRPCResolve ", response)
-                self.mMyAccountResolve_gRPC = response
+                try channel.close().wait()
                 
             } catch {
                 print("onFetchgRPCResolve failed: \(error)")
             }
-            
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
+            DispatchQueue.main.async(execute: { self.onFetchFinished() });
         }
     }
 }

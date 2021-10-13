@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,21 +21,21 @@
                         <rect key="frame" x="16" y="4" width="367" height="86"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cosmosWhMain" translatesAutoresizingMaskIntoConstraints="NO" id="mLW-ZL-dq2">
-                                <rect key="frame" x="12" y="4" width="32" height="32"/>
+                                <rect key="frame" x="12" y="12" width="22" height="22"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="ZXt-5u-1rW"/>
-                                    <constraint firstAttribute="width" constant="32" id="qqx-fr-PP8"/>
+                                    <constraint firstAttribute="height" constant="22" id="ZXt-5u-1rW"/>
+                                    <constraint firstAttribute="width" constant="22" id="qqx-fr-PP8"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Chain Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PxP-0I-su7">
-                                <rect key="frame" x="46" y="12" width="73.5" height="16"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <rect key="frame" x="42" y="16" width="68.5" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Chain Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hv7-7S-iim">
-                                <rect key="frame" x="16" y="38" width="339" height="36"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Chain Address" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hv7-7S-iim">
+                                <rect key="frame" x="16" y="40" width="339" height="34"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -53,15 +53,15 @@
                         <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40287885270000001" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="hv7-7S-iim" secondAttribute="bottom" constant="12" id="5H7-x0-9kx"/>
-                            <constraint firstItem="mLW-ZL-dq2" firstAttribute="top" secondItem="dRi-yr-3mD" secondAttribute="top" constant="4" id="8Ym-Z4-BpX"/>
+                            <constraint firstItem="mLW-ZL-dq2" firstAttribute="top" secondItem="dRi-yr-3mD" secondAttribute="top" constant="12" id="8Ym-Z4-BpX"/>
                             <constraint firstAttribute="trailing" secondItem="hv7-7S-iim" secondAttribute="trailing" constant="12" id="ATY-It-oEM"/>
                             <constraint firstAttribute="trailing" secondItem="GSi-he-zwf" secondAttribute="trailing" constant="12" id="Nyi-90-gWf"/>
                             <constraint firstItem="PxP-0I-su7" firstAttribute="centerY" secondItem="mLW-ZL-dq2" secondAttribute="centerY" id="TIS-Ld-ceQ"/>
                             <constraint firstItem="hv7-7S-iim" firstAttribute="leading" secondItem="dRi-yr-3mD" secondAttribute="leading" constant="16" id="YuL-1w-bK2"/>
                             <constraint firstItem="mLW-ZL-dq2" firstAttribute="leading" secondItem="dRi-yr-3mD" secondAttribute="leading" constant="12" id="mpd-kf-Pzj"/>
                             <constraint firstItem="GSi-he-zwf" firstAttribute="top" secondItem="dRi-yr-3mD" secondAttribute="top" constant="4" id="wwF-6k-MkR"/>
-                            <constraint firstItem="PxP-0I-su7" firstAttribute="leading" secondItem="mLW-ZL-dq2" secondAttribute="trailing" constant="2" id="xTL-IV-nIT"/>
-                            <constraint firstItem="hv7-7S-iim" firstAttribute="top" secondItem="mLW-ZL-dq2" secondAttribute="bottom" constant="2" id="xac-Jl-TPo"/>
+                            <constraint firstItem="PxP-0I-su7" firstAttribute="leading" secondItem="mLW-ZL-dq2" secondAttribute="trailing" constant="8" id="xTL-IV-nIT"/>
+                            <constraint firstItem="hv7-7S-iim" firstAttribute="top" secondItem="mLW-ZL-dq2" secondAttribute="bottom" constant="6" id="xac-Jl-TPo"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">

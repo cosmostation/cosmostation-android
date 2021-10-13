@@ -70,8 +70,8 @@ class ReplaceResource0ViewController: BaseViewController, UITableViewDelegate, U
     func onBindResource(_ tableView: UITableView,  _ position:Int) -> UITableViewCell  {
         let cell:ResourceEditCell? = tableView.dequeueReusableCell(withIdentifier:"ResourceEditCell") as? ResourceEditCell
         let resource = pageHolderVC.mStarnameResources_gRPC[position]
-        cell?.chainImg.image = WUtils.getStarNameChainImg2(resource)
-        cell?.chainName.text = WUtils.getStarNameChainName2(resource)
+        cell?.chainImg.af_setImage(withURL: getStarNameChainImgUrl(resource.uri))
+        cell?.chainName.text = getStarNameChainName(resource.uri)
         cell?.chainAddress.text = resource.resource
         if (pageHolderVC.mStarnameResources_gRPC.count == 1) {
             cell?.btnRemove.isHidden = true
