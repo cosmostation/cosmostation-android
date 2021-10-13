@@ -74,6 +74,9 @@ public class ChainParam {
         @SerializedName("active_validators")
         public ActiveValidators activeValidators;
 
+        @SerializedName("starname_domains")
+        public ArrayList<String> mStarnameDomains;
+
 
         public BigDecimal getMintInflation(BaseChain baseChain) {
             if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {
