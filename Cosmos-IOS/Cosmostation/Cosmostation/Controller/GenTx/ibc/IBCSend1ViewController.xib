@@ -176,7 +176,7 @@
                         </button>
                     </subviews>
                 </stackView>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tAR-Ba-vio">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tAR-Ba-vio">
                     <rect key="frame" x="16" y="651.5" width="382" height="136.5"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starnameImg" translatesAutoresizingMaskIntoConstraints="NO" id="HGm-Yo-F5S">
