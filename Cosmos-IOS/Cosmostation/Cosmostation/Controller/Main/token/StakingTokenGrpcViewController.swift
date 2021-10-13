@@ -84,11 +84,8 @@ class StakingTokenGrpcViewController: BaseViewController, UITableViewDelegate, U
         self.topDpAddress.text = account?.dpAddress(chainType)
         self.topDpAddress.adjustsFontSizeToFitWidth = true
         let totalToken = WUtils.getAllMainAsset(stakingDenom)
-        self.topValue.attributedText = WUtils.dpUserCurrencyValue(stakingDenom, totalToken, 6, topValue.font)
+        self.topValue.attributedText = WUtils.dpUserCurrencyValue(stakingDenom, totalToken, stakingDivideDecimal, topValue.font)
     }
-    
-    
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 4
