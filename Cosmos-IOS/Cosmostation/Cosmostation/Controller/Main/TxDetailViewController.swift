@@ -558,12 +558,13 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onBindCommission(_ tableView: UITableView,  _ position:Int) -> UITableViewCell  {
         let cell:TxCommissionCell? = tableView.dequeueReusableCell(withIdentifier:"TxCommissionCell") as? TxCommissionCell
         let msg = mTxInfo?.getMsg(position - 1)
+        let decimal = WUtils.mainDivideDecimal(chainType)
         cell?.setDenomType(chainType!)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        cell?.validatorLabel.text = msg?.value.validator_addr
-        cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_addr!, true)
-        cell?.commissionAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleCommissionIris().stringValue, cell!.commissionAmountLabel.font!, 18, 18)
+        cell?.validatorLabel.text = msg?.value.validator_address
+        cell?.monikerLabel.text = WUtils.getMonikerName(mAllValidator, msg!.value.validator_address, true)
+        cell?.commissionAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleCommission(position - 1).stringValue, cell!.commissionAmountLabel.font!, decimal, decimal)
         return cell!
     }
     

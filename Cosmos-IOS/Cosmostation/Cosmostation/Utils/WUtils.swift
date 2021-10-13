@@ -3075,7 +3075,7 @@ public class WUtils {
         return 0
     }
     
-    static func getMonikerName(_ validators: Array<Validator>,  _ opAddr: String, _ bracket:Bool) -> String {
+    static func getMonikerName(_ validators: Array<Validator>,  _ opAddr: String?, _ bracket:Bool) -> String {
         for val in validators {
             if (val.operator_address == opAddr) {
                 if (bracket) {

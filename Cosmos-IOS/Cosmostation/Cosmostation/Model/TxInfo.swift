@@ -122,8 +122,9 @@ public struct TxInfo {
                 if let attributes = event.attributes {
                     for i in 0...attributes.count - 1 {
                         if (attributes[i].key == "validator" && attributes[i].value == opAddr) {
-                            if let value = attributes[i - 1].value {
-                                reward = NSDecimalNumber.init(string: value.filter{ $0.isNumber })
+                            if let rawValue = attributes[i - 1].value, let rawRewad = rawValue.split(separator: ",").first {
+                                reward = NSDecimalNumber.init(string: String(rawRewad).filter{ $0.isNumber })
+                                break;
                             }
                         }
                     }
@@ -163,8 +164,9 @@ public struct TxInfo {
                 if let attributes = event.attributes {
                     for i in 0...attributes.count - 1 {
                         if (attributes[i].key == "amount") {
-                            if let value = attributes[i].value {
-                                commission = NSDecimalNumber.init(string: value.filter{ $0.isNumber })
+                            if let rawValue = attributes[i].value, let rawRewad = rawValue.split(separator: ",").first {
+                                commission = NSDecimalNumber.init(string: String(rawRewad).filter{ $0.isNumber })
+                                break;
                             }
                         }
                     }
