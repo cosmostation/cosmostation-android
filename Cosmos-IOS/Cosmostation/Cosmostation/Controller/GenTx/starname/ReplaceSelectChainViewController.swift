@@ -14,12 +14,12 @@ class ReplaceSelectChainViewController: BaseViewController, UITableViewDelegate,
     
     var resultDelegate: ReplaceSelectChainDelegate?
     var starnameResources_gRPC: Array<Starnamed_X_Starname_V1beta1_Resource> = Array<Starnamed_X_Starname_V1beta1_Resource>()
-    var allStarnameResources_gRPC: Array<Starnamed_X_Starname_V1beta1_Resource> = Array<Starnamed_X_Starname_V1beta1_Resource>()
+    var allStarnameResources = Array<StarnameAsset>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.allStarnameResources_gRPC = WUtils.getStarNameAllResources2()
+        self.allStarnameResources = getStarnameAssets()
         self.selectChainTableView.delegate = self
         self.selectChainTableView.dataSource = self
         self.selectChainTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -27,14 +27,14 @@ class ReplaceSelectChainViewController: BaseViewController, UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allStarnameResources_gRPC.count
+        return allStarnameResources.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:ResourceChainCell? = tableView.dequeueReusableCell(withIdentifier:"ResourceChainCell") as? ResourceChainCell
-        let resource = allStarnameResources_gRPC[indexPath.row]
-        cell?.chainImg.image = WUtils.getStarNameChainImg2(resource)
-        cell?.chainName.text = WUtils.getStarNameChainName2(resource)
+        let resource = allStarnameResources[indexPath.row]
+        cell?.chainImg.af_setImage(withURL: getStarNameChainImgUrl(resource.uri))
+        cell?.chainName.text = getStarNameChainName(resource.uri)
         if starnameResources_gRPC.filter({ $0.uri == resource.uri}).first != nil {
             cell?.cardRoot.backgroundColor = UIColor.init(hexString: "f5f5f5")
         } else {
@@ -44,7 +44,7 @@ class ReplaceSelectChainViewController: BaseViewController, UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let resource = allStarnameResources_gRPC[indexPath.row]
+        let resource = allStarnameResources[indexPath.row]
         if starnameResources_gRPC.filter({ $0.uri == resource.uri}).first != nil {
             self.onShowToast(NSLocalizedString("error_already_address_added_chain", comment: ""))
             return

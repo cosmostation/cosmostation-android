@@ -25,6 +25,7 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
     var toAccountList = Array<Account>()
     var ibcToChain = Array<IbcPath>()
     var ibcRelayer = Array<Path>()
+    var starnameDomains = Array<String>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
         self.popupTableview.delegate = self
         self.popupTableview.dataSource = self
         self.popupTableview.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.popupTableview.register(UINib(nibName: "SelectTextCell", bundle: nil), forCellReuseIdentifier: "SelectTextCell")
         self.popupTableview.register(UINib(nibName: "SelectChainCell", bundle: nil), forCellReuseIdentifier: "SelectChainCell")
         self.popupTableview.register(UINib(nibName: "SelectCoinCell", bundle: nil), forCellReuseIdentifier: "SelectCoinCell")
         self.popupTableview.register(UINib(nibName: "SelectAccountCell", bundle: nil), forCellReuseIdentifier: "SelectAccountCell")
@@ -69,6 +71,8 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
         } else if (type == SELECT_POPUP_IBC_RELAYER) {
             self.popupTitle.text = NSLocalizedString("str_select_ibc_relayer", comment: "")
             
+        } else if (type == SELECT_POPUP_STARNAME_DOMAIN) {
+            self.popupTitle.text = NSLocalizedString("str_select_starname_domain", comment: "")
         }
     }
     
@@ -86,6 +90,8 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             esHeight = (CGFloat)((ibcToChain.count * 55) + 55)
         } else if (type == SELECT_POPUP_IBC_RELAYER) {
             esHeight = (CGFloat)((ibcRelayer.count * 55) + 55)
+        } else if (type == SELECT_POPUP_STARNAME_DOMAIN) {
+            esHeight = (CGFloat)((starnameDomains.count * 55) + 55)
         }
         esHeight = (esHeight > 350) ? 350 : esHeight
         cardView.frame = CGRect(x: cardView.frame.origin.x, y: cardView.frame.origin.y, width: cardView.frame.size.width, height: esHeight)
@@ -110,6 +116,8 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             return ibcToChain.count
         } else if (type == SELECT_POPUP_IBC_RELAYER) {
             return ibcRelayer.count
+        } else if (type == SELECT_POPUP_STARNAME_DOMAIN) {
+            return starnameDomains.count
         }
         return 0
     }
@@ -264,11 +272,11 @@ class SelectPopupViewController: BaseViewController, SBCardPopupContent, UITable
             } else {
                 cell!.channelStausImg.image = UIImage(named: "ibcunknown")
             }
-//            if let description = path.description {
-//                cell!.channelMsg.text = description
-//            } else {
-//                cell!.channelMsg.text = "Unknown"
-//            }
+            return cell!
+            
+        } else if (type == SELECT_POPUP_STARNAME_DOMAIN) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"SelectTextCell") as? SelectTextCell
+            cell!.selectTextLabel.text = starnameDomains[indexPath.row]
             return cell!
             
         } else {

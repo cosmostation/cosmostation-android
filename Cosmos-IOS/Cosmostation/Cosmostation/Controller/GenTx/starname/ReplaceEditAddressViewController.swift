@@ -41,17 +41,15 @@ class ReplaceEditAddressViewController: BaseViewController, QrScannerDelegate, S
         self.btnPaste.setImage(pasteImg, for: .normal)
         self.btnPaste.tintColor = UIColor.init(hexString: "222222")
         
-        let initResource = Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = chainNameResource! }
-        chainImg.image = WUtils.getStarNameChainImg2(initResource)
-        chainNameLabel.text = WUtils.getStarNameChainName2(initResource)
+        chainImg.af_setImage(withURL: getStarNameChainImgUrl(chainNameResource))
+        chainNameLabel.text = getStarNameChainName(chainNameResource)
         addressInput.text = addressResource
         
     }
     
     @IBAction func onClickWallet(_ sender: UIButton) {
-        if let chainType = WUtils.getChainTypeWithUri(chainNameResource) {
+        if let asset = getStarnameAssets().filter({ $0.uri == chainNameResource}).first, let chainType = asset.chainType {
             selectableAccounts = BaseData.instance.selectAllAccountsByChain(chainType)
-//            print("selectableAccounts ", selectableAccounts.count)
             if (selectableAccounts.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_no_wallet_this_chain", comment: ""))
                 return
@@ -101,33 +99,12 @@ class ReplaceEditAddressViewController: BaseViewController, QrScannerDelegate, S
             return;
             
         } else {
-            let chainType = WUtils.getChainTypeWithUri(chainNameResource)
-            if (chainType == ChainType.COSMOS_MAIN && (!userInput!.starts(with: "cosmos1") || !WKey.isValidateBech32(userInput!))) {
-                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
-                return
-                
-            } else if (chainType == ChainType.IRIS_MAIN && (!userInput!.starts(with: "iaa1") || !WKey.isValidateBech32(userInput!))) {
-                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
-                return
-                
-            } else if (chainType == ChainType.KAVA_MAIN && (!userInput!.starts(with: "kava1") || !WKey.isValidateBech32(userInput!))) {
-                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
-                return
-                
-            } else if (chainType == ChainType.BAND_MAIN && (!userInput!.starts(with: "band1") || !WKey.isValidateBech32(userInput!))) {
-                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
-                return
-                
-            } else if (chainType == ChainType.BINANCE_MAIN && (!userInput!.starts(with: "bnb1") || !WKey.isValidateBech32(userInput!))) {
-                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
-                return
-                
-            } else if (chainType == ChainType.IOV_MAIN && (!userInput!.starts(with: "star1") || !WKey.isValidateBech32(userInput!))) {
-                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
-                return
-                
+            if let asset = getStarnameAssets().filter({ $0.uri == chainNameResource}).first, let chainType = asset.chainType {
+                if (!WUtils.isValidChainAddress(chainType, userInput)) {
+                    self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                    return
+                }
             }
-            
             self.dismiss(animated: true, completion: {
                 self.resultDelegate?.addressEditedCallback(self.chainNameResource!, userInput!)
             })

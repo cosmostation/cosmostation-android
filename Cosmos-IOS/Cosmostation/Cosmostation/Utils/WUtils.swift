@@ -4021,93 +4021,6 @@ public class WUtils {
         return 0
     }
     
-    static func getStarNameChainImg2(_ resource: Starnamed_X_Starname_V1beta1_Resource?) -> UIImage? {
-        if (resource?.uri == BITCOINCASH) {
-            return UIImage.init(named: "bcashChainImg")
-        } else if (resource?.uri == BITCOIN) {
-            return UIImage.init(named: "bitcoinChainImg")
-        } else if (resource?.uri == LITECOIN) {
-            return UIImage.init(named: "liteChainImg")
-        } else if (resource?.uri == BINANCE) {
-            return UIImage.init(named: "binanceChImg")
-        } else if (resource?.uri == LUNA) {
-            return UIImage.init(named: "terraChainImg")
-        } else if (resource?.uri == COSMOS) {
-            return UIImage.init(named: "cosmosWhMain")
-        } else if (resource?.uri == EMONEY) {
-            return UIImage.init(named: "emoneyChainImg")
-        } else if (resource?.uri == IRIS) {
-            return UIImage.init(named: "irisWh")
-        } else if (resource?.uri == KAVA) {
-            return UIImage.init(named: "kavaImg")
-        } else if (resource?.uri == ETHEREUM) {
-            return UIImage.init(named: "ethereumChainImg")
-        } else if (resource?.uri == STARNAME) {
-            return UIImage.init(named: "chainStarname")
-        } else if (resource?.uri == BAND) {
-            return UIImage.init(named: "chainBandprotocal")
-        } else if (resource?.uri == TEZOS) {
-            return UIImage.init(named: "tezosChainImg")
-        } else if (resource?.uri == LISK) {
-            return UIImage.init(named: "liskChainImg")
-        } else {
-            return UIImage.init(named: "defaultChainImg")
-        }
-    }
-
-    static func getStarNameChainName2(_ resource: Starnamed_X_Starname_V1beta1_Resource?) -> String? {
-        if (resource?.uri == BITCOINCASH) {
-            return "Bitcoin Cash";
-        } else if (resource?.uri == BITCOIN) {
-            return "Bitcoin";
-        } else if (resource?.uri == LITECOIN) {
-            return "Litecoin";
-        } else if (resource?.uri == BINANCE) {
-            return "Binance";
-        } else if (resource?.uri == LUNA) {
-            return "Terra";
-        } else if (resource?.uri == COSMOS) {
-            return "Cosmos";
-        } else if (resource?.uri == EMONEY) {
-            return "E-Money";
-        } else if (resource?.uri == IRIS) {
-            return "Iris";
-        } else if (resource?.uri == KAVA) {
-            return "Kava";
-        } else if (resource?.uri == ETHEREUM) {
-            return "Ethereum";
-        } else if (resource?.uri == STARNAME) {
-            return "Starname";
-        } else if (resource?.uri == BAND) {
-            return "Band";
-        } else if (resource?.uri == TEZOS) {
-            return "Tezos";
-        } else if (resource?.uri == LISK) {
-            return "Lisk";
-        } else {
-            return resource?.uri;
-        }
-    }
-    
-    static func getStarNameAllResources2() -> Array<Starnamed_X_Starname_V1beta1_Resource> {
-        var result: Array<Starnamed_X_Starname_V1beta1_Resource> = Array<Starnamed_X_Starname_V1beta1_Resource>()
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = STARNAME; $0.resource = "" })
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = COSMOS; $0.resource = "" })
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = BITCOIN; $0.resource = "" })
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = ETHEREUM; $0.resource = "" })
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = BINANCE; $0.resource = "" })
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = IRIS; $0.resource = "" })
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = KAVA; $0.resource = "" })
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = BAND; $0.resource = "" })
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = BITCOINCASH; $0.resource = "" })
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = LITECOIN; $0.resource = "" })
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = EMONEY; $0.resource = "" })
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = TEZOS; $0.resource = "" })
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = LISK; $0.resource = "" })
-        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = LUNA; $0.resource = "" })
-        return result
-    }
-    
     static func checkStarnameWithResource(_ chainType: ChainType, _ response: Starnamed_X_Starname_V1beta1_QueryStarnameResponse) -> String? {
         for resource in response.account.resources {
             if (chainType == ChainType.COSMOS_MAIN && resource.uri == "asset:atom" && resource.resource.starts(with: "cosmos1")) {
@@ -4123,23 +4036,6 @@ public class WUtils {
             } else if (chainType == ChainType.BAND_MAIN && resource.uri == "asset:band" && resource.resource.starts(with: "band1")) {
                 return resource.resource
             }
-        }
-        return nil
-    }
-    
-    static func getChainTypeWithUri(_ uri: String?) -> ChainType? {
-        if (uri == COSMOS) {
-            return ChainType.COSMOS_MAIN
-        } else if (uri == IRIS) {
-            return ChainType.IRIS_MAIN
-        } else if (uri == BINANCE) {
-            return ChainType.BINANCE_MAIN
-        } else if (uri == STARNAME) {
-            return ChainType.IOV_MAIN
-        } else if (uri == KAVA) {
-            return ChainType.KAVA_MAIN
-        } else if (uri == BAND) {
-            return ChainType.BAND_MAIN
         }
         return nil
     }

@@ -336,6 +336,7 @@
 "str_notice" = "Notice";
 "str_msg_ibc" = "IBC transactions are not supported on centralized exchanges.\nIf you wish to transfer to an exchange, you must send back the asset to its original chain before depositing it via a regular send transaction.\n\nThis wallet only supports the broadcasting of txs through active IBC relayers and therefore is not responsible for intrinsic issues that may exist in IBC txs.\nUser must perform due diligence on the stability and security of the selected relayer before executing IBC txs.";
 "str_msg_relayer_unauthed" = "This is an unconfirmed relayer.\nIBC transfers through an inoperable relayer may result in loss of assets.\nDo you wish to continue?";
+"str_select_starname_domain" = "Select domain for starname.";
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";
 "creat_cdp_step_1" = "Insert memo (optional)";

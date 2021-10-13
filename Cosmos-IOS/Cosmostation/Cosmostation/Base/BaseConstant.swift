@@ -137,6 +137,8 @@ let CSS_PUSH_UPDATE                     = CSS_URL + "v1/account/update";
 let CSS_MOON_PAY                        = CSS_URL + "v1/sign/moonpay";
 
 
+let CHAIN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/chains/logo/"
+
 let COSMOS_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
 let IRIS_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
 let KAVA_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/";
@@ -169,6 +171,8 @@ let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cos
 let OKEX_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
 let SIF_COIN_IMG_URL                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/sif/";
 let EMONEY_COIN_IMG_URL                 = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/emoney/";
+
+
 
 
 //DB for Account
@@ -1067,6 +1071,7 @@ let SELECT_POPUP_GRAVITY_SWAP_OUT = 9
 let SELECT_POPUP_IBC_CHAIN = 10
 let SELECT_POPUP_IBC_RELAYER = 11
 let SELECT_POPUP_IBC_RECIPIENT = 12
+let SELECT_POPUP_STARNAME_DOMAIN = 13
 
 
 let EXPLORER_COSMOS_MAIN    = "https://www.mintscan.io/cosmos/";
