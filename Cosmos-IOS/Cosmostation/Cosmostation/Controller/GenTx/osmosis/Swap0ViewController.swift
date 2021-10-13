@@ -131,10 +131,8 @@ class Swap0ViewController: BaseViewController, UITextFieldDelegate {
         inputTextFiled.layer.borderColor = UIColor.white.cgColor
         
         let padding = NSDecimalNumber(string: "0.97")
-        let outputAmount = userInput.multiplying(byPowerOf10: dpInPutDecimal).multiplying(by: padding).multiplying(by: swapRate, withBehavior: WUtils.handler0)
-        print("outputAmount ", outputAmount)
-        outputCoinAmountLabel.text = outputAmount.multiplying(byPowerOf10: -dpOutPutDecimal).stringValue
-     
+        let outputAmount = userInput.multiplying(byPowerOf10: dpInPutDecimal - dpOutPutDecimal).multiplying(by: padding).multiplying(by: swapRate, withBehavior: WUtils.handler18)
+        outputCoinAmountLabel.text = WUtils.decimalNumberToLocaleString(outputAmount, dpOutPutDecimal)
     }
     
     @IBAction func onClickClear(_ sender: UIButton) {
