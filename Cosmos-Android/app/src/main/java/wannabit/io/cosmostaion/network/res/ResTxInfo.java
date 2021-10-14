@@ -102,7 +102,8 @@ public class ResTxInfo {
                         if (event.attributes.get(i).key.equals("validator") && event.attributes.get(i).value.equals(opAdd)) {
                             if (i-1 < event.attributes.size() && event.attributes.get(i-1) != null && event.attributes.get(i-1).key.equals("amount")) {
                                 if (event.attributes.get(i-1).value != null) {
-                                    String temp = event.attributes.get(i-1).value.replaceAll("[^0-9]", "");
+                                    String value = event.attributes.get(i-1).value.split(",")[0];
+                                    String temp = value.replaceAll("[^0-9]", "");
                                     result = new BigDecimal(temp);
                                 }
                             }
@@ -151,7 +152,8 @@ public class ResTxInfo {
                     for (EventAttribute attr:event.attributes) {
                         if (attr.key.equals("amount")) {
                             if (attr.value != null) {
-                                String temp = attr.value.replaceAll("[^0-9]", "");
+                                String value = attr.value.split(",")[0];
+                                String temp = value.replaceAll("[^0-9]", "");
                                 result = new BigDecimal(temp);
                             }
                         }
