@@ -161,6 +161,11 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (WUtils.isGRPC(chainType!)) {
+            if (BaseData.instance.mMyValidators_gRPC.count == 0) {
+                if let cosmostation = BaseData.instance.mAllValidators_gRPC.filter({ $0.description_p.moniker == "Cosmostation" }).first {
+                    self.onStartDelegate(cosmostation, nil)
+                }
+            }
             if (BaseData.instance.mMyValidators_gRPC.count > 0 && indexPath.row != BaseData.instance.mMyValidators_gRPC.count) {
                 let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
                 validatorDetailVC.mValidator_gRPC = BaseData.instance.mMyValidators_gRPC[indexPath.row]
@@ -170,6 +175,11 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             
         } else {
+            if (BaseData.instance.mMyValidator.count == 0) {
+                if let cosmostation = BaseData.instance.mAllValidator.filter({ $0.description.moniker == "Cosmostation" }).first {
+                    self.onStartDelegate(nil, cosmostation)
+                }
+            }
             if (BaseData.instance.mMyValidator.count > 0 && indexPath.row != BaseData.instance.mMyValidator.count) {
                 let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
                 validatorDetailVC.mValidator = BaseData.instance.mMyValidator[indexPath.row]
@@ -299,7 +309,41 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(txVC, animated: true)
         }
+    }
+    
+    func onStartDelegate(_ validator_gRPC: Cosmos_Staking_V1beta1_Validator?, _ validator: Validator?) {
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
         
+        let mainDenom = WUtils.getMainDenom(chainType)
+        if (WUtils.isGRPC(chainType)) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
+            if (BaseData.instance.getDelegatable_gRPC(mainDenom).compare(feeAmount).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
+            
+            let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+            txVC.mType = COSMOS_MSG_TYPE_DELEGATE
+            txVC.mTargetValidator_gRPC = validator_gRPC
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(txVC, animated: true)
+            
+        } else {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
+            if (BaseData.instance.availableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
+            
+            let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+            txVC.mType = COSMOS_MSG_TYPE_DELEGATE
+            txVC.mTargetValidator = validator
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(txVC, animated: true)
+        }
     }
     
     @objc func onStartSort() {
