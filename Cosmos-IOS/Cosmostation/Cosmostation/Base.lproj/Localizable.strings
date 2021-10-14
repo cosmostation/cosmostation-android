@@ -56,7 +56,7 @@
 "sort_by_reward" = "By Reward Amount";
 "sort_by_power" = "By Voting Power";
 "sort_by_commission" = "By Commission";
-"sort_by_yield" = "By APR";
+"sort_by_yield" = "By APY";
 "sort_by_amount" = "By Amount";
 "sort_by_value" = "By Value";
 "with_mnemonics" = "With Mnemonics";
@@ -282,7 +282,7 @@
 "str_select_to_send_coin" = "Select To Send Coin Type";
 "str_event_confirm" = "Please confirm twice yourself ETH deposit address for XPRT distribution. \n(we don't support validate checksum) \n\n\n%@";
 "str_event_confirm_title" = "Once More Check";
-"str_apr_help_title" = "APR";
+"str_apr_help_title" = "APY";
 "str_apr_help_onchain_msg" = "With on chain params";
 "str_apr_help_real_msg" = "With real block time";
 "str_apr_help_msg" = "This figure is an estimated percentage calculated by taking into account the current average network block time.";
