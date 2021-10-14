@@ -3904,24 +3904,6 @@ public class WUtils {
         }
         return NSLocalizedString("bep3_status_open", comment: "")
     }
-    
-    static func isDisplayEventCard(_ chainType: ChainType?) -> Bool {
-        if (chainType == ChainType.COSMOS_MAIN) {
-            if (BaseData.instance.mHeight > PERSISTENCE_COSMOS_EVENT_START &&
-                    BaseData.instance.mHeight < PERSISTENCE_COSMOS_EVENT_END &&
-                    BaseData.instance.getEventTime()) {
-                return true
-            }
-        } else if (chainType == ChainType.KAVA_MAIN) {
-            if (BaseData.instance.mHeight > PERSISTENCE_KAVA_EVENT_START &&
-                    BaseData.instance.mHeight < PERSISTENCE_KAVA_EVENT_END &&
-                    BaseData.instance.getEventTime()) {
-                return true
-            }
-        }
-        return false
-    }
-    
 
     
     static func getRealBlockTime(_ chain: ChainType?) -> NSDecimalNumber {
