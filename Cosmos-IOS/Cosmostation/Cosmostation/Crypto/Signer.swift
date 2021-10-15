@@ -1283,7 +1283,7 @@ class Signer {
                                                 _ fee: Fee, _ memo: String, _ privateKey: Data, _ publicKey: Data, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
         let re_timeout_height = Ibc_Core_Client_V1_Height.with {
             $0.revisionNumber = lastHeight.revisionNumber
-            $0.revisionHeight = lastHeight.revisionHeight + 100
+            $0.revisionHeight = lastHeight.revisionHeight + 500
         }
         let re_token = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = ibcSendDenom

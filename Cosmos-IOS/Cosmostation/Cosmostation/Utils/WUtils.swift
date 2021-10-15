@@ -4330,7 +4330,7 @@ public class WUtils {
             return UIImage(named: "certikTokenImg")
             
         } else if (chain == ChainType.IOV_MAIN) {
-            return UIImage(named: "iovTokenImg")
+            return UIImage(named: "tokenStarname")
             
         } else if (chain == ChainType.PERSIS_MAIN) {
             return UIImage(named: "tokenpersistence")
