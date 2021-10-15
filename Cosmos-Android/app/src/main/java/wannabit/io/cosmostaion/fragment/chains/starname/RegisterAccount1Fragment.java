@@ -31,8 +31,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_StarName_Resource;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 
-import static wannabit.io.cosmostaion.utils.WUtil.STARNAME;
-
 public class RegisterAccount1Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_ADD_CHAIN    = 9700;
     public final static int SELECT_ADD_ADDRESS  = 9701;
@@ -42,6 +40,8 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
 
     private ResourceAdapter mResourceAdapter;
     public ArrayList<Types.Resource> mResources = new ArrayList();
+
+    public static String STARNAME       = "asset:iov";
 
     public static RegisterAccount1Fragment newInstance(Bundle bundle) {
         RegisterAccount1Fragment fragment = new RegisterAccount1Fragment();

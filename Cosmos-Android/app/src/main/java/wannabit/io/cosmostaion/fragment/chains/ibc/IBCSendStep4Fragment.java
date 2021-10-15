@@ -73,7 +73,7 @@ public class IBCSendStep4Fragment extends BaseFragment implements View.OnClickLi
         BaseChain toChain = WDp.getChainTypeByChainId(getSActivity().mIbcSelectedRelayer.chain_id);
         WDp.getChainTitle(getSActivity(), toChain, mRecipientChain);
         mRecipientChain.setTextColor(WDp.getChainColor(getSActivity(), toChain));
-        mRecipientAddress.setText(getSActivity().mRecipientAccount.address);
+        mRecipientAddress.setText(getSActivity().mToAddress);
     }
 
     @Override

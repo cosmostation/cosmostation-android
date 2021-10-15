@@ -5,6 +5,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,37 +18,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import io.grpc.stub.StreamObserver;
+import starnamed.x.starname.v1beta1.QueryGrpc;
+import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receivable_Accouts;
+import wannabit.io.cosmostaion.dialog.Dialog_StarName_Confirm;
+import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickListener{
 
     public final static int SELECT_ACCOUNT = 9101;
+    public final static int SELECT_STAR_NAME_ADDRESS = 9102;
 
     private TextView        mDesitination;
     private EditText        mAddressInput;
@@ -111,6 +110,11 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         if (v.equals(mNextBtn)) {
             String userInput = mAddressInput.getText().toString().trim();
 
+            if (WUtil.isValidStarName(userInput.toLowerCase())) {
+                onCheckNameService(userInput.toLowerCase(), mTochain);
+                return;
+            }
+
             if (getSActivity().mAccount.address.equals(userInput)) {
                 Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
                 return;
@@ -170,6 +174,59 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         if(requestCode == SELECT_ACCOUNT && resultCode == Activity.RESULT_OK) {
             mToAccount = mToAccountList.get(data.getIntExtra("position" , 0));
             onUpdateView();
+
+        } else if (requestCode == SELECT_STAR_NAME_ADDRESS && resultCode == Activity.RESULT_OK) {
+            getSActivity().mToAddress = data.getStringExtra("originAddress");
+            getSActivity().onNextStep();
         }
+    }
+
+    private void onCheckNameService(String userInput, BaseChain chain) {
+        QueryGrpc.QueryStub mStub = QueryGrpc.newStub(ChannelBuilder.getChain(IOV_MAIN)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);
+        QueryOuterClass.QueryStarnameRequest request = QueryOuterClass.QueryStarnameRequest.newBuilder().setStarname(userInput).build();
+        mStub.starname(request, new StreamObserver<QueryOuterClass.QueryStarnameResponse>() {
+            @Override
+            public void onNext(QueryOuterClass.QueryStarnameResponse value) {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        final String matchAddress = WUtil.checkStarnameWithResource(chain, value.getAccount().getResourcesList());
+                        if (TextUtils.isEmpty(matchAddress)) {
+                            Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if (getSActivity().mAccount.address.equals(matchAddress)) {
+                            Toast.makeText(getContext(), R.string.error_no_mattched_starname, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("starname", userInput);
+                        bundle.putString("originAddress", matchAddress);
+                        Dialog_StarName_Confirm dialog = Dialog_StarName_Confirm.newInstance(bundle);
+                        dialog.setCancelable(true);
+                        dialog.setTargetFragment(IBCSendStep1Fragment.this, SELECT_STAR_NAME_ADDRESS);
+                        getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+                    }
+                }, 0);
+
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), R.string.error_invalide_starname, Toast.LENGTH_SHORT).show();
+                    }
+                }, 0);
+            }
+
+            @Override
+            public void onCompleted() { }
+        });
+
+
     }
 }

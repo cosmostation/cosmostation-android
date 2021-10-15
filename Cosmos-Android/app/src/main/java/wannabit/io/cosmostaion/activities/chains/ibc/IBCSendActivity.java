@@ -46,12 +46,9 @@ public class IBCSendActivity extends BaseBroadCastActivity {
     private IbcSendPageAdapter      mPageAdapter;
 
     public String                   mToIbcDenom;
-    public ArrayList<Coin>          mToSendCoins;
-    public Fee                      mSendFee;
 
     public Account                  mRecipientAccount;
     public IbcPath                  mIbcSelectedRelayer;
-    public IbcPath.Path             mIbcSelectedPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Confirm;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -154,224 +155,17 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 return;
             }
 
-            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
-                if(userInput.startsWith("0x")) {
-                    try {
-                        userInput = WKey.convertAddressEthToOkex(userInput);
-                        WKey.isValidBech32(userInput);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+            if (WDp.isValidChainAddress(getSActivity().mBaseChain, userInput)) {
+                getSActivity().mToAddress = userInput;
+                getSActivity().onNextStep();
+            } else {
+                Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
             }
 
             if (getSActivity().mAccount.address.equals(userInput)) {
                 Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST)) {
-                if (userInput.startsWith("cosmos1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
-                if (userInput.startsWith("iaa1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(BNB_MAIN)) {
-                if (userInput.startsWith("bnb1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-                if (userInput.startsWith("kava1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
-                if (userInput.startsWith("star") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(BNB_TEST)) {
-                if (userInput.startsWith("tbnb1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
-                if (userInput.startsWith("band1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
-                if (userInput.startsWith("ex1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
-                if (userInput.startsWith("certik1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-                if (userInput.startsWith("secret1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-                if (userInput.startsWith("akash1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(PERSIS_MAIN)) {
-                if (userInput.startsWith("persistence1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
-                if (userInput.startsWith("sent1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(FETCHAI_MAIN)) {
-                if (userInput.startsWith("fetch1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(CRYPTO_MAIN)) {
-                if (userInput.startsWith("cro1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
-                if (userInput.startsWith("sif1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(KI_MAIN)) {
-                if (userInput.startsWith("ki1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
-                if (userInput.startsWith("osmo1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(RIZON_MAIN) || getSActivity().mBaseChain.equals(RIZON_TEST)) {
-                if (userInput.startsWith("rizon1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(MEDI_MAIN) || getSActivity().mBaseChain.equals(MEDI_TEST)) {
-                if (userInput.startsWith("panacea1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(EMONEY_MAIN)) {
-                if (userInput.startsWith("emoney1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(JUNO_MAIN)) {
-                if (userInput.startsWith("juno1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(ALTHEA_TEST)) {
-                if (userInput.startsWith("althea1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(UMEE_TEST)) {
-                if (userInput.startsWith("umee1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(AXELAR_TEST)) {
-                if (userInput.startsWith("axelar1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mToAddress = userInput;
-                    getSActivity().onNextStep();
-                } else {
-                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
 
         } else if (v.equals(mCancel)) {
             getSActivity().onBeforeStep();
