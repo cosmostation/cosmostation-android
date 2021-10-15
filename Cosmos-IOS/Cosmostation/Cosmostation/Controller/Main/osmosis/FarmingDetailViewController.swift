@@ -94,22 +94,23 @@ class FarmingDetailViewController: BaseViewController, UITableViewDelegate, UITa
         
         
         //display ARPs
-        let incentive1Day = NSDecimalNumber.init(string: mPoolGauges[0].coins[0].amount).subtracting(NSDecimalNumber.init(string: mPoolGauges[0].distributedCoins[0].amount))
-        let incentiveValue1Day = WUtils.usdValue(BaseData.instance.getBaseDenom(OSMOSIS_MAIN_DENOM), incentive1Day, WUtils.getOsmosisCoinDecimal(OSMOSIS_MAIN_DENOM))
-        
-        let incentive7Day = NSDecimalNumber.init(string: mPoolGauges[1].coins[0].amount).subtracting(NSDecimalNumber.init(string: mPoolGauges[1].distributedCoins[0].amount))
-        var incentiveValue7Day = WUtils.usdValue(BaseData.instance.getBaseDenom(OSMOSIS_MAIN_DENOM), incentive7Day, WUtils.getOsmosisCoinDecimal(OSMOSIS_MAIN_DENOM))
-        
-        let incentive14Day = NSDecimalNumber.init(string: mPoolGauges[2].coins[0].amount).subtracting(NSDecimalNumber.init(string: mPoolGauges[2].distributedCoins[0].amount))
-        var incentiveValue14Day = WUtils.usdValue(BaseData.instance.getBaseDenom(OSMOSIS_MAIN_DENOM), incentive14Day, WUtils.getOsmosisCoinDecimal(OSMOSIS_MAIN_DENOM))
-        
-        incentiveValue14Day = incentiveValue14Day.adding(incentiveValue7Day).adding(incentiveValue1Day)
-        incentiveValue7Day = incentiveValue7Day.adding(incentiveValue1Day)
-        
-        apr1Day = incentiveValue1Day.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
-        apr7Day = incentiveValue7Day.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
-        apr14Day = incentiveValue14Day.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
-        
+        if (mPoolGauges.count == 3 && mPoolGauges[0].distributedCoins.count > 0 && mPoolGauges[1].distributedCoins.count > 0 && mPoolGauges[2].distributedCoins.count > 0) {
+            let incentive1Day = NSDecimalNumber.init(string: mPoolGauges[0].coins[0].amount).subtracting(NSDecimalNumber.init(string: mPoolGauges[0].distributedCoins[0].amount))
+            let incentiveValue1Day = WUtils.usdValue(BaseData.instance.getBaseDenom(OSMOSIS_MAIN_DENOM), incentive1Day, WUtils.getOsmosisCoinDecimal(OSMOSIS_MAIN_DENOM))
+            
+            let incentive7Day = NSDecimalNumber.init(string: mPoolGauges[1].coins[0].amount).subtracting(NSDecimalNumber.init(string: mPoolGauges[1].distributedCoins[0].amount))
+            var incentiveValue7Day = WUtils.usdValue(BaseData.instance.getBaseDenom(OSMOSIS_MAIN_DENOM), incentive7Day, WUtils.getOsmosisCoinDecimal(OSMOSIS_MAIN_DENOM))
+            
+            let incentive14Day = NSDecimalNumber.init(string: mPoolGauges[2].coins[0].amount).subtracting(NSDecimalNumber.init(string: mPoolGauges[2].distributedCoins[0].amount))
+            var incentiveValue14Day = WUtils.usdValue(BaseData.instance.getBaseDenom(OSMOSIS_MAIN_DENOM), incentive14Day, WUtils.getOsmosisCoinDecimal(OSMOSIS_MAIN_DENOM))
+            
+            incentiveValue14Day = incentiveValue14Day.adding(incentiveValue7Day).adding(incentiveValue1Day)
+            incentiveValue7Day = incentiveValue7Day.adding(incentiveValue1Day)
+            
+            apr1Day = incentiveValue1Day.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
+            apr7Day = incentiveValue7Day.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
+            apr14Day = incentiveValue14Day.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)
+        }
         topApr1dayLabel.attributedText = WUtils.displayPercent(apr1Day, topApr1dayLabel.font)
         topArp7dayLabel.attributedText = WUtils.displayPercent(apr7Day, topArp7dayLabel.font)
         topArp14DayLabel.attributedText = WUtils.displayPercent(apr14Day, topArp14DayLabel.font)

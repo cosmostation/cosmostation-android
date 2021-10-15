@@ -47,14 +47,16 @@ class FarmCell: UITableViewCell {
         var thisTotalIncentiveValue = NSDecimalNumber.zero
         gauges.forEach { gauge in
             if (gauge.coins.count > 0 && gauge.distributedCoins.count > 0) {
-                let cIncentive = gauge.coins[0]
-                let dIncentive = gauge.distributedCoins[0]
-                
-                let thisIncentive = NSDecimalNumber.init(string: cIncentive.amount).subtracting(NSDecimalNumber.init(string: dIncentive.amount))
-                let thisIncentiveValue = WUtils.usdValue(BaseData.instance.getBaseDenom(OSMOSIS_MAIN_DENOM), thisIncentive, WUtils.getOsmosisCoinDecimal(OSMOSIS_MAIN_DENOM))
-                
-                thisTotalIncentiveValue = thisTotalIncentiveValue.adding(thisIncentiveValue)
-                
+                if (gauge.distributedCoins.count > 0) {
+                    let cIncentive = gauge.coins[0]
+                    let dIncentive = gauge.distributedCoins[0]
+                    
+                    let thisIncentive = NSDecimalNumber.init(string: cIncentive.amount).subtracting(NSDecimalNumber.init(string: dIncentive.amount))
+                    let thisIncentiveValue = WUtils.usdValue(BaseData.instance.getBaseDenom(OSMOSIS_MAIN_DENOM), thisIncentive, WUtils.getOsmosisCoinDecimal(OSMOSIS_MAIN_DENOM))
+                    
+                    thisTotalIncentiveValue = thisTotalIncentiveValue.adding(thisIncentiveValue)
+                    
+                }
             }
         }
         let apr = thisTotalIncentiveValue.multiplying(by: NSDecimalNumber.init(value: 36500)).dividing(by: poolValue, withBehavior: WUtils.handler12)

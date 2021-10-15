@@ -424,7 +424,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(OSMOSIS_ION_DENOM, BaseData.instance.getAvailableAmount_gRPC(OSMOSIS_ION_DENOM), 6, cell!.tokenValue.font)
             
         } else if (coin.denom == IOV_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "iovTokenImg")
+            cell?.tokenImg.image = UIImage(named: "tokenStarname")
             cell?.tokenSymbol.text = "IOV"
             cell?.tokenSymbol.textColor = COLOR_IOV
             cell?.tokenTitle.text = ""
