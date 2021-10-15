@@ -1566,6 +1566,7 @@
     <string name="str_gravity_withdraw_batch">Exit Pool(Batch Withdraw)</string>
     <string name="str_create_user_claim_address">User Claim Address</string>
     <string name="str_create_user_claim_type">User Claim Type</string>
+    <string name="str_select_starname_domain">Select domain for starname</string>
 
     <string name="str_ibc_send_c">IBC SEND</string>
     <string name="str_ibc_warning_c">Notice</string>
