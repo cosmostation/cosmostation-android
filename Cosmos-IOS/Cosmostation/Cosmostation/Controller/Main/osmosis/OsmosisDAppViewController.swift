@@ -221,7 +221,7 @@ extension WUtils {
     }
     
     static func getNextIncentiveAmount(_ pool: Osmosis_Gamm_V1beta1_Pool, _ gauges: Array<Osmosis_Incentives_Gauge>, _ position: UInt) -> NSDecimalNumber  {
-        if (gauges.count != 3) { return NSDecimalNumber.zero }
+        if (gauges.count != 3 || gauges[0].distributedCoins.count <= 0 || gauges[1].distributedCoins.count <= 0 || gauges[2].distributedCoins.count <= 0) { return NSDecimalNumber.zero }
         let incentive1Day = NSDecimalNumber.init(string: gauges[0].coins[0].amount).subtracting(NSDecimalNumber.init(string: gauges[0].distributedCoins[0].amount))
         let incentive7Day = NSDecimalNumber.init(string: gauges[1].coins[0].amount).subtracting(NSDecimalNumber.init(string: gauges[1].distributedCoins[0].amount))
         let incentive14Day = NSDecimalNumber.init(string: gauges[2].coins[0].amount).subtracting(NSDecimalNumber.init(string: gauges[2].distributedCoins[0].amount))
