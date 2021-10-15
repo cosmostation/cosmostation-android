@@ -18,6 +18,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import starnamed.x.starname.v1beta1.Types;
@@ -26,8 +28,8 @@ import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccoun
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameResourceAddActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Resource;
+import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.utils.WUtil.STARNAME;
 
@@ -107,9 +109,9 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SELECT_ADD_CHAIN && resultCode == Activity.RESULT_OK) {
             try {
-                Types.Resource temp = Types.Resource.parseFrom(data.getByteArrayExtra("resource"));
+                StarnameAssets asset = data.getParcelableExtra("resource");
                 Intent intent = new Intent(getSActivity(), StarNameResourceAddActivity.class);
-                intent.putExtra("resource", temp.toByteArray());
+                intent.putExtra("asset", asset);
                 startActivityForResult(intent, SELECT_ADD_ADDRESS);
                 getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
@@ -159,8 +161,8 @@ public class RegisterAccount1Fragment extends BaseFragment implements View.OnCli
             if (getItemViewType(position) == TYPE_RESOURCE) {
                 final Types.Resource resource = mResources.get(position);
                 final ResourceHolder holder = (ResourceHolder)viewHolder;
-                holder.itemChainImg.setImageDrawable(WUtil.getStarNameChainImg2(getContext(), resource));
-                holder.itemChainName.setText(WUtil.getStarNameChainName2(resource));
+                Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(resource.getUri())).fit().into(holder.itemChainImg);
+                holder.itemChainName.setText(StarnameAssets.getStarNameChainName(resource.getUri()));
                 holder.itemChainAddress.setText(resource.getResource());
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override

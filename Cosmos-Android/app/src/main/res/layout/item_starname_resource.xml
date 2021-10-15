@@ -27,18 +27,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/space_8">
                 <ImageView
                     android:id="@+id/chain_img"
-                    android:layout_width="@dimen/space_32"
-                    android:layout_height="@dimen/space_32"
-                    android:layout_centerInParent="true"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="@dimen/space_20"
+                    android:layout_marginLeft="@dimen/space_8"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/default_chain_img"/>
                 <TextView
                     android:id="@+id/chain_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_4"
+                    android:layout_marginLeft="@dimen/space_8"
                     style="@style/font_ss_14_white"
                     android:text="Chain Name"/>
             </LinearLayout>
@@ -48,6 +50,7 @@
                 android:layout_height="@dimen/space_30"
                 android:paddingLeft="@dimen/space_8"
                 android:paddingRight="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_6"
                 style="@style/font_ss_14_gray1"
                 android:singleLine="true"
                 android:ellipsize="middle"/>

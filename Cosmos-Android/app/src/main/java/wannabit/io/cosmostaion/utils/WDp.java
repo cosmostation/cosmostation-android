@@ -1347,7 +1347,7 @@ public class WDp {
             return false;
         }
 
-        if (!WKey.isValidBech32(address)) { return false; }
+        if (WKey.isValidBech32(address)) { return true; }
         if (address.startsWith("cosmos1") && baseChain.equals(COSMOS_MAIN)) { return true; }
         else if (address.startsWith("iaa1") && baseChain.equals(IRIS_MAIN)) { return true; }
         else if (address.startsWith("bnb1") && baseChain.equals(BNB_MAIN)) { return true; }
