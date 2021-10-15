@@ -81,6 +81,15 @@ public class StarnameAssets implements Parcelable {
         return "Unknown";
     }
 
+    public static String getStarNameGetChain(String url) {
+        for (StarnameAssets assets: getStarnameAssets()) {
+            if (assets.url.equalsIgnoreCase(url)) {
+                return assets.chainName;
+            }
+        }
+        return null;
+    }
+
     public static ArrayList<StarnameAssets> getStarnameAssets() {
         ArrayList<StarnameAssets> result = new ArrayList<>();
         result.add(ada);
