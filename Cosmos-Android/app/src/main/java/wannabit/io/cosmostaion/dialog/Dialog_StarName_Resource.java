@@ -16,11 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -29,7 +31,7 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
     private RecyclerView mRecyclerView;
     private ChainForResourceHolderAdapter mAdapter;
     private ArrayList<Types.Resource> mAlreadyChains;
-    private ArrayList<Types.Resource> mAllChains;
+    private ArrayList<StarnameAssets> mAllChains;
 
     public static Dialog_StarName_Resource newInstance(Bundle bundle) {
         Dialog_StarName_Resource frag = new Dialog_StarName_Resource();
@@ -43,7 +45,7 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
         mRecyclerView = view.findViewById(R.id.recycler);
         StarnameResourceWrapper wrapper = (StarnameResourceWrapper)getArguments().getSerializable("resources");
         mAlreadyChains = wrapper.array;
-        mAllChains = WUtil.getAllStarnameResources();
+        mAllChains = StarnameAssets.getStarnameAssets();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new ChainForResourceHolderAdapter();
@@ -51,9 +53,9 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
         return view;
     }
 
-    private boolean alreadyHave(Types.Resource toInsert) {
+    private boolean alreadyHave(StarnameAssets toInsert) {
         for (Types.Resource already: mAlreadyChains) {
-            if (already.getUri().equals(toInsert.getUri())) {
+            if (already.getUri().equals(toInsert.url)) {
                 return true;
             }
         }
@@ -69,21 +71,21 @@ public class Dialog_StarName_Resource extends BottomSheetDialogFragment {
 
         @Override
         public void onBindViewHolder(@NonNull ChainForResourceHolder holder, int position) {
-            final Types.Resource resource = mAllChains.get(position);
+            final StarnameAssets resource = mAllChains.get(position);
             if (alreadyHave(resource)) {
                 holder.rootLayer.setBackground(getResources().getDrawable(R.drawable.box_et_gary));
             } else {
                 holder.rootLayer.setBackground(getResources().getDrawable(R.drawable.box_et_white));
             }
 
-            holder.chainImg.setImageDrawable(WUtil.getStarNameChainImg2(getContext(), resource));
-            holder.chainName.setText(WUtil.getStarNameChainName2(resource));
+            Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(resource.url)).fit().into(holder.chainImg);
+            holder.chainName.setText(StarnameAssets.getStarNameChainName(resource.url));
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (!alreadyHave(resource)) {
                         Intent resultIntent = new Intent();
-                        resultIntent.putExtra("resource", resource.toByteArray());
+                        resultIntent.putExtra("resource", resource);
                         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
                         getDialog().dismiss();
                     }

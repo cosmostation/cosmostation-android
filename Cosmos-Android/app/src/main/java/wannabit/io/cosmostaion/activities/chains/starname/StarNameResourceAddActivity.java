@@ -16,14 +16,18 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.squareup.picasso.Picasso;
 
 import starnamed.x.starname.v1beta1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_Wallet_for_Starname;
+import wannabit.io.cosmostaion.utils.StarnameAssets;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -43,6 +47,8 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
     private ImageView mChainImg;
     private TextView mChainName;
 
+    private StarnameAssets      mStarNameAsset;
+    private BaseChain           mTochain;
     private Types.Resource      mStarNameResource;
 
     @Override
@@ -62,13 +68,23 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
 
         try {
             mStarNameResource = Types.Resource.parseFrom(getIntent().getByteArrayExtra("resource"));
-            mChainImg.setImageDrawable(WUtil.getStarNameChainImg2(getBaseContext(), mStarNameResource));
-            mChainName.setText(WUtil.getStarNameChainName2(mStarNameResource));
+        } catch (Exception e) {
+            mStarNameAsset = getIntent().getParcelableExtra("asset");
+        }
+
+        if (mStarNameResource != null) {
+            Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(mStarNameResource.getUri())).fit().into(mChainImg);
+            mChainName.setText(StarnameAssets.getStarNameChainName(mStarNameResource.getUri()));
             if (!TextUtils.isEmpty(mStarNameResource.getResource())) {
                 mUserInput.setText(mStarNameResource.getResource());
             }
-
-        } catch (Exception e) { onBackPressed(); }
+        } else if (mStarNameAsset != null) {
+            if (mStarNameAsset.chainName != null) {
+                mTochain = BaseChain.getChain(mStarNameAsset.chainName);
+            }
+            Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(mStarNameAsset.url)).fit().into(mChainImg);
+            mChainName.setText(StarnameAssets.getStarNameChainName(mStarNameAsset.url));
+        }
 
         mCancel.setOnClickListener(this);
         mConfirm.setOnClickListener(this);
@@ -80,6 +96,7 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
     @Override
     public void onClick(View v) {
         onHideKeyboard();
+        Types.Resource temp;
         if (v.equals(mCancel)) {
             finish();
 
@@ -90,36 +107,16 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
                 Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
                 return;
 
-            } else if (WUtil.getBaseChainWithUri(mStarNameResource.getUri()) != null){
-                BaseChain chain = WUtil.getBaseChainWithUri(mStarNameResource.getUri());
-                if (chain.equals(COSMOS_MAIN) && (!userinput.startsWith("cosmos1") || !WKey.isValidBech32(userinput))) {
+            } else if (mStarNameAsset != null && mStarNameAsset.url != null) {
+                if (!WDp.isValidChainAddress(mTochain, userinput)) {
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
                     return;
-
-                } else if (chain.equals(IRIS_MAIN) && (!userinput.startsWith("iaa1") || !WKey.isValidBech32(userinput))) {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
-                    return;
-
-                } else if (chain.equals(KAVA_MAIN) && (!userinput.startsWith("kava1") || !WKey.isValidBech32(userinput))) {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
-                    return;
-
-                } else if (chain.equals(BAND_MAIN) && (!userinput.startsWith("band1") || !WKey.isValidBech32(userinput))) {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
-                    return;
-
-                } else if (chain.equals(BNB_MAIN) && (!userinput.startsWith("bnb1") || !WKey.isValidBech32(userinput))) {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
-                    return;
-
-                } else if (chain.equals(IOV_MAIN) && (!userinput.startsWith("star1") || !WKey.isValidBech32(userinput))) {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
-                    return;
-
                 }
+                temp = Types.Resource.newBuilder().setUri(mStarNameAsset.url).setResource(userinput).build();
+            } else {
+                temp = Types.Resource.newBuilder().setUri(mStarNameResource.getUri()).setResource(userinput).build();
             }
 
-            Types.Resource temp = Types.Resource.newBuilder().setUri(mStarNameResource.getUri()).setResource(userinput).build();
             mStarNameResource = temp;
             Intent result = getIntent();
             result.putExtra("resource", mStarNameResource.toByteArray());
@@ -127,17 +124,20 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
             finish();
 
         } else if (v.equals(mWallet)) {
-            if (WUtil.getBaseChainWithUri(mStarNameResource.getUri()) == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_support_cosmostation, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (getBaseDao().onSelectAccountsByChain(WUtil.getBaseChainWithUri(mStarNameResource.getUri())).size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_no_wallet_this_chain, Toast.LENGTH_SHORT).show();
-                return;
+            if (mStarNameAsset != null) {
+                if (mStarNameAsset.chainName == null) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_support_cosmostation, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (getBaseDao().onSelectAccountsByChain(mTochain).size() <= 0) {
+                    Toast.makeText(this, getString(R.string.error_no_wallet_this_chain), Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
 
             Bundle bundle = new Bundle();
-            bundle.putString("chainUri", mStarNameResource.getUri());
+            if (mStarNameAsset != null) { bundle.putParcelable("asset", mStarNameAsset); }
+            else if (mStarNameResource != null) { bundle.putString("chainUri", mStarNameResource.getUri()); }
             Dialog_Wallet_for_Starname dialog = Dialog_Wallet_for_Starname.newInstance(bundle);
             dialog.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

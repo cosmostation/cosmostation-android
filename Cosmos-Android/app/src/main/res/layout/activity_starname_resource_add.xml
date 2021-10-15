@@ -22,7 +22,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/space_50"
             android:layout_marginLeft="@dimen/space_16"
             android:layout_marginRight="@dimen/space_16"
             android:layout_marginTop="@dimen/space_16"
@@ -32,14 +32,14 @@
             android:background="@drawable/box_et_gary">
             <ImageView
                 android:id="@+id/chainImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/space_18"
+                android:layout_height="@dimen/space_18"
                 android:src="@drawable/cosmos_wh_main"/>
             <TextView
                 android:id="@+id/chainName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_4"
+                android:layout_marginLeft="@dimen/space_6"
                 style="@style/font_ssm_14_gray8"
                 android:singleLine="true"/>
         </LinearLayout>

@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.starname;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,19 +25,24 @@ import starnamed.x.starname.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.starname.RegisterStarNameAccountActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Starname_Domain;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
 import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class RegisterAccount0Fragment extends BaseFragment implements View.OnClickListener {
+    public final static int             SELECT_POPUP_STARNAME_DOMAIN = 1000;
 
     private Button mCancelBtn, mConfirmBtn;
     private EditText mAccountInput;
     private TextView mStarNameFeeTv;
-    private TextView mFixedDomain;
+    private RelativeLayout mDomainLayer;
+    private TextView mSelectDomain;
+    private String mSelectedDomain = "iov";
 
     public static RegisterAccount0Fragment newInstance(Bundle bundle) {
         RegisterAccount0Fragment fragment = new RegisterAccount0Fragment();
@@ -53,15 +61,17 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
         mCancelBtn = rootView.findViewById(R.id.btn_cancel);
         mConfirmBtn = rootView.findViewById(R.id.btn_next);
         mAccountInput = rootView.findViewById(R.id.et_user_input);
-        mFixedDomain = rootView.findViewById(R.id.fixed_domain);
         mStarNameFeeTv = rootView.findViewById(R.id.starname_fee_amount);
-        mFixedDomain.setOnClickListener(this);
+        mDomainLayer = rootView.findViewById(R.id.domain_layer);
+        mSelectDomain = rootView.findViewById(R.id.selected_domain);
+
         mCancelBtn.setOnClickListener(this);
         mConfirmBtn.setOnClickListener(this);
+        mDomainLayer.setOnClickListener(this);
 
         BigDecimal starNameFee = getBaseDao().getStarNameRegisterAccountFee("open");
+        mSelectDomain.setText(mSelectedDomain);
         mStarNameFeeTv.setText(WDp.getDpAmount2(getContext(), starNameFee, 6, 6));
-
         return rootView;
     }
 
@@ -71,8 +81,13 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mFixedDomain)) {
-            Toast.makeText(getBaseActivity(), R.string.error_only_fixed_domain, Toast.LENGTH_SHORT).show();
+        if (v.equals(mDomainLayer)) {
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList("domain", getBaseDao().mChainParam.mStarnameDomains);
+            Dialog_Starname_Domain dialog = Dialog_Starname_Domain.newInstance(bundle);
+            dialog.setCancelable(true);
+            dialog.setTargetFragment(this, SELECT_POPUP_STARNAME_DOMAIN);
+            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
         } if (v.equals(mCancelBtn)) {
             getSActivity().onBeforeStep();
@@ -90,13 +105,13 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
                 Toast.makeText(getBaseActivity(), R.string.error_not_enough_starname_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
-            onCheckAccountInfo(userInput, "iov");
+            onCheckAccountInfo(userInput, mSelectedDomain);
         }
     }
 
     private void onNextStep() {
         getSActivity().mStarNameAccount = mAccountInput.getText().toString().trim();
-        getSActivity().mStarNameDomain = "iov";
+        getSActivity().mStarNameDomain = mSelectedDomain;
         getSActivity().onNextStep();
     }
 
@@ -134,5 +149,14 @@ public class RegisterAccount0Fragment extends BaseFragment implements View.OnCli
                 getSActivity().onHideWaitDialog();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == SELECT_POPUP_STARNAME_DOMAIN && resultCode == Activity.RESULT_OK) {
+            mSelectedDomain = getBaseDao().mChainParam.mStarnameDomains.get(data.getIntExtra("position", 0));
+            mSelectDomain.setText(mSelectedDomain);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
