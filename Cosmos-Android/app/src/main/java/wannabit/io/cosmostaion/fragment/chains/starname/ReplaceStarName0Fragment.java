@@ -30,9 +30,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_StarName_Resource;
 import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.StarnameResourceWrapper;
-import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.utils.WUtil.STARNAME;
 
 public class ReplaceStarName0Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_ADD_CHAIN    = 9700;
@@ -43,6 +40,8 @@ public class ReplaceStarName0Fragment extends BaseFragment implements View.OnCli
 
     private ResourceAdapter mResourceAdapter;
     public ArrayList<Types.Resource> mResources = new ArrayList();
+
+    public static String STARNAME       = "asset:iov";
 
     public static ReplaceStarName0Fragment newInstance(Bundle bundle) {
         ReplaceStarName0Fragment fragment = new ReplaceStarName0Fragment();
