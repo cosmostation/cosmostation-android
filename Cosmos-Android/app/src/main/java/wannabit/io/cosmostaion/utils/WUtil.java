@@ -1885,53 +1885,10 @@ public class WUtil {
         return result;
     }
 
-
-    public static String BITCOINCASH    = "asset:bch";
-    public static String BITCOIN        = "asset:btc";
-    public static String LITECOIN       = "asset:ltc";
-    public static String BINANCE        = "asset:bnb";
-    public static String LUNA           = "asset:luna";
-    public static String COSMOS         = "asset:atom";
-    public static String EMONEY         = "asset:ngm";
-    public static String IRIS           = "asset:iris";
-    public static String KAVA           = "asset:kava";
-    public static String ETHEREUM       = "asset:eth";
-    public static String STARNAME       = "asset:iov";
-    public static String BAND           = "asset:band";
-    public static String TEZOS          = "asset:xtz";
-    public static String LISK           = "asset:lsk";
-
     public static String checkStarnameWithResource(BaseChain chain, List<Types.Resource> resources) {
         for (Types.Resource resource: resources) {
-            if (chain.equals(BaseChain.COSMOS_MAIN)) {
-                if (resource.getUri().equals("asset:atom") && resource.getResource().startsWith("cosmos1")) {
-                    return resource.getResource();
-                }
-
-            } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-                if (resource.getUri().equals("asset:iris") && resource.getResource().startsWith("iaa1")) {
-                    return resource.getResource();
-                }
-
-            } else if (chain.equals(BaseChain.BNB_MAIN)) {
-                if (resource.getUri().equals("asset:bnb") && resource.getResource().startsWith("bnb1")) {
-                    return resource.getResource();
-                }
-
-            } else if (chain.equals(BaseChain.KAVA_MAIN)) {
-                if (resource.getUri().equals("asset:kava") && resource.getResource().startsWith("kava1")) {
-                    return resource.getResource();
-                }
-
-            } else if (chain.equals(BaseChain.IOV_MAIN)) {
-                if (resource.getUri().equals("asset:iov") && resource.getResource().startsWith("star1")) {
-                    return resource.getResource();
-                }
-
-            } else if (chain.equals(BaseChain.BAND_MAIN)) {
-                if (resource.getUri().equals("asset:band") && resource.getResource().startsWith("band1")) {
-                    return resource.getResource();
-                }
+            if (WDp.isValidChainAddress(chain, resource.getResource())) {
+                return resource.getResource();
             }
         }
         return "";
