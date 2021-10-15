@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.squareup.picasso.Picasso;
+
 import java.math.BigDecimal;
 
 import starnamed.x.starname.v1beta1.Types;
@@ -30,6 +32,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcDomainInfoTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StarNameGrpcResolveTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.StarnameAssets;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -249,8 +252,8 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
             } else  if (getItemViewType(position) == TYPE_RESOURCE) {
                 final MyResourceHolder holder = (MyResourceHolder)viewHolder;
                 final Types.Resource resource = mAccountResolve_gRPC.getResources(position - 1);
-                holder.itemChainImg.setImageDrawable(WUtil.getStarNameChainImg2(getBaseContext(), resource));
-                holder.itemChainName.setText(WUtil.getStarNameChainName2(resource));
+                Picasso.get().load(StarnameAssets.getStarNameChainImgUrl(resource.getUri())).fit().into(holder.itemChainImg);
+                holder.itemChainName.setText(StarnameAssets.getStarNameChainName(resource.getUri()));
                 holder.itemAddress.setText(resource.getResource());
             }
 

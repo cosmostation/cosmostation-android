@@ -31,7 +31,6 @@
                 android:id="@+id/et_user_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/fixed_star"
                 android:hint="Your Starname"
                 android:textCursorDrawable="@drawable/white_cursor"
                 android:maxLength="63"
@@ -41,25 +40,46 @@
                 style="@style/font_ss_26_white"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
+                android:layout_centerVertical="true"
                 android:gravity="right"/>
             <TextView
                 android:id="@+id/fixed_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/fixed_domain"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/space_6"
                 android:layout_marginRight="@dimen/space_2"
+                android:layout_toRightOf="@+id/et_user_input"
                 style="@style/font_ss_26_white"
                 android:text="*"/>
-            <TextView
-                android:id="@+id/fixed_domain"
+            <RelativeLayout
+                android:id="@+id/domain_layer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                style="@style/font_ss_26_white"
-                android:text="iov"/>
+                android:layout_toRightOf="@+id/fixed_star">
+                <LinearLayout
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_trans_with_border"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/space_10">
+                    <TextView
+                        android:id="@+id/selected_domain"
+                        android:layout_width="@dimen/space_120"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        style="@style/font_ss_26_white"
+                        android:text="-"/>
+                    <ImageView
+                        android:id="@+id/dialog_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/space_8"
+                        android:src="@drawable/arrow_down_gr"/>
+                </LinearLayout>
+            </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout

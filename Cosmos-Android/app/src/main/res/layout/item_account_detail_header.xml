@@ -50,7 +50,7 @@
                         android:paddingBottom="@dimen/space_4"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/btn_explorer"/>
+                        android:src="@drawable/icon_explorer"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -69,6 +69,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/space_6"
                         style="@style/font_ss_12_white"
                         android:text="-"/>
                 </RelativeLayout>
@@ -89,6 +90,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/space_6"
                         style="@style/font_ss_12_white"
                         android:text="-"/>
                 </RelativeLayout>
