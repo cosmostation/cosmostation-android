@@ -135,7 +135,7 @@ public class GDexSwapStep0Fragment extends BaseFragment implements View.OnClickL
         BigDecimal lpInputAmount = getLocalLpAmount(getSActivity().mInputDenom);
         BigDecimal lpOutputAmount = getLocalLpAmount(getSActivity().mOutputDenom);
         if (lpInputAmount != BigDecimal.ZERO && lpOutputAmount != BigDecimal.ZERO) {
-            mSwapRate = lpOutputAmount.divide(lpInputAmount, 6, RoundingMode.DOWN).movePointLeft(mInputCoinDecimal - mOutputCoinDecimal);
+            mSwapRate = lpOutputAmount.divide(lpInputAmount, 8, RoundingMode.DOWN);
         }
     }
 

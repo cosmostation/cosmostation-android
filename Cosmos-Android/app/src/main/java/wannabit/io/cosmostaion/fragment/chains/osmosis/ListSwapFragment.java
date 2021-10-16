@@ -116,7 +116,7 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void onUpdateView() {
-        int inputDecimal = WDp.mainDivideDecimal(mInputCoinDenom);
+        int inputDecimal = WUtil.getOsmosisCoinDecimal(mInputCoinDenom);
         WUtil.dpOsmosisTokenName(getSActivity(), mInputCoin, mInputCoinDenom);
         WUtil.DpOsmosisTokenImg(mInputImg, mInputCoinDenom);
         WUtil.dpOsmosisTokenName(getSActivity(), mOutputCoin, mOutputCoinDenom);
@@ -148,7 +148,6 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
         inputAssetAmount = inputAssetAmount.movePointLeft(WUtil.getOsmosisCoinDecimal(mInputCoinDenom));
         outputAssetAmount = outputAssetAmount.movePointLeft(WUtil.getOsmosisCoinDecimal(mOutputCoinDenom));
         BigDecimal swapRate = outputAssetAmount.multiply(inputAssetWeight).divide(inputAssetAmount, 16, RoundingMode.DOWN).divide(outputAssetWeight, 16, RoundingMode.DOWN);
-        WLog.w("swapRate " + swapRate);
 
         mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputCoinDecimal));
         WUtil.dpOsmosisTokenName(getSActivity(), mSwapInputCoinSymbol, mInputCoinDenom);
