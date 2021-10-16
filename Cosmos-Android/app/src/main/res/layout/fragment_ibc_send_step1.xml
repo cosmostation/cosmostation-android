@@ -136,6 +136,37 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/starname_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_control"
+        android:layout_marginBottom="@dimen/space_16"
+        android:orientation="vertical"
+        android:layout_marginRight="@dimen/space_32"
+        android:layout_marginLeft="@dimen/space_32"
+        android:gravity="center_horizontal">
+        <ImageView
+            android:layout_width="@dimen/space_60"
+            android:layout_height="@dimen/space_60"
+            android:src="@drawable/starname_img"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:gravity="center"
+            style="@style/font_ss_14_iov"
+            android:text="@string/str_support_starname_title"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_10"
+            android:gravity="center"
+            style="@style/font_ss_12_white"
+            android:text="@string/str_support_starname_msg"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/bottom_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

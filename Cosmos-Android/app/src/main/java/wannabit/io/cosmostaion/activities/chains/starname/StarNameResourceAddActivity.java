@@ -108,9 +108,11 @@ public class StarNameResourceAddActivity extends BaseActivity implements View.On
                 return;
 
             } else if (mStarNameAsset != null && mStarNameAsset.url != null) {
-                if (!WDp.isValidChainAddress(mTochain, userinput)) {
-                    Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
-                    return;
+                if (mTochain != null) {
+                    if (!WDp.isValidChainAddress(mTochain, userinput)) {
+                        Toast.makeText(getBaseContext(), R.string.error_invalid_address_pubkey, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
                 temp = Types.Resource.newBuilder().setUri(mStarNameAsset.url).setResource(userinput).build();
             } else {
