@@ -141,6 +141,13 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 RewardPromotionHolder holder = (RewardPromotionHolder)viewHolder;
                 holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
 
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getMainActivity().onStartDelegate();
+                    }
+                });
+
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
                 final RewardWithdrawHolder holder = (RewardWithdrawHolder)viewHolder;
                 WDp.DpMainDenom(getContext(), getMainActivity().mAccount.baseChain, holder.itemTvDenom);

@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import cosmos.distribution.v1beta1.Distribution;
+import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -34,6 +35,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
 
 public class ValidatorListActivity extends BaseActivity implements FetchCallBack {
@@ -130,6 +132,49 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         Intent intent = new Intent(ValidatorListActivity.this, ValidatorActivity.class);
         intent.putExtra("valOpAddress", opAddress);
         startActivity(intent);
+    }
+
+    public void onStartDelegate() {
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+        String cosmostation = "";
+        if (isGRPC(mBaseChain)) {
+            BigDecimal delegatableAmount = getBaseDao().getDelegatable(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
+            if (delegatableAmount.compareTo(feeAmount) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
+                if (validator.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) {
+                    cosmostation = validator.getOperatorAddress();
+                }
+            }
+            Intent toDelegate = new Intent(ValidatorListActivity.this, DelegateActivity.class);
+            toDelegate.putExtra("valOpAddress", cosmostation);
+            startActivity(toDelegate);
+
+        } else {
+            Validator toValidator =  null;
+            BigDecimal delegatableAmount = getBaseDao().delegatableAmount(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
+            if (delegatableAmount.compareTo(feeAmount) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            for (Validator validator: getBaseDao().mAllValidators) {
+                if (validator.description.moniker.equalsIgnoreCase("Cosmostation")) {
+                    toValidator = validator;
+                }
+            }
+            Intent toDelegate = new Intent(ValidatorListActivity.this, DelegateActivity.class);
+            toDelegate.putExtra("validator", toValidator);
+            startActivity(toDelegate);
+        }
     }
 
     public void onStartRewardAll() {
