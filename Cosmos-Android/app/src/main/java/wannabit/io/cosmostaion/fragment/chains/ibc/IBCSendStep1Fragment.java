@@ -4,13 +4,17 @@ import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -50,6 +54,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
     private TextView        mDesitination;
     private EditText        mAddressInput;
     private Button          mCancel, mNextBtn;
+    private LinearLayout    mStarNameLayer;
     private LinearLayout    mBtnQr, mBtnPaste, mBtnWallet;
 
     private BaseChain           mTochain;
@@ -74,6 +79,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         mAddressInput = rootView.findViewById(R.id.receiver_account);
         mNextBtn = rootView.findViewById(R.id.btn_next);
         mCancel = rootView.findViewById(R.id.btn_cancel);
+        mStarNameLayer = rootView.findViewById(R.id.starname_layer);
 
         mBtnQr = rootView.findViewById(R.id.btn_qr);
         mBtnPaste = rootView.findViewById(R.id.btn_paste);
@@ -85,6 +91,35 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         mBtnPaste.setOnClickListener(this);
         mBtnWallet.setOnClickListener(this);
 
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            private boolean alreadyOpen;
+            private final int defaultKeyboardHeightDP = 100;
+            private final int EstimatedKeyboardDP = defaultKeyboardHeightDP + (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? 48 : 0);
+            private final Rect rect = new Rect();
+
+            @Override
+            public void onGlobalLayout() {
+                int estimatedKeyboardHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, EstimatedKeyboardDP, rootView.getResources().getDisplayMetrics());
+                rootView.getWindowVisibleDisplayFrame(rect);
+                int heightDiff = rootView.getRootView().getHeight() - (rect.bottom - rect.top);
+                boolean isShown = heightDiff >= estimatedKeyboardHeight;
+                if (isShown == alreadyOpen) {
+                    return;
+                }
+                alreadyOpen = isShown;
+                if (alreadyOpen) {
+                    mStarNameLayer.setVisibility(View.GONE);
+                } else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mStarNameLayer.setVisibility(View.VISIBLE);
+                        }
+                    },100);
+                }
+            }
+        });
+        mStarNameLayer.setVisibility(View.VISIBLE);
         return rootView;
     }
 
