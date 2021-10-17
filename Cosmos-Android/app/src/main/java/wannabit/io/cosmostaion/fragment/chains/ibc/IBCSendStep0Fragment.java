@@ -123,11 +123,12 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
 
     private void onUpdateView() {
         if (getSActivity().mToIbcDenom.startsWith("ibc/")) {
+            mToChainLayer.setClickable(false);
             mToChainLayer.setBackgroundResource(R.drawable.box_gray);
             mDialogImg.setVisibility(View.GONE);
         } else {
             mToChainLayer.setClickable(true);
-            mToChainLayer.setBackgroundResource(R.drawable.edittext_box);
+            mToChainLayer.setBackgroundResource(R.drawable.btn_trans_with_border);
             mDialogImg.setVisibility(View.VISIBLE);
         }
         WDp.getChainImg(getSActivity(), getSActivity().mBaseChain, mFromChainImg);
