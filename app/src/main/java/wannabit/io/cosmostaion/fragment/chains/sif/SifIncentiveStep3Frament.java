@@ -76,7 +76,7 @@ public class SifIncentiveStep3Frament extends BaseFragment implements View.OnCli
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-
+            getSActivity().onStartIncentiveClaim();
         }
     }
 }
