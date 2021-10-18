@@ -257,10 +257,11 @@ public class HtlcSendActivity extends BaseActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-         if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
             Intent intent = new Intent(HtlcSendActivity.this, HtlcResultActivity.class);
             intent.putExtra("toChain", mRecipientChain.getChain());
-            intent.putExtra("recipientId", ""+mRecipientAccount.id);
+            intent.putExtra("recipientId", "" + mRecipientAccount.id);
             intent.putParcelableArrayListExtra("amount", mToSendCoins);
             intent.putExtra("sendFee", mSendFee);
             intent.putExtra("claimFee", mClaimFee);
