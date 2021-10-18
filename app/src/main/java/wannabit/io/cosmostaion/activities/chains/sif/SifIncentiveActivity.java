@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.sif;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,14 +17,18 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifIncentiveStep0Frament;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifIncentiveStep3Frament;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
 
 public class SifIncentiveActivity extends BaseBroadCastActivity {
@@ -136,6 +141,15 @@ public class SifIncentiveActivity extends BaseBroadCastActivity {
         } else {
             onBackPressed();
         }
+    }
+
+    public void onStartIncentiveClaim() {
+        Intent intent = new Intent(SifIncentiveActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIF_CLAIM_INCENTIVE);
+        intent.putExtra("fee", mTxFee);
+        intent.putExtra("memo", mTxMemo);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     private class ClaimIncentivePageAdapter extends FragmentPagerAdapter {
