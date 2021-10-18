@@ -1328,6 +1328,12 @@
     <string name="str_sif_incentive_type">Type</string>
     <string name="str_sif_reward_program">Check Reward Program</string>
     <string name="str_sif_claim_address">Claim Address</string>
+    <string name="str_sif_dex_title">시프 Dex</string>
+    <string name="str_sif_dex_swap">Swap</string>
+    <string name="str_sif_dex_ibc_pool">IBC Pool</string>
+    <string name="str_sif_dex_eth_pol">Eth Pool</string>
+    <string name="str_sif_swap_rate">SifChain Swap Rate</string>
+
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

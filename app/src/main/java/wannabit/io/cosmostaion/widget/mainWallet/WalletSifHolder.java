@@ -15,17 +15,16 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
+import wannabit.io.cosmostaion.activities.chains.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
 public class WalletSifHolder extends BaseHolder {
     public TextView         mTvSifTotal, mTvSifValue, mTvSifAvailable, mTvSifDelegated, mTvSifUnBonding, mTvSifRewards;
     public RelativeLayout   mSifVestingLayer;
     public TextView         mTvSifVesting;
-    public RelativeLayout   mBtnStake, mBtnVote;
+    public RelativeLayout   mBtnStake, mBtnVote, mBtnDex;
 
     public WalletSifHolder(@NonNull View itemView) {
         super(itemView);
@@ -41,6 +40,7 @@ public class WalletSifHolder extends BaseHolder {
 
         mBtnStake           = itemView.findViewById(R.id.btn_sif_reward);
         mBtnVote            = itemView.findViewById(R.id.btn_sif_vote);
+        mBtnDex             = itemView.findViewById(R.id.btn_sif_dex);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
@@ -74,5 +74,13 @@ public class WalletSifHolder extends BaseHolder {
                 mainActivity.startActivity(proposals);
             }
         });
+        mBtnDex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dex = new Intent(mainActivity, SifDexListActivity.class);
+                mainActivity.startActivity(dex);
+            }
+        });
+
     }
 }

@@ -1595,6 +1595,11 @@
     <string name="str_sif_incentive_type">Type</string>
     <string name="str_sif_reward_program">Check Reward Program</string>
     <string name="str_sif_claim_address">Claim Address</string>
+    <string name="str_sif_dex_title">SifChain Dex</string>
+    <string name="str_sif_dex_swap">Swap</string>
+    <string name="str_sif_dex_ibc_pool">IBC Pool</string>
+    <string name="str_sif_dex_eth_pol">Eth Pool</string>
+    <string name="str_sif_swap_rate">SifChain Swap Rate</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
