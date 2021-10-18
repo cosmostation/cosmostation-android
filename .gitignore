@@ -6,7 +6,6 @@ app/google-services.json
 /local.properties
 /.idea
 .DS_Store
-/gradle
 /build
 /*/build/
 /captures
