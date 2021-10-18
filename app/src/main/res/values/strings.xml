@@ -1586,6 +1586,15 @@
     <string name="str_ibc_recipient_chain">Recipient Chain</string>
 
     <string name="str_sif_claim_incentive">Claim Incentive</string>
+    <string name="str_sif_incentive_claim">Incentive Claim</string>
+    <string name="str_sif_incentive_step_0">Check your incentive</string>
+    <string name="str_sif_incentive_step_1">Insert memo (optional)</string>
+    <string name="str_sif_incentive_step_2">Select transaction fee</string>
+    <string name="str_sif_incentive_step_3">Check transaction detail</string>
+    <string name="str_sif_incentive_amount">Incentive Amounts</string>
+    <string name="str_sif_incentive_type">Type</string>
+    <string name="str_sif_reward_program">Check Reward Program</string>
+    <string name="str_sif_claim_address">Claim Address</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>

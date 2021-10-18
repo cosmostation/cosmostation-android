@@ -5,7 +5,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -45,5 +44,12 @@ public class WalletSifIncentiveHolder extends BaseHolder {
         } else {
             mMaxDate.setText(WDp.getTimeformat(mainActivity, maxDate));
         }
+
+        mBtnIncentive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.onClickIncentive();
+            }
+        });
     }
 }

@@ -1319,6 +1319,15 @@
     <string name="str_select_starname_domain">도메인 선택</string>
 
     <string name="str_sif_claim_incentive">인센티브 받기</string>
+    <string name="str_sif_incentive_claim">인센티브 받기</string>
+    <string name="str_sif_incentive_step_0">인센티브를 확인해주세요</string>
+    <string name="str_sif_incentive_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_sif_incentive_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_sif_incentive_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_sif_incentive_amount">Incentive Amounts</string>
+    <string name="str_sif_incentive_type">Type</string>
+    <string name="str_sif_reward_program">Check Reward Program</string>
+    <string name="str_sif_claim_address">Claim Address</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
