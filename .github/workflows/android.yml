@@ -1,0 +1,42 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+        cache: gradle
+
+    - name: Make keystore file
+      run: echo ${{ secrets.KEYSTORE }} | base64 -d > app/debug.keystore
+    - name: Make google service file
+      run: echo "${{ secrets.GOOGLE_SERVICE }}" | base64 -d > app/google-services.json
+    
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew build
+      
+    - name: Set file name
+      run: |
+        echo "FILE_NAME=app/build/outputs/apk/debug/Cosmostation-debug-$(date "+%y%m%d%H%M")-${GITHUB_SHA::6}-${GITHUB_REF#refs/heads/}.apk" >> $GITHUB_ENV
+    - name: Rename file
+      run: mv app/build/outputs/apk/debug/app-debug.apk ${{ env.FILE_NAME }}
+      
+    - name: Upload to slack step
+      uses: adrey/slack-file-upload-action@master
+      with:
+        token: ${{ secrets.SLACK_TOKEN }}
+        path: ${{ env.FILE_NAME }}
+        initial_comment: ${{ github.event.head_commit.message }}
+        channel: app-build
