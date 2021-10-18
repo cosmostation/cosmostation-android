@@ -1,2 +1,13 @@
-Cosmos-Android/app/debug.keystore
-Cosmos-Android/app/google-services.json
+app/debug.keystore
+app/google-services.json
+
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/gradle
+/build
+/*/build/
+/captures
+.externalNativeBuild

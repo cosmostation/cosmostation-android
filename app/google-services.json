@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "662209286307",
+    "firebase_url": "https://fcmpushnotification-a7dce.firebaseio.com",
+    "project_id": "fcmpushnotification-a7dce",
+    "storage_bucket": "fcmpushnotification-a7dce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662209286307:android:92f7a1775c04b997",
+        "android_client_info": {
+          "package_name": "wannabit.io.cosmostaion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662209286307-tu4qsqjo7e8cu8mlsr06fhu8s8pfqm3n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "wannabit.io.cosmostaion",
+            "certificate_hash": "51092a7886398840c85d1d50790807b739c18e4e"
+          }
+        },
+        {
+          "client_id": "662209286307-7s5r9p1cramal0mc3vvl6gkvub3i1lh5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBf4ds_lBT0ooz1IS5fT1fq-p4S7lFmD4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662209286307-7s5r9p1cramal0mc3vvl6gkvub3i1lh5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "662209286307-k5f1n3ujim68ua3bki08ntr353jkspdc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.wannabit.cosmostation"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
