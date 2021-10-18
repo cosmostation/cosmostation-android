@@ -217,7 +217,6 @@ public class BaseData {
     public ResIovConfig.IovConfig   mStarNameConfig;
 
     //INCENTIVE DATA FOR SIF
-    public SifIncentive.User        mSifVsIncentive;
     public SifIncentive.User        mSifLmIncentive;
 
     public String getChainId() {

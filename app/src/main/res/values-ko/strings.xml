@@ -1318,6 +1318,8 @@
     <string name="str_ibc_recipient_chain">받는 체인</string>
     <string name="str_select_starname_domain">도메인 선택</string>
 
+    <string name="str_sif_claim_incentive">인센티브 받기</string>
+
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
