@@ -528,7 +528,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mIbcTokens.clear();
         getBaseDao().mChainParam = null;
 
-        getBaseDao().mSifVsIncentive = null;
         getBaseDao().mSifLmIncentive = null;
 
         getBaseDao().mNodeInfo = null;
@@ -681,7 +680,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-//            new SifVsIncentiveTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SifLmIncentiveTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (isGRPC(mBaseChain)) {
@@ -841,11 +839,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (result.taskType == TASK_FETCH_OK_DEX_TICKERS) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mOkTickersList = ((ResOkTickersList)result.resultData);
-            }
-
-        } else if (result.taskType == TASK_FETCH_SIF_INCENTIVE_VS) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mSifVsIncentive = ((SifIncentive.User)result.resultData);
             }
 
         } else if (result.taskType == TASK_FETCH_SIF_INCENTIVE_LM) {

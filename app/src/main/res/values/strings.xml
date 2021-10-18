@@ -1585,6 +1585,8 @@
     <string name="str_select_ibc_address">Recipient Address</string>
     <string name="str_ibc_recipient_chain">Recipient Chain</string>
 
+    <string name="str_sif_claim_incentive">Claim Incentive</string>
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
