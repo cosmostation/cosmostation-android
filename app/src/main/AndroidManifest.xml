@@ -643,6 +643,13 @@
         </activity>
 
         <activity
+            android:name=".activities.chains.sif.SifIncentiveActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
             android:name=".activities.chains.ibc.IBCSendActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
