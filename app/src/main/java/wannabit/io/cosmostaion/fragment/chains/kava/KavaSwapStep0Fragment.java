@@ -31,10 +31,15 @@ import wannabit.io.cosmostaion.task.FetchTask.KavaSwapPoolInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_SWAP_POOL_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
 public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -127,6 +132,11 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
         setDpDecimals(mInputCoinDecimal);
 
         mAvailableMaxAmount = getBaseDao().availableAmount(getSActivity().mInputDenom);
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_KAVA_SWAP, 0);
+        WLog.w("txFee : " + txFee);
+        if (getSActivity().mInputDenom.equals(TOKEN_KAVA)) {
+            mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
+        }
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
         WUtil.dpKavaTokenName(getSActivity(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
 

@@ -26,7 +26,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_Pool_Gravity_Dex;
 import wannabit.io.cosmostaion.dialog.Dialog_Pool_Kava;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
@@ -59,6 +58,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_JOIN_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
@@ -152,6 +152,13 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
+        BigDecimal available = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_KAVA_SWAP, 0);
+        if (available.compareTo(txFee) <= 0) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(DAppsList5Activity.this, StartSwapActivity.class);
         intent.putExtra("inputDenom", inputCoinDenom);
         intent.putExtra("outputDenom", outCoinDenom);
