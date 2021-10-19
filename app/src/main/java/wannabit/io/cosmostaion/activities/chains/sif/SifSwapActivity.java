@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.sif;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,16 +16,18 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifSwapStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifSwapStep3Fragment;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_GDEX_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
 
 public class SifSwapActivity extends BaseBroadCastActivity {
@@ -55,13 +58,14 @@ public class SifSwapActivity extends BaseBroadCastActivity {
         mTxType = CONST_PW_TX_SIF_SWAP;
         mInputDenom = getIntent().getStringExtra("inputDenom");
         mOutputDenom = getIntent().getStringExtra("outputDenom");
+        mSifSwapPool = (Types.Pool) getIntent().getSerializableExtra("sifPool");
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_swap_step_0));
+        mTvStep.setText(getString(R.string.str_sif_swap_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
@@ -78,18 +82,18 @@ public class SifSwapActivity extends BaseBroadCastActivity {
             public void onPageSelected(int i) {
                 if(i == 0) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_swap_step_0));
+                    mTvStep.setText(getString(R.string.str_sif_swap_step_0));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 1 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_swap_step_1));
+                    mTvStep.setText(getString(R.string.str_sif_swap_step_1));
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_swap_step_2));
+                    mTvStep.setText(getString(R.string.str_sif_swap_step_2));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_swap_step_3));
+                    mTvStep.setText(getString(R.string.str_sif_swap_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
@@ -143,6 +147,17 @@ public class SifSwapActivity extends BaseBroadCastActivity {
         } else {
             onBackPressed();
         }
+    }
+
+    public void onStartSwap() {
+        Intent intent = new Intent(SifSwapActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIF_SWAP);
+        intent.putExtra("SifSwapInCoin", mSifSwapInCoin);
+        intent.putExtra("SifSwapOutCoin", mSifSwapOutCoin);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     private class CoinSwapPageAdapter extends FragmentPagerAdapter {

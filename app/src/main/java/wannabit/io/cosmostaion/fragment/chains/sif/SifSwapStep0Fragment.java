@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment.chains.sif;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -12,17 +13,28 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.sif.SifSwapActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.SifPoolInfoGrpcTask;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
 public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -101,6 +113,24 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
         mInputCoinDecimal = getBaseDao().mChainParam.getSifTokenDecimal(getSActivity().mInputDenom);
         mOutputCoinDecimal = getBaseDao().mChainParam.getSifTokenDecimal(getSActivity().mOutputDenom);
         setDpDecimals(mInputCoinDecimal);
+
+        mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIF_SWAP, 0);
+        if (getSActivity().mInputDenom.equals(TOKEN_SIF)) {
+            mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
+        }
+
+        mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
+        WUtil.dpSifTokenName(getContext(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
+
+        WUtil.dpSifTokenName(getContext(), mSwapInputSymbol, getSActivity().mInputDenom);
+        WUtil.DpSifTokenImg(mSwapInputImg, getSActivity().mInputDenom);
+        WUtil.dpSifTokenName(getContext(), mSwapOutputSymbol, getSActivity().mOutputDenom);
+        WUtil.DpSifTokenImg(mSwapOutputImg, getSActivity().mOutputDenom);
+
+        BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mInputDenom);
+        BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mOutputDenom);
+        mSwapRate = lpOutputAmount.divide(lpInputAmount, 24, RoundingMode.DOWN).movePointRight(mInputCoinDecimal - mOutputCoinDecimal);
     }
 
     private void onAddAmountWatcher(){
@@ -165,24 +195,98 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mCancelBtn)) {
+            getSActivity().onBeforeStep();
+
+        } else if (v.equals(mNextBtn)) {
+            if (isValidateSwapInputAmount()) {
+                getSActivity().onNextStep();
+            } else {
+                Toast.makeText(getContext(), R.string.error_invalid_amounts, Toast.LENGTH_SHORT).show();
+            }
+
+        } else if (v.equals(mBtnSwapInputClear)) {
+            mSwapInputAmount.setText("");
+            mSwapOutputAmount.setText("");
+
+        } else if (v.equals(mBtnSwapInput1_4)) {
+            BigDecimal cal = mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).multiply(new BigDecimal("0.25")).setScale(mInputCoinDecimal, RoundingMode.DOWN);
+            mSwapInputAmount.setText(cal.toPlainString());
+            onUpdateOutputTextView();
+
+        } else if (v.equals(mBtnSwapInputHalf)) {
+            BigDecimal cal = mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).multiply(new BigDecimal("0.5")).setScale(mInputCoinDecimal, RoundingMode.DOWN);
+            mSwapInputAmount.setText(cal.toPlainString());
+            onUpdateOutputTextView();
+
+        } else if (v.equals(mBtnSwapInput3_4)) {
+            BigDecimal cal = mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).multiply(new BigDecimal("0.75")).setScale(mInputCoinDecimal, RoundingMode.DOWN);
+            mSwapInputAmount.setText(cal.toPlainString());
+            onUpdateOutputTextView();
+
+        } else if (v.equals(mBtnSwapInputMax)) {
+            BigDecimal max = mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).setScale(mInputCoinDecimal, RoundingMode.DOWN);
+            mSwapInputAmount.setText(max.toPlainString());
+            onUpdateOutputTextView();
+
+        }
+    }
+
     private void onUpdateOutputTextView() {
         try {
             BigDecimal InputAmountTemp = new BigDecimal(mSwapInputAmount.getText().toString().trim());
-            BigDecimal padding = new BigDecimal("0.97");
+            BigDecimal padding = new BigDecimal("0.98");
             if (InputAmountTemp.compareTo(BigDecimal.ZERO) == 0) { mSwapOutputAmount.setText(""); return; }
-            BigDecimal OutputAmount = InputAmountTemp.movePointRight(mInputCoinDecimal).multiply(padding).multiply(mSwapRate).setScale(0, RoundingMode.DOWN);
-            mSwapOutputAmount.setText(OutputAmount.movePointLeft(mOutputCoinDecimal).toPlainString());
+            BigDecimal OutputAmount = InputAmountTemp.multiply(padding).setScale(24, RoundingMode.DOWN).multiply(mSwapRate).setScale(24,RoundingMode.DOWN);
+
+            // lp fee
+            BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mInputDenom);
+            BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mOutputDenom);
+            BigDecimal input = InputAmountTemp.movePointRight(mInputCoinDecimal);
+            BigDecimal numerator = input.multiply(input).multiply(lpOutputAmount);
+            BigDecimal divider = input.add(lpInputAmount);
+            BigDecimal denominator = divider.multiply(divider);
+            BigDecimal lpFee = numerator.divide(denominator, 0, RoundingMode.DOWN).movePointLeft(mOutputCoinDecimal).setScale(18, RoundingMode.DOWN);
+
+            mSwapOutputAmount.setText(OutputAmount.subtract(lpFee).setScale(mOutputCoinDecimal, RoundingMode.DOWN).toPlainString());
         } catch (Exception e) { }
+    }
+
+    private boolean isValidateSwapInputAmount() {
+        try {
+            BigDecimal InputAmountTemp = new BigDecimal(mSwapInputAmount.getText().toString().trim());
+            BigDecimal OutAmountTemp = new BigDecimal(mSwapOutputAmount.getText().toString().trim());
+            if (InputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+            if (InputAmountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).setScale(mInputCoinDecimal, RoundingMode.CEILING)) > 0) return false;
+
+            getSActivity().mSifSwapInCoin = new Coin(getSActivity().mInputDenom, InputAmountTemp.movePointRight(mInputCoinDecimal).toPlainString());
+            getSActivity().mSifSwapOutCoin = new Coin(getSActivity().mOutputDenom, OutAmountTemp.movePointRight(mOutputCoinDecimal).toPlainString());
+            return true;
+
+        } catch (Exception e) {
+            getSActivity().mSifSwapInCoin = null;
+            getSActivity().mSifSwapOutCoin = null;
+            return false;
+        }
     }
 
     private int mTaskCount;
     public void onFetchPoolInfo() {
         mTaskCount = 1;
+        new SifPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOutputDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
+        if (result.taskType == TASK_GRPC_FETCH_SIF_POOL_INFO) {
+            if (result.isSuccess && result.resultData != null && result.resultData2 != null) {
+                getSActivity().mSifSwapPool = (Types.Pool) result.resultData;
+            }
+
+        }
         if (mTaskCount == 0) {
             onInitView();
         }
@@ -201,9 +305,5 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
 
     private SifSwapActivity getSActivity() {
         return (SifSwapActivity)getBaseActivity();
-    }
-
-    @Override
-    public void onClick(View v) {
     }
 }

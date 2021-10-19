@@ -25,7 +25,6 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Swap_Coin_List;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class SifDexSwapFragment extends BaseFragment implements View.OnClickListener{
@@ -35,7 +34,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
     private RelativeLayout  mBtnInputCoinList, mBtnOutputCoinList;
     private ImageView       mInputImg;
     private TextView        mInputCoin, mInputAmount;
-    private TextView        mSwapFee, mSwapSlippage;
+    private TextView        mSwapSlippage;
     private TextView        mSwapTitle;
     private ImageView       mOutputImg;
     private TextView        mOutputCoin;
@@ -52,7 +51,6 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
 
     public String                               mInputCoinDenom;
     public String                               mOutputCoinDenom;
-    public BigDecimal                           mPoolSwapRate;
     public int                                  mInPutDecimal = 18;
     public int                                  mOutPutDecimal = 18;
 
@@ -90,7 +88,6 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
         mSwapOutputCoinExRate       = rootView.findViewById(R.id.global_outputs_rate);
         mSwapOutputCoinExSymbol     = rootView.findViewById(R.id.global_outputs_rate_symbol);
 
-        mSwapFee                    = rootView.findViewById(R.id.token_swap_fee);
         mSwapSlippage               = rootView.findViewById(R.id.swap_slippage);
         mBtnToggle                  = rootView.findViewById(R.id.btn_toggle);
         mBtnSwapStart               = rootView.findViewById(R.id.btn_start_swap);
@@ -184,7 +181,7 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
             onUpdateView();
 
         } else if (v.equals(mBtnSwapStart)) {
-            getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom);
+            getSActivity().onStartSwap(mInputCoinDenom, mOutputCoinDenom, mSelectedPool);
         }
     }
 

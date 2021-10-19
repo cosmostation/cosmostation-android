@@ -105,7 +105,7 @@ public class SifDexListActivity extends BaseActivity {
         onFetchPoolListInfo();
     }
 
-    public void onStartSwap(String inCoinDenom, String outCoinDenom) {
+    public void onStartSwap(String inCoinDenom, String outCoinDenom, Types.Pool pool) {
         if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
@@ -123,6 +123,7 @@ public class SifDexListActivity extends BaseActivity {
         Intent intent = new Intent(SifDexListActivity.this, SifSwapActivity.class);
         intent.putExtra("inputDenom", inCoinDenom);
         intent.putExtra("outputDenom", outCoinDenom);
+        intent.putExtra("sifPool", pool);
         startActivity(intent);
     }
 

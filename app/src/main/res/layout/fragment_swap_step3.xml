@@ -50,10 +50,11 @@
                             style="@style/font_ssl_12_white"/>
                         <TextView
                             android:id="@+id/swap_fee_amount_symbol"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/space_45"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="@string/str_atom_c"
+                            android:gravity="end"
                             style="@style/font_ss_12_atom"/>
                     </LinearLayout>
                 </RelativeLayout>
@@ -80,6 +81,15 @@
                             android:layout_alignParentRight="true"
                             android:text="-"
                             style="@style/font_ssl_12_white"/>
+                        <TextView
+                            android:id="@+id/swap_fee_symbol"
+                            android:layout_width="@dimen/space_45"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_2"
+                            android:text="@string/str_atom_c"
+                            style="@style/font_ss_12_atom"
+                            android:gravity="end"
+                            android:visibility="gone"/>
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -119,10 +129,11 @@
                             style="@style/font_ssl_12_white"/>
                         <TextView
                             android:id="@+id/swap_in_amount_symbol"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/space_45"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
                             android:text="@string/str_atom_c"
+                            android:gravity="end"
                             style="@style/font_ss_12_atom"/>
                     </LinearLayout>
                 </RelativeLayout>
@@ -150,9 +161,10 @@
                             style="@style/font_ssl_12_white"/>
                         <TextView
                             android:id="@+id/swap_out_amount_symbol"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/space_45"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/space_2"
+                            android:gravity="end"
                             android:text="@string/str_atom_c"
                             style="@style/font_ss_12_atom"/>
                     </LinearLayout>

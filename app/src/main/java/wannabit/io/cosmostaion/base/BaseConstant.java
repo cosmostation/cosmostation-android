@@ -229,6 +229,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS       = 4204;
 
     public final static int TASK_GRPC_FETCH_SIF_POOL_LIST               = 4250;
+    public final static int TASK_GRPC_FETCH_SIF_POOL_INFO               = 4251;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
@@ -256,6 +257,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_GRAVITY_EXIT_POOL          = 4323;
     public final static int TASK_GRPC_GEN_TX_IBC_TRANSFER               = 4324;
     public final static int TASK_GRPC_GEN_TX_SIF_CLAIM_INCENTIVE        = 4325;
+    public final static int TASK_GRPC_GEN_TX_SIF_SWAP                   = 4326;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -283,6 +285,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_GRAVITY_EXIT_POOL        = 4523;
     public final static int TASK_GRPC_SIMULATE_IBC_TRANSFER             = 4524;
     public final static int TASK_GRPC_SIMULATE_SIF_CLAIM_INCENTIVE      = 4526;
+    public final static int TASK_GRPC_SIMULATE_SIF_SWAP                 = 4527;
 
 
 

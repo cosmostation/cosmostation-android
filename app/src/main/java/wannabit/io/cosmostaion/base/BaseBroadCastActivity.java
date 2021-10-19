@@ -62,6 +62,10 @@ public class BaseBroadCastActivity extends BaseActivity {
     public BigDecimal                   mKavaShareAmount = BigDecimal.ZERO;
     public String                       mIncentiveMultiplier;
 
+    public sifnode.clp.v1.Types.Pool    mSifSwapPool;                               // sif swap
+    public Coin                         mSifSwapInCoin;
+    public Coin                         mSifSwapOutCoin;
+
     public IbcPath.Path                 mPath;
 
     public ArrayList<HdacUtxo>          mHdacUtxo;                                  //rizon swap
