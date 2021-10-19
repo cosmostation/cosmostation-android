@@ -2862,6 +2862,8 @@ public class WUtil {
                 return new BigDecimal(SIF_GAS_AMOUNT_VOTE);
             } else if (txType == CONST_PW_TX_IBC_TRANSFER) {
                 return new BigDecimal(SIF_GAS_AMOUNT_IBC_SEND);
+            } else if (txType == CONST_PW_TX_SIF_CLAIM_INCENTIVE) {
+                return new BigDecimal(SIF_GAS_AMOUNT_CLAIM_INCENTIVE);
             }
 
         } else if (basechain.equals(KI_MAIN)) {

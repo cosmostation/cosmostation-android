@@ -41,27 +41,6 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:ellipsize="end"
-                    android:text="@string/str_sif_incentive_staking"
-                    style="@style/font_ss_12_gray1"/>
-                <TextView
-                    android:id="@+id/current_vs_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    android:text="-"
-                    style="@style/font_ssl_12_white"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:ellipsize="end"
                     android:text="@string/str_sif_incentive_liquidity"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
@@ -71,55 +50,6 @@
                     android:layout_alignParentRight="true"
                     android:gravity="right"
                     android:text="-"
-                    style="@style/font_ssl_12_white"/>
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/space_12"
-                android:background="@color/colorGray3"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="@dimen/space_120"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text="@string/str_sif_incentive_max_staking"
-                    style="@style/font_ss_12_gray1"/>
-                <TextView
-                    android:id="@+id/max_vs_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    android:text="-"
-                    style="@style/font_ssl_12_white"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="@dimen/space_120"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text="@string/str_sif_incentive_max_liquidity"
-                    style="@style/font_ss_12_gray1"/>
-                <TextView
-                    android:id="@+id/max_lm_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:gravity="right"
                     style="@style/font_ssl_12_white"/>
             </RelativeLayout>
 
@@ -143,6 +73,30 @@
                     android:gravity="right"
                     android:text="-"
                     style="@style/font_ssl_12_white"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/space_12"
+                android:background="@color/colorGray3"/>
+
+            <RelativeLayout
+                android:id="@+id/btn_sif_incentive"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_40"
+                android:minHeight="@dimen/space_40"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/btn_trans_with_border"
+                android:clickable="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="@dimen/space_8"
+                    android:gravity="center"
+                    style="@style/font_ss_12_white"
+                    android:text="@string/str_sif_claim_incentive" />
             </RelativeLayout>
 
         </LinearLayout>
