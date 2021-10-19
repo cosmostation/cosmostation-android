@@ -30,10 +30,12 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
 public class Dialog_Swap_Coin_List extends DialogFragment {
 
@@ -57,7 +59,6 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_swap_coin_list, null);
         mSwapCoinList = getArguments().getStringArrayList("denoms");
-        WLog.w("mSwapCoinList " +  mSwapCoinList);
 
         mRecyclerView = view.findViewById(R.id.recycler);
         mSwapChainListAdapter = new SwapChainListAdapter();
@@ -100,10 +101,17 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
                     holder.chainName.setText(getString(R.string.str_osmosis_c));
                     Picasso.get().cancelRequest(holder.chainImg);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_osmosis));
+                } else if (inputCoin.equals(TOKEN_SIF)) {
+                    holder.chainName.setText(getString(R.string.str_sif_c));
+                    Picasso.get().cancelRequest(holder.chainImg);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
                 } else if (inputCoin.equals(TOKEN_ION)) {
                     holder.chainName.setText(getString(R.string.str_uion_c));
                     Picasso.get().cancelRequest(holder.chainImg);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ion));
+                } else if (inputCoin.startsWith("c")) {
+                    Picasso.get().load(SIF_COIN_IMG_URL + mSwapCoinList.get(position) + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.chainImg);
+                    holder.chainName.setText(mSwapCoinList.get(position).substring(1).toUpperCase());
                 }
 
             } else {

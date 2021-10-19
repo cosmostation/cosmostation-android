@@ -228,6 +228,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_OSMOSIS_ACTIVE_GAUGES       = 4203;
     public final static int TASK_GRPC_FETCH_OSMOSIS_LOCKUP_STATUS       = 4204;
 
+    public final static int TASK_GRPC_FETCH_SIF_POOL_LIST               = 4250;
+
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
     public final static int TASK_GRPC_BROAD_CLAIM_REWARDS               = 4302;
@@ -460,6 +462,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_GDEX_WITHDRAW                       = 5048;
     public final static int CONST_PW_TX_IBC_TRANSFER                        = 5049;
     public final static int CONST_PW_TX_SIF_CLAIM_INCENTIVE                 = 5050;
+    public final static int CONST_PW_TX_SIF_SWAP                            = 5051;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
@@ -694,6 +697,7 @@ public class BaseConstant {
     public final static String SIF_GAS_AMOUNT_VOTE                      = "100000";
     public final static String SIF_GAS_AMOUNT_IBC_SEND                  = "500000";
     public final static String SIF_GAS_AMOUNT_CLAIM_INCENTIVE           = "250000";
+    public final static String SIF_GAS_AMOUNT_SWAP                      = "250000";
 
     public final static String KI_GAS_FEE_RATE_AVERAGE                  = "0.025";
     public final static String KI_GAS_AMOUNT_SEND                       = "100000";

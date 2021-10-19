@@ -15,19 +15,16 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PRICE_INFO;
 
 public class StationPriceInfoTask extends CommonTask {
 
-    private String mDenoms;
-
-    public StationPriceInfoTask(BaseApplication app, TaskListener listener, String denoms) {
+    public StationPriceInfoTask(BaseApplication app, TaskListener listener) {
         super(app, listener);
-        this.mDenoms            = denoms;
         this.mResult.taskType   = TASK_FETCH_PRICE_INFO;
     }
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            WLog.w("StationPriceInfoTask " + ApiClient.getStation(mApp).getPrice(mDenoms).request().url());
-            Response<ArrayList<Price>> response = ApiClient.getStation(mApp).getPrice(mDenoms).execute();
+            WLog.w("StationPriceInfoTask " + ApiClient.getStation(mApp).getPrice().request().url());
+            Response<ArrayList<Price>> response = ApiClient.getStation(mApp).getPrice().execute();
             if (response.isSuccessful()) {
                 for (Price price: response.body()) {
                     mApp.getBaseDao().mPrices.add(price);

@@ -1284,52 +1284,6 @@ public class WUtil {
     }
 
     /**
-     * token price
-     */
-    public static String marketPrice(BaseChain basechain, BaseData basedata) {
-        String result = "usdt";
-        if (isGRPC(basechain)) {
-            result = result + "," + WDp.mainDenom(basechain);
-            for (IbcToken ibcToken: basedata.mIbcTokens) {
-                if (ibcToken.auth) {
-                    result = result + "," + ibcToken.base_denom;
-                }
-            }
-
-        }
-
-        if (basechain.equals(OSMOSIS_MAIN)) {
-            result = result + ",uion";
-
-        } else if (basechain.equals(SIF_MAIN)) {
-            result = result + ",rowan";
-            for (Coin coin: basedata.mGrpcBalance) {
-                if (coin.denom != WDp.mainDenom(basechain) && coin.denom.startsWith("c")) {
-                    result = result + "," + coin.denom.substring(1);
-                }
-            }
-
-        }
-        else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {
-            result = result + ",bnb";
-
-        } else if (basechain.equals(KAVA_MAIN)) {
-            result = result + ",ukava,hard,swp,usdx,bnb,xrp,busd,btc";
-
-        } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
-            result = result + ",okb,okt";
-
-        } else if (basechain.equals(SECRET_MAIN)) {
-            result = result + ",uscrt";
-
-        } else if (basechain.equals(KI_MAIN)) {
-            result = result + ",uxki";
-
-        }
-        return result;
-    }
-
-    /**
      * coin decimal
      */
     public static int getKavaCoinDecimal(Coin coin) {
@@ -1552,6 +1506,30 @@ public class WUtil {
         return denom;
     }
 
+    public static String dpSifTokenName(Context c, TextView textView, String denom) {
+        if (denom.equals(TOKEN_SIF)) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorSif));
+            textView.setText("ROWAN");
+
+        } else if (denom.startsWith("c")) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setText(denom.substring(1).toUpperCase());
+
+        } else if (denom.startsWith("ibc/")) {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                textView.setText(ibcToken.display_denom.toUpperCase());
+            } else {
+                textView.setText("UnKnown");
+            }
+        } else {
+            textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            textView.setText("UnKnown");
+        }
+        return denom;
+    }
+
     /**
      * Token Img
      */
@@ -1580,6 +1558,20 @@ public class WUtil {
             imageView.setImageResource(R.drawable.token_ion);
         } else if (denom.startsWith("gamm/pool/")) {
             imageView.setImageResource(R.drawable.token_pool);
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            try {
+                Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+            } catch (Exception e){}
+        }
+    }
+
+    public static void DpSifTokenImg(ImageView imageView, String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_SIF)) {
+            Picasso.get().cancelRequest(imageView);
+            imageView.setImageResource(R.drawable.tokensifchain);
+        } else if (denom.startsWith("c")) {
+            Picasso.get().load(SIF_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
             try {
@@ -1702,6 +1694,25 @@ public class WUtil {
         BigDecimal incentiveAmount = getNextIncentiveAmount(gauges, position);
         BigDecimal incentiveValue = WDp.usdValue(baseData, baseData.getBaseDenom(TOKEN_OSMOSIS), incentiveAmount, WUtil.getOsmosisCoinDecimal(TOKEN_OSMOSIS));
         return incentiveValue.multiply(new BigDecimal("36500")).divide(poolValue, 12, RoundingMode.DOWN);
+    }
+
+    /**
+     * About Sif
+     */
+    public static BigDecimal getNativeAmount(sifnode.clp.v1.Types.Pool pool) {
+        return new BigDecimal(pool.getNativeAssetBalance());
+    }
+
+    public static BigDecimal getExternalAmount(sifnode.clp.v1.Types.Pool pool) {
+        return new BigDecimal(pool.getExternalAssetBalance());
+    }
+
+    public static BigDecimal getPoolLpAmount(sifnode.clp.v1.Types.Pool pool, String denom) {
+        if (denom.equals(TOKEN_SIF)) {
+            return getNativeAmount(pool);
+        } else {
+            return getExternalAmount(pool);
+        }
     }
 
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
@@ -2864,6 +2875,8 @@ public class WUtil {
                 return new BigDecimal(SIF_GAS_AMOUNT_IBC_SEND);
             } else if (txType == CONST_PW_TX_SIF_CLAIM_INCENTIVE) {
                 return new BigDecimal(SIF_GAS_AMOUNT_CLAIM_INCENTIVE);
+            } else if (txType == CONST_PW_TX_SIF_SWAP) {
+                return new BigDecimal(SIF_GAS_AMOUNT_SWAP);
             }
 
         } else if (basechain.equals(KI_MAIN)) {

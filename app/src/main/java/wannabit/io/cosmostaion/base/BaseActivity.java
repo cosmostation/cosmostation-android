@@ -1033,7 +1033,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 }
 
             }
-            new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new StationPriceInfoTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             //callback with delay fix gRPC  timming issue
             mHandler.postDelayed(new Runnable() {
