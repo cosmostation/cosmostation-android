@@ -77,6 +77,9 @@ public class ChainParam {
         @SerializedName("starname_domains")
         public ArrayList<String> mStarnameDomains;
 
+        @SerializedName("sifchain_token_registry")
+        public SifTokenRegistry mSifTokenRegistry;
+
 
         public BigDecimal getMintInflation(BaseChain baseChain) {
             if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {
@@ -225,6 +228,15 @@ public class ChainParam {
                 }
             }
             return false;
+        }
+
+        public int getSifTokenDecimal(String denom) {
+            for (SifTokenRegistry.Registry.Entry entry: mSifTokenRegistry.registry.entries) {
+                if (entry.denom.equalsIgnoreCase(denom)) {
+                    return entry.decimal;
+                }
+            }
+            return 18;
         }
     }
 
@@ -544,6 +556,27 @@ public class ChainParam {
 
                 @SerializedName("address")
                 public String address;
+            }
+        }
+    }
+
+    public class SifTokenRegistry {
+        @SerializedName("registry")
+        public Registry registry;
+
+        public class Registry {
+            @SerializedName("entries")
+            public ArrayList<Entry> entries;
+
+            public class Entry {
+                @SerializedName("denom")
+                public String denom;
+
+                @SerializedName("decimals")
+                public int decimal;
+
+                @SerializedName("base_denom")
+                public String basedenom;
             }
         }
     }

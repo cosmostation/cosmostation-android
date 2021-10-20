@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.fragment.chains.kava;
+package wannabit.io.cosmostaion.fragment.chains.sif;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,31 +17,26 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.squareup.picasso.Picasso;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.StartSwapActivity;
+import wannabit.io.cosmostaion.activities.chains.sif.SifSwapActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.model.kava.SwapPool;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.task.FetchTask.KavaSwapPoolInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.SifPoolInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_KAVA_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_SWAP_POOL_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
-public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
+public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
     private RelativeLayout      mProgress;
     private Button              mCancelBtn, mNextBtn;
@@ -65,12 +60,8 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
 
     private String              mInDecimalChecker, mInDecimalSetter;
 
-    private SwapPool            mSwapPool;
-    private BigDecimal          mInputCoinAmount = BigDecimal.ZERO;
-    private BigDecimal          mOutputCoinAmount = BigDecimal.ZERO;
-
-    public static KavaSwapStep0Fragment newInstance(Bundle bundle) {
-        KavaSwapStep0Fragment fragment = new KavaSwapStep0Fragment();
+    public static SifSwapStep0Fragment newInstance(Bundle bundle) {
+        SifSwapStep0Fragment fragment = new SifSwapStep0Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -119,33 +110,27 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        if (mSwapPool.coins.get(0).denom.equalsIgnoreCase(getSActivity().mInputDenom)) {
-            mInputCoinAmount = new BigDecimal(mSwapPool.coins.get(0).amount);
-            mOutputCoinAmount = new BigDecimal(mSwapPool.coins.get(1).amount);
-        } else {
-            mInputCoinAmount = new BigDecimal(mSwapPool.coins.get(1).amount);
-            mOutputCoinAmount = new BigDecimal(mSwapPool.coins.get(0).amount);
-        }
-
-        mInputCoinDecimal = WUtil.getKavaCoinDecimal(getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getKavaCoinDecimal(getSActivity().mOutputDenom);
+        mInputCoinDecimal = getBaseDao().mChainParam.getSifTokenDecimal(getSActivity().mInputDenom);
+        mOutputCoinDecimal = getBaseDao().mChainParam.getSifTokenDecimal(getSActivity().mOutputDenom);
         setDpDecimals(mInputCoinDecimal);
 
-        mAvailableMaxAmount = getBaseDao().availableAmount(getSActivity().mInputDenom);
-        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_KAVA_SWAP, 0);
-        WLog.w("txFee : " + txFee);
-        if (getSActivity().mInputDenom.equals(TOKEN_KAVA)) {
+        mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIF_SWAP, 0);
+        if (getSActivity().mInputDenom.equals(TOKEN_SIF)) {
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
+
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
-        WUtil.dpKavaTokenName(getSActivity(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
+        WUtil.dpSifTokenName(getContext(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
 
-        mSwapRate = mOutputCoinAmount.divide(mInputCoinAmount, 18, RoundingMode.DOWN);
+        WUtil.dpSifTokenName(getContext(), mSwapInputSymbol, getSActivity().mInputDenom);
+        WUtil.DpSifTokenImg(mSwapInputImg, getSActivity().mInputDenom);
+        WUtil.dpSifTokenName(getContext(), mSwapOutputSymbol, getSActivity().mOutputDenom);
+        WUtil.DpSifTokenImg(mSwapOutputImg, getSActivity().mOutputDenom);
 
-        WUtil.dpKavaTokenName(getSActivity(), mSwapInputSymbol, getSActivity().mInputDenom);
-        WUtil.dpKavaTokenName(getSActivity(), mSwapOutputSymbol, getSActivity().mOutputDenom);
-        Picasso.get().load(KAVA_COIN_IMG_URL+getSActivity().mInputDenom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(mSwapInputImg);
-        Picasso.get().load(KAVA_COIN_IMG_URL+getSActivity().mOutputDenom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(mSwapOutputImg);
+        BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mInputDenom);
+        BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mOutputDenom);
+        mSwapRate = lpOutputAmount.divide(lpInputAmount, 24, RoundingMode.DOWN).movePointRight(mInputCoinDecimal - mOutputCoinDecimal);
     }
 
     private void onAddAmountWatcher(){
@@ -252,12 +237,20 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private void onUpdateOutputTextView() {
         try {
             BigDecimal InputAmountTemp = new BigDecimal(mSwapInputAmount.getText().toString().trim());
-
-            BigDecimal padding = BigDecimal.ONE.subtract(new BigDecimal(getBaseDao().mSwapParam.swap_fee)).subtract(new BigDecimal("0.03"));
+            BigDecimal padding = new BigDecimal("0.98");
             if (InputAmountTemp.compareTo(BigDecimal.ZERO) == 0) { mSwapOutputAmount.setText(""); return; }
-            BigDecimal OutputAmount = InputAmountTemp.movePointRight(mInputCoinDecimal).multiply(padding).multiply(mSwapRate).setScale(0, RoundingMode.DOWN);
+            BigDecimal OutputAmount = InputAmountTemp.multiply(padding).setScale(24, RoundingMode.DOWN).multiply(mSwapRate).setScale(24,RoundingMode.DOWN);
 
-            mSwapOutputAmount.setText(OutputAmount.movePointLeft(mOutputCoinDecimal).toPlainString());
+            // lp fee
+            BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mInputDenom);
+            BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mOutputDenom);
+            BigDecimal input = InputAmountTemp.movePointRight(mInputCoinDecimal);
+            BigDecimal numerator = input.multiply(input).multiply(lpOutputAmount);
+            BigDecimal divider = input.add(lpInputAmount);
+            BigDecimal denominator = divider.multiply(divider);
+            BigDecimal lpFee = numerator.divide(denominator, 0, RoundingMode.DOWN).movePointLeft(mOutputCoinDecimal).setScale(18, RoundingMode.DOWN);
+
+            mSwapOutputAmount.setText(OutputAmount.subtract(lpFee).setScale(mOutputCoinDecimal, RoundingMode.DOWN).toPlainString());
         } catch (Exception e) { }
     }
 
@@ -268,13 +261,13 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
             if (InputAmountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (InputAmountTemp.compareTo(mAvailableMaxAmount.movePointLeft(mInputCoinDecimal).setScale(mInputCoinDecimal, RoundingMode.CEILING)) > 0) return false;
 
-            getSActivity().mSwapInCoin = new Coin(getSActivity().mInputDenom, InputAmountTemp.movePointRight(mInputCoinDecimal).setScale(0).toPlainString());
-            getSActivity().mSwapOutCoin = new Coin(getSActivity().mOutputDenom, OutAmountTemp.movePointRight(mOutputCoinDecimal).setScale(0).toPlainString());
+            getSActivity().mSifSwapInCoin = new Coin(getSActivity().mInputDenom, InputAmountTemp.movePointRight(mInputCoinDecimal).toPlainString());
+            getSActivity().mSifSwapOutCoin = new Coin(getSActivity().mOutputDenom, OutAmountTemp.movePointRight(mOutputCoinDecimal).toPlainString());
             return true;
 
         } catch (Exception e) {
-            getSActivity().mSwapInCoin = null;
-            getSActivity().mSwapOutCoin = null;
+            getSActivity().mSifSwapInCoin = null;
+            getSActivity().mSifSwapOutCoin = null;
             return false;
         }
     }
@@ -282,16 +275,17 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private int mTaskCount;
     public void onFetchPoolInfo() {
         mTaskCount = 1;
-        new KavaSwapPoolInfoTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mKavaSwapPool.name).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SifPoolInfoGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mOutputDenom).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
-        if (result.taskType == TASK_FETCH_KAVA_SWAP_POOL_INFO) {
-            if (result.isSuccess && result.resultData != null) {
-                mSwapPool = (SwapPool) result.resultData;
+        if (result.taskType == TASK_GRPC_FETCH_SIF_POOL_INFO) {
+            if (result.isSuccess && result.resultData != null && result.resultData2 != null) {
+                getSActivity().mSifSwapPool = (Types.Pool) result.resultData;
             }
+
         }
         if (mTaskCount == 0) {
             onInitView();
@@ -309,7 +303,7 @@ public class KavaSwapStep0Fragment extends BaseFragment implements View.OnClickL
         }
     }
 
-    private StartSwapActivity getSActivity() {
-        return (StartSwapActivity)getBaseActivity();
+    private SifSwapActivity getSActivity() {
+        return (SifSwapActivity)getBaseActivity();
     }
 }

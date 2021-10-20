@@ -186,7 +186,7 @@ public class StarnameAssets implements Parcelable {
     public static StarnameAssets trx    = new StarnameAssets("TRON", "asset:trx", "TRX", "trx.png", null);
     public static StarnameAssets usdc   = new StarnameAssets("USD Coin", "asset:usdc", "USDC", "usdc.png", null);
     public static StarnameAssets usdt   = new StarnameAssets("Tether", "asset:usdt", "USDT", "usdt.png", null);
-    public static StarnameAssets wbtc   = new StarnameAssets("Wrapped Bitcoin", "asset:wbtc", "WBTC", null, null);
+    public static StarnameAssets wbtc   = new StarnameAssets("Wrapped Bitcoin", "asset:wbtc", "WBTC", "wbtc.png", null);
     public static StarnameAssets xlm    = new StarnameAssets("Stellar", "asset:xlm", "XLM", "xlm.png", null);
     public static StarnameAssets xmr    = new StarnameAssets("Monero", "asset:xmr", "XMR", "xmr.png", null);
     public static StarnameAssets xprt   = new StarnameAssets("Persistence", "asset:xprt", "XPRT", "persistence.png", BaseChain.PERSIS_MAIN.getChain());

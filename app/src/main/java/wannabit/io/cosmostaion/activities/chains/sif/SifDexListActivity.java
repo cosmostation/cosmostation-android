@@ -1,11 +1,16 @@
 package wannabit.io.cosmostaion.activities.chains.sif;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -14,17 +19,26 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexEthPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexIbcPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexSwapFragment;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.SifDexPoolListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_LIST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
 public class SifDexListActivity extends BaseActivity {
 
@@ -32,6 +46,9 @@ public class SifDexListActivity extends BaseActivity {
     private ViewPager                   mLabPager;
     private TabLayout                   mLabTapLayer;
     private SifDexPageAdapter           mPageAdapter;
+
+    public ArrayList<Types.Pool>                   mPoolList = new ArrayList<>();
+    public ArrayList<String>                       mAllDenoms = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +101,30 @@ public class SifDexListActivity extends BaseActivity {
                 mPageAdapter.mFragments.get(i).onRefreshTab();
             }
         });
-//        onShowWaitDialog();
+        onShowWaitDialog();
         onFetchPoolListInfo();
+    }
 
+    public void onStartSwap(String inCoinDenom, String outCoinDenom, Types.Pool pool) {
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+        BigDecimal txFee = WUtil.getEstimateGasFeeAmount(this, mBaseChain, CONST_PW_TX_SIF_SWAP, 0);
+        if (available.compareTo(txFee) < 0) {
+            Toast.makeText(this, R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(SifDexListActivity.this, SifSwapActivity.class);
+        intent.putExtra("inputDenom", inCoinDenom);
+        intent.putExtra("outputDenom", outCoinDenom);
+        intent.putExtra("sifPool", pool);
+        startActivity(intent);
     }
 
     @Override
@@ -101,12 +139,39 @@ public class SifDexListActivity extends BaseActivity {
     }
 
     public void onFetchPoolListInfo() {
+        mTaskCount = 1;
+        new SifDexPoolListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
     public void onTaskResponse(TaskResult result) {
         if (isFinishing()) return;
         mTaskCount--;
+        if (result.taskType == TASK_GRPC_FETCH_SIF_POOL_LIST) {
+            if (result.isSuccess && result.resultData != null) {
+                final ArrayList<Types.Pool> tempPoolList = (ArrayList<Types.Pool>) result.resultData;
+                for (Types.Pool pool : tempPoolList) {
+                    mPoolList.add(pool);;
+                }
+            }
+
+        }
+        if (mTaskCount == 0) {
+            mAllDenoms.add(TOKEN_SIF);
+            for (Types.Pool pool: mPoolList ) {
+                if (!mAllDenoms.contains(pool.getExternalAsset().getSymbol())) {
+                    mAllDenoms.add(pool.getExternalAsset().getSymbol());
+                }
+            }
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    onHideWaitDialog();
+                    mPageAdapter.mCurrentFragment.onRefreshTab();
+                }
+            }, 300);
+        }
+
     }
 
     private class SifDexPageAdapter extends FragmentPagerAdapter {

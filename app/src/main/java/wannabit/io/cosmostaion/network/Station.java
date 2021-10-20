@@ -13,8 +13,8 @@ import wannabit.io.cosmostaion.network.res.ResIbcTokens;
 
 public interface Station {
 
-    @GET("v1/market/price")
-    Call<ArrayList<Price>> getPrice(@Query("id") String denoms);
+    @GET("v1/market/prices")
+    Call<ArrayList<Price>> getPrice();
 
     @GET("v1/params/{chain_id}")
     Call<ChainParam> getParam(@Path("chain_id") String chain_id);

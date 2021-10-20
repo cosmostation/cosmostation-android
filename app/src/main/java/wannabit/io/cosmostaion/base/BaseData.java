@@ -143,6 +143,8 @@ public class BaseData {
             if (ibcToken.auth == true) {
                 return ibcToken.base_denom;
             }
+        } else if (denom.startsWith("c")) {
+            return denom.substring(1);
         }
         return denom;
     }

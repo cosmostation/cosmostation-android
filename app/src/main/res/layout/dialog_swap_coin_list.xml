@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_32">
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/dialog_bg"
         android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/space_4">
+        app:layout_constrainedHeight="true"
+        app:layout_constraintHeight_max="@dimen/space_300"
+        android:gravity="center_horizontal">
 
         <TextView
-            android:id="@+id/dialog_swap_chain_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_marginTop="@dimen/space_16"
             style="@style/font_ss_17_gray8"
-            android:gravity="center"
-            android:text="@string/str_select_coin_swap_in"/>
+            android:text="@string/str_select_ibc_destination" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
-            android:layout_below="@+id/dialog_swap_chain_title"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_300"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16"
             android:overScrollMode="never"
             android:clipToPadding="false"
             android:layout_marginBottom="@dimen/space_4"/>
-    </RelativeLayout>
-</LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
