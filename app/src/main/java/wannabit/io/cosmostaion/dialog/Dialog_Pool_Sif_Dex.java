@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import sifnode.clp.v1.Querier;
 import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.sif.SifDexListActivity;
@@ -29,6 +30,7 @@ public class Dialog_Pool_Sif_Dex extends BottomSheetDialogFragment {
         mJoinPool = view.findViewById(R.id.join_pool);
         mExitPool = view.findViewById(R.id.exit_pool);
         Types.Pool pool = (Types.Pool) getArguments().getSerializable("pool");
+        Querier.LiquidityProviderRes myProvider = (Querier.LiquidityProviderRes) getArguments().getSerializable("myProvider");
 
         mJoinPool.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,13 +40,13 @@ public class Dialog_Pool_Sif_Dex extends BottomSheetDialogFragment {
             }
         });
 
-//        mExitPool.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ((SifDexListActivity)getActivity()).onCheckStartWithdrawPool(getArguments().getLong("poolId"));
-//                getDialog().dismiss();
-//            }
-//        });
+        mExitPool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((SifDexListActivity)getActivity()).onCheckStartWithdrawPool(pool, myProvider);
+                getDialog().dismiss();
+            }
+        });
 
         return view;
     }

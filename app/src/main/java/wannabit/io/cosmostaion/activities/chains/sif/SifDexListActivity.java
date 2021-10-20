@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import sifnode.clp.v1.Querier;
 import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.cosmos.GravityWithdrawPoolActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -40,6 +41,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.SifDexPoolListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_MY_PROVIDER;
@@ -140,9 +142,10 @@ public class SifDexListActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    public void onClickMyPool(Types.Pool pool) {
+    public void onClickMyPool(Types.Pool pool, Querier.LiquidityProviderRes myProvider) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("pool", pool);
+        bundle.putSerializable("myProvider", myProvider);
         Dialog_Pool_Sif_Dex bottomSheetDialog = Dialog_Pool_Sif_Dex.getInstance();
         bottomSheetDialog.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
@@ -170,6 +173,29 @@ public class SifDexListActivity extends BaseActivity {
 
         Intent intent = new Intent(getBaseContext(), SifDepositPoolActivity.class);
         intent.putExtra("mSifPool", pool);
+        startActivity(intent);
+    }
+
+    public void onCheckStartWithdrawPool(Types.Pool pool, Querier.LiquidityProviderRes myProvider) {
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(SifDexListActivity.this, mBaseChain, CONST_PW_TX_SIF_EXIT_POOL, 0);
+        BigDecimal rowanAvailable = getBaseDao().getAvailable(TOKEN_SIF);
+        rowanAvailable = rowanAvailable.subtract(feeAmount);
+
+        if (rowanAvailable.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(SifDexListActivity.this, R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(getBaseContext(), SifWithdrawPoolActivity.class);
+        intent.putExtra("mSifPool", pool);
+        intent.putExtra("myProvider", myProvider);
         startActivity(intent);
     }
 

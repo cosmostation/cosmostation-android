@@ -1728,6 +1728,10 @@ public class WUtil {
         return new BigDecimal(pool.getExternalAssetBalance());
     }
 
+    public static BigDecimal getUnitAmount(sifnode.clp.v1.Types.Pool pool) {
+        return new BigDecimal(pool.getPoolUnits());
+    }
+
     public static BigDecimal getPoolLpAmount(sifnode.clp.v1.Types.Pool pool, String denom) {
         if (denom.equals(TOKEN_SIF)) {
             return getNativeAmount(pool);
@@ -2918,7 +2922,7 @@ public class WUtil {
                 return new BigDecimal(SIF_GAS_AMOUNT_IBC_SEND);
             } else if (txType == CONST_PW_TX_SIF_CLAIM_INCENTIVE) {
                 return new BigDecimal(SIF_GAS_AMOUNT_CLAIM_INCENTIVE);
-            } else if (txType == CONST_PW_TX_SIF_SWAP || txType == CONST_PW_TX_SIF_JOIN_POOL) {
+            } else if (txType == CONST_PW_TX_SIF_SWAP || txType == CONST_PW_TX_SIF_JOIN_POOL || txType == CONST_PW_TX_SIF_EXIT_POOL) {
                 return new BigDecimal(SIF_GAS_AMOUNT_DEX);
             }
 

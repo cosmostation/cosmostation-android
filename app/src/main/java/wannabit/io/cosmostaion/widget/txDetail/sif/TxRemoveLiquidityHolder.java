@@ -57,7 +57,7 @@ public class TxRemoveLiquidityHolder extends TxHolder {
                             if (assetValue[1] != null && assetValue[0].contains("ibc/")) {
                                 Amount0 = assetValue[0].split("ibc")[0];
                             } else {
-                                Amount0 = assetValue[0].replaceAll("[^0-9]", "");
+                                Amount0 = assetValue[0].split("c")[0];
                             }
                             Amount1 = assetValue[1].replaceAll("[^0-9]", "");
 

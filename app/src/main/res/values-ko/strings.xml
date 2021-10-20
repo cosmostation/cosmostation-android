@@ -1337,6 +1337,15 @@
     <string name="str_sif_swap_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_sif_swap_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_sif_swap_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_sif_deposit_pool_step_0">입금 수량을 입력해주세요</string>
+    <string name="str_sif_deposit_pool_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_sif_deposit_pool_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_sif_deposit_pool_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_sif_withdraw_pool_step_0">출금 수량을 입력해주세요</string>
+    <string name="str_sif_withdraw_pool_step_1">메모를 입력하세요 (선택사항)</string>
+    <string name="str_sif_withdraw_pool_step_2">Tx 수수료를 선택하세요</string>
+    <string name="str_sif_withdraw_pool_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_sif_withdraw_insert_lp_unit">Insert Lp Unit</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

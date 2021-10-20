@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
+import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.dao.IbcPath;
@@ -67,6 +68,8 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                         mSifSwapOutCoin;
     public Coin                         mSifDepositCoin0;
     public Coin                         mSifDepositCoin1;
+    public Coin                         mSifWithdrawCoin;
+    public Querier.LiquidityProviderRes mMyProvider;
 
     public IbcPath.Path                 mPath;
 
