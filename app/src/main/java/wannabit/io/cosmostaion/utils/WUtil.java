@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.Type;
 import com.google.protobuf2.Any;
 import com.google.zxing.common.BitMatrix;
 import com.squareup.picasso.Picasso;
@@ -51,6 +52,7 @@ import osmosis.gamm.v1beta1.PoolOuterClass;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import osmosis.poolincentives.v1beta1.QueryOuterClass;
+import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
@@ -62,6 +64,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.GDexManager;
@@ -1334,14 +1337,12 @@ public class WUtil {
     }
 
     public static int getSifCoinDecimal(String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_SIF)) { return 18; }
-        else if (denom.equalsIgnoreCase("cusdt")) { return 6; }
-        else if (denom.equalsIgnoreCase("cusdc")) { return 6; }
-        else if (denom.equalsIgnoreCase("csrm")) { return 6; }
-        else if (denom.equalsIgnoreCase("cwscrt")) { return 6; }
-        else if (denom.equalsIgnoreCase("ccro")) { return 8; }
-        else if (denom.equalsIgnoreCase("cwbtc")) { return 8; }
-        return 18;
+      for (ChainParam.SifTokenRegistry.Registry.Entry entry: BaseData.mChainParam.getSifToken()) {
+          if (entry.denom.equalsIgnoreCase(denom)) {
+              return entry.decimal;
+          }
+      }
+      return 18;
     }
 
     public static int getCosmosCoinDecimal(BaseData baseData, String denom) {
@@ -1506,6 +1507,25 @@ public class WUtil {
         return denom;
     }
 
+    public static String dpSifTokenName(String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_SIF)) {
+            return "ROWAN";
+
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                return ibcToken.display_denom.toUpperCase();
+            } else {
+                return "UnKnown";
+            }
+
+        } else if (denom.startsWith("c")) {
+            return denom.substring(1);
+
+        }
+        return denom;
+    }
+
     public static String dpSifTokenName(Context c, TextView textView, String denom) {
         if (denom.equals(TOKEN_SIF)) {
             textView.setTextColor(c.getResources().getColor(R.color.colorSif));
@@ -1571,7 +1591,7 @@ public class WUtil {
             Picasso.get().cancelRequest(imageView);
             imageView.setImageResource(R.drawable.tokensifchain);
         } else if (denom.startsWith("c")) {
-            Picasso.get().load(SIF_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+            Picasso.get().load(SIF_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
             try {
@@ -1707,12 +1727,38 @@ public class WUtil {
         return new BigDecimal(pool.getExternalAssetBalance());
     }
 
+    public static BigDecimal getUnitAmount(sifnode.clp.v1.Types.Pool pool) {
+        return new BigDecimal(pool.getPoolUnits());
+    }
+
     public static BigDecimal getPoolLpAmount(sifnode.clp.v1.Types.Pool pool, String denom) {
         if (denom.equals(TOKEN_SIF)) {
             return getNativeAmount(pool);
         } else {
             return getExternalAmount(pool);
         }
+    }
+
+    public static BigDecimal getSifPoolValue(BaseData baseData, sifnode.clp.v1.Types.Pool pool) {
+        int rowanDecimal = getSifCoinDecimal(TOKEN_SIF);
+        BigDecimal rowanAmount = new BigDecimal(pool.getNativeAssetBalance());
+        BigDecimal rowanPrice = WDp.perUsdValue(baseData, TOKEN_SIF);
+
+        int externalDecimal = getSifCoinDecimal(pool.getExternalAsset().getSymbol());
+        BigDecimal externalAmount = new BigDecimal(pool.getExternalAssetBalance());
+        String exteranlBaseDenom = baseData.getBaseDenom(pool.getExternalAsset().getSymbol());
+        BigDecimal exteranlPrice = WDp.perUsdValue(baseData, exteranlBaseDenom);
+
+        BigDecimal rowanValue = rowanAmount.multiply(rowanPrice).movePointLeft(rowanDecimal);
+        BigDecimal externalValue = externalAmount.multiply(exteranlPrice).movePointLeft(externalDecimal).setScale(2, RoundingMode.DOWN);
+        return rowanValue.add(externalValue);
+    }
+
+    public static BigDecimal getSifMyShareValue(BaseData baseData, sifnode.clp.v1.Types.Pool pool, Querier.LiquidityProviderRes myLp) {
+        BigDecimal poolValue = getSifPoolValue(baseData, pool);
+        BigDecimal totalUnit = new BigDecimal(pool.getPoolUnits());
+        BigDecimal myUnit = new BigDecimal(myLp.getLiquidityProvider().getLiquidityProviderUnits());
+        return poolValue.multiply(myUnit).divide(totalUnit, 2, RoundingMode.DOWN);
     }
 
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
@@ -2875,8 +2921,8 @@ public class WUtil {
                 return new BigDecimal(SIF_GAS_AMOUNT_IBC_SEND);
             } else if (txType == CONST_PW_TX_SIF_CLAIM_INCENTIVE) {
                 return new BigDecimal(SIF_GAS_AMOUNT_CLAIM_INCENTIVE);
-            } else if (txType == CONST_PW_TX_SIF_SWAP) {
-                return new BigDecimal(SIF_GAS_AMOUNT_SWAP);
+            } else if (txType == CONST_PW_TX_SIF_SWAP || txType == CONST_PW_TX_SIF_JOIN_POOL || txType == CONST_PW_TX_SIF_EXIT_POOL) {
+                return new BigDecimal(SIF_GAS_AMOUNT_DEX);
             }
 
         } else if (basechain.equals(KI_MAIN)) {

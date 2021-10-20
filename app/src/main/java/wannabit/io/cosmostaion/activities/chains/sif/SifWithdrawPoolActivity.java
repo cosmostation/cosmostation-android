@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import sifnode.clp.v1.Querier;
 import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
@@ -25,12 +26,12 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
-import wannabit.io.cosmostaion.fragment.chains.sif.SifSwapStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.sif.SifSwapStep3Fragment;
+import wannabit.io.cosmostaion.fragment.chains.sif.SifDexWithdrawStep0Fragment;
+import wannabit.io.cosmostaion.fragment.chains.sif.SifDexWithdrawStep3Fragment;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_EXIT_POOL;
 
-public class SifSwapActivity extends BaseBroadCastActivity {
+public class SifWithdrawPoolActivity extends BaseBroadCastActivity {
 
     private RelativeLayout                  mRootView;
     private Toolbar                         mToolbar;
@@ -38,10 +39,7 @@ public class SifSwapActivity extends BaseBroadCastActivity {
     private ImageView                       mIvStep;
     private TextView                        mTvStep;
     private ViewPager                       mViewPager;
-    private CoinSwapPageAdapter             mPageAdapter;
-
-    public String                           mInputDenom;
-    public String                           mOutputDenom;
+    private ExitPoolPageAdapter             mPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,24 +51,23 @@ public class SifSwapActivity extends BaseBroadCastActivity {
         mIvStep = findViewById(R.id.send_step);
         mTvStep = findViewById(R.id.send_step_msg);
         mViewPager = findViewById(R.id.view_pager);
-        mTitle.setText(getString(R.string.str_title_swap));
+        mTitle.setText(getString(R.string.str_title_pool_exit));
 
-        mTxType = CONST_PW_TX_SIF_SWAP;
-        mInputDenom = getIntent().getStringExtra("inputDenom");
-        mOutputDenom = getIntent().getStringExtra("outputDenom");
-        mSifPool = (Types.Pool) getIntent().getSerializableExtra("sifPool");
+        mTxType = CONST_PW_TX_SIF_EXIT_POOL;
+        mSifPool = (Types.Pool) getIntent().getSerializableExtra("mSifPool");
+        mMyProvider = (Querier.LiquidityProviderRes) getIntent().getSerializableExtra("myProvider");
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-        mTvStep.setText(getString(R.string.str_sif_swap_step_0));
+        mTvStep.setText(getString(R.string.str_sif_withdraw_pool_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        mPageAdapter = new CoinSwapPageAdapter(getSupportFragmentManager());
+        mPageAdapter = new ExitPoolPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mPageAdapter);
 
@@ -82,18 +79,18 @@ public class SifSwapActivity extends BaseBroadCastActivity {
             public void onPageSelected(int i) {
                 if(i == 0) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_1));
-                    mTvStep.setText(getString(R.string.str_sif_swap_step_0));
+                    mTvStep.setText(getString(R.string.str_sif_withdraw_pool_step_0));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 1 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_2));
-                    mTvStep.setText(getString(R.string.str_sif_swap_step_1));
+                    mTvStep.setText(getString(R.string.str_sif_withdraw_pool_step_1));
                 } else if (i == 2 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_3));
-                    mTvStep.setText(getString(R.string.str_sif_swap_step_2));
+                    mTvStep.setText(getString(R.string.str_sif_withdraw_pool_step_2));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 } else if (i == 3 ) {
                     mIvStep.setImageDrawable(getDrawable(R.drawable.step_4_img_4));
-                    mTvStep.setText(getString(R.string.str_sif_swap_step_3));
+                    mTvStep.setText(getString(R.string.str_sif_withdraw_pool_step_3));
                     mPageAdapter.mCurrentFragment.onRefreshTab();
                 }
             }
@@ -149,29 +146,29 @@ public class SifSwapActivity extends BaseBroadCastActivity {
         }
     }
 
-    public void onStartSwap() {
-        Intent intent = new Intent(SifSwapActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIF_SWAP);
-        intent.putExtra("SifSwapInCoin", mSifSwapInCoin);
-        intent.putExtra("SifSwapOutCoin", mSifSwapOutCoin);
+    public void onStartExitPool() {
+        Intent intent = new Intent(SifWithdrawPoolActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIF_EXIT_POOL);
+        intent.putExtra("SifWithdrawCoin", mSifWithdrawCoin);
+        intent.putExtra("MyProvider", mMyProvider);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
-    private class CoinSwapPageAdapter extends FragmentPagerAdapter {
+    private class ExitPoolPageAdapter extends FragmentPagerAdapter {
 
         private ArrayList<BaseFragment> mFragments = new ArrayList<>();
         private BaseFragment mCurrentFragment;
 
-        public CoinSwapPageAdapter(FragmentManager fm) {
+        public ExitPoolPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(SifSwapStep0Fragment.newInstance(null));
+            mFragments.add(SifDexWithdrawStep0Fragment.newInstance(null));
             mFragments.add(StepMemoFragment.newInstance(null));
             mFragments.add(StepFeeSetFragment.newInstance(null));
-            mFragments.add(SifSwapStep3Fragment.newInstance(null));
+            mFragments.add(SifDexWithdrawStep3Fragment.newInstance(null));
         }
 
         @Override
@@ -199,5 +196,6 @@ public class SifSwapActivity extends BaseBroadCastActivity {
         public ArrayList<BaseFragment> getFragments() {
             return mFragments;
         }
+
     }
 }

@@ -116,8 +116,8 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onUpdateView() {
-        mInPutDecimal = getBaseDao().mChainParam.getSifTokenDecimal(mInputCoinDenom);
-        mOutPutDecimal = getBaseDao().mChainParam.getSifTokenDecimal(mOutputCoinDenom);
+        mInPutDecimal = WUtil.getSifCoinDecimal(mInputCoinDenom);
+        mOutPutDecimal = WUtil.getSifCoinDecimal(mOutputCoinDenom);
 
         mInputAmount.setText(WDp.getDpAmount2(getSActivity(), getBaseDao().getAvailable(mInputCoinDenom), mInPutDecimal, mInPutDecimal));
         mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("1")));

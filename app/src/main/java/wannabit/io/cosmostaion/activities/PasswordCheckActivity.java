@@ -18,10 +18,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import osmosis.gamm.v1beta1.Tx;
 import osmosis.lockup.Lock;
+import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
@@ -90,8 +93,10 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RenewAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RenewDomainGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ReplaceStarNameGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SendGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifIncentiveGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifSwapGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifWithdrawGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.UndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.VoteGrpcTask;
 import wannabit.io.cosmostaion.utils.KeyboardListener;
@@ -148,6 +153,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RIZON_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_EXIT_POOL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
@@ -240,8 +247,12 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     private String                      mKavaShareAmount;
 
-    private Coin                        mSifSwapInCoin;
-    private Coin                        mSifSwapOutCoin;
+    private Coin                            mSifSwapInCoin;
+    private Coin                            mSifSwapOutCoin;
+    private Coin                            mSifDepositCoin0;
+    private Coin                            mSifDepositCoin1;
+    private Coin                            mSifWithdrawCoin;
+    private Querier.LiquidityProviderRes    mMyprovider;
 
     private String                      mPortId;
     private String                      mChannelId;
@@ -345,6 +356,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         mSifSwapInCoin = getIntent().getParcelableExtra("SifSwapInCoin");
         mSifSwapOutCoin = getIntent().getParcelableExtra("SifSwapOutCoin");
+        mSifDepositCoin0 = getIntent().getParcelableExtra("SifDepositCoin0");
+        mSifDepositCoin1 = getIntent().getParcelableExtra("SifDepositCoin1");
+        mSifWithdrawCoin = getIntent().getParcelableExtra("SifWithdrawCoin");
+        mMyprovider = (Querier.LiquidityProviderRes) getIntent().getSerializableExtra("MyProvider");
 
         mPortId = getIntent().getStringExtra("portId");
         mChannelId = getIntent().getStringExtra("channelId");
@@ -710,6 +725,17 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         } else if (mPurpose == CONST_PW_TX_SIF_SWAP) {
             new SifSwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
                     mSifSwapInCoin.denom, mSifSwapInCoin.amount, mSifSwapOutCoin.denom, mSifSwapOutCoin.amount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_SIF_JOIN_POOL) {
+            new SifDepositGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mSifDepositCoin1.denom, mSifDepositCoin0.amount, mSifDepositCoin1.amount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_SIF_EXIT_POOL) {
+            BigDecimal myShareAllAmount = new BigDecimal(mMyprovider.getLiquidityProvider().getLiquidityProviderUnits());
+            BigDecimal myShareWithdrawAmount = new BigDecimal(mSifWithdrawCoin.amount);
+            String basisPoint = myShareWithdrawAmount.movePointRight(4).divide(myShareAllAmount, 0, RoundingMode.DOWN).toPlainString();
+            new SifWithdrawGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mSifWithdrawCoin.denom, basisPoint,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         }

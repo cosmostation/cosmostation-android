@@ -230,6 +230,8 @@ public class BaseConstant {
 
     public final static int TASK_GRPC_FETCH_SIF_POOL_LIST               = 4250;
     public final static int TASK_GRPC_FETCH_SIF_POOL_INFO               = 4251;
+    public final static int TASK_GRPC_FETCH_SIF_POOL_ASSET_LIST         = 4252;
+    public final static int TASK_GRPC_FETCH_SIF_MY_PROVIDER             = 4253;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
@@ -258,6 +260,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_IBC_TRANSFER               = 4324;
     public final static int TASK_GRPC_GEN_TX_SIF_CLAIM_INCENTIVE        = 4325;
     public final static int TASK_GRPC_GEN_TX_SIF_SWAP                   = 4326;
+    public final static int TASK_GRPC_GEN_TX_SIF_JOIN_POOL              = 4327;
+    public final static int TASK_GRPC_GEN_TX_SIF_EXIT_POOL              = 4328;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -286,6 +290,8 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_IBC_TRANSFER             = 4524;
     public final static int TASK_GRPC_SIMULATE_SIF_CLAIM_INCENTIVE      = 4526;
     public final static int TASK_GRPC_SIMULATE_SIF_SWAP                 = 4527;
+    public final static int TASK_GRPC_SIMULATE_SIF_JOIN_POOL            = 4528;
+    public final static int TASK_GRPC_SIMULATE_SIF_WITHDRAW_POOL        = 4529;
 
 
 
@@ -466,6 +472,8 @@ public class BaseConstant {
     public final static int CONST_PW_TX_IBC_TRANSFER                        = 5049;
     public final static int CONST_PW_TX_SIF_CLAIM_INCENTIVE                 = 5050;
     public final static int CONST_PW_TX_SIF_SWAP                            = 5051;
+    public final static int CONST_PW_TX_SIF_JOIN_POOL                       = 5052;
+    public final static int CONST_PW_TX_SIF_EXIT_POOL                       = 5053;
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
     public final static int TX_TYPE_SEND                        = 3001;
@@ -700,7 +708,7 @@ public class BaseConstant {
     public final static String SIF_GAS_AMOUNT_VOTE                      = "100000";
     public final static String SIF_GAS_AMOUNT_IBC_SEND                  = "500000";
     public final static String SIF_GAS_AMOUNT_CLAIM_INCENTIVE           = "250000";
-    public final static String SIF_GAS_AMOUNT_SWAP                      = "250000";
+    public final static String SIF_GAS_AMOUNT_DEX                       = "250000";
 
     public final static String KI_GAS_FEE_RATE_AVERAGE                  = "0.025";
     public final static String KI_GAS_AMOUNT_SEND                       = "100000";
