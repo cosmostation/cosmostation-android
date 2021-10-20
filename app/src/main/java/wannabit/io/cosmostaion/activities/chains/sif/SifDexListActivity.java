@@ -22,21 +22,28 @@ import com.google.android.material.tabs.TabLayout;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import sifnode.clp.v1.Querier;
 import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Pool_Sif_Dex;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexEthPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexIbcPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexSwapFragment;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.SifDexMyProviderGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.SifDexPoolAssetListGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.SifDexPoolListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_MY_PROVIDER;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_ASSET_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
@@ -47,8 +54,14 @@ public class SifDexListActivity extends BaseActivity {
     private TabLayout                   mLabTapLayer;
     private SifDexPageAdapter           mPageAdapter;
 
-    public ArrayList<Types.Pool>                   mPoolList = new ArrayList<>();
-    public ArrayList<String>                       mAllDenoms = new ArrayList<>();
+    public ArrayList<Types.Pool>                    mPoolList = new ArrayList<>();
+    public ArrayList<String>                        mAllDenoms = new ArrayList<>();
+    public ArrayList<Types.Asset>                   mPoolMyAsset = new ArrayList<>();
+    public ArrayList<String>                        mMyEthAssets = new ArrayList<>();
+
+    public ArrayList<Types.Pool>                                mMyEthPools = new ArrayList<>();
+    public ArrayList<Types.Pool>                                mOtherEthPools = new ArrayList<>();
+    public ArrayList<Querier.LiquidityProviderRes>          mMyEthProviders = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,13 +92,13 @@ public class SifDexListActivity extends BaseActivity {
         View tab1 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText1 = tab1.findViewById(R.id.tabItemText);
         tabItemText1.setTextColor(WDp.getTabColor(this, mBaseChain));
-        tabItemText1.setText(R.string.str_sif_dex_ibc_pool);
+        tabItemText1.setText(R.string.str_sif_dex_eth_pol);
         mLabTapLayer.getTabAt(1).setCustomView(tab1);
 
         View tab2 = LayoutInflater.from(this).inflate(R.layout.view_tab_myvalidator, null);
         TextView tabItemText2 = tab2.findViewById(R.id.tabItemText);
         tabItemText2.setTextColor(WDp.getTabColor(this, mBaseChain));
-        tabItemText2.setText(R.string.str_sif_dex_eth_pol);
+        tabItemText2.setText(R.string.str_sif_dex_ibc_pool);
         mLabTapLayer.getTabAt(2).setCustomView(tab2);
 
         mLabPager.setOffscreenPageLimit(2);
@@ -127,6 +140,39 @@ public class SifDexListActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    public void onClickMyPool(Types.Pool pool) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("pool", pool);
+        Dialog_Pool_Sif_Dex bottomSheetDialog = Dialog_Pool_Sif_Dex.getInstance();
+        bottomSheetDialog.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().add(bottomSheetDialog, "dialog").commitNowAllowingStateLoss();
+
+    }
+
+    public void onCheckStartDepositPool(Types.Pool pool) {
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(SifDexListActivity.this, mBaseChain, CONST_PW_TX_SIF_JOIN_POOL, 0);
+        String externalDenom = pool.getExternalAsset().getSymbol();
+        BigDecimal rowanAvailable = getBaseDao().getAvailable(TOKEN_SIF);
+        rowanAvailable = rowanAvailable.subtract(feeAmount);
+        BigDecimal externalAvailable = getBaseDao().getAvailable(externalDenom);
+
+        if (rowanAvailable.compareTo(BigDecimal.ZERO) <= 0 || externalAvailable.compareTo(BigDecimal.ZERO) <=0 ) {
+            Toast.makeText(SifDexListActivity.this, R.string.error_not_enough_to_pool, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(getBaseContext(), SifDepositPoolActivity.class);
+        intent.putExtra("mSifPool", pool);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -139,8 +185,11 @@ public class SifDexListActivity extends BaseActivity {
     }
 
     public void onFetchPoolListInfo() {
-        mTaskCount = 1;
+        mTaskCount = 2;
+        mPoolList.clear();
+        mPoolMyAsset.clear();
         new SifDexPoolListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new SifDexPoolAssetListGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -155,14 +204,41 @@ public class SifDexListActivity extends BaseActivity {
                 }
             }
 
+        } else if (result.taskType == TASK_GRPC_FETCH_SIF_POOL_ASSET_LIST) {
+            if (result.isSuccess && result.resultData != null) {
+                mPoolMyAsset = (ArrayList<Types.Asset>) result.resultData;
+                for (Types.Asset asset: mPoolMyAsset) {
+                    if (!asset.getSymbol().startsWith("ibc/")) {
+                        mMyEthAssets.add(asset.getSymbol());
+                    }
+                }
+                mTaskCount = mTaskCount + 1;
+                for (String symbol: mMyEthAssets) {
+                    new SifDexMyProviderGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, symbol).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_SIF_MY_PROVIDER) {
+            if (result.isSuccess && result.resultData != null) {
+               mMyEthProviders.add((Querier.LiquidityProviderRes) result.resultData);
+            }
         }
+
         if (mTaskCount == 0) {
             mAllDenoms.add(TOKEN_SIF);
             for (Types.Pool pool: mPoolList ) {
                 if (!mAllDenoms.contains(pool.getExternalAsset().getSymbol())) {
                     mAllDenoms.add(pool.getExternalAsset().getSymbol());
                 }
+                if (!pool.getExternalAsset().getSymbol().startsWith("ibc/")) {
+                    if (mMyEthAssets.contains(pool.getExternalAsset().getSymbol())) {
+                        mMyEthPools.add(pool);
+                    } else {
+                        mOtherEthPools.add(pool);
+                    }
+                }
             }
+
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -182,8 +258,8 @@ public class SifDexListActivity extends BaseActivity {
             super(fm);
             mFragments.clear();
             mFragments.add(SifDexSwapFragment.newInstance(null));
-            mFragments.add(SifDexIbcPoolFragment.newInstance(null));
             mFragments.add(SifDexEthPoolFragment.newInstance(null));
+            mFragments.add(SifDexIbcPoolFragment.newInstance(null));
         }
 
         @Override

@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.Type;
 import com.google.protobuf2.Any;
 import com.google.zxing.common.BitMatrix;
 import com.squareup.picasso.Picasso;
@@ -51,6 +52,7 @@ import osmosis.gamm.v1beta1.PoolOuterClass;
 import osmosis.incentives.GaugeOuterClass;
 import osmosis.lockup.Lock;
 import osmosis.poolincentives.v1beta1.QueryOuterClass;
+import sifnode.clp.v1.Querier;
 import starnamed.x.starname.v1beta1.Types;
 import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
@@ -1506,6 +1508,25 @@ public class WUtil {
         return denom;
     }
 
+    public static String dpSifTokenName(String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_SIF)) {
+            return "ROWAN";
+
+        } else if (denom.startsWith("ibc/")) {
+            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            if (ibcToken.auth == true) {
+                return ibcToken.display_denom.toUpperCase();
+            } else {
+                return "UnKnown";
+            }
+
+        } else if (denom.startsWith("c")) {
+            return denom.substring(1);
+
+        }
+        return denom;
+    }
+
     public static String dpSifTokenName(Context c, TextView textView, String denom) {
         if (denom.equals(TOKEN_SIF)) {
             textView.setTextColor(c.getResources().getColor(R.color.colorSif));
@@ -1713,6 +1734,28 @@ public class WUtil {
         } else {
             return getExternalAmount(pool);
         }
+    }
+
+    public static BigDecimal getSifPoolValue(BaseData baseData, sifnode.clp.v1.Types.Pool pool) {
+        int rowanDecimal = getSifCoinDecimal(TOKEN_SIF);
+        BigDecimal rowanAmount = new BigDecimal(pool.getNativeAssetBalance());
+        BigDecimal rowanPrice = WDp.perUsdValue(baseData, TOKEN_SIF);
+
+        int externalDecimal = getSifCoinDecimal(pool.getExternalAsset().getSymbol());
+        BigDecimal externalAmount = new BigDecimal(pool.getExternalAssetBalance());
+        String exteranlBaseDenom = baseData.getBaseDenom(pool.getExternalAsset().getSymbol());
+        BigDecimal exteranlPrice = WDp.perUsdValue(baseData, exteranlBaseDenom);
+
+        BigDecimal rowanValue = rowanAmount.multiply(rowanPrice).movePointLeft(rowanDecimal);
+        BigDecimal externalValue = externalAmount.multiply(exteranlPrice).movePointLeft(externalDecimal).setScale(2, RoundingMode.DOWN);
+        return rowanValue.add(externalValue);
+    }
+
+    public static BigDecimal getSifMyShareValue(BaseData baseData, sifnode.clp.v1.Types.Pool pool, Querier.LiquidityProviderRes myLp) {
+        BigDecimal poolValue = getSifPoolValue(baseData, pool);
+        BigDecimal totalUnit = new BigDecimal(pool.getPoolUnits());
+        BigDecimal myUnit = new BigDecimal(myLp.getLiquidityProvider().getLiquidityProviderUnits());
+        return poolValue.multiply(myUnit).divide(totalUnit, 2, RoundingMode.DOWN);
     }
 
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
@@ -2875,8 +2918,8 @@ public class WUtil {
                 return new BigDecimal(SIF_GAS_AMOUNT_IBC_SEND);
             } else if (txType == CONST_PW_TX_SIF_CLAIM_INCENTIVE) {
                 return new BigDecimal(SIF_GAS_AMOUNT_CLAIM_INCENTIVE);
-            } else if (txType == CONST_PW_TX_SIF_SWAP) {
-                return new BigDecimal(SIF_GAS_AMOUNT_SWAP);
+            } else if (txType == CONST_PW_TX_SIF_SWAP || txType == CONST_PW_TX_SIF_JOIN_POOL) {
+                return new BigDecimal(SIF_GAS_AMOUNT_DEX);
             }
 
         } else if (basechain.equals(KI_MAIN)) {
