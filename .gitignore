@@ -1,4 +1,5 @@
 app/debug.keystore
+app/eostartkeystore
 app/google-services.json
 
 *.iml
