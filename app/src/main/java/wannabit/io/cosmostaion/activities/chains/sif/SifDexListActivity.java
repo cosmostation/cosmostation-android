@@ -188,6 +188,8 @@ public class SifDexListActivity extends BaseActivity {
         mTaskCount = 2;
         mPoolList.clear();
         mPoolMyAsset.clear();
+        mMyEthPools.clear();
+        mOtherEthPools.clear();
         new SifDexPoolListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SifDexPoolAssetListGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }

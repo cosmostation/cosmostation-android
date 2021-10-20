@@ -128,8 +128,8 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
         WUtil.dpSifTokenName(getContext(), mSwapOutputSymbol, getSActivity().mOutputDenom);
         WUtil.DpSifTokenImg(mSwapOutputImg, getSActivity().mOutputDenom);
 
-        BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mInputDenom);
-        BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mOutputDenom);
+        BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mInputDenom);
+        BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mOutputDenom);
         mSwapRate = lpOutputAmount.divide(lpInputAmount, 24, RoundingMode.DOWN).movePointRight(mInputCoinDecimal - mOutputCoinDecimal);
     }
 
@@ -242,8 +242,8 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
             BigDecimal OutputAmount = InputAmountTemp.multiply(padding).setScale(24, RoundingMode.DOWN).multiply(mSwapRate).setScale(24,RoundingMode.DOWN);
 
             // lp fee
-            BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mInputDenom);
-            BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mOutputDenom);
+            BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mInputDenom);
+            BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mOutputDenom);
             BigDecimal input = InputAmountTemp.movePointRight(mInputCoinDecimal);
             BigDecimal numerator = input.multiply(input).multiply(lpOutputAmount);
             BigDecimal divider = input.add(lpInputAmount);
@@ -283,7 +283,7 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_SIF_POOL_INFO) {
             if (result.isSuccess && result.resultData != null && result.resultData2 != null) {
-                getSActivity().mSifSwapPool = (Types.Pool) result.resultData;
+                getSActivity().mSifPool = (Types.Pool) result.resultData;
             }
 
         }

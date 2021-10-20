@@ -90,6 +90,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RenewAccountGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.RenewDomainGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ReplaceStarNameGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SendGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifDepositGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifIncentiveGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.SifSwapGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.UndelegateGrpcTask;
@@ -148,6 +149,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STARNAME;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RIZON_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_CLAIM_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
@@ -242,6 +244,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
     private Coin                        mSifSwapInCoin;
     private Coin                        mSifSwapOutCoin;
+    private Coin                        mSifDepositCoin0;
+    private Coin                        mSifDepositCoin1;
 
     private String                      mPortId;
     private String                      mChannelId;
@@ -345,6 +349,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         mSifSwapInCoin = getIntent().getParcelableExtra("SifSwapInCoin");
         mSifSwapOutCoin = getIntent().getParcelableExtra("SifSwapOutCoin");
+        mSifDepositCoin0 = getIntent().getParcelableExtra("SifDepositCoin0");
+        mSifDepositCoin1 = getIntent().getParcelableExtra("SifDepositCoin1");
 
         mPortId = getIntent().getStringExtra("portId");
         mChannelId = getIntent().getStringExtra("channelId");
@@ -710,6 +716,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         } else if (mPurpose == CONST_PW_TX_SIF_SWAP) {
             new SifSwapGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address,
                     mSifSwapInCoin.denom, mSifSwapInCoin.amount, mSifSwapOutCoin.denom, mSifSwapOutCoin.amount,
+                    mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+        } else if (mPurpose == CONST_PW_TX_SIF_JOIN_POOL) {
+            new SifDepositGrpcTask(getBaseApplication(), this, mAccount, mBaseChain, mAccount.address, mSifDepositCoin1.denom, mSifDepositCoin0.amount, mSifDepositCoin1.amount,
                     mTargetMemo, mTargetFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         }

@@ -58,7 +58,7 @@ public class SifSwapActivity extends BaseBroadCastActivity {
         mTxType = CONST_PW_TX_SIF_SWAP;
         mInputDenom = getIntent().getStringExtra("inputDenom");
         mOutputDenom = getIntent().getStringExtra("outputDenom");
-        mSifSwapPool = (Types.Pool) getIntent().getSerializableExtra("sifPool");
+        mSifPool = (Types.Pool) getIntent().getSerializableExtra("sifPool");
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

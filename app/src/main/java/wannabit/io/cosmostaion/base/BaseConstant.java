@@ -260,6 +260,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_GEN_TX_IBC_TRANSFER               = 4324;
     public final static int TASK_GRPC_GEN_TX_SIF_CLAIM_INCENTIVE        = 4325;
     public final static int TASK_GRPC_GEN_TX_SIF_SWAP                   = 4326;
+    public final static int TASK_GRPC_GEN_TX_SIF_JOIN_POOL              = 4327;
 
     public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
     public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
@@ -288,6 +289,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_SIMULATE_IBC_TRANSFER             = 4524;
     public final static int TASK_GRPC_SIMULATE_SIF_CLAIM_INCENTIVE      = 4526;
     public final static int TASK_GRPC_SIMULATE_SIF_SWAP                 = 4527;
+    public final static int TASK_GRPC_SIMULATE_SIF_JOIN_POOL            = 4528;
 
 
 

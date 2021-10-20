@@ -75,8 +75,8 @@ public class SifSwapStep3Fragment extends BaseFragment implements View.OnClickLi
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mInputDenom);
-        BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(getSActivity().mSifSwapPool, getSActivity().mOutputDenom);
+        BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mInputDenom);
+        BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mOutputDenom);
         BigDecimal input = new BigDecimal(getSActivity().mSifSwapInCoin.amount);
         BigDecimal numerator = input.multiply(input).multiply(lpOutputAmount);
         BigDecimal divider = input.add(lpInputAmount);

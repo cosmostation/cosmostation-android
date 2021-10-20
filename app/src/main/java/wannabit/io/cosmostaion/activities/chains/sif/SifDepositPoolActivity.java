@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.sif;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +18,10 @@ import java.util.ArrayList;
 
 import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepMemoFragment;
@@ -36,8 +39,6 @@ public class SifDepositPoolActivity extends BaseBroadCastActivity {
     private TextView                        mTvStep;
     private ViewPager                       mViewPager;
     private JoinPoolPageAdapter             mPageAdapter;
-
-    public Types.Pool                       mSifPool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +142,17 @@ public class SifDepositPoolActivity extends BaseBroadCastActivity {
         } else {
             onBackPressed();
         }
+    }
+
+    public void onStartJoinPool() {
+        Intent intent = new Intent(SifDepositPoolActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIF_JOIN_POOL);
+        intent.putExtra("SifDepositCoin0", mSifDepositCoin0);
+        intent.putExtra("SifDepositCoin1", mSifDepositCoin1);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
 
     private class JoinPoolPageAdapter extends FragmentPagerAdapter {
