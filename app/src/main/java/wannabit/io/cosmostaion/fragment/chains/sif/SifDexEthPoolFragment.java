@@ -1,6 +1,9 @@
 package wannabit.io.cosmostaion.fragment.chains.sif;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +21,16 @@ import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.sif.SifDexListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.SifDexMyProviderGrpcTask;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.SifPoolMyHolder;
 import wannabit.io.cosmostaion.widget.SifPoolOtherHolder;
 
-public class SifDexEthPoolFragment extends BaseFragment {
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_MY_PROVIDER;
+
+public class SifDexEthPoolFragment extends BaseFragment implements TaskListener {
 
     private SwipeRefreshLayout              mSwipeRefreshLayout;
     private RecyclerView                    mRecyclerView;
@@ -60,16 +67,45 @@ public class SifDexEthPoolFragment extends BaseFragment {
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new EthPoolListAdapter();
         mRecyclerView.setAdapter(mAdapter);
+
         return rootView;
     }
 
     @Override
     public void onRefreshTab() {
+        if (getSActivity().mMyEthAssets.size() > 0) {
+            onFetchEthListInfo();
+        }
         mMyEthPools = getSActivity().mMyEthPools;
         mOtherEthPools = getSActivity().mOtherEthPools;
-        mMyEthProviders = getSActivity().mMyEthProviders;
-        mAdapter.notifyDataSetChanged();
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    int mTaskCount;
+    public void onFetchEthListInfo() {
+        mTaskCount = 1;
+        for (String symbol: getSActivity().mMyEthAssets) {
+            new SifDexMyProviderGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, symbol).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        mTaskCount--;
+        if (result.taskType == TASK_GRPC_FETCH_SIF_MY_PROVIDER) {
+            if (result.isSuccess && result.resultData != null) {
+                mMyEthProviders.add((Querier.LiquidityProviderRes) result.resultData);
+            }
+        }
+
+        if (mTaskCount == 0) {
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mAdapter.notifyDataSetChanged();
+                }
+            }, 300);
+        }
     }
 
     private class EthPoolListAdapter extends RecyclerView.Adapter<BaseHolder> {

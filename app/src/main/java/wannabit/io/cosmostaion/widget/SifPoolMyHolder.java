@@ -56,7 +56,7 @@ public class SifPoolMyHolder extends BaseHolder {
     public void onBindSifMyEthPool(Context context, SifDexListActivity activity, BaseData baseData, Types.Pool myPool, Querier.LiquidityProviderRes myProvider) {
         int rowanDecimal = WDp.mainDisplayDecimal(BaseConstant.TOKEN_SIF);
         BigDecimal rowanAmount = new BigDecimal(myPool.getNativeAssetBalance());
-        int externalDecimal = baseData.mChainParam.getSifTokenDecimal(myPool.getExternalAsset().getSymbol());
+        int externalDecimal = WUtil.getSifCoinDecimal(myPool.getExternalAsset().getSymbol());
         BigDecimal externalAmount = new BigDecimal(myPool.getExternalAssetBalance());
         String exteranlDenom = myPool.getExternalAsset().getSymbol();
         BigDecimal poolValue = WUtil.getSifPoolValue(baseData, myPool);

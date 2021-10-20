@@ -64,6 +64,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.GDexManager;
@@ -1336,14 +1337,12 @@ public class WUtil {
     }
 
     public static int getSifCoinDecimal(String denom) {
-        if (denom.equalsIgnoreCase(TOKEN_SIF)) { return 18; }
-        else if (denom.equalsIgnoreCase("cusdt")) { return 6; }
-        else if (denom.equalsIgnoreCase("cusdc")) { return 6; }
-        else if (denom.equalsIgnoreCase("csrm")) { return 6; }
-        else if (denom.equalsIgnoreCase("cwscrt")) { return 6; }
-        else if (denom.equalsIgnoreCase("ccro")) { return 8; }
-        else if (denom.equalsIgnoreCase("cwbtc")) { return 8; }
-        return 18;
+      for (ChainParam.SifTokenRegistry.Registry.Entry entry: BaseData.mChainParam.getSifToken()) {
+          if (entry.denom.equalsIgnoreCase(denom)) {
+              return entry.decimal;
+          }
+      }
+      return 18;
     }
 
     public static int getCosmosCoinDecimal(BaseData baseData, String denom) {
@@ -1592,7 +1591,7 @@ public class WUtil {
             Picasso.get().cancelRequest(imageView);
             imageView.setImageResource(R.drawable.tokensifchain);
         } else if (denom.startsWith("c")) {
-            Picasso.get().load(SIF_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
+            Picasso.get().load(SIF_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
         } else if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
             try {

@@ -17,7 +17,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 
@@ -230,14 +229,10 @@ public class ChainParam {
             return false;
         }
 
-        public int getSifTokenDecimal(String denom) {
-            for (SifTokenRegistry.Registry.Entry entry: mSifTokenRegistry.registry.entries) {
-                if (entry.denom.equalsIgnoreCase(denom)) {
-                    return entry.decimal;
-                }
-            }
-            return 18;
+        public ArrayList<SifTokenRegistry.Registry.Entry> getSifToken() {
+            return mSifTokenRegistry.registry.entries;
         }
+
     }
 
 

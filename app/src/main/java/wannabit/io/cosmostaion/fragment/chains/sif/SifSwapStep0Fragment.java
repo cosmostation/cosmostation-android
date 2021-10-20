@@ -29,7 +29,6 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.SifPoolInfoGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
@@ -110,8 +109,8 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        mInputCoinDecimal = getBaseDao().mChainParam.getSifTokenDecimal(getSActivity().mInputDenom);
-        mOutputCoinDecimal = getBaseDao().mChainParam.getSifTokenDecimal(getSActivity().mOutputDenom);
+        mInputCoinDecimal = WUtil.getSifCoinDecimal(getSActivity().mInputDenom);
+        mOutputCoinDecimal = WUtil.getSifCoinDecimal(getSActivity().mOutputDenom);
         setDpDecimals(mInputCoinDecimal);
 
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);

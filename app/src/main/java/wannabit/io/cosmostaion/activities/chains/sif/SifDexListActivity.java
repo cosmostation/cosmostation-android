@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import sifnode.clp.v1.Querier;
 import sifnode.clp.v1.Types;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.cosmos.GravityWithdrawPoolActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -35,7 +34,6 @@ import wannabit.io.cosmostaion.fragment.chains.sif.SifDexEthPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexIbcPoolFragment;
 import wannabit.io.cosmostaion.fragment.chains.sif.SifDexSwapFragment;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.gRpcTask.SifDexMyProviderGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.SifDexPoolAssetListGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.SifDexPoolListGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -44,7 +42,6 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_EXIT_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_JOIN_POOL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIF_SWAP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_MY_PROVIDER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_ASSET_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SIF_POOL_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
@@ -60,10 +57,14 @@ public class SifDexListActivity extends BaseActivity {
     public ArrayList<String>                        mAllDenoms = new ArrayList<>();
     public ArrayList<Types.Asset>                   mPoolMyAsset = new ArrayList<>();
     public ArrayList<String>                        mMyEthAssets = new ArrayList<>();
+    public ArrayList<String>                        mMyIbcAssets = new ArrayList<>();
 
     public ArrayList<Types.Pool>                                mMyEthPools = new ArrayList<>();
     public ArrayList<Types.Pool>                                mOtherEthPools = new ArrayList<>();
-    public ArrayList<Querier.LiquidityProviderRes>          mMyEthProviders = new ArrayList<>();
+    public ArrayList<Types.Pool>                                mMyIbcPools = new ArrayList<>();
+    public ArrayList<Types.Pool>                                mOtherIbcPools = new ArrayList<>();
+
+    public ArrayList<Querier.LiquidityProviderRes>              mMyProviders = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,6 +217,8 @@ public class SifDexListActivity extends BaseActivity {
         mPoolMyAsset.clear();
         mMyEthPools.clear();
         mOtherEthPools.clear();
+        mMyIbcPools.clear();
+        mOtherIbcPools.clear();
         new SifDexPoolListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new SifDexPoolAssetListGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -238,20 +241,13 @@ public class SifDexListActivity extends BaseActivity {
                 for (Types.Asset asset: mPoolMyAsset) {
                     if (!asset.getSymbol().startsWith("ibc/")) {
                         mMyEthAssets.add(asset.getSymbol());
+                    } else {
+                        mMyIbcAssets.add(asset.getSymbol());
                     }
                 }
-                mTaskCount = mTaskCount + 1;
-                for (String symbol: mMyEthAssets) {
-                    new SifDexMyProviderGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, symbol).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-                }
             }
 
-        } else if (result.taskType == TASK_GRPC_FETCH_SIF_MY_PROVIDER) {
-            if (result.isSuccess && result.resultData != null) {
-               mMyEthProviders.add((Querier.LiquidityProviderRes) result.resultData);
-            }
         }
-
         if (mTaskCount == 0) {
             mAllDenoms.add(TOKEN_SIF);
             for (Types.Pool pool: mPoolList ) {
@@ -263,6 +259,12 @@ public class SifDexListActivity extends BaseActivity {
                         mMyEthPools.add(pool);
                     } else {
                         mOtherEthPools.add(pool);
+                    }
+                } else {
+                    if (mMyIbcAssets.contains(pool.getExternalAsset().getSymbol())) {
+                        mMyIbcPools.add(pool);
+                    } else {
+                        mOtherIbcPools.add(pool);
                     }
                 }
             }
