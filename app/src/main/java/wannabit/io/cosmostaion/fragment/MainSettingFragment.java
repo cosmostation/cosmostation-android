@@ -210,7 +210,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             }
 
         } else if (v.equals(mBtnGithub)) {
-            Intent intent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://github.com/cosmostation/cosmostation-mobile"));
+            Intent intent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://github.com/cosmostation/cosmostation-android"));
             startActivity(intent);
 
         } else if (v.equals(mBtnVersion)) {
