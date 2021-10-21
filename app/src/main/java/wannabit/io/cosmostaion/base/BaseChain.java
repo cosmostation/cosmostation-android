@@ -59,7 +59,6 @@ public enum BaseChain {
     EMONEY_MAIN("emoney-mainnet"),
     RIZON_MAIN("rizon-mainnet"),
     JUNO_MAIN("juno-mainnet"),
-
     REGEN_MAIN("regen-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
@@ -188,7 +187,6 @@ public enum BaseChain {
         if(chainName.equals(JUNO_MAIN.chainName)) {
             return JUNO_MAIN;
         }
-
         if(chainName.equals(REGEN_MAIN.chainName)) {
             return REGEN_MAIN;
         }
@@ -272,6 +270,7 @@ public enum BaseChain {
         result.add(OSMOSIS_MAIN);
         result.add(MEDI_MAIN);
         result.add(EMONEY_MAIN);
+        result.add(REGEN_MAIN);
         result.add(JUNO_MAIN);
         result.add(SECRET_MAIN);
 

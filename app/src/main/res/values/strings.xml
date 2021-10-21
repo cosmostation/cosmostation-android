@@ -93,6 +93,9 @@
     <string name="url_api_juno" translatable="false">https://api-juno.cosmostation.io/</string>
 
 
+    <string name="url_api_regen" translatable="false">https://api-regen.cosmostation.io/</string>
+
+
     <string name="url_api_axelar" translatable="false">https://api-office.cosmostation.io/axelar-testnet-adelaide/</string>
 
 
