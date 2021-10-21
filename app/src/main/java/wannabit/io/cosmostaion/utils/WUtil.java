@@ -1911,7 +1911,7 @@ public class WUtil {
 
     public static boolean isValidStarName(String starname) {
         boolean result = false;
-        String regex = "[0-9a-z.-]{0,64}+\\*[a-z0-9.-]{3,16}";
+        String regex = "[0-9a-z.-]{0,64}+\\*[a-z0-9.-]{2,16}";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(starname);
         if (m.matches()) {
@@ -1922,7 +1922,7 @@ public class WUtil {
 
     public static boolean isValidDomain(String starname) {
         boolean result = false;
-        String regex = "[a-z0-9]{4,32}";
+        String regex = "[a-z0-9]{2,32}";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(starname);
         if (m.matches()) {

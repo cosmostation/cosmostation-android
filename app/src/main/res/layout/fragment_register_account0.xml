@@ -70,6 +70,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         style="@style/font_ss_26_white"
+                        android:singleLine="true"
                         android:text="-"/>
                     <ImageView
                         android:id="@+id/dialog_img"
