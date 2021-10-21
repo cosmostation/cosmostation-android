@@ -2251,7 +2251,7 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(BITCANNA_MAIN)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_bitcanna));
-            guideTitle.setText(R.string.str_front_guide_title_binance);
+            guideTitle.setText(R.string.str_front_guide_title_bitcanna);
             guideMsg.setText(R.string.str_front_guide_msg_bitcanna);
 
         } else if (mainActivity.mBaseChain.equals(ALTHEA_TEST)) {
@@ -2662,8 +2662,8 @@ public class WUtil {
      */
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) ||
-                basechain.equals(CRYPTO_MAIN) || basechain.equals(EMONEY_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(JUNO_MAIN) || basechain.equals(REGEN_MAIN) ||
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(CRYPTO_MAIN) ||
+                basechain.equals(EMONEY_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(JUNO_MAIN) || basechain.equals(REGEN_MAIN) || basechain.equals(BITCANNA_MAIN) ||
                 basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
@@ -3066,6 +3066,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(BITCANNA_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(BITCANNA_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         } else if (basechain.equals(ALTHEA_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
@@ -3222,6 +3227,14 @@ public class WUtil {
                 return new BigDecimal(JUNO_GAS_RATE_LOW);
             }
             return new BigDecimal(JUNO_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(BITCANNA_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(BITCANNA_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(BITCANNA_GAS_RATE_LOW);
+            }
+            return new BigDecimal(BITCANNA_GAS_RATE_AVERAGE);
         }
 
         else if (basechain.equals(KAVA_MAIN)) {
