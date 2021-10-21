@@ -8,6 +8,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
@@ -80,6 +81,9 @@ public class ChannelBuilder {
     private final static String GRPC_REGEN_MAIN = "lcd-regen-app.cosmostation.io";
     private final static int PORT_REGEN_MAIN = 9090;
 
+    private final static String GRPC_BITCANNA_MAIN = "lcd-bitcanna-app.cosmostation.io";
+    private final static int PORT_BITCANNA_MAIN = 9090;
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -138,6 +142,8 @@ public class ChannelBuilder {
             return getJunoMain();
         } else if (chain.equals(REGEN_MAIN)) {
             return getRegenMain();
+        } else if (chain.equals(BITCANNA_MAIN)) {
+            return getBitcannaMain();
 
         } else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
@@ -376,6 +382,19 @@ public class ChannelBuilder {
             }
         }
         return channel_regen_main;
+    }
+
+    //Channel for bitcanna main
+    private static ManagedChannel channel_bitcanna_main = null;
+    public static ManagedChannel getBitcannaMain() {
+        if (channel_bitcanna_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_bitcanna_main = ManagedChannelBuilder.forAddress(GRPC_BITCANNA_MAIN, PORT_BITCANNA_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_bitcanna_main;
     }
 
 
