@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletAltheaHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletAxelarHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBandHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBinanceHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletBitcannaHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCertikHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCosmosHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCrytoHolder;
@@ -52,6 +53,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -225,6 +227,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_AXELAR            = 23;
         private static final int TYPE_JUNO              = 24;
         private static final int TYPE_REGEN             = 25;
+        private static final int TYPE_BITCANNA          = 26;
 
         private static final int TYPE_KAVA_INCENTIVE    = 40;
         private static final int TYPE_SIF_INCENTIVE     = 50;
@@ -310,6 +313,9 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_REGEN) {
                 return new WalletRegenHolder(getLayoutInflater().inflate(R.layout.item_wallet_regen, viewGroup, false));
 
+            } else if (viewType == TYPE_BITCANNA) {
+                return new WalletBitcannaHolder(getLayoutInflater().inflate(R.layout.item_wallet_bitcanna, viewGroup, false));
+
             }
 
 
@@ -388,6 +394,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(RIZON_MAIN) || getMainActivity().mBaseChain.equals(RIZON_TEST)) { return TYPE_RIZON; }
                     else if (getMainActivity().mBaseChain.equals(JUNO_MAIN)) { return TYPE_JUNO; }
                     else if (getMainActivity().mBaseChain.equals(REGEN_MAIN)) { return TYPE_REGEN; }
+                    else if (getMainActivity().mBaseChain.equals(BITCANNA_MAIN)) { return TYPE_BITCANNA; }
                     else if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) { return TYPE_ALTHEA; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
                     else if (getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }

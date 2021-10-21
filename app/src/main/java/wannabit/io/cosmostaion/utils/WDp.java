@@ -109,6 +109,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.ALTHEA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.AXELAR_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.BITCANNA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CRYPTO_VAL_URL;
@@ -809,6 +810,14 @@ public class WDp {
             cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgRegen));
             cardRewardAddress.setVisibility(View.VISIBLE);
 
+        } else if (baseChain.equals(BITCANNA_MAIN)) {
+            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgBitcanna));
+            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgBitcanna));
+            cardAlarm.setVisibility(View.GONE);
+            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgBitcanna));
+            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgBitcanna));
+            cardRewardAddress.setVisibility(View.VISIBLE);
+
         }
 
 
@@ -955,6 +964,8 @@ public class WDp {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_juno));
         } else if (baseChain.equals(REGEN_MAIN)) {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_regen));
+        } else if (baseChain.equals(BITCANNA_MAIN)) {
+            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_bitcanna));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -1027,6 +1038,8 @@ public class WDp {
             chainName.setText(c.getString(R.string.str_juno_net));
         } else if (baseChain.equals(REGEN_MAIN)) {
             chainName.setText(c.getString(R.string.str_regen_net));
+        } else if (baseChain.equals(BITCANNA_MAIN)) {
+            chainName.setText(c.getString(R.string.str_bitcanna_net));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -1099,6 +1112,8 @@ public class WDp {
             chainName.setText(c.getString(R.string.str_juno_main));
         } else if (baseChain.equals(REGEN_MAIN)) {
             chainName.setText(c.getString(R.string.str_regen_main));
+        } else if (baseChain.equals(BITCANNA_MAIN)) {
+            chainName.setText(c.getString(R.string.str_bitcanna_main));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -1174,6 +1189,8 @@ public class WDp {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorJuno));
         } else if (baseChain.equals(REGEN_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorRegen));
+        } else if (baseChain.equals(BITCANNA_MAIN)) {
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorBitcanna));
 
         }
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -1246,6 +1263,8 @@ public class WDp {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_juno));
             } else if (baseChain.equals(REGEN_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_regen));
+            } else if (baseChain.equals(BITCANNA_MAIN)) {
+                wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_bitcanna));
             } else if (baseChain.equals(ALTHEA_TEST)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_althea));
             } else if (baseChain.equals(UMEE_TEST)) {
@@ -1292,6 +1311,8 @@ public class WDp {
             return JUNO_MAIN;
         } else if (chainId.contains("regen-")) {
             return REGEN_MAIN;
+        } else if (chainId.contains("bitcanna-")) {
+            return BITCANNA_MAIN;
         }
         return null;
     }
@@ -1357,6 +1378,10 @@ public class WDp {
             if (!address.startsWith("juno1")) {
                 textView.setText("");
             }
+        } else if (baseChain.equals(BITCANNA_MAIN)) {
+            if (!address.startsWith("bcna1")) {
+                textView.setText("");
+            }
         }
     }
 
@@ -1389,7 +1414,7 @@ public class WDp {
         else if (address.startsWith("emoney1") && baseChain.equals(EMONEY_MAIN)) { return true; }
         else if (address.startsWith("juno1") && baseChain.equals(JUNO_MAIN)) { return true; }
         else if (address.startsWith("regen1") && baseChain.equals(REGEN_MAIN)) { return true; }
-
+        else if (address.startsWith("bcna1") && baseChain.equals(BITCANNA_MAIN)) { return true; }
 
         return false;
     }
@@ -3406,6 +3431,8 @@ public class WDp {
             return JUNO_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(REGEN_MAIN)) {
             return REGEN_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(BITCANNA_MAIN)) {
+            return BITCANNA_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(ALTHEA_TEST)) {
             return ALTHEA_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(UMEE_TEST)) {

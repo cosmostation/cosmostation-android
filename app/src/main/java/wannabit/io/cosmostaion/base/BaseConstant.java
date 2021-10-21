@@ -847,6 +847,7 @@ public class BaseConstant {
     public final static String AXELAR_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/axelar/";
     public final static String JUNO_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/juno/";
     public final static String REGEN_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/regen/";
+    public final static String BITCANNA_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bitcanna/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -882,6 +883,7 @@ public class BaseConstant {
     public final static String EXPLORER_RIZON_MAIN      = "https://www.mintscan.io/rizon/";
     public final static String EXPLORER_JUNO_MAIN       = "https://www.mintscan.io/juno/";
     public final static String EXPLORER_REGEN_MAIN      = "https://www.mintscan.io/regen/";
+    public final static String EXPLORER_BITCANNA_MAIN   = "https://www.mintscan.io/bitcanna/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 

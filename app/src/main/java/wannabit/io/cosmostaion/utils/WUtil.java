@@ -88,6 +88,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -2119,6 +2120,9 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(REGEN_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/regen")));
+
+        } else if (mainActivity.mBaseChain.equals(BITCANNA_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/bitcanna")));
         }
         return null;
     }
@@ -2245,6 +2249,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_regen);
             guideMsg.setText(R.string.str_front_guide_msg_regen);
 
+        } else if (mainActivity.mBaseChain.equals(BITCANNA_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_bitcanna));
+            guideTitle.setText(R.string.str_front_guide_title_binance);
+            guideMsg.setText(R.string.str_front_guide_msg_bitcanna);
+
         } else if (mainActivity.mBaseChain.equals(ALTHEA_TEST)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.althea_img));
             guideTitle.setText(R.string.str_front_guide_title_althea);
@@ -2338,6 +2347,9 @@ public class WUtil {
         } else if (chain.equals(REGEN_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.regen.network/"));
 
+        } else if (chain.equals(BITCANNA_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.bitcanna.io/"));
+
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
 
@@ -2421,6 +2433,9 @@ public class WUtil {
 
         } else if (chain.equals(REGEN_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/regen-network"));
+
+        } else if (chain.equals(BITCANNA_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@BitCannaGlobal"));
 
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
@@ -2509,6 +2524,9 @@ public class WUtil {
 
         } else if (basechain.equals(REGEN_MAIN)) {
             return EXPLORER_REGEN_MAIN;
+
+        } else if (basechain.equals(BITCANNA_MAIN)) {
+            return EXPLORER_BITCANNA_MAIN;
 
         }
 
@@ -2608,6 +2626,9 @@ public class WUtil {
 
         } else if (basechain.equals(REGEN_MAIN)) {
             return EXPLORER_REGEN_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(BITCANNA_MAIN)) {
+            return EXPLORER_BITCANNA_MAIN + "txs/" + hash;
 
         }
 
