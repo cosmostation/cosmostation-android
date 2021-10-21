@@ -557,6 +557,7 @@ public class BaseConstant {
     public final static String TOKEN_NGM            = "ungm";
     public final static String TOKEN_AXELAR         = "uaxl";
     public final static String TOKEN_JUNO           = "ujuno";
+    public final static String TOKEN_REGEN          = "uregen";
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";

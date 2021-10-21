@@ -24,6 +24,7 @@
     <string name="str_emoney_main_net">이머니 메인넷</string>
     <string name="str_juno_main_net">주노 메인넷</string>
     <string name="str_rizon_main_net">라이즌 메인넷</string>
+    <string name="str_regen_main_net">리젠 메인넷</string>
     <string name="str_cosmos_test_net">스타게이트 테스트넷</string>
     <string name="str_iris_test_net">바이프로스트 테스트넷</string>
     <string name="str_bnb_test_net">바이낸스 테스트넷</string>

@@ -164,6 +164,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MEDI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_NGM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_REGEN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
@@ -933,7 +934,6 @@ public class WDp {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_rizon));
         } else if (baseChain.equals(JUNO_MAIN)) {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_juno));
-
         } else if (baseChain.equals(REGEN_MAIN)) {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_regen));
         }
@@ -1006,7 +1006,6 @@ public class WDp {
             chainName.setText(c.getString(R.string.str_rizon_net));
         } else if (baseChain.equals(JUNO_MAIN)) {
             chainName.setText(c.getString(R.string.str_juno_net));
-
         } else if (baseChain.equals(REGEN_MAIN)) {
             chainName.setText(c.getString(R.string.str_regen_net));
         }
@@ -1079,7 +1078,6 @@ public class WDp {
             chainName.setText(c.getString(R.string.str_rizon_main));
         } else if (baseChain.equals(JUNO_MAIN)) {
             chainName.setText(c.getString(R.string.str_juno_main));
-
         } else if (baseChain.equals(REGEN_MAIN)) {
             chainName.setText(c.getString(R.string.str_regen_main));
         }
@@ -1155,6 +1153,8 @@ public class WDp {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorRizon));
         } else if (baseChain.equals(JUNO_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorJuno));
+        } else if (baseChain.equals(REGEN_MAIN)) {
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorRegen));
 
         }
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -1225,6 +1225,8 @@ public class WDp {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_rizon));
             } else if (baseChain.equals(JUNO_MAIN)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_juno));
+            } else if (baseChain.equals(REGEN_MAIN)) {
+                wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_regen));
             } else if (baseChain.equals(ALTHEA_TEST)) {
                 wordsLayer[i].setBackground(c.getDrawable(R.drawable.box_round_althea));
             } else if (baseChain.equals(UMEE_TEST)) {
@@ -1269,9 +1271,7 @@ public class WDp {
             return EMONEY_MAIN;
         } else if (chainId.contains("juno-")) {
             return JUNO_MAIN;
-        }
-
-        else if (chainId.contains("regen-")) {
+        } else if (chainId.contains("regen-")) {
             return REGEN_MAIN;
         }
         return null;
@@ -1369,7 +1369,6 @@ public class WDp {
         else if (address.startsWith("osmo1") && baseChain.equals(OSMOSIS_MAIN)) { return true; }
         else if (address.startsWith("emoney1") && baseChain.equals(EMONEY_MAIN)) { return true; }
         else if (address.startsWith("juno1") && baseChain.equals(JUNO_MAIN)) { return true; }
-
         else if (address.startsWith("regen1") && baseChain.equals(REGEN_MAIN)) { return true; }
 
 
@@ -2555,6 +2554,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorEmoney);
         } else if (chain.equals(JUNO_MAIN)) {
             return c.getResources().getColor(R.color.colorJuno);
+        } else if (chain.equals(REGEN_MAIN)) {
+            return c.getResources().getColor(R.color.colorRegen);
         } else if (chain.equals(ALTHEA_TEST)) {
             return c.getResources().getColor(R.color.colorAlthea);
         } else if (chain.equals(UMEE_TEST)) {
@@ -2609,6 +2610,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorTransBgEmoney);
         } else if (chain.equals(JUNO_MAIN)) {
             return c.getResources().getColor(R.color.colorTransBgJuno);
+        } else if (chain.equals(REGEN_MAIN)) {
+            return c.getResources().getColor(R.color.colorTransBgRegen);
         } else if (chain.equals(ALTHEA_TEST)) {
             return c.getResources().getColor(R.color.colorTransBgAlthea);
         } else if (chain.equals(UMEE_TEST)) {
@@ -2662,6 +2665,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_emoney);
         } else if (chain.equals(JUNO_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_juno);
+        } else if (chain.equals(REGEN_MAIN)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_regen);
         } else if (chain.equals(ALTHEA_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_althea);
         } else if (chain.equals(UMEE_TEST)) {
@@ -2713,6 +2718,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorEmoney);
         } else if (chain.equals(JUNO_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorJuno);
+        } else if (chain.equals(REGEN_MAIN)) {
+            return c.getResources().getColorStateList(R.color.colorRegen);
         } else if (chain.equals(ALTHEA_TEST)) {
             return c.getResources().getColorStateList(R.color.colorAlthea);
         } else if (chain.equals(UMEE_TEST)) {
@@ -2812,6 +2819,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorJuno));
             textview.setText(c.getString(R.string.s_juno));
 
+        } else if (BaseChain.getChain(chain).equals(REGEN_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorRegen));
+            textview.setText(c.getString(R.string.s_regen));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -2886,6 +2897,8 @@ public class WDp {
             return TOKEN_NGM;
         } else if (chain.equals(JUNO_MAIN)) {
             return TOKEN_JUNO;
+        } else if (chain.equals(REGEN_MAIN)) {
+            return TOKEN_REGEN;
         } else if (chain.equals(ALTHEA_TEST)) {
             return TOKEN_ALTHEA;
         } else if (chain.equals(UMEE_TEST)) {
@@ -2938,8 +2951,10 @@ public class WDp {
             imageView.setImageResource(R.drawable.token_emoney);
         } else if (baseChain.equals(RIZON_MAIN) || baseChain.equals(RIZON_TEST)) {
             imageView.setImageResource(R.drawable.token_rizon);
-        }  else if (baseChain.equals(JUNO_MAIN)) {
+        } else if (baseChain.equals(JUNO_MAIN)) {
             imageView.setImageResource(R.drawable.token_juno);
+        } else if (baseChain.equals(REGEN_MAIN)) {
+            imageView.setImageResource(R.drawable.token_regen);
         }
 
         else if (baseChain.equals(ALTHEA_TEST)) {
