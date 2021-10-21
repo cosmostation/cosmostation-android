@@ -528,6 +528,18 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
+    <style name="font_ss_14_regen" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorRegen</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="font_ss_14_bitcanna" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorBitcanna</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
     <style name="font_ss_14_hdac" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorHdac</item>

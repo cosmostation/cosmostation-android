@@ -37,6 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -60,6 +61,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -376,6 +378,10 @@ public class WKey {
                 result = bech32Encode("rizon".getBytes(), converted);
             } else if (chain.equals(JUNO_MAIN)){
                 result = bech32Encode("juno".getBytes(), converted);
+            } else if (chain.equals(REGEN_MAIN)){
+                result = bech32Encode("regen".getBytes(), converted);
+            } else if (chain.equals(BITCANNA_MAIN)){
+                result = bech32Encode("bcna".getBytes(), converted);
             } else if (chain.equals(ALTHEA_TEST)){
                 result = bech32Encode("althea".getBytes(), converted);
             } else if (chain.equals(UMEE_TEST)){
@@ -435,6 +441,10 @@ public class WKey {
             return bech32Encode("rizon".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(JUNO_MAIN)) {
             return bech32Encode("juno".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(REGEN_MAIN)) {
+            return bech32Encode("regen".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(BITCANNA_MAIN)) {
+            return bech32Encode("bcna".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(ALTHEA_TEST)) {
             return bech32Encode("althea".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
@@ -487,6 +497,10 @@ public class WKey {
             return bech32Encode("emoneyvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(JUNO_MAIN)) {
             return bech32Encode("junovaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(REGEN_MAIN)) {
+            return bech32Encode("regenvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(BITCANNA_MAIN)) {
+            return bech32Encode("bcnavaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(ALTHEA_TEST)) {
             return bech32Encode("altheavaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {

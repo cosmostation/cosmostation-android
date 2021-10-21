@@ -469,6 +469,36 @@ public class ApiClient {
         return api_juno;
     }
 
+    //Services for Regen mainnet api
+    private static HistoryApi api_regen = null;
+    public static HistoryApi getRegenApi(Context c) {
+        if (api_regen == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_regen))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_regen = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_regen;
+    }
+
+    //Services for Regen mainnet api
+    private static HistoryApi api_bitcanna = null;
+    public static HistoryApi getBitcannaApi(Context c) {
+        if (api_bitcanna == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_bitcanna))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_bitcanna = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_bitcanna;
+    }
+
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;
     public static HistoryApi getRizonApi(Context c) {
