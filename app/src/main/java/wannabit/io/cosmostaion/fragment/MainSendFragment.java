@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletOkexHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletOsmosisHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletPersisHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletPriceHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletRegenHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletRizonHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSecretHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSentinelHolder;
@@ -307,7 +308,7 @@ public class MainSendFragment extends BaseFragment {
                 return new WalletJunoHolder(getLayoutInflater().inflate(R.layout.item_wallet_juno, viewGroup, false));
 
             } else if (viewType == TYPE_REGEN) {
-                return new WalletJunoHolder(getLayoutInflater().inflate(R.layout.item_wallet_regen, viewGroup, false));
+                return new WalletRegenHolder(getLayoutInflater().inflate(R.layout.item_wallet_regen, viewGroup, false));
 
             }
 
