@@ -128,6 +128,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.MEDI_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OSMOSIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.REGEN_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.RIZON_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_VAL_URL;
@@ -3369,6 +3370,8 @@ public class WDp {
             return RIZON_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(JUNO_MAIN)) {
             return JUNO_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(REGEN_MAIN)) {
+            return REGEN_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(ALTHEA_TEST)) {
             return ALTHEA_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(UMEE_TEST)) {

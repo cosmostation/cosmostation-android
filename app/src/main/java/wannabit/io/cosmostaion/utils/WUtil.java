@@ -111,6 +111,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -2363,6 +2364,9 @@ public class WUtil {
         } else if (chain.equals(JUNO_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://junochain.com/"));
 
+        } else if (chain.equals(REGEN_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.regen.network/"));
+
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
 
@@ -2443,6 +2447,9 @@ public class WUtil {
 
         } else if (chain.equals(JUNO_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/@JunoNetwork"));
+
+        } else if (chain.equals(REGEN_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/regen-network"));
 
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
@@ -2528,6 +2535,9 @@ public class WUtil {
 
         } else if (basechain.equals(JUNO_MAIN)) {
             return EXPLORER_JUNO_MAIN;
+
+        } else if (basechain.equals(REGEN_MAIN)) {
+            return EXPLORER_REGEN_MAIN;
 
         }
 
@@ -2624,6 +2634,9 @@ public class WUtil {
 
         } else if (basechain.equals(JUNO_MAIN)) {
             return EXPLORER_JUNO_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(REGEN_MAIN)) {
+            return EXPLORER_REGEN_MAIN + "txs/" + hash;
 
         }
 
