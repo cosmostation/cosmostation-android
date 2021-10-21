@@ -185,6 +185,7 @@
     <string name="str_rizon_main_net">Rizon Mainnet</string>
     <string name="str_juno_main_net">Juno Mainnet</string>
     <string name="str_regen_main_net">Regen Mainnet</string>
+    <string name="str_bitcanna_main_net">Bitcanna Mainnet</string>
     <string name="str_cosmos_test_net">StarGate Testnet</string>
     <string name="str_iris_test_net">Bifrost Testnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
@@ -1722,6 +1723,7 @@
     <string name="s_axelar" translatable="false">AXL</string>
     <string name="s_juno" translatable="false">JUNO</string>
     <string name="s_regen" translatable="false">REGEN</string>
+    <string name="s_bitcanna" translatable="false">BCNA</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

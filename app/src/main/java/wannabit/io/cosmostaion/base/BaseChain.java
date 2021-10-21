@@ -274,7 +274,7 @@ public enum BaseChain {
         result.add(OSMOSIS_MAIN);
         result.add(MEDI_MAIN);
         result.add(EMONEY_MAIN);
-        result.add(REGEN_MAIN);
+//        result.add(REGEN_MAIN);
         result.add(JUNO_MAIN);
         result.add(BITCANNA_MAIN);
         result.add(SECRET_MAIN);
