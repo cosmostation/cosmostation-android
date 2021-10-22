@@ -18,12 +18,13 @@
         android:gravity="center_horizontal">
 
         <TextView
+            android:id="@+id/dialog_swap_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="@dimen/space_16"
             style="@style/font_ss_17_gray8"
-            android:text="@string/str_select_ibc_destination" />
+            android:text="@string/str_select_coin_swap_in" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
