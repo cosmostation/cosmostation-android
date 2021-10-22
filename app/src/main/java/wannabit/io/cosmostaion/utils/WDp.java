@@ -44,6 +44,7 @@ import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.upgrade.v1beta1.Upgrade;
 import cosmos.vesting.v1beta1.Vesting;
 import ibc.core.client.v1.Client;
+import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -1607,6 +1608,10 @@ public class WDp {
     }
 
     public static BigDecimal perUsdValue(BaseData baseData, String denom) {
+        if (denom.contains("gamm/pool/")) {
+            PoolOuterClass.Pool pool = baseData.getOsmosisPoolByDenom(denom);
+            return WUtil.getOsmoLpTokenPerUsdPrice(baseData, pool);
+        }
         if (denom.equals(TOKEN_EMONEY_EUR) || denom.equals(TOKEN_EMONEY_CHF) || denom.equals(TOKEN_EMONEY_DKK) ||
                 denom.equals(TOKEN_EMONEY_NOK) || denom.equals(TOKEN_EMONEY_SEK)) {
             for (Price.Prices price: baseData.getPrice("usdt").prices) {
