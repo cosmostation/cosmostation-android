@@ -231,7 +231,8 @@ public class SifDexListActivity extends BaseActivity {
             if (result.isSuccess && result.resultData != null) {
                 final ArrayList<Types.Pool> tempPoolList = (ArrayList<Types.Pool>) result.resultData;
                 for (Types.Pool pool : tempPoolList) {
-                    mPoolList.add(pool);;
+                    if (!pool.getExternalAsset().getSymbol().equalsIgnoreCase("ccro"))
+                    mPoolList.add(pool);
                 }
             }
 

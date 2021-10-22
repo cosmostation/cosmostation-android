@@ -59,8 +59,10 @@ public class TxSwapHolder extends TxHolder {
                         String receiveAmount = "";
                         if (receiveValue.contains("ibc")) {
                             receiveAmount = receiveValue.split("ibc")[0];
-                        } else {
+                        } else if (receiveValue.contains("c")){
                             receiveAmount = receiveValue.split("c")[0];
+                        } else {
+                            receiveAmount = receiveValue.replaceAll("[^0-9]", "");
                         }
                         receiveCoin = new Coin(receiveValue.replaceAll(receiveAmount, ""), receiveAmount);
                     }
