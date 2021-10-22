@@ -39,6 +39,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 
 public class Dialog_Swap_Coin_List extends DialogFragment {
 
+    private TextView mDialogTitle;
     private RecyclerView mRecyclerView;
     private SwapChainListAdapter mSwapChainListAdapter;
     private ArrayList<String> mSwapCoinList;
@@ -59,7 +60,9 @@ public class Dialog_Swap_Coin_List extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_swap_coin_list, null);
         mSwapCoinList = getArguments().getStringArrayList("denoms");
-
+        mDialogTitle = view.findViewById(R.id.dialog_swap_title);
+        if (getTargetRequestCode() == 8500) { mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_in)); }
+        else { mDialogTitle.setText(getTargetFragment().getString(R.string.str_select_coin_swap_out)); }
         mRecyclerView = view.findViewById(R.id.recycler);
         mSwapChainListAdapter = new SwapChainListAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
