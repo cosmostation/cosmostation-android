@@ -814,6 +814,7 @@
     <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
+    <string name="str_add_new">ADD NEW</string>
 
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>

@@ -56,6 +56,7 @@ import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -103,6 +104,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private RecyclerView                mAccountRecyclerView;
     private ChainListAdapter            mChainListAdapter;
     private AccountListAdapter          mAccountListAdapter;
+    private Button                      mBtnAddNew;
     private int                         mSelectChainPosition = 0;
 
     @Override
@@ -127,6 +129,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mAirDropBtn             = findViewById(R.id.btn_airdrop);
         mChainRecyclerView      = findViewById(R.id.chain_recycler);
         mAccountRecyclerView    = findViewById(R.id.account_recycler);
+        mBtnAddNew              = findViewById(R.id.btn_add_wallet);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
@@ -158,6 +161,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
                 show.setCancelable(true);
                 getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
+            }
+        });
+
+        mBtnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WLog.w("Add new Wallet");
             }
         });
 

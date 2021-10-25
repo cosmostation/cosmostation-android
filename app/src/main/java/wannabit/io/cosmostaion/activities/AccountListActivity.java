@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -62,6 +63,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
     private Toolbar                     mToolbar;
     private RecyclerView                mChainRecyclerView;
     private RecyclerView                mAccountRecyclerView;
+    private Button                      mBtnAddNew;
 
     private ChainListAdapter            mChainListAdapter;
     private AccountListAdapter          mAccountListAdapter;
@@ -77,6 +79,9 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         mToolbar                = findViewById(R.id.tool_bar);
         mChainRecyclerView      = findViewById(R.id.chain_recycler);
         mAccountRecyclerView    = findViewById(R.id.account_recycler);
+        mBtnAddNew              = findViewById(R.id.btn_add_wallet);
+
+        mBtnAddNew.setOnClickListener(this);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -167,7 +172,9 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
+        if (v.equals(mBtnAddNew)) {
+            WLog.w("Add new Wallet");
+        }
     }
 
     private void onSaveNewOrder() {

@@ -41,28 +41,48 @@
                     style="@style/font_ssm_17_white"
                     android:text="@string/str_switch_wallet"/>
             </RelativeLayout>
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/tool_bar"
-                android:paddingTop="@dimen/space_4"
-                android:paddingBottom="@dimen/space_8"
-                android:orientation="horizontal">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/chain_recycler"
-                    android:layout_width="@dimen/space_92"
-                    android:layout_height="match_parent"
-                    android:paddingTop="@dimen/space_4"
-                    android:clipToPadding="false"
-                    android:overScrollMode="never"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/account_recycler"
+                android:layout_height="match_parent">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingTop="@dimen/space_4"
-                    android:clipToPadding="false"
-                    android:overScrollMode="never"/>
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:layout_above="@+id/add_layer">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/chain_recycler"
+                        android:layout_width="@dimen/space_92"
+                        android:layout_height="match_parent"
+                        android:paddingTop="@dimen/space_4"
+                        android:clipToPadding="false"
+                        android:overScrollMode="never"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/account_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingTop="@dimen/space_4"
+                        android:clipToPadding="false"
+                        android:overScrollMode="never"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/add_layer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_16"
+                    android:layout_marginLeft="@dimen/space_16"
+                    android:layout_marginRight="@dimen/space_16"
+                    android:layout_alignParentBottom="true">
+                    <Button
+                        android:id="@+id/btn_add_wallet"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_45"
+                        android:background="@drawable/btn_trans_with_border"
+                        android:text="@string/str_add_new"
+                        style="@style/font_ssl_14_photon"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </FrameLayout>
 
