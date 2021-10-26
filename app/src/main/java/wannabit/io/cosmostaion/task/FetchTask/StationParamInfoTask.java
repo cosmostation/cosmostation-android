@@ -33,7 +33,7 @@ public class StationParamInfoTask extends CommonTask {
                 return mResult;
             }
 
-            if (response.body() != null && response.body().params != null) {
+            if (response.isSuccessful() && response.body() != null && response.body().params != null) {
                 mApp.getBaseDao().mChainParam = response.body().params;
             }
         } catch (Exception e) {

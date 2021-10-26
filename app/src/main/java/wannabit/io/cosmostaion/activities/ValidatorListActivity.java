@@ -154,10 +154,11 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                     cosmostation = validator.getOperatorAddress();
                 }
             }
-            Intent toDelegate = new Intent(ValidatorListActivity.this, DelegateActivity.class);
-            toDelegate.putExtra("valOpAddress", cosmostation);
-            startActivity(toDelegate);
-
+            if (!cosmostation.isEmpty()) {
+                Intent toDelegate = new Intent(ValidatorListActivity.this, DelegateActivity.class);
+                toDelegate.putExtra("valOpAddress", cosmostation);
+                startActivity(toDelegate);
+            }
         } else {
             Validator toValidator =  null;
             BigDecimal delegatableAmount = getBaseDao().delegatableAmount(WDp.mainDenom(mBaseChain));
@@ -171,9 +172,11 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                     toValidator = validator;
                 }
             }
-            Intent toDelegate = new Intent(ValidatorListActivity.this, DelegateActivity.class);
-            toDelegate.putExtra("validator", toValidator);
-            startActivity(toDelegate);
+            if (toValidator != null) {
+                Intent toDelegate = new Intent(ValidatorListActivity.this, DelegateActivity.class);
+                toDelegate.putExtra("validator", toValidator);
+                startActivity(toDelegate);
+            }
         }
     }
 

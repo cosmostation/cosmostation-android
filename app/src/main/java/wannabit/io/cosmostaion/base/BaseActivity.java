@@ -263,7 +263,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onHideWaitDialog() {
         if (mDialogWait != null) {
-            mDialogWait.dismiss();
+            mDialogWait.dismissAllowingStateLoss();
         }
     }
 

@@ -134,7 +134,7 @@ public class TokenDetailSupportHolder extends BaseHolder {
 
     public void onBindBridgeToken(Context c, BaseChain baseChain, BaseData baseData, String denom) {
         if (baseChain.equals(BaseChain.SIF_MAIN)) {
-            dpDecimal = WUtil.getSifCoinDecimal(denom);
+            dpDecimal = WUtil.getSifCoinDecimal(baseData, denom);
 
             mAvailableAmount = baseData.getAvailable(denom);
             mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));

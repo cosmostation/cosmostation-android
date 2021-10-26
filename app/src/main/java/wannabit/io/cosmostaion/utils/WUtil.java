@@ -1338,13 +1338,24 @@ public class WUtil {
         return 100;
     }
 
-    public static int getSifCoinDecimal(String denom) {
-      for (ChainParam.SifTokenRegistry.Registry.Entry entry: BaseData.mChainParam.getSifToken()) {
+    public static int getSifCoinDecimal(BaseData baseData, String denom) {
+      for (ChainParam.SifTokenRegistry.Registry.Entry entry: baseData.mChainParam.getSifToken()) {
           if (entry.denom.equalsIgnoreCase(denom)) {
               return entry.decimal;
           }
       }
       return 18;
+    }
+
+    public static int getSifCoinDecimal(String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_SIF)) { return 18; }
+        else if (denom.equalsIgnoreCase("cusdt")) { return 6; }
+        else if (denom.equalsIgnoreCase("cusdc")) { return 6; }
+        else if (denom.equalsIgnoreCase("csrm")) { return 6; }
+        else if (denom.equalsIgnoreCase("cwscrt")) { return 6; }
+        else if (denom.equalsIgnoreCase("ccro")) { return 8; }
+        else if (denom.equalsIgnoreCase("cwbtc")) { return 8; }
+        return 18;
     }
 
     public static int getCosmosCoinDecimal(BaseData baseData, String denom) {
@@ -1742,11 +1753,11 @@ public class WUtil {
     }
 
     public static BigDecimal getSifPoolValue(BaseData baseData, sifnode.clp.v1.Types.Pool pool) {
-        int rowanDecimal = getSifCoinDecimal(TOKEN_SIF);
+        int rowanDecimal = getSifCoinDecimal(baseData, TOKEN_SIF);
         BigDecimal rowanAmount = new BigDecimal(pool.getNativeAssetBalance());
         BigDecimal rowanPrice = WDp.perUsdValue(baseData, TOKEN_SIF);
 
-        int externalDecimal = getSifCoinDecimal(pool.getExternalAsset().getSymbol());
+        int externalDecimal = getSifCoinDecimal(baseData, pool.getExternalAsset().getSymbol());
         BigDecimal externalAmount = new BigDecimal(pool.getExternalAssetBalance());
         String exteranlBaseDenom = baseData.getBaseDenom(pool.getExternalAsset().getSymbol());
         BigDecimal exteranlPrice = WDp.perUsdValue(baseData, exteranlBaseDenom);

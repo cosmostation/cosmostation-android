@@ -135,8 +135,8 @@ public class BridgeTokenGrpcActivity extends BaseActivity implements View.OnClic
             mToolbarSymbol.setText(baseDenom.toUpperCase());
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
 
-            mBridgeDivideDecimal = WUtil.getSifCoinDecimal(mBridgeDenom);
-            mBridgeDisplayDecimal = WUtil.getSifCoinDecimal(mBridgeDenom);
+            mBridgeDivideDecimal = WUtil.getSifCoinDecimal(getBaseDao(), mBridgeDenom);
+            mBridgeDisplayDecimal = WUtil.getSifCoinDecimal(getBaseDao(), mBridgeDenom);
             mTotalAmount = getBaseDao().getAvailable(mBridgeDenom);
         }
 
