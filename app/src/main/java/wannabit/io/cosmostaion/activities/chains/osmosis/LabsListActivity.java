@@ -61,7 +61,6 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
     private TabLayout               mLabTapLayer;
     private OsmoLabPageAdapter      mPageAdapter;
 
-    public ArrayList<PoolOuterClass.Pool>                   mTempPoolList = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>                   mPoolList = new ArrayList<>();
     public ArrayList<String>                                mAllDenoms = new ArrayList<>();
     public ArrayList<PoolOuterClass.Pool>                   mPoolMyList = new ArrayList<>();
@@ -247,8 +246,8 @@ public class LabsListActivity extends BaseActivity implements TaskListener {
         mTaskCount--;
         if (result.taskType == TASK_GRPC_FETCH_OSMOSIS_POOL_LIST) {
             if (result.isSuccess && result.resultData != null) {
-                mTempPoolList = (ArrayList<PoolOuterClass.Pool>)result.resultData;
-                for (PoolOuterClass.Pool pool: mTempPoolList) {
+                getBaseDao().mGrpcOsmosisPool = (ArrayList<PoolOuterClass.Pool>)result.resultData;
+                for (PoolOuterClass.Pool pool: getBaseDao().mGrpcOsmosisPool) {
                     if (getBaseDao().mChainParam.isPoolEnabled(pool.getId())) {
                         mPoolList.add(pool);
                         for (PoolOuterClass.Pool swap: mPoolList) {
