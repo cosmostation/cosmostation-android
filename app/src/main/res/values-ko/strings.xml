@@ -44,9 +44,10 @@
     <string name="str_no">No</string>
     <string name="str_yes">Yes</string>
     <string name="str_next">다음</string>
-    <string name="str_refresh">새로고</string>
+    <string name="str_refresh">새로고침</string>
     <string name="str_settings">Settings</string>
     <string name="str_sorting">정열</string>
+    <string name="str_edit">Edit</string>
     <string name="str_qr">QR 코드</string>
     <string name="str_import">지갑 복원</string>
     <string name="str_clear_all">전체 삭제</string>

@@ -212,6 +212,7 @@
     <string name="str_refresh">Refresh</string>
     <string name="str_settings">Settings</string>
     <string name="str_sorting">Sorting</string>
+    <string name="str_edit">Edit</string>
     <string name="str_qr">QrCode</string>
     <string name="str_import">IMPORT</string>
     <string name="str_clear_all">Clear All</string>
