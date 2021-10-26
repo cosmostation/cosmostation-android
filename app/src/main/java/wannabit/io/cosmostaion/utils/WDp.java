@@ -1416,6 +1416,7 @@ public class WDp {
         else if (address.startsWith("fetch1") && baseChain.equals(FETCHAI_MAIN)) { return true; }
         else if (address.startsWith("cro1") && baseChain.equals(CRYPTO_MAIN)) { return true; }
         else if (address.startsWith("sif1") && baseChain.equals(SIF_MAIN)) { return true; }
+        else if (address.startsWith("rizon1") && baseChain.equals(RIZON_MAIN)) { return true; }
         else if (address.startsWith("ki1") && baseChain.equals(KI_MAIN)) { return true; }
         else if (address.startsWith("panacea1") && baseChain.equals(MEDI_MAIN)) { return true; }
         else if (address.startsWith("osmo1") && baseChain.equals(OSMOSIS_MAIN)) { return true; }
