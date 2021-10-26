@@ -114,7 +114,7 @@ public class BaseData {
 
 
     public ArrayList<Price>                 mPrices = new ArrayList<>();
-    public static ChainParam.Params         mChainParam;
+    public ChainParam.Params                mChainParam;
     public ArrayList<IbcPath>               mIbcPaths = new ArrayList<>();
     public static ArrayList<IbcToken>       mIbcTokens = new ArrayList<>();
 

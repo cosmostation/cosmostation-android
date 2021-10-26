@@ -1058,7 +1058,7 @@ public class MainTokensFragment extends BaseFragment {
     //with Sif Erc gRPC
     private void onBindSifToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mSifEtherGrpc.get(position);
-        final int dpDecimal = WUtil.getSifCoinDecimal(coin.denom);
+        final int dpDecimal = WUtil.getSifCoinDecimal(getBaseDao(), coin.denom);
         holder.itemSymbol.setText(coin.denom.substring(1).toUpperCase());
         holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         holder.itemInnerSymbol.setText("");

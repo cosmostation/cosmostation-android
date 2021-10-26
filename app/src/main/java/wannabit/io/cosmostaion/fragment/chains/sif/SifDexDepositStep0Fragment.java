@@ -127,7 +127,7 @@ public class SifDexDepositStep0Fragment extends BaseFragment implements View.OnC
 
         String externalDenom = getSActivity().mSifPool.getExternalAsset().getSymbol();
         mExternalMaxAmount = getBaseDao().getAvailable(externalDenom);
-        mExternalDecimal = WUtil.getSifCoinDecimal(externalDenom);
+        mExternalDecimal = WUtil.getSifCoinDecimal(getBaseDao(), externalDenom);
         setDpDecimals(mRowanDecimal, mExternalDecimal);
 
         WUtil.DpSifTokenImg(mJoinPoolInput0Img, TOKEN_SIF);

@@ -70,8 +70,8 @@ public class SifSwapStep3Fragment extends BaseFragment implements View.OnClickLi
         mSlippageLayer.setVisibility(View.GONE);
         mSwapFeeSymbol.setVisibility(View.VISIBLE);
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        mInputCoinDecimal = WUtil.getSifCoinDecimal(getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getSifCoinDecimal(getSActivity().mOutputDenom);
+        mInputCoinDecimal = WUtil.getSifCoinDecimal(getBaseDao(), getSActivity().mInputDenom);
+        mOutputCoinDecimal = WUtil.getSifCoinDecimal(getBaseDao(), getSActivity().mOutputDenom);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));

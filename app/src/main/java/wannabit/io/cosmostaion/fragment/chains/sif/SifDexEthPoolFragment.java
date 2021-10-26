@@ -75,7 +75,7 @@ public class SifDexEthPoolFragment extends BaseFragment implements TaskListener 
     public void onRefreshTab() {
         if (getSActivity().mMyEthAssets.size() > 0) {
             onFetchEthListInfo();
-        }
+        } else { mAdapter.notifyDataSetChanged(); }
         mMyEthPools = getSActivity().mMyEthPools;
         mOtherEthPools = getSActivity().mOtherEthPools;
         mSwipeRefreshLayout.setRefreshing(false);

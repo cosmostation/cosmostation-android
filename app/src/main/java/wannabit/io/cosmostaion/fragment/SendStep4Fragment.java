@@ -259,8 +259,8 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 }
 
             } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
-                mDivideDecimal = WUtil.getSifCoinDecimal(toSendDenom);
-                mDisplayDecimal = WUtil.getSifCoinDecimal(toSendDenom);
+                mDivideDecimal = WUtil.getSifCoinDecimal(getBaseDao(), toSendDenom);
+                mDisplayDecimal = WUtil.getSifCoinDecimal(getBaseDao(), toSendDenom);
 
                 mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 18, 18));
                 if (toSendDenom.equals(TOKEN_SIF)) {

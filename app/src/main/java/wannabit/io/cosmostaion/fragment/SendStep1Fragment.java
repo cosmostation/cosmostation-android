@@ -105,7 +105,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             if (getSActivity().mDenom.startsWith("ibc/")) {
                 mDpDecimal = WUtil.getIbcDecimal(getSActivity().mDenom);
             } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
-                mDpDecimal = WUtil.getSifCoinDecimal(getSActivity().mDenom);
+                mDpDecimal = WUtil.getSifCoinDecimal(getBaseDao(), getSActivity().mDenom);
             } else {
                 mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             }
@@ -127,7 +127,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             } else if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
-                mDpDecimal = WUtil.getSifCoinDecimal(toSendDenom);
+                mDpDecimal = WUtil.getSifCoinDecimal(getBaseDao(), toSendDenom);
             } else {
                 mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             }

@@ -1609,9 +1609,11 @@ public class WDp {
     public static BigDecimal perUsdValue(BaseData baseData, String denom) {
         if (denom.equals(TOKEN_EMONEY_EUR) || denom.equals(TOKEN_EMONEY_CHF) || denom.equals(TOKEN_EMONEY_DKK) ||
                 denom.equals(TOKEN_EMONEY_NOK) || denom.equals(TOKEN_EMONEY_SEK)) {
-            for (Price.Prices price: baseData.getPrice("usdt").prices) {
-                if (price.currency.equalsIgnoreCase(denom.substring(1))) {
-                    return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 3, RoundingMode.DOWN);
+            if (baseData.getPrice("usdt").prices != null) {
+                for (Price.Prices price: baseData.getPrice("usdt").prices) {
+                    if (price.currency.equalsIgnoreCase(denom.substring(1))) {
+                        return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 3, RoundingMode.DOWN);
+                    }
                 }
             }
         }
@@ -1679,7 +1681,7 @@ public class WDp {
                     totalValue = totalValue.add(assetValue);
                 } else if (baseChain.equals(SIF_MAIN) && coin.denom.startsWith("c")) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
-                    int decimal = WUtil.getSifCoinDecimal(coin.denom);
+                    int decimal = WUtil.getSifCoinDecimal(baseData, coin.denom);
                     BigDecimal assetValue = userCurrencyValue(baseData, coin.denom.substring(1), amount, decimal);
                     totalValue = totalValue.add(assetValue);
                 } else if (baseChain.equals(EMONEY_MAIN) || coin.denom.startsWith("e")) {
@@ -1769,7 +1771,7 @@ public class WDp {
                     totalValue = totalValue.add(btcValue);
                 } else if (baseChain.equals(SIF_MAIN) && coin.denom.startsWith("c")) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
-                    int decimal = WUtil.getSifCoinDecimal(coin.denom);
+                    int decimal = WUtil.getSifCoinDecimal(baseData, coin.denom);
                     BigDecimal btcValue = btcValue(baseData, coin.denom.substring(1), amount, decimal);
                     totalValue = totalValue.add(btcValue);
                 } else if (coin.denom.startsWith("ibc/")) {
@@ -3048,7 +3050,7 @@ public class WDp {
             } else if (baseChain.equals(OSMOSIS_MAIN)) {
                 return WUtil.getOsmosisCoinDecimal(denom);
             } else if (baseChain.equals(SIF_MAIN)) {
-                return WUtil.getSifCoinDecimal(denom);
+                return WUtil.getSifCoinDecimal(baseData, denom);
             }
         } else {
             return 6;
