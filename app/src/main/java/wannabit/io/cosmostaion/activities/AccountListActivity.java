@@ -100,14 +100,16 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void onChainEdit() {
-        WLog.w("chainEdit");
+        Intent intent = new Intent(AccountListActivity.this, WalletEditActivity.class);
+        startActivity(intent);
     }
 
 
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnAddNew)) {
-            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(null);
+            Bundle bundle = new Bundle();
+            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
             dialog.setCancelable(false);
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
         } else if (v.equals(mBtnEdit)) {

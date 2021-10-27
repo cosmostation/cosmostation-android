@@ -226,9 +226,10 @@
     <string name="str_show_mnemonic">Show Mnemonic</string>
     <string name="str_create_wallet">Create Wallet</string>
     <string name="str_start_wallet">Start Wallet</string>
-    <string name="str_import2">Import</string>
+    <string name="str_import2">Restore with</string>
     <string name="str_mnemonic">Mnemonic</string>
-    <string name="str_watch">Watch</string>
+    <string name="str_private_key">Private Key</string>
+    <string name="str_watch">Watching only</string>
     <string name="str_address">Address</string>
     <string name="str_paste">Paste</string>
     <string name="str_send_c">SEND</string>
@@ -311,6 +312,7 @@
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>
     <string name="str_wallet_manage">Wallet Manage</string>
+    <string name="str_edit_chains">Edit Chains</string>
     <string name="str_validators_list"><![CDATA[Validator List]]></string>
     <string name="str_validator_detail">Validator Details</string>
     <string name="str_token_detail">Token Detail</string>
@@ -1701,6 +1703,7 @@
     <string name="error_not_enough_to_pool">Not enough balance to deposit.</string>
     <string name="error_already_rizon_swap">There is already a swap request in progress.</string>
     <string name="error_no_relayer_channel">No Connected Relayer Channel</string>
+    <string name="error_max_account_number">No more accounts can be added to this chain.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>

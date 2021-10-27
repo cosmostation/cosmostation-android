@@ -69,16 +69,16 @@
                     android:id="@+id/add_layer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/space_16"
+                    android:layout_alignParentBottom="true"
                     android:layout_marginLeft="@dimen/space_16"
-                    android:layout_marginRight="@dimen/space_16"
-                    android:layout_alignParentBottom="true">
+                    android:layout_marginRight="@dimen/space_16">>
                     <Button
                         android:id="@+id/btn_add_wallet"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_45"
                         android:background="@drawable/btn_trans_with_border"
                         android:text="@string/str_add_new"
+                        android:layout_marginBottom="@dimen/space_16"
                         style="@style/font_ssl_14_photon"
                         android:textAllCaps="false" />
                 </LinearLayout>

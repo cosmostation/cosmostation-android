@@ -63,6 +63,7 @@
     <string name="str_start_wallet">Start Wallet</string>
     <string name="str_import2">복원하기</string>
     <string name="str_mnemonic">니모닉</string>
+    <string name="str_private_key">Private Key</string>
     <string name="str_watch">관찰하기</string>
     <string name="str_address">주소</string>
     <string name="str_paste">붙여넣기</string>
@@ -146,6 +147,7 @@
     <string name="str_detail">Detail</string>
     <string name="str_wallet">지갑</string>
     <string name="str_wallet_manage">지갑 관리</string>
+    <string name="str_edit_chains">지갑 편집</string>
     <string name="str_validators_list"><![CDATA[검증인 목록]]></string>
     <string name="str_validator_detail">검증인 상세</string>
     <string name="str_token_detail">토큰 상세</string>
@@ -1424,6 +1426,7 @@
     <string name="error_not_enough_to_pool">예금 할 수량이 충분하지 않습니다.</string>
     <string name="error_already_rizon_swap">이미 진행중인 스왑요청이 있습니다.</string>
     <string name="error_no_relayer_channel">No Connected Relayer Channel</string>
+    <string name="error_max_account_number">이 체인에 더 이상 계정을 추가 할 수 없습니다.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>

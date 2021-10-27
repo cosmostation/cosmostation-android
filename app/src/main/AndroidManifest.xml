@@ -295,6 +295,13 @@
         </activity>
 
         <activity
+            android:name=".activities.WalletEditActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
             android:name=".activities.HtlcSendActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

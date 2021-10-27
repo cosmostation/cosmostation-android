@@ -44,6 +44,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
+import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_Rizon_Event_Horizon;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -166,7 +168,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mBtnAddNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WLog.w("Add new Wallet");
+                Bundle bundle  = new Bundle();
+                Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
+                dialog.setCancelable(false);
+                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
             }
         });
 
@@ -336,6 +341,24 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
+    }
+
+    public void onChainSelected(BaseChain baseChain) {
+        if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 5) {
+            Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        onHideTopAccountsView();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Bundle bundle = new Bundle();
+                bundle.putString("chain", baseChain.getChain());
+                Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            }
+        }, 300);
     }
 
     public void onShowTopAccountsView() {
@@ -575,6 +598,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             final AccountHolder holder = (AccountHolder)viewHolder;
             final Account account = mAccounts.get(position);
 
+            holder.accountArrowSort.setVisibility(View.GONE);
             WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.accountDenom);
             if (BaseChain.getChain(account.baseChain).equals(OKEX_MAIN)) {
                 try {
