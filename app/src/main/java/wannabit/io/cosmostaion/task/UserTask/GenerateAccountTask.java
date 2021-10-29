@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.task.UserTask;
 
 import org.bitcoinj.crypto.DeterministicKey;
 
+import java.util.ArrayList;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -22,6 +24,8 @@ public class GenerateAccountTask extends CommonTask {
     private BaseChain mBaseChain;
     private Boolean mNewPath;
     private int mCustomPath;
+
+    private ArrayList<BaseChain> mHideChains = new ArrayList<>();
 
     public GenerateAccountTask(BaseApplication app, BaseChain basechain, TaskListener listener, boolean bip44, int customPath) {
         super(app, listener);
@@ -47,7 +51,16 @@ public class GenerateAccountTask extends CommonTask {
             long id = mApp.getBaseDao().onInsertAccount(onGenAccount(strings[1], strings[0], strings[2]));
             if(id > 0) {
                 mResult.isSuccess = true;
+                mHideChains = mApp.getBaseDao().userHideChains();
+                if (mHideChains.contains(mBaseChain)) {
+                    int position = mHideChains.indexOf(mBaseChain);
+                    if (position >= 0) {
+                        mHideChains.remove(position);
+                    }
+                    mApp.getBaseDao().setUserHidenChains(mHideChains);
+                }
                 mApp.getBaseDao().setLastUser(id);
+                mApp.getBaseDao().setLastChain(mBaseChain.getChain());
 
             } else {
                 mResult.errorMsg = "Already existed account";

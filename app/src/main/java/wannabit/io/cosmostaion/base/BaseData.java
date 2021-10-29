@@ -6,16 +6,24 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.checkerframework.checker.nullness.compatqual.NullableDecl;
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -74,6 +82,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -82,6 +91,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
@@ -173,6 +184,10 @@ public class BaseData {
         }
         return result;
     }
+
+//    public ArrayList<BaseChain> userHideChains() {
+//        ArrayList<BaseChain> result = new ArrayList<>();
+//    }
 
     //COMMON DATA
     public NodeInfo                     mNodeInfo;
@@ -716,24 +731,30 @@ public class BaseData {
         if(getSharedPreferences().getLong(BaseConstant.PRE_USER_ID, -1) != result) {
             result = getSharedPreferences().getLong(BaseConstant.PRE_USER_ID, -1);
         } else {
-            if (onSelectAccounts().size() > 0) {
-                result =  onSelectAccounts().get(0).accountNumber;
+            Account account = onSelectAccount(String.valueOf(result));
+            BaseChain mBaseChain = BaseChain.getChain(account.baseChain);
+            if (!dpSortedChains().contains(mBaseChain)) {
+                for (BaseChain chain : dpSortedChains()) {
+                    if (onSelectAccountsByChain(chain).size() > 0) {
+                        return String.valueOf(onSelectAccountsByChain(chain).get(0).id);
+                    }
+                }
             }
         }
-        return ""+result;
+        return String.valueOf(result);
     }
 
-    public int getLastChain() {
-        int position =  getSharedPreferences().getInt(BaseConstant.PRE_SELECTED_CHAIN, 0);
-        if (BaseChain.SUPPORT_CHAINS().size() < position) {
-            return 0;
+    public BaseChain getLastChain() {
+        String chainName = getSharedPreferences().getString(BaseConstant.PRE_SELECTED_CHAINS, COSMOS_MAIN.getChain());
+        if (getUserSortedChains().contains(chainName)) {
+            return BaseChain.getChain(chainName);
         } else {
-            return position;
+            return COSMOS_MAIN;
         }
     }
 
-    public void setLastChain(int position) {
-        getSharedPreferences().edit().putInt(BaseConstant.PRE_SELECTED_CHAIN, position).commit();
+    public void setLastChain(String chainName) {
+        getSharedPreferences().edit().putString(BaseConstant.PRE_SELECTED_CHAINS, chainName).commit();
     }
 
     public int getCurrency() {
@@ -907,6 +928,123 @@ public class BaseData {
             return true;
         }
         return false;
+    }
+
+    public void setUserHidenChains(ArrayList<BaseChain> hidedChains) {
+        JSONArray array = new JSONArray();
+        for (BaseChain baseChain: hidedChains) {
+            array.put(baseChain.getChain());
+        }
+        if (!hidedChains.isEmpty()) {
+            getSharedPreferences().edit().putString(PRE_USER_HIDEN_CHAINS, array.toString()).commit();
+        } else{
+            getSharedPreferences().edit().putString(PRE_USER_HIDEN_CHAINS, null).commit();
+        }
+    }
+
+    public ArrayList<String> getUserHiddenChains() {
+        String json = getSharedPreferences().getString(PRE_USER_HIDEN_CHAINS, null);
+        ArrayList<String> hideChains = new ArrayList<>();
+        if (json != null) {
+            try {
+                JSONArray array = new JSONArray(json);
+                for (int i = 0; i < array.length(); i++) {
+                    hideChains.add(array.optString(i));
+                }
+            } catch (JSONException e) { e.printStackTrace(); }
+
+        }
+        return hideChains;
+    }
+
+    public void setUserSortedChains(ArrayList<BaseChain> displayedChains) {
+        JSONArray array = new JSONArray();
+        for (BaseChain baseChain: displayedChains) {
+            array.put(baseChain.getChain());
+        }
+        if (!displayedChains.isEmpty()) {
+            getSharedPreferences().edit().putString(PRE_USER_SORTED_CHAINS, array.toString()).commit();
+        } else{
+            getSharedPreferences().edit().putString(PRE_USER_SORTED_CHAINS, null).commit();
+        }
+    }
+
+    public ArrayList<String> getUserSortedChains() {
+        String json = getSharedPreferences().getString(PRE_USER_SORTED_CHAINS, null);
+        ArrayList<String> displayChains = new ArrayList<>();
+        if (json != null) {
+            try {
+                JSONArray array = new JSONArray(json);
+                for (int i = 0; i < array.length(); i++) {
+                    displayChains.add(array.optString(i));
+                }
+            } catch (JSONException e) { e.printStackTrace(); }
+
+        }
+        return displayChains;
+    }
+
+    public ArrayList<BaseChain> userHideChains() {
+        ArrayList<BaseChain> result = new ArrayList<>();
+        ArrayList<BaseChain> mAllChains = new ArrayList<>();
+        ArrayList<String> hiddenChains = getUserHiddenChains();
+        for (BaseChain baseChain: BaseChain.SUPPORT_CHAINS()) {
+            if (!baseChain.equals(BaseChain.COSMOS_MAIN)) {
+                mAllChains.add(baseChain);
+            }
+        }
+        for (BaseChain baseChain: mAllChains) {
+            if (hiddenChains.contains(baseChain.getChain())) {
+                result.add(baseChain);
+            }
+        }
+
+        return result;
+    }
+
+    public ArrayList<BaseChain> userDisplayChains() {
+        ArrayList<BaseChain> result = new ArrayList<>();
+        ArrayList<BaseChain> mAllChains = new ArrayList<>();
+        ArrayList<BaseChain> hiddenChains = userHideChains();
+        for (BaseChain baseChain: BaseChain.SUPPORT_CHAINS()) {
+            if (!baseChain.equals(BaseChain.COSMOS_MAIN)) {
+                mAllChains.add(baseChain);
+            }
+        }
+        for (BaseChain baseChain: mAllChains) {
+            if (!hiddenChains.contains(baseChain)) {
+                result.add(baseChain);
+            }
+        }
+
+        List<String> userSortedList = getUserSortedChains();
+        Collections.sort(result, (o1, o2) -> userSortedList.indexOf(o1.getChain()) - userSortedList.indexOf(o2.getChain()));
+        return result;
+    }
+
+    public ArrayList<BaseChain> userSortedChains() {
+        ArrayList<BaseChain> result = new ArrayList<>();
+        ArrayList<BaseChain> rawDpChains = userDisplayChains();
+        ArrayList<String> orderedChains = getUserHiddenChains();
+        for (BaseChain chain: rawDpChains) {
+            if(!orderedChains.contains(chain.getChain())) {
+                result.add(chain);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<BaseChain> dpSortedChains() {
+        ArrayList<BaseChain> result = new ArrayList<>();
+        result.add(BaseChain.COSMOS_MAIN);
+        ArrayList<BaseChain> rawDpChains = userDisplayChains();
+        ArrayList<String> orderedChains = getUserHiddenChains();
+        for (BaseChain chain: rawDpChains) {
+            if(!orderedChains.contains(chain.getChain())) {
+                result.add(chain);
+            }
+        }
+        return result;
     }
 
     public Password onSelectPassword() {

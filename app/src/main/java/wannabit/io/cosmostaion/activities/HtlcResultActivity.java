@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -139,10 +140,14 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             onStartMainActivity(0);
 
         } else if (v.equals(mReceiverBtn)) {
-            getBaseDao().setLastUser(mRecipientAccount.id);
-            onStartMainActivity(1);
+            if (getBaseDao().dpSortedChains().contains(BaseChain.getChain(mRecipientAccount.baseChain))) {
+                getBaseDao().setLastUser(mRecipientAccount.id);
+                onStartMainActivity(1);
+            } else {
+                Toast.makeText(HtlcResultActivity.this, "error_hided_chain", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
-
     }
 
     private void onUpdateView() {

@@ -57,7 +57,6 @@ import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -98,15 +97,18 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public FloatingActionButton         mFaucetBtn;
     public FloatingActionButton         mAirDropBtn;
 
-    private ArrayList<Account>          mAccounts = new ArrayList<>();
     private TopSheetBehavior            mTopSheetBehavior;
 
     private RecyclerView                mChainRecyclerView;
     private RecyclerView                mAccountRecyclerView;
     private ChainListAdapter            mChainListAdapter;
     private AccountListAdapter          mAccountListAdapter;
+
+    private BaseChain                   mSelectedChain;
+    private ArrayList<BaseChain>        mDisplayChains = new ArrayList<>();
+    private ArrayList<Account>          mDisplayAccounts = new ArrayList<>();
     private Button                      mBtnAddNew;
-    private int                         mSelectChainPosition = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -277,6 +279,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         onAccountSwitched();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onChainSelect(mSelectedChain);
+    }
+
     private void onAccountSwitched() {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
@@ -289,17 +297,17 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         onUpdateTitle();
         onFetchAllData();
-        mSelectChainPosition = getBaseDao().getLastChain();
-        onChainSelected(mSelectChainPosition);
+        mSelectedChain = getBaseDao().getLastChain();
+        onChainSelect(mSelectedChain);
     }
 
-    private void onChainSelected(int position) {
-        mSelectChainPosition = position;
-        getBaseDao().setLastChain(mSelectChainPosition);
-        mChainListAdapter.notifyItemRangeChanged(0, mChainListAdapter.getItemCount());
+    private void onChainSelect(BaseChain baseChain) {
+        mDisplayChains = getBaseDao().dpSortedChains();
+        mSelectedChain = baseChain;
+        getBaseDao().setLastChain(mSelectedChain.getChain());
+        mDisplayAccounts = getBaseDao().onSelectAccountsByChain(mSelectedChain);
 
-        final BaseChain chain = BaseChain.SUPPORT_CHAINS().get(position);
-        mAccounts = getBaseDao().onSelectAccountsByChain(chain);
+        mChainListAdapter.notifyDataSetChanged();
         mAccountListAdapter.notifyDataSetChanged();
     }
 
@@ -536,24 +544,24 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         @Override
         public void onBindViewHolder(@NonNull ChainListAdapter.ChainHolder holder, @SuppressLint("RecyclerView") int position) {
+            BaseChain chain = mDisplayChains.get(position);
             holder.chainCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mSelectChainPosition != position) {
+                    if (chain != mSelectedChain) {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                onChainSelected(position);
+                                onChainSelect(chain);
                             }
                         },150);
                     }
                 }
             });
-            final BaseChain chain = BaseChain.SUPPORT_CHAINS().get(position);
             WDp.getChainImg(MainActivity.this, chain, holder.chainImg);
             WDp.getChainTitle2(MainActivity.this, chain, holder.chainName);
 
-            if (mSelectChainPosition == position) {
+            if (mSelectedChain.equals(chain)) {
                 holder.chainCard.setBackground(getResources().getDrawable(R.drawable.box_chain_selected));
                 holder.chainImg.setAlpha(1f);
                 holder.chainName.setTextColor(getColor(R.color.colorWhite));
@@ -567,7 +575,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         @Override
         public int getItemCount() {
-            return BaseChain.SUPPORT_CHAINS().size();
+            return mDisplayChains.size();
         }
 
         public class ChainHolder extends RecyclerView.ViewHolder {
@@ -596,7 +604,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             final AccountHolder holder = (AccountHolder)viewHolder;
-            final Account account = mAccounts.get(position);
+            final Account account = mDisplayAccounts.get(position);
 
             holder.accountArrowSort.setVisibility(View.GONE);
             WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.accountDenom);
@@ -641,18 +649,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     }
                 }
             });
-
-//            Bundle bundle  = new Bundle();
-//            final BaseChain selectChain = BaseChain.SUPPORT_CHAINS().get(mSelectChainPosition - 1);
-//            bundle.putString("chain", selectChain.getChain());
-//            Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
-//            add.setCancelable(true);
-//            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
         }
 
         @Override
         public int getItemCount() {
-            return mAccounts.size();
+            return mDisplayAccounts.size();
         }
 
         public class AccountHolder extends RecyclerView.ViewHolder {

@@ -18,6 +18,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.ArrayList;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -57,7 +59,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
@@ -78,6 +79,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
     private Button mCancel, mNext;
     private LinearLayout mBtnQr, mBtnPaste, mBtnHistory;
 
+    private BaseChain mChain;
     private String mUserInput;
 
     @Override
@@ -103,6 +105,10 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
         mBtnQr.setOnClickListener(this);
         mBtnPaste.setOnClickListener(this);
         mBtnHistory.setOnClickListener(this);
+
+        if (getIntent().getStringExtra("chain") != null) {
+            mChain = BaseChain.getChain(getIntent().getStringExtra("chain"));
+        }
     }
 
     @Override
@@ -451,6 +457,15 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
         onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_INIT_EMPTY_ACCOUNT) {
             if(result.isSuccess) {
+                ArrayList<BaseChain> mHideChains = getBaseDao().userHideChains();
+                if (mHideChains.contains(mChain)) {
+                    int position = mHideChains.indexOf(mChain);
+                    if (position >= 0) {
+                        mHideChains.remove(position);
+                    }
+                    getBaseDao().setUserHidenChains(mHideChains);
+                }
+                getBaseDao().setLastChain(mChain.getChain());
                 onStartMainActivity(0);
             } else {
                 if(result.errorCode == 7001) {

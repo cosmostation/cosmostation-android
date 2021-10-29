@@ -16,16 +16,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/chainSort"
-                android:layout_width="@dimen/space_44"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/space_6"
-                android:paddingRight="@dimen/space_6"
-                android:src="@drawable/ic_handle"
-                android:scaleType="center"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,33 +29,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView
-                        android:id="@+id/chain_remove_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/icon_listdelete"/>
-                    <ImageView
                         android:id="@+id/chain_add_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:src="@drawable/icon_listadd"
-                        android:visibility="gone"/>
+                        android:visibility="visible"/>
                     <ImageView
-                        android:id="@+id/token_img"
+                        android:id="@+id/chain_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/space_4"
-                        android:layout_toRightOf="@+id/chain_remove_img"
+                        android:layout_toRightOf="@+id/chain_add_img"
                         android:src="@drawable/cosmos_wh_main"/>
                     <TextView
-                        android:id="@+id/token_name"
+                        android:id="@+id/chain_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxWidth="@dimen/space_120"
                         android:layout_marginLeft="@dimen/space_4"
-                        android:layout_toRightOf="@+id/token_img"
+                        android:layout_toRightOf="@+id/chain_img"
                         android:layout_centerVertical="true"
                         style="@style/font_ss_14_white"
                         android:text="Wallet Name"/>

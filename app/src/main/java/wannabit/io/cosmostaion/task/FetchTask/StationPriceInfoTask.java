@@ -25,10 +25,9 @@ public class StationPriceInfoTask extends CommonTask {
         try {
             WLog.w("StationPriceInfoTask " + ApiClient.getStation(mApp).getPrice().request().url());
             Response<ArrayList<Price>> response = ApiClient.getStation(mApp).getPrice().execute();
-            if (response.isSuccessful()) {
-                for (Price price: response.body()) {
-                    mApp.getBaseDao().mPrices.add(price);
-                }
+            if (response.isSuccessful() && response.body() != null) {
+                mResult.resultData = response.body();
+                mResult.isSuccess = true;
             }
 //            WLog.w("StationPriceInfoTask " + mApp.getBaseDao().mPrices.size());
 

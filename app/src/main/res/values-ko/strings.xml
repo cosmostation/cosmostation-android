@@ -48,6 +48,7 @@
     <string name="str_settings">Settings</string>
     <string name="str_sorting">정열</string>
     <string name="str_edit">Edit</string>
+    <string name="str_add_chains">Add Chains</string>
     <string name="str_qr">QR 코드</string>
     <string name="str_import">지갑 복원</string>
     <string name="str_clear_all">전체 삭제</string>
@@ -1427,6 +1428,8 @@
     <string name="error_already_rizon_swap">이미 진행중인 스왑요청이 있습니다.</string>
     <string name="error_no_relayer_channel">No Connected Relayer Channel</string>
     <string name="error_max_account_number">이 체인에 더 이상 계정을 추가 할 수 없습니다.</string>
+    <string name="error_reserve_1_account">표시되는 최소 1개이상의 계정을 남겨두세요.</string>
+    <string name="error_hided_chain">비표시 체인 입니다.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>

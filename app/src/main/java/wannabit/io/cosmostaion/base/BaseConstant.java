@@ -18,6 +18,7 @@ public class BaseConstant {
 
     public final static String PRE_USER_ID                  = "PRE_USER_ID";
     public final static String PRE_SELECTED_CHAIN           = "PRE_SELECTED_CHAIN";
+    public final static String PRE_SELECTED_CHAINS          = "PRE_SELECTED_CHAINS";
     public final static String PRE_VALIDATOR_SORTING        = "PRE_VALIDATOR_SORTING";
     public final static String PRE_MY_VALIDATOR_SORTING     = "PRE_MY_VALIDATOR_SORTING";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
@@ -31,6 +32,8 @@ public class BaseConstant {
     public final static String PRE_FCM_TOKEN                = "PRE_FCM_TOKEN";
     public final static String PRE_KAVA_TESTNET_WARN        = "PRE_KAVA_TESTNET_WARN";
     public final static String PRE_EVENT_HIDE               = "PRE_EVENT_HIDE";
+    public final static String PRE_USER_HIDEN_CHAINS        = "PRE_USER_HIDEN_CHAINS";
+    public final static String PRE_USER_SORTED_CHAINS       = "PRE_USER_SORTED_CHAINS";
 
 
     public final static int TASK_INIT_PW                                = 2000;

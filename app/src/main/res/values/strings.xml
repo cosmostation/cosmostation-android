@@ -213,6 +213,7 @@
     <string name="str_settings">Settings</string>
     <string name="str_sorting">Sorting</string>
     <string name="str_edit">Edit</string>
+    <string name="str_add_chains">Add Chains</string>
     <string name="str_qr">QrCode</string>
     <string name="str_import">IMPORT</string>
     <string name="str_clear_all">Clear All</string>
@@ -1704,6 +1705,8 @@
     <string name="error_already_rizon_swap">There is already a swap request in progress.</string>
     <string name="error_no_relayer_channel">No Connected Relayer Channel</string>
     <string name="error_max_account_number">No more accounts can be added to this chain.</string>
+    <string name="error_reserve_1_account">Please reserve at least 1 account to displayed.</string>
+    <string name="error_hided_chain">Hidden Chain.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>

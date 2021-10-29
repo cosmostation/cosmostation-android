@@ -28,7 +28,6 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 
@@ -42,8 +41,9 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
     private ChainListAdapter            mChainListAdapter;
     private AccountListAdapter          mAccountListAdapter;
-    private int                         mSelectChainPosition = 0;
-    private ArrayList<Account>          mAccounts = new ArrayList<>();
+    private BaseChain                   mSelectedChain;
+    private ArrayList<BaseChain>        mDisplayChains = new ArrayList<>();
+    private ArrayList<Account>          mDisplayAccounts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +72,6 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         mAccountListAdapter = new AccountListAdapter();
         mAccountRecyclerView.setAdapter(mAccountListAdapter);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mSelectChainPosition = getBaseDao().getLastChain();
-        onChainSelected(mSelectChainPosition);
     }
 
     @Override
@@ -89,21 +85,22 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private void onChainSelected(int position) {
-        mSelectChainPosition = position;
-        getBaseDao().setLastChain(mSelectChainPosition);
-        mChainListAdapter.notifyDataSetChanged();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSelectedChain = getBaseDao().getLastChain();
+        onChainSelect(mSelectedChain);
+    }
 
-        final BaseChain chain = BaseChain.SUPPORT_CHAINS().get(position);
-        mAccounts = getBaseDao().onSelectAccountsByChain(chain);
+    public void onChainSelect(BaseChain baseChain) {
+        mDisplayChains = getBaseDao().dpSortedChains();
+        mSelectedChain = baseChain;
+        getBaseDao().setLastChain(mSelectedChain.getChain());
+        mDisplayAccounts = getBaseDao().onSelectAccountsByChain(mSelectedChain);
+
+        mChainListAdapter.notifyDataSetChanged();
         mAccountListAdapter.notifyDataSetChanged();
     }
-
-    private void onChainEdit() {
-        Intent intent = new Intent(AccountListActivity.this, WalletEditActivity.class);
-        startActivity(intent);
-    }
-
 
     @Override
     public void onClick(View v) {
@@ -113,7 +110,8 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
             dialog.setCancelable(false);
             getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
         } else if (v.equals(mBtnEdit)) {
-            onChainEdit();
+            Intent intent = new Intent(AccountListActivity.this, WalletEditActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -127,24 +125,24 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public void onBindViewHolder(@NonNull ChainListAdapter.ChainHolder holder, final int position) {
+            BaseChain chain = mDisplayChains.get(position);
             holder.chainCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mSelectChainPosition != position) {
+                    if (chain != mSelectedChain) {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                onChainSelected(position);
+                                onChainSelect(chain);
                             }
                         },150);
                     }
                 }
             });
-            final BaseChain chain = BaseChain.SUPPORT_CHAINS().get(position);
             WDp.getChainImg(AccountListActivity.this, chain, holder.chainImg);
             WDp.getChainTitle2(AccountListActivity.this, chain, holder.chainName);
 
-            if (mSelectChainPosition == position) {
+            if (chain.equals(mSelectedChain)) {
                 holder.chainCard.setBackground(getResources().getDrawable(R.drawable.box_chain_selected));
                 holder.chainImg.setAlpha(1f);
                 holder.chainName.setTextColor(getColor(R.color.colorWhite));
@@ -158,7 +156,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public int getItemCount() {
-            return BaseChain.SUPPORT_CHAINS().size();
+            return mDisplayChains.size();
         }
 
 
@@ -189,7 +187,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
             final AccountHolder holder = (AccountHolder)viewHolder;
-            final Account account = mAccounts.get(position);
+            final Account account = mDisplayAccounts.get(position);
 
             WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.accountDenom);
             if (BaseChain.getChain(account.baseChain).equals(OKEX_MAIN)) {
@@ -225,7 +223,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public int getItemCount() {
-            return mAccounts.size();
+            return mDisplayAccounts.size();
         }
 
         public class AccountHolder extends RecyclerView.ViewHolder {

@@ -65,6 +65,7 @@ import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Without_Key;
@@ -445,6 +446,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().onDeleteAccount(""+id);
         getBaseDao().onSelectBalance(id);
 
+        for (BaseChain baseChain: getBaseDao().dpSortedChains()) {
+            int accountNum = getBaseDao().onSelectAccountsByChain(baseChain).size();
+            if (accountNum > 0) {
+                getBaseDao().setLastUser(getBaseDao().onSelectAccountsByChain(baseChain).get(0).id);
+                break;
+            }
+        }
         if(getBaseDao().onSelectAccounts().size() > 0) {
             getBaseDao().setLastUser(getBaseDao().onSelectAccounts().get(0).id);
             onStartMainActivity(0);
@@ -728,7 +736,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             return;
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_PRICE_INFO) {
-            WLog.w("TASK_FETCH_PRICE_INFO");
+            if (result.isSuccess && result.resultData != null) {
+                ArrayList<Price> tempPrice = new ArrayList<>();
+                tempPrice = (ArrayList<Price>) result.resultData;
+                for (Price price: tempPrice) {
+                    getBaseDao().mPrices.add(price);
+                }
+            }
         }
 
         mTaskCount--;
