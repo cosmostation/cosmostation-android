@@ -109,8 +109,8 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        mInputCoinDecimal = WUtil.getSifCoinDecimal(getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getSifCoinDecimal(getSActivity().mOutputDenom);
+        mInputCoinDecimal = WUtil.getSifCoinDecimal(getBaseDao(), getSActivity().mInputDenom);
+        mOutputCoinDecimal = WUtil.getSifCoinDecimal(getBaseDao(), getSActivity().mOutputDenom);
         setDpDecimals(mInputCoinDecimal);
 
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);

@@ -20,7 +20,6 @@ import osmosis.poolincentives.v1beta1.QueryOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.osmosis.LabsListActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.osmosis.EarningMyHolder;
 import wannabit.io.cosmostaion.widget.osmosis.EarningOtherHolder;
@@ -75,7 +74,7 @@ public class ListFarmingFragment extends BaseFragment {
     public void onRefreshTab() {
         mMyIncentivizedPool.clear();
         mOtherIncentivizedPool.clear();
-        mTempPoolList = getSActivity().mTempPoolList;
+        mTempPoolList = getBaseDao().mGrpcOsmosisPool;
         mPoolList = getSActivity().mPoolList;
         mIncentivizedPool = getSActivity().mIncentivizedPool;
         mActiveGauges = getSActivity().mActiveGauges;

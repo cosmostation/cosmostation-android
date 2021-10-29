@@ -25,6 +25,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.bitcoinj.crypto.MnemonicCode;
 
@@ -225,13 +226,21 @@ public class StepMemoFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == AGAIN_MEMO && resultCode == Activity.RESULT_OK) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() != null) {
+                mMemo.setText(result.getContents().trim());
+                mMemo.setSelection(mMemo.getText().length());
+            }
+
+        } else if (requestCode == AGAIN_MEMO && resultCode == Activity.RESULT_OK) {
             if(data.getIntExtra("memo" , -1) ==0 ){
                 mMemo.setText("");
             }else if(data.getIntExtra("memo" , -1) == 1){
                 getSActivity().mTxMemo = mMemo.getText().toString().trim();
                 getSActivity().onNextStep();
             }
+
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

@@ -80,6 +80,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
@@ -102,7 +103,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
@@ -1028,7 +1028,7 @@ public class MainTokensFragment extends BaseFragment {
         holder.itemFullName.setText(coin.denom);
         holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_pool));
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 18, 6));
-        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 18));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 18));
 
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1058,7 +1058,7 @@ public class MainTokensFragment extends BaseFragment {
     //with Sif Erc gRPC
     private void onBindSifToken(TokensAdapter.AssetHolder holder, int position) {
         final Coin coin = mSifEtherGrpc.get(position);
-        final int dpDecimal = WUtil.getSifCoinDecimal(coin.denom);
+        final int dpDecimal = WUtil.getSifCoinDecimal(getBaseDao(), coin.denom);
         holder.itemSymbol.setText(coin.denom.substring(1).toUpperCase());
         holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         holder.itemInnerSymbol.setText("");

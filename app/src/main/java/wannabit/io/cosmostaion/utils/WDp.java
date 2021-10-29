@@ -44,6 +44,7 @@ import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.upgrade.v1beta1.Upgrade;
 import cosmos.vesting.v1beta1.Vesting;
 import ibc.core.client.v1.Client;
+import osmosis.gamm.v1beta1.PoolOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -1416,6 +1417,7 @@ public class WDp {
         else if (address.startsWith("fetch1") && baseChain.equals(FETCHAI_MAIN)) { return true; }
         else if (address.startsWith("cro1") && baseChain.equals(CRYPTO_MAIN)) { return true; }
         else if (address.startsWith("sif1") && baseChain.equals(SIF_MAIN)) { return true; }
+        else if (address.startsWith("rizon1") && baseChain.equals(RIZON_MAIN)) { return true; }
         else if (address.startsWith("ki1") && baseChain.equals(KI_MAIN)) { return true; }
         else if (address.startsWith("panacea1") && baseChain.equals(MEDI_MAIN)) { return true; }
         else if (address.startsWith("osmo1") && baseChain.equals(OSMOSIS_MAIN)) { return true; }
@@ -1607,11 +1609,17 @@ public class WDp {
     }
 
     public static BigDecimal perUsdValue(BaseData baseData, String denom) {
+        if (denom.contains("gamm/pool/")) {
+            PoolOuterClass.Pool pool = baseData.getOsmosisPoolByDenom(denom);
+            return WUtil.getOsmoLpTokenPerUsdPrice(baseData, pool);
+        }
         if (denom.equals(TOKEN_EMONEY_EUR) || denom.equals(TOKEN_EMONEY_CHF) || denom.equals(TOKEN_EMONEY_DKK) ||
                 denom.equals(TOKEN_EMONEY_NOK) || denom.equals(TOKEN_EMONEY_SEK)) {
-            for (Price.Prices price: baseData.getPrice("usdt").prices) {
-                if (price.currency.equalsIgnoreCase(denom.substring(1))) {
-                    return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 3, RoundingMode.DOWN);
+            if (baseData.getPrice("usdt").prices != null) {
+                for (Price.Prices price: baseData.getPrice("usdt").prices) {
+                    if (price.currency.equalsIgnoreCase(denom.substring(1))) {
+                        return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 3, RoundingMode.DOWN);
+                    }
                 }
             }
         }
@@ -1679,7 +1687,7 @@ public class WDp {
                     totalValue = totalValue.add(assetValue);
                 } else if (baseChain.equals(SIF_MAIN) && coin.denom.startsWith("c")) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
-                    int decimal = WUtil.getSifCoinDecimal(coin.denom);
+                    int decimal = WUtil.getSifCoinDecimal(baseData, coin.denom);
                     BigDecimal assetValue = userCurrencyValue(baseData, coin.denom.substring(1), amount, decimal);
                     totalValue = totalValue.add(assetValue);
                 } else if (baseChain.equals(EMONEY_MAIN) || coin.denom.startsWith("e")) {
@@ -1769,7 +1777,7 @@ public class WDp {
                     totalValue = totalValue.add(btcValue);
                 } else if (baseChain.equals(SIF_MAIN) && coin.denom.startsWith("c")) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
-                    int decimal = WUtil.getSifCoinDecimal(coin.denom);
+                    int decimal = WUtil.getSifCoinDecimal(baseData, coin.denom);
                     BigDecimal btcValue = btcValue(baseData, coin.denom.substring(1), amount, decimal);
                     totalValue = totalValue.add(btcValue);
                 } else if (coin.denom.startsWith("ibc/")) {
@@ -3048,7 +3056,7 @@ public class WDp {
             } else if (baseChain.equals(OSMOSIS_MAIN)) {
                 return WUtil.getOsmosisCoinDecimal(denom);
             } else if (baseChain.equals(SIF_MAIN)) {
-                return WUtil.getSifCoinDecimal(denom);
+                return WUtil.getSifCoinDecimal(baseData, denom);
             }
         } else {
             return 6;

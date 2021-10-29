@@ -34,6 +34,7 @@ import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
 import oracle.v1.Oracle;
+import osmosis.gamm.v1beta1.PoolOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
 import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
@@ -125,7 +126,7 @@ public class BaseData {
 
 
     public ArrayList<Price>                 mPrices = new ArrayList<>();
-    public static ChainParam.Params         mChainParam;
+    public ChainParam.Params                mChainParam;
     public ArrayList<IbcPath>               mIbcPaths = new ArrayList<>();
     public static ArrayList<IbcToken>       mIbcTokens = new ArrayList<>();
 
@@ -430,6 +431,9 @@ public class BaseData {
     public starnamed.x.configuration.v1beta1.Types.Fees         mGrpcStarNameFee;
     public starnamed.x.configuration.v1beta1.Types.Config       mGrpcStarNameConfig;
 
+    //Osmosis pool list
+    public ArrayList<PoolOuterClass.Pool>                       mGrpcOsmosisPool = new ArrayList<>();
+
     //Gravity pool list
     public ArrayList<Liquidity.Pool>                            mGrpcGravityPools = new ArrayList<>();
     public Liquidity.Params                                     mParams;
@@ -703,6 +707,14 @@ public class BaseData {
         return null;
     }
 
+    public PoolOuterClass.Pool getOsmosisPoolByDenom(String denom) {
+        for (PoolOuterClass.Pool pool: mGrpcOsmosisPool) {
+            if (pool.getTotalShares().getDenom().equals(denom)) {
+                return pool;
+            }
+        }
+        return null;
+    }
 
 
 
