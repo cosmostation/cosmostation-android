@@ -12,7 +12,9 @@
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:background="@drawable/box_account_unselected"
-        android:layout_margin="@dimen/space_8">
+        android:layout_marginLeft="@dimen/space_8"
+        android:layout_marginRight="@dimen/space_8"
+        android:layout_marginTop="@dimen/space_8">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

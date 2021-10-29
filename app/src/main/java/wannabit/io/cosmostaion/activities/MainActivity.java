@@ -276,12 +276,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) { }
         });
         onShowWaitDialog();
-        onAccountSwitched();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        onAccountSwitched();
         onChainSelect(mSelectedChain);
     }
 
@@ -352,7 +352,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onChainSelected(BaseChain baseChain) {
-        if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 5) {
+        if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 10) {
             Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
             return;
         }

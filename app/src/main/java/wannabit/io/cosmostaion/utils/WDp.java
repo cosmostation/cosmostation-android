@@ -1685,6 +1685,10 @@ public class WDp {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
                     BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, 6);
                     totalValue = totalValue.add(assetValue);
+                } else if (baseChain.equals(OSMOSIS_MAIN) && coin.denom.contains("gamm/pool")) {
+                    BigDecimal amount = baseData.getAvailable(coin.denom);
+                    BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, 18);
+                    totalValue = totalValue.add(assetValue);
                 } else if (baseChain.equals(SIF_MAIN) && coin.denom.startsWith("c")) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
                     int decimal = WUtil.getSifCoinDecimal(baseData, coin.denom);

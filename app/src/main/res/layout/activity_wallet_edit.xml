@@ -44,29 +44,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar"
-        android:paddingTop="@dimen/space_4"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/str_display_chains"
+            style="@style/font_ss_14_gray1"
+            android:layout_margin="@dimen/space_8"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/display_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            android:paddingTop="@dimen/space_4"
             android:clipToPadding="false"
             android:overScrollMode="never"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/str_add_chains"
+            android:text="@string/str_hide_chains"
             style="@style/font_ss_14_gray1"
-            android:layout_margin="@dimen/space_8"
-            android:padding="@dimen/space_8"/>
+            android:layout_margin="@dimen/space_8" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/hide_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.5"
-            android:paddingTop="@dimen/space_4"
             android:clipToPadding="false"
             android:overScrollMode="never"/>
     </LinearLayout>

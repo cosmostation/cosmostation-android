@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="wannabit.io.cosmostaion.dialog.TopSheetBehavior"
-        android:background="#161819"
+        android:background="@color/colorBlack"
         android:elevation="@dimen/top_sheet_modal_elevation">
         <LinearLayout
             android:layout_width="match_parent"

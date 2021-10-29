@@ -48,7 +48,8 @@
     <string name="str_settings">Settings</string>
     <string name="str_sorting">정열</string>
     <string name="str_edit">Edit</string>
-    <string name="str_add_chains">Add Chains</string>
+    <string name="str_display_chains">Display Chains</string>
+    <string name="str_hide_chains">Hide Chains</string>
     <string name="str_qr">QR 코드</string>
     <string name="str_import">지갑 복원</string>
     <string name="str_clear_all">전체 삭제</string>

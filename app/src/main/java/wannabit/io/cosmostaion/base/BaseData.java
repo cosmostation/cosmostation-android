@@ -6,15 +6,12 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
-import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -23,7 +20,6 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -33,7 +29,6 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
-import oracle.v1.Oracle;
 import osmosis.gamm.v1beta1.PoolOuterClass;
 import tendermint.liquidity.v1beta1.Liquidity;
 import tendermint.p2p.Types;
@@ -739,21 +734,16 @@ public class BaseData {
     }
 
     public String getLastUser() {
-        long result = -1;
-        if(getSharedPreferences().getLong(BaseConstant.PRE_USER_ID, -1) != result) {
-            result = getSharedPreferences().getLong(BaseConstant.PRE_USER_ID, -1);
-        } else {
-            Account account = onSelectAccount(String.valueOf(result));
-            BaseChain mBaseChain = BaseChain.getChain(account.baseChain);
-            if (!dpSortedChains().contains(mBaseChain)) {
-                for (BaseChain chain : dpSortedChains()) {
-                    if (onSelectAccountsByChain(chain).size() > 0) {
-                        return String.valueOf(onSelectAccountsByChain(chain).get(0).id);
-                    }
+        Account account = onSelectAccount(String.valueOf(getSharedPreferences().getLong(BaseConstant.PRE_USER_ID, -1)));
+        BaseChain mBaseChain = BaseChain.getChain(account.baseChain);
+        if (!dpSortedChains().contains(mBaseChain)) {
+            for (BaseChain chain : dpSortedChains()) {
+                if (onSelectAccountsByChain(chain).size() > 0) {
+                    return String.valueOf(onSelectAccountsByChain(chain).get(0).id);
                 }
             }
         }
-        return String.valueOf(result);
+        return String.valueOf(getSharedPreferences().getLong(BaseConstant.PRE_USER_ID, -1));
     }
 
     public BaseChain getLastChain() {
