@@ -57,6 +57,7 @@ import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -275,13 +276,16 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) { }
         });
+        onAccountSwitched();
         onShowWaitDialog();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        onAccountSwitched();
+        if (!getBaseDao().dpSortedChains().contains(mBaseChain)) {
+            onAccountSwitched();
+        }
         onChainSelect(mSelectedChain);
     }
 
@@ -298,7 +302,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         onUpdateTitle();
         onFetchAllData();
         mSelectedChain = getBaseDao().getLastChain();
-        onChainSelect(mSelectedChain);
     }
 
     private void onChainSelect(BaseChain baseChain) {

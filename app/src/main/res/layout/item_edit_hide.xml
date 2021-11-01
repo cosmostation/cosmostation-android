@@ -36,6 +36,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:src="@drawable/icon_listadd"
+                        android:padding="@dimen/space_6"
                         android:visibility="visible"/>
                     <ImageView
                         android:id="@+id/chain_img"

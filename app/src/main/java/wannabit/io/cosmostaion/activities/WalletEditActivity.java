@@ -126,7 +126,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
                             }
                         }
                         if (dpAccountSum <= 0) {
-                            Toast.makeText(WalletEditActivity.this, "", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(WalletEditActivity.this, getString(R.string.error_reserve_1_account), Toast.LENGTH_SHORT).show();
                             return;
                         }
                     }
@@ -145,7 +145,6 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
                         mDisplayListAdapter.notifyDataSetChanged();
                         mHideListAdapter.notifyDataSetChanged();
                     }
-                    WLog.w("mHideChains : " + mHideChains);
                 }
             });
             holder.chainSort.setOnTouchListener(new View.OnTouchListener() {
@@ -215,7 +214,6 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
                         mHideListAdapter.notifyDataSetChanged();
                         mDisplayListAdapter.notifyDataSetChanged();
                     }
-                    WLog.w("mDisplayChains : " + mDisplayChains);
                 }
             });
         }

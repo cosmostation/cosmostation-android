@@ -45,6 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:padding="@dimen/space_6"
                         android:src="@drawable/icon_listdelete" />
                     <ImageView
                         android:id="@+id/chain_img"
