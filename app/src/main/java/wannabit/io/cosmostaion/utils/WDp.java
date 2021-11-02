@@ -1615,7 +1615,7 @@ public class WDp {
         }
         if (denom.equals(TOKEN_EMONEY_EUR) || denom.equals(TOKEN_EMONEY_CHF) || denom.equals(TOKEN_EMONEY_DKK) ||
                 denom.equals(TOKEN_EMONEY_NOK) || denom.equals(TOKEN_EMONEY_SEK)) {
-            if (baseData.getPrice("usdt").prices != null) {
+            if (baseData.getPrice("usdt") != null && baseData.getPrice("usdt").prices != null) {
                 for (Price.Prices price: baseData.getPrice("usdt").prices) {
                     if (price.currency.equalsIgnoreCase(denom.substring(1))) {
                         return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 3, RoundingMode.DOWN);

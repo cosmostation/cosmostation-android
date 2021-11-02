@@ -135,9 +135,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mAccountRecyclerView    = findViewById(R.id.account_recycler);
         mBtnAddNew              = findViewById(R.id.btn_add_wallet);
 
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
-
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -283,9 +280,19 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!getBaseDao().dpSortedChains().contains(mBaseChain)) {
-            onAccountSwitched();
+        if (!getBaseDao().getLastUser().equals(mAccount.id.toString())) {
+            onShowWaitDialog();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getBaseDao().setLastUser(Long.parseLong(getBaseDao().getLastUser()));
+                    onAccountSwitched();
+                }
+            },200);
+        } else {
+            onUpdateTitle();
         }
+        getBaseDao().getLastUser();
         onChainSelect(mSelectedChain);
     }
 
@@ -302,6 +309,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         onUpdateTitle();
         onFetchAllData();
         mSelectedChain = getBaseDao().getLastChain();
+        onChainSelect(mSelectedChain);
     }
 
     private void onChainSelect(BaseChain baseChain) {
@@ -314,7 +322,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mAccountListAdapter.notifyDataSetChanged();
     }
 
-    private void onUpdateTitle() {
+    public void onUpdateTitle() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+
         if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
         else mToolbarTitle.setText(mAccount.nickName);
 

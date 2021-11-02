@@ -22,7 +22,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class WalletEditActivity extends BaseActivity implements View.OnClickListener{
 
@@ -97,7 +96,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         if (v.equals(mBtnDone)) {
             onSaveUserChains();
-            onBackPressed();
+            finish();
         }
     }
 

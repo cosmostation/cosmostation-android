@@ -147,7 +147,7 @@ public class BaseData {
     public String getBaseDenom(String denom) {
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            if (ibcToken.auth) {
                 return ibcToken.base_denom;
             }
         } else if (denom.startsWith("c")) {

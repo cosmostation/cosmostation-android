@@ -30,7 +30,6 @@ import wannabit.io.cosmostaion.activities.AccountListActivity;
 import wannabit.io.cosmostaion.activities.AppLockSetActivity;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.starname.StarNameWalletConnectActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
 import wannabit.io.cosmostaion.dialog.Dialog_Starname_WC_Confirm;
@@ -49,7 +48,6 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                         mBtnTerm, mBtnGithub, mBtnVersion;
 
     private TextView    mTvAppLock, mTvCurrency, mTvBasePrice, mTvVersion;
-    private TextView    mTvTitleExplore;
 
     public static MainSettingFragment newInstance(Bundle bundle) {
         MainSettingFragment fragment = new MainSettingFragment();
@@ -117,7 +115,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         mTvCurrency = rootView.findViewById(R.id.currency_text);
         mTvBasePrice = rootView.findViewById(R.id.base_price_text);
         mTvVersion = rootView.findViewById(R.id.version_text);
-        mTvTitleExplore = rootView.findViewById(R.id.title_explore);
+
         mBtnWallet.setOnClickListener(this);
         mBtnAlaram.setOnClickListener(this);
         mBtnAppLock.setOnClickListener(this);

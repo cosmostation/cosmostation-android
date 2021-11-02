@@ -315,6 +315,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
                 } else {
                     ((BaseActivity)getActivity()).onChoiceNet(BaseChain.MEDI_MAIN);
                 }
+                getDialog().dismiss();
             }
         });
 
