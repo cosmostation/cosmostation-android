@@ -33,7 +33,7 @@
     <color name="colorTransBgKi">#243756fc</color>
     <color name="colorTransBgRizon">#268c8af2</color>
     <color name="colorTransBgMedi">#2479aaf2</color>
-    <color name="colorTransBgAlthea">#24eadea5</color>
+    <color name="colorTransBgAlthea">#24f8d9c0</color>
     <color name="colorTransBgOsmosis">#249248db</color>
     <color name="colorTransBgUmee">#247dcaff</color>
     <color name="colorTransBgEmoney">#2486ccba</color>
@@ -121,8 +121,8 @@
     <color name="colorMedi">#79aaf2</color>
     <color name="colorMedi2">#0d3d84</color>
 
-    <color name="colorAlthea">#eadea5</color>
-    <color name="colorAlthea2">#7d7659</color>
+    <color name="colorAlthea">#f8d9c0</color>
+    <color name="colorAlthea2">#908277</color>
 
     <color name="colorOsmosis">#9248db</color>
     <color name="colorOsmosis2">#4e1a82</color>

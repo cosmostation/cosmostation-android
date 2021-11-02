@@ -203,6 +203,13 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
+            } else if (mChain.equals(BaseChain.ALTHEA_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getAltheaApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
             }
 
             else if (mChain.equals(COSMOS_TEST)) {

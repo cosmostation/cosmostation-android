@@ -5,6 +5,7 @@ import io.grpc.ManagedChannelBuilder;
 import wannabit.io.cosmostaion.base.BaseChain;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -84,6 +85,9 @@ public class ChannelBuilder {
     private final static String GRPC_BITCANNA_MAIN = "lcd-bitcanna-app.cosmostation.io";
     private final static int PORT_BITCANNA_MAIN = 9090;
 
+    private final static String GRPC_ALTHEA_MAIN = "lcd-althea-app.cosmostation.io";
+    private final static int PORT_ALTHEA_MAIN = 9090;
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -144,6 +148,8 @@ public class ChannelBuilder {
             return getRegenMain();
         } else if (chain.equals(BITCANNA_MAIN)) {
             return getBitcannaMain();
+        } else if (chain.equals(ALTHEA_MAIN)) {
+            return getAltheaMain();
 
         } else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
@@ -395,6 +401,19 @@ public class ChannelBuilder {
             }
         }
         return channel_bitcanna_main;
+    }
+
+    //Channel for althea main
+    private static ManagedChannel channel_althea_main = null;
+    public static ManagedChannel getAltheaMain() {
+        if (channel_althea_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_althea_main = ManagedChannelBuilder.forAddress(GRPC_ALTHEA_MAIN, PORT_ALTHEA_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_althea_main;
     }
 
 

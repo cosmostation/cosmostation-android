@@ -891,6 +891,7 @@ public class BaseConstant {
     public final static String EXPLORER_JUNO_MAIN       = "https://www.mintscan.io/juno/";
     public final static String EXPLORER_REGEN_MAIN      = "https://www.mintscan.io/regen/";
     public final static String EXPLORER_BITCANNA_MAIN   = "https://www.mintscan.io/bitcanna/";
+    public final static String EXPLORER_ALTHEA_MAIN     = "https://www.mintscan.io/althea/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 

@@ -29,7 +29,7 @@
                     android:id="@+id/althea_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/tokenalthea"/>
+                    android:src="@drawable/token_althea"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

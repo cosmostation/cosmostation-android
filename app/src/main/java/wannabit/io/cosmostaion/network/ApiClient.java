@@ -484,7 +484,7 @@ public class ApiClient {
         return api_regen;
     }
 
-    //Services for Regen mainnet api
+    //Services for Bitcanna mainnet api
     private static HistoryApi api_bitcanna = null;
     public static HistoryApi getBitcannaApi(Context c) {
         if (api_bitcanna == null) {
@@ -497,6 +497,21 @@ public class ApiClient {
             }
         }
         return api_bitcanna;
+    }
+
+    //Services for Althea mainnet api
+    private static HistoryApi api_althea = null;
+    public static HistoryApi getAltheaApi(Context c) {
+        if (api_althea == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_althea))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_althea = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_althea;
     }
 
     //Services for Rizon mainnet api

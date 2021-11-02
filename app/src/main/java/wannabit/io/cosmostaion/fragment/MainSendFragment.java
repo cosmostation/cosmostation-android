@@ -50,6 +50,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletStarnameHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletUmeeHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -395,7 +396,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(JUNO_MAIN)) { return TYPE_JUNO; }
                     else if (getMainActivity().mBaseChain.equals(REGEN_MAIN)) { return TYPE_REGEN; }
                     else if (getMainActivity().mBaseChain.equals(BITCANNA_MAIN)) { return TYPE_BITCANNA; }
-                    else if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) { return TYPE_ALTHEA; }
+                    else if (getMainActivity().mBaseChain.equals(ALTHEA_MAIN) || getMainActivity().mBaseChain.equals(ALTHEA_TEST)) { return TYPE_ALTHEA; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
                     else if (getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }
                 } else if (position == 1) {

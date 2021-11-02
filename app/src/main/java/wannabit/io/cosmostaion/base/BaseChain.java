@@ -61,6 +61,7 @@ public enum BaseChain {
     JUNO_MAIN("juno-mainnet"),
     REGEN_MAIN("regen-mainnet"),
     BITCANNA_MAIN("bitcanna-mainnet"),
+    ALTHEA_MAIN("althea-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -194,6 +195,9 @@ public enum BaseChain {
         if(chainName.equals(BITCANNA_MAIN.chainName)) {
             return BITCANNA_MAIN;
         }
+        if(chainName.equals(ALTHEA_MAIN.chainName)) {
+            return ALTHEA_MAIN;
+        }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
@@ -277,6 +281,7 @@ public enum BaseChain {
 //        result.add(REGEN_MAIN);
         result.add(JUNO_MAIN);
         result.add(BITCANNA_MAIN);
+//        result.add(ALTHEA_MAIN);
         result.add(SECRET_MAIN);
 
 
@@ -289,7 +294,7 @@ public enum BaseChain {
 //        result.add(CERTIK_TEST);
 //        result.add(RIZON_TEST);
 //        result.add(MEDI_TEST);
-//        result.add(ALTHEA_TEST);
+        result.add(ALTHEA_TEST);
         result.add(UMEE_TEST);
         result.add(AXELAR_TEST);
         return result;

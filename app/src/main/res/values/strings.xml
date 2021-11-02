@@ -99,6 +99,9 @@
     <string name="url_api_bitcanna" translatable="false">https://api-bitcanna.cosmostation.io/</string>
 
 
+    <string name="url_api_althea" translatable="false">https://api-althea.cosmostation.io/</string>
+
+
     <string name="url_api_axelar" translatable="false">https://api-office.cosmostation.io/axelar-testnet-adelaide/</string>
 
 
@@ -187,6 +190,7 @@
     <string name="str_juno_main_net">Juno Mainnet</string>
     <string name="str_regen_main_net">Regen Mainnet</string>
     <string name="str_bitcanna_main_net">Bitcanna Mainnet</string>
+    <string name="str_althea_main_net">Althea Mainnet</string>
     <string name="str_cosmos_test_net">StarGate Testnet</string>
     <string name="str_iris_test_net">Bifrost Testnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
@@ -431,6 +435,8 @@
     <string name="str_juno_net2" translatable="false">Juno Mainnet</string>
     <string name="str_bitcanna_net" translatable="false">(Bitcanna Mainnet)</string>
     <string name="str_bitcanna_net2" translatable="false">Bitcanna Mainnet</string>
+    <string name="str_althea_net" translatable="false">(Althea Mainnet)</string>
+    <string name="str_althea_net2" translatable="false">Althea Mainnet</string>
     <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
@@ -473,6 +479,7 @@
     <string name="str_regen_main" translatable="false">REGEN</string>
     <string name="str_juno_main" translatable="false">JUNO</string>
     <string name="str_bitcanna_main" translatable="false">BITCANNA</string>
+    <string name="str_althea_main" translatable="false">ALTHEA</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>

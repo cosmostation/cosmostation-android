@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.fragment.ValidatorOtherFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -154,6 +155,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                     cosmostation = validator.getOperatorAddress();
                 }
             }
+            WLog.w("SSS : " + cosmostation);
             if (!cosmostation.isEmpty()) {
                 Intent toDelegate = new Intent(ValidatorListActivity.this, DelegateActivity.class);
                 toDelegate.putExtra("valOpAddress", cosmostation);
