@@ -802,10 +802,6 @@ public class BaseConstant {
     public final static String FETCH_GAS_RATE_LOW                       = "0.00";
     public final static String FETCH_GAS_RATE_AVERAGE                   = "0.00";
 
-    public final static String JUNO_GAS_RATE_TINY                       = "0.025";
-    public final static String JUNO_GAS_RATE_LOW                        = "0.025";
-    public final static String JUNO_GAS_RATE_AVERAGE                    = "0.025";
-
     public final static String BITCANNA_GAS_RATE_TINY                   = "0.025";
     public final static String BITCANNA_GAS_RATE_LOW                    = "0.025";
     public final static String BITCANNA_GAS_RATE_AVERAGE                = "0.025";
