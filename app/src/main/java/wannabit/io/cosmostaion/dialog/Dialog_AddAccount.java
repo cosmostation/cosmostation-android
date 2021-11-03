@@ -58,11 +58,7 @@ public class Dialog_AddAccount extends DialogFragment {
         btn_watch_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent watchIntent = new Intent(getActivity(), WatchingAccountAddActivity.class);
-                if (getArguments() != null && getArguments().getString("chain") != null) {
-                    watchIntent.putExtra("chain", getArguments().getString("chain"));
-                }
-                startActivity(watchIntent);
+                startActivity(new Intent(getActivity(), WatchingAccountAddActivity.class));
                 getDialog().dismiss();
             }
         });
