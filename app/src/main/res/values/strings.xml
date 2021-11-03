@@ -161,6 +161,7 @@
     <string name="str_regen_c" translatable="false">REGEN</string>
     <string name="str_bitcanna_c" translatable="false">BCNA</string>
     <string name="str_stargaze_c" translatable="false">STARS</string>
+    <string name="str_grabridge_c" translatable="false">GRAV</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
