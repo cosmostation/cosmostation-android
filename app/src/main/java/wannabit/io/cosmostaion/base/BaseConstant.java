@@ -562,6 +562,7 @@ public class BaseConstant {
     public final static String TOKEN_JUNO           = "ujuno";
     public final static String TOKEN_REGEN          = "uregen";
     public final static String TOKEN_BITCANNA       = "ubcna";
+    public final static String TOKEN_STARGAZE       = "ustars";
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";
@@ -855,6 +856,7 @@ public class BaseConstant {
     public final static String JUNO_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/juno/";
     public final static String REGEN_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/regen/";
     public final static String BITCANNA_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bitcanna/";
+    public final static String STARGAZE_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/stargaze/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -892,6 +894,7 @@ public class BaseConstant {
     public final static String EXPLORER_REGEN_MAIN      = "https://www.mintscan.io/regen/";
     public final static String EXPLORER_BITCANNA_MAIN   = "https://www.mintscan.io/bitcanna/";
     public final static String EXPLORER_ALTHEA_MAIN     = "https://www.mintscan.io/althea/";
+    public final static String EXPLORER_STARGAZE_MAIN   = "https://www.mintscan.io/stargaze/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 

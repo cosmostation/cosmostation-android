@@ -102,6 +102,9 @@
     <string name="url_api_althea" translatable="false">https://api-althea.cosmostation.io/</string>
 
 
+    <string name="url_api_stargaze" translatable="false">https://api-stargaze.cosmostation.io/</string>
+
+
     <string name="url_api_axelar" translatable="false">https://api-office.cosmostation.io/axelar-testnet-adelaide/</string>
 
 

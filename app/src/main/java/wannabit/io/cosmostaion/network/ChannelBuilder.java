@@ -28,6 +28,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 
 public class ChannelBuilder {
@@ -87,6 +88,9 @@ public class ChannelBuilder {
 
     private final static String GRPC_ALTHEA_MAIN = "lcd-althea-app.cosmostation.io";
     private final static int PORT_ALTHEA_MAIN = 9090;
+
+    private final static String GRPC_STARGAZE_MAIN = "lcd-stargaze-app.cosmostation.io";
+    private final static int PORT_STARGAZE_MAIN = 9090;
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
@@ -150,6 +154,8 @@ public class ChannelBuilder {
             return getBitcannaMain();
         } else if (chain.equals(ALTHEA_MAIN)) {
             return getAltheaMain();
+        } else if (chain.equals(STARGAZE_MAIN)) {
+            return getStargazeMain();
 
         } else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
@@ -416,6 +422,18 @@ public class ChannelBuilder {
         return channel_althea_main;
     }
 
+    //Channel for stargaze main
+    private static ManagedChannel channel_stargaze_main = null;
+    public static ManagedChannel getStargazeMain() {
+        if (channel_stargaze_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_stargaze_main = ManagedChannelBuilder.forAddress(GRPC_STARGAZE_MAIN, PORT_STARGAZE_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_stargaze_main;
+    }
 
     //Channel for stargate testnet
     private static ManagedChannel channel_cosmos_test = null;

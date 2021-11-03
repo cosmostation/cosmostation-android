@@ -514,6 +514,21 @@ public class ApiClient {
         return api_althea;
     }
 
+    //Services for Stargaze mainnet api
+    private static HistoryApi api_stargaze = null;
+    public static HistoryApi getStargazeApi(Context c) {
+        if (api_stargaze == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_althea))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_stargaze = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_stargaze;
+    }
+
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;
     public static HistoryApi getRizonApi(Context c) {
