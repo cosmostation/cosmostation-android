@@ -500,7 +500,7 @@
     <string name="str_kava_cdp_details">CDP 상세</string>
     <string name="str_kava_auction_list">옥션</string>
     <string name="str_kava_auction_details">옥션 상세</string>
-    <string name="str_kava_harvest_list">Loan</string>
+    <string name="str_kava_harvest_list">Lend</string>
     <string name="str_kava_harvest_details">하드 풀 상세</string>
     <string name="str_kava_swap_list">Swap</string>
     <string name="str_kava_pool_list">Pool</string>

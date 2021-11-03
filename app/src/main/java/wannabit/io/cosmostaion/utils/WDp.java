@@ -138,6 +138,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.RIZON_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.STARGAZE_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
@@ -1144,7 +1145,7 @@ public class WDp {
             chainName.setText(c.getString(R.string.str_bitcanna_main));
         } else if (baseChain.equals(ALTHEA_MAIN)) {
             chainName.setText(c.getString(R.string.str_althea_main));
-        } else if (baseChain.equals(ALTHEA_MAIN)) {
+        } else if (baseChain.equals(STARGAZE_MAIN)) {
             chainName.setText(c.getString(R.string.str_stargaze_main));
         }
 
@@ -1351,6 +1352,8 @@ public class WDp {
             return REGEN_MAIN;
         } else if (chainId.contains("bitcanna-")) {
             return BITCANNA_MAIN;
+        } else if (chainId.contains("stargaze-")) {
+            return STARGAZE_MAIN;
         }
         return null;
     }
@@ -3514,6 +3517,8 @@ public class WDp {
             return BITCANNA_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(ALTHEA_MAIN) || basechain.equals(ALTHEA_TEST)) {
             return ALTHEA_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(STARGAZE_MAIN)) {
+            return STARGAZE_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(UMEE_TEST)) {
             return UMEE_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(AXELAR_TEST)) {

@@ -520,7 +520,7 @@ public class ApiClient {
         if (api_stargaze == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_althea))
+                        .baseUrl(c.getString(R.string.url_api_stargaze))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 api_stargaze = retrofit.create(HistoryApi.class);

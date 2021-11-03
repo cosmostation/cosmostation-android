@@ -79,6 +79,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_TOKEN_IMG_URL;
@@ -119,6 +120,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_REGEN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_STARGAZE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_UMEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
@@ -914,7 +916,19 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
-        } else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
+        } else if (coin.denom.equals(TOKEN_STARGAZE)) {
+            holder.itemSymbol.setText(getString(R.string.str_stargaze_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), STARGAZE_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Stargaze Staking Token");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_stargaze));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_STARGAZE);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
+        }else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));
             holder.itemInnerSymbol.setText("");

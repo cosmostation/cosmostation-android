@@ -157,6 +157,7 @@
     <string name="str_juno_c" translatable="false">JUNO</string>
     <string name="str_regen_c" translatable="false">REGEN</string>
     <string name="str_bitcanna_c" translatable="false">BCNA</string>
+    <string name="str_stargaze_c" translatable="false">STARS</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
@@ -781,7 +782,7 @@
     <string name="str_kava_cdp_details">CDP Status</string>
     <string name="str_kava_auction_list">Auction</string>
     <string name="str_kava_auction_details">Auction Status</string>
-    <string name="str_kava_harvest_list">Loan</string>
+    <string name="str_kava_harvest_list">Lend</string>
     <string name="str_kava_harvest_details">Hard Pool Status</string>
     <string name="str_kava_swap_list">Swap</string>
     <string name="str_kava_pool_list">Pool</string>
