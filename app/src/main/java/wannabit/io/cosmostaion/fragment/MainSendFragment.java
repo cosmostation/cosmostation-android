@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletCosmosHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCrytoHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletEmoneyHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletFetchHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletGraBridgeHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletGuideHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletIrisHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletJunoHolder;
@@ -64,6 +65,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
@@ -232,6 +234,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_REGEN             = 25;
         private static final int TYPE_BITCANNA          = 26;
         private static final int TYPE_STARGAZE          = 27;
+        private static final int TYPE_GRABRIDGE         = 28;
 
         private static final int TYPE_KAVA_INCENTIVE    = 40;
         private static final int TYPE_SIF_INCENTIVE     = 50;
@@ -323,6 +326,9 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_STARGAZE) {
                 return new WalletStargazeHolder(getLayoutInflater().inflate(R.layout.item_wallet_stargaze, viewGroup, false));
 
+            } else if (viewType == TYPE_GRABRIDGE) {
+                return new WalletGraBridgeHolder(getLayoutInflater().inflate(R.layout.item_wallet_grabridge, viewGroup, false));
+
             }
 
 
@@ -404,6 +410,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(BITCANNA_MAIN)) { return TYPE_BITCANNA; }
                     else if (getMainActivity().mBaseChain.equals(ALTHEA_MAIN) || getMainActivity().mBaseChain.equals(ALTHEA_TEST)) { return TYPE_ALTHEA; }
                     else if (getMainActivity().mBaseChain.equals(STARGAZE_MAIN)) { return TYPE_STARGAZE; }
+                    else if (getMainActivity().mBaseChain.equals(GRABRIDGE_MAIN)) { return TYPE_GRABRIDGE; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
                     else if (getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }
                 } else if (position == 1) {

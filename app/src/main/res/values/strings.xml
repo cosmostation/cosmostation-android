@@ -448,6 +448,8 @@
     <string name="str_althea_net2" translatable="false">Althea Mainnet</string>
     <string name="str_stargaze_net" translatable="false">(Stargaze Mainnet)</string>
     <string name="str_stargaze_net2" translatable="false">Stargaze Mainnet</string>
+    <string name="str_grabridge_net" translatable="false">(G-Bridge Mainnet)</string>
+    <string name="str_grabridge_net2" translatable="false">G-Bridge Mainnet</string>
     <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
@@ -492,6 +494,7 @@
     <string name="str_bitcanna_main" translatable="false">BITCANNA</string>
     <string name="str_althea_main" translatable="false">ALTHEA</string>
     <string name="str_stargaze_main" translatable="false">STARGAZE</string>
+    <string name="str_grabridge_main" translatable="false">G-BRIDGE</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
@@ -590,6 +593,7 @@
     <string name="str_front_guide_title_regen"><![CDATA[Regen Network]]></string>
     <string name="str_front_guide_title_bitcanna"><![CDATA[BitCanna Network]]></string>
     <string name="str_front_guide_title_stargaze"><![CDATA[STARGAZE]]></string>
+    <string name="str_front_guide_title_grabridge"><![CDATA[GRAVITY BRIDGE]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -617,6 +621,7 @@
     <string name="str_front_guide_msg_regen"><![CDATA[A Cosmos SDK based PoS blockchain designed to utilize ecological data and climate markets.]]></string>
     <string name="str_front_guide_msg_bitcanna"><![CDATA[A Cosmos SDK-based decentralized payment network and supply chain for legal cannabis industry.]]></string>
     <string name="str_front_guide_msg_stargaze"><![CDATA[A Cosmos SDK-based decentralized interchain NFT marketplace and social network.]]></string>
+    <string name="str_front_guide_msg_grabridge"><![CDATA[A neutral peg zone designed primarily for bridge operation between Cosmos and Ethereum ecosystems.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1761,6 +1766,7 @@
     <string name="s_regen" translatable="false">REGEN</string>
     <string name="s_bitcanna" translatable="false">BCNA</string>
     <string name="s_stargaze" translatable="false">STARS</string>
+    <string name="s_grabridge" translatable="false">GRAV</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

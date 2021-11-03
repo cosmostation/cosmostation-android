@@ -99,6 +99,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -2277,6 +2278,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_stargaze);
             guideMsg.setText(R.string.str_front_guide_msg_stargaze);
 
+        } else if (mainActivity.mBaseChain.equals(GRABRIDGE_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_gravitybridge));
+            guideTitle.setText(R.string.str_front_guide_title_grabridge);
+            guideMsg.setText(R.string.str_front_guide_msg_grabridge);
+
         } else if (mainActivity.mBaseChain.equals(UMEE_TEST)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_umee));
             guideTitle.setText(R.string.str_front_guide_title_umee);
@@ -2374,6 +2380,9 @@ public class WUtil {
         } else if (chain.equals(STARGAZE_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://stargaze.zone/"));
 
+        } else if (chain.equals(GRABRIDGE_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.gravitybridge.net/"));
+
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
 
@@ -2466,6 +2475,9 @@ public class WUtil {
 
         } else if (chain.equals(STARGAZE_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/stargaze-protocol"));
+
+        } else if (chain.equals(GRABRIDGE_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.gravitybridge.net/blog"));
 
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
@@ -2563,6 +2575,9 @@ public class WUtil {
 
         } else if (basechain.equals(STARGAZE_MAIN)) {
             return EXPLORER_STARGAZE_MAIN;
+
+        } else if (basechain.equals(GRABRIDGE_MAIN)) {
+            return EXPLORER_GRABRIDGE_MAIN;
 
         }
 
@@ -2672,6 +2687,9 @@ public class WUtil {
         } else if (basechain.equals(STARGAZE_MAIN)) {
             return EXPLORER_STARGAZE_MAIN + "txs/" + hash;
 
+        } else if (basechain.equals(GRABRIDGE_MAIN)) {
+            return EXPLORER_GRABRIDGE_MAIN + "txs/" + hash;
+
         }
 
         else if (basechain.equals(COSMOS_TEST)) {
@@ -2706,7 +2724,7 @@ public class WUtil {
         BigDecimal result = BigDecimal.ZERO;
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(CRYPTO_MAIN) ||
                 basechain.equals(EMONEY_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(JUNO_MAIN) || basechain.equals(REGEN_MAIN) || basechain.equals(BITCANNA_MAIN) ||
-                basechain.equals(ALTHEA_MAIN) || basechain.equals(STARGAZE_MAIN) ||
+                basechain.equals(ALTHEA_MAIN) || basechain.equals(STARGAZE_MAIN) || basechain.equals(GRABRIDGE_MAIN) ||
                 basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
@@ -3124,6 +3142,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(GRABRIDGE_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         } else if (basechain.equals(UMEE_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
@@ -3163,7 +3186,7 @@ public class WUtil {
     }
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(REGEN_MAIN) || basechain.equals(ALTHEA_MAIN) ||
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(REGEN_MAIN) || basechain.equals(ALTHEA_MAIN) || basechain.equals(GRABRIDGE_MAIN) ||
                 basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
