@@ -250,7 +250,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     mCardView.setVisibility(View.GONE);
                 } else {
                     mCardView.setVisibility(View.VISIBLE);
-                    mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
                 }
             }
         });
@@ -396,7 +395,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onFetchAllData() {
         onFetchAccountInfo(this);
-        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
     }
 
     public void onSetKavaWarn() {
@@ -415,7 +413,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void fetchFinished() {
         if (!isFinishing()) {
             onHideWaitDialog();
-            if (mPageAdapter.mCurrentFragment != null) mPageAdapter.mCurrentFragment.onRefreshTab();
+            if (mPageAdapter.getItem(0) != null) mPageAdapter.getItem(0).onRefreshTab();
+            if (mPageAdapter.getItem(1) != null) mPageAdapter.getItem(1).onRefreshTab();
             mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
         }
     }
