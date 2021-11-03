@@ -529,6 +529,21 @@ public class ApiClient {
         return api_stargaze;
     }
 
+    //Services for Stargaze mainnet api
+    private static HistoryApi api_grabridge = null;
+    public static HistoryApi getGraBridgeApi(Context c) {
+        if (api_grabridge == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_grabridge))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_grabridge = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_grabridge;
+    }
+
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;
     public static HistoryApi getRizonApi(Context c) {

@@ -105,6 +105,9 @@
     <string name="url_api_stargaze" translatable="false">https://api-stargaze.cosmostation.io/</string>
 
 
+    <string name="url_api_grabridge" translatable="false">https://api-gravity-bridge.cosmostation.io/</string>
+
+
     <string name="url_api_axelar" translatable="false">https://api-office.cosmostation.io/axelar-testnet-adelaide/</string>
 
 
@@ -196,6 +199,7 @@
     <string name="str_bitcanna_main_net">Bitcanna Mainnet</string>
     <string name="str_althea_main_net">Althea Mainnet</string>
     <string name="str_stargaze_main_net">Stargaze Mainnet</string>
+    <string name="str_grabridge_main_net">Gravity Bridge Mainnet</string>
     <string name="str_cosmos_test_net">StarGate Testnet</string>
     <string name="str_iris_test_net">Bifrost Testnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>

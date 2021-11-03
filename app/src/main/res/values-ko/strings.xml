@@ -28,6 +28,7 @@
     <string name="str_bitcanna_main_net">비트카나 메인넷</string>
     <string name="str_althea_main_net">알테아 메인넷</string>
     <string name="str_stargaze_main_net">스타게이즈 메인넷</string>
+    <string name="str_grabridge_main_net">그래비티 브릿지 메인넷</string>
     <string name="str_cosmos_test_net">스타게이트 테스트넷</string>
     <string name="str_iris_test_net">바이프로스트 테스트넷</string>
     <string name="str_bnb_test_net">바이낸스 테스트넷</string>
