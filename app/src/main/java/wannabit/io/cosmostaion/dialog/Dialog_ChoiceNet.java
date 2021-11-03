@@ -34,7 +34,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
 
     private LinearLayout mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
-    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi, mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mSecret;
+    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi, mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mStargaze, mSecret;
     private LinearLayout mRizonTestLayer, mMediTestLayer, mAltheaTestLayer, mUmeeTestLayer, mAxelarTestLayer;
     private LinearLayout mCosmosTest, mIrisTest, mRizonTest, mMediTest, mAltheaTest, mUmeeTest, mAxelarTest;
 
@@ -97,6 +97,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mRegen = view.findViewById(R.id.regen_chain);
         mBitCanna = view.findViewById(R.id.bitcanna_chain);
         mAlthea = view.findViewById(R.id.althea_chain);
+        mStargaze = view.findViewById(R.id.stargaze_chain);
 
         mRizonTestLayer = view.findViewById(R.id.rizon_test_layer);
         mRizonTest = view.findViewById(R.id.rizon_test_net);
@@ -398,6 +399,18 @@ public class Dialog_ChoiceNet extends DialogFragment {
                     ((BaseActivity)getActivity()).onChainSelected(BaseChain.ALTHEA_MAIN);
                 } else {
                     ((BaseActivity)getActivity()).onChoiceNet(BaseChain.ALTHEA_MAIN);
+                }
+                getDialog().dismiss();
+            }
+        });
+
+        mStargaze.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.STARGAZE_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.STARGAZE_MAIN);
                 }
                 getDialog().dismiss();
             }

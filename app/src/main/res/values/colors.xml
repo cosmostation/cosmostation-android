@@ -41,6 +41,7 @@
     <color name="colorTransBgJuno">#24f0827d</color>
     <color name="colorTransBgRegen">#2443ad6b</color>
     <color name="colorTransBgBitcanna">#2400b786</color>
+    <color name="colorTransBgStargaze">#24e38cd4</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -145,6 +146,9 @@
 
     <color name="colorBitcanna">#00b786</color>
     <color name="colorBitcann2">#04684f</color>
+
+    <color name="colorStargaze">#e38cd4</color>
+    <color name="colorStargaze2">#8a5a84</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>
