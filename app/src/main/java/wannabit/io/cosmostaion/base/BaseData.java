@@ -702,6 +702,16 @@ public class BaseData {
         return null;
     }
 
+    public ChainParam.GdexStatus getParamGravityPoolByDenom(String denom) {
+        for (ChainParam.GdexStatus gdexStatus: mChainParam.getmGdexList()) {
+            if (gdexStatus.pool_token.equals(denom)) {
+                return gdexStatus;
+            }
+        }
+        return null;
+    }
+
+
     public PoolOuterClass.Pool getOsmosisPoolByDenom(String denom) {
         for (PoolOuterClass.Pool pool: mGrpcOsmosisPool) {
             if (pool.getTotalShares().getDenom().equals(denom)) {

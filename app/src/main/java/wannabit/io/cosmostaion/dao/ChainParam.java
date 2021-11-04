@@ -79,6 +79,9 @@ public class ChainParam {
         @SerializedName("sifchain_token_registry")
         public SifTokenRegistry mSifTokenRegistry;
 
+        @SerializedName("gdex_status")
+        public ArrayList<GdexStatus> mGdexStatus;
+
 
         public BigDecimal getMintInflation(BaseChain baseChain) {
             if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {
@@ -231,6 +234,10 @@ public class ChainParam {
 
         public ArrayList<SifTokenRegistry.Registry.Entry> getSifToken() {
             return mSifTokenRegistry.registry.entries;
+        }
+
+        public ArrayList<GdexStatus> getmGdexList() {
+            return mGdexStatus;
         }
 
     }
@@ -574,6 +581,20 @@ public class ChainParam {
                 public String basedenom;
             }
         }
+    }
+
+    public class GdexStatus {
+        @SerializedName("id")
+        public String id;
+
+        @SerializedName("reserve_address")
+        public String reserve_address;
+
+        @SerializedName("token_pair")
+        public ArrayList<Coin> tokenPairs;
+
+        @SerializedName("pool_token")
+        public String pool_token;
     }
 }
 

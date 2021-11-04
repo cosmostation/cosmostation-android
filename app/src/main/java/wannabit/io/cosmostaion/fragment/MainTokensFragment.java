@@ -47,6 +47,7 @@ import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -1074,7 +1075,7 @@ public class MainTokensFragment extends BaseFragment {
         final Coin coin = mGravityDexGrpc.get(position);
         Picasso.get().load(COSMOS_COIN_IMG_URL+"gravitydex.png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
         holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
-        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, BigDecimal.ZERO, 6));
+        holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, new BigDecimal(coin.amount), 6));
         holder.itemInnerSymbol.setText("");
         Liquidity.Pool poolInfo = getBaseDao().getGravityPoolByDenom(coin.denom);
         if (poolInfo != null) {
@@ -1082,6 +1083,15 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             holder.itemFullName.setText("pool/" + poolInfo.getId());
         }
+
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getMainActivity(), POOLTokenDetailActivity.class);
+                intent.putExtra("denom", coin.denom);
+                startActivity(intent);
+            }
+        });
     }
 
     //with Sif Erc gRPC

@@ -1638,6 +1638,39 @@ public class WUtil {
         return result;
     }
 
+    public static BigDecimal getParamGdexPoolValue(BaseData baseData, ChainParam.GdexStatus pool) {
+        String coin0Denom = pool.tokenPairs.get(0).denom;
+        String coin1Denom = pool.tokenPairs.get(1).denom;
+        String coin0BaseDenom = baseData.getBaseDenom(coin0Denom);
+        String coin1BaseDenom = baseData.getBaseDenom(coin1Denom);
+        BigDecimal coin0Amount = new BigDecimal(pool.tokenPairs.get(0).amount);
+        BigDecimal coin1Amount = new BigDecimal(pool.tokenPairs.get(1).amount);
+        int coin0Decimal = WUtil.getCosmosCoinDecimal(baseData, coin0Denom);
+        int coin1Decimal = WUtil.getCosmosCoinDecimal(baseData, coin1Denom);
+        BigDecimal coin0Price = BigDecimal.ZERO;
+        BigDecimal coin1Price = BigDecimal.ZERO;
+        if (coin0BaseDenom != null) {
+            coin0Price = WDp.perUsdValue(baseData, coin0BaseDenom);
+        }
+        if (coin1BaseDenom != null) {
+            coin1Price = WDp.perUsdValue(baseData, coin1BaseDenom);
+        }
+        BigDecimal coin0Value = coin0Amount.multiply(coin0Price).movePointLeft(coin0Decimal).setScale(2, RoundingMode.DOWN);
+        BigDecimal coin1Value = coin1Amount.multiply(coin1Price).movePointLeft(coin1Decimal).setScale(2, RoundingMode.DOWN);
+        return coin0Value.add(coin1Value);
+    }
+
+    public static BigDecimal getParamGdexLpTokenPerUsdPrice(BaseData baseData, ChainParam.GdexStatus pool) {
+        BigDecimal poolValue = getParamGdexPoolValue(baseData, pool);
+        BigDecimal totalShare = BigDecimal.ZERO;
+        for (Coin coin: baseData.mChainParam.getSupplys()) {
+            if (coin.denom.equalsIgnoreCase(pool.pool_token)) {
+                totalShare = new BigDecimal(coin.amount);
+            }
+        }
+        return poolValue.divide(totalShare.movePointLeft(6).setScale(24, RoundingMode.DOWN), 18, RoundingMode.DOWN);
+    }
+
     /**
      * About Osmosis
      */

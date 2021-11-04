@@ -130,7 +130,7 @@
                 android:layout_marginTop="@dimen/space_2"
                 style="@style/font_ss_21_white"
                 android:singleLine="true"
-                android:text="$1,189,057.01"
+                android:text="0.000"
                 android:gravity="center_horizontal"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

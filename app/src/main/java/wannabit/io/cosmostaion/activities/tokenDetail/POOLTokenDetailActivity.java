@@ -21,15 +21,18 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.math.BigDecimal;
 
+import tendermint.liquidity.v1beta1.Liquidity;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenDetailSupportHolder;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
@@ -132,6 +135,21 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
             mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mPoolDenom, mTotalAmount, mDivideDecimal));
 
             mBtnIbcSend.setVisibility(View.VISIBLE);
+
+        } else if (mBaseChain.equals(COSMOS_MAIN)) {
+            WUtil.DpCosmosTokenImg(getBaseDao(), mToolbarSymbolImg, mPoolDenom);
+            Liquidity.Pool poolInfo = getBaseDao().getGravityPoolByDenom(mPoolDenom);
+            if (poolInfo != null) {
+                mToolbarSymbol.setText("GDEX-" + poolInfo.getId());
+                mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            }
+
+            mDivideDecimal = 6;
+            mDisplayDecimal = 6;
+            mTotalAmount = getBaseDao().getAvailable(mPoolDenom);
+            mTotalValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), mPoolDenom, mTotalAmount, mDivideDecimal));
+
+            mBtnIbcSend.setVisibility(View.VISIBLE);
         }
 
         mItemPerPrice.setText(WDp.dpPerUserCurrencyValue(getBaseDao(), mPoolDenom));
@@ -187,7 +205,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
 
     private class POOlTokenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private static final int TYPE_UNKNOWN               = -1;
-        private static final int TYPE_OSMOSIS               = 0;
+        private static final int TYPE_POOL_TOKEN             = 0;
 
         private static final int TYPE_HISTORY               = 100;
 
@@ -196,7 +214,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_UNKNOWN) {
 
-            } else if (viewType == TYPE_OSMOSIS) {
+            } else if (viewType == TYPE_POOL_TOKEN) {
                 return new TokenDetailSupportHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
             }
 
@@ -208,7 +226,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            if (getItemViewType(position) == TYPE_OSMOSIS) {
+            if (getItemViewType(position) == TYPE_POOL_TOKEN) {
                 TokenDetailSupportHolder holder = (TokenDetailSupportHolder) viewHolder;
                 holder.onBindPoolToken(POOLTokenDetailActivity.this, mBaseChain, getBaseDao(), mPoolDenom);
             }
@@ -225,11 +243,8 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
 
         @Override
         public int getItemViewType(int position) {
-            if (mBaseChain.equals(OSMOSIS_MAIN)) {
-                if (position == 0) return TYPE_OSMOSIS;
-                else return TYPE_HISTORY;
-            }
-            return TYPE_UNKNOWN;
+            if (position == 0) return TYPE_POOL_TOKEN;
+            else return TYPE_HISTORY;
         }
     }
 }
