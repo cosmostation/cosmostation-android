@@ -322,7 +322,6 @@
     <string name="str_no_history">No History</string>
     <string name="str_no_coin">No Assets</string>
     <string name="str_no_proposal">No Proposals</string>
-    <string name="str_no_chains">No Chains</string>
     <string name="str_accounts">accounts</string>
     <string name="str_web">web</string>
     <string name="str_manage">Manage</string>
@@ -847,7 +846,7 @@
     <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
-    <string name="str_add_new">Wallet Add</string>
+    <string name="str_add_new">Add New Wallet</string>
 
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>

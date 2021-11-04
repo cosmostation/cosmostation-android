@@ -81,13 +81,6 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/history_none_img"
                     android:scaleType="fitXY"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_6"
-                    android:layout_centerInParent="true"
-                    style="@style/font_ss_14_white"
-                    android:text="@string/str_no_chains"/>
             </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/hide_recycler"
