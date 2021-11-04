@@ -44,9 +44,12 @@
     <string name="str_no">No</string>
     <string name="str_yes">Yes</string>
     <string name="str_next">다음</string>
-    <string name="str_refresh">새로고</string>
+    <string name="str_refresh">새로고침</string>
     <string name="str_settings">Settings</string>
     <string name="str_sorting">정열</string>
+    <string name="str_edit">Edit</string>
+    <string name="str_display_chains">Display Chains</string>
+    <string name="str_hide_chains">Hide Chains</string>
     <string name="str_qr">QR 코드</string>
     <string name="str_import">지갑 복원</string>
     <string name="str_clear_all">전체 삭제</string>
@@ -62,6 +65,7 @@
     <string name="str_start_wallet">Start Wallet</string>
     <string name="str_import2">복원하기</string>
     <string name="str_mnemonic">니모닉</string>
+    <string name="str_private_key">Private Key</string>
     <string name="str_watch">관찰하기</string>
     <string name="str_address">주소</string>
     <string name="str_paste">붙여넣기</string>
@@ -139,12 +143,14 @@
     <string name="str_no_history">거래 내역이 없습니다.</string>
     <string name="str_no_coin">자산이 없습니다.</string>
     <string name="str_no_proposal">의제가 없습니다.</string>
+    <string name="str_no_chains">체인이 없습니다.</string>
     <string name="str_accounts">accounts</string>
     <string name="str_web">web</string>
     <string name="str_manage">Manage</string>
     <string name="str_detail">Detail</string>
     <string name="str_wallet">지갑</string>
     <string name="str_wallet_manage">지갑 관리</string>
+    <string name="str_edit_chains">지갑 편집</string>
     <string name="str_validators_list"><![CDATA[검증인 목록]]></string>
     <string name="str_validator_detail">검증인 상세</string>
     <string name="str_token_detail">토큰 상세</string>
@@ -545,6 +551,7 @@
     <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
+    <string name="str_add_new">지갑 추가</string>
     
     <string name="str_min_collateral_rate">최소 담보 비율</string>
     <string name="str_stability_fee">연간 수수료</string>
@@ -1422,6 +1429,9 @@
     <string name="error_not_enough_to_pool">예금 할 수량이 충분하지 않습니다.</string>
     <string name="error_already_rizon_swap">이미 진행중인 스왑요청이 있습니다.</string>
     <string name="error_no_relayer_channel">No Connected Relayer Channel</string>
+    <string name="error_max_account_number">이 체인에 더 이상 계정을 추가 할 수 없습니다.</string>
+    <string name="error_reserve_1_account">표시되는 최소 1개이상의 계정을 남겨두세요.</string>
+    <string name="error_hided_chain">비표시 체인 입니다.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>

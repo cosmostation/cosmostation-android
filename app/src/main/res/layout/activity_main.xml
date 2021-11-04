@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="wannabit.io.cosmostaion.dialog.TopSheetBehavior"
-        android:background="#161819"
+        android:background="@color/colorBlack"
         android:elevation="@dimen/top_sheet_modal_elevation">
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,28 +41,31 @@
                     style="@style/font_ssm_17_white"
                     android:text="@string/str_switch_wallet"/>
             </RelativeLayout>
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/tool_bar"
-                android:paddingTop="@dimen/space_4"
-                android:paddingBottom="@dimen/space_8"
-                android:orientation="horizontal">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/chain_recycler"
-                    android:layout_width="@dimen/space_92"
-                    android:layout_height="match_parent"
-                    android:paddingTop="@dimen/space_4"
-                    android:clipToPadding="false"
-                    android:overScrollMode="never"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/account_recycler"
+                android:layout_height="match_parent">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingTop="@dimen/space_4"
-                    android:clipToPadding="false"
-                    android:overScrollMode="never"/>
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:layout_above="@+id/add_layer">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/chain_recycler"
+                        android:layout_width="@dimen/space_92"
+                        android:layout_height="match_parent"
+                        android:paddingTop="@dimen/space_4"
+                        android:clipToPadding="false"
+                        android:overScrollMode="never"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/account_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingTop="@dimen/space_4"
+                        android:clipToPadding="false"
+                        android:overScrollMode="never"/>
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </FrameLayout>
 
@@ -160,7 +163,7 @@
                     android:layout_marginTop="@dimen/space_2"
                     style="@style/font_ss_21_white"
                     android:singleLine="true"
-                    android:text="$1,189,057.01"
+                    android:text="0.000"
                     android:gravity="center_horizontal"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

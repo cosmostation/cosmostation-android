@@ -66,6 +66,8 @@ import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.Price;
+import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Without_Key;
 import wannabit.io.cosmostaion.dialog.Dialog_Push_Enable;
@@ -360,6 +362,23 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     public void onChoiceNet(BaseChain chain) { }
 
+    public void onChainSelected(BaseChain baseChain) {
+        if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 5) {
+            Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Bundle bundle = new Bundle();
+                bundle.putString("chain", baseChain.getChain());
+                Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            }
+        }, 300);
+    }
+
     public void onChoiceStarnameResourceAddress(String address) { }
 
     public void onShare(boolean isText, String address) {
@@ -439,6 +458,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             Intent intent = new Intent(this, IntroActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+        }
+        for (BaseChain baseChain: getBaseDao().dpSortedChains()) {
+            int accountNum = getBaseDao().onSelectAccountsByChain(baseChain).size();
+            if (accountNum > 0) {
+                getBaseDao().setLastUser(getBaseDao().onSelectAccountsByChain(baseChain).get(0).id);
+                break;
+            }
         }
     }
 
@@ -729,7 +755,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             return;
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_PRICE_INFO) {
-            WLog.w("TASK_FETCH_PRICE_INFO");
+            if (result.isSuccess && result.resultData != null) {
+                ArrayList<Price> tempPrice = new ArrayList<>();
+                tempPrice = (ArrayList<Price>) result.resultData;
+                for (Price price: tempPrice) {
+                    getBaseDao().mPrices.add(price);
+                }
+            }
         }
 
         mTaskCount--;

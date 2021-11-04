@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -319,6 +320,14 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
         } else if (v.equals(mBtnDelete)) {
+            int accountSum = 0;
+            for (BaseChain baseChain: getBaseDao().dpSortedChains()) {
+                accountSum = accountSum + getBaseDao().onSelectAccountsByChain(baseChain).size();
+            }
+            if (accountSum <= 1) {
+                Toast.makeText(AccountDetailActivity.this, getString(R.string.error_reserve_1_account), Toast.LENGTH_SHORT).show();
+                return;
+            }
             Bundle bundle = new Bundle();
             bundle.putLong("id", mAccount.id);
             Dialog_DeleteConfirm delete = Dialog_DeleteConfirm.newInstance(bundle);

@@ -1441,7 +1441,7 @@ public class WDp {
     public static SpannableString getDailyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         final ChainParam.Params param = baseData.mChainParam;
         BigDecimal apr = BigDecimal.ZERO;
-        if (param.getRealApr(chain) == BigDecimal.ZERO) { apr = param.getApr(chain); }
+        if (BigDecimal.ZERO.compareTo(param.getRealApr(chain)) == 0) { apr = param.getApr(chain); }
         else { apr = param.getRealApr(chain); }
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission);
@@ -1615,7 +1615,7 @@ public class WDp {
         }
         if (denom.equals(TOKEN_EMONEY_EUR) || denom.equals(TOKEN_EMONEY_CHF) || denom.equals(TOKEN_EMONEY_DKK) ||
                 denom.equals(TOKEN_EMONEY_NOK) || denom.equals(TOKEN_EMONEY_SEK)) {
-            if (baseData.getPrice("usdt").prices != null) {
+            if (baseData.getPrice("usdt") != null && baseData.getPrice("usdt").prices != null) {
                 for (Price.Prices price: baseData.getPrice("usdt").prices) {
                     if (price.currency.equalsIgnoreCase(denom.substring(1))) {
                         return BigDecimal.ONE.divide(new BigDecimal(price.current_price), 3, RoundingMode.DOWN);
@@ -1684,6 +1684,10 @@ public class WDp {
                 } else if (baseChain.equals(OSMOSIS_MAIN) && coin.denom.equals(TOKEN_ION)) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
                     BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, 6);
+                    totalValue = totalValue.add(assetValue);
+                } else if (baseChain.equals(OSMOSIS_MAIN) && coin.denom.contains("gamm/pool")) {
+                    BigDecimal amount = baseData.getAvailable(coin.denom);
+                    BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, 18);
                     totalValue = totalValue.add(assetValue);
                 } else if (baseChain.equals(SIF_MAIN) && coin.denom.startsWith("c")) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);

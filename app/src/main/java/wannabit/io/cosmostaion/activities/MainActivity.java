@@ -45,6 +45,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
+import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_Rizon_Event_Horizon;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -96,14 +97,17 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public FloatingActionButton         mFaucetBtn;
     public FloatingActionButton         mAirDropBtn;
 
-    private ArrayList<Account>          mAccounts = new ArrayList<>();
     private TopSheetBehavior            mTopSheetBehavior;
 
     private RecyclerView                mChainRecyclerView;
     private RecyclerView                mAccountRecyclerView;
     private ChainListAdapter            mChainListAdapter;
     private AccountListAdapter          mAccountListAdapter;
-    private int                         mSelectChainPosition = 0;
+
+    private BaseChain                   mSelectedChain;
+    private ArrayList<BaseChain>        mDisplayChains = new ArrayList<>();
+    private ArrayList<Account>          mDisplayAccounts = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,9 +131,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mAirDropBtn             = findViewById(R.id.btn_airdrop);
         mChainRecyclerView      = findViewById(R.id.chain_recycler);
         mAccountRecyclerView    = findViewById(R.id.account_recycler);
-
-        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,7 +237,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     mCardView.setVisibility(View.GONE);
                 } else {
                     mCardView.setVisibility(View.VISIBLE);
-                    mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
                 }
             }
         });
@@ -259,8 +259,26 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) { }
         });
-        onShowWaitDialog();
         onAccountSwitched();
+        onShowWaitDialog();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!getBaseDao().getLastUser().equals(mAccount.id.toString())) {
+            onShowWaitDialog();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getBaseDao().setLastUser(Long.parseLong(getBaseDao().getLastUser()));
+                    onAccountSwitched();
+                }
+            },200);
+        } else {
+            onUpdateTitle();
+        }
+        onChainSelect(getBaseDao().getLastChain());
     }
 
     private void onAccountSwitched() {
@@ -275,27 +293,24 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         onUpdateTitle();
         onFetchAllData();
-        mSelectChainPosition = getBaseDao().getLastChain();
-        onChainSelected(mSelectChainPosition);
+        mSelectedChain = getBaseDao().getLastChain();
+        onChainSelect(mSelectedChain);
     }
 
-    private void onChainSelected(int position) {
-        invalidateOptionsMenu();
-        mSelectChainPosition = position;
-        getBaseDao().setLastChain(mSelectChainPosition);
-        mChainListAdapter.notifyItemRangeChanged(0, mChainListAdapter.getItemCount());
-        if (mSelectChainPosition == 0) {
-            mAccounts = getBaseDao().onSelectAccounts();
+    private void onChainSelect(BaseChain baseChain) {
+        mDisplayChains = getBaseDao().dpSortedChains();
+        mSelectedChain = baseChain;
+        getBaseDao().setLastChain(mSelectedChain.getChain());
+        mDisplayAccounts = getBaseDao().onSelectAccountsByChain(mSelectedChain);
 
-        } else {
-            final BaseChain chain = BaseChain.SUPPORT_CHAINS().get(position - 1);
-            mAccounts = getBaseDao().onSelectAccountsByChain(chain);
-        }
-        WUtil.onSortingAccount(mAccounts);
+        mChainListAdapter.notifyDataSetChanged();
         mAccountListAdapter.notifyDataSetChanged();
     }
 
-    private void onUpdateTitle() {
+    public void onUpdateTitle() {
+        mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain = BaseChain.getChain(mAccount.baseChain);
+
         if(TextUtils.isEmpty(mAccount.nickName)) mToolbarTitle.setText(getString(R.string.str_my_wallet) + mAccount.id);
         else mToolbarTitle.setText(mAccount.nickName);
 
@@ -335,6 +350,24 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         startActivity(intent);
     }
 
+    public void onChainSelected(BaseChain baseChain) {
+        if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 5) {
+            Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        onHideTopAccountsView();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Bundle bundle = new Bundle();
+                bundle.putString("chain", baseChain.getChain());
+                Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            }
+        }, 300);
+    }
+
     public void onShowTopAccountsView() {
         mDimLayer.setVisibility(View.VISIBLE);
         mTopSheetBehavior.setState(TopSheetBehavior.STATE_EXPANDED);
@@ -348,7 +381,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onFetchAllData() {
         onFetchAccountInfo(this);
-        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
     }
 
     public void onSetKavaWarn() {
@@ -367,7 +399,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void fetchFinished() {
         if (!isFinishing()) {
             onHideWaitDialog();
-            if (mPageAdapter.mCurrentFragment != null) mPageAdapter.mCurrentFragment.onRefreshTab();
+            if (mPageAdapter.getItem(0) != null) mPageAdapter.getItem(0).onRefreshTab();
+            if (mPageAdapter.getItem(1) != null) mPageAdapter.getItem(1).onRefreshTab();
             mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
         }
     }
@@ -510,41 +543,24 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         @Override
         public void onBindViewHolder(@NonNull ChainListAdapter.ChainHolder holder, @SuppressLint("RecyclerView") int position) {
+            BaseChain chain = mDisplayChains.get(position);
             holder.chainCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mSelectChainPosition != position) {
+                    if (chain != mSelectedChain) {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                onChainSelected(position);
+                                onChainSelect(chain);
                             }
                         },150);
                     }
                 }
             });
+            WDp.getChainImg(MainActivity.this, chain, holder.chainImg);
+            WDp.getChainTitle2(MainActivity.this, chain, holder.chainName);
 
-            if (position == 0) {
-                holder.chainLayer.setVisibility(View.GONE);
-                holder.allLayer.setVisibility(View.VISIBLE);
-                if (mSelectChainPosition == position) {
-                    holder.chainCard.setBackground(getResources().getDrawable(R.drawable.box_chain_selected));
-                    holder.chainAll.setTextColor(getColor(R.color.colorWhite));
-                } else {
-                    holder.chainCard.setBackground(getResources().getDrawable(R.drawable.box_chain_unselected));
-                    holder.chainAll.setTextColor(getColor(R.color.colorGray4));
-                }
-                return;
-
-            } else {
-                final BaseChain chain = BaseChain.SUPPORT_CHAINS().get(position - 1);
-                holder.chainLayer.setVisibility(View.VISIBLE);
-                holder.allLayer.setVisibility(View.GONE);
-                WDp.getChainImg(MainActivity.this, chain, holder.chainImg);
-                WDp.getChainTitle2(MainActivity.this, chain, holder.chainName);
-            }
-
-            if (mSelectChainPosition == position) {
+            if (mSelectedChain.equals(chain)) {
                 holder.chainCard.setBackground(getResources().getDrawable(R.drawable.box_chain_selected));
                 holder.chainImg.setAlpha(1f);
                 holder.chainName.setTextColor(getColor(R.color.colorWhite));
@@ -558,148 +574,85 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         @Override
         public int getItemCount() {
-            return BaseChain.SUPPORT_CHAINS().size() + 1;
+            return mDisplayChains.size();
         }
-
 
         public class ChainHolder extends RecyclerView.ViewHolder {
             FrameLayout chainCard;
-            LinearLayout chainLayer, allLayer;
+            LinearLayout chainLayer;
             ImageView  chainImg;
-            TextView chainName, chainAll;
+            TextView chainName;
             public ChainHolder(@NonNull View itemView) {
                 super(itemView);
                 chainCard       = itemView.findViewById(R.id.chainCard);
                 chainLayer      = itemView.findViewById(R.id.chainLayer);
-                allLayer        = itemView.findViewById(R.id.allLayer);
                 chainImg        = itemView.findViewById(R.id.chainImg);
                 chainName       = itemView.findViewById(R.id.chainName);
-                chainAll        = itemView.findViewById(R.id.chainAll);
             }
         }
     }
 
     private class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_ACCOUNT       = 0;
-        private static final int TYPE_ADD           = 1;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if(viewType == TYPE_ACCOUNT) {
-                return new AccountListAdapter.AccountHolder(getLayoutInflater().inflate(R.layout.item_accountlist_account, viewGroup, false));
-            } else {
-                return new AccountListAdapter.AccountAddHolder(getLayoutInflater().inflate(R.layout.item_accountlist_add, viewGroup, false));
-            }
+            return new AccountListAdapter.AccountHolder(getLayoutInflater().inflate(R.layout.item_accountlist_account, viewGroup, false));
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            if (getItemViewType(position) == TYPE_ACCOUNT) {
-                final AccountHolder holder = (AccountHolder)viewHolder;
-                final Account account = mAccounts.get(position);
+            final AccountHolder holder = (AccountHolder)viewHolder;
+            final Account account = mDisplayAccounts.get(position);
 
-                holder.accountArrowSort.setVisibility(View.GONE);
-                if (account.id.equals(mAccount.id)) {
-                    holder.accountCard.setBackground(getResources().getDrawable(R.drawable.box_accout_selected));
-                } else {
-                    holder.accountCard.setBackground(getResources().getDrawable(R.drawable.box_accout_unselected));
+            holder.accountArrowSort.setVisibility(View.GONE);
+            WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.accountDenom);
+            if (BaseChain.getChain(account.baseChain).equals(OKEX_MAIN)) {
+                try {
+                    holder.accountAddress.setText(WKey.convertAddressOkexToEth(account.address));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+            } else {
+                holder.accountAddress.setText(account.address);
+            }
+            holder.accountAvailable.setText(account.getLastTotal(getBaseContext(), BaseChain.getChain(account.baseChain)));
+            holder.accountKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+            if (account.hasPrivateKey) {
+                holder.accountKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
 
-                WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.accountDenom);
-                if (BaseChain.getChain(account.baseChain).equals(OKEX_MAIN)) {
-                    try {
-                        holder.accountAddress.setText(WKey.convertAddressOkexToEth(account.address));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    holder.accountAddress.setText(account.address);
-                }
-                holder.accountAvailable.setText(account.getLastTotal(getBaseContext(), BaseChain.getChain(account.baseChain)));
-                holder.accountKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
-                if (account.hasPrivateKey) {
-                    holder.accountKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
-                }
+            if (TextUtils.isEmpty(account.nickName)){
+                holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
+            } else {
+                holder.accountName.setText(account.nickName);
+            }
 
-                if (TextUtils.isEmpty(account.nickName)){
-                    holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
-                } else {
-                    holder.accountName.setText(account.nickName);
-                }
-
-                holder.accountCard.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(account.id == mAccount.id) {
-                            onHideTopAccountsView();
-                            return;
-                        } else {
-                            onHideTopAccountsView();
-                            onShowWaitDialog();
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    getBaseDao().setLastUser(account.id);
-                                    onAccountSwitched();
-                                }
-                            },200);
-
-                        }
-                    }
-                });
-
-            } else if (getItemViewType(position) == TYPE_ADD) {
-                final AccountAddHolder holder = (AccountAddHolder)viewHolder;
-                holder.btn_account_add.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            holder.accountCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(account.id == mAccount.id) {
                         onHideTopAccountsView();
+                        return;
+                    } else {
+                        onHideTopAccountsView();
+                        onShowWaitDialog();
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Bundle bundle  = new Bundle();
-                                final BaseChain selectChain = BaseChain.SUPPORT_CHAINS().get(mSelectChainPosition - 1);
-                                bundle.putString("chain", selectChain.getChain());
-                                Dialog_AddAccount add = Dialog_AddAccount.newInstance(bundle);
-                                add.setCancelable(true);
-                                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-
+                                getBaseDao().setLastUser(account.id);
+                                onAccountSwitched();
                             }
                         },200);
+
                     }
-                });
-            }
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
-            if (mSelectChainPosition == 0) {
-                return mAccounts.size();
-            } else {
-                if (mAccounts.size() >= 5) {
-                    return mAccounts.size();
-                } else {
-                    return mAccounts.size() + 1;
-                }
-            }
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            if (mSelectChainPosition == 0) {
-                return TYPE_ACCOUNT;
-            } else {
-                if (mAccounts.size() >= 5) {
-                    return TYPE_ACCOUNT;
-                } else {
-                    if (position < mAccounts.size()) {
-                        return TYPE_ACCOUNT;
-                    } else {
-                        return TYPE_ADD;
-                    }
-                }
-            }
+            return mDisplayAccounts.size();
         }
 
         public class AccountHolder extends RecyclerView.ViewHolder {
@@ -717,14 +670,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 accountAddress      = itemView.findViewById(R.id.accountAddress);
                 accountAvailable    = itemView.findViewById(R.id.accountAvailable);
                 accountDenom        = itemView.findViewById(R.id.accountDenom);
-            }
-        }
-
-        public class AccountAddHolder extends RecyclerView.ViewHolder {
-            Button btn_account_add;
-            public AccountAddHolder(@NonNull View itemView) {
-                super(itemView);
-                btn_account_add    = itemView.findViewById(R.id.btn_account_add);
             }
         }
     }

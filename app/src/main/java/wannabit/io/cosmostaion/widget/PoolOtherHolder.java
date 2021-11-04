@@ -128,7 +128,7 @@ public class PoolOtherHolder extends BaseHolder {
         int coin0Decimal = WUtil.getCosmosCoinDecimal(baseData, coin0Denom);
         int coin1Decimal = WUtil.getCosmosCoinDecimal(baseData, coin1Denom);
 
-        itemPoolType.setText(WUtil.dpCosmosTokenName(baseData, coin0Denom) + " / " + WUtil.dpCosmosTokenName(baseData, coin1Denom));
+        itemPoolType.setText("#" + otherPool.getId() + " " + WUtil.dpCosmosTokenName(baseData, coin0Denom) + " : " + WUtil.dpCosmosTokenName(baseData, coin1Denom));
 
         // Total deposit
         BigDecimal PoolValue = activity.getGdexPoolValue(otherPool);

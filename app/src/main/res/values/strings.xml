@@ -212,6 +212,9 @@
     <string name="str_refresh">Refresh</string>
     <string name="str_settings">Settings</string>
     <string name="str_sorting">Sorting</string>
+    <string name="str_edit">Edit</string>
+    <string name="str_display_chains">Display Chains</string>
+    <string name="str_hide_chains">Hide Chains</string>
     <string name="str_qr">QrCode</string>
     <string name="str_import">IMPORT</string>
     <string name="str_clear_all">Clear All</string>
@@ -225,9 +228,10 @@
     <string name="str_show_mnemonic">Show Mnemonic</string>
     <string name="str_create_wallet">Create Wallet</string>
     <string name="str_start_wallet">Start Wallet</string>
-    <string name="str_import2">Import</string>
+    <string name="str_import2">Restore with</string>
     <string name="str_mnemonic">Mnemonic</string>
-    <string name="str_watch">Watch</string>
+    <string name="str_private_key">Private Key</string>
+    <string name="str_watch">Watching only</string>
     <string name="str_address">Address</string>
     <string name="str_paste">Paste</string>
     <string name="str_send_c">SEND</string>
@@ -304,12 +308,14 @@
     <string name="str_no_history">No History</string>
     <string name="str_no_coin">No Assets</string>
     <string name="str_no_proposal">No Proposals</string>
+    <string name="str_no_chains">No Chains</string>
     <string name="str_accounts">accounts</string>
     <string name="str_web">web</string>
     <string name="str_manage">Manage</string>
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>
     <string name="str_wallet_manage">Wallet Manage</string>
+    <string name="str_edit_chains">Edit Chains</string>
     <string name="str_validators_list"><![CDATA[Validator List]]></string>
     <string name="str_validator_detail">Validator Details</string>
     <string name="str_token_detail">Token Detail</string>
@@ -814,6 +820,7 @@
     <string name="str_fetch_eth_path"><![CDATA[Non ledger PATH (44\'/60\'/0\'/X)]]></string>
     <string name="str_fetch_eth_ledger_path"><![CDATA[Ledger Live PATH (44\'/60\'/X\'/0\/0)]]></string>
     <string name="str_fetch_eth_ledger_live"><![CDATA[Ledger Legacy PATH (44\'/60\'/0\'/X)]]></string>
+    <string name="str_add_new">Wallet Add</string>
 
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
@@ -1699,6 +1706,9 @@
     <string name="error_not_enough_to_pool">Not enough balance to deposit.</string>
     <string name="error_already_rizon_swap">There is already a swap request in progress.</string>
     <string name="error_no_relayer_channel">No Connected Relayer Channel</string>
+    <string name="error_max_account_number">No more accounts can be added to this chain.</string>
+    <string name="error_reserve_1_account">Please reserve at least 1 account to displayed.</string>
+    <string name="error_hided_chain">Hidden Chain.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>

@@ -16,12 +16,28 @@
         android:layout_height="@dimen/toolbar_bar_height"
         android:background="@color/colorBlack"
         android:theme="@style/AppTheme.AppBarOverlay">
-        <TextView
-            android:id="@+id/toolbar_title"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/font_ssm_17_white"
-            android:text="@string/str_wallet_manage"/>
+            android:layout_marginLeft="@dimen/space_4"
+            android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/font_ssm_17_white"
+                android:text="@string/str_wallet_manage"/>
+            <TextView
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginRight="@dimen/space_16"
+                style="@style/font_ssm_17_white"
+                android:text="@string/str_edit"/>
+        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
 
@@ -30,6 +46,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar"
         android:paddingTop="@dimen/space_4"
+        android:layout_above="@+id/add_layer"
         android:orientation="horizontal">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chain_recycler"

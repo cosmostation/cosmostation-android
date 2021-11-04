@@ -40,19 +40,6 @@
                     android:gravity="center"
                     android:text="Cosmos"/>
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/allLayer"
-                android:layout_width="@dimen/space_68"
-                android:layout_height="@dimen/space_68"
-                android:gravity="center"
-                android:visibility="gone">
-                <TextView
-                    android:id="@+id/chainAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/font_ss_17_white"
-                    android:text="All"/>
-            </LinearLayout>
         </LinearLayout>
     </FrameLayout>
 </RelativeLayout>

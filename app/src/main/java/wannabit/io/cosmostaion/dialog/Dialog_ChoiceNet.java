@@ -12,27 +12,21 @@ import android.widget.LinearLayout;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 
 public class Dialog_ChoiceNet extends DialogFragment {
@@ -43,6 +37,8 @@ public class Dialog_ChoiceNet extends DialogFragment {
     private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi, mEmoney, mRegen, mRizon, mJuno, mBitCanna, mSecret, mCosmosTest, mIrisTest;
     private LinearLayout mRizonTestLayer, mMediTestLayer, mAltheaTestLayer, mUmeeTestLayer, mAxelarTestLayer;
     private LinearLayout mRizonTest, mMediTest, mAltheaTest, mUmeeTest, mAxelarTest;
+
+    private boolean      mIsAdd = false;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -113,13 +109,20 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mAxelarTestLayer = view.findViewById(R.id.axelar_test_layer);
         mAxelarTest = view.findViewById(R.id.axelar_test_net);
 
-
-
+        if (getArguments() != null) {
+            mIsAdd = true;
+        } else {
+            mIsAdd = false;
+        }
 
         mMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.COSMOS_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.COSMOS_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.COSMOS_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -127,7 +130,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mIris.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IRIS_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.IRIS_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IRIS_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -135,7 +142,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mBinance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BNB_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.BNB_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BNB_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -143,7 +154,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mOkex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.OKEX_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.OKEX_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.OKEX_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -151,7 +166,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mKava.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.KAVA_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.KAVA_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.KAVA_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -159,7 +178,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mIov.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IOV_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.IOV_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IOV_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -167,7 +190,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mBand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BAND_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.BAND_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BAND_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -175,7 +202,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mPersis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(PERSIS_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.PERSIS_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.PERSIS_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -183,7 +214,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mCertik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.CERTIK_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.CERTIK_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.CERTIK_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -191,7 +226,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mAkash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(AKASH_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.AKASH_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.AKASH_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -199,7 +238,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mSentinel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(SENTINEL_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.SENTINEL_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.SENTINEL_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -207,7 +250,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mFetch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(FETCHAI_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.FETCHAI_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.FETCHAI_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -215,7 +262,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mCryto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(CRYPTO_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.CRYPTO_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.CRYPTO_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -223,7 +274,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mSifchain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(SIF_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.SIF_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.SIF_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -231,7 +286,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mKichain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(KI_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.KI_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.KI_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -239,7 +298,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mOsmosis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.OSMOSIS_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.OSMOSIS_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.OSMOSIS_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -247,7 +310,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mMedi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.MEDI_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.MEDI_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.MEDI_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -255,7 +322,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mEmoney.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.EMONEY_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.EMONEY_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.EMONEY_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -263,7 +334,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mRizon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.RIZON_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.RIZON_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.RIZON_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -271,7 +346,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mSecret.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.SECRET_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.SECRET_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.SECRET_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -279,7 +358,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mJuno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.JUNO_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.JUNO_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.JUNO_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -287,7 +370,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mRegen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.REGEN_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.REGEN_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.REGEN_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -295,7 +382,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mBitCanna.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BITCANNA_MAIN);
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.BITCANNA_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BITCANNA_MAIN);
+                }
                 getDialog().dismiss();
             }
         });
@@ -437,5 +528,4 @@ public class Dialog_ChoiceNet extends DialogFragment {
         builder.setView(view);
         return builder.create();
     }
-
 }
