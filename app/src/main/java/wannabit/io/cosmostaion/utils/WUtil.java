@@ -2065,10 +2065,10 @@ public class WUtil {
                 resource.address = account.address;
                 result.addresses.add(resource);
 
-            } else if (BaseChain.getChain(account.baseChain).equals(FETCHAI_MAIN)) {
-                resource.ticker = "fet";
-                resource.address = account.address;
-                result.addresses.add(resource);
+//            } else if (BaseChain.getChain(account.baseChain).equals(FETCHAI_MAIN)) {
+//                resource.ticker = "fet";
+//                resource.address = account.address;
+//                result.addresses.add(resource);
 
             } else if (BaseChain.getChain(account.baseChain).equals(CRYPTO_MAIN)) {
                 resource.ticker = "cro";
@@ -2080,10 +2080,10 @@ public class WUtil {
                 resource.address = account.address;
                 result.addresses.add(resource);
 
-            } else if (BaseChain.getChain(account.baseChain).equals(KI_MAIN)) {
-                resource.ticker = "ki";
-                resource.address = account.address;
-                result.addresses.add(resource);
+//            } else if (BaseChain.getChain(account.baseChain).equals(KI_MAIN)) {
+//                resource.ticker = "ki";
+//                resource.address = account.address;
+//                result.addresses.add(resource);
 
             } else if (BaseChain.getChain(account.baseChain).equals(RIZON_MAIN)) {
                 resource.ticker = "atolo";
@@ -2095,35 +2095,35 @@ public class WUtil {
                 resource.address = account.address;
                 result.addresses.add(resource);
 
-            } else if (BaseChain.getChain(account.baseChain).equals(MEDI_MAIN)) {
-                resource.ticker = "med";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(EMONEY_MAIN)) {
-                resource.ticker = "ngm";
-                resource.address = account.address;
-                result.addresses.add(resource);
+//            } else if (BaseChain.getChain(account.baseChain).equals(MEDI_MAIN)) {
+//                resource.ticker = "med";
+//                resource.address = account.address;
+//                result.addresses.add(resource);
+//
+//            } else if (BaseChain.getChain(account.baseChain).equals(EMONEY_MAIN)) {
+//                resource.ticker = "ngm";
+//                resource.address = account.address;
+//                result.addresses.add(resource);
 
             } else if (BaseChain.getChain(account.baseChain).equals(REGEN_MAIN)) {
                 resource.ticker = "regen";
                 resource.address = account.address;
                 result.addresses.add(resource);
 
-            } else if (BaseChain.getChain(account.baseChain).equals(JUNO_MAIN)) {
-                resource.ticker = "juno";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(BITCANNA_MAIN)) {
-                resource.ticker = "bcna";
-                resource.address = account.address;
-                result.addresses.add(resource);
-
-            } else if (BaseChain.getChain(account.baseChain).equals(STARGAZE_MAIN)) {
-                resource.ticker = "stars";
-                resource.address = account.address;
-                result.addresses.add(resource);
+//            } else if (BaseChain.getChain(account.baseChain).equals(JUNO_MAIN)) {
+//                resource.ticker = "juno";
+//                resource.address = account.address;
+//                result.addresses.add(resource);
+//
+//            } else if (BaseChain.getChain(account.baseChain).equals(BITCANNA_MAIN)) {
+//                resource.ticker = "bcna";
+//                resource.address = account.address;
+//                result.addresses.add(resource);
+//
+//            } else if (BaseChain.getChain(account.baseChain).equals(STARGAZE_MAIN)) {
+//                resource.ticker = "stars";
+//                resource.address = account.address;
+//                result.addresses.add(resource);
 
             } else if (BaseChain.getChain(account.baseChain).equals(SECRET_MAIN)) {
                 resource.ticker = "scrt";
