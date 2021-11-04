@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
     private TextView            mBtnDone;
     private RecyclerView        mDisplayRecyclerView;
     private RecyclerView        mHideRecyclerView;
+    private LinearLayout        mEmptyChains;
 
     private DisplayListAdapter  mDisplayListAdapter;
     private HideListAdapter     mHideListAdapter;
@@ -46,6 +48,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         mBtnDone = findViewById(R.id.btn_done);
         mDisplayRecyclerView = findViewById(R.id.display_recycler);
         mHideRecyclerView = findViewById(R.id.hide_recycler);
+        mEmptyChains = findViewById(R.id.empty_chains);
 
         mBtnDone.setOnClickListener(this);
 
@@ -73,6 +76,11 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         }
         mDisplayChains = getBaseDao().userSortedChains();
         mHideChains = getBaseDao().userHideChains();
+
+        if (mHideChains.size() <= 0) {
+            mEmptyChains.setVisibility(View.VISIBLE);
+            mHideRecyclerView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -141,6 +149,10 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
                         }
                         mHideChains = tempHide;
 
+                        if (mHideChains.size() > 0) {
+                            mEmptyChains.setVisibility(View.GONE);
+                            mHideRecyclerView.setVisibility(View.VISIBLE);
+                        }
                         mDisplayListAdapter.notifyDataSetChanged();
                         mHideListAdapter.notifyDataSetChanged();
                     }
@@ -210,6 +222,10 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
                         mHideChains.remove(hideChainIndex);
                         mDisplayChains.add(chain);
 
+                        if (mHideChains.size() <= 0) {
+                            mEmptyChains.setVisibility(View.VISIBLE);
+                            mHideRecyclerView.setVisibility(View.GONE);
+                        }
                         mHideListAdapter.notifyDataSetChanged();
                         mDisplayListAdapter.notifyDataSetChanged();
                     }

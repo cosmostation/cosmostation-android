@@ -63,23 +63,4 @@
             android:clipToPadding="false"
             android:overScrollMode="never"/>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/add_layer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/space_16"
-        android:layout_marginLeft="@dimen/space_16"
-        android:layout_marginRight="@dimen/space_16">
-        <Button
-            android:id="@+id/btn_add_wallet"
-            style="@style/font_ss_14_photon"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_45"
-            android:background="@drawable/btn_trans_with_border"
-            android:minHeight="@dimen/space_45"
-            android:text="@string/str_add_new"
-            android:textAllCaps="false" />
-    </LinearLayout>
 </RelativeLayout>

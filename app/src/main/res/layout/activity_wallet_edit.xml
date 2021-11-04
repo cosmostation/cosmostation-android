@@ -64,12 +64,37 @@
             android:text="@string/str_hide_chains"
             style="@style/font_ss_14_gray1"
             android:layout_margin="@dimen/space_8" />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/hide_recycler"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5"
-            android:clipToPadding="false"
-            android:overScrollMode="never"/>
+            android:layout_weight="1.5">
+            <LinearLayout
+                android:id="@+id/empty_chains"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/history_none_img"
+                    android:scaleType="fitXY"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_6"
+                    android:layout_centerInParent="true"
+                    style="@style/font_ss_14_white"
+                    android:text="@string/str_no_chains"/>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/hide_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:overScrollMode="never" />
+        </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

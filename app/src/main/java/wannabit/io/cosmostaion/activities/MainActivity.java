@@ -107,7 +107,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private BaseChain                   mSelectedChain;
     private ArrayList<BaseChain>        mDisplayChains = new ArrayList<>();
     private ArrayList<Account>          mDisplayAccounts = new ArrayList<>();
-    private Button                      mBtnAddNew;
 
 
     @Override
@@ -132,7 +131,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mAirDropBtn             = findViewById(R.id.btn_airdrop);
         mChainRecyclerView      = findViewById(R.id.chain_recycler);
         mAccountRecyclerView    = findViewById(R.id.account_recycler);
-        mBtnAddNew              = findViewById(R.id.btn_add_wallet);
 
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,16 +159,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
                 show.setCancelable(true);
                 getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
-            }
-        });
-
-        mBtnAddNew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle  = new Bundle();
-                Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
-                dialog.setCancelable(false);
-                getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
             }
         });
 
@@ -363,7 +351,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     public void onChainSelected(BaseChain baseChain) {
-        if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 10) {
+        if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 5) {
             Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
             return;
         }

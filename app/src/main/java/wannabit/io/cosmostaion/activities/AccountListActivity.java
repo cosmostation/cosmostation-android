@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,7 +24,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 
@@ -37,7 +35,6 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
     private TextView                    mBtnEdit;
     private RecyclerView                mChainRecyclerView;
     private RecyclerView                mAccountRecyclerView;
-    private Button                      mBtnAddNew;
 
     private ChainListAdapter            mChainListAdapter;
     private AccountListAdapter          mAccountListAdapter;
@@ -53,12 +50,10 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         mBtnEdit                = findViewById(R.id.btn_edit);
         mChainRecyclerView      = findViewById(R.id.chain_recycler);
         mAccountRecyclerView    = findViewById(R.id.account_recycler);
-        mBtnAddNew              = findViewById(R.id.btn_add_wallet);
 
         mSelectedChain = getBaseDao().getLastChain();
 
         mBtnEdit.setOnClickListener(this);
-        mBtnAddNew.setOnClickListener(this);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -105,12 +100,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if (v.equals(mBtnAddNew)) {
-            Bundle bundle = new Bundle();
-            Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
-            dialog.setCancelable(false);
-            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-        } else if (v.equals(mBtnEdit)) {
+        if (v.equals(mBtnEdit)) {
             Intent intent = new Intent(AccountListActivity.this, WalletEditActivity.class);
             startActivity(intent);
         }

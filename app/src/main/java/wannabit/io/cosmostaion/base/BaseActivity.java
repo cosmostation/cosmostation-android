@@ -363,7 +363,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     public void onChoiceNet(BaseChain chain) { }
 
     public void onChainSelected(BaseChain baseChain) {
-        if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 10) {
+        if (getBaseDao().onSelectAccountsByChain(baseChain).size() >= 5) {
             Toast.makeText(this, R.string.error_max_account_number, Toast.LENGTH_SHORT).show();
             return;
         }

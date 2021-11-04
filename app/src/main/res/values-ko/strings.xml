@@ -143,6 +143,7 @@
     <string name="str_no_history">거래 내역이 없습니다.</string>
     <string name="str_no_coin">자산이 없습니다.</string>
     <string name="str_no_proposal">의제가 없습니다.</string>
+    <string name="str_no_chains">체인이 없습니다.</string>
     <string name="str_accounts">accounts</string>
     <string name="str_web">web</string>
     <string name="str_manage">Manage</string>
