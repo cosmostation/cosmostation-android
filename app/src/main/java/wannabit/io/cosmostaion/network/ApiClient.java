@@ -484,7 +484,7 @@ public class ApiClient {
         return api_regen;
     }
 
-    //Services for Regen mainnet api
+    //Services for Bitcanna mainnet api
     private static HistoryApi api_bitcanna = null;
     public static HistoryApi getBitcannaApi(Context c) {
         if (api_bitcanna == null) {
@@ -497,6 +497,51 @@ public class ApiClient {
             }
         }
         return api_bitcanna;
+    }
+
+    //Services for Althea mainnet api
+    private static HistoryApi api_althea = null;
+    public static HistoryApi getAltheaApi(Context c) {
+        if (api_althea == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_althea))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_althea = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_althea;
+    }
+
+    //Services for Stargaze mainnet api
+    private static HistoryApi api_stargaze = null;
+    public static HistoryApi getStargazeApi(Context c) {
+        if (api_stargaze == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_stargaze))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_stargaze = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_stargaze;
+    }
+
+    //Services for Stargaze mainnet api
+    private static HistoryApi api_grabridge = null;
+    public static HistoryApi getGraBridgeApi(Context c) {
+        if (api_grabridge == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_grabridge))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_grabridge = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_grabridge;
     }
 
     //Services for Rizon mainnet api
