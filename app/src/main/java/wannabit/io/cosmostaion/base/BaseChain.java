@@ -289,10 +289,10 @@ public enum BaseChain {
         result.add(REGEN_MAIN);
         result.add(JUNO_MAIN);
         result.add(BITCANNA_MAIN);
-//        result.add(ALTHEA_MAIN);
         result.add(STARGAZE_MAIN);
         result.add(SECRET_MAIN);
 
+//        result.add(ALTHEA_MAIN);
 //        result.add(GRABRIDGE_MAIN);
 
 //        result.add(COSMOS_TEST);
