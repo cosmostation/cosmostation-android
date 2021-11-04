@@ -401,6 +401,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             onHideWaitDialog();
             if (mPageAdapter.getItem(0) != null) mPageAdapter.getItem(0).onRefreshTab();
             if (mPageAdapter.getItem(1) != null) mPageAdapter.getItem(1).onRefreshTab();
+            if (mPageAdapter.getItem(2) != null) mPageAdapter.getItem(2).onRefreshTab();
             mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
         }
     }
@@ -606,6 +607,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             final Account account = mDisplayAccounts.get(position);
 
             holder.accountArrowSort.setVisibility(View.GONE);
+            if (account.id.equals(mAccount.id)) {
+                holder.accountCard.setBackground(getResources().getDrawable(R.drawable.box_accout_selected));
+            } else {
+                holder.accountCard.setBackground(getResources().getDrawable(R.drawable.box_account_unselected));
+            }
             WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.accountDenom);
             if (BaseChain.getChain(account.baseChain).equals(OKEX_MAIN)) {
                 try {
