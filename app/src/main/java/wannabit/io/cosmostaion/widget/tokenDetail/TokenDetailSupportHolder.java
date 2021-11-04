@@ -79,6 +79,13 @@ public class TokenDetailSupportHolder extends BaseHolder {
             mAvailableAmount = baseData.getAvailable(denom);
             mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
             mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+
+        } else if (baseChain.equals(BaseChain.COSMOS_MAIN)) {
+            dpDecimal = 6;
+
+            mAvailableAmount = baseData.getAvailable(denom);
+            mTvTotal.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
+            mTvAvailable.setText(WDp.getDpAmount2(c, mAvailableAmount, dpDecimal, dpDecimal));
         }
     }
 

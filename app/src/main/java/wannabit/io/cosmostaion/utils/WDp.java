@@ -1685,6 +1685,10 @@ public class WDp {
             PoolOuterClass.Pool pool = baseData.getOsmosisPoolByDenom(denom);
             return WUtil.getOsmoLpTokenPerUsdPrice(baseData, pool);
         }
+        if (denom.startsWith("pool") && denom.length() >= 68) {
+            ChainParam.GdexStatus pool = baseData.getParamGravityPoolByDenom(denom);
+            return WUtil.getParamGdexLpTokenPerUsdPrice(baseData, pool);
+        }
         if (denom.equals(TOKEN_EMONEY_EUR) || denom.equals(TOKEN_EMONEY_CHF) || denom.equals(TOKEN_EMONEY_DKK) ||
                 denom.equals(TOKEN_EMONEY_NOK) || denom.equals(TOKEN_EMONEY_SEK)) {
             if (baseData.getPrice("usdt") != null && baseData.getPrice("usdt").prices != null) {
@@ -1752,6 +1756,10 @@ public class WDp {
                 if (coin.denom.equals(mainDenom(baseChain))) {
                     BigDecimal amount = baseData.getAllMainAsset(mainDenom(baseChain));
                     BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(assetValue);
+                } else if (baseChain.equals(COSMOS_MAIN) && coin.denom.startsWith("pool")) {
+                    BigDecimal amount = baseData.getAvailable(coin.denom);
+                    BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, 6);
                     totalValue = totalValue.add(assetValue);
                 } else if (baseChain.equals(OSMOSIS_MAIN) && coin.denom.equals(TOKEN_ION)) {
                     BigDecimal amount = baseData.getAvailable(coin.denom);
