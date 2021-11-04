@@ -57,7 +57,6 @@ import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -291,8 +290,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         } else {
             onUpdateTitle();
         }
-        getBaseDao().getLastUser();
-        onChainSelect(mSelectedChain);
+        onChainSelect(getBaseDao().getLastChain());
     }
 
     private void onAccountSwitched() {

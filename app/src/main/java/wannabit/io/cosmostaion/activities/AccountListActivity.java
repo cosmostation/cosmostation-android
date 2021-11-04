@@ -55,6 +55,8 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         mAccountRecyclerView    = findViewById(R.id.account_recycler);
         mBtnAddNew              = findViewById(R.id.btn_add_wallet);
 
+        mSelectedChain = getBaseDao().getLastChain();
+
         mBtnEdit.setOnClickListener(this);
         mBtnAddNew.setOnClickListener(this);
 
@@ -88,8 +90,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onResume() {
         super.onResume();
-        mSelectedChain = getBaseDao().getLastChain();
-        onChainSelect(mSelectedChain);
+        onChainSelect(getBaseDao().getLastChain());
     }
 
     public void onChainSelect(BaseChain baseChain) {
