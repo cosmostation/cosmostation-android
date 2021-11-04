@@ -32,11 +32,12 @@ import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 public class Dialog_ChoiceNet extends DialogFragment {
 
 
-    private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
-    private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
-    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi, mEmoney, mRegen, mRizon, mJuno, mBitCanna, mSecret, mCosmosTest, mIrisTest;
+    private LinearLayout mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
+    private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
+    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi,
+                         mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mStargaze, mGraBridge, mSecret;
     private LinearLayout mRizonTestLayer, mMediTestLayer, mAltheaTestLayer, mUmeeTestLayer, mAxelarTestLayer;
-    private LinearLayout mRizonTest, mMediTest, mAltheaTest, mUmeeTest, mAxelarTest;
+    private LinearLayout mCosmosTest, mIrisTest, mRizonTest, mMediTest, mAltheaTest, mUmeeTest, mAxelarTest;
 
     private boolean      mIsAdd = false;
 
@@ -69,8 +70,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mIrisTest = view.findViewById(R.id.iris_test_net);
         mBinanaceTestLayer = view.findViewById(R.id.bnb_test_layer);
         mBinanaceTest = view.findViewById(R.id.bnb_test_net);
-        mKavaTestLayer = view.findViewById(R.id.kava_test_layer);
-        mKavaTest = view.findViewById(R.id.kava_test_net);
+
         mIovTestLayer = view.findViewById(R.id.iov_test_layer);
         mIovTest = view.findViewById(R.id.iov_test_net);
         mOKTestLayer = view.findViewById(R.id.ok_test_layer);
@@ -97,6 +97,9 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mJuno = view.findViewById(R.id.juno_chain);
         mRegen = view.findViewById(R.id.regen_chain);
         mBitCanna = view.findViewById(R.id.bitcanna_chain);
+        mAlthea = view.findViewById(R.id.althea_chain);
+        mStargaze = view.findViewById(R.id.stargaze_chain);
+        mGraBridge = view.findViewById(R.id.grabridge_chain);
 
         mRizonTestLayer = view.findViewById(R.id.rizon_test_layer);
         mRizonTest = view.findViewById(R.id.rizon_test_net);
@@ -391,13 +394,53 @@ public class Dialog_ChoiceNet extends DialogFragment {
             }
         });
 
+        mAlthea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.ALTHEA_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.ALTHEA_MAIN);
+                }
+                getDialog().dismiss();
+            }
+        });
+
+        mStargaze.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.STARGAZE_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.STARGAZE_MAIN);
+                }
+                getDialog().dismiss();
+            }
+        });
+
+        mGraBridge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.GRABRIDGE_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.GRABRIDGE_MAIN);
+                }
+                getDialog().dismiss();
+            }
+        });
+
 
         if (BaseChain.SUPPORT_CHAINS().contains(COSMOS_TEST)) {
             mCosmosTestLayer.setVisibility(View.VISIBLE);
             mCosmosTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(COSMOS_TEST);
+                    if (mIsAdd) {
+                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.COSMOS_TEST);
+                    } else {
+                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.COSMOS_TEST);
+                    }
                     getDialog().dismiss();
                 }
             });
@@ -408,7 +451,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
             mIrisTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(IRIS_TEST);
+                    if (mIsAdd) {
+                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.IRIS_TEST);
+                    } else {
+                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IRIS_TEST);
+                    }
                     getDialog().dismiss();
                 }
             });
@@ -419,18 +466,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
             mBinanaceTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BNB_TEST);
-                    getDialog().dismiss();
-                }
-            });
-        }
-
-        if (BaseChain.SUPPORT_CHAINS().contains(KAVA_TEST)) {
-            mKavaTestLayer.setVisibility(View.VISIBLE);
-            mKavaTest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.KAVA_TEST);
+                    if (mIsAdd) {
+                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.REGEN_MAIN);
+                    } else {
+                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.REGEN_MAIN);
+                    }
                     getDialog().dismiss();
                 }
             });
@@ -441,7 +481,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
             mIovTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(IOV_TEST);
+                    if (mIsAdd) {
+                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.IOV_TEST);
+                    } else {
+                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.IOV_TEST);
+                    }
                     getDialog().dismiss();
                 }
             });
@@ -452,7 +496,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
             mOKTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(OK_TEST);
+                    if (mIsAdd) {
+                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.OK_TEST);
+                    } else {
+                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.OK_TEST);
+                    }
                     getDialog().dismiss();
                 }
             });
@@ -463,7 +511,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
             mCertikTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(CERTIK_TEST);
+                    if (mIsAdd) {
+                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.CERTIK_TEST);
+                    } else {
+                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.CERTIK_TEST);
+                    }
                     getDialog().dismiss();
                 }
             });
@@ -474,7 +526,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
             mRizonTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(RIZON_TEST);
+                    if (mIsAdd) {
+                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.RIZON_TEST);
+                    } else {
+                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.RIZON_TEST);
+                    }
                     getDialog().dismiss();
                 }
             });
@@ -485,7 +541,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
             mMediTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(MEDI_TEST);
+                    if (mIsAdd) {
+                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.MEDI_TEST);
+                    } else {
+                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.MEDI_TEST);
+                    }
                     getDialog().dismiss();
                 }
             });
@@ -496,7 +556,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
             mAltheaTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(ALTHEA_TEST);
+                    if (mIsAdd) {
+                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.ALTHEA_TEST);
+                    } else {
+                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.ALTHEA_TEST);
+                    }
                     getDialog().dismiss();
                 }
             });
@@ -507,7 +571,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
             mUmeeTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(UMEE_TEST);
+                    if (mIsAdd) {
+                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.UMEE_TEST);
+                    } else {
+                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.UMEE_TEST);
+                    }
                     getDialog().dismiss();
                 }
             });
@@ -518,7 +586,11 @@ public class Dialog_ChoiceNet extends DialogFragment {
             mAxelarTest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((BaseActivity)getActivity()).onChoiceNet(AXELAR_TEST);
+                    if (mIsAdd) {
+                        ((BaseActivity)getActivity()).onChainSelected(BaseChain.AXELAR_TEST);
+                    } else {
+                        ((BaseActivity)getActivity()).onChoiceNet(BaseChain.AXELAR_TEST);
+                    }
                     getDialog().dismiss();
                 }
             });

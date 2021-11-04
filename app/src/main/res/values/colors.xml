@@ -33,7 +33,7 @@
     <color name="colorTransBgKi">#243756fc</color>
     <color name="colorTransBgRizon">#268c8af2</color>
     <color name="colorTransBgMedi">#2479aaf2</color>
-    <color name="colorTransBgAlthea">#24eadea5</color>
+    <color name="colorTransBgAlthea">#24f8d9c0</color>
     <color name="colorTransBgOsmosis">#249248db</color>
     <color name="colorTransBgUmee">#247dcaff</color>
     <color name="colorTransBgEmoney">#2486ccba</color>
@@ -41,6 +41,8 @@
     <color name="colorTransBgJuno">#24f0827d</color>
     <color name="colorTransBgRegen">#2443ad6b</color>
     <color name="colorTransBgBitcanna">#2400b786</color>
+    <color name="colorTransBgStargaze">#24e38cd4</color>
+    <color name="colorTransBgGraBridge">#240088c8</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -121,8 +123,8 @@
     <color name="colorMedi">#79aaf2</color>
     <color name="colorMedi2">#0d3d84</color>
 
-    <color name="colorAlthea">#eadea5</color>
-    <color name="colorAlthea2">#7d7659</color>
+    <color name="colorAlthea">#f8d9c0</color>
+    <color name="colorAlthea2">#908277</color>
 
     <color name="colorOsmosis">#9248db</color>
     <color name="colorOsmosis2">#4e1a82</color>
@@ -145,6 +147,12 @@
 
     <color name="colorBitcanna">#00b786</color>
     <color name="colorBitcann2">#04684f</color>
+
+    <color name="colorStargaze">#e38cd4</color>
+    <color name="colorStargaze2">#8a5a84</color>
+
+    <color name="colorGraBridge">#0088c8</color>
+    <color name="colorGraBridge2">#04547a</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

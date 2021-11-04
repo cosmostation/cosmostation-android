@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletCosmosHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCrytoHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletEmoneyHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletFetchHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletGraBridgeHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletGuideHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletIrisHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletJunoHolder;
@@ -46,10 +47,12 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletSecretHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSentinelHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSifHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSifIncentiveHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletStargazeHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletStarnameHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletUmeeHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -62,6 +65,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
@@ -80,6 +84,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
@@ -228,6 +233,8 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_JUNO              = 24;
         private static final int TYPE_REGEN             = 25;
         private static final int TYPE_BITCANNA          = 26;
+        private static final int TYPE_STARGAZE          = 27;
+        private static final int TYPE_GRABRIDGE         = 28;
 
         private static final int TYPE_KAVA_INCENTIVE    = 40;
         private static final int TYPE_SIF_INCENTIVE     = 50;
@@ -316,6 +323,12 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_BITCANNA) {
                 return new WalletBitcannaHolder(getLayoutInflater().inflate(R.layout.item_wallet_bitcanna, viewGroup, false));
 
+            } else if (viewType == TYPE_STARGAZE) {
+                return new WalletStargazeHolder(getLayoutInflater().inflate(R.layout.item_wallet_stargaze, viewGroup, false));
+
+            } else if (viewType == TYPE_GRABRIDGE) {
+                return new WalletGraBridgeHolder(getLayoutInflater().inflate(R.layout.item_wallet_grabridge, viewGroup, false));
+
             }
 
 
@@ -395,7 +408,9 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(JUNO_MAIN)) { return TYPE_JUNO; }
                     else if (getMainActivity().mBaseChain.equals(REGEN_MAIN)) { return TYPE_REGEN; }
                     else if (getMainActivity().mBaseChain.equals(BITCANNA_MAIN)) { return TYPE_BITCANNA; }
-                    else if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) { return TYPE_ALTHEA; }
+                    else if (getMainActivity().mBaseChain.equals(ALTHEA_MAIN) || getMainActivity().mBaseChain.equals(ALTHEA_TEST)) { return TYPE_ALTHEA; }
+                    else if (getMainActivity().mBaseChain.equals(STARGAZE_MAIN)) { return TYPE_STARGAZE; }
+                    else if (getMainActivity().mBaseChain.equals(GRABRIDGE_MAIN)) { return TYPE_GRABRIDGE; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
                     else if (getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }
                 } else if (position == 1) {

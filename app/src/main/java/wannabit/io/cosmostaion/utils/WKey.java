@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.crypto.Sha256;
 
 import static org.bitcoinj.core.ECKey.CURVE;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -47,6 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -67,6 +69,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 
 public class WKey {
@@ -129,7 +132,7 @@ public class WKey {
         if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(714, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
-        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+        } else if (chain.equals(KAVA_MAIN)) {
             if (newBip) {
                 return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(459, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
             } else {
@@ -160,9 +163,6 @@ public class WKey {
 
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(371, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
-
-        } else if (chain.equals(ALTHEA_TEST)) {
-            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
@@ -340,7 +340,7 @@ public class WKey {
                 result = bech32Encode("iaa".getBytes(), converted);
             } else if (chain.equals(BNB_MAIN)){
                 result = bech32Encode("bnb".getBytes(), converted);
-            } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)){
+            } else if (chain.equals(KAVA_MAIN)){
                 result = bech32Encode("kava".getBytes(), converted);
             } else if (chain.equals(BAND_MAIN)){
                 result = bech32Encode("band".getBytes(), converted);
@@ -382,8 +382,12 @@ public class WKey {
                 result = bech32Encode("regen".getBytes(), converted);
             } else if (chain.equals(BITCANNA_MAIN)){
                 result = bech32Encode("bcna".getBytes(), converted);
-            } else if (chain.equals(ALTHEA_TEST)){
+            } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)){
                 result = bech32Encode("althea".getBytes(), converted);
+            } else if (chain.equals(STARGAZE_MAIN)){
+                result = bech32Encode("stars".getBytes(), converted);
+            } else if (chain.equals(GRABRIDGE_MAIN)){
+                result = bech32Encode("gravity".getBytes(), converted);
             } else if (chain.equals(UMEE_TEST)){
                 result = bech32Encode("umee".getBytes(), converted);
             } else if (chain.equals(AXELAR_TEST)){
@@ -445,8 +449,12 @@ public class WKey {
             return bech32Encode("regen".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(BITCANNA_MAIN)) {
             return bech32Encode("bcna".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(ALTHEA_TEST)) {
+        } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
             return bech32Encode("althea".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(STARGAZE_MAIN)) {
+            return bech32Encode("stars".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(GRABRIDGE_MAIN)) {
+            return bech32Encode("gravity".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
             return bech32Encode("umee".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(AXELAR_TEST)) {
@@ -501,8 +509,12 @@ public class WKey {
             return bech32Encode("regenvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(BITCANNA_MAIN)) {
             return bech32Encode("bcnavaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(ALTHEA_TEST)) {
+        } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
             return bech32Encode("altheavaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(STARGAZE_MAIN)) {
+            return bech32Encode("starsvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(GRABRIDGE_MAIN)) {
+            return bech32Encode("gravityvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
             return bech32Encode("umeevaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(AXELAR_TEST)) {

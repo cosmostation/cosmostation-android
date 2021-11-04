@@ -5,6 +5,7 @@ import io.grpc.ManagedChannelBuilder;
 import wannabit.io.cosmostaion.base.BaseChain;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -15,6 +16,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
@@ -27,6 +29,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 
 public class ChannelBuilder {
@@ -84,6 +87,12 @@ public class ChannelBuilder {
     private final static String GRPC_BITCANNA_MAIN = "lcd-bitcanna-app.cosmostation.io";
     private final static int PORT_BITCANNA_MAIN = 9090;
 
+    private final static String GRPC_ALTHEA_MAIN = "lcd-althea-app.cosmostation.io";
+    private final static int PORT_ALTHEA_MAIN = 9090;
+
+    private final static String GRPC_STARGAZE_MAIN = "lcd-stargaze-app.cosmostation.io";
+    private final static int PORT_STARGAZE_MAIN = 9090;
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -102,6 +111,9 @@ public class ChannelBuilder {
 
     private final static String GRPC_AXELAR_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_AXELAR_TEST = 40600;
+
+    private final static String GRPC_GRABRIDGE_MAIN = "lcd-office.cosmostation.io";
+    private final static int PORT_GRABRIDGE_MAIN = 20300;
 
 
     public final static int TIME_OUT = 8;
@@ -144,6 +156,12 @@ public class ChannelBuilder {
             return getRegenMain();
         } else if (chain.equals(BITCANNA_MAIN)) {
             return getBitcannaMain();
+        } else if (chain.equals(ALTHEA_MAIN)) {
+            return getAltheaMain();
+        } else if (chain.equals(STARGAZE_MAIN)) {
+            return getStargazeMain();
+        } else if (chain.equals(GRABRIDGE_MAIN)) {
+            return getGraBridgeMain();
 
         } else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
@@ -397,6 +415,44 @@ public class ChannelBuilder {
         return channel_bitcanna_main;
     }
 
+    //Channel for althea main
+    private static ManagedChannel channel_althea_main = null;
+    public static ManagedChannel getAltheaMain() {
+        if (channel_althea_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_althea_main = ManagedChannelBuilder.forAddress(GRPC_ALTHEA_MAIN, PORT_ALTHEA_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_althea_main;
+    }
+
+    //Channel for stargaze main
+    private static ManagedChannel channel_stargaze_main = null;
+    public static ManagedChannel getStargazeMain() {
+        if (channel_stargaze_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_stargaze_main = ManagedChannelBuilder.forAddress(GRPC_STARGAZE_MAIN, PORT_STARGAZE_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_stargaze_main;
+    }
+
+    //Channel for gravity bridge main
+    private static ManagedChannel channel_grabridge_main = null;
+    public static ManagedChannel getGraBridgeMain() {
+        if (channel_grabridge_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_grabridge_main = ManagedChannelBuilder.forAddress(GRPC_GRABRIDGE_MAIN, PORT_GRABRIDGE_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_grabridge_main;
+    }
 
     //Channel for stargate testnet
     private static ManagedChannel channel_cosmos_test = null;
