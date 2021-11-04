@@ -173,34 +173,34 @@
     <string name="str_block_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
     <string name="str_tx_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss\'Z\']]></string>
 
-    <string name="str_cosmos_main_net">Cosmos Mainnet</string>
+    <string name="str_cosmos_main_net">Cosmos</string>
     <string name="str_cosmos_test_net_12k">COSMOS Testnet (GAIA 12k)</string>
     <string name="str_cosmos_test_net_13k">COSMOS Testnet (GAIA 13k)</string>
-    <string name="str_iris_main_net">Iris Mainnet</string>
-    <string name="str_bnb_main_net">Binance Mainnet</string>
-    <string name="str_iov_main_net">Starname Mainnet</string>
-    <string name="str_kava_main_net">Kava Mainnet</string>
-    <string name="str_band_main_net">Band Mainnet</string>
-    <string name="str_persis_main_net">Persistence Mainnet</string>
-    <string name="str_secret_main_net">Secret Mainnet</string>
-    <string name="str_certik_main_net">Certik Mainnet</string>
-    <string name="str_akash_main_net">Akash Mainnet</string>
-    <string name="str_okex_main_net">Okex Mainnet</string>
-    <string name="str_sentinel_main_net">Sentinel Mainnet</string>
-    <string name="str_fetch_main_net">Fetch.ai Mainnet</string>
-    <string name="str_crypto_main_net">Crypto.org Mainnet</string>
-    <string name="str_sif_main_net">SifChain Mainnet</string>
-    <string name="str_ki_main_net">Ki Foundation Mainnet</string>
-    <string name="str_osmosis_main_net">Osmosis Mainnet</string>
-    <string name="str_medi_main_net">Medibloc Mainnet</string>
-    <string name="str_emoney_main_net">Emoney Mainnet</string>
-    <string name="str_rizon_main_net">Rizon Mainnet</string>
-    <string name="str_juno_main_net">Juno Mainnet</string>
-    <string name="str_regen_main_net">Regen Mainnet</string>
-    <string name="str_bitcanna_main_net">Bitcanna Mainnet</string>
-    <string name="str_althea_main_net">Althea Mainnet</string>
-    <string name="str_stargaze_main_net">Stargaze Mainnet</string>
-    <string name="str_grabridge_main_net">Gravity Bridge Mainnet</string>
+    <string name="str_iris_main_net">Iris</string>
+    <string name="str_bnb_main_net">Binance</string>
+    <string name="str_iov_main_net">Starname</string>
+    <string name="str_kava_main_net">Kava</string>
+    <string name="str_band_main_net">Band</string>
+    <string name="str_persis_main_net">Persistence</string>
+    <string name="str_secret_main_net">Secret</string>
+    <string name="str_certik_main_net">Certik</string>
+    <string name="str_akash_main_net">Akash</string>
+    <string name="str_okex_main_net">Okex</string>
+    <string name="str_sentinel_main_net">Sentinel</string>
+    <string name="str_fetch_main_net">Fetch.ai</string>
+    <string name="str_crypto_main_net">Crypto.org</string>
+    <string name="str_sif_main_net">SifChain</string>
+    <string name="str_ki_main_net">Ki Foundation</string>
+    <string name="str_osmosis_main_net">Osmosis</string>
+    <string name="str_medi_main_net">Medibloc</string>
+    <string name="str_emoney_main_net">Emoney</string>
+    <string name="str_rizon_main_net">Rizon</string>
+    <string name="str_juno_main_net">Juno</string>
+    <string name="str_regen_main_net">Regen</string>
+    <string name="str_bitcanna_main_net">Bitcanna</string>
+    <string name="str_althea_main_net">Althea</string>
+    <string name="str_stargaze_main_net">Stargaze</string>
+    <string name="str_grabridge_main_net">Gravity Bridge</string>
     <string name="str_cosmos_test_net">StarGate Testnet</string>
     <string name="str_iris_test_net">Bifrost Testnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
@@ -387,70 +387,70 @@
     <string name="str_permission_push">Need permission for Phone State for push alaram service</string>
     <string name="str_gaia_12k">(testnet gaia - 12k)</string>
     <string name="str_gaia_13k">(testnet gaia - 13k)</string>
-    <string name="str_cosmos_hub" translatable="false">(Cosmos Mainnet)</string>
-    <string name="str_cosmos_hub_2" translatable="false">Cosmos Mainnet</string>
+    <string name="str_cosmos_hub" translatable="false">(Cosmos)</string>
+    <string name="str_cosmos_hub_2" translatable="false">Cosmos</string>
     <string name="str_cosmos_testnet" translatable="false">(Stargate Testnet)</string>
     <string name="str_cosmos_testnet_2" translatable="false">Stargate Testnet</string>
-    <string name="str_iris_net" translatable="false">(Iris Mainnet)</string>
-    <string name="str_iris_net_2" translatable="false">Iris Mainnet</string>
+    <string name="str_iris_net" translatable="false">(Iris)</string>
+    <string name="str_iris_net_2" translatable="false">Iris</string>
     <string name="str_iris_testnet" translatable="false">(Bifrost Testnet)</string>
     <string name="str_iris_testnet_2" translatable="false">Bifrost Testnet</string>
-    <string name="str_binance_net" translatable="false">(Binance Mainnet)</string>
-    <string name="str_binance_net_2" translatable="false">Binance Mainnet</string>
+    <string name="str_binance_net" translatable="false">(Binance)</string>
+    <string name="str_binance_net_2" translatable="false">Binance</string>
     <string name="str_binance_test_net" translatable="false">(Binance Testnet)</string>
     <string name="str_binance_test_net_2" translatable="false">Binance Testnet</string>
-    <string name="str_iov_net" translatable="false">(Starname Mainnet)</string>
-    <string name="str_iov_net_2" translatable="false">Starname Mainnet</string>
-    <string name="str_band_chain" translatable="false">(Band Mainnet)</string>
-    <string name="str_band_chain_2" translatable="false">Band Mainnet</string>
-    <string name="str_kava_net" translatable="false">(Kava Mainnet)</string>
-    <string name="str_kava_net_2" translatable="false">Kava Mainnet</string>
+    <string name="str_iov_net" translatable="false">(Starname)</string>
+    <string name="str_iov_net_2" translatable="false">Starname</string>
+    <string name="str_band_chain" translatable="false">(Band)</string>
+    <string name="str_band_chain_2" translatable="false">Band</string>
+    <string name="str_kava_net" translatable="false">(Kava)</string>
+    <string name="str_kava_net_2" translatable="false">Kava</string>
     <string name="str_kava_net_test" translatable="false">(Kava Testnet)</string>
     <string name="str_kava_net_test_2" translatable="false">Kava Testnet</string>
     <string name="str_iov_net_test" translatable="false">(Starname Testnet)</string>
     <string name="str_iov_net_test_2" translatable="false">Starname Testnet</string>
-    <string name="str_ok_net" translatable="false">(Okex Mainnet)</string>
-    <string name="str_ok_net2" translatable="false">Okex Mainnet</string>
+    <string name="str_ok_net" translatable="false">(Okex)</string>
+    <string name="str_ok_net2" translatable="false">Okex</string>
     <string name="str_ok_net_test" translatable="false">(Okex Testnet)</string>
     <string name="str_ok_net_test_2" translatable="false">Okex Testnet</string>
-    <string name="str_certik_chain" translatable="false">(Certik Mainnet)</string>
-    <string name="str_certik_chain_2" translatable="false">Certik Mainnet</string>
+    <string name="str_certik_chain" translatable="false">(Certik)</string>
+    <string name="str_certik_chain_2" translatable="false">Certik</string>
     <string name="str_certik_chain_test" translatable="false">(Certik Testnet)</string>
     <string name="str_certik_chain_test_2" translatable="false">Certik Testnet</string>
-    <string name="str_secret_chain" translatable="false">(Secret Mainnet)</string>
-    <string name="str_secret_chain_2" translatable="false">Secret Mainnet</string>
-    <string name="str_akash_chain" translatable="false">(Akash Mainnet)</string>
-    <string name="str_akash_chain_2" translatable="false">Akash Mainnet</string>
-    <string name="str_persis_net" translatable="false">(Persistence Mainnet)</string>
-    <string name="str_persis_net2" translatable="false">Persistence Mainnet</string>
-    <string name="str_sentinel_net" translatable="false">(Sentinel Mainnet)</string>
-    <string name="str_sentinel_net2" translatable="false">Sentinel Mainnet</string>
-    <string name="str_fetch_net" translatable="false">(Fetch.ai Mainnet)</string>
-    <string name="str_fetch_net2" translatable="false">Fetch.ai Mainnet</string>
-    <string name="str_crypto_net" translatable="false">(Crypto.org Mainnet)</string>
-    <string name="str_crypto_net2" translatable="false">Crypto.org Mainnet</string>
-    <string name="str_sif_net" translatable="false">(SifChain Mainnet)</string>
-    <string name="str_sif_net2" translatable="false">SifChain Mainnet</string>
-    <string name="str_ki_net" translatable="false">(Ki Foundation Mainnet)</string>
-    <string name="str_ki_net2" translatable="false">Ki Foundation Mainnet</string>
-    <string name="str_osmosis_net" translatable="false">(Osmosis Mainnet)</string>
-    <string name="str_osmosis_net2" translatable="false">Osmosis Mainnet</string>
-    <string name="str_medi_net" translatable="false">(Medibloc Mainnet)</string>
-    <string name="str_medi_net2" translatable="false">Medibloc Mainnet</string>
-    <string name="str_rizon_net" translatable="false">(Rizon Mainnet)</string>
-    <string name="str_rizon_net2" translatable="false">Rizon Mainnet</string>
-    <string name="str_regen_net" translatable="false">(Regen Mainnet)</string>
-    <string name="str_regen_net2" translatable="false">Regen Mainnet</string>
-    <string name="str_juno_net" translatable="false">(Juno Mainnet)</string>
-    <string name="str_juno_net2" translatable="false">Juno Mainnet</string>
-    <string name="str_bitcanna_net" translatable="false">(Bitcanna Mainnet)</string>
-    <string name="str_bitcanna_net2" translatable="false">Bitcanna Mainnet</string>
-    <string name="str_althea_net" translatable="false">(Althea Mainnet)</string>
-    <string name="str_althea_net2" translatable="false">Althea Mainnet</string>
-    <string name="str_stargaze_net" translatable="false">(Stargaze Mainnet)</string>
-    <string name="str_stargaze_net2" translatable="false">Stargaze Mainnet</string>
-    <string name="str_grabridge_net" translatable="false">(G-Bridge Mainnet)</string>
-    <string name="str_grabridge_net2" translatable="false">G-Bridge Mainnet</string>
+    <string name="str_secret_chain" translatable="false">(Secret)</string>
+    <string name="str_secret_chain_2" translatable="false">Secret</string>
+    <string name="str_akash_chain" translatable="false">(Akash)</string>
+    <string name="str_akash_chain_2" translatable="false">Akash</string>
+    <string name="str_persis_net" translatable="false">(Persistence)</string>
+    <string name="str_persis_net2" translatable="false">Persistence</string>
+    <string name="str_sentinel_net" translatable="false">(Sentinel)</string>
+    <string name="str_sentinel_net2" translatable="false">Sentinel</string>
+    <string name="str_fetch_net" translatable="false">(Fetch.ai)</string>
+    <string name="str_fetch_net2" translatable="false">Fetch.ai</string>
+    <string name="str_crypto_net" translatable="false">(Crypto.org)</string>
+    <string name="str_crypto_net2" translatable="false">Crypto.org</string>
+    <string name="str_sif_net" translatable="false">(SifChain)</string>
+    <string name="str_sif_net2" translatable="false">SifChain</string>
+    <string name="str_ki_net" translatable="false">(Ki Foundation)</string>
+    <string name="str_ki_net2" translatable="false">Ki Foundation</string>
+    <string name="str_osmosis_net" translatable="false">(Osmosis)</string>
+    <string name="str_osmosis_net2" translatable="false">Osmosis</string>
+    <string name="str_medi_net" translatable="false">(Medibloc)</string>
+    <string name="str_medi_net2" translatable="false">Medibloc</string>
+    <string name="str_rizon_net" translatable="false">(Rizon)</string>
+    <string name="str_rizon_net2" translatable="false">Rizon</string>
+    <string name="str_regen_net" translatable="false">(Regen)</string>
+    <string name="str_regen_net2" translatable="false">Regen</string>
+    <string name="str_juno_net" translatable="false">(Juno)</string>
+    <string name="str_juno_net2" translatable="false">Juno</string>
+    <string name="str_bitcanna_net" translatable="false">(Bitcanna)</string>
+    <string name="str_bitcanna_net2" translatable="false">Bitcanna</string>
+    <string name="str_althea_net" translatable="false">(Althea)</string>
+    <string name="str_althea_net2" translatable="false">Althea</string>
+    <string name="str_stargaze_net" translatable="false">(Stargaze)</string>
+    <string name="str_stargaze_net2" translatable="false">Stargaze</string>
+    <string name="str_grabridge_net" translatable="false">(G-Bridge)</string>
+    <string name="str_grabridge_net2" translatable="false">G-Bridge</string>
     <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
@@ -461,8 +461,8 @@
     <string name="str_umee_chain_test_2" translatable="false">Umee Testnet</string>
     <string name="str_axelar_chain_test" translatable="false">(Axelar Testnet)</string>
     <string name="str_axelar_chain_test_2" translatable="false">Axelar Testnet</string>
-    <string name="str_emoney_net" translatable="false">(E-Money Mainnet)</string>
-    <string name="str_emoney_net2" translatable="false">E-Money Mainnet</string>
+    <string name="str_emoney_net" translatable="false">(E-Money)</string>
+    <string name="str_emoney_net2" translatable="false">E-Money</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
