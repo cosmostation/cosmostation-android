@@ -103,7 +103,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
         if (isGRPC(getSActivity().mBaseChain)) {
             if (getSActivity().mDenom.startsWith("ibc/")) {
-                mDpDecimal = WUtil.getIbcDecimal(getSActivity().mDenom);
+                mDpDecimal = WUtil.getIbcDecimal(getBaseDao(), getSActivity().mDenom);
             } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
                 mDpDecimal = WUtil.getSifCoinDecimal(getBaseDao(), getSActivity().mDenom);
             } else {
@@ -112,11 +112,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             setDisplayDecimals(mDpDecimal);
             if (toSendDenom.equals(mainDenom)) {
                 mMaxAvailable = getBaseDao().getAvailable(toSendDenom).subtract(feeAmount);
-                WDp.showCoinDp(getContext(), toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
+                WDp.showCoinDp(getContext(), getBaseDao(), toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
 
             } else {
                 mMaxAvailable = getBaseDao().getAvailable(toSendDenom);
-                WDp.showCoinDp(getContext(), toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
+                WDp.showCoinDp(getContext(), getBaseDao(), toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
             }
 
         } else {
@@ -138,7 +138,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             } else {
                 mMaxAvailable = getBaseDao().availableAmount(toSendDenom);
             }
-            WDp.showCoinDp(getContext(), toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
+            WDp.showCoinDp(getContext(), getBaseDao(), toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
 
         }
         onAddAmountWatcher();

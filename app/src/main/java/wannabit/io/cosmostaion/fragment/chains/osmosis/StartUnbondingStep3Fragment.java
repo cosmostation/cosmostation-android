@@ -78,7 +78,7 @@ public class StartUnbondingStep3Fragment extends BaseFragment implements View.On
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mUnbondingIds.setText(ids);
-        WDp.showCoinDp(getSActivity(), toUnbondingDenom, toUnbondingAmount.toPlainString(), mUnbondingSymbol, mUnbondingAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), toUnbondingDenom, toUnbondingAmount.toPlainString(), mUnbondingSymbol, mUnbondingAmount, BaseChain.OSMOSIS_MAIN);
         if (toUnbondingDuration == 86400) {
             mUnbondingDuraion.setText("1 Day");
         } else if (toUnbondingDuration == 604800) {

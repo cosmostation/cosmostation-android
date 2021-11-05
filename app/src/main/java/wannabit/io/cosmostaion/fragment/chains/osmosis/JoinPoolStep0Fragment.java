@@ -139,16 +139,16 @@ public class JoinPoolStep0Fragment extends BaseFragment implements View.OnClickL
         mAvailable1MaxAmount = getBaseDao().getAvailable(coin1Denom);
         if (coin1Denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { mAvailable1MaxAmount = mAvailable1MaxAmount.subtract(txFeeAmount); }
 
-        mCoin0Decimal = WUtil.getOsmosisCoinDecimal(coin0Denom);
-        mCoin1Decimal = WUtil.getOsmosisCoinDecimal(coin1Denom);
+        mCoin0Decimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), coin0Denom);
+        mCoin1Decimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), coin1Denom);
         setDpDecimals(mCoin0Decimal, mCoin1Decimal);
 
-        WUtil.DpOsmosisTokenImg(mJoinPoolInput0Img, coin0Denom);
-        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInput0Symbol, coin0Denom);
-        WUtil.DpOsmosisTokenImg(mJoinPoolInput1Img, coin1Denom);
-        WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInput1Symbol, coin1Denom);
-        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInput0Denom, coin0Denom), mAvailable0MaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mJoinPoolInput1Denom, coin1Denom), mAvailable1MaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount, BaseChain.OSMOSIS_MAIN);
+        WUtil.DpOsmosisTokenImg(getBaseDao(), mJoinPoolInput0Img, coin0Denom);
+        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mJoinPoolInput0Symbol, coin0Denom);
+        WUtil.DpOsmosisTokenImg(getBaseDao(), mJoinPoolInput1Img, coin1Denom);
+        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mJoinPoolInput1Symbol, coin1Denom);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mJoinPoolInput0Denom, coin0Denom), mAvailable0MaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mJoinPoolInput1Denom, coin1Denom), mAvailable1MaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount, BaseChain.OSMOSIS_MAIN);
 
         BigDecimal coin0Amount = new BigDecimal(getSActivity().mOsmosisPool.getPoolAssets(0).getToken().getAmount());
         BigDecimal coin1Amount = new BigDecimal(getSActivity().mOsmosisPool.getPoolAssets(1).getToken().getAmount());

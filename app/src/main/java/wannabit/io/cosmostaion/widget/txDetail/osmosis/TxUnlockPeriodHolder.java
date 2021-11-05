@@ -55,7 +55,7 @@ public class TxUnlockPeriodHolder extends TxHolder {
                 }
             }
             if (coin != null) {
-                WDp.showCoinDp(c, coin, itemUnLockPeriodAmountSymbol,itemUnLockPeriodAmount, baseChain);
+                WDp.showCoinDp(c, baseData, coin, itemUnLockPeriodAmountSymbol,itemUnLockPeriodAmount, baseChain);
             }
         } catch (Exception e) { }
     }

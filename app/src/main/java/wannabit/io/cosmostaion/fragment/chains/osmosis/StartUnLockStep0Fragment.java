@@ -63,7 +63,7 @@ public class StartUnLockStep0Fragment extends BaseFragment implements View.OnCli
             toUnlockAmount = toUnlockAmount.add(new BigDecimal(lockup.getCoins(0).getAmount()));
         }
         mToUnLockIds.setText(ids);
-        WDp.showCoinDp(getSActivity(), toUnlockDenom, toUnlockAmount.toPlainString(), mToUnLockDenom, mToUnLockAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), toUnlockDenom, toUnlockAmount.toPlainString(), mToUnLockDenom, mToUnLockAmount, BaseChain.OSMOSIS_MAIN);
     }
 
     @Override

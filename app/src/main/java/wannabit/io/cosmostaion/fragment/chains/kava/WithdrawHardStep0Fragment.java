@@ -89,7 +89,7 @@ public class WithdrawHardStep0Fragment extends BaseFragment implements View.OnCl
         setDpDecimals(mDpDecimal);
 
         mMaxAvailable = WUtil.getHardSuppliedAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom, getBaseDao().mMyHardDeposit);
-        WDp.showCoinDp(getContext(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mWithdrawDenomTx, mDWithdrawMaxTx, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mWithdrawDenomTx, mDWithdrawMaxTx, getSActivity().mBaseChain);
 
         if (mHardMoneyMarketDenom.equals(TOKEN_KAVA)) {
             WDp.DpMainDenom(getSActivity(), getSActivity().mBaseChain.getChain(), mWithdrawSymbol);

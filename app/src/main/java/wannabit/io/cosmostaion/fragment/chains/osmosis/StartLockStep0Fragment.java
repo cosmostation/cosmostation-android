@@ -86,7 +86,7 @@ public class StartLockStep0Fragment extends BaseFragment implements View.OnClick
         mAvailableMaxAmount = getBaseDao().getAvailable(mLpDenom);
         setDpDecimals(mCoinDecimal);
 
-        WDp.showCoinDp(getSActivity(), mLpDenom, mAvailableMaxAmount.toString(), mLpCoinDenom, mLpCoinAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), mLpDenom, mAvailableMaxAmount.toString(), mLpCoinDenom, mLpCoinAmount, BaseChain.OSMOSIS_MAIN);
         onAddAmountWatcher();
     }
 

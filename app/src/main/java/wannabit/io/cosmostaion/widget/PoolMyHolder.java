@@ -64,16 +64,16 @@ public class PoolMyHolder extends BaseHolder {
         Coin coin0 = new Coin(myPool.getPoolAssets(0).getToken().getDenom(), myPool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(myPool.getPoolAssets(1).getToken().getDenom(), myPool.getPoolAssets(1).getToken().getAmount());
 
-        itemMyPoolType.setText("#" + myPool.getId() + " " + WUtil.dpOsmosisTokenName(coin0.denom) + "/" + WUtil.dpOsmosisTokenName(coin1.denom));
+        itemMyPoolType.setText("#" + myPool.getId() + " " + WUtil.dpOsmosisTokenName(baseData, coin0.denom) + "/" + WUtil.dpOsmosisTokenName(baseData, coin1.denom));
 
         // Total deposit
-        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(coin0.denom));
-        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WUtil.getOsmosisCoinDecimal(coin1.denom));
+        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(baseData, coin0.denom));
+        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WUtil.getOsmosisCoinDecimal(baseData, coin1.denom));
         BigDecimal PoolValue = coin0Value.add(coin1Value);
         itemMyTotalDepositValue.setText(WDp.getDpRawDollor(context, PoolValue, 2));
 
-        WDp.showCoinDp(context, coin0, itemMyTotalDepositSymbol0, itemMyTotalDepositAmount0, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(context, coin1, itemMyTotalDepositSymbol1, itemMyTotalDepositAmount1, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(context, baseData, coin0, itemMyTotalDepositSymbol0, itemMyTotalDepositAmount0, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(context, baseData, coin1, itemMyTotalDepositSymbol1, itemMyTotalDepositAmount1, BaseChain.OSMOSIS_MAIN);
 
         //deposit
         BigDecimal lpCoin = baseData.getAvailable("gamm/pool/" + myPool.getId());
@@ -84,8 +84,8 @@ public class PoolMyHolder extends BaseHolder {
         BigDecimal coin0MyShareAmount = WUtil.getMyShareLpAmount(baseData, myPool, coin0.denom);
         BigDecimal coin1MyShareAmount = WUtil.getMyShareLpAmount(baseData, myPool, coin1.denom);
 
-        WDp.showCoinDp(context, coin0.denom, coin0MyShareAmount.toPlainString(), itemMyDepositSymbol0, itemMyDepositAmount0, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(context, coin1.denom, coin1MyShareAmount.toPlainString(), itemMyDepositSymbol1, itemMyDepositAmount1, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(context, baseData, coin0.denom, coin0MyShareAmount.toPlainString(), itemMyDepositSymbol0, itemMyDepositAmount0, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(context, baseData, coin1.denom, coin1MyShareAmount.toPlainString(), itemMyDepositSymbol1, itemMyDepositAmount1, BaseChain.OSMOSIS_MAIN);
 
         // available
         BigDecimal availableCoin0 = baseData.getAvailable(coin0.denom);
@@ -93,8 +93,8 @@ public class PoolMyHolder extends BaseHolder {
         BigDecimal availableCoin1 = baseData.getAvailable(coin1.denom);
         Coin Coin1 = new Coin(myPool.getPoolAssets(1).getToken().getDenom(), availableCoin1.toPlainString());
 
-        WDp.showCoinDp(context, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(context, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(context, baseData, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(context, baseData, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1, BaseChain.OSMOSIS_MAIN);
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,8 +196,8 @@ public class PoolMyHolder extends BaseHolder {
         BigDecimal availableCoin1 = baseData.getAvailable(coin1Denom);
         Coin Coin1 = new Coin(coin1Denom, availableCoin1.toPlainString());
 
-        WDp.showCoinDp(context, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0, BaseChain.COSMOS_MAIN);
-        WDp.showCoinDp(context, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1, BaseChain.COSMOS_MAIN);
+        WDp.showCoinDp(context, baseData, Coin0, itemMyAvailableSymbol0, itemMyAvailableAmount0, BaseChain.COSMOS_MAIN);
+        WDp.showCoinDp(context, baseData, Coin1, itemMyAvailableSymbol1, itemMyAvailableAmount1, BaseChain.COSMOS_MAIN);
 
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override

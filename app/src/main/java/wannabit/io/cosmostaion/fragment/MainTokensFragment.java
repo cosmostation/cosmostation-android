@@ -341,7 +341,7 @@ public class MainTokensFragment extends BaseFragment {
             if (coin.denom.equalsIgnoreCase(mainDenom)) {
                 mNativeGrpc.add(coin);
             } else if (coin.isIbc()) {
-                final IbcToken ibcToken = BaseData.getIbcToken(coin.getIbcHash());
+                final IbcToken ibcToken = getBaseDao().getIbcToken(coin.getIbcHash());
                 if (ibcToken != null && ibcToken.auth) {
                     mIbcAuthedGrpc.add(coin);
                 } else {

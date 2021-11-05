@@ -67,7 +67,7 @@ public class StartUnbondingStep0Fragment extends BaseFragment implements View.On
         }
 
         mToUnbondingIds.setText(ids);
-        WDp.showCoinDp(getSActivity(), toUnbondingDenom, toUnbondingAmount.toPlainString(), mToUnbondingDenom, mToUnbondingAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), toUnbondingDenom, toUnbondingAmount.toPlainString(), mToUnbondingDenom, mToUnbondingAmount, BaseChain.OSMOSIS_MAIN);
         if (toUnbondingDuration == 86400) {
             mToUnbondingDuration.setText("1 Day");
         } else if (toUnbondingDuration == 604800) {

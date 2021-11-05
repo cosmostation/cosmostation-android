@@ -125,7 +125,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
         WLog.w("mCurrentPrice " + mCurrentPrice);
 
         mCanDepositMaxMaxAmount = getSActivity().getcAvailable();
-        WDp.showCoinDp(getContext(), mCollateralDenom, mCanDepositMaxMaxAmount.toPlainString(), mCollateralDenomTx, mCollateralMaxTx, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), mCollateralDenom, mCanDepositMaxMaxAmount.toPlainString(), mCollateralDenomTx, mCollateralMaxTx, getSActivity().mBaseChain);
 
         mCurrentTotalDebetAmount = getOwenCdp().getPrincipalAmount().add(getOwenCdp().getAccumulatedFees());
         BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(getContext(), mCurrentTotalDebetAmount, getCParam(), getOwenCdp().cdp);

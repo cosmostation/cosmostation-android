@@ -191,7 +191,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
             if (isGRPC(mChain)) {
                 holder.coinLayer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
+                WDp.showCoinDp(getBaseContext(), getBaseDao(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 new BalanceGrpcTask(getBaseApplication(), new TaskListener() {
                     @Override
                     public void onTaskResponse(TaskResult result) {
@@ -200,7 +200,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         if (balances != null && balances.size() > 0) {
                             for (CoinOuterClass.Coin balance: balances) {
                                 if (balance.getDenom().equals(WDp.mainDenom(mChain))) {
-                                    WDp.showCoinDp(getBaseContext(), balance.getDenom(), balance.getAmount(), holder.coinDenom, holder.coinAmount, mChain);
+                                    WDp.showCoinDp(getBaseContext(), getBaseDao(), balance.getDenom(), balance.getAmount(), holder.coinDenom, holder.coinAmount, mChain);
                                 }
                             }
                         }
@@ -228,7 +228,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
             } else if (mChain.equals(KAVA_MAIN)) {
                 holder.coinLayer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
+                WDp.showCoinDp(getBaseContext(), getBaseDao(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getKavaChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
@@ -236,7 +236,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                             ArrayList<Coin> coins = response.body().result.value.coins ;
                             for (Coin coin: coins) {
                                 if (coin.denom.equals(WDp.mainDenom(mChain))) {
-                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                    WDp.showCoinDp(getBaseContext(), getBaseDao(), coin, holder.coinDenom, holder.coinAmount, mChain);
                                 }
                             }
                         }
@@ -304,7 +304,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
             } else if (mChain.equals(SECRET_MAIN)) {
                 holder.coinLayer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
+                WDp.showCoinDp(getBaseContext(), getBaseDao(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getSecretChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
@@ -312,7 +312,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                             ArrayList<Coin> coins = response.body().result.value.coins ;
                             for (Coin coin: coins) {
                                 if (coin.denom.equals(WDp.mainDenom(mChain))) {
-                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                    WDp.showCoinDp(getBaseContext(), getBaseDao(), coin, holder.coinDenom, holder.coinAmount, mChain);
                                 }
                             }
                         }
@@ -323,7 +323,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
             } else if (mChain.equals(KI_MAIN)) {
                 holder.coinLayer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
+                WDp.showCoinDp(getBaseContext(), getBaseDao(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getKiChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
@@ -331,7 +331,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                             ArrayList<Coin> coins = response.body().result.value.coins ;
                             for (Coin coin: coins) {
                                 if (coin.denom.equals(WDp.mainDenom(mChain))) {
-                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                    WDp.showCoinDp(getBaseContext(), getBaseDao(), coin, holder.coinDenom, holder.coinAmount, mChain);
                                 }
                             }
                         }

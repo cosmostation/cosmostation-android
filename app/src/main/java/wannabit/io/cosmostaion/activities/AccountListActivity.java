@@ -125,6 +125,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                             @Override
                             public void run() {
                                 onChainSelect(chain);
+                                getBaseDao().setUserSortedChains(mDisplayChains);
                             }
                         },150);
                     }

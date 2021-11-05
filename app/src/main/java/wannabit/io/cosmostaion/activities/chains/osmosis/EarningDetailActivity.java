@@ -117,7 +117,7 @@ public class EarningDetailActivity extends BaseActivity implements View.OnClickL
         } else {
             mPoolIdTv.setText("#" + mPool.getId() + " EARNING");
         }
-        mPoolCoinPairTv.setText(WUtil.dpOsmosisTokenName(coin0.denom) + " / " + WUtil.dpOsmosisTokenName(coin1.denom));
+        mPoolCoinPairTv.setText(WUtil.dpOsmosisTokenName(getBaseDao(), coin0.denom) + " / " + WUtil.dpOsmosisTokenName(getBaseDao(), coin1.denom));
 
         mPoolAprsTv1.setText(WDp.getPercentDp(apr1));
         mPoolAprsTv7.setText(WDp.getPercentDp(apr7));

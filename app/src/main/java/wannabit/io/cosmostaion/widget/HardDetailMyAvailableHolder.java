@@ -68,7 +68,7 @@ public class HardDetailMyAvailableHolder extends BaseHolder {
             targetPrice = BigDecimal.ONE;
         }
         BigDecimal targetValue = targetAvailable.movePointLeft(WUtil.getKavaCoinDecimal(denom)).multiply(targetPrice);
-        WDp.showCoinDp(context, denom, targetAvailable.toPlainString(), mAssetDepositDenom, mAssetDepositAmount, chain);
+        WDp.showCoinDp(context, baseData, denom, targetAvailable.toPlainString(), mAssetDepositDenom, mAssetDepositAmount, chain);
         mDepositValue.setText(WDp.getDpRawDollor(context, targetValue, 2));
 
 
@@ -77,7 +77,7 @@ public class HardDetailMyAvailableHolder extends BaseHolder {
         if (kavaPrice != null) {
             kavaValue = kavaAvailable.movePointLeft(6).multiply(new BigDecimal(kavaPrice.price));
         }
-        WDp.showCoinDp(context, TOKEN_KAVA, kavaAvailable.toPlainString(), mAssetKavaDenom, mAssetKavaAmount, chain);
+        WDp.showCoinDp(context, baseData, TOKEN_KAVA, kavaAvailable.toPlainString(), mAssetKavaDenom, mAssetKavaAmount, chain);
         mKavaValue.setText(WDp.getDpRawDollor(context, kavaValue, 2));
 
         try {

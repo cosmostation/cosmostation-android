@@ -79,22 +79,22 @@ public class TxTransferHolder extends TxHolder {
             }
             itemMultiCoinLayer.setVisibility(View.VISIBLE);
             itemAmountLayer0.setVisibility(View.VISIBLE);
-            WDp.showCoinDp(c, toDpCoin.get(0), itemAmountDenom0, itemAmount0, baseChain);
+            WDp.showCoinDp(c, baseData, toDpCoin.get(0), itemAmountDenom0, itemAmount0, baseChain);
             if (toDpCoin.size() > 1) {
                 itemAmountLayer1.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(c, toDpCoin.get(1), itemAmountDenom1, itemAmount1, baseChain);
+                WDp.showCoinDp(c, baseData, toDpCoin.get(1), itemAmountDenom1, itemAmount1, baseChain);
             }
             if (toDpCoin.size() > 2) {
                 itemAmountLayer2.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(c, toDpCoin.get(2), itemAmountDenom2, itemAmount2, baseChain);
+                WDp.showCoinDp(c, baseData, toDpCoin.get(2), itemAmountDenom2, itemAmount2, baseChain);
             }
             if (toDpCoin.size() > 3) {
                 itemAmountLayer3.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(c, toDpCoin.get(3), itemAmountDenom1, itemAmount3, baseChain);
+                WDp.showCoinDp(c, baseData, toDpCoin.get(3), itemAmountDenom1, itemAmount3, baseChain);
             }
             if (toDpCoin.size() > 4) {
                 itemAmountLayer4.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(c, toDpCoin.get(4), itemAmountDenom4, itemAmount4, baseChain);
+                WDp.showCoinDp(c, baseData, toDpCoin.get(4), itemAmountDenom4, itemAmount4, baseChain);
             }
         } catch (Exception e) {}
     }

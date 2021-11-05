@@ -50,7 +50,7 @@ public class TxIBCReceiveHolder extends TxHolder {
             itemIbcFromAddress.setText(jsonObject.getString("sender"));
 
             Coin receivedCoin = new Coin(jsonObject.getString("denom"), jsonObject.getString("amount"));
-            WDp.showCoinDp(c, receivedCoin, itemIbcAmountDenom, itemIbcAmount, baseChain);
+            WDp.showCoinDp(c, baseData, receivedCoin, itemIbcAmountDenom, itemIbcAmount, baseChain);
         } catch (Exception e) {}
     }
 }

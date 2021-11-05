@@ -44,8 +44,8 @@ public class TxAddLiquidityHolder extends TxHolder {
             Coin nativeCoin = new Coin(BaseConstant.TOKEN_SIF, msg.getNativeAssetAmount());
             Coin externalCoin = new Coin(msg.getExternalAsset().getSymbol(), msg.getExternalAssetAmount());
 
-            WDp.showCoinDp(c, nativeCoin, itemALNativeAssetSymbol, itemALNativeAssetAmount, baseChain);
-            WDp.showCoinDp(c, externalCoin, itemALExternalAssetSymbol, itemALExternalAssetlAmount, baseChain);
+            WDp.showCoinDp(c, baseData, nativeCoin, itemALNativeAssetSymbol, itemALNativeAssetAmount, baseChain);
+            WDp.showCoinDp(c, baseData, externalCoin, itemALExternalAssetSymbol, itemALExternalAssetlAmount, baseChain);
 
         } catch (Exception e) {
             WLog.w("Exception " + e.getMessage());

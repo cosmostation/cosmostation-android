@@ -1373,19 +1373,19 @@ public class WUtil {
         return 6;
     }
 
-    public static int getOsmosisCoinDecimal(String denom) {
+    public static int getOsmosisCoinDecimal(BaseData baseData, String denom) {
         if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) { return 6; }
         else if (denom.equalsIgnoreCase(TOKEN_ION)) { return 6; }
         else if (denom.startsWith("gamm/pool/")) { return 18; }
         else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken.auth == true) { return ibcToken.decimal; }
         }
         return 6;
     }
 
-    public static int getIbcDecimal(String denom) {
-        IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+    public static int getIbcDecimal(BaseData baseData, String denom) {
+        IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
         if (ibcToken.auth) { return ibcToken.decimal; }
         else { return 6; }
     }
@@ -1406,7 +1406,7 @@ public class WUtil {
             }
 
         } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken.auth == true) {
                 return ibcToken.display_denom.toUpperCase();
             } else {
@@ -1432,7 +1432,7 @@ public class WUtil {
 
         } else if (denom.startsWith("ibc/")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken.auth == true) {
                 textView.setText(ibcToken.display_denom.toUpperCase());
             } else {
@@ -1475,7 +1475,7 @@ public class WUtil {
         return denom;
     }
 
-    public static String dpOsmosisTokenName(String denom) {
+    public static String dpOsmosisTokenName(BaseData baseData, String denom) {
         if (denom.equals(TOKEN_OSMOSIS)) {
             return "OSMO";
 
@@ -1487,7 +1487,7 @@ public class WUtil {
             return "GAMM-" + split[split.length - 1];
 
         } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken.auth == true) {
                 return ibcToken.display_denom.toUpperCase();
             } else {
@@ -1497,7 +1497,7 @@ public class WUtil {
         return denom;
     }
 
-    public static String dpOsmosisTokenName(Context c, TextView textView, String denom) {
+    public static String dpOsmosisTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom.equals(TOKEN_OSMOSIS)) {
             textView.setTextColor(c.getResources().getColor(R.color.colorOsmosis));
             textView.setText("OSMO");
@@ -1513,7 +1513,7 @@ public class WUtil {
 
         } else if (denom.startsWith("ibc/")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken.auth == true) {
                 textView.setText(ibcToken.display_denom.toUpperCase());
             } else {
@@ -1523,12 +1523,12 @@ public class WUtil {
         return denom;
     }
 
-    public static String dpSifTokenName(String denom) {
+    public static String dpSifTokenName(BaseData baseData, String denom) {
         if (denom.equalsIgnoreCase(TOKEN_SIF)) {
             return "ROWAN";
 
         } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken.auth == true) {
                 return ibcToken.display_denom.toUpperCase();
             } else {
@@ -1542,7 +1542,7 @@ public class WUtil {
         return denom;
     }
 
-    public static String dpSifTokenName(Context c, TextView textView, String denom) {
+    public static String dpSifTokenName(Context c, BaseData baseData, TextView textView, String denom) {
         if (denom.equals(TOKEN_SIF)) {
             textView.setTextColor(c.getResources().getColor(R.color.colorSif));
             textView.setText("ROWAN");
@@ -1553,7 +1553,7 @@ public class WUtil {
 
         } else if (denom.startsWith("ibc/")) {
             textView.setTextColor(c.getResources().getColor(R.color.colorWhite));
-            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken.auth == true) {
                 textView.setText(ibcToken.display_denom.toUpperCase());
             } else {
@@ -1579,14 +1579,14 @@ public class WUtil {
                 imageView.setImageResource(R.drawable.token_gravitydex);
             }
         } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             try {
                 Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
             } catch (Exception e){}
         }
     }
 
-    public static void DpOsmosisTokenImg(ImageView imageView, String denom) {
+    public static void DpOsmosisTokenImg(BaseData baseData, ImageView imageView, String denom) {
         if (denom.equalsIgnoreCase(TOKEN_OSMOSIS)) {
             Picasso.get().cancelRequest(imageView);
             imageView.setImageResource(R.drawable.token_osmosis);
@@ -1595,21 +1595,21 @@ public class WUtil {
         } else if (denom.startsWith("gamm/pool/")) {
             imageView.setImageResource(R.drawable.token_pool);
         } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             try {
                 Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
             } catch (Exception e){}
         }
     }
 
-    public static void DpSifTokenImg(ImageView imageView, String denom) {
+    public static void DpSifTokenImg(BaseData baseData, ImageView imageView, String denom) {
         if (denom.equalsIgnoreCase(TOKEN_SIF)) {
             Picasso.get().cancelRequest(imageView);
             imageView.setImageResource(R.drawable.tokensifchain);
         } else if (denom.startsWith("c")) {
             Picasso.get().load(SIF_COIN_IMG_URL + denom + ".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(imageView);
         } else if (denom.startsWith("ibc/")) {
-            IbcToken ibcToken = BaseData.getIbcToken(denom.replaceAll("ibc/", ""));
+            IbcToken ibcToken = baseData.getIbcToken(denom.replaceAll("ibc/", ""));
             try {
                 Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(imageView);
             } catch (Exception e){}
@@ -1727,8 +1727,8 @@ public class WUtil {
     public static BigDecimal getPoolValue(BaseData baseData, PoolOuterClass.Pool pool) {
         Coin coin0 = new Coin(pool.getPoolAssets(0).getToken().getDenom(), pool.getPoolAssets(0).getToken().getAmount());
         Coin coin1 = new Coin(pool.getPoolAssets(1).getToken().getDenom(), pool.getPoolAssets(1).getToken().getAmount());
-        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(coin0.denom));
-        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WUtil.getOsmosisCoinDecimal(coin1.denom));
+        BigDecimal coin0Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin0.denom), new BigDecimal(coin0.amount), WUtil.getOsmosisCoinDecimal(baseData, coin0.denom));
+        BigDecimal coin1Value = WDp.usdValue(baseData, baseData.getBaseDenom(coin1.denom), new BigDecimal(coin1.amount), WUtil.getOsmosisCoinDecimal(baseData, coin1.denom));
         return coin0Value.add(coin1Value);
     }
 
@@ -1761,7 +1761,7 @@ public class WUtil {
     public static BigDecimal getPoolArp(BaseData baseData, PoolOuterClass.Pool pool, ArrayList<GaugeOuterClass.Gauge> gauges, int position) {
         BigDecimal poolValue = getPoolValue(baseData, pool);
         BigDecimal incentiveAmount = getNextIncentiveAmount(gauges, position);
-        BigDecimal incentiveValue = WDp.usdValue(baseData, baseData.getBaseDenom(TOKEN_OSMOSIS), incentiveAmount, WUtil.getOsmosisCoinDecimal(TOKEN_OSMOSIS));
+        BigDecimal incentiveValue = WDp.usdValue(baseData, baseData.getBaseDenom(TOKEN_OSMOSIS), incentiveAmount, WUtil.getOsmosisCoinDecimal(baseData, TOKEN_OSMOSIS));
         return incentiveValue.multiply(new BigDecimal("36500")).divide(poolValue, 12, RoundingMode.DOWN);
     }
 

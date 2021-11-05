@@ -61,7 +61,7 @@ public class TxCreateEthBridgeHolder extends TxHolder {
                 }
             }
             if (coin != null) {
-                WDp.showCoinDp(c, coin, itemBridgeAssetSymbol, itemBridgeAssetAmount, baseChain);
+                WDp.showCoinDp(c, baseData, coin, itemBridgeAssetSymbol, itemBridgeAssetAmount, baseChain);
             } else {
                 itemBridgeAssetAmount.setText("");
                 itemBridgeAssetSymbol.setText("");

@@ -120,12 +120,12 @@ public class SifSwapStep0Fragment extends BaseFragment implements View.OnClickLi
         }
 
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
-        WUtil.dpSifTokenName(getContext(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
+        WUtil.dpSifTokenName(getContext(), getBaseDao(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
 
-        WUtil.dpSifTokenName(getContext(), mSwapInputSymbol, getSActivity().mInputDenom);
-        WUtil.DpSifTokenImg(mSwapInputImg, getSActivity().mInputDenom);
-        WUtil.dpSifTokenName(getContext(), mSwapOutputSymbol, getSActivity().mOutputDenom);
-        WUtil.DpSifTokenImg(mSwapOutputImg, getSActivity().mOutputDenom);
+        WUtil.dpSifTokenName(getContext(), getBaseDao(), mSwapInputSymbol, getSActivity().mInputDenom);
+        WUtil.DpSifTokenImg(getBaseDao(), mSwapInputImg, getSActivity().mInputDenom);
+        WUtil.dpSifTokenName(getContext(), getBaseDao(), mSwapOutputSymbol, getSActivity().mOutputDenom);
+        WUtil.DpSifTokenImg(getBaseDao(), mSwapOutputImg, getSActivity().mOutputDenom);
 
         BigDecimal lpInputAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mInputDenom);
         BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, getSActivity().mOutputDenom);

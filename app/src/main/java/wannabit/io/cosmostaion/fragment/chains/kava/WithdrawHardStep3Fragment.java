@@ -58,8 +58,8 @@ public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnCl
     @Override
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        WDp.showCoinDp(getContext(), getSActivity().mHardPoolCoins.get(0), mWithdrawDenom, mWithdrawAmount, getSActivity().mBaseChain);
-        WDp.showCoinDp(getContext(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mHardPoolCoins.get(0), mWithdrawDenom, mWithdrawAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
         mMemo.setText(getSActivity().mTxMemo);
 
     }

@@ -873,7 +873,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             if (coin != null) {
                 holder.history_amount_symbol.setVisibility(View.VISIBLE);
                 holder.history_amount.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), history.getDpCoin(mBaseChain).denom, history.getDpCoin(mBaseChain).amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
+                WDp.showCoinDp(getBaseContext(), getBaseDao(), history.getDpCoin(mBaseChain).denom, history.getDpCoin(mBaseChain).amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
             } else if (history.getMsgType(ValidatorActivity.this, mAccount.address).equals(getString(R.string.tx_vote))) {
                 holder.history_amount_symbol.setVisibility(View.VISIBLE);
                 holder.history_amount_symbol.setText(history.getVoteOption());
@@ -1104,7 +1104,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             if (coin != null) {
                 holder.history_amount_symbol.setVisibility(View.VISIBLE);
                 holder.history_amount.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), history.getDpCoin(mBaseChain).denom, history.getDpCoin(mBaseChain).amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
+                WDp.showCoinDp(getBaseContext(), getBaseDao(), history.getDpCoin(mBaseChain).denom, history.getDpCoin(mBaseChain).amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
             } else if (history.getMsgType(ValidatorActivity.this, mAccount.address).equals(getString(R.string.tx_vote))) {
                 holder.history_amount_symbol.setVisibility(View.VISIBLE);
                 holder.history_amount_symbol.setText(history.getVoteOption());

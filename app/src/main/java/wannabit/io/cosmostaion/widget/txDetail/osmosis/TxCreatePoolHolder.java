@@ -49,8 +49,8 @@ public class TxCreatePoolHolder extends TxHolder {
             Coin coin0 = new Coin(msg.getPoolAssets(0).getToken().getDenom(), msg.getPoolAssets(0).getToken().getAmount());
             Coin coin1 = new Coin(msg.getPoolAssets(1).getToken().getDenom(), msg.getPoolAssets(1).getToken().getAmount());
 
-            WDp.showCoinDp(c, coin0, itemCreatePoolAssetSymbol1, itemCreatePoolAssetAmount1, baseChain);
-            WDp.showCoinDp(c, coin1, itemCreatePoolAssetSymbol2, itemCreatePoolAssetAmount2, baseChain);
+            WDp.showCoinDp(c, baseData, coin0, itemCreatePoolAssetSymbol1, itemCreatePoolAssetAmount1, baseChain);
+            WDp.showCoinDp(c, baseData, coin1, itemCreatePoolAssetSymbol2, itemCreatePoolAssetAmount2, baseChain);
 
             itemCreatePoolFutureGovernor.setText(msg.getFuturePoolGovernor());
         } catch (Exception e) { }

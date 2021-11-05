@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
@@ -32,16 +33,16 @@ public class TxSwapWithdraw extends TxHolder {
         itemWithdrawTokenInSymbol1   = itemView.findViewById(R.id.tx_token_out_symbol2);
     }
 
-    public void onBind(Context c, BaseChain baseChain, ResTxInfo res, Msg msg) {
+    public void onBind(Context c, BaseData baseData, BaseChain baseChain, ResTxInfo res, Msg msg) {
         itemWithdrawCoinImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         if (baseChain.equals(BaseChain.KAVA_MAIN)) {
             itemWithdrawCoinSender.setText(msg.value.from);
             ArrayList<Coin> withdrawCoins = res.simpleWithdraws();
             if (withdrawCoins.size() > 0) {
-                WDp.showCoinDp(c, withdrawCoins.get(0), itemWithdrawTokenInSymbol0, itemWithdrawTokenInAmount0, baseChain);
+                WDp.showCoinDp(c, baseData, withdrawCoins.get(0), itemWithdrawTokenInSymbol0, itemWithdrawTokenInAmount0, baseChain);
             }
             if (withdrawCoins.size() > 1) {
-                WDp.showCoinDp(c, withdrawCoins.get(1), itemWithdrawTokenInSymbol1, itemWithdrawTokenInAmount1, baseChain);
+                WDp.showCoinDp(c, baseData, withdrawCoins.get(1), itemWithdrawTokenInSymbol1, itemWithdrawTokenInAmount1, baseChain);
             }
 
         }

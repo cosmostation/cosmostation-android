@@ -236,12 +236,12 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             if (isGRPC(getMainActivity().mBaseChain)) {
                 HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
-                holder.onBindNewHistory(getMainActivity(), history);
+                holder.onBindNewHistory(getMainActivity(), getBaseDao(), history);
 
             } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KI_MAIN)) {
                 HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
-                holder.onBindHistory(getMainActivity(), history);
+                holder.onBindHistory(getMainActivity(), getBaseDao(), history);
 
             } else {
                 HistoryOldHolder holder = (HistoryOldHolder) viewHolder;

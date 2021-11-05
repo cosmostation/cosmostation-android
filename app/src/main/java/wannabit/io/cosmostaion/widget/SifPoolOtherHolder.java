@@ -52,20 +52,20 @@ public class SifPoolOtherHolder extends BaseHolder {
         String exteranlDenom = otherPool.getExternalAsset().getSymbol();
         BigDecimal poolValue = WUtil.getSifPoolValue(baseData, otherPool);
 
-        WUtil.DpSifTokenImg(itemExternalImg, exteranlDenom);
-        itemPoolType.setText("ROWAN : " + WUtil.dpSifTokenName(exteranlDenom).toUpperCase());
+        WUtil.DpSifTokenImg(baseData, itemExternalImg, exteranlDenom);
+        itemPoolType.setText("ROWAN : " + WUtil.dpSifTokenName(baseData, exteranlDenom).toUpperCase());
         itemTotalDepositValue.setText(WDp.getDpRawDollor(context, poolValue, 2));
 
-        WUtil.dpSifTokenName(context, itemTotalDepositSymbol0, BaseConstant.TOKEN_SIF);
-        WUtil.dpSifTokenName(context, itemTotalDepositSymbol1, exteranlDenom);
+        WUtil.dpSifTokenName(context, baseData, itemTotalDepositSymbol0, BaseConstant.TOKEN_SIF);
+        WUtil.dpSifTokenName(context, baseData, itemTotalDepositSymbol1, exteranlDenom);
         itemTotalDepositAmount0.setText(WDp.getDpAmount2(context, rowanAmount, rowanDecimal, 6));
         itemTotalDepositAmount1.setText(WDp.getDpAmount2(context, externalAmount, externalDecimal, 6));
 
         //dp available
         BigDecimal availableRowan = baseData.getAvailable(BaseConstant.TOKEN_SIF);
         BigDecimal availableExternal = baseData.getAvailable(exteranlDenom);
-        WUtil.dpSifTokenName(context, itemMyAvailableSymbol0, BaseConstant.TOKEN_SIF);
-        WUtil.dpSifTokenName(context, itemMyAvailableSymbol1, exteranlDenom);
+        WUtil.dpSifTokenName(context, baseData, itemMyAvailableSymbol0, BaseConstant.TOKEN_SIF);
+        WUtil.dpSifTokenName(context, baseData, itemMyAvailableSymbol1, exteranlDenom);
         itemMyAvailableAmount0.setText(WDp.getDpAmount2(context, availableRowan, rowanDecimal, 6));
         itemMyAvailableAmount1.setText(WDp.getDpAmount2(context, availableExternal, externalDecimal, 6));
 
