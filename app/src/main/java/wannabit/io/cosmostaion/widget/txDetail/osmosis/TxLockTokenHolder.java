@@ -40,7 +40,7 @@ public class TxLockTokenHolder extends TxHolder {
             itemLockTokenDuration.setText("" + durationDay + " days");
 
             Coin coinLock = new Coin(msg.getCoins(0).getDenom(), msg.getCoins(0).getAmount());
-            WDp.showCoinDp(c, coinLock, itemLockTokenSymbol, itemLockTokenAmount, baseChain);
+            WDp.showCoinDp(c, baseData, coinLock, itemLockTokenSymbol, itemLockTokenAmount, baseChain);
         } catch (Exception e) { }
     }
 }

@@ -69,24 +69,24 @@ public class HardDetailMyStatusHolder extends BaseHolder {
         try {
             Picasso.get().load(KAVA_COIN_IMG_URL + hardMoneyMarket.denom + ".png").fit().into(mDepositCoinImg);
         } catch (Exception e) { }
-        WDp.showCoinDp(context, hardMoneyMarket.denom, "0", mDepositCoinTitle, null, chain);
+        WDp.showCoinDp(context, baseData, hardMoneyMarket.denom, "0", mDepositCoinTitle, null, chain);
 
         //Display My Supply
         final BigDecimal totalSuppliedValue = WUtil.getHardSuppliedValueByDenom(context, baseData, denom, myDeposit);
         final BigDecimal totalSuppliedAmount = WUtil.getHardSuppliedAmountByDenom(context, baseData, denom, myDeposit);
-        WDp.showCoinDp(context, hardMoneyMarket.denom, totalSuppliedAmount.toPlainString(), mDepositDenomTv, mDepositAmountTv, chain);
+        WDp.showCoinDp(context, baseData, hardMoneyMarket.denom, totalSuppliedAmount.toPlainString(), mDepositDenomTv, mDepositAmountTv, chain);
         mDepositValueTv.setText(WDp.getDpRawDollor(context, totalSuppliedValue, 2));
 
         //Display My Borrowed
         final BigDecimal totalBorrowedValue = WUtil.getHardBorrowedValueByDenom(context, baseData, denom, myBorrow);
         final BigDecimal totalBorrowedAmount = WUtil.getHardBorrowedAmountByDenom(context, baseData, denom, myBorrow);
-        WDp.showCoinDp(context, hardMoneyMarket.denom, totalBorrowedAmount.toPlainString(), mBorrowedDenomTv, mBorrowedAmountTv, chain);
+        WDp.showCoinDp(context, baseData, hardMoneyMarket.denom, totalBorrowedAmount.toPlainString(), mBorrowedDenomTv, mBorrowedAmountTv, chain);
         mBorrowedValueTv.setText(WDp.getDpRawDollor(context, totalBorrowedValue, 2));
 
         //Display My Borrowable
         final BigDecimal finalBorrowableValue = WUtil.getHardBorrowableValueByDenom(context, baseData, denom, myDeposit, myBorrow, moduleCoins, reserveCoin);
         final BigDecimal finalBorrowableAmount = WUtil.getHardBorrowableAmountByDenom(context, baseData, denom, myDeposit, myBorrow, moduleCoins, reserveCoin);
-        WDp.showCoinDp(context, hardMoneyMarket.denom, finalBorrowableAmount.toPlainString(), mBorrowableDenomTv, mBorrowableAmountTv, chain);
+        WDp.showCoinDp(context, baseData, hardMoneyMarket.denom, finalBorrowableAmount.toPlainString(), mBorrowableDenomTv, mBorrowableAmountTv, chain);
         mBorrowableValueTv.setText(WDp.getDpRawDollor(context, finalBorrowableValue, 2));
 
         mMyBtnSupply.setOnClickListener(new View.OnClickListener() {

@@ -116,19 +116,19 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
     }
 
     private void onUpdateView() {
-        int inputDecimal = WUtil.getOsmosisCoinDecimal(mInputCoinDenom);
-        WUtil.dpOsmosisTokenName(getSActivity(), mInputCoin, mInputCoinDenom);
-        WUtil.DpOsmosisTokenImg(mInputImg, mInputCoinDenom);
-        WUtil.dpOsmosisTokenName(getSActivity(), mOutputCoin, mOutputCoinDenom);
-        WUtil.DpOsmosisTokenImg(mOutputImg, mOutputCoinDenom);
+        int inputDecimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), mInputCoinDenom);
+        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mInputCoin, mInputCoinDenom);
+        WUtil.DpOsmosisTokenImg(getBaseDao(), mInputImg, mInputCoinDenom);
+        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mOutputCoin, mOutputCoinDenom);
+        WUtil.DpOsmosisTokenImg(getBaseDao(), mOutputImg, mOutputCoinDenom);
 
         mInputAmount.setText(WDp.getDpAmount2(getSActivity(), getBaseDao().getAvailable(mInputCoinDenom), inputDecimal, inputDecimal));
         mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("3")));
         BigDecimal swapFee = new BigDecimal(mSelectedPool.getPoolParams().getSwapFee());
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
 
-        final int inputCoinDecimal = WUtil.getOsmosisCoinDecimal(mInputCoinDenom);
-        final int outCoinDecimal = WUtil.getOsmosisCoinDecimal(mOutputCoinDenom);
+        final int inputCoinDecimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), mInputCoinDenom);
+        final int outCoinDecimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), mOutputCoinDenom);
 
         BigDecimal inputAssetAmount = BigDecimal.ZERO;
         BigDecimal inputAssetWeight = BigDecimal.ZERO;
@@ -145,17 +145,17 @@ public class ListSwapFragment extends BaseFragment implements View.OnClickListen
                 outputAssetWeight = new BigDecimal(asset.getWeight());
             }
         }
-        inputAssetAmount = inputAssetAmount.movePointLeft(WUtil.getOsmosisCoinDecimal(mInputCoinDenom));
-        outputAssetAmount = outputAssetAmount.movePointLeft(WUtil.getOsmosisCoinDecimal(mOutputCoinDenom));
+        inputAssetAmount = inputAssetAmount.movePointLeft(WUtil.getOsmosisCoinDecimal(getBaseDao(), mInputCoinDenom));
+        outputAssetAmount = outputAssetAmount.movePointLeft(WUtil.getOsmosisCoinDecimal(getBaseDao(), mOutputCoinDenom));
         BigDecimal swapRate = outputAssetAmount.multiply(inputAssetWeight).divide(inputAssetAmount, 16, RoundingMode.DOWN).divide(outputAssetWeight, 16, RoundingMode.DOWN);
 
         mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, inputCoinDecimal));
-        WUtil.dpOsmosisTokenName(getSActivity(), mSwapInputCoinSymbol, mInputCoinDenom);
+        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
         mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), swapRate, 0, outCoinDecimal));
-        WUtil.dpOsmosisTokenName(getSActivity(), mSwapOutputCoinSymbol, mOutputCoinDenom);
+        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinSymbol, mOutputCoinDenom);
 
-        WUtil.dpOsmosisTokenName(getSActivity(), mSwapInputCoinExSymbol, mInputCoinDenom);
-        WUtil.dpOsmosisTokenName(getSActivity(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
+        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
+        WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
 
         BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
         BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));

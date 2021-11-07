@@ -134,7 +134,7 @@ public class BaseData {
         return null;
     }
 
-    public static IbcToken getIbcToken(String denom) {
+    public IbcToken getIbcToken(String denom) {
         String ibcHash = denom.replace("ibc/", "");
         for (IbcToken ibcToken: mIbcTokens) {
             if (ibcToken.hash.equals(ibcHash)) {

@@ -77,8 +77,8 @@ public class TxExitPoolHolder extends TxHolder {
                 }
             }
             if (outCoin0 != null && outCoin1 != null) {
-                WDp.showCoinDp(c, outCoin0, itemExitPoolTokenOutSymbol1, itemExitPoolTokenOutAmount1, baseChain);
-                WDp.showCoinDp(c, outCoin1, itemExitPoolTokenOutSymbol2, itemExitPoolTokenOutAmount2, baseChain);
+                WDp.showCoinDp(c, baseData, outCoin0, itemExitPoolTokenOutSymbol1, itemExitPoolTokenOutAmount1, baseChain);
+                WDp.showCoinDp(c, baseData, outCoin1, itemExitPoolTokenOutSymbol2, itemExitPoolTokenOutAmount2, baseChain);
             } else {
                 itemExitPoolTokenOutAmount1.setText("");
                 itemExitPoolTokenOutSymbol1.setText("");
@@ -86,7 +86,7 @@ public class TxExitPoolHolder extends TxHolder {
                 itemExitPoolTokenOutSymbol2.setText("");
             }
             if (inCoin != null) {
-                WDp.showCoinDp(c, inCoin, itemExitPoolTokenInSymbol, itemExitPoolTokenInAmount, baseChain);
+                WDp.showCoinDp(c, baseData, inCoin, itemExitPoolTokenInSymbol, itemExitPoolTokenInAmount, baseChain);
             } else {
                 itemExitPoolTokenInAmount.setText("");
                 itemExitPoolTokenInSymbol.setText("");

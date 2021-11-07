@@ -94,7 +94,7 @@ public class BorrowHardStep0Fragment extends BaseFragment implements View.OnClic
                 getBaseDao().mMyHardDeposit , getBaseDao().mMyHardBorrow, getBaseDao().mModuleCoins, getBaseDao().mReserveCoins);
         mMaxAvailable = remainBorrowAble.multiply(new BigDecimal("0.95")).setScale(0, RoundingMode.DOWN);
 
-        WDp.showCoinDp(getContext(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mBorrowDenomTx, mBorrowMaxTx, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mBorrowDenomTx, mBorrowMaxTx, getSActivity().mBaseChain);
         if (mHardMoneyMarketDenom.equals(TOKEN_KAVA)) {
             WDp.DpMainDenom(getSActivity(), getSActivity().mBaseChain.getChain(), mBorrowSymbol);
         } else if (mHardMoneyMarketDenom.equals(TOKEN_HARD)) {

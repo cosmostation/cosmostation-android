@@ -376,7 +376,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 holder.itemMsg.setText(mProposal.content.value.description);
                 if (mProposal.content.value.amount != null) {
                     ArrayList<Coin> requestCoin = mProposal.content.value.amount;
-                    WDp.showCoinDp(getBaseContext(), requestCoin.get(0), holder.itemRequestAmountDenom, holder.itemRequestAmount, mBaseChain);
+                    WDp.showCoinDp(getBaseContext(), getBaseDao(), requestCoin.get(0), holder.itemRequestAmountDenom, holder.itemRequestAmount, mBaseChain);
                     holder.itemRequestLayer.setVisibility(View.VISIBLE);
                 }
             }

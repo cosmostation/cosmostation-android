@@ -55,7 +55,7 @@ public class EarningOtherHolder extends RecyclerView.ViewHolder {
         BigDecimal apr = WUtil.getPoolArp(baseData, pool, gauges, 2);
 
         itemPoolId.setText("#" + pool.getId() + " EARNING");
-        itemPoolCoinPair.setText(WUtil.dpOsmosisTokenName(coin0.denom) + " / " + WUtil.dpOsmosisTokenName(coin1.denom));
+        itemPoolCoinPair.setText(WUtil.dpOsmosisTokenName(baseData, coin0.denom) + " / " + WUtil.dpOsmosisTokenName(baseData, coin1.denom));
         itemPoolApr.setText(WDp.getPercentDp(apr));
 
         //display available

@@ -69,8 +69,8 @@ public class TxSwapHolder extends TxHolder {
                 }
             }
             if (sendCoin != null && receiveCoin != null) {
-                WDp.showCoinDp(c, sendCoin, itemSwapSendAssetSymbol, itemSwapSendAssetAmount, baseChain);
-                WDp.showCoinDp(c, receiveCoin, itemSwapReceiveAssetSymbol, itemSwapReceiveAssetlAmount, baseChain);
+                WDp.showCoinDp(c, baseData, sendCoin, itemSwapSendAssetSymbol, itemSwapSendAssetAmount, baseChain);
+                WDp.showCoinDp(c, baseData, receiveCoin, itemSwapReceiveAssetSymbol, itemSwapReceiveAssetlAmount, baseChain);
             } else {
                 itemSwapSendAssetAmount.setText("");
                 itemSwapSendAssetSymbol.setText("");

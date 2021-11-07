@@ -128,7 +128,7 @@ public class NativeTokenGrpcActivity extends BaseActivity implements View.OnClic
 
     private void onUpdateView() {
         if (mBaseChain.equals(BaseChain.OSMOSIS_MAIN)) {
-            WUtil.DpOsmosisTokenImg(mToolbarSymbolImg, mNativeGrpcDenom);
+            WUtil.DpOsmosisTokenImg(getBaseDao(), mToolbarSymbolImg, mNativeGrpcDenom);
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorIon));
             mToolbarSymbol.setText(getString(R.string.str_uion_c));
             if (mNativeGrpcDenom.equalsIgnoreCase(TOKEN_ION)) {

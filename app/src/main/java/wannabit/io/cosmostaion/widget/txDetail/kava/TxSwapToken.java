@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
@@ -33,7 +34,7 @@ public class TxSwapToken extends TxHolder {
         itemSwapTokenOutAmountSymbol = itemView.findViewById(R.id.tx_swap_token_out_amount_symbol);
     }
 
-    public void onBind(Context c, BaseChain baseChain, ResTxInfo res, Msg msg) {
+    public void onBind(Context c, BaseData baseData, BaseChain baseChain, ResTxInfo res, Msg msg) {
         itemSwapCoinImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         if (baseChain.equals(BaseChain.KAVA_MAIN)) {
             itemSwapCoinType.setText(msg.type.split("/")[1]);
@@ -44,14 +45,14 @@ public class TxSwapToken extends TxHolder {
                 itemSwapTokenInAmount.setText("-");
                 itemSwapTokenInAmountSymbol.setText("-");
             } else {
-                WDp.showCoinDp(c, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount, baseChain);
+                WDp.showCoinDp(c, baseData, inCoin, itemSwapTokenInAmountSymbol, itemSwapTokenInAmount, baseChain);
             }
             Coin outCoin = res.simpleSwapOutCoin();
             if (outCoin.amount == null || outCoin.denom == null) {
                 itemSwapTokenOutAmount.setText("-");
                 itemSwapTokenOutAmountSymbol.setText("-");
             } else {
-                WDp.showCoinDp(c, outCoin, itemSwapTokenOutAmountSymbol, itemSwapTokenOutAmount, baseChain);
+                WDp.showCoinDp(c, baseData, outCoin, itemSwapTokenOutAmountSymbol, itemSwapTokenOutAmount, baseChain);
             }
         }
 

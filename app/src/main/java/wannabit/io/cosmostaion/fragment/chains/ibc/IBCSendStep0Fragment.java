@@ -142,7 +142,7 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         if (mIbcSelectedPath.auth == null) {
             mRelayerImg.setImageDrawable(getSActivity().getDrawable(R.drawable.unknown));
         } else if (mIbcSelectedPath.auth) {
-            mRelayerImg.setImageDrawable(getSActivity().getDrawable(R.drawable.authed));
+            mRelayerImg.setImageDrawable(getSActivity().getDrawable(R.drawable.wellknown));
         }
     }
 

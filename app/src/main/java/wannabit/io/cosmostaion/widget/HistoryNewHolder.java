@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -35,7 +36,7 @@ public class HistoryNewHolder extends BaseHolder {
         history_amount_symbol           = itemView.findViewById(R.id.history_amount_symobl);
     }
 
-    public void onBindNewHistory(@NotNull MainActivity mainActivity, ResApiNewTxListCustom history) {
+    public void onBindNewHistory(@NotNull MainActivity mainActivity, BaseData baseData, ResApiNewTxListCustom history) {
         historyType.setText(history.getMsgType(mainActivity, mainActivity.mAccount.address));
         history_time.setText(WDp.getTimeTxformat(mainActivity, history.data.timestamp));
         history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.data.timestamp));
@@ -43,7 +44,7 @@ public class HistoryNewHolder extends BaseHolder {
         if (coin != null) {
             history_amount_symbol.setVisibility(View.VISIBLE);
             history_amount.setVisibility(View.VISIBLE);
-            WDp.showCoinDp(mainActivity, history.getDpCoin(mainActivity.mBaseChain).denom, history.getDpCoin(mainActivity.mBaseChain).amount, history_amount_symbol, history_amount, mainActivity.mBaseChain);
+            WDp.showCoinDp(mainActivity, baseData, history.getDpCoin(mainActivity.mBaseChain).denom, history.getDpCoin(mainActivity.mBaseChain).amount, history_amount_symbol, history_amount, mainActivity.mBaseChain);
         } else if (history.getMsgType(mainActivity, mainActivity.mAccount.address).equals(mainActivity.getString(R.string.tx_vote))) {
             history_amount_symbol.setVisibility(View.VISIBLE);
             history_amount_symbol.setText(history.getVoteOption());
@@ -76,7 +77,7 @@ public class HistoryNewHolder extends BaseHolder {
         });
     }
 
-    public void onBindHistory(@NotNull MainActivity mainActivity, ResApiNewTxListCustom history) {
+    public void onBindHistory(@NotNull MainActivity mainActivity, BaseData baseData, ResApiNewTxListCustom history) {
         historyType.setText(history.getMsgType(mainActivity, mainActivity.mAccount.address));
         history_time.setText(WDp.getTimeTxformat(mainActivity, history.data.timestamp));
         history_time_gap.setText(WDp.getTimeTxGap(mainActivity, history.data.timestamp));
@@ -84,7 +85,7 @@ public class HistoryNewHolder extends BaseHolder {
         if (coin != null) {
             history_amount_symbol.setVisibility(View.VISIBLE);
             history_amount.setVisibility(View.VISIBLE);
-            WDp.showCoinDp(mainActivity, history.getDpCoin(mainActivity.mBaseChain).denom, history.getDpCoin(mainActivity.mBaseChain).amount, history_amount_symbol, history_amount, mainActivity.mBaseChain);
+            WDp.showCoinDp(mainActivity, baseData, history.getDpCoin(mainActivity.mBaseChain).denom, history.getDpCoin(mainActivity.mBaseChain).amount, history_amount_symbol, history_amount, mainActivity.mBaseChain);
         } else if (history.getMsgType(mainActivity, mainActivity.mAccount.address).equals(mainActivity.getString(R.string.tx_vote))) {
             history_amount_symbol.setVisibility(View.VISIBLE);
             history_amount_symbol.setText(history.getVoteOption());

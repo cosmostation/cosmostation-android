@@ -82,8 +82,8 @@ public class TxRemoveLiquidityHolder extends TxHolder {
                     }
                 }
             }
-            WDp.showCoinDp(c, coin1, itemRLNativeAssetSymbol, itemRLNativeAssetAmount, baseChain);
-            WDp.showCoinDp(c, coin0, itemRLExternalAssetSymbol, itemRLExternalAssetlAmount, baseChain);
+            WDp.showCoinDp(c, baseData, coin1, itemRLNativeAssetSymbol, itemRLNativeAssetAmount, baseChain);
+            WDp.showCoinDp(c, baseData, coin0, itemRLExternalAssetSymbol, itemRLExternalAssetlAmount, baseChain);
 
         } catch (Exception e) {
             WLog.w("Exception " + e.getMessage());

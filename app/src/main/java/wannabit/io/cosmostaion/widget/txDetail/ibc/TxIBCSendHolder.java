@@ -53,7 +53,7 @@ public class TxIBCSendHolder extends TxHolder {
             toDpCoin.add(new Coin(msg.getToken().getDenom(), msg.getToken().getAmount()));
 
             itemIbcSingleCoinLayer.setVisibility(View.VISIBLE);
-            WDp.showCoinDp(c, toDpCoin.get(0), itemIbcAmountDenom, itemIbcAmount, baseChain);
+            WDp.showCoinDp(c, baseData, toDpCoin.get(0), itemIbcAmountDenom, itemIbcAmount, baseChain);
         } catch (Exception e) {}
     }
 }

@@ -217,10 +217,10 @@ public class WDp {
         return result;
     }
 
-    public static void showCoinDp(Context c, Coin coin, TextView denomTv, TextView amountTv, BaseChain chain) {
+    public static void showCoinDp(Context c, BaseData baseData, Coin coin, TextView denomTv, TextView amountTv, BaseChain chain) {
         if (isGRPC(chain) && coin.isIbc()) {
-            IbcToken ibcToken = BaseData.getIbcToken(coin.getIbcHash());
-            if (ibcToken.auth == true) {
+            IbcToken ibcToken = baseData.getIbcToken(coin.getIbcHash());
+            if (ibcToken.auth) {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(ibcToken.display_denom.toUpperCase());
                 amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), ibcToken.decimal, ibcToken.decimal));
@@ -438,10 +438,10 @@ public class WDp {
         }
     }
 
-    public static void showCoinDp(Context c, String symbol, String amount, TextView denomTv, TextView amountTv, BaseChain chain) {
+    public static void showCoinDp(Context c, BaseData baseData, String symbol, String amount, TextView denomTv, TextView amountTv, BaseChain chain) {
         if (isGRPC(chain) && symbol.startsWith("ibc")) {
-            IbcToken ibcToken = BaseData.getIbcToken(symbol.replaceAll("ibc/", ""));
-            if (ibcToken.auth == true) {
+            IbcToken ibcToken = baseData.getIbcToken(symbol.replaceAll("ibc/", ""));
+            if (ibcToken.auth) {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(ibcToken.display_denom.toUpperCase());
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), ibcToken.decimal, ibcToken.decimal));
@@ -3169,12 +3169,12 @@ public class WDp {
                 return mainDivideDecimal(baseChain);
             }
             if (denom.startsWith("ibc/")) {
-                return WUtil.getIbcDecimal(denom);
+                return WUtil.getIbcDecimal(baseData, denom);
             }
             if (baseChain.equals(COSMOS_MAIN)) {
                 return WUtil.getCosmosCoinDecimal(baseData, denom);
             } else if (baseChain.equals(OSMOSIS_MAIN)) {
-                return WUtil.getOsmosisCoinDecimal(denom);
+                return WUtil.getOsmosisCoinDecimal(baseData, denom);
             } else if (baseChain.equals(SIF_MAIN)) {
                 return WUtil.getSifCoinDecimal(baseData, denom);
             }

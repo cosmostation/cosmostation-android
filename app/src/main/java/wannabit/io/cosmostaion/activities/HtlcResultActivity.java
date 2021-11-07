@@ -206,7 +206,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             memoTv.setText(mResSendBnbTxInfo.tx.value.memo);
 
             Coin sendCoin = WDp.getCoins(msg.value.amount).get(0);
-            WDp.showCoinDp(getBaseContext(), sendCoin, sendDenom, sendAmount, mBaseChain);
+            WDp.showCoinDp(getBaseContext(), getBaseDao(), sendCoin, sendDenom, sendAmount, mBaseChain);
 
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), feeDenom);
             feeAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(FEE_BNB_SEND), 0, 8));
@@ -316,7 +316,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
                 Coin receiveCoin = mResReceiveTxInfo.simpleSwapCoin();
                 try {
                     if (!TextUtils.isEmpty(receiveCoin.denom)) {
-                        WDp.showCoinDp(getBaseContext(), receiveCoin, claimDenom, claimAmount, mRecipientChain);
+                        WDp.showCoinDp(getBaseContext(), getBaseDao(), receiveCoin, claimDenom, claimAmount, mRecipientChain);
                     } else {
                         claimDenom.setText("");
                         claimAmount.setText("");
