@@ -149,20 +149,6 @@ public class Account {
         return result;
     }
 
-    public BigDecimal getKavaDelegable() {
-        BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0)  {
-            return result;
-        }
-        for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.TOKEN_KAVA)) {
-                result = balance.balance.add(balance.locked);
-                break;
-            }
-        }
-        return result;
-    }
-
     public BigDecimal getTokenBalance(String symbol) {
         BigDecimal result = BigDecimal.ZERO;
         if(balances == null || balances.size() == 0)  {
@@ -190,35 +176,6 @@ public class Account {
         }
         return result;
     }
-
-    public BigDecimal getIovBalance() {
-        BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0)  {
-            return result;
-        }
-        for(Balance balance:balances) {
-            if(balance.symbol.equals(TOKEN_IOV) || balance.symbol.equals(TOKEN_IOV_TEST)) {
-                result = balance.balance;
-                break;
-            }
-        }
-        return result;
-    }
-
-    public BigDecimal getBandBalance() {
-        BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0)  {
-            return result;
-        }
-        for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.TOKEN_BAND)) {
-                result = balance.balance;
-                break;
-            }
-        }
-        return result;
-    }
-
 
     public SpannableString getLastTotal(Context c, BaseChain chain) {
         if (TextUtils.isEmpty(lastTotal)) {
