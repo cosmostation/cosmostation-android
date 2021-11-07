@@ -124,7 +124,7 @@ public class POOLTokenDetailActivity extends BaseActivity implements View.OnClic
 
     private void onUpdateView() {
         if (mBaseChain.equals(OSMOSIS_MAIN)) {
-            WUtil.DpOsmosisTokenImg(mToolbarSymbolImg, mPoolDenom);
+            WUtil.DpOsmosisTokenImg(getBaseDao(), mToolbarSymbolImg, mPoolDenom);
             String [] split = mPoolDenom.split("/");
             mToolbarSymbol.setText("GAMM-" + split[split.length - 1]);
             mToolbarSymbol.setTextColor(getResources().getColor(R.color.colorWhite));

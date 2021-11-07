@@ -138,8 +138,8 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
         }
 
         mMaxLoanableAmount = getOwenCdp().getMoreLoanableAmount(getContext(), getCParam());
-        WDp.showCoinDp(getContext(), mPrincipalDenom, mMinLoanableAmount.toPlainString(), mLoanableDenomTx, mLoanableMinTx, getSActivity().mBaseChain);
-        WDp.showCoinDp(getContext(), mPrincipalDenom, mMaxLoanableAmount.toPlainString(), mLoanableDenomTx, mLoanableMaxTx, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), mPrincipalDenom, mMinLoanableAmount.toPlainString(), mLoanableDenomTx, mLoanableMinTx, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), mPrincipalDenom, mMaxLoanableAmount.toPlainString(), mLoanableDenomTx, mLoanableMaxTx, getSActivity().mBaseChain);
 
         mPrincipalSymbol.setText(mPrincipalDenom.toUpperCase());
         try {

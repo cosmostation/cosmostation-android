@@ -110,8 +110,8 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
     private void onInitView() {
         mProgress.setVisibility(View.GONE);
 
-        mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOutputDenom);
+        mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), getSActivity().mInputDenom);
+        mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), getSActivity().mOutputDenom);
         setDpDecimals(mInputCoinDecimal);
         mAvailableMaxAmount = getBaseDao().getAvailable(getSActivity().mInputDenom);
         BigDecimal txFee = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_OSMOSIS_SWAP, 0);
@@ -119,12 +119,12 @@ public class CoinSwapStep0Fragment extends BaseFragment implements View.OnClickL
             mAvailableMaxAmount = mAvailableMaxAmount.subtract(txFee);
         }
         mSwapAvailAmount.setText(WDp.getDpAmount2(getContext(), mAvailableMaxAmount, mInputCoinDecimal, mInputCoinDecimal));
-        WUtil.dpOsmosisTokenName(getContext(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
+        WUtil.dpOsmosisTokenName(getContext(), getBaseDao(), mSwapAvailAmountSymbol, getSActivity().mInputDenom);
 
-        WUtil.dpOsmosisTokenName(getContext(), mSwapInputSymbol, getSActivity().mInputDenom);
-        WUtil.DpOsmosisTokenImg(mSwapInputImg, getSActivity().mInputDenom);
-        WUtil.dpOsmosisTokenName(getContext(), mSwapOutputSymbol, getSActivity().mOutputDenom);
-        WUtil.DpOsmosisTokenImg(mSwapOutputImg, getSActivity().mOutputDenom);
+        WUtil.dpOsmosisTokenName(getContext(), getBaseDao(), mSwapInputSymbol, getSActivity().mInputDenom);
+        WUtil.DpOsmosisTokenImg(getBaseDao(), mSwapInputImg, getSActivity().mInputDenom);
+        WUtil.dpOsmosisTokenName(getContext(), getBaseDao(), mSwapOutputSymbol, getSActivity().mOutputDenom);
+        WUtil.DpOsmosisTokenImg(getBaseDao(), mSwapOutputImg, getSActivity().mOutputDenom);
 
         BigDecimal inputAssetAmount = BigDecimal.ZERO;
         BigDecimal inputAssetWeight = BigDecimal.ZERO;

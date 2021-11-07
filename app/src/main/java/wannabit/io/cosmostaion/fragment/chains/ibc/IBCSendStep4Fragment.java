@@ -68,7 +68,7 @@ public class IBCSendStep4Fragment extends BaseFragment implements View.OnClickLi
         BigDecimal toSendAmount = new BigDecimal(getSActivity().mAmounts.get(0).amount);
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        WDp.showCoinDp(getSActivity(), getSActivity().mToIbcDenom, toSendAmount.toPlainString(), mSendAmountSymbol, mSendAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), getSActivity().mToIbcDenom, toSendAmount.toPlainString(), mSendAmountSymbol, mSendAmount, getSActivity().mBaseChain);
 
         BaseChain toChain = WDp.getChainTypeByChainId(getSActivity().mIbcSelectedRelayer.chain_id);
         WDp.getChainTitle(getSActivity(), toChain, mRecipientChain);

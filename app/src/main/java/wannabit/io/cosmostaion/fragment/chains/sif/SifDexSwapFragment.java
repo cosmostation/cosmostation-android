@@ -122,14 +122,14 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
         mInputAmount.setText(WDp.getDpAmount2(getSActivity(), getBaseDao().getAvailable(mInputCoinDenom), mInPutDecimal, mInPutDecimal));
         mSwapSlippage.setText(WDp.getPercentDp(new BigDecimal("2")));
 
-        WUtil.dpSifTokenName(getSActivity(), mInputCoin, mInputCoinDenom);
-        WUtil.DpSifTokenImg(mInputImg, mInputCoinDenom);
-        WUtil.dpSifTokenName(getSActivity(), mOutputCoin, mOutputCoinDenom);
-        WUtil.DpSifTokenImg(mOutputImg, mOutputCoinDenom);
+        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mInputCoin, mInputCoinDenom);
+        WUtil.DpSifTokenImg(getBaseDao(), mInputImg, mInputCoinDenom);
+        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mOutputCoin, mOutputCoinDenom);
+        WUtil.DpSifTokenImg(getBaseDao(), mOutputImg, mOutputCoinDenom);
 
         mSwapInputCoinRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
-        WUtil.dpSifTokenName(getSActivity(), mSwapInputCoinSymbol, mInputCoinDenom);
-        WUtil.dpSifTokenName(getSActivity(), mSwapOutputCoinSymbol, mOutputCoinDenom);
+        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mSwapInputCoinSymbol, mInputCoinDenom);
+        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinSymbol, mOutputCoinDenom);
 
         BigDecimal lpInputAmount = WUtil.getPoolLpAmount(mSelectedPool, mInputCoinDenom);
         BigDecimal lpOutputAmount = WUtil.getPoolLpAmount(mSelectedPool, mOutputCoinDenom);
@@ -137,8 +137,8 @@ public class SifDexSwapFragment extends BaseFragment implements View.OnClickList
         mSwapOutputCoinRate.setText(WDp.getDpAmount2(getContext(), poolSwapRate, 0, 6));
 
         mSwapInputCoinExRate.setText(WDp.getDpAmount2(getContext(), BigDecimal.ONE, 0, 6));
-        WUtil.dpSifTokenName(getSActivity(), mSwapInputCoinExSymbol, mInputCoinDenom);
-        WUtil.dpSifTokenName(getSActivity(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
+        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mSwapInputCoinExSymbol, mInputCoinDenom);
+        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mSwapOutputCoinExSymbol, mOutputCoinDenom);
 
         BigDecimal priceInput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mInputCoinDenom));
         BigDecimal priceOutput = WDp.perUsdValue(getBaseDao(), getBaseDao().getBaseDenom(mOutputCoinDenom));

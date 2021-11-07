@@ -75,9 +75,9 @@ public class ExitPoolStep3Fragment extends BaseFragment implements View.OnClickL
         String OutputDenom1 = getSActivity().mPoolCoin1.denom;
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mExitInAmountSymbol, InputDenom), InputAmount,  mExitInAmountSymbol, mExitInAmount, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mExitOutput0AmountSymbol, OutputDenom0), OutputAmount0,  mExitOutput0AmountSymbol, mExitOutput0Amount, BaseChain.OSMOSIS_MAIN);
-        WDp.showCoinDp(getSActivity(), WUtil.dpOsmosisTokenName(getSActivity(), mExitOutput1AmountSymbol, OutputDenom1), OutputAmount1,  mExitOutput1AmountSymbol, mExitOutput1Amount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mExitInAmountSymbol, InputDenom), InputAmount,  mExitInAmountSymbol, mExitInAmount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mExitOutput0AmountSymbol, OutputDenom0), OutputAmount0,  mExitOutput0AmountSymbol, mExitOutput0Amount, BaseChain.OSMOSIS_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), WUtil.dpOsmosisTokenName(getSActivity(), getBaseDao(), mExitOutput1AmountSymbol, OutputDenom1), OutputAmount1,  mExitOutput1AmountSymbol, mExitOutput1Amount, BaseChain.OSMOSIS_MAIN);
         mMemo.setText(getSActivity().mTxMemo);
     }
 

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
@@ -32,16 +33,16 @@ public class TxSwapDeposit extends TxHolder {
         itemDepositTokenInSymbol1   = itemView.findViewById(R.id.tx_token_in_symbol2);
     }
 
-    public void onBind(Context c, BaseChain baseChain, ResTxInfo res, Msg msg) {
+    public void onBind(Context c, BaseData baseData, BaseChain baseChain, ResTxInfo res, Msg msg) {
         itemDepositCoinImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         if (baseChain.equals(BaseChain.KAVA_MAIN)) {
             itemDepositCoinSender.setText(msg.value.depositor);
             ArrayList<Coin> depositCoins = res.simpleDeposits();
             if (depositCoins.size() > 0) {
-                WDp.showCoinDp(c, depositCoins.get(0), itemDepositTokenInSymbol0, itemDepositTokenInAmount0, baseChain);
+                WDp.showCoinDp(c, baseData, depositCoins.get(0), itemDepositTokenInSymbol0, itemDepositTokenInAmount0, baseChain);
             }
             if (depositCoins.size() > 1) {
-                WDp.showCoinDp(c, depositCoins.get(1), itemDepositTokenInSymbol1, itemDepositTokenInAmount1, baseChain);
+                WDp.showCoinDp(c, baseData, depositCoins.get(1), itemDepositTokenInSymbol1, itemDepositTokenInAmount1, baseChain);
             }
 
         }

@@ -1042,7 +1042,7 @@
     <string name="str_total_deposited_supplies">시스템 총 예치량</string>
     <string name="str_total_borrowed_supplies">시스템 총 대출량</string>
     <string name="str_total_remain_supplies">시스템 대출 가능량</string>
-    <string name="str_my_harvest_information">내 하드 풀</string>
+    <string name="str_my_harvest_information">Dashboard</string>
     <string name="str_deposit_harvest">하드 풀 서플라이 입금</string>
     <string name="str_withdraw_harvest">하드 풀 서플라이 출금</string>
     <string name="str_borrow_hard">하드 풀 대출</string>
@@ -1082,10 +1082,10 @@
     <string name="str_starname_walletconnect_complete">연결 완료.</string>
     <string name="str_ok_promotion_title">검증인을 위해 투표하세요</string>
     <string name="str_ok_promotion_msg">Vote for Cosmostation to secure OK Chain as a validator.\nSelect multiple validators to spread out your vote.</string>
-    <string name="str_total_deposit_value">총 공금 금액</string>
-    <string name="str_ltv_value">최대 대출 가능 금액(LTV)</string>
-    <string name="str_total_borrowed_value">총 대출 금액</string>
-    <string name="str_borrow_limit_value">추가 대출 가능 금액</string>
+    <string name="str_total_deposit_value">Supply Balance</string>
+    <string name="str_ltv_value">Borrow Balance</string>
+    <string name="str_total_borrowed_value">Available Credit(LTV)</string>
+    <string name="str_borrow_limit_value">Borrow Limit</string>
     <string name="str_supply_apy">Supply APY</string>
     <string name="str_borrow_apy">Borrow APY</string>
     <string name="str_supply_incentive_apy">Incentive Supply APY</string>

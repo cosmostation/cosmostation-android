@@ -42,7 +42,7 @@ public class TxCreateTaskHolder extends TxHolder {
             if (msg.getBountyList() != null) {
                 coin = new Coin(msg.getBounty(0).getDenom(), msg.getBounty(0).getAmount());
             }
-            WDp.showCoinDp(c, coin, itemCreateTaskBountrySymbol, itemCreateTaskBountryAmount, BaseChain.CERTIK_MAIN);
+            WDp.showCoinDp(c, baseData, coin, itemCreateTaskBountrySymbol, itemCreateTaskBountryAmount, BaseChain.CERTIK_MAIN);
         } catch (Exception e) {}
     }
 }

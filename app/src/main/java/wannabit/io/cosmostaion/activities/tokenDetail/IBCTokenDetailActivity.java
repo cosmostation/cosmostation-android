@@ -96,7 +96,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
 
         mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain  = BaseChain.getChain(mAccount.baseChain);
-        mIbcDenom  = getIntent().getStringExtra("denom");
+        mIbcDenom   = getIntent().getStringExtra("denom");
         mIbcToken   = getBaseDao().getIbcToken(mIbcDenom);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

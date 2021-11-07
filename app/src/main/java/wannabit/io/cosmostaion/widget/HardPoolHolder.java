@@ -66,7 +66,7 @@ public class HardPoolHolder extends BaseHolder {
         } catch (Exception e) { }
 
         String marketTitle = hardMoneyMarket.denom.equals(TOKEN_KAVA) ? "kava" : hardMoneyMarket.denom;
-        hardPoolTitle.setText(marketTitle.toUpperCase() + " POOL");
+        hardPoolTitle.setText(marketTitle.toUpperCase());
 
         BigDecimal supplyApy = BigDecimal.ZERO;
         BigDecimal borrowApy = BigDecimal.ZERO;
@@ -96,7 +96,7 @@ public class HardPoolHolder extends BaseHolder {
             }
         }
         if (myDepositCoin != null) {
-            WDp.showCoinDp(context, myDepositCoin, depositDenomTv, depositAmountTv, chain);
+            WDp.showCoinDp(context, baseData, myDepositCoin, depositDenomTv, depositAmountTv, chain);
             int decimal =  WUtil.getKavaCoinDecimal(myDepositCoin.denom);
             MarketPrice price = baseData.mKavaTokenPrices.get(hardParam.getSpotMarketId(myDepositCoin.denom));
             if (price != null) {
@@ -104,7 +104,7 @@ public class HardPoolHolder extends BaseHolder {
             }
 
         } else {
-            WDp.showCoinDp(context, hardMoneyMarket.denom, "0", depositDenomTv, depositAmountTv, chain);
+            WDp.showCoinDp(context, baseData, hardMoneyMarket.denom, "0", depositDenomTv, depositAmountTv, chain);
         }
         depositValueTv.setText(WDp.getDpRawDollor(context, myDepositValue, 2));
 
@@ -119,7 +119,7 @@ public class HardPoolHolder extends BaseHolder {
             }
         }
         if (myBorrowCoin != null) {
-            WDp.showCoinDp(context, myBorrowCoin, borrowDenomTv, borrowAmountTv, chain);
+            WDp.showCoinDp(context, baseData, myBorrowCoin, borrowDenomTv, borrowAmountTv, chain);
             int decimal =  WUtil.getKavaCoinDecimal(myBorrowCoin.denom);
             MarketPrice price = baseData.mKavaTokenPrices.get(hardParam.getSpotMarketId(myBorrowCoin.denom));
             if (price != null) {
@@ -127,7 +127,7 @@ public class HardPoolHolder extends BaseHolder {
             }
 
         } else {
-            WDp.showCoinDp(context, hardMoneyMarket.denom, "0", borrowDenomTv, borrowAmountTv, chain);
+            WDp.showCoinDp(context, baseData, hardMoneyMarket.denom, "0", borrowDenomTv, borrowAmountTv, chain);
         }
         borrowValueTv.setText(WDp.getDpRawDollor(context, myBorrowValue, 2));
 

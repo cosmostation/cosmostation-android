@@ -237,6 +237,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     mCardView.setVisibility(View.GONE);
                 } else {
                     mCardView.setVisibility(View.VISIBLE);
+                    mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(mBaseChain, getBaseDao()));
                 }
             }
         });
@@ -298,6 +299,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     private void onChainSelect(BaseChain baseChain) {
+        invalidateOptionsMenu();
         mDisplayChains = getBaseDao().dpSortedChains();
         mSelectedChain = baseChain;
         getBaseDao().setLastChain(mSelectedChain.getChain());

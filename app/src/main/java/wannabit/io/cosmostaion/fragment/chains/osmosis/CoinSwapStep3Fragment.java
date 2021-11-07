@@ -69,15 +69,15 @@ public class CoinSwapStep3Fragment extends BaseFragment implements View.OnClickL
     public void onRefreshTab() {
         mSlippageLayer.setVisibility(View.VISIBLE);
         mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
-        mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mInputDenom);
-        mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getSActivity().mOutputDenom);
+        mInputCoinDecimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), getSActivity().mInputDenom);
+        mOutputCoinDecimal = WUtil.getOsmosisCoinDecimal(getBaseDao(), getSActivity().mOutputDenom);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         BigDecimal swapFee = new BigDecimal(getSActivity().mOsmosisPool.getPoolParams().getSwapFee());
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mSwapFee.setText(WDp.getPercentDp(swapFee.movePointLeft(16)));
-        WDp.showCoinDp(getContext(), getSActivity().mSwapInCoin, mSwapInAmountSymbol, mSwapInAmount, getSActivity().mBaseChain);
-        WDp.showCoinDp(getContext(), getSActivity().mSwapOutCoin, mSwapOutAmountSymbol, mSwapOutAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mSwapInCoin, mSwapInAmountSymbol, mSwapInAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), getSActivity().mSwapOutCoin, mSwapOutAmountSymbol, mSwapOutAmount, getSActivity().mBaseChain);
 
 
         mMemo.setText(getSActivity().mTxMemo);

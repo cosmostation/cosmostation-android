@@ -92,7 +92,7 @@ public class RepayHardStep0Fragment extends BaseFragment implements View.OnClick
         mBorrowedAmount = WUtil.getHardBorrowedAmountByDenom(getContext(), getBaseDao(), mHardMoneyMarketDenom, getBaseDao().mMyHardBorrow);
         BigDecimal availableAmount = getSActivity().mAccount.getTokenBalance(mHardMoneyMarketDenom);
         mMaxAvailable = mBorrowedAmount.min(availableAmount);
-        WDp.showCoinDp(getContext(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mRepayDenomTx, mRepayMaxTx, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getBaseDao(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mRepayDenomTx, mRepayMaxTx, getSActivity().mBaseChain);
 
         if (mHardMoneyMarketDenom.equals(TOKEN_KAVA)) {
             WDp.DpMainDenom(getSActivity(), getSActivity().mBaseChain.getChain(), mRepaySymbol);

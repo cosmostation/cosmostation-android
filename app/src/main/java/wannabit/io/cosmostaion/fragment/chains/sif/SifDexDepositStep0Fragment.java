@@ -130,13 +130,13 @@ public class SifDexDepositStep0Fragment extends BaseFragment implements View.OnC
         mExternalDecimal = WUtil.getSifCoinDecimal(getBaseDao(), externalDenom);
         setDpDecimals(mRowanDecimal, mExternalDecimal);
 
-        WUtil.DpSifTokenImg(mJoinPoolInput0Img, TOKEN_SIF);
-        WUtil.dpSifTokenName(getSActivity(), mJoinPoolInput0Symbol, TOKEN_SIF);
-        WUtil.DpSifTokenImg(mJoinPoolInput1Img, externalDenom);
-        WUtil.dpSifTokenName(getSActivity(), mJoinPoolInput1Symbol, externalDenom);
+        WUtil.DpSifTokenImg(getBaseDao(), mJoinPoolInput0Img, TOKEN_SIF);
+        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mJoinPoolInput0Symbol, TOKEN_SIF);
+        WUtil.DpSifTokenImg(getBaseDao(), mJoinPoolInput1Img, externalDenom);
+        WUtil.dpSifTokenName(getSActivity(), getBaseDao(), mJoinPoolInput1Symbol, externalDenom);
 
-        WDp.showCoinDp(getSActivity(), TOKEN_SIF, mRowanMaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount, BaseChain.SIF_MAIN);
-        WDp.showCoinDp(getSActivity(), externalDenom, mExternalMaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount, BaseChain.SIF_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), TOKEN_SIF, mRowanMaxAmount.toString(), mJoinPoolInput0Denom, mJoinPoolInput0Amount, BaseChain.SIF_MAIN);
+        WDp.showCoinDp(getSActivity(), getBaseDao(), externalDenom, mExternalMaxAmount.toString(), mJoinPoolInput1Denom, mJoinPoolInput1Amount, BaseChain.SIF_MAIN);
 
         BigDecimal lpNativeAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, TOKEN_SIF);
         BigDecimal lpExternalAmount = WUtil.getPoolLpAmount(getSActivity().mSifPool, externalDenom);

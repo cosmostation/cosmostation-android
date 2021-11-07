@@ -72,7 +72,7 @@ public class Dialog_IBC_Relayer_Channel extends DialogFragment {
             if (path.auth == null) {
                 holder.channelStatus.setImageDrawable(getSActivity().getDrawable(R.drawable.unknown));
             } else if (path.auth) {
-                holder.channelStatus.setImageDrawable(getSActivity().getDrawable(R.drawable.authed));
+                holder.channelStatus.setImageDrawable(getSActivity().getDrawable(R.drawable.wellknown));
             }
             holder.rootLayer.setOnClickListener(new View.OnClickListener() {
                 @Override
