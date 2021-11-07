@@ -299,6 +299,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     }
 
     private void onChainSelect(BaseChain baseChain) {
+        invalidateOptionsMenu();
         mDisplayChains = getBaseDao().dpSortedChains();
         mSelectedChain = baseChain;
         getBaseDao().setLastChain(mSelectedChain.getChain());
