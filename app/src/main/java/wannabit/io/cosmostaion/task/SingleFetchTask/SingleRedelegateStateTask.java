@@ -15,18 +15,8 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 public class SingleRedelegateStateTask extends CommonTask {
@@ -58,18 +48,6 @@ public class SingleRedelegateStateTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getSecretChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
-                if (response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null) {
-                        mResult.resultData = response.body().result;
-                        mResult.isSuccess = true;
-                    } else {
-                        mResult.resultData = new ArrayList<Redelegate>();
-                        mResult.isSuccess = true;
-                    }
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(KI_MAIN)) {
-                Response<ResLcdRedelegate> response = ApiClient.getKiChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
                 if (response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
                         mResult.resultData = response.body().result;

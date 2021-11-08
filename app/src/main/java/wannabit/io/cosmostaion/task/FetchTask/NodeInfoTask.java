@@ -10,23 +10,12 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
 
 public class NodeInfoTask extends CommonTask {
@@ -81,29 +70,9 @@ public class NodeInfoTask extends CommonTask {
                     WLog.w("NodeInfoTask : NOk");
                 }
 
-            } else if (mChain.equals(KI_MAIN)) {
-                Response<ResNodeInfo> response = ApiClient.getKiChain(mApp).getNodeInfo().execute();
-                if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
-                    mResult.resultData = response.body().node_info;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("NodeInfoTask : NOk");
-                }
-
             }
 
-            else if (mChain.equals(KAVA_TEST)) {
-                Response<ResNodeInfo> response = ApiClient.getKavaTestChain(mApp).getNodeInfo().execute();
-                if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
-                    mResult.resultData = response.body().node_info;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("NodeInfoTask : NOk");
-                }
-
-            } else if (mChain.equals(BNB_TEST)) {
+            else if (mChain.equals(BNB_TEST)) {
                 Response<ResNodeInfo> response =  ApiClient.getBnbTestChain(mApp).getNodeInfo().execute();
                 if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
                     mResult.resultData = response.body().node_info;

@@ -71,7 +71,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
@@ -641,7 +640,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             } else if(viewType == TYPE_HISTORY_HEADER) {
                 return new HistoryHeaderHolder(getLayoutInflater().inflate(R.layout.item_validator_history_header, viewGroup, false));
             } else if(viewType == TYPE_HISTORY) {
-                if (isGRPC(mBaseChain) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KI_MAIN)) {
+                if (isGRPC(mBaseChain) || mBaseChain.equals(KAVA_MAIN)) {
                     return new HistoryNewHolder(getLayoutInflater().inflate(R.layout.item_new_history, viewGroup, false));
                 } else {
                     return new HistoryOldHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
