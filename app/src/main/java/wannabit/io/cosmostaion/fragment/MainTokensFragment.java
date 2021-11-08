@@ -950,7 +950,7 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemFullName.setText("KiChain Staking Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_kifoundation));
 
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KI);
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_KI);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
