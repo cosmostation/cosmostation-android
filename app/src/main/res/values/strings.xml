@@ -1379,7 +1379,7 @@
     <string name="str_total_deposit_value">Supply Balance</string>
     <string name="str_ltv_value">Borrow Balance</string>
     <string name="str_total_borrowed_value">Available Credit(LTV)</string>
-    <string name="str_borrow_limit_value">Borrow Limit</string>
+    <string name="str_borrow_limit_value">Remaining Borrowable Value</string>
     <string name="str_supply_apy">Supply APY</string>
     <string name="str_borrow_apy">Borrow APY</string>
     <string name="str_supply_incentive_apy">Incentive Supply APY</string>
