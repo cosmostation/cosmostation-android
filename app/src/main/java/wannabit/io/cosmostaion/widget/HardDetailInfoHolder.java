@@ -65,7 +65,7 @@ public class HardDetailInfoHolder extends BaseHolder {
             Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + hardMoneyMarket.denom + ".png").fit().into(mPoolImg);
         } catch (Exception e) { }
         String marketTitle = hardMoneyMarket.denom.equals(TOKEN_KAVA) ? "kava" : hardMoneyMarket.denom;
-        mPoolTitle.setText(marketTitle.toUpperCase() + " POOL");
+        mPoolTitle.setText(marketTitle.toUpperCase());
 
         BigDecimal supplyApy = BigDecimal.ZERO;
         BigDecimal borrowApy = BigDecimal.ZERO;

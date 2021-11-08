@@ -788,11 +788,11 @@
     <string name="str_okex_old_type"><![CDATA[Tendermint Type Key]]></string>
     <string name="str_okex_new_type"><![CDATA[Ethermint(Default) Type Key]]></string>
     <string name="str_kava_cdp_list">Mint</string>
-    <string name="str_kava_cdp_details">CDP Status</string>
+    <string name="str_kava_cdp_details">Mint Status</string>
     <string name="str_kava_auction_list">Auction</string>
     <string name="str_kava_auction_details">Auction Status</string>
     <string name="str_kava_harvest_list">Lend</string>
-    <string name="str_kava_harvest_details">Hard Pool Status</string>
+    <string name="str_kava_harvest_details">Lend Status</string>
     <string name="str_kava_swap_list">Swap</string>
     <string name="str_kava_pool_list">Pool</string>
     <string name="str_my_cdps">My CDP</string>
@@ -872,7 +872,7 @@
     <string name="str_collateral_value_title1">Collateral</string>
     <string name="str_collateral_value_title2">Value</string>
     <string name="str_collateral_value_title3">My %1$s Collateral Value</string>
-    <string name="str_open_cdp">Open CDP</string>
+    <string name="str_open_cdp">Open Mint</string>
     <string name="str_total_amount">Total</string>
     <string name="str_available_amount">Available Amount</string>
     <string name="str_delegable_amount">Delegable Amount</string>
@@ -942,7 +942,7 @@
     <string name="str_help_risk">A risk score of 100 will cause your CDP to be liquidated. Risk Score is calculated through comparing the current token price of your collateralized asset against the token price at which the CDP will be liquidated.\n\nFor example, a risk score of 60 and the current token price of your collateralized asset at $10 means that your CDP will be liquidated if the token price reaches $6.</string>
 
 
-    <string name="str_create_cdp_c">OPEN CDP</string>
+    <string name="str_create_cdp_c">OPEN Mint</string>
     <string name="str_repay_cdp_c">REPAY USDX</string>
     <string name="str_draw_debt_cdp_c">BORROW MORE USDX</string>
     <string name="str_deposit_cdp_c">DEPOSIT COLLATERAL</string>
@@ -1336,15 +1336,15 @@
     <string name="str_total_borrowed_supplies">System Total Borrowed</string>
     <string name="str_total_remain_supplies">System Remaining Borrowable</string>
     <string name="str_my_harvest_information">Dashboard</string>
-    <string name="str_deposit_harvest">Deposit Hard Pool Supply</string>
-    <string name="str_withdraw_harvest">Withdraw Hard Pool</string>
-    <string name="str_borrow_hard">Borrow from Hard Pool</string>
-    <string name="str_repay_hard">Repay to Hard Pool</string>
+    <string name="str_deposit_harvest">Deposit Lend Supply</string>
+    <string name="str_withdraw_harvest">Withdraw Lend</string>
+    <string name="str_borrow_hard">Borrow from Lend</string>
+    <string name="str_repay_hard">Repay to Lend</string>
     <string name="str_deposit_harvest_step_1">Enter deposit amount to supply</string>
     <string name="str_deposit_harvest_step_2">Insert memo (optional)</string>
     <string name="str_deposit_harvest_step_3">Select transaction fee</string>
     <string name="str_deposit_harvest_step_4">Check transaction detail</string>
-    <string name="str_withdraw_harvest_step_1">Enter hard pool withdrawal amount</string>
+    <string name="str_withdraw_harvest_step_1">Enter Lend withdrawal amount</string>
     <string name="str_withdraw_harvest_step_2">Insert memo (optional)</string>
     <string name="str_withdraw_harvest_step_3">Select transaction fee</string>
     <string name="str_withdraw_harvest_step_4">Check transaction detail</string>
@@ -1387,7 +1387,7 @@
     <string name="str_add_supply">Supply</string>
     <string name="str_get_borrow">Borrow</string>
     <string name="str_get_repay">Repay</string>
-    <string name="str_hard_withdraw_warn_title">Confirm Hard Pool Liquidation Risk</string>
+    <string name="str_hard_withdraw_warn_title">Confirm Lend Liquidation Risk</string>
     <string name="str_hard_withdraw_warn_msg">Please note that there may be risk of liquidation if your LTV(loan-to-value) exceeds maximum value. Confirm your Remaining Borrowable Value to check your LTV before sending this transaction.\nIf your Remaining Borrowable Value goes below 0, your position may be liquidated.</string>
     <string name="str_keeper">Keeper</string>
     <string name="str_type">Type</string>
