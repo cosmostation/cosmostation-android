@@ -123,7 +123,7 @@ public class BaseData {
     public ArrayList<Price>                 mPrices = new ArrayList<>();
     public ChainParam.Params                mChainParam;
     public ArrayList<IbcPath>               mIbcPaths = new ArrayList<>();
-    public static ArrayList<IbcToken>       mIbcTokens = new ArrayList<>();
+    public ArrayList<IbcToken>              mIbcTokens = new ArrayList<>();
 
     public Price getPrice(String denom) {
         for (Price price: mPrices) {
