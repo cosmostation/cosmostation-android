@@ -136,6 +136,12 @@ public class SifDexListActivity extends BaseActivity {
             return;
         }
 
+        BigDecimal inputBalance = getBaseDao().getAvailable(inCoinDenom);
+        if (BigDecimal.ZERO.compareTo(inputBalance) >= 0 ) {
+            Toast.makeText(this, R.string.error_not_enough_balance_to_vote, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(SifDexListActivity.this, SifSwapActivity.class);
         intent.putExtra("inputDenom", inCoinDenom);
         intent.putExtra("outputDenom", outCoinDenom);
