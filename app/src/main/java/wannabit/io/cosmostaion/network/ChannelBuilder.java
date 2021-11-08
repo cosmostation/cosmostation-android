@@ -97,7 +97,6 @@ public class ChannelBuilder {
     private final static String GRPC_KI_MAIN = "lcd-kichain-app.cosmostation.io";
     private final static int PORT_KI_MAIN = 9090;
 
-
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
 
