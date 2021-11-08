@@ -717,7 +717,6 @@ public class BaseConstant {
     public final static String SIF_GAS_AMOUNT_CLAIM_INCENTIVE           = "250000";
     public final static String SIF_GAS_AMOUNT_DEX                       = "250000";
 
-    public final static String KI_GAS_FEE_RATE_AVERAGE                  = "0.025";
     public final static String KI_GAS_AMOUNT_SEND                       = "100000";
     public final static String KI_GAS_AMOUNT_STAKE                      = "200000";
     public final static String KI_GAS_AMOUNT_REDELEGATE                 = "300000";
@@ -809,6 +808,10 @@ public class BaseConstant {
     public final static String STARGAZE_GAS_RATE_TINY                   = "0.00";
     public final static String STARGAZE_GAS_RATE_LOW                    = "0.00";
     public final static String STARGAZE_GAS_RATE_AVERAGE                = "0.00";
+
+    public final static String KI_GAS_RATE_TINY                         = "0.025";
+    public final static String KI_GAS_RATE_LOW                          = "0.025";
+    public final static String KI_GAS_RATE_AVERAGE                      = "0.025";
 
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";

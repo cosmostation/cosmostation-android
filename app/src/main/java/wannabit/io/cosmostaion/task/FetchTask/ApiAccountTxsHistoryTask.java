@@ -47,15 +47,6 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(BaseChain.KI_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getKiApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
             }
 
             else if (mChain.equals(COSMOS_MAIN)) {
@@ -222,6 +213,15 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.KI_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getKiApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
                 }
 
             }

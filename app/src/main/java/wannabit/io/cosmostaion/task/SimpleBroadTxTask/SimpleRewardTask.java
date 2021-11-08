@@ -22,26 +22,14 @@ import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResLcdVestingAccountInfo;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
@@ -100,21 +88,6 @@ public class SimpleRewardTask extends CommonTask {
                     msgs.add(singleWithdrawDeleMsg);
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
-                Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaTestChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mAccount.id, response.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromKavaLcd(mAccount.id, response.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
-
-                for(Validator val:mValidators) {
-                    Msg singleWithdrawDeleMsg = MsgGenerator.genWithdrawDeleMsg(mAccount.address, val.operator_address, BaseChain.getChain(mAccount.baseChain));
-                    msgs.add(singleWithdrawDeleMsg);
-                }
-
             } else if (getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
                 Response<ResLcdAccountInfo> accountResponse = ApiClient.getSecretChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(!accountResponse.isSuccessful()) {
@@ -130,24 +103,7 @@ public class SimpleRewardTask extends CommonTask {
                     msgs.add(singleWithdrawDeleMsg);
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(KI_MAIN)) {
-                Response<ResLcdAccountInfo> accountResponse = ApiClient.getKiChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(!accountResponse.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
-
-                for(Validator val:mValidators) {
-                    Msg singleWithdrawDeleMsg = MsgGenerator.genWithdrawDeleMsg(mAccount.address, val.operator_address, BaseChain.getChain(mAccount.baseChain));
-                    msgs.add(singleWithdrawDeleMsg);
-                }
-
             }
-
-
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mRewardFees, mRewardMemo, deterministicKey, mApp.getBaseDao().getChainId());
             if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
@@ -167,42 +123,8 @@ public class SimpleRewardTask extends CommonTask {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
-                Response<ResBroadTx> response = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
-                    }
-                    if(response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                }
-
             } else if (getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getSecretChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
-                    }
-                    if(response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(KI_MAIN)) {
-                Response<ResBroadTx> response = ApiClient.getKiChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
                         mResult.resultData = response.body().txhash;

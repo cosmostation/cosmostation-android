@@ -2182,41 +2182,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     if (isFinishing()) return;
                 }
             });
-
-        } else if (mBaseChain.equals(KI_MAIN)) {
-            ApiClient.getKiChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
-                @Override
-                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                    if (isFinishing()) return;
-                    WLog.w("onFetchTx " + response.toString());
-                    if (response.isSuccessful() && response.body() != null) {
-                        mResTxInfo = response.body();
-                        onUpdateView();
-                    } else {
-                        if (mIsSuccess && FetchCnt < 10) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    FetchCnt++;
-                                    onFetchTx(mTxHash);
-                                }
-                            }, 6000);
-                        } else if (!mIsGen) {
-                            onBackPressed();
-                        } else {
-                            onShowMoreWait();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (BuildConfig.DEBUG) t.printStackTrace();
-                    if (isFinishing()) return;
-                }
-            });
         }
-
     }
 
 
