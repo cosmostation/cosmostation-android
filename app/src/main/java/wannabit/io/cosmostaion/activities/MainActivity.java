@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,7 +44,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
-import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.dialog.Dialog_Rizon_Event_Horizon;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -253,7 +251,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 if (newState == TopSheetBehavior.STATE_COLLAPSED) {
                     mDimLayer.setVisibility(View.GONE);
-
+                    
                 }
             }
 
@@ -294,8 +292,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         onUpdateTitle();
         onFetchAllData();
-        mSelectedChain = getBaseDao().getLastChain();
-        onChainSelect(mSelectedChain);
     }
 
     private void onChainSelect(BaseChain baseChain) {
@@ -304,6 +300,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mSelectedChain = baseChain;
         getBaseDao().setLastChain(mSelectedChain.getChain());
         mDisplayAccounts = getBaseDao().onSelectAccountsByChain(mSelectedChain);
+        mChainRecyclerView.scrollToPosition(mDisplayChains.indexOf(mSelectedChain));
 
         mChainListAdapter.notifyDataSetChanged();
         mAccountListAdapter.notifyDataSetChanged();
@@ -373,6 +370,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void onShowTopAccountsView() {
         mDimLayer.setVisibility(View.VISIBLE);
         mTopSheetBehavior.setState(TopSheetBehavior.STATE_EXPANDED);
+        mChainRecyclerView.setAdapter(mChainListAdapter);
+        mChainRecyclerView.scrollToPosition(mDisplayChains.indexOf(getBaseDao().getLastChain()));
     }
 
     private void onHideTopAccountsView() {
@@ -555,6 +554,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                             @Override
                             public void run() {
                                 onChainSelect(chain);
+                                getBaseDao().setUserSortedChains(mDisplayChains);
                             }
                         },150);
                     }
