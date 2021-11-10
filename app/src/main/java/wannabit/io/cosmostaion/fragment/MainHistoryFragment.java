@@ -51,8 +51,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout              mSwipeRefreshLayout;
+    private RecyclerView                    mRecyclerView;
     private LinearLayout                    mEmptyHistory;
     private HistoryAdapter                  mHistoryAdapter;
     private TextView                        mNotYet;
@@ -151,7 +151,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private void onFetchHistory() {
         mNotYet.setVisibility(View.GONE);
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
-        if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KI_MAIN)) {
+        if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
@@ -238,7 +238,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
                 holder.onBindNewHistory(getMainActivity(), getBaseDao(), history);
 
-            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KI_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
                 HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
                 final ResApiNewTxListCustom history = mApiNewTxCustomHistory.get(position);
                 holder.onBindHistory(getMainActivity(), getBaseDao(), history);
@@ -257,7 +257,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemViewType(int position) {
-            if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KI_MAIN)) {
+            if (isGRPC(getMainActivity().mBaseChain) || getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
                 return TYPE_NEW_HISTORY;
             } else {
                 return TYPE_OLD_HISTORY;

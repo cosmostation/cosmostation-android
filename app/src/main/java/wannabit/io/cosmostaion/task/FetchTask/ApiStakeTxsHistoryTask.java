@@ -48,24 +48,6 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 } else {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
-            } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getKavaTestApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("ApiStakeTxsHistoryTask : NOk");
-                }
-
-            } else if (mChain.equals(BaseChain.KI_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getKiApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("ApiStakeTxsHistoryTask : NOk");
-                }
-
             }
 
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
@@ -236,6 +218,16 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 }
+
+            } else if (mChain.equals(BaseChain.KI_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getKiApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
+
             }
 
             else if (mChain.equals(BaseChain.COSMOS_TEST)) {
