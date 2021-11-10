@@ -41,7 +41,16 @@
                     android:layout_centerVertical="true"
                     style="@style/font_ssm_17_osmosis"
                     android:layout_marginLeft="@dimen/space_6"
-                    android:text="OSMO"/>
+                    android:text="-"/>
+                <TextView
+                    android:id="@+id/toolbar_channel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/space_6"
+                    android:layout_toRightOf="@+id/toolbar_symbol"
+                    style="@style/font_ss_12_gray1"
+                    android:text="-"/>
                 <TextView
                     android:id="@+id/per_price"
                     android:layout_width="wrap_content"
@@ -130,7 +139,7 @@
                 android:layout_marginTop="@dimen/space_2"
                 style="@style/font_ss_21_white"
                 android:singleLine="true"
-                android:text="$1,189,057.01"
+                android:text="0.00"
                 android:gravity="center_horizontal"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

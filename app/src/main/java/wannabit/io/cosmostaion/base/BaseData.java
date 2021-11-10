@@ -144,6 +144,17 @@ public class BaseData {
         return null;
     }
 
+    public IbcPath.Path getIbcPath(String channelId) {
+        for (IbcPath ibcPath: mIbcPaths) {
+            for (IbcPath.Path path: ibcPath.paths) {
+                if (path.channel_id.equals(channelId)) {
+                    return path;
+                }
+            }
+        }
+        return null;
+    }
+
     public String getBaseDenom(String denom) {
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
@@ -154,6 +165,16 @@ public class BaseData {
             return denom.substring(1);
         }
         return denom;
+    }
+
+    public String getIbcRelayerImg(BaseChain baseChain, String channelId) {
+        String url = "";
+        if (getIbcPath(channelId).relayer_img != null) {
+            url = getIbcPath(channelId).relayer_img;
+        } else {
+            url = WDp.getDefaultRelayerImg(baseChain);
+        }
+        return url;
     }
 
     public ArrayList<IbcPath> getIbcSendableRelayers() {

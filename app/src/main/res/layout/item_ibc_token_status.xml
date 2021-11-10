@@ -18,191 +18,67 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/space_16">
+            <ImageView
+                android:id="@+id/img_relayer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_180"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGray3"
+                android:layout_marginTop="@dimen/space_14"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="@dimen/space_14">
+                android:layout_marginTop="@dimen/space_16">
                 <TextView
-                    android:id="@+id/ibc_info_title"
+                    android:id="@+id/amount_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_ibc_info_title"
-                    style="@style/font_ss_14_white"/>
+                    android:text="@string/str_available"
+                    style="@style/font_ss_14_gray1"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/ibc_info_title">
-                    <ImageView
-                        android:id="@+id/ibc_info"
+                    android:layout_toRightOf="@+id/amount_title">
+                    <TextView
+                        android:id="@+id/current_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/unknown" />
+                        android:text="-"
+                        style="@style/font_ss_14_white"/>
                 </RelativeLayout>
             </RelativeLayout>
-
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/tx_delegate_auto_reward"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginRight="@dimen/space_16"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-                <LinearLayout
-                    android:layout_width="0dp"
+                android:layout_marginTop="@dimen/space_16">
+                <TextView
+                    android:id="@+id/denom_title"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:id="@+id/opposite_chain_img"
-                            android:layout_width="@dimen/space_32"
-                            android:layout_height="@dimen/space_32"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/cosmos_wh_main"/>
-                        <TextView
-                            android:id="@+id/opposite_chain"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/opposite_chain_img"
-                            android:layout_marginLeft="@dimen/space_4"
-                            style="@style/font_ss_14_white"
-                            android:text="Cosmos"/>
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                    android:text="@string/str_denom"
+                    style="@style/font_ss_14_gray1"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
+                    android:layout_toRightOf="@+id/denom_title">
+                    <TextView
+                        android:id="@+id/current_denom"
+                        android:layout_width="@dimen/space_180"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/space_28">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <ImageView
-                            android:id="@+id/current_chain_img"
-                            android:layout_width="@dimen/space_32"
-                            android:layout_height="@dimen/space_32"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/iris_wh"/>
-                        <TextView
-                            android:id="@+id/current_chain"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/current_chain_img"
-                            android:layout_marginLeft="@dimen/space_4"
-                            style="@style/font_ss_14_white"
-                            android:text="Iris"/>
-                    </RelativeLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="@dimen/space_16"
-                android:layout_marginRight="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_4"
-                android:layout_marginBottom="@dimen/space_14">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@drawable/btn_trans_with_border">
-                        <TextView
-                            android:id="@+id/opposite_chain_id"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_6"
-                            android:layout_marginTop="@dimen/space_6"
-                            android:singleLine="true"
-                            style="@style/font_ss_12_white"
-                            android:text="Osmosis"/>
-                        <TextView
-                            android:id="@+id/opposite_channel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/space_6"
-                            android:layout_marginTop="@dimen/space_6"
-                            style="@style/font_ss_12_white"
-                            android:text="channel-141"/>
-                        <TextView
-                            android:id="@+id/opposite_denom"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/space_6"
-                            style="@style/font_ss_12_white"
-                            android:text="uosmo"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="@dimen/space_40"
-                    android:layout_height="@dimen/space_20"
-                    android:layout_marginLeft="@dimen/space_8"
-                    android:layout_marginRight="@dimen/space_8"
-                    android:src="@drawable/arrow_auth" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@drawable/btn_trans_with_border">
-                        <TextView
-                            android:id="@+id/current_chain_id"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            style="@style/font_ss_12_white"
-                            android:layout_marginTop="@dimen/space_6"
-                            android:layout_marginRight="@dimen/space_6"
-                            android:singleLine="true"
-                            android:text="cosmoshub-3"/>
-                        <TextView
-                            android:id="@+id/current_channel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            style="@style/font_ss_12_white"
-                            android:layout_marginTop="@dimen/space_6"
-                            android:layout_marginRight="@dimen/space_6"
-                            android:text="channel-0"/>
-                        <TextView
-                            android:id="@+id/current_denom"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/font_ss_12_white"
-                            android:layout_gravity="end"
-                            android:singleLine="true"
-                            android:ellipsize="middle"
-                            android:layout_margin="@dimen/space_6"
-                            android:text="-"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
+                        android:layout_alignParentRight="true"
+                        android:ellipsize="middle"
+                        android:singleLine="true"
+                        android:gravity="end"
+                        android:text="-"
+                        style="@style/font_ss_14_white"/>
+                </RelativeLayout>
+            </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

@@ -1130,6 +1130,7 @@
     <string name="str_average">Average</string>
     <string name="str_high">High</string>
     <string name="str_available">Available</string>
+    <string name="str_denom">Denom</string>
     <string name="str_vesting">Vesting</string>
     <string name="str_locked">Locked</string>
     <string name="str_frozen">Frozen</string>
