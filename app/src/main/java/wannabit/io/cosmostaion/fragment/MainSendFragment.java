@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletBandHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBinanceHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBitcannaHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCertikHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletComdexHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCosmosHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCrytoHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletEmoneyHolder;
@@ -60,6 +61,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
@@ -235,6 +237,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_BITCANNA          = 26;
         private static final int TYPE_STARGAZE          = 27;
         private static final int TYPE_GRABRIDGE         = 28;
+        private static final int TYPE_COMDEX            = 29;
 
         private static final int TYPE_KAVA_INCENTIVE    = 40;
         private static final int TYPE_SIF_INCENTIVE     = 50;
@@ -329,6 +332,9 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_GRABRIDGE) {
                 return new WalletGraBridgeHolder(getLayoutInflater().inflate(R.layout.item_wallet_grabridge, viewGroup, false));
 
+            } else if (viewType == TYPE_COMDEX) {
+                return new WalletComdexHolder(getLayoutInflater().inflate(R.layout.item_wallet_comdex, viewGroup, false));
+
             }
 
 
@@ -412,6 +418,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(STARGAZE_MAIN)) { return TYPE_STARGAZE; }
                     else if (getMainActivity().mBaseChain.equals(GRABRIDGE_MAIN)) { return TYPE_GRABRIDGE; }
                     else if (getMainActivity().mBaseChain.equals(KI_MAIN)) { return TYPE_KI; }
+                    else if (getMainActivity().mBaseChain.equals(COMDEX_MAIN)) { return TYPE_COMDEX; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
                     else if (getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }
                 } else if (position == 1) {
