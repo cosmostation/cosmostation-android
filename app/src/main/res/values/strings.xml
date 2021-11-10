@@ -107,6 +107,9 @@
     <string name="url_api_grabridge" translatable="false">https://api-gravity-bridge.cosmostation.io/</string>
 
 
+    <string name="url_api_comdex" translatable="false">https://api-office.cosmostation.io/comets-test/v1/status</string>
+
+
     <string name="url_api_axelar" translatable="false">https://api-office.cosmostation.io/axelar-testnet-adelaide/</string>
 
 
