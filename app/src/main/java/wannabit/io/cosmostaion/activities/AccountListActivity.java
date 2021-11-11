@@ -93,6 +93,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
         mSelectedChain = baseChain;
         getBaseDao().setLastChain(mSelectedChain.getChain());
         mDisplayAccounts = getBaseDao().onSelectAccountsByChain(mSelectedChain);
+        mChainRecyclerView.scrollToPosition(mDisplayChains.indexOf(getBaseDao().getLastChain()));
 
         mChainListAdapter.notifyDataSetChanged();
         mAccountListAdapter.notifyDataSetChanged();

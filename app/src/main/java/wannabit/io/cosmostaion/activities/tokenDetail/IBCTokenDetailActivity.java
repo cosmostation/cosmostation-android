@@ -25,7 +25,6 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
-import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.IbcToken;
@@ -33,12 +32,8 @@ import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Send_Warning;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
@@ -47,6 +42,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
     private Toolbar                         mToolbar;
     private ImageView                       mToolbarSymbolImg;
     private TextView                        mToolbarSymbol;
+    private TextView                        mToolbarChannel;
     private TextView                        mItemPerPrice;
     private ImageView                       mItemUpDownImg;
     private TextView                        mItemUpDownPrice;
@@ -77,6 +73,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         mToolbar                = findViewById(R.id.tool_bar);
         mToolbarSymbolImg       = findViewById(R.id.toolbar_symbol_img);
         mToolbarSymbol          = findViewById(R.id.toolbar_symbol);
+        mToolbarChannel         = findViewById(R.id.toolbar_channel);
         mItemPerPrice           = findViewById(R.id.per_price);
         mItemUpDownImg          = findViewById(R.id.ic_price_updown);
         mItemUpDownPrice        = findViewById(R.id.dash_price_updown_tx);
@@ -170,6 +167,7 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             }
         }
 
+        mToolbarChannel.setText("(" + mIbcToken.channel_id + ")");
         mBtnAddressPopup.setCardBackgroundColor(WDp.getChainBgColor(IBCTokenDetailActivity.this, mBaseChain));
         mAddress.setText(mAccount.address);
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -234,16 +232,13 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
     }
 
     private class IBCTokenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-        private static final int TYPE_AMOUNT                        = 0;
         private static final int TYPE_IBC_STATUS                    = 1;
         private static final int TYPE_HISTORY                       = 2;
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if(viewType == TYPE_AMOUNT) {
-                return new AmountHolder(getLayoutInflater().inflate(R.layout.item_amount_detail, viewGroup, false));
-            } else if(viewType == TYPE_IBC_STATUS) {
+            if(viewType == TYPE_IBC_STATUS) {
                 return new IbcStatusHolder(getLayoutInflater().inflate(R.layout.item_ibc_token_status, viewGroup, false));
             }
             return null;
@@ -251,106 +246,48 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            if (getItemViewType(position) == TYPE_AMOUNT) {
-                onBindAmount(viewHolder);
-            } else if (getItemViewType(position) == TYPE_IBC_STATUS) {
+            if (getItemViewType(position) == TYPE_IBC_STATUS) {
                 onBindIbcInfo(viewHolder);
             }
         }
 
         @Override
         public int getItemCount() {
-            return 2;
+            return 1;
         }
 
         @Override
         public int getItemViewType(int position) {
             if (position == 0) {
-                return TYPE_AMOUNT;
-            } else if (position == 1) {
                 return TYPE_IBC_STATUS;
             } else {
                 return TYPE_HISTORY;
             }
         }
 
-        private void onBindAmount(RecyclerView.ViewHolder viewHolder) {
-            final AmountHolder holder = (IBCTokenAdapter.AmountHolder) viewHolder;
+        private void onBindIbcInfo(RecyclerView.ViewHolder viewHolder) {
+            final IbcStatusHolder holder = (IBCTokenAdapter.IbcStatusHolder) viewHolder;
             final BigDecimal totalAmount = getBaseDao().getAvailable(mIbcDenom);
             if (mIbcToken.auth) {
                 mIbcDivideDecimal = mIbcToken.decimal;
                 mIbcDisplayDecimal = mIbcToken.decimal;
             }
-            holder.itemTotal.setText("" + WDp.getDpAmount2(IBCTokenDetailActivity.this, totalAmount, mIbcDivideDecimal, mIbcDisplayDecimal));
-            holder.itemAvailable.setText("" + WDp.getDpAmount2(IBCTokenDetailActivity.this, totalAmount, mIbcDivideDecimal, mIbcDisplayDecimal));
-        }
-
-        private void onBindIbcInfo(RecyclerView.ViewHolder viewHolder) {
-            final IbcStatusHolder holder = (IBCTokenAdapter.IbcStatusHolder) viewHolder;
-            if (mIbcToken.auth) {
-                holder.itemIbcInfo.setImageDrawable(getDrawable(R.drawable.authed));
-            } else {
-                holder.itemIbcInfo.setVisibility(View.VISIBLE);
-            }
-
-            BaseChain toChain = WDp.getChainTypeByChainId(mIbcToken.counter_party.chain_id);
-            if (toChain != null) {
-                WDp.getChainImg(IBCTokenDetailActivity.this, toChain, holder.itemOppositeImg);
-                WDp.getChainTitle2(IBCTokenDetailActivity.this, toChain, holder.itemOppositeChain);
-            } else {
-                holder.itemOppositeImg.setVisibility(View.GONE);
-                holder.itemOppositeChain.setText("UNKNOWN");
-            }
-            holder.itemOppositeChainId.setText(mIbcToken.counter_party.chain_id);
-            holder.itemOppositeChannel.setText(mIbcToken.counter_party.channel_id);
-            holder.itemOppositeDenom.setText(mIbcToken.base_denom);
-
-            WDp.getChainImg(IBCTokenDetailActivity.this, mBaseChain, holder.itemCurrentImg);
-            WDp.getChainTitle2(IBCTokenDetailActivity.this, mBaseChain, holder.itemCurrentChain);
-            holder.itemCurrentChainId.setText(getBaseDao().getChainIdGrpc());
-            holder.itemCurrentChannel.setText(mIbcToken.channel_id);
+            try {
+                Picasso.get().load(getBaseDao().getIbcRelayerImg(mBaseChain, mIbcToken.channel_id)).into(holder.itemRelayer);
+            } catch (Exception e){}
+            holder.itemCurrentAmount.setText(WDp.getDpAmount2(IBCTokenDetailActivity.this, totalAmount, mIbcDivideDecimal, mIbcDisplayDecimal));
             holder.itemCurrentDenom.setText("ibc/" + mIbcToken.hash);
         }
 
-        public class AmountHolder extends RecyclerView.ViewHolder {
-            private TextView            itemTotal;
-            private TextView            itemAvailable;
-
-            public AmountHolder(View v) {
-                super(v);
-                itemTotal               = itemView.findViewById(R.id.total_amount);
-                itemAvailable           = itemView.findViewById(R.id.available_amount);
-            }
-        }
-
         public class IbcStatusHolder extends RecyclerView.ViewHolder {
-            private ImageView           itemIbcInfo;
-
-            private ImageView           itemOppositeImg;
-            private TextView            itemOppositeChain;
-            private TextView            itemOppositeChainId;
-            private TextView            itemOppositeChannel;
-            private TextView            itemOppositeDenom;
-
-            private ImageView           itemCurrentImg;
-            private TextView            itemCurrentChain;
-            private TextView            itemCurrentChainId;
-            private TextView            itemCurrentChannel;
+            private ImageView           itemRelayer;
+            private TextView            itemCurrentAmount;
             private TextView            itemCurrentDenom;
 
             public IbcStatusHolder(View v) {
                 super(v);
-                itemIbcInfo             = itemView.findViewById(R.id.ibc_info);
-                itemOppositeImg         = itemView.findViewById(R.id.opposite_chain_img);
-                itemOppositeChain       = itemView.findViewById(R.id.opposite_chain);
-                itemOppositeChainId     = itemView.findViewById(R.id.opposite_chain_id);
-                itemOppositeChannel     = itemView.findViewById(R.id.opposite_channel);
-                itemOppositeDenom       = itemView.findViewById(R.id.opposite_denom);
-
-                itemCurrentImg          = itemView.findViewById(R.id.current_chain_img);
-                itemCurrentChain        = itemView.findViewById(R.id.current_chain);
-                itemCurrentChainId      = itemView.findViewById(R.id.current_chain_id);
-                itemCurrentChannel      = itemView.findViewById(R.id.current_channel);
+                itemRelayer             = itemView.findViewById(R.id.img_relayer);
+                itemCurrentAmount       = itemView.findViewById(R.id.current_amount);
                 itemCurrentDenom        = itemView.findViewById(R.id.current_denom);
             }
         }

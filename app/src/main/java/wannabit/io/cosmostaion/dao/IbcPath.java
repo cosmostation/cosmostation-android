@@ -39,6 +39,9 @@ public class IbcPath implements SerializedName{
 
         @SerializedName("counter_party")
         public counterParty counter_party;
+
+        @SerializedName("relayer_img")
+        public String relayer_img;
     }
 
     public class counterParty {
