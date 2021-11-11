@@ -298,7 +298,7 @@ public enum BaseChain {
 
 //        result.add(ALTHEA_MAIN);
 //        result.add(GRABRIDGE_MAIN);
-        result.add(COMDEX_MAIN);
+//        result.add(COMDEX_MAIN);
 
 //        result.add(COSMOS_TEST);
 //        result.add(IRIS_TEST);
