@@ -529,7 +529,7 @@ public class ApiClient {
         return api_grabridge;
     }
 
-    //Services for gravity bridge mainnet api
+    //Services for comdex mainnet api
     private static HistoryApi api_comdex = null;
     public static HistoryApi getComdexApi(Context c) {
         if (api_comdex == null) {
