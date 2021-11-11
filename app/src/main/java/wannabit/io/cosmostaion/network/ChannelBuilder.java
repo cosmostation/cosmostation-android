@@ -11,6 +11,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
@@ -118,6 +119,9 @@ public class ChannelBuilder {
     private final static String GRPC_GRABRIDGE_MAIN = "lcd-office.cosmostation.io";
     private final static int PORT_GRABRIDGE_MAIN = 20300;
 
+    private final static String GRPC_COMDEX_MAIN = "lcd-office.cosmostation.io";
+    private final static int PORT_COMDEX_MAIN = 20500;
+
 
     public final static int TIME_OUT = 8;
 
@@ -167,6 +171,8 @@ public class ChannelBuilder {
             return getGraBridgeMain();
         } else if (chain.equals(KI_MAIN)) {
             return getKiMain();
+        } else if (chain.equals(COMDEX_MAIN)) {
+            return getComdexMain();
 
         } else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
@@ -470,6 +476,19 @@ public class ChannelBuilder {
             }
         }
         return channel_grabridge_main;
+    }
+
+    //Channel for comdex main
+    private static ManagedChannel channel_comdex_main = null;
+    public static ManagedChannel getComdexMain() {
+        if (channel_comdex_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_comdex_main = ManagedChannelBuilder.forAddress(GRPC_COMDEX_MAIN, PORT_COMDEX_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_comdex_main;
     }
 
     //Channel for stargate testnet

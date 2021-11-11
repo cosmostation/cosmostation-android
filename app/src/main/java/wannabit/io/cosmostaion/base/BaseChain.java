@@ -64,6 +64,7 @@ public enum BaseChain {
     ALTHEA_MAIN("althea-mainnet"),
     STARGAZE_MAIN("stargaze-mainnet"),
     GRABRIDGE_MAIN("GravityBridge-mainnet"),
+    COMDEX_MAIN("comdex-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -206,6 +207,9 @@ public enum BaseChain {
         if(chainName.equals(GRABRIDGE_MAIN.chainName)) {
             return GRABRIDGE_MAIN;
         }
+        if(chainName.equals(COMDEX_MAIN.chainName)) {
+            return COMDEX_MAIN;
+        }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
@@ -294,6 +298,7 @@ public enum BaseChain {
 
 //        result.add(ALTHEA_MAIN);
 //        result.add(GRABRIDGE_MAIN);
+//        result.add(COMDEX_MAIN);
 
 //        result.add(COSMOS_TEST);
 //        result.add(IRIS_TEST);

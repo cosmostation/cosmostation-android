@@ -38,7 +38,7 @@ public class WalletMintHolder extends BaseHolder {
         final BaseChain baseChain = mainActivity.mBaseChain;
         if (param != null) {
             mInflation.setText(WDp.getPercentDp(param.getDpInflation(baseChain)));
-            if (param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
+            if (param == null || param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
                 mAPR.setText("-");
             } else {
                 mAPR.setText(WDp.getPercentDp(param.getDpApr(baseChain)));
@@ -49,13 +49,13 @@ public class WalletMintHolder extends BaseHolder {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("msg1" , mainActivity.getString(R.string.str_apr_help_onchain_msg));
-                if (param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
+                if (param == null|| param.getDpApr(baseChain).equals(BigDecimal.ZERO)) {
                     bundle.putString("msg2" , "-");
                 } else {
                     bundle.putString("msg2" , "" + WDp.getPercentDp(param.getDpApr(baseChain)));
                 }
                 bundle.putString("msg3" , mainActivity.getString(R.string.str_apr_help_real_msg));
-                if (param.getDpRealApr(baseChain) == BigDecimal.ZERO) {
+                if (param == null || param.getDpRealApr(baseChain).equals(BigDecimal.ZERO)) {
                     bundle.putString("msg4" , "-");
                 } else {
                     bundle.putString("msg4" , "" + WDp.getPercentDp(param.getDpRealApr(baseChain)));

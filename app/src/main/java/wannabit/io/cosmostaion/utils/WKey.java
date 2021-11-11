@@ -43,6 +43,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
@@ -388,6 +389,8 @@ public class WKey {
                 result = bech32Encode("stars".getBytes(), converted);
             } else if (chain.equals(GRABRIDGE_MAIN)){
                 result = bech32Encode("gravity".getBytes(), converted);
+            } else if (chain.equals(COMDEX_MAIN)){
+                result = bech32Encode("comdex".getBytes(), converted);
             } else if (chain.equals(UMEE_TEST)){
                 result = bech32Encode("umee".getBytes(), converted);
             } else if (chain.equals(AXELAR_TEST)){
@@ -455,6 +458,8 @@ public class WKey {
             return bech32Encode("stars".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(GRABRIDGE_MAIN)) {
             return bech32Encode("gravity".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(COMDEX_MAIN)) {
+            return bech32Encode("comdex".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
             return bech32Encode("umee".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(AXELAR_TEST)) {
@@ -515,6 +520,8 @@ public class WKey {
             return bech32Encode("starsvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(GRABRIDGE_MAIN)) {
             return bech32Encode("gravityvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(COMDEX_MAIN)) {
+            return bech32Encode("comdexvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
             return bech32Encode("umeevaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(AXELAR_TEST)) {

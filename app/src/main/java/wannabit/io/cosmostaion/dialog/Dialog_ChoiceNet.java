@@ -35,7 +35,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
     private LinearLayout mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
     private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mMedi,
-                         mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mStargaze, mGraBridge, mSecret;
+                         mEmoney, mRegen, mRizon, mJuno, mBitCanna, mAlthea, mStargaze, mGraBridge, mComdex, mSecret;
     private LinearLayout mRizonTestLayer, mMediTestLayer, mAltheaTestLayer, mUmeeTestLayer, mAxelarTestLayer;
     private LinearLayout mCosmosTest, mIrisTest, mRizonTest, mMediTest, mAltheaTest, mUmeeTest, mAxelarTest;
 
@@ -100,6 +100,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mAlthea = view.findViewById(R.id.althea_chain);
         mStargaze = view.findViewById(R.id.stargaze_chain);
         mGraBridge = view.findViewById(R.id.grabridge_chain);
+        mComdex = view.findViewById(R.id.comdex_chain);
 
         mRizonTestLayer = view.findViewById(R.id.rizon_test_layer);
         mRizonTest = view.findViewById(R.id.rizon_test_net);
@@ -425,6 +426,18 @@ public class Dialog_ChoiceNet extends DialogFragment {
                     ((BaseActivity)getActivity()).onChainSelected(BaseChain.GRABRIDGE_MAIN);
                 } else {
                     ((BaseActivity)getActivity()).onChoiceNet(BaseChain.GRABRIDGE_MAIN);
+                }
+                getDialog().dismiss();
+            }
+        });
+
+        mComdex.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.COMDEX_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.COMDEX_MAIN);
                 }
                 getDialog().dismiss();
             }

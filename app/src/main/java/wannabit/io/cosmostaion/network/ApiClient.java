@@ -514,7 +514,7 @@ public class ApiClient {
         return api_stargaze;
     }
 
-    //Services for Stargaze mainnet api
+    //Services for gravity bridge mainnet api
     private static HistoryApi api_grabridge = null;
     public static HistoryApi getGraBridgeApi(Context c) {
         if (api_grabridge == null) {
@@ -527,6 +527,21 @@ public class ApiClient {
             }
         }
         return api_grabridge;
+    }
+
+    //Services for comdex mainnet api
+    private static HistoryApi api_comdex = null;
+    public static HistoryApi getComdexApi(Context c) {
+        if (api_comdex == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_comdex))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_comdex = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_comdex;
     }
 
     //Services for Rizon mainnet api

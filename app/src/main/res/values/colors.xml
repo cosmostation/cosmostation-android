@@ -43,6 +43,7 @@
     <color name="colorTransBgBitcanna">#2400b786</color>
     <color name="colorTransBgStargaze">#24e38cd4</color>
     <color name="colorTransBgGraBridge">#240088c8</color>
+    <color name="colorTransBgComdex">#24005ac5</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -153,6 +154,9 @@
 
     <color name="colorGraBridge">#0088c8</color>
     <color name="colorGraBridge2">#04547a</color>
+
+    <color name="colorComdex">#fe4350</color>
+    <color name="colorComdex2">#802938</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>
