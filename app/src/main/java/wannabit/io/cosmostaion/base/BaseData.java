@@ -779,7 +779,7 @@ public class BaseData {
 
     public BaseChain getLastChain() {
         String chainName = getSharedPreferences().getString(BaseConstant.PRE_SELECTED_CHAINS, COSMOS_MAIN.getChain());
-        if (getUserSortedChains().contains(chainName)) {
+        if (userSortedChains().contains(BaseChain.getChain(chainName))) {
             return BaseChain.getChain(chainName);
         } else {
             return COSMOS_MAIN;

@@ -292,6 +292,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         onUpdateTitle();
         onFetchAllData();
+        mSelectedChain = getBaseDao().getLastChain();
+        onChainSelect(mSelectedChain);
     }
 
     private void onChainSelect(BaseChain baseChain) {
