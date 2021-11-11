@@ -814,9 +814,9 @@ public class BaseConstant {
     public final static String KI_GAS_RATE_LOW                          = "0.025";
     public final static String KI_GAS_RATE_AVERAGE                      = "0.025";
 
-    public final static String COMDEX_GAS_RATE_TINY                     = "0.025";
-    public final static String COMDEX_GAS_RATE_LOW                      = "0.025";
-    public final static String COMDEX_GAS_RATE_AVERAGE                  = "0.025";
+    public final static String COMDEX_GAS_RATE_TINY                     = "0.20";
+    public final static String COMDEX_GAS_RATE_LOW                      = "0.20";
+    public final static String COMDEX_GAS_RATE_AVERAGE                  = "0.20";
 
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
