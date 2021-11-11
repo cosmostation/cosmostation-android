@@ -13,11 +13,6 @@
                     <stroke
                         android:color="@color/colorGray5"
                         android:width="@dimen/space_1"/>
-                    <padding
-                        android:left="@dimen/space_8"
-                        android:top="@dimen/space_8"
-                        android:right="@dimen/space_8"
-                        android:bottom="@dimen/space_8" />
                 </shape>
             </item>
 
@@ -31,11 +26,6 @@
                     <stroke
                         android:color="@color/colorGray5"
                         android:width="@dimen/space_1"/>
-                    <padding
-                        android:left="@dimen/space_8"
-                        android:top="@dimen/space_8"
-                        android:right="@dimen/space_8"
-                        android:bottom="@dimen/space_8" />
                 </shape>
             </item>
 
