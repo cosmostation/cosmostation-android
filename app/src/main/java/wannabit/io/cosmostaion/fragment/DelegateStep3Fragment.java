@@ -19,9 +19,11 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Delegate_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.JUNO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -94,9 +96,9 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mConfirmBtn)) {
             Bundle bundle = new Bundle();
-            if (getSActivity().mBaseChain.equals(SENTINEL_MAIN) || getSActivity().mBaseChain.equals(CRYPTO_MAIN)) {
+            if (getSActivity().mBaseChain.equals(SENTINEL_MAIN) || getSActivity().mBaseChain.equals(CRYPTO_MAIN) || getSActivity().mBaseChain.equals(JUNO_MAIN)) {
                 bundle.putInt("day", 28);
-            } else if (getSActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(OSMOSIS_MAIN) || getSActivity().mBaseChain.equals(BITCANNA_MAIN)) {
                 bundle.putInt("day", 14);
             } else {
                 bundle.putInt("day", 21);
