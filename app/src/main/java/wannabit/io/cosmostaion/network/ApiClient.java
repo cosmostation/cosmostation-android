@@ -254,23 +254,6 @@ public class ApiClient {
         return api_certik;
     }
 
-
-    //Services for Secret mainnet
-    private static SecretChain service_secret = null;
-    public static SecretChain getSecretChain(Context c) {
-        if (service_secret == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_secret))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_secret = retrofit.create(SecretChain.class);
-            }
-        }
-        return service_secret;
-    }
-
-
     //Services for Akash mainnet api
     private static HistoryApi api_akash = null;
     public static HistoryApi getAkashApi(Context c) {

@@ -17,7 +17,6 @@ import wannabit.io.cosmostaion.utils.WLog;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class ValidatorInfoUnbondedTask extends CommonTask {
     private BaseChain mChain;
@@ -54,19 +53,6 @@ public class ValidatorInfoUnbondedTask extends CommonTask {
 
                 if (response.body() != null) {
                     mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(SECRET_MAIN)) {
-                Response<ResLcdValidators> response = ApiClient.getSecretChain(mApp).getUnBondedValidatorDetailList().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 

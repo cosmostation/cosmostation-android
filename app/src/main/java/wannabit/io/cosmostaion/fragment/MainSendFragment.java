@@ -419,6 +419,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(GRABRIDGE_MAIN)) { return TYPE_GRABRIDGE; }
                     else if (getMainActivity().mBaseChain.equals(KI_MAIN)) { return TYPE_KI; }
                     else if (getMainActivity().mBaseChain.equals(COMDEX_MAIN)) { return TYPE_COMDEX; }
+                    else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
                     else if (getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }
                 } else if (position == 1) {
@@ -454,19 +455,6 @@ public class MainSendFragment extends BaseFragment {
                     return TYPE_GIUDE;
                 }
 
-            } else {
-                if (position == 0) {
-                    if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
-                } else if (position == 1) {
-                    return TYPE_PRICE;
-
-                } else if (position == 2) {
-                    return TYPE_MINT;
-
-                } else if (position == 3) {
-                    return TYPE_GIUDE;
-
-                }
             }
             return 0;
         }

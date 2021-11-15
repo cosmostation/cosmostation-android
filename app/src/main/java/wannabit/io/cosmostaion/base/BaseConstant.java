@@ -684,7 +684,6 @@ public class BaseConstant {
     public final static String CERTIK_GAS_AMOUNT_VOTE                   = "100000";
     public final static String CERTIK_GAS_AMOUNT_IBC_SEND               = "500000";
 
-    public final static String SECRET_GAS_FEE_RATE_AVERAGE              = "0.25";
     public final static String SECRET_GAS_AMOUNT_SEND                   = "80000";
     public final static String SECRET_GAS_AMOUNT_STAKE                  = "200000";
     public final static String SECRET_GAS_AMOUNT_REDELEGATE             = "300000";
@@ -818,6 +817,10 @@ public class BaseConstant {
     public final static String COMDEX_GAS_RATE_LOW                      = "0.20";
     public final static String COMDEX_GAS_RATE_AVERAGE                  = "0.20";
 
+    public final static String SECRET_GAS_RATE_TINY                     = "0.25";
+    public final static String SECRET_GAS_RATE_LOW                      = "0.25";
+    public final static String SECRET_GAS_RATE_AVERAGE                  = "0.25";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -886,7 +889,7 @@ public class BaseConstant {
     public final static String EXPLORER_IOV_MAIN        = "https://www.mintscan.io/starname/";
     public final static String EXPLORER_BINANCE_MAIN    = "https://binance.mintscan.io/";
     public final static String EXPLORER_BAND_MAIN       = "https://www.mintscan.io/band/";
-    public final static String EXPLORER_SECRET_MAIN     = "https://secretnodes.com/secret/chains/secret-2/";
+    public final static String EXPLORER_SECRET_MAIN     = "https://www.mintscan.io/secret/";
     public final static String EXPLORER_AKASH_MAIN      = "https://www.mintscan.io/akash/";
     public final static String EXPLORER_OKEX_MAIN       = "https://www.oklink.com/okexchain/";
     public final static String EXPLORER_PERSIS_MAIN     = "https://www.mintscan.io/persistence/";
