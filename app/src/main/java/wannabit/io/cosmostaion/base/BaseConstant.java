@@ -565,6 +565,7 @@ public class BaseConstant {
     public final static String TOKEN_STARGAZE       = "ustars";
     public final static String TOKEN_GRABRIDGE      = "ugrav";
     public final static String TOKEN_COMDEX         = "ucmdx";
+    public final static String TOKEN_INJ            = "inj";
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";
@@ -868,6 +869,7 @@ public class BaseConstant {
     public final static String STARGAZE_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/stargaze/";
     public final static String GRABRIDGE_VAL_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/gravity-bridge/";
     public final static String COMDEX_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/comdex/";
+    public final static String INJ_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/injective/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -907,6 +909,7 @@ public class BaseConstant {
     public final static String EXPLORER_STARGAZE_MAIN   = "https://www.mintscan.io/stargaze/";
     public final static String EXPLORER_GRABRIDGE_MAIN  = "https://www.mintscan.io/gravity-bridge/";
     public final static String EXPLORER_COMDEX_MAIN     = "https://www.mintscan.io/comdex/";
+    public final static String EXPLORER_INJ_MAIN        = "https://www.mintscan.io/injective/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 
