@@ -166,6 +166,9 @@ public class WKey {
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(371, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
+        } else if (chain.equals(INJ_MAIN)) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+
         } else {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
         }
@@ -542,6 +545,8 @@ public class WKey {
         DeterministicKey childKey = getKeyWithPathfromEntropy(chain, entropy, path, newBip, customPath);
         if ((chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) && newBip) {
             return generateAddressFromPriv("ex", childKey.getPrivateKeyAsHex());
+        } else if (chain.equals(INJ_MAIN)) {
+            return generateAddressFromPriv("inj", childKey.getPrivateKeyAsHex());
         }
         return getDpAddress(chain, childKey.getPublicKeyAsHex());
     }

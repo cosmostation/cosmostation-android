@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
@@ -83,6 +84,8 @@ public class GenerateAccountTask extends CommonTask {
         //OKex using ethermint style account
         if ((mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) && mNewPath) {
             newAccount.address      = WKey.generateAddressFromPriv("ex", dKey.getPrivateKeyAsHex());
+        } else if (mBaseChain.equals(INJ_MAIN)) {
+            newAccount.address      = WKey.generateAddressFromPriv("inj", dKey.getPrivateKeyAsHex());
         } else {
             newAccount.address      = WKey.getDpAddress(mBaseChain, dKey.getPublicKeyAsHex());
         }

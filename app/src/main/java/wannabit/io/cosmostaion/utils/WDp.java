@@ -142,6 +142,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LEGACY_PA
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LIVE_PATH_1;
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LIVE_PATH_2;
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_NON_LEDGER_PATH;
+import static wannabit.io.cosmostaion.base.BaseConstant.KEY_INJ_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_MEDI_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.KI_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MEDI_VAL_URL;
@@ -2412,6 +2413,9 @@ public class WDp {
                 return KEY_ETH_LEDGER_LEGACY_PATH + String.valueOf(position);
             }
             return BaseConstant.KEY_FETCH_BASE_PATH + String.valueOf(position);
+
+        } else if (chain.equals(INJ_MAIN)) {
+            return KEY_INJ_PATH + String.valueOf(position);
 
         } else {
             return BaseConstant.KEY_PATH + String.valueOf(position);

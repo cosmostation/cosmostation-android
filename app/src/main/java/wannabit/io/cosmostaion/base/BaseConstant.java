@@ -615,6 +615,7 @@ public class BaseConstant {
     public final static String KEY_ETH_LEDGER_LIVE_PATH_1   = "44'/60'/";
     public final static String KEY_ETH_LEDGER_LIVE_PATH_2   = "'/0/0";
     public final static String KEY_ETH_LEDGER_LEGACY_PATH   = "44'/60'/0'/";
+    public final static String KEY_INJ_PATH                 = "44'/60'/0'/0/";
     public final static String characterFilter              = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
