@@ -527,6 +527,21 @@ public class ApiClient {
         return api_comdex;
     }
 
+    //Services for secret mainnet api
+    private static HistoryApi api_secret = null;
+    public static HistoryApi getSecretApi(Context c) {
+        if (api_secret == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_secret))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_secret = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_secret;
+    }
+
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;
     public static HistoryApi getRizonApi(Context c) {
