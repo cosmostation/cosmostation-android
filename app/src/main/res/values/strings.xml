@@ -168,6 +168,7 @@
     <string name="str_stargaze_c" translatable="false">STARS</string>
     <string name="str_grabridge_c" translatable="false">GRAV</string>
     <string name="str_comdex_c" translatable="false">CMDX</string>
+    <string name="str_inj_c" translatable="false">INJ</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 

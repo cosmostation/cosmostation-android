@@ -44,7 +44,7 @@
     <color name="colorTransBgStargaze">#24e38cd4</color>
     <color name="colorTransBgGraBridge">#240088c8</color>
     <color name="colorTransBgComdex">#24005ac5</color>
-    <color name="colorTransBgInj">#24016c80</color>
+    <color name="colorTransBgInj">#2400bbdd</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -159,8 +159,8 @@
     <color name="colorComdex">#fe4350</color>
     <color name="colorComdex2">#802938</color>
 
-    <color name="colorInj">#016c80</color>
-    <color name="colorInj2">#00bbdd</color>
+    <color name="colorInj">#00bbdd</color>
+    <color name="colorInj2">#016c80</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

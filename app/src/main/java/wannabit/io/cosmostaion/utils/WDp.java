@@ -431,7 +431,7 @@ public class WDp {
 
         } else if (chain.equals(INJ_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
-            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
 
         } else if (chain.equals(COSMOS_TEST)) {
             if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
@@ -663,7 +663,7 @@ public class WDp {
 
         } else if (chain.equals(INJ_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
 
         } else if (chain.equals(COSMOS_TEST)) {
             if (symbol.equals(TOKEN_COSMOS_TEST)) {
@@ -1324,6 +1324,7 @@ public class WDp {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorComdex));
         } else if (baseChain.equals(INJ_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorInj));
+            floatBtn.setImageTintList(c.getResources().getColorStateList(R.color.colorBlack));
         }
 
         else if (baseChain.equals(COSMOS_TEST)) {
@@ -3338,7 +3339,7 @@ public class WDp {
             return 0;
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return 0;
-        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN)) {
+        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN)) {
             return 18;
         } else if (chain.equals(CRYPTO_MAIN)) {
             return 8;
@@ -3352,7 +3353,7 @@ public class WDp {
             return 8;
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return 18;
-        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN)) {
+        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(INJ_MAIN)) {
             return 18;
         } else if (chain.equals(CRYPTO_MAIN)) {
             return 8;
@@ -3366,7 +3367,7 @@ public class WDp {
             return 8;
         } else if (denom.equals(TOKEN_OK)) {
             return 18;
-        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF)) {
+        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF) || denom.equals(TOKEN_INJ)) {
             return 18;
         } else if (denom.equals(TOKEN_CRO)) {
             return 8;
@@ -3380,7 +3381,7 @@ public class WDp {
             return 8;
         } else if (denom.equals(TOKEN_OK)) {
             return 18;
-        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF)) {
+        } else if (denom.equals(TOKEN_FET) || denom.equals(TOKEN_SIF) || denom.equals(TOKEN_INJ)) {
             return 18;
         } else if (denom.equals(TOKEN_CRO)) {
             return 8;

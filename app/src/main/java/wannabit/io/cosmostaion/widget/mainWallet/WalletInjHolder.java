@@ -52,13 +52,13 @@ public class WalletInjHolder extends BaseHolder {
         final BigDecimal rewardAmount = baseData.getRewardSum(denom);
         final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
 
-        mTvInjTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
-        mTvInjAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
-        mTvInjVesting.setText(WDp.getDpAmount2(mainActivity, vestingAmount, 6, 6));
-        mTvInjDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
-        mTvInjUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
-        mTvInjRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
-        mTvInjValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
+        mTvInjTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 18, 6));
+        mTvInjAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 18, 6));
+        mTvInjVesting.setText(WDp.getDpAmount2(mainActivity, vestingAmount, 18, 6));
+        mTvInjDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 18, 6));
+        mTvInjUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 18, 6));
+        mTvInjRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 18, 6));
+        mTvInjValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 18));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) { mInjVestingLayer.setVisibility(View.VISIBLE);
         } else { mInjVestingLayer.setVisibility(View.GONE); }
