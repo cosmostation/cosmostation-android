@@ -640,11 +640,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             } else if(viewType == TYPE_HISTORY_HEADER) {
                 return new HistoryHeaderHolder(getLayoutInflater().inflate(R.layout.item_validator_history_header, viewGroup, false));
             } else if(viewType == TYPE_HISTORY) {
-                if (isGRPC(mBaseChain) || mBaseChain.equals(KAVA_MAIN)) {
-                    return new HistoryNewHolder(getLayoutInflater().inflate(R.layout.item_new_history, viewGroup, false));
-                } else {
-                    return new HistoryOldHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
-                }
+                return new HistoryNewHolder(getLayoutInflater().inflate(R.layout.item_new_history, viewGroup, false));
             } else if(viewType == TYPE_HISTORY_EMPTY) {
                 return new HistoryEmptyHolder(getLayoutInflater().inflate(R.layout.item_validator_history_empty, viewGroup, false));
             }
@@ -664,10 +660,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 } else if (getItemViewType(position) == TYPE_ACTION) {
                     onBindActionV1(viewHolder);
 
-                } else if (getItemViewType(position) == TYPE_HISTORY) {
-                    onBindApiHistoryGrpc(viewHolder, position);
                 }
-
 
             } else {
                 if (getItemViewType(position) == TYPE_VALIDATOR) {
@@ -679,10 +672,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 } else if (getItemViewType(position) == TYPE_ACTION) {
                     onBindAction(viewHolder);
 
-                } else if (getItemViewType(position) == TYPE_HISTORY) {
-                    onBindApiHistory(viewHolder, position);
                 }
             }
+            if (getItemViewType(position) == TYPE_HISTORY) {
+                onBindApiHistory(viewHolder, position);
+            }
+
         }
 
         private void onBindValidator(RecyclerView.ViewHolder viewHolder) {
@@ -860,10 +855,19 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         private void onBindApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
             final HistoryNewHolder holder = (HistoryNewHolder)viewHolder;
             final ResApiNewTxListCustom history;
-            if (mBondingInfo == null && mUnbondingInfo == null) {
-                history = mApiNewTxCustomHistory.get(position - 2);
+            if (isGRPC(mBaseChain)) {
+                if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
+                    history = mApiNewTxCustomHistory.get(position - 2);
+                } else {
+                    history = mApiNewTxCustomHistory.get(position - 3);
+                }
+
             } else {
-                history = mApiNewTxCustomHistory.get(position - 3);
+                if (mBondingInfo == null && mUnbondingInfo == null) {
+                    history = mApiNewTxCustomHistory.get(position - 2);
+                } else {
+                    history = mApiNewTxCustomHistory.get(position - 3);
+                }
             }
             holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
             holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
@@ -890,22 +894,33 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             holder.historyRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainId().equals(history.header.chain_id)) {
-                        String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
+                    Intent txDetail = null;
+                    if (isGRPC(mBaseChain)) {
+                        if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
+                            String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
 
+                        } else {
+                            txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
+                        }
                     } else {
-                        Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
-                        txDetail.putExtra("txHash", history.data.txhash);
-                        txDetail.putExtra("isGen", false);
-                        txDetail.putExtra("isSuccess", true);
-                        startActivity(txDetail);
+                        if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainId().equals(history.header.chain_id)) {
+                            String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
+
+                        } else {
+                            txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                        }
                     }
+                    txDetail.putExtra("txHash", history.data.txhash);
+                    txDetail.putExtra("isGen", false);
+                    txDetail.putExtra("isSuccess", true);
+                    startActivity(txDetail);
                 }
             });
         }
-
 
         private void onBindValidatorV1(RecyclerView.ViewHolder viewHolder) {
             final ValidatorHolder holder = (ValidatorHolder)viewHolder;
@@ -1088,55 +1103,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         }
 
-        private void onBindApiHistoryGrpc(RecyclerView.ViewHolder viewHolder, int position) {
-            final HistoryNewHolder holder = (HistoryNewHolder) viewHolder;
-            final ResApiNewTxListCustom history;
-            if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
-                history = mApiNewTxCustomHistory.get(position - 2);
-            } else {
-                history = mApiNewTxCustomHistory.get(position - 3);
-            }
-            holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
-            holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.data.timestamp));
-            holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.data.timestamp));
-            final Coin coin = history.getDpCoin(mBaseChain);
-            if (coin != null) {
-                holder.history_amount_symbol.setVisibility(View.VISIBLE);
-                holder.history_amount.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), getBaseDao(), history.getDpCoin(mBaseChain).denom, history.getDpCoin(mBaseChain).amount, holder.history_amount_symbol, holder.history_amount, mBaseChain);
-            } else if (history.getMsgType(ValidatorActivity.this, mAccount.address).equals(getString(R.string.tx_vote))) {
-                holder.history_amount_symbol.setVisibility(View.VISIBLE);
-                holder.history_amount_symbol.setText(history.getVoteOption());
-                holder.history_amount_symbol.setTextColor(getResources().getColor(R.color.colorWhite));
-                holder.history_amount.setVisibility(View.GONE);
-            } else {
-                holder.history_amount_symbol.setVisibility(View.GONE);
-                holder.history_amount.setVisibility(View.GONE);
-            }
-            if (history.isSuccess()) {
-                holder.historySuccess.setVisibility(View.GONE);
-            } else {
-                holder.historySuccess.setVisibility(View.VISIBLE);
-            }
-            holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!TextUtils.isEmpty(history.header.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.header.chain_id)) {
-                        String url = WUtil.getTxExplorer(mBaseChain, history.data.txhash);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
-
-                    } else {
-                        Intent txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
-                        txDetail.putExtra("txHash", history.data.txhash);
-                        txDetail.putExtra("isGen", false);
-                        txDetail.putExtra("isSuccess", true);
-                        startActivity(txDetail);
-                    }
-                }
-            });
-        }
-
         @Override
         public int getItemViewType(int position) {
             if (isGRPC(mBaseChain)) {
@@ -1314,21 +1280,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
             public HistoryHeaderHolder(View v) {
                 super(v);
-            }
-        }
-
-        public class HistoryOldHolder extends RecyclerView.ViewHolder {
-            private CardView historyRoot;
-            private TextView historyType, historySuccess, history_time, history_block, history_time_gap;
-
-            public HistoryOldHolder(View v) {
-                super(v);
-                historyRoot             = itemView.findViewById(R.id.card_history);
-                historyType             = itemView.findViewById(R.id.history_type);
-                historySuccess          = itemView.findViewById(R.id.history_success);
-                history_time            = itemView.findViewById(R.id.history_time);
-                history_block           = itemView.findViewById(R.id.history_block_height);
-                history_time_gap        = itemView.findViewById(R.id.history_time_gap);
             }
         }
 

@@ -24,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -213,6 +214,17 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         } else if (requestCode == SELECT_STAR_NAME_ADDRESS && resultCode == Activity.RESULT_OK) {
             getSActivity().mToAddress = data.getStringExtra("originAddress");
             getSActivity().onNextStep();
+
+        } else {
+            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if(result != null) {
+                if(result.getContents() != null) {
+                    mAddressInput.setText(result.getContents().trim());
+                    mAddressInput.setSelection(mAddressInput.getText().length());
+                }
+            } else {
+                super.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 

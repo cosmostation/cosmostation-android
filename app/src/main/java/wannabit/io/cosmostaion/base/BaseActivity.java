@@ -553,7 +553,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
         mFetchCallback = callback;
 
-        getBaseDao().mPrices.clear();
         getBaseDao().mIbcPaths.clear();
         getBaseDao().mIbcTokens.clear();
         getBaseDao().mChainParam = null;
