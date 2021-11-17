@@ -12,6 +12,7 @@ import java.util.List;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -240,6 +241,18 @@ public class ChainParam {
             return mGdexStatus;
         }
 
+        public int getUnbonding(BaseChain baseChain) {
+            int result = 0;
+            String unbondingTime = null;
+            if (isGRPC(baseChain)) {
+                unbondingTime = mStakingParams.params.unbonding_time;
+                result = Integer.parseInt(unbondingTime.split("s")[0]) / 60 / 60 / 24;
+            } else {
+                unbondingTime = mStakingParams.unbonding_time;
+                result = Integer.parseInt(String.valueOf(Long.parseLong(unbondingTime) / 1000000000 / 60 / 60 / 24));
+            }
+            return result;
+        }
     }
 
 

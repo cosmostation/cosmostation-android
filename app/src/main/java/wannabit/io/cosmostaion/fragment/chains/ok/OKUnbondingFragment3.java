@@ -68,7 +68,7 @@ public class OKUnbondingFragment3 extends BaseFragment implements View.OnClickLi
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 18));
 
         }
-        mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
+        mTime.setText(WDp.getUnbondTime(getContext(), getBaseDao(), getSActivity().mBaseChain));
         mMemo.setText(getSActivity().mTxMemo);
     }
 
