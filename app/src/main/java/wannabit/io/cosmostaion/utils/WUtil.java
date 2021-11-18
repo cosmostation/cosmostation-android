@@ -2186,6 +2186,36 @@ public class WUtil {
         } else if (chain.equals(MEDI_MAIN)) {
             return BLOCK_TIME_MEDI;
 
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            return BLOCK_TIME_OSMOSIS;
+
+        } else if (chain.equals(EMONEY_MAIN)) {
+            return BLOCK_TIME_EMONEY;
+
+        } else if (chain.equals(RIZON_MAIN)) {
+            return BLOCK_TIME_RIZON;
+
+        } else if (chain.equals(JUNO_MAIN)) {
+            return BLOCK_TIME_JUNO;
+
+        } else if (chain.equals(BITCANNA_MAIN)) {
+            return BLOCK_TIME_BITCANNA;
+
+        } else if (chain.equals(REGEN_MAIN)) {
+            return BLOCK_TIME_REGEN;
+
+        } else if (chain.equals(STARGAZE_MAIN)) {
+            return BLOCK_TIME_STARGAZE;
+
+        } else if (chain.equals(INJ_MAIN)) {
+            return BLOCK_TIME_INJECTIVE;
+
+        } else if (chain.equals(OKEX_MAIN)) {
+            return BLOCK_TIME_OKEX;
+
+        } else if (chain.equals(BNB_MAIN)) {
+            return BLOCK_TIME_BNB;
+
         }
         return BigDecimal.ZERO;
     }
