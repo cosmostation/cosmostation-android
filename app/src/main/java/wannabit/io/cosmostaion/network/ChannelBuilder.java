@@ -29,6 +29,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.REGEN_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
@@ -97,6 +98,11 @@ public class ChannelBuilder {
 
     private final static String GRPC_KI_MAIN = "lcd-kichain-app.cosmostation.io";
     private final static int PORT_KI_MAIN = 9090;
+
+    private final static String GRPC_SECRET_MAIN = "lcd-secret.cosmostation.io";
+    private final static int PORT_SECRET_MAIN = 9090;
+
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -173,6 +179,8 @@ public class ChannelBuilder {
             return getKiMain();
         } else if (chain.equals(COMDEX_MAIN)) {
             return getComdexMain();
+        } else if (chain.equals(SECRET_MAIN)) {
+            return getSecretMain();
 
         } else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
@@ -489,6 +497,19 @@ public class ChannelBuilder {
             }
         }
         return channel_comdex_main;
+    }
+
+    //Channel for secret main
+    private static ManagedChannel channel_secret_main = null;
+    public static ManagedChannel getSecretMain() {
+        if (channel_secret_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_secret_main = ManagedChannelBuilder.forAddress(GRPC_SECRET_MAIN, PORT_SECRET_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_secret_main;
     }
 
     //Channel for stargate testnet

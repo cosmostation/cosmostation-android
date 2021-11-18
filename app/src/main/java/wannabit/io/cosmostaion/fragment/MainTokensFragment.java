@@ -967,6 +967,24 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
+        } else if (coin.denom.equals(TOKEN_SECRET)) {
+            holder.itemSymbol.setText(getString(R.string.str_scrt_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SECRET_MAIN));
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText("Secret Native Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensecret));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_SECRET);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
+                    startActivity(intent);
+                }
+            });
+
         } else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));
@@ -1268,24 +1286,6 @@ public class MainTokensFragment extends BaseFragment {
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
                 holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 0));
             }
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-        } else if (balance.symbol.equals(TOKEN_SECRET)) {
-            holder.itemSymbol.setText(getString(R.string.str_scrt_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SECRET_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Secret Native Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensecret));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SECRET);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

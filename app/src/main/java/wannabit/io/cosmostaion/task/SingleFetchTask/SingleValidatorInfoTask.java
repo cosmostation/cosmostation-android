@@ -36,13 +36,6 @@ public class SingleValidatorInfoTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(SECRET_MAIN)) {
-                Response<ResLcdSingleValidator> response = ApiClient.getSecretChain(mApp).getValidatorDetail(mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             }
 
         } catch (Exception e) {

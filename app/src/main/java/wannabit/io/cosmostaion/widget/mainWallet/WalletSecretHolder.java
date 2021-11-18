@@ -41,11 +41,11 @@ public class WalletSecretHolder extends BaseHolder {
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
         final String denom = WDp.mainDenom(mainActivity.mBaseChain);
-        final BigDecimal availableAmount = baseData.availableAmount(denom);
-        final BigDecimal delegateAmount = baseData.delegatedSumAmount();
-        final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
-        final BigDecimal rewardAmount = baseData.rewardAmount(denom);
-        final BigDecimal totalAmount = baseData.getAllMainAssetOld(denom);
+        final BigDecimal availableAmount = baseData.getAvailable(denom);
+        final BigDecimal delegateAmount = baseData.getDelegationSum();
+        final BigDecimal unbondingAmount = baseData.getUndelegationSum();
+        final BigDecimal rewardAmount = baseData.getRewardSum(denom);
+        final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
 
         mTvSecretTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvSecretAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
