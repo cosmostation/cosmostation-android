@@ -99,7 +99,7 @@ public class ChannelBuilder {
     private final static String GRPC_KI_MAIN = "lcd-kichain-app.cosmostation.io";
     private final static int PORT_KI_MAIN = 9090;
 
-    private final static String GRPC_SECRET_MAIN = "lcd-secret-app.cosmostation.io";
+    private final static String GRPC_SECRET_MAIN = "lcd-secret.cosmostation.io";
     private final static int PORT_SECRET_MAIN = 9090;
 
 
