@@ -1084,10 +1084,7 @@
     <string name="str_undelegate_step_2">Insert memo (optional)</string>
     <string name="str_undelegate_step_3">Select transaction fee</string>
     <string name="str_undelegate_step_4">Check undelegation detail</string>
-    <string name="str_unbonding_3days_after"><![CDATA[(3 days after)]]></string>
-    <string name="str_unbonding_14days_after"><![CDATA[(14 days after)]]></string>
-    <string name="str_unbonding_21days_after"><![CDATA[(21 days after)]]></string>
-    <string name="str_unbonding_28days_after"><![CDATA[(28 days after)]]></string>
+    <string name="str_unbonding_days_after"><![CDATA[days after)]]></string>
     <string name="str_reward_step_1">Check reward detail</string>
     <string name="str_reward_step_2">Insert memo (optional)</string>
     <string name="str_reward_step_3">Select transaction fee</string>

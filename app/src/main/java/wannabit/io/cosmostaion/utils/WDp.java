@@ -2507,34 +2507,17 @@ public class WDp {
         return result;
     }
 
-    public static String getUnbondTime(Context c, BaseChain chain) {
+    public static String getUnbondTime(Context c, BaseData baseData, BaseChain baseChain) {
         String result = "??";
         try {
-            if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST) || chain.equals(OSMOSIS_MAIN) || chain.equals(BITCANNA_MAIN)) {
+            if (baseData != null && baseData.mChainParam != null) {
                 Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.DATE, 14);
+                calendar.add(Calendar.DATE, baseData.mChainParam.getUnbonding(baseChain));
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
                 result = unbondFormat.format(calendar.getTimeInMillis());
-                return result + "   " +c.getString(R.string.str_unbonding_14days_after);
-
-            } else if (chain.equals(SENTINEL_MAIN) || chain.equals(CRYPTO_MAIN) || chain.equals(JUNO_MAIN)) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.DATE, 28);
-                SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
-                result = unbondFormat.format(calendar.getTimeInMillis());
-                return result + "   " +c.getString(R.string.str_unbonding_28days_after);
-
-            } else {
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.DATE, 21);
-                SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
-                result = unbondFormat.format(calendar.getTimeInMillis());
-                return result + "   " +c.getString(R.string.str_unbonding_21days_after);
             }
-
-        } catch (Exception e) {};
-
-        return result;
+        } catch (Exception e) {}
+        return result + "   " + "(" + baseData.mChainParam.getUnbonding(baseChain) + c.getString(R.string.str_unbonding_days_after);
     }
 
     public static String getUnbondingTimeleft(Context c, long finishTime) {
