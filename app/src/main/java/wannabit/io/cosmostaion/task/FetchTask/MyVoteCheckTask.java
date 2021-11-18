@@ -41,19 +41,6 @@ public class MyVoteCheckTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(BaseChain.SECRET_MAIN)) {
-                Response<ResMyVote> response = ApiClient.getSecretChain(mApp).getMyVote(mProposalId, mAddress).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if (response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             }
 
         } catch (Exception e) {

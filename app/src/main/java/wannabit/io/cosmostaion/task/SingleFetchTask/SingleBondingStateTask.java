@@ -12,7 +12,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 public class SingleBondingStateTask extends CommonTask {
@@ -32,13 +31,6 @@ public class SingleBondingStateTask extends CommonTask {
         try {
             if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getKavaChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if (response.isSuccessful() && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
-                Response<ResLcdSingleBonding> response = ApiClient.getSecretChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
                 if (response.isSuccessful() && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;

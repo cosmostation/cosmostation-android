@@ -369,7 +369,7 @@ public enum BaseChain {
 
     public static boolean isGRPC(BaseChain baseChain) {
         if (baseChain.equals(BNB_MAIN) || baseChain.equals(OKEX_MAIN) || baseChain.equals(KAVA_MAIN) ||
-                baseChain.equals(SECRET_MAIN) || baseChain.equals(BNB_TEST) || baseChain.equals(OK_TEST)) {
+                baseChain.equals(BNB_TEST) || baseChain.equals(OK_TEST)) {
             return false;
         }
         return true;

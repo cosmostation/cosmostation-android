@@ -15,7 +15,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
 
 public class NodeInfoTask extends CommonTask {
@@ -33,16 +32,6 @@ public class NodeInfoTask extends CommonTask {
             if (mChain.equals(KAVA_MAIN)) {
                 Response<ResNodeInfo> response = ApiClient.getKavaChain(mApp).getNodeInfo().execute();
                 if (response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
-                    mResult.resultData = response.body().node_info;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("NodeInfoTask : NOk");
-                }
-
-            } else if (mChain.equals(SECRET_MAIN)) {
-                Response<ResNodeInfo> response =  ApiClient.getSecretChain(mApp).getNodeInfo().execute();
-                if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
                     mResult.resultData = response.body().node_info;
                     mResult.isSuccess = true;
 

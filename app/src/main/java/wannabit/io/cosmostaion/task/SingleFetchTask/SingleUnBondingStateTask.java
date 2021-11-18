@@ -37,13 +37,6 @@ public class SingleUnBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
-                Response<ResLcdSingleUnBonding> response = ApiClient.getSecretChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             }
 
         } catch (Exception e) {

@@ -54,8 +54,8 @@
 
 
     <!--    <string name="url_lcd_secret" translatable="false">https://api.secretnodes.org/</string>-->
-    <string name="url_lcd_secret" translatable="false">https://secret-3--lcd--full.datahub.figment.io/apikey/290520481df876316ee7664924c0a1df/</string>
-    <string name="url_api_secret" translatable="false"></string>
+<!--    <string name="url_lcd_secret" translatable="false">https://secret-3&#45;&#45;lcd&#45;&#45;full.datahub.figment.io/apikey/290520481df876316ee7664924c0a1df/</string>-->
+    <string name="url_api_secret" translatable="false">https://api-secret.cosmostation.io/</string>
 
 
     <string name="url_api_akash" translatable="false">https://api-akash.cosmostation.io/</string>
