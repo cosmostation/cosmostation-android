@@ -5,16 +5,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <FrameLayout
-        android:id="@+id/accountCard"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/chain_card"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_50"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/box_account_unselected"
         android:layout_marginLeft="@dimen/space_8"
         android:layout_marginRight="@dimen/space_8"
-        android:layout_marginTop="@dimen/space_8">
+        android:layout_marginTop="@dimen/space_8"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="@dimen/space_6"
+        app:cardElevation="1.5dp"
+        app:cardBackgroundColor="@color/colorTransBg">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -68,5 +69,5 @@
                 </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
-    </FrameLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>
