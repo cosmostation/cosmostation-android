@@ -122,8 +122,8 @@ public class ChannelBuilder {
     private final static String GRPC_UMEE_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_UMEE_TEST = 40800;
 
-    private final static String GRPC_AXELAR_TEST = "lcd-office.cosmostation.io";
-    private final static int PORT_AXELAR_TEST = 40600;
+    private final static String GRPC_AXELAR_TEST = "lcd-axelar-testnet.cosmostation.io";
+    private final static int PORT_AXELAR_TEST = 9090;
 
     private final static String GRPC_GRABRIDGE_MAIN = "lcd-office.cosmostation.io";
     private final static int PORT_GRABRIDGE_MAIN = 20300;

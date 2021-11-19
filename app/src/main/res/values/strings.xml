@@ -113,7 +113,7 @@
     <string name="url_api_comdex" translatable="false">https://api-office.cosmostation.io/comets-test/</string>
 
 
-    <string name="url_api_axelar" translatable="false">https://api-office.cosmostation.io/axelar-testnet-adelaide/</string>
+    <string name="url_api_axelar" translatable="false">https://api-axelar-testnet.cosmostation.io/</string>
 
 
     <string name="url_hdac_mainnet" translatable="false">https://insight-api.rizon.world/insight-api/</string>
