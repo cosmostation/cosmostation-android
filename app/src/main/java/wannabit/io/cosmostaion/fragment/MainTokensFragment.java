@@ -997,7 +997,7 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_INJ);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 18));
-
+          
         } else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));

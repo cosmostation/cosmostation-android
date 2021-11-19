@@ -254,7 +254,6 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 } else {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
-
             }
 
             else if (mChain.equals(BaseChain.COSMOS_TEST)) {

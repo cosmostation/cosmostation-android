@@ -541,7 +541,7 @@ public class ApiClient {
         }
         return api_secret;
     }
-
+  
     //Services for injective mainnet api
     private static HistoryApi api_inj = null;
     public static HistoryApi getInjApi(Context c) {
@@ -556,7 +556,7 @@ public class ApiClient {
         }
         return api_inj;
     }
-
+  
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;
     public static HistoryApi getRizonApi(Context c) {

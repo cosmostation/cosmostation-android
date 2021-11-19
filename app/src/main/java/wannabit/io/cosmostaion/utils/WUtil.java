@@ -2885,7 +2885,7 @@ public class WUtil {
 
         } else if (basechain.equals(INJ_MAIN)) {
             return EXPLORER_INJ_MAIN + "txs/" + hash;
-
+        
         }
 
         else if (basechain.equals(COSMOS_TEST)) {
@@ -3357,9 +3357,11 @@ public class WUtil {
             BigDecimal gasRate = new BigDecimal(SECRET_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
-
+        
         } else if (basechain.equals(INJ_MAIN)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(UMEE_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);

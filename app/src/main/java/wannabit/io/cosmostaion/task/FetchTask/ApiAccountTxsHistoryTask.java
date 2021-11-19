@@ -233,7 +233,6 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-
             } else if (mChain.equals(BaseChain.SECRET_MAIN)) {
                 Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getSecretApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
