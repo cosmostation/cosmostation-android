@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.activities.chains.starname;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.MenuItem;
@@ -188,7 +187,7 @@ public class StarNameWalletConnectActivity  extends BaseActivity implements View
         public void run() {
             super.run();
             try {
-                File fleDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/build/tmp");
+                File fleDir = new File(StarNameWalletConnectActivity.this.getFilesDir(), "/build/tmp");
                 if(!fleDir.exists()){
                     fleDir.mkdirs();
                 }

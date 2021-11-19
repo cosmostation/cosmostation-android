@@ -266,7 +266,7 @@ public class WalletConnectActivity extends BaseActivity implements View.OnClickL
         public void run() {
             super.run();
             try {
-                File fleDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/build/tmp");
+                File fleDir = new File(WalletConnectActivity.this.getFilesDir(), "/build/tmp");
                 if(!fleDir.exists()){
                     fleDir.mkdirs();
                 }
