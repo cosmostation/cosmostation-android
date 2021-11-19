@@ -101,7 +101,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mStargaze = view.findViewById(R.id.stargaze_chain);
         mGraBridge = view.findViewById(R.id.grabridge_chain);
         mComdex = view.findViewById(R.id.comdex_chain);
-//        mInj = view.findViewById(R.id.inj_chain);
+        mInj = view.findViewById(R.id.inj_chain);
 
         mRizonTestLayer = view.findViewById(R.id.rizon_test_layer);
         mRizonTest = view.findViewById(R.id.rizon_test_net);
@@ -444,17 +444,17 @@ public class Dialog_ChoiceNet extends DialogFragment {
             }
         });
 
-//        mInj.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (mIsAdd) {
-//                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.INJ_MAIN);
-//                } else {
-//                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.INJ_MAIN);
-//                }
-//                getDialog().dismiss();
-//            }
-//        });
+        mInj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsAdd) {
+                    ((BaseActivity)getActivity()).onChainSelected(BaseChain.INJ_MAIN);
+                } else {
+                    ((BaseActivity)getActivity()).onChoiceNet(BaseChain.INJ_MAIN);
+                }
+                getDialog().dismiss();
+            }
+        });
 
 
         if (BaseChain.SUPPORT_CHAINS().contains(COSMOS_TEST)) {
