@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.activities.chains.ibc.IBCSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.IbcPath;
+import wannabit.io.cosmostaion.dao.IbcToken;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Receive_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Relayer_Channel;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Unknown_Relayer;
@@ -198,6 +199,11 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         Collections.sort(paths, new Comparator<IbcPath.Path>() {
             @Override
             public int compare(IbcPath.Path o1, IbcPath.Path o2) {
+                IbcToken ibcToken   = getBaseDao().getIbcToken(getSActivity().mToIbcDenom);
+                if (getSActivity().mToIbcDenom.startsWith("ibc/")) {
+                    if (o1.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return -1;
+                    if (o2.channel_id.equalsIgnoreCase(ibcToken.channel_id)) return 1;
+                }
                 if(o1.auth != null) return -1;
                 if(o2.auth != null) return 1;
                 else return 0;
