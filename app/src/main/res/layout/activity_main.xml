@@ -48,15 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingTop="@dimen/space_4"
-                    android:orientation="horizontal"
-                    android:layout_above="@+id/add_layer">
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/chain_recycler"
-                        android:layout_width="@dimen/space_92"
-                        android:layout_height="match_parent"
-                        android:paddingTop="@dimen/space_4"
-                        android:clipToPadding="false"
-                        android:overScrollMode="never"/>
+                    android:orientation="horizontal">
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/account_recycler"
                         android:layout_width="match_parent"
