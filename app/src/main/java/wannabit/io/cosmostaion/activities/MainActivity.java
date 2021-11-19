@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.activities;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +57,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
+import wannabit.io.cosmostaion.widget.mainWallet.ManageChainSwitchHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -97,15 +96,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     private TopSheetBehavior            mTopSheetBehavior;
 
-    private RecyclerView                mChainRecyclerView;
     private RecyclerView                mAccountRecyclerView;
-    private ChainListAdapter            mChainListAdapter;
     private AccountListAdapter          mAccountListAdapter;
 
     private BaseChain                   mSelectedChain;
-    private ArrayList<BaseChain>        mDisplayChains = new ArrayList<>();
-    private ArrayList<Account>          mDisplayAccounts = new ArrayList<>();
-
+    private ArrayList<BaseChain>        mExpendedChains = new ArrayList<>();
+    private ArrayList<ChainAccounts>    mChainAccounts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +123,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mFloatBtn               = findViewById(R.id.btn_floating);
         mFaucetBtn              = findViewById(R.id.btn_faucet);
         mAirDropBtn             = findViewById(R.id.btn_airdrop);
-        mChainRecyclerView      = findViewById(R.id.chain_recycler);
         mAccountRecyclerView    = findViewById(R.id.account_recycler);
 
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
@@ -160,11 +155,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
         });
 
-        mChainRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mChainRecyclerView.setHasFixedSize(true);
-        mChainListAdapter = new ChainListAdapter();
-        mChainRecyclerView.setAdapter(mChainListAdapter);
-
         mAccountRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mAccountRecyclerView.setHasFixedSize(true);
         mAccountListAdapter = new AccountListAdapter();
@@ -176,6 +166,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED)
                     mTopSheetBehavior.setState(TopSheetBehavior.STATE_COLLAPSED);
                 mDimLayer.setVisibility(View.GONE);
+                setExpendChains();
             }
         });
 
@@ -251,7 +242,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 if (newState == TopSheetBehavior.STATE_COLLAPSED) {
                     mDimLayer.setVisibility(View.GONE);
-                    
                 }
             }
 
@@ -277,10 +267,20 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         } else {
             onUpdateTitle();
         }
-        onChainSelect(getBaseDao().getLastChain());
+        onChainSelect(mBaseChain);
     }
 
-    private void onAccountSwitched() {
+    private void setExpendChains() {
+        mExpendedChains.clear();
+        for (ChainAccounts chainAccounts: mChainAccounts) {
+            if (chainAccounts.opened) {
+                mExpendedChains.add(chainAccounts.baseChain);
+            }
+        }
+        getBaseDao().setExpendedChains(mExpendedChains);
+    }
+
+    public void onAccountSwitched() {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
@@ -292,19 +292,27 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         onUpdateTitle();
         onFetchAllData();
-        mSelectedChain = getBaseDao().getLastChain();
+
+        mSelectedChain = mBaseChain;
         onChainSelect(mSelectedChain);
     }
 
     private void onChainSelect(BaseChain baseChain) {
         invalidateOptionsMenu();
+        mChainAccounts.clear();
+        ArrayList<BaseChain> mDisplayChains = new ArrayList<>();
         mDisplayChains = getBaseDao().dpSortedChains();
+        mExpendedChains = getBaseDao().getExpendedChains();
         mSelectedChain = baseChain;
         getBaseDao().setLastChain(mSelectedChain.getChain());
-        mDisplayAccounts = getBaseDao().onSelectAccountsByChain(mSelectedChain);
-        mChainRecyclerView.scrollToPosition(mDisplayChains.indexOf(mSelectedChain));
 
-        mChainListAdapter.notifyDataSetChanged();
+        for (BaseChain chain: mDisplayChains) {
+            if (mExpendedChains.contains(chain) || mSelectedChain.equals(chain)) {
+                mChainAccounts.add(new ChainAccounts(true, chain, getBaseDao().onSelectAccountsByChain(chain)));
+            } else {
+                mChainAccounts.add(new ChainAccounts(false, chain, getBaseDao().onSelectAccountsByChain(chain)));
+            }
+        }
         mAccountListAdapter.notifyDataSetChanged();
     }
 
@@ -372,14 +380,14 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     public void onShowTopAccountsView() {
         mDimLayer.setVisibility(View.VISIBLE);
         mTopSheetBehavior.setState(TopSheetBehavior.STATE_EXPANDED);
-        mChainRecyclerView.setAdapter(mChainListAdapter);
-        mChainRecyclerView.scrollToPosition(mDisplayChains.indexOf(getBaseDao().getLastChain()));
+        onChainSelect(mSelectedChain);
     }
 
-    private void onHideTopAccountsView() {
+    public void onHideTopAccountsView() {
         if(mTopSheetBehavior.getState() != TopSheetBehavior.STATE_COLLAPSED)
             mTopSheetBehavior.setState(TopSheetBehavior.STATE_COLLAPSED);
         mDimLayer.setVisibility(View.GONE);
+        setExpendChains();
     }
 
     public void onFetchAllData() {
@@ -537,150 +545,35 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     }
 
-    private class ChainListAdapter extends RecyclerView.Adapter<ChainListAdapter.ChainHolder> {
-
-        @NonNull
-        @Override
-        public ChainListAdapter.ChainHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            return new ChainListAdapter.ChainHolder(getLayoutInflater().inflate(R.layout.item_accountlist_chain, viewGroup, false));
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ChainListAdapter.ChainHolder holder, @SuppressLint("RecyclerView") int position) {
-            BaseChain chain = mDisplayChains.get(position);
-            holder.chainCard.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (chain != mSelectedChain) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                onChainSelect(chain);
-                                getBaseDao().setUserSortedChains(mDisplayChains);
-                            }
-                        },150);
-                    }
-                }
-            });
-            WDp.getChainImg(MainActivity.this, chain, holder.chainImg);
-            WDp.getChainTitle2(MainActivity.this, chain, holder.chainName);
-
-            if (mSelectedChain.equals(chain)) {
-                holder.chainCard.setBackground(getResources().getDrawable(R.drawable.box_chain_selected));
-                holder.chainImg.setAlpha(1f);
-                holder.chainName.setTextColor(getColor(R.color.colorWhite));
-            } else {
-                holder.chainCard.setBackground(getResources().getDrawable(R.drawable.box_chain_unselected));
-                holder.chainImg.setAlpha(0.1f);
-                holder.chainName.setTextColor(getColor(R.color.colorGray4));
-            }
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return mDisplayChains.size();
-        }
-
-        public class ChainHolder extends RecyclerView.ViewHolder {
-            FrameLayout chainCard;
-            LinearLayout chainLayer;
-            ImageView  chainImg;
-            TextView chainName;
-            public ChainHolder(@NonNull View itemView) {
-                super(itemView);
-                chainCard       = itemView.findViewById(R.id.chainCard);
-                chainLayer      = itemView.findViewById(R.id.chainLayer);
-                chainImg        = itemView.findViewById(R.id.chainImg);
-                chainName       = itemView.findViewById(R.id.chainName);
-            }
-        }
-    }
-
     private class AccountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            return new AccountListAdapter.AccountHolder(getLayoutInflater().inflate(R.layout.item_accountlist_account, viewGroup, false));
+            return new ManageChainSwitchHolder(getLayoutInflater().inflate(R.layout.item_account_list, viewGroup, false));
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            final AccountHolder holder = (AccountHolder)viewHolder;
-            final Account account = mDisplayAccounts.get(position);
-
-            holder.accountArrowSort.setVisibility(View.GONE);
-            if (account.id.equals(mAccount.id)) {
-                holder.accountCard.setBackground(getResources().getDrawable(R.drawable.box_accout_selected));
-            } else {
-                holder.accountCard.setBackground(getResources().getDrawable(R.drawable.box_account_unselected));
-            }
-            WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.accountDenom);
-            if (BaseChain.getChain(account.baseChain).equals(OKEX_MAIN)) {
-                try {
-                    holder.accountAddress.setText(WKey.convertAddressOkexToEth(account.address));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                holder.accountAddress.setText(account.address);
-            }
-            holder.accountAvailable.setText(account.getLastTotal(getBaseContext(), BaseChain.getChain(account.baseChain)));
-            holder.accountKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (account.hasPrivateKey) {
-                holder.accountKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), BaseChain.getChain(account.baseChain)), android.graphics.PorterDuff.Mode.SRC_IN);
-            }
-
-            if (TextUtils.isEmpty(account.nickName)){
-                holder.accountName.setText(getString(R.string.str_my_wallet) + account.id);
-            } else {
-                holder.accountName.setText(account.nickName);
-            }
-
-            holder.accountCard.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(account.id == mAccount.id) {
-                        onHideTopAccountsView();
-                        return;
-                    } else {
-                        onHideTopAccountsView();
-                        onShowWaitDialog();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                getBaseDao().setLastUser(account.id);
-                                onAccountSwitched();
-                            }
-                        },200);
-
-                    }
-                }
-            });
+            final ManageChainSwitchHolder holder = (ManageChainSwitchHolder) viewHolder;
+            holder.onBindChainSwitch(MainActivity.this, mChainAccounts.get(position), mAccount);
         }
 
         @Override
         public int getItemCount() {
-            return mDisplayAccounts.size();
+            return mChainAccounts.size();
         }
+    }
 
-        public class AccountHolder extends RecyclerView.ViewHolder {
-            FrameLayout accountCard;
-            LinearLayout accountContent;
-            ImageView  accountArrowSort, accountKeyState;
-            TextView accountName, accountAddress, accountAvailable, accountDenom;
-            public AccountHolder(@NonNull View itemView) {
-                super(itemView);
-                accountCard         = itemView.findViewById(R.id.accountCard);
-                accountArrowSort    = itemView.findViewById(R.id.accountArrowSort);
-                accountContent      = itemView.findViewById(R.id.accountContent);
-                accountKeyState     = itemView.findViewById(R.id.accountKeyState);
-                accountName         = itemView.findViewById(R.id.accountName);
-                accountAddress      = itemView.findViewById(R.id.accountAddress);
-                accountAvailable    = itemView.findViewById(R.id.accountAvailable);
-                accountDenom        = itemView.findViewById(R.id.accountDenom);
-            }
+    public class ChainAccounts {
+        public boolean opened = false;
+        public BaseChain baseChain;
+        public ArrayList<Account> accounts;
+
+        public ChainAccounts(boolean opened, BaseChain baseChain, ArrayList<Account> accounts) {
+            this.opened = opened;
+            this.baseChain = baseChain;
+            this.accounts = accounts;
         }
     }
 }
