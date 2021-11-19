@@ -277,18 +277,25 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             } catch (Exception e){}
             holder.itemCurrentAmount.setText(WDp.getDpAmount2(IBCTokenDetailActivity.this, totalAmount, mIbcDivideDecimal, mIbcDisplayDecimal));
             holder.itemCurrentDenom.setText("ibc/" + mIbcToken.hash);
+
+            holder.itemAcrossChain.setText(mIbcToken.counter_party.chain_id);
+            holder.itemAcrossDenom.setText(mIbcToken.base_denom);
         }
 
         public class IbcStatusHolder extends RecyclerView.ViewHolder {
             private ImageView           itemRelayer;
             private TextView            itemCurrentAmount;
             private TextView            itemCurrentDenom;
+            private TextView            itemAcrossChain;
+            private TextView            itemAcrossDenom;
 
             public IbcStatusHolder(View v) {
                 super(v);
                 itemRelayer             = itemView.findViewById(R.id.img_relayer);
                 itemCurrentAmount       = itemView.findViewById(R.id.current_amount);
                 itemCurrentDenom        = itemView.findViewById(R.id.current_denom);
+                itemAcrossChain         = itemView.findViewById(R.id.across_chain);
+                itemAcrossDenom         = itemView.findViewById(R.id.across_denom);
             }
         }
     }

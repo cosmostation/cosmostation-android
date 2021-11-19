@@ -844,6 +844,8 @@
     <string name="str_high">높게</string>
     <string name="str_available">사용 가능 수량</string>
     <string name="str_denom">코인 타입</string>
+    <string name="str_across_chain">Across Chain</string>
+    <string name="str_across_denom">Across Denom</string>
     <string name="str_vesting">베스팅 수량</string>
     <string name="str_locked">잠긴 수량</string>
     <string name="str_frozen">얼린 수량</string>
