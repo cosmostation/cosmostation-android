@@ -565,6 +565,7 @@ public class BaseConstant {
     public final static String TOKEN_STARGAZE       = "ustars";
     public final static String TOKEN_GRABRIDGE      = "ugrav";
     public final static String TOKEN_COMDEX         = "ucmdx";
+    public final static String TOKEN_INJ            = "inj";
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";
@@ -614,6 +615,7 @@ public class BaseConstant {
     public final static String KEY_ETH_LEDGER_LIVE_PATH_1   = "44'/60'/";
     public final static String KEY_ETH_LEDGER_LIVE_PATH_2   = "'/0/0";
     public final static String KEY_ETH_LEDGER_LEGACY_PATH   = "44'/60'/0'/";
+    public final static String KEY_INJ_PATH                 = "44'/60'/0'/0/";
     public final static String characterFilter              = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
@@ -871,6 +873,7 @@ public class BaseConstant {
     public final static String STARGAZE_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/stargaze/";
     public final static String GRABRIDGE_VAL_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/gravity-bridge/";
     public final static String COMDEX_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/comdex/";
+    public final static String INJ_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/injective/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -910,6 +913,7 @@ public class BaseConstant {
     public final static String EXPLORER_STARGAZE_MAIN   = "https://www.mintscan.io/stargaze/";
     public final static String EXPLORER_GRABRIDGE_MAIN  = "https://www.mintscan.io/gravity-bridge/";
     public final static String EXPLORER_COMDEX_MAIN     = "https://www.mintscan.io/comdex/";
+    public final static String EXPLORER_INJ_MAIN        = "https://www.mintscan.io/injective/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 
@@ -961,19 +965,29 @@ public class BaseConstant {
     public final static BigDecimal MONTH_SEC = DAY_SEC.multiply(new BigDecimal("30"));
     public final static BigDecimal YEAR_SEC = DAY_SEC.multiply(new BigDecimal("365"));
 
-    public final static BigDecimal BLOCK_TIME_COSMOS = new BigDecimal("7.3266");
-    public final static BigDecimal BLOCK_TIME_IRIS = new BigDecimal("6.6094");
-    public final static BigDecimal BLOCK_TIME_IOV = new BigDecimal("6.1838");
-    public final static BigDecimal BLOCK_TIME_KAVA = new BigDecimal("6.5700");
-    public final static BigDecimal BLOCK_TIME_BAND = new BigDecimal("3.01");
-    public final static BigDecimal BLOCK_TIME_CERTIK = new BigDecimal("5.75");
-    public final static BigDecimal BLOCK_TIME_SECRET = new BigDecimal("5.96");
-    public final static BigDecimal BLOCK_TIME_AKASH = new BigDecimal("6.1908");
-    public final static BigDecimal BLOCK_TIME_SENTINEL = new BigDecimal("6.0418");
-    public final static BigDecimal BLOCK_TIME_PERSISTENCE = new BigDecimal("5.6381");
-    public final static BigDecimal BLOCK_TIME_FETCH = new BigDecimal("5.8956");
-    public final static BigDecimal BLOCK_TIME_CRYPTO = new BigDecimal("6.4383");
-    public final static BigDecimal BLOCK_TIME_SIF = new BigDecimal("5.6877");
-    public final static BigDecimal BLOCK_TIME_KI = new BigDecimal("5.6524");
-    public final static BigDecimal BLOCK_TIME_MEDI = new BigDecimal("6.0247");
+    public final static BigDecimal BLOCK_TIME_COSMOS = new BigDecimal("7.6597");
+    public final static BigDecimal BLOCK_TIME_IRIS = new BigDecimal("6.7884");
+    public final static BigDecimal BLOCK_TIME_IOV = new BigDecimal("6.0124");
+    public final static BigDecimal BLOCK_TIME_KAVA = new BigDecimal("6.7262");
+    public final static BigDecimal BLOCK_TIME_BAND = new BigDecimal("3.0236");
+    public final static BigDecimal BLOCK_TIME_CERTIK = new BigDecimal("5.9740");
+    public final static BigDecimal BLOCK_TIME_SECRET = new BigDecimal("6.0408");
+    public final static BigDecimal BLOCK_TIME_AKASH = new BigDecimal("6.4526");
+    public final static BigDecimal BLOCK_TIME_SENTINEL = new BigDecimal("6.3113");
+    public final static BigDecimal BLOCK_TIME_PERSISTENCE = new BigDecimal("5.7982");
+    public final static BigDecimal BLOCK_TIME_FETCH = new BigDecimal("6.0678");
+    public final static BigDecimal BLOCK_TIME_CRYPTO = new BigDecimal("6.1939");
+    public final static BigDecimal BLOCK_TIME_SIF = new BigDecimal("5.7246");
+    public final static BigDecimal BLOCK_TIME_KI = new BigDecimal("5.7571");
+    public final static BigDecimal BLOCK_TIME_MEDI = new BigDecimal("5.7849");
+    public final static BigDecimal BLOCK_TIME_OSMOSIS = new BigDecimal("6.5324");
+    public final static BigDecimal BLOCK_TIME_EMONEY = new BigDecimal("24.8486");
+    public final static BigDecimal BLOCK_TIME_RIZON = new BigDecimal("5.8850");
+    public final static BigDecimal BLOCK_TIME_JUNO = new BigDecimal("6.2104");
+    public final static BigDecimal BLOCK_TIME_BITCANNA = new BigDecimal("6.0256");
+    public final static BigDecimal BLOCK_TIME_REGEN = new BigDecimal("6.2491");
+    public final static BigDecimal BLOCK_TIME_STARGAZE = new BigDecimal("5.8129");
+    public final static BigDecimal BLOCK_TIME_INJECTIVE = new BigDecimal("2.4865");
+    public final static BigDecimal BLOCK_TIME_OKEX = new BigDecimal("4.0286");
+    public final static BigDecimal BLOCK_TIME_BNB = new BigDecimal("0.4124");
 }

@@ -104,6 +104,9 @@
     <string name="url_api_stargaze" translatable="false">https://api-stargaze.cosmostation.io/</string>
 
 
+    <string name="url_api_inj" translatable="false">https://api-inj.cosmostation.io/</string>
+
+
     <string name="url_api_grabridge" translatable="false">https://api-gravity-bridge.cosmostation.io/</string>
 
 
@@ -165,6 +168,7 @@
     <string name="str_stargaze_c" translatable="false">STARS</string>
     <string name="str_grabridge_c" translatable="false">GRAV</string>
     <string name="str_comdex_c" translatable="false">CMDX</string>
+    <string name="str_inj_c" translatable="false">INJ</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
@@ -205,6 +209,7 @@
     <string name="str_stargaze_main_net">Stargaze</string>
     <string name="str_grabridge_main_net">Gravity Bridge</string>
     <string name="str_comdex_main_net">Comdex</string>
+    <string name="str_inj_main_net">Injective</string>
     <string name="str_cosmos_test_net">StarGate Testnet</string>
     <string name="str_iris_test_net">Bifrost Testnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
@@ -457,6 +462,8 @@
     <string name="str_grabridge_net2" translatable="false">G-Bridge</string>
     <string name="str_comdex_net" translatable="false">(Comdex)</string>
     <string name="str_comdex_net2" translatable="false">Comdex</string>
+    <string name="str_inj_net" translatable="false">(Injective)</string>
+    <string name="str_inj_net2" translatable="false">Injective</string>
     <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
@@ -503,6 +510,7 @@
     <string name="str_stargaze_main" translatable="false">STARGAZE</string>
     <string name="str_grabridge_main" translatable="false">G-BRIDGE</string>
     <string name="str_comdex_main" translatable="false">COMDEX</string>
+    <string name="str_inj_main" translatable="false">INJECTIVE</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
@@ -603,6 +611,7 @@
     <string name="str_front_guide_title_stargaze"><![CDATA[STARGAZE]]></string>
     <string name="str_front_guide_title_grabridge"><![CDATA[GRAVITY BRIDGE]]></string>
     <string name="str_front_guide_title_comdex"><![CDATA[COMDEX]]></string>
+    <string name="str_front_guide_title_inj"><![CDATA[Injective Protocol]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -632,6 +641,7 @@
     <string name="str_front_guide_msg_stargaze"><![CDATA[A Cosmos SDK-based decentralized interchain NFT marketplace and social network.]]></string>
     <string name="str_front_guide_msg_grabridge"><![CDATA[A neutral peg zone designed primarily for bridge operation between Cosmos and Ethereum ecosystems.]]></string>
     <string name="str_front_guide_msg_comdex"><![CDATA[A decentralized platform for minting & exchanging of synthetic assets.]]></string>
+    <string name="str_front_guide_msg_inj"><![CDATA[A Cosmos SDK based fully decentralized financial network for cross-chain trading and derivatives.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1074,10 +1084,7 @@
     <string name="str_undelegate_step_2">Insert memo (optional)</string>
     <string name="str_undelegate_step_3">Select transaction fee</string>
     <string name="str_undelegate_step_4">Check undelegation detail</string>
-    <string name="str_unbonding_3days_after"><![CDATA[(3 days after)]]></string>
-    <string name="str_unbonding_14days_after"><![CDATA[(14 days after)]]></string>
-    <string name="str_unbonding_21days_after"><![CDATA[(21 days after)]]></string>
-    <string name="str_unbonding_28days_after"><![CDATA[(28 days after)]]></string>
+    <string name="str_unbonding_days_after"><![CDATA[days after)]]></string>
     <string name="str_reward_step_1">Check reward detail</string>
     <string name="str_reward_step_2">Insert memo (optional)</string>
     <string name="str_reward_step_3">Select transaction fee</string>
@@ -1779,6 +1786,7 @@
     <string name="s_stargaze" translatable="false">STARS</string>
     <string name="s_grabridge" translatable="false">GRAV</string>
     <string name="s_comdex" translatable="false">CMDX</string>
+    <string name="s_inj" translatable="false">INJ</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

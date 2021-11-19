@@ -101,6 +101,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -2185,6 +2186,36 @@ public class WUtil {
         } else if (chain.equals(MEDI_MAIN)) {
             return BLOCK_TIME_MEDI;
 
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            return BLOCK_TIME_OSMOSIS;
+
+        } else if (chain.equals(EMONEY_MAIN)) {
+            return BLOCK_TIME_EMONEY;
+
+        } else if (chain.equals(RIZON_MAIN)) {
+            return BLOCK_TIME_RIZON;
+
+        } else if (chain.equals(JUNO_MAIN)) {
+            return BLOCK_TIME_JUNO;
+
+        } else if (chain.equals(BITCANNA_MAIN)) {
+            return BLOCK_TIME_BITCANNA;
+
+        } else if (chain.equals(REGEN_MAIN)) {
+            return BLOCK_TIME_REGEN;
+
+        } else if (chain.equals(STARGAZE_MAIN)) {
+            return BLOCK_TIME_STARGAZE;
+
+        } else if (chain.equals(INJ_MAIN)) {
+            return BLOCK_TIME_INJECTIVE;
+
+        } else if (chain.equals(OKEX_MAIN)) {
+            return BLOCK_TIME_OKEX;
+
+        } else if (chain.equals(BNB_MAIN)) {
+            return BLOCK_TIME_BNB;
+
         }
         return BigDecimal.ZERO;
     }
@@ -2265,6 +2296,9 @@ public class WUtil {
 
         } else if (mainActivity.mBaseChain.equals(BITCANNA_MAIN)) {
             mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/bitcanna")));
+
+        } else if (mainActivity.mBaseChain.equals(INJ_MAIN)) {
+            mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/injective-protocol")));
         }
         return null;
     }
@@ -2416,6 +2450,11 @@ public class WUtil {
             guideTitle.setText(R.string.str_front_guide_title_comdex);
             guideMsg.setText(R.string.str_front_guide_msg_comdex);
 
+        } else if (mainActivity.mBaseChain.equals(INJ_MAIN)) {
+            guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_injective));
+            guideTitle.setText(R.string.str_front_guide_title_inj);
+            guideMsg.setText(R.string.str_front_guide_msg_inj);
+
         } else if (mainActivity.mBaseChain.equals(UMEE_TEST)) {
             guideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_umee));
             guideTitle.setText(R.string.str_front_guide_title_umee);
@@ -2519,6 +2558,9 @@ public class WUtil {
         } else if (chain.equals(COMDEX_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://comdex.one/home"));
 
+        } else if (chain.equals(INJ_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://injectiveprotocol.com/"));
+
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://umee.cc/"));
 
@@ -2617,6 +2659,9 @@ public class WUtil {
 
         } else if (chain.equals(COMDEX_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://blog.comdex.one"));
+
+        } else if (chain.equals(INJ_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://blog.injectiveprotocol.com/"));
 
         } else if (chain.equals(UMEE_TEST)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/umeeblog"));
@@ -2720,6 +2765,9 @@ public class WUtil {
 
         } else if (basechain.equals(COMDEX_MAIN)) {
             return EXPLORER_COMDEX_MAIN;
+
+        } else if (basechain.equals(INJ_MAIN)) {
+            return EXPLORER_INJ_MAIN;
 
         }
 
@@ -2835,6 +2883,9 @@ public class WUtil {
         } else if (basechain.equals(SECRET_MAIN)) {
             return EXPLORER_SECRET_MAIN + "txs/" + hash;
 
+        } else if (basechain.equals(INJ_MAIN)) {
+            return EXPLORER_INJ_MAIN + "txs/" + hash;
+        
         }
 
         else if (basechain.equals(COSMOS_TEST)) {
@@ -2869,7 +2920,7 @@ public class WUtil {
         BigDecimal result = BigDecimal.ZERO;
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(CRYPTO_MAIN) ||
                 basechain.equals(EMONEY_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(JUNO_MAIN) || basechain.equals(REGEN_MAIN) || basechain.equals(BITCANNA_MAIN) ||
-                basechain.equals(ALTHEA_MAIN) || basechain.equals(STARGAZE_MAIN) || basechain.equals(GRABRIDGE_MAIN) || basechain.equals(COMDEX_MAIN) ||
+                basechain.equals(ALTHEA_MAIN) || basechain.equals(STARGAZE_MAIN) || basechain.equals(GRABRIDGE_MAIN) || basechain.equals(COMDEX_MAIN) || basechain.equals(INJ_MAIN) ||
                 basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
@@ -3306,6 +3357,11 @@ public class WUtil {
             BigDecimal gasRate = new BigDecimal(SECRET_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+        
+        } else if (basechain.equals(INJ_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(UMEE_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
@@ -3337,7 +3393,7 @@ public class WUtil {
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(RIZON_MAIN) || basechain.equals(JUNO_MAIN) ||
-                basechain.equals(REGEN_MAIN) || basechain.equals(ALTHEA_MAIN) || basechain.equals(GRABRIDGE_MAIN) ||
+                basechain.equals(REGEN_MAIN) || basechain.equals(ALTHEA_MAIN) || basechain.equals(GRABRIDGE_MAIN) || basechain.equals(INJ_MAIN) ||
                 basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST) || basechain.equals(UMEE_TEST) || basechain.equals(AXELAR_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);

@@ -66,6 +66,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
@@ -110,6 +111,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_INJ;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
@@ -948,7 +950,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_KI)) {
             holder.itemSymbol.setText(getString(R.string.str_ki_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KI_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("KiChain Staking Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_kifoundation));
 
@@ -959,7 +961,7 @@ public class MainTokensFragment extends BaseFragment {
         } else if (coin.denom.equals(TOKEN_COMDEX)) {
             holder.itemSymbol.setText(getString(R.string.str_comdex_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COMDEX_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText("Comdex Staking Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_comdex));
 
@@ -985,6 +987,17 @@ public class MainTokensFragment extends BaseFragment {
                 }
             });
 
+        } else if (coin.denom.equals(TOKEN_INJ)) {
+            holder.itemSymbol.setText(getString(R.string.str_inj_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), INJ_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Injective Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_injective));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_INJ);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 18));
+          
         } else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));

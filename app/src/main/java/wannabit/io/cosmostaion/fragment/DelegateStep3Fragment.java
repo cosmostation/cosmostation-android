@@ -96,13 +96,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
 
         } else if (v.equals(mConfirmBtn)) {
             Bundle bundle = new Bundle();
-            if (getSActivity().mBaseChain.equals(SENTINEL_MAIN) || getSActivity().mBaseChain.equals(CRYPTO_MAIN) || getSActivity().mBaseChain.equals(JUNO_MAIN)) {
-                bundle.putInt("day", 28);
-            } else if (getSActivity().mBaseChain.equals(OSMOSIS_MAIN) || getSActivity().mBaseChain.equals(BITCANNA_MAIN)) {
-                bundle.putInt("day", 14);
-            } else {
-                bundle.putInt("day", 21);
-            }
+            bundle.putInt("day", getBaseDao().mChainParam.getUnbonding(getSActivity().mBaseChain));
             Dialog_Delegate_Warning dialog = Dialog_Delegate_Warning.newInstance(bundle);
             dialog.setTargetFragment(DelegateStep3Fragment.this, SELECT_DELEGATE_CHECK);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

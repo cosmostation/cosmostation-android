@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletEmoneyHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletFetchHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletGraBridgeHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletGuideHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletInjHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletIrisHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletJunoHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletKavaHolder;
@@ -68,6 +69,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.EMONEY_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.GRABRIDGE_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.INJ_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
@@ -238,6 +240,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_STARGAZE          = 27;
         private static final int TYPE_GRABRIDGE         = 28;
         private static final int TYPE_COMDEX            = 29;
+        private static final int TYPE_INJ               = 30;
 
         private static final int TYPE_KAVA_INCENTIVE    = 40;
         private static final int TYPE_SIF_INCENTIVE     = 50;
@@ -335,6 +338,9 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_COMDEX) {
                 return new WalletComdexHolder(getLayoutInflater().inflate(R.layout.item_wallet_comdex, viewGroup, false));
 
+            } else if (viewType == TYPE_INJ) {
+                return new WalletInjHolder(getLayoutInflater().inflate(R.layout.item_wallet_inj, viewGroup, false));
+
             }
 
 
@@ -420,6 +426,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(KI_MAIN)) { return TYPE_KI; }
                     else if (getMainActivity().mBaseChain.equals(COMDEX_MAIN)) { return TYPE_COMDEX; }
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
+                    else if (getMainActivity().mBaseChain.equals(INJ_MAIN)) { return TYPE_INJ; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
                     else if (getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }
                 } else if (position == 1) {
