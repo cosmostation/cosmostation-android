@@ -5,7 +5,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -119,6 +119,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         @Override
         public void onBindViewHolder(@NonNull DisplayListAdapter.DisplayHolder holder, final int position) {
             final BaseChain chain = mDisplayChains.get(position);
+            holder.chainCard.setCardBackgroundColor(WDp.getChainBgColor(WalletEditActivity.this, chain));
             WDp.getChainImg(WalletEditActivity.this, chain, holder.chainTokenImg);
             WDp.getChainTitle2(WalletEditActivity.this, chain, holder.chainName);
 
@@ -185,12 +186,12 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         }
 
         public class DisplayHolder extends RecyclerView.ViewHolder {
-            FrameLayout chainCard;
+            CardView    chainCard;
             ImageView   chainRemoveImg, chainTokenImg, chainSort;
             TextView    chainName;
             public DisplayHolder(@NonNull View itemView) {
                 super(itemView);
-                chainCard           = itemView.findViewById(R.id.chainCard);
+                chainCard           = itemView.findViewById(R.id.chain_card);
                 chainRemoveImg      = itemView.findViewById(R.id.chain_remove_img);
                 chainSort           = itemView.findViewById(R.id.chainSort);
                 chainTokenImg       = itemView.findViewById(R.id.chain_img);
@@ -211,6 +212,7 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         @Override
         public void onBindViewHolder(@NonNull HideListAdapter.HideHolder holder, int position) {
             final BaseChain chain = mHideChains.get(position);
+            holder.chainCard.setCardBackgroundColor(WDp.getChainBgColor(WalletEditActivity.this, chain));
             WDp.getChainImg(WalletEditActivity.this, chain, holder.chainTokenImg);
             WDp.getChainTitle2(WalletEditActivity.this, chain, holder.chainName);
 
@@ -239,12 +241,12 @@ public class WalletEditActivity extends BaseActivity implements View.OnClickList
         }
 
         public class HideHolder extends RecyclerView.ViewHolder {
-            FrameLayout chainCard;
+            CardView    chainCard;
             ImageView   chainAddImg, chainTokenImg;
             TextView    chainName;
             public HideHolder(@NonNull View itemView) {
                 super(itemView);
-                chainCard           = itemView.findViewById(R.id.chainCard);
+                chainCard           = itemView.findViewById(R.id.chain_card);
                 chainAddImg         = itemView.findViewById(R.id.chain_add_img);
                 chainTokenImg       = itemView.findViewById(R.id.chain_img);
                 chainName           = itemView.findViewById(R.id.chain_name);

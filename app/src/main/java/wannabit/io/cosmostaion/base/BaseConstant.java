@@ -34,6 +34,7 @@ public class BaseConstant {
     public final static String PRE_EVENT_HIDE               = "PRE_EVENT_HIDE";
     public final static String PRE_USER_HIDEN_CHAINS        = "PRE_USER_HIDEN_CHAINS";
     public final static String PRE_USER_SORTED_CHAINS       = "PRE_USER_SORTED_CHAINS";
+    public final static String PRE_USER_EXPENDED_CHAINS     = "PRE_USER_EXPENDED_CHAINS";
 
 
     public final static int TASK_INIT_PW                                = 2000;

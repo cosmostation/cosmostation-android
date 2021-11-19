@@ -87,6 +87,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_EXPENDED_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_HIDEN_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_USER_SORTED_CHAINS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -1078,6 +1079,33 @@ public class BaseData {
             }
         }
         return result;
+    }
+
+    public void setExpendedChains(ArrayList<BaseChain> chains) {
+        JSONArray array = new JSONArray();
+        for (BaseChain baseChain: chains) {
+            array.put(baseChain.getChain());
+        }
+        if (!chains.isEmpty()) {
+            getSharedPreferences().edit().putString(PRE_USER_EXPENDED_CHAINS, array.toString()).commit();
+        } else{
+            getSharedPreferences().edit().putString(PRE_USER_EXPENDED_CHAINS, null).commit();
+        }
+    }
+
+    public ArrayList<BaseChain> getExpendedChains() {
+        String json = getSharedPreferences().getString(PRE_USER_EXPENDED_CHAINS, null);
+        ArrayList<BaseChain> chains = new ArrayList<>();
+        if (json != null) {
+            try {
+                JSONArray array = new JSONArray(json);
+                for (int i = 0; i < array.length(); i++) {
+                    chains.add(BaseChain.getChain(array.optString(i)));
+                }
+            } catch (JSONException e) { e.printStackTrace(); }
+
+        }
+        return chains;
     }
 
     public Password onSelectPassword() {

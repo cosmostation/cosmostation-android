@@ -24,61 +24,119 @@
                 android:id="@+id/img_relayer"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_180"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorGray3"
-                android:layout_marginTop="@dimen/space_14"/>
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/box_round_darkgray"
+                android:padding="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_16">
-                <TextView
-                    android:id="@+id/amount_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_available"
-                    style="@style/font_ss_14_gray1"/>
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/amount_title">
+                    android:orientation="horizontal">
                     <TextView
-                        android:id="@+id/current_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="-"
-                        style="@style/font_ss_14_white"/>
-                </RelativeLayout>
-            </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/tx_delegate_auto_reward"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_16">
-                <TextView
-                    android:id="@+id/denom_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_denom"
-                    style="@style/font_ss_14_gray1"/>
-                <RelativeLayout
+                        android:text="@string/str_available"
+                        style="@style/font_ss_14_gray1"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/current_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-"
+                            style="@style/font_ss_14_white"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/denom_title">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/space_16">
                     <TextView
-                        android:id="@+id/current_denom"
-                        android:layout_width="@dimen/space_180"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:ellipsize="middle"
-                        android:singleLine="true"
-                        android:gravity="end"
-                        android:text="-"
-                        style="@style/font_ss_14_white"/>
-                </RelativeLayout>
-            </RelativeLayout>
+                        android:text="@string/str_denom"
+                        style="@style/font_ss_14_gray1"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/current_denom"
+                            android:layout_width="@dimen/space_180"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:gravity="end"
+                            android:ellipsize="middle"
+                            android:singleLine="true"
+                            android:text="-"
+                            style="@style/font_ss_14_white"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_updown"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/space_16"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/box_round_darkgray"
+                android:padding="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_16">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_across_chain"
+                        style="@style/font_ss_14_gray1"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/across_chain"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-"
+                            style="@style/font_ss_14_white"/>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/space_16">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_across_denom"
+                        style="@style/font_ss_14_gray1"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/across_denom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="-"
+                            style="@style/font_ss_14_white"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
