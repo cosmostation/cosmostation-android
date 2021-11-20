@@ -438,7 +438,7 @@ public class ResApiNewTxListCustom {
                     for (int i = 0; i < data.logs.size(); i ++) {
                         try {
                             String value = "";
-                            if (chain.equals(BaseChain.JUNO_MAIN)) {
+                            if (chain.equals(BaseChain.JUNO_MAIN) || chain.equals(BaseChain.COMDEX_MAIN)) {
                                 value = new JSONArray(data.logs).getJSONObject(i).getJSONArray("events").getJSONObject(1).
                                         getJSONArray("attributes").getJSONObject(1).getString("value");
                             } else {
