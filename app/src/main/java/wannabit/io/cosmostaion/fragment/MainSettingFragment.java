@@ -157,7 +157,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         if (v.equals(mBtnAddWallet)) {
             Bundle bundle = new Bundle();
             Dialog_ChoiceNet dialog = Dialog_ChoiceNet.newInstance(bundle);
-            dialog.setCancelable(false);
+            dialog.setCancelable(true);
             getMainActivity().getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnWallet)) {
