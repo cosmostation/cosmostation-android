@@ -298,7 +298,7 @@ public enum BaseChain {
         result.add(JUNO_MAIN);
         result.add(BITCANNA_MAIN);
         result.add(STARGAZE_MAIN);
-//        result.add(COMDEX_MAIN);
+        result.add(COMDEX_MAIN);
 //        result.add(INJ_MAIN);
         result.add(SECRET_MAIN);
 

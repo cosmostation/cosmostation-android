@@ -106,6 +106,9 @@ public class ChannelBuilder {
     private final static String GRPC_INJ_MAIN = "lcd-inj-app.cosmostation.io";
     private final static int PORT_INJ_MAIN = 9090;
 
+    private final static String GRPC_COMDEX_MAIN = "lcd-comdex-app.cosmostation.io";
+    private final static int PORT_COMDEX_MAIN = 9090;
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -127,9 +130,6 @@ public class ChannelBuilder {
 
     private final static String GRPC_GRABRIDGE_MAIN = "lcd-office.cosmostation.io";
     private final static int PORT_GRABRIDGE_MAIN = 20300;
-
-    private final static String GRPC_COMDEX_MAIN = "lcd-office.cosmostation.io";
-    private final static int PORT_COMDEX_MAIN = 20500;
 
 
     public final static int TIME_OUT = 8;
