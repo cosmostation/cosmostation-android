@@ -179,7 +179,7 @@ public class ChainParam {
 
         public BigDecimal getBlockPerYear(BaseChain baseChain) {
             if (isGRPC(baseChain)) {
-                if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {
+                if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.OSMOSIS_MAIN) || baseChain.equals(EMONEY_MAIN)) {
                     return BigDecimal.ZERO;
                 }
                 return new BigDecimal(mMintParams.params.blocks_per_year);
