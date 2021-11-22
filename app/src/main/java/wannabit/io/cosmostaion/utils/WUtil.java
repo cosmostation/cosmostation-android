@@ -2186,9 +2186,6 @@ public class WUtil {
         } else if (chain.equals(MEDI_MAIN)) {
             return BLOCK_TIME_MEDI;
 
-        } else if (chain.equals(OSMOSIS_MAIN)) {
-            return BLOCK_TIME_OSMOSIS;
-
         } else if (chain.equals(EMONEY_MAIN)) {
             return BLOCK_TIME_EMONEY;
 

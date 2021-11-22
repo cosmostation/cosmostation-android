@@ -743,6 +743,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_PRICE_INFO) {
             if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mPrices.clear();
                 ArrayList<Price> tempPrice = new ArrayList<>();
                 tempPrice = (ArrayList<Price>) result.resultData;
                 for (Price price: tempPrice) {

@@ -129,11 +129,15 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         super.onRefreshTab();
         mTochain = WDp.getChainTypeByChainId(getSActivity().mIbcSelectedRelayer.chain_id);
         mToAccountList = getBaseDao().onSelectAccountsByChain(mTochain);
-        WDp.getChainTitle(getSActivity(), mTochain, mDesitination);
-        mDesitination.setTextColor(WDp.getChainColor(getSActivity(), mTochain));
-
-        String userInput = mAddressInput.getText().toString().trim();
-        WDp.getChainByAddress(mTochain, userInput, mAddressInput);
+        if (mTochain != null) {
+            WDp.getChainTitle(getSActivity(), mTochain, mDesitination);
+            mDesitination.setTextColor(WDp.getChainColor(getSActivity(), mTochain));
+            String userInput = mAddressInput.getText().toString().trim();
+            WDp.getChainByAddress(mTochain, userInput, mAddressInput);
+        } else {
+            mDesitination.setText("Unknown");
+            mDesitination.setTextColor(getSActivity().getColor(R.color.colorGray2));
+        }
     }
 
     private void onUpdateView() {
@@ -167,7 +171,7 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnWallet)) {
-            if (mToAccountList.size() <= 0) {
+            if (mTochain == null || mToAccountList.size() <= 0) {
                 Toast.makeText(getSActivity(), getString(R.string.error_no_wallet_this_chain), Toast.LENGTH_SHORT).show();
                 return;
             } else {

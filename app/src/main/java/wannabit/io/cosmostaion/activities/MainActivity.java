@@ -53,6 +53,7 @@ import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -89,7 +90,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private StopViewPager               mContentsPager;
     private TabLayout                   mTabLayer;
     private FrameLayout                 mDimLayer;
-    public  MainViewPageAdapter         mPageAdapter;
+    public MainViewPageAdapter          mPageAdapter;
     public FloatingActionButton         mFloatBtn;
     public FloatingActionButton         mFaucetBtn;
     public FloatingActionButton         mAirDropBtn;
@@ -246,7 +247,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             }
 
             @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) { }
+            public void onSlide(@NonNull View bottomSheet, float slideOffset, Boolean isOpening) {
+            }
         });
         onAccountSwitched();
         onShowWaitDialog();

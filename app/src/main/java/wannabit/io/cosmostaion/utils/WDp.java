@@ -1094,6 +1094,8 @@ public class WDp {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_axelar));
         } else if (baseChain.equals(RIZON_TEST)) {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_rizon));
+        } else {
+            chainImg.setImageDrawable(c.getDrawable(R.drawable.default_chain_img));
         }
     }
 
@@ -1262,6 +1264,8 @@ public class WDp {
             chainName.setText(c.getString(R.string.str_umee_test));
         } else if (baseChain.equals(AXELAR_TEST)) {
             chainName.setText(c.getString(R.string.str_axelar_test));
+        } else {
+            chainName.setText("Unknown");
         }
     }
 
@@ -1322,7 +1326,8 @@ public class WDp {
         } else if (baseChain.equals(GRABRIDGE_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorGraBridge));
         } else if (baseChain.equals(COMDEX_MAIN)) {
-            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorComdex));
+            floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorTransBgComdex));
+            floatBtn.setImageTintList(c.getResources().getColorStateList(R.color.colorComdex));
         } else if (baseChain.equals(INJ_MAIN)) {
             floatBtn.setBackgroundTintList(c.getResources().getColorStateList(R.color.colorInj));
             floatBtn.setImageTintList(c.getResources().getColorStateList(R.color.colorBlack));

@@ -136,8 +136,14 @@ public class IBCSendStep0Fragment extends BaseFragment implements View.OnClickLi
         WDp.getChainTitle2(getSActivity(), getSActivity().mBaseChain, mFromChainTv);
 
         BaseChain toChain = WDp.getChainTypeByChainId(mIbcSelectedRelayer.chain_id);
-        WDp.getChainImg(getSActivity(), toChain, mToChainImg);
-        WDp.getChainTitle2(getSActivity(), toChain, mToChainTv);
+        if (toChain != null) {
+            WDp.getChainImg(getSActivity(), toChain, mToChainImg);
+            WDp.getChainTitle2(getSActivity(), toChain, mToChainTv);
+        } else {
+            mToChainImg.setImageDrawable(getSActivity().getDrawable(R.drawable.default_chain_img));
+            mToChainTv.setText("Unknown");
+        }
+
 
         mRelayerTxt.setText(mIbcSelectedPath.channel_id);
         if (mIbcSelectedPath.auth == null) {
