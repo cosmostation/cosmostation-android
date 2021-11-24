@@ -947,8 +947,13 @@ public class BaseConstant {
     public final static String SENTINEL_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/sentinel/relay-sentinel-unknown.png";
     public final static String SIFCHAIN_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/sifchain/relay-sifchain-unknown.png";
     public final static String STARNAME_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/starname/relay-starname-unknown.png";
-//    public final static String KI_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/kichain/relay-kichain-unknown.png";
-//    public final static String BITCANNA_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/bitcanna/relay-bitcanna-unknown.png";
+    public final static String KI_UNKNOWN_RELAYER       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/kichain/relay-kichain-unknown.png";
+    public final static String BITCANNA_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/bitcanna/relay-bitcanna-unknown.png";
+    public final static String RIZON_UNKNOWN_RELAYER    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/rizon/relay-rizon-unknown.png";
+    public final static String MEDI_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/medibloc/relay-medibloc-unknown.png";
+    public final static String STARGAZE_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/stargaze/relay-stargaze-unknown.png";
+    public final static String COMDEX_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/comdex/relay-comdex-unknown.png";
+    public final static String SECRET_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/secre/relay-secret-unknown.png";
 
 
     public final static String  PERSISTENCE_COSMOS_EVENT_ADDRESS    = "cosmos1ea6cx6km3jmryax5aefq0vy5wrfcdqtaau4f22";

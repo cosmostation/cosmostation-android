@@ -111,102 +111,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.STARGAZE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.UMEE_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.ALTHEA_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.AXELAR_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.BAND_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.BITCANNA_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.COMDEX_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CRYPTO_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.CRYPTO_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.EMONEY_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.FETCHAI_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.GRABRIDGE_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.INJ_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.JUNO_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.JUNO_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ALTHEA_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LEGACY_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LIVE_PATH_1;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_LEDGER_LIVE_PATH_2;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ETH_NON_LEDGER_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_INJ_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KEY_MEDI_PATH;
-import static wannabit.io.cosmostaion.base.BaseConstant.KI_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.MEDI_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.OSMOSIS_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.OSMOSIS_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.REGEN_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.REGEN_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.RIZON_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.SIFCHAIN_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.SIF_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.STARGAZE_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.STARNAME_UNKNOWN_RELAYER;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AXELAR;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BITCANNA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COMDEX;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_CHF;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_DKK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_EUR;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_NOK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_EMONEY_SEK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_GRABRIDGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_INJ;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_JUNO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KI;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MEDI;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_NGM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_REGEN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_STARGAZE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SWP;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_UMEE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_USDX;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
-import static wannabit.io.cosmostaion.base.BaseConstant.UMEE_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.*;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_REFUNDED;
@@ -242,7 +147,7 @@ public class WDp {
     public static void showCoinDp(Context c, BaseData baseData, Coin coin, TextView denomTv, TextView amountTv, BaseChain chain) {
         if (isGRPC(chain) && coin.isIbc()) {
             IbcToken ibcToken = baseData.getIbcToken(coin.getIbcHash());
-            if (ibcToken.auth) {
+            if (ibcToken.auth == true) {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(ibcToken.display_denom.toUpperCase());
                 amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), ibcToken.decimal, ibcToken.decimal));
@@ -471,7 +376,7 @@ public class WDp {
     public static void showCoinDp(Context c, BaseData baseData, String symbol, String amount, TextView denomTv, TextView amountTv, BaseChain chain) {
         if (isGRPC(chain) && symbol.startsWith("ibc")) {
             IbcToken ibcToken = baseData.getIbcToken(symbol.replaceAll("ibc/", ""));
-            if (ibcToken.auth) {
+            if (ibcToken.auth == true) {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(ibcToken.display_denom.toUpperCase());
                 amountTv.setText(getDpAmount2(c, new BigDecimal(amount), ibcToken.decimal, ibcToken.decimal));
@@ -700,230 +605,23 @@ public class WDp {
     }
 
     public static void showChainDp(Context c, BaseChain baseChain, CardView cardName, CardView cardAlarm, CardView cardBody, CardView cardRewardAddress) {
+        if (baseChain.equals(OKEX_MAIN) || baseChain.equals(OK_TEST) || baseChain.equals(KAVA_MAIN) || baseChain.equals(BNB_MAIN) || baseChain.equals(BNB_TEST) || baseChain.equals(FETCHAI_MAIN)) {
+            cardRewardAddress.setVisibility(View.GONE);
+        } else {
+            cardRewardAddress.setVisibility(View.VISIBLE);
+        }
+        cardName.setCardBackgroundColor(WDp.getChainBgColor(c, baseChain));
+        cardAlarm.setCardBackgroundColor(WDp.getChainBgColor(c, baseChain));
+        cardBody.setCardBackgroundColor(WDp.getChainBgColor(c, baseChain));
+        cardRewardAddress.setCardBackgroundColor(WDp.getChainBgColor(c, baseChain));
+
         if (baseChain.equals(COSMOS_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgCosmos));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgCosmos));
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgCosmos));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgCosmos));
-
-        } else if (baseChain.equals(IRIS_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgIris));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgIris));
+            cardAlarm.setVisibility(View.VISIBLE);
+        } else {
             cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgIris));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgIris));
-
-        } else if (baseChain.equals(BNB_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgBinance));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgBinance));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgBinance));
-            cardRewardAddress.setVisibility(View.GONE);
-
-        } else if (baseChain.equals(KAVA_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgKava));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgKava));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgKava));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgKava));
-            cardRewardAddress.setVisibility(View.GONE);
-
-        } else if (baseChain.equals(IOV_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgStarname));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgStarname));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgStarname));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgStarname));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(BAND_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgBand));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgBand));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgBand));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgBand));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(CERTIK_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgCertik));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgCertik));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgCertik));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgCertik));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(SECRET_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgSecret));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgSecret));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgSecret));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgSecret));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(AKASH_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgAkash));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgAkash));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgAkash));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgAkash));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(OKEX_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgOkex));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgOkex));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgOkex));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgOkex));
-            cardRewardAddress.setVisibility(View.GONE);
-
-        } else if (baseChain.equals(PERSIS_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgPersis));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgPersis));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgPersis));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgPersis));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(SENTINEL_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgSentinel));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgSentinel));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgSentinel));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgSentinel));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(FETCHAI_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgFetch));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgFetch));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgFetch));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgFetch));
-            cardRewardAddress.setVisibility(View.GONE);
-
-        } else if (baseChain.equals(CRYPTO_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgCryto));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgCryto));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgCryto));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgCryto));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(SIF_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgSif));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgSif));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgSif));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgSif));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(KI_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgKi));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgKi));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgKi));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgKi));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(OSMOSIS_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgOsmosis));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgOsmosis));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgOsmosis));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgOsmosis));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(MEDI_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgMedi));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgMedi));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgMedi));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgMedi));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(EMONEY_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgEmoney));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgEmoney));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgEmoney));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgEmoney));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(RIZON_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgRizon));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgRizon));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgRizon));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgRizon));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(JUNO_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgJuno));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgJuno));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgJuno));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgJuno));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(REGEN_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgRegen));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgRegen));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgRegen));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgRegen));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(BITCANNA_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgBitcanna));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgBitcanna));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgBitcanna));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgBitcanna));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(ALTHEA_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgAlthea));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgAlthea));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgAlthea));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgAlthea));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(STARGAZE_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgStargaze));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgStargaze));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgStargaze));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgStargaze));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(GRABRIDGE_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgGraBridge));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgGraBridge));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgGraBridge));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgGraBridge));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(COMDEX_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgComdex));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgComdex));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgComdex));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgComdex));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
-        } else if (baseChain.equals(INJ_MAIN)) {
-            cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBgInj));
-            cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBgInj));
-            cardAlarm.setVisibility(View.GONE);
-            cardBody.setCardBackgroundColor(c.getColor(R.color.colorTransBgInj));
-            cardRewardAddress.setCardBackgroundColor(c.getColor(R.color.colorTransBgInj));
-            cardRewardAddress.setVisibility(View.VISIBLE);
-
         }
 
-
-        else if (baseChain.equals(COSMOS_TEST)) {
+        if (baseChain.equals(COSMOS_TEST)) {
             cardName.setCardBackgroundColor(c.getColor(R.color.colorTransBg));
             cardAlarm.setCardBackgroundColor(c.getColor(R.color.colorTransBg));
             cardAlarm.setVisibility(View.GONE);
@@ -1014,256 +712,265 @@ public class WDp {
     }
 
     public static void getChainImg(Context c, BaseChain baseChain, ImageView chainImg) {
-        if (baseChain.equals(COSMOS_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.cosmos_wh_main));
-        } else if (baseChain.equals(IRIS_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.iris_wh));
-        } else if (baseChain.equals(BNB_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.binance_ch_img));
-        } else if (baseChain.equals(KAVA_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.kava_img));
-        } else if (baseChain.equals(IOV_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_starname));
-        } else if (baseChain.equals(BAND_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.band_chain_img));
-        } else if (baseChain.equals(CERTIK_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.certik_chain_img));
-        } else if (baseChain.equals(SECRET_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chainsecret));
-        } else if (baseChain.equals(AKASH_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.akash_chain_img));
-        } else if (baseChain.equals(OKEX_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.okex_chain_img));
-        } else if (baseChain.equals(PERSIS_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chainpersistence));
-        } else if (baseChain.equals(SENTINEL_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chainsentinel));
-        } else if (baseChain.equals(FETCHAI_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chainfetchai));
-        } else if (baseChain.equals(CRYPTO_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chaincrypto));
-        } else if (baseChain.equals(SIF_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chainsifchain));
-        } else if (baseChain.equals(KI_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_kifoundation));
-        } else if (baseChain.equals(OSMOSIS_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_osmosis));
-        } else if (baseChain.equals(MEDI_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chainmedibloc));
-        } else if (baseChain.equals(EMONEY_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_emoney));
-        } else if (baseChain.equals(RIZON_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_rizon));
-        } else if (baseChain.equals(JUNO_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_juno));
-        } else if (baseChain.equals(REGEN_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_regen));
-        } else if (baseChain.equals(BITCANNA_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_bitcanna));
-        } else if (baseChain.equals(ALTHEA_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_althea));
-        } else if (baseChain.equals(STARGAZE_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_stargaze));
-        } else if (baseChain.equals(GRABRIDGE_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_gravitybridge));
-        } else if (baseChain.equals(COMDEX_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_comdex));
-        } else if (baseChain.equals(INJ_MAIN)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_injective));
-        }
+        if (baseChain != null) {
+            if (baseChain.equals(COSMOS_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.cosmos_wh_main));
+            } else if (baseChain.equals(IRIS_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.iris_wh));
+            } else if (baseChain.equals(BNB_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.binance_ch_img));
+            } else if (baseChain.equals(KAVA_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.kava_img));
+            } else if (baseChain.equals(IOV_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_starname));
+            } else if (baseChain.equals(BAND_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.band_chain_img));
+            } else if (baseChain.equals(CERTIK_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.certik_chain_img));
+            } else if (baseChain.equals(SECRET_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chainsecret));
+            } else if (baseChain.equals(AKASH_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.akash_chain_img));
+            } else if (baseChain.equals(OKEX_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.okex_chain_img));
+            } else if (baseChain.equals(PERSIS_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chainpersistence));
+            } else if (baseChain.equals(SENTINEL_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chainsentinel));
+            } else if (baseChain.equals(FETCHAI_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chainfetchai));
+            } else if (baseChain.equals(CRYPTO_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chaincrypto));
+            } else if (baseChain.equals(SIF_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chainsifchain));
+            } else if (baseChain.equals(KI_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_kifoundation));
+            } else if (baseChain.equals(OSMOSIS_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_osmosis));
+            } else if (baseChain.equals(MEDI_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chainmedibloc));
+            } else if (baseChain.equals(EMONEY_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_emoney));
+            } else if (baseChain.equals(RIZON_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_rizon));
+            } else if (baseChain.equals(JUNO_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_juno));
+            } else if (baseChain.equals(REGEN_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_regen));
+            } else if (baseChain.equals(BITCANNA_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_bitcanna));
+            } else if (baseChain.equals(ALTHEA_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_althea));
+            } else if (baseChain.equals(STARGAZE_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_stargaze));
+            } else if (baseChain.equals(GRABRIDGE_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_gravitybridge));
+            } else if (baseChain.equals(COMDEX_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_comdex));
+            } else if (baseChain.equals(INJ_MAIN)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_injective));
 
-        else if (baseChain.equals(COSMOS_TEST)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_test_cosmos));
-        } else if (baseChain.equals(IRIS_TEST)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_test_iris));
-        } else if (baseChain.equals(BNB_TEST)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.binancetestnet));
-        } else if (baseChain.equals(IOV_TEST)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.iov_testnet_img));
-        } else if (baseChain.equals(OK_TEST)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.okex_testnet_img));
-        } else if (baseChain.equals(CERTIK_TEST)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.certik_testnet_img));
-        } else if (baseChain.equals(MEDI_TEST)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_medibloc));
-        } else if (baseChain.equals(ALTHEA_TEST)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_althea));
-        } else if (baseChain.equals(UMEE_TEST)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_umee));
-        } else if (baseChain.equals(AXELAR_TEST)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_axelar));
-        } else if (baseChain.equals(RIZON_TEST)) {
-            chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_rizon));
+            }
+            else if (baseChain.equals(COSMOS_TEST)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_test_cosmos));
+            } else if (baseChain.equals(IRIS_TEST)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.chain_test_iris));
+            } else if (baseChain.equals(BNB_TEST)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.binancetestnet));
+            } else if (baseChain.equals(IOV_TEST)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.iov_testnet_img));
+            } else if (baseChain.equals(OK_TEST)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.okex_testnet_img));
+            } else if (baseChain.equals(CERTIK_TEST)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.certik_testnet_img));
+            } else if (baseChain.equals(MEDI_TEST)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_medibloc));
+            } else if (baseChain.equals(ALTHEA_TEST)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_althea));
+            } else if (baseChain.equals(UMEE_TEST)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_umee));
+            } else if (baseChain.equals(AXELAR_TEST)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_axelar));
+            } else if (baseChain.equals(RIZON_TEST)) {
+                chainImg.setImageDrawable(c.getDrawable(R.drawable.testnet_rizon));
+            }
         } else {
             chainImg.setImageDrawable(c.getDrawable(R.drawable.default_chain_img));
         }
     }
 
     public static void getChainTitle(Context c, BaseChain baseChain, TextView chainName) {
-        if (baseChain.equals(COSMOS_MAIN)) {
-            chainName.setText(c.getString(R.string.str_cosmos_hub));
-        } else if (baseChain.equals(IRIS_MAIN)) {
-            chainName.setText(c.getString(R.string.str_iris_net));
-        } else if (baseChain.equals(BNB_MAIN)) {
-            chainName.setText(c.getString(R.string.str_binance_net));
-        } else if (baseChain.equals(KAVA_MAIN)) {
-            chainName.setText(c.getString(R.string.str_kava_net));
-        } else if (baseChain.equals(IOV_MAIN)) {
-            chainName.setText(c.getString(R.string.str_iov_net));
-        } else if (baseChain.equals(BAND_MAIN)) {
-            chainName.setText(c.getString(R.string.str_band_chain));
-        } else if (baseChain.equals(CERTIK_MAIN)) {
-            chainName.setText(c.getString(R.string.str_certik_chain));
-        } else if (baseChain.equals(SECRET_MAIN)) {
-            chainName.setText(c.getString(R.string.str_secret_chain));
-        } else if (baseChain.equals(AKASH_MAIN)) {
-            chainName.setText(c.getString(R.string.str_akash_chain));
-        } else if (baseChain.equals(OKEX_MAIN)) {
-            chainName.setText(c.getString(R.string.str_ok_net));
-        } else if (baseChain.equals(PERSIS_MAIN)) {
-            chainName.setText(c.getString(R.string.str_persis_net));
-        } else if (baseChain.equals(SENTINEL_MAIN)) {
-            chainName.setText(c.getString(R.string.str_sentinel_net));
-        } else if (baseChain.equals(FETCHAI_MAIN)) {
-            chainName.setText(c.getString(R.string.str_fetch_net));
-        } else if (baseChain.equals(CRYPTO_MAIN)) {
-            chainName.setText(c.getString(R.string.str_crypto_net));
-        } else if (baseChain.equals(SIF_MAIN)) {
-            chainName.setText(c.getString(R.string.str_sif_net));
-        } else if (baseChain.equals(KI_MAIN)) {
-            chainName.setText(c.getString(R.string.str_ki_net));
-        } else if (baseChain.equals(OSMOSIS_MAIN)) {
-            chainName.setText(c.getString(R.string.str_osmosis_net));
-        } else if (baseChain.equals(MEDI_MAIN)) {
-            chainName.setText(c.getString(R.string.str_medi_net));
-        } else if (baseChain.equals(EMONEY_MAIN)) {
-            chainName.setText(c.getString(R.string.str_emoney_net));
-        } else if (baseChain.equals(RIZON_MAIN)) {
-            chainName.setText(c.getString(R.string.str_rizon_net));
-        } else if (baseChain.equals(JUNO_MAIN)) {
-            chainName.setText(c.getString(R.string.str_juno_net));
-        } else if (baseChain.equals(REGEN_MAIN)) {
-            chainName.setText(c.getString(R.string.str_regen_net));
-        } else if (baseChain.equals(BITCANNA_MAIN)) {
-            chainName.setText(c.getString(R.string.str_bitcanna_net));
-        } else if (baseChain.equals(ALTHEA_MAIN)) {
-            chainName.setText(c.getString(R.string.str_althea_net));
-        } else if (baseChain.equals(STARGAZE_MAIN)) {
-            chainName.setText(c.getString(R.string.str_stargaze_net));
-        } else if (baseChain.equals(GRABRIDGE_MAIN)) {
-            chainName.setText(c.getString(R.string.str_grabridge_net));
-        } else if (baseChain.equals(COMDEX_MAIN)) {
-            chainName.setText(c.getString(R.string.str_comdex_net));
-        } else if (baseChain.equals(INJ_MAIN)) {
-            chainName.setText(c.getString(R.string.str_inj_net));
+        if (baseChain != null) {
+            if (baseChain.equals(COSMOS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_cosmos_hub));
+            } else if (baseChain.equals(IRIS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_iris_net));
+            } else if (baseChain.equals(BNB_MAIN)) {
+                chainName.setText(c.getString(R.string.str_binance_net));
+            } else if (baseChain.equals(KAVA_MAIN)) {
+                chainName.setText(c.getString(R.string.str_kava_net));
+            } else if (baseChain.equals(IOV_MAIN)) {
+                chainName.setText(c.getString(R.string.str_iov_net));
+            } else if (baseChain.equals(BAND_MAIN)) {
+                chainName.setText(c.getString(R.string.str_band_chain));
+            } else if (baseChain.equals(CERTIK_MAIN)) {
+                chainName.setText(c.getString(R.string.str_certik_chain));
+            } else if (baseChain.equals(SECRET_MAIN)) {
+                chainName.setText(c.getString(R.string.str_secret_chain));
+            } else if (baseChain.equals(AKASH_MAIN)) {
+                chainName.setText(c.getString(R.string.str_akash_chain));
+            } else if (baseChain.equals(OKEX_MAIN)) {
+                chainName.setText(c.getString(R.string.str_ok_net));
+            } else if (baseChain.equals(PERSIS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_persis_net));
+            } else if (baseChain.equals(SENTINEL_MAIN)) {
+                chainName.setText(c.getString(R.string.str_sentinel_net));
+            } else if (baseChain.equals(FETCHAI_MAIN)) {
+                chainName.setText(c.getString(R.string.str_fetch_net));
+            } else if (baseChain.equals(CRYPTO_MAIN)) {
+                chainName.setText(c.getString(R.string.str_crypto_net));
+            } else if (baseChain.equals(SIF_MAIN)) {
+                chainName.setText(c.getString(R.string.str_sif_net));
+            } else if (baseChain.equals(KI_MAIN)) {
+                chainName.setText(c.getString(R.string.str_ki_net));
+            } else if (baseChain.equals(OSMOSIS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_osmosis_net));
+            } else if (baseChain.equals(MEDI_MAIN)) {
+                chainName.setText(c.getString(R.string.str_medi_net));
+            } else if (baseChain.equals(EMONEY_MAIN)) {
+                chainName.setText(c.getString(R.string.str_emoney_net));
+            } else if (baseChain.equals(RIZON_MAIN)) {
+                chainName.setText(c.getString(R.string.str_rizon_net));
+            } else if (baseChain.equals(JUNO_MAIN)) {
+                chainName.setText(c.getString(R.string.str_juno_net));
+            } else if (baseChain.equals(REGEN_MAIN)) {
+                chainName.setText(c.getString(R.string.str_regen_net));
+            } else if (baseChain.equals(BITCANNA_MAIN)) {
+                chainName.setText(c.getString(R.string.str_bitcanna_net));
+            } else if (baseChain.equals(ALTHEA_MAIN)) {
+                chainName.setText(c.getString(R.string.str_althea_net));
+            } else if (baseChain.equals(STARGAZE_MAIN)) {
+                chainName.setText(c.getString(R.string.str_stargaze_net));
+            } else if (baseChain.equals(GRABRIDGE_MAIN)) {
+                chainName.setText(c.getString(R.string.str_grabridge_net));
+            } else if (baseChain.equals(COMDEX_MAIN)) {
+                chainName.setText(c.getString(R.string.str_comdex_net));
+            } else if (baseChain.equals(INJ_MAIN)) {
+                chainName.setText(c.getString(R.string.str_inj_net));
+
+            }
+            else if (baseChain.equals(COSMOS_TEST)) {
+                chainName.setText(c.getString(R.string.str_cosmos_testnet));
+            } else if (baseChain.equals(IRIS_TEST)) {
+                chainName.setText(c.getString(R.string.str_iris_testnet));
+            } else if (baseChain.equals(BNB_TEST)) {
+                chainName.setText(c.getString(R.string.str_binance_test_net));
+            } else if (baseChain.equals(IOV_TEST)) {
+                chainName.setText(c.getString(R.string.str_iov_net_test));
+            } else if (baseChain.equals(OK_TEST)) {
+                chainName.setText(c.getString(R.string.str_ok_net_test));
+            } else if (baseChain.equals(CERTIK_TEST)) {
+                chainName.setText(c.getString(R.string.str_certik_chain_test));
+            } else if (baseChain.equals(RIZON_TEST)) {
+                chainName.setText(c.getString(R.string.str_rizon_chain_test));
+            } else if (baseChain.equals(MEDI_TEST)) {
+                chainName.setText(c.getString(R.string.str_medi_chain_test));
+            } else if (baseChain.equals(ALTHEA_TEST)) {
+                chainName.setText(c.getString(R.string.str_althea_chain_test));
+            } else if (baseChain.equals(UMEE_TEST)) {
+                chainName.setText(c.getString(R.string.str_umee_chain_test));
+            } else if (baseChain.equals(AXELAR_TEST)) {
+                chainName.setText(c.getString(R.string.str_axelar_chain_test));
+            }
+        } else {
+            chainName.setText("Unknown");
         }
 
-        else if (baseChain.equals(COSMOS_TEST)) {
-            chainName.setText(c.getString(R.string.str_cosmos_testnet));
-        } else if (baseChain.equals(IRIS_TEST)) {
-            chainName.setText(c.getString(R.string.str_iris_testnet));
-        } else if (baseChain.equals(BNB_TEST)) {
-            chainName.setText(c.getString(R.string.str_binance_test_net));
-        } else if (baseChain.equals(IOV_TEST)) {
-            chainName.setText(c.getString(R.string.str_iov_net_test));
-        } else if (baseChain.equals(OK_TEST)) {
-            chainName.setText(c.getString(R.string.str_ok_net_test));
-        } else if (baseChain.equals(CERTIK_TEST)) {
-            chainName.setText(c.getString(R.string.str_certik_chain_test));
-        } else if (baseChain.equals(RIZON_TEST)) {
-            chainName.setText(c.getString(R.string.str_rizon_chain_test));
-        } else if (baseChain.equals(MEDI_TEST)) {
-            chainName.setText(c.getString(R.string.str_medi_chain_test));
-        } else if (baseChain.equals(ALTHEA_TEST)) {
-            chainName.setText(c.getString(R.string.str_althea_chain_test));
-        } else if (baseChain.equals(UMEE_TEST)) {
-            chainName.setText(c.getString(R.string.str_umee_chain_test));
-        } else if (baseChain.equals(AXELAR_TEST)) {
-            chainName.setText(c.getString(R.string.str_axelar_chain_test));
-        }
     }
 
     public static void getChainTitle2(Context c, BaseChain baseChain, TextView chainName) {
-        if (baseChain.equals(COSMOS_MAIN)) {
-            chainName.setText(c.getString(R.string.str_cosmos));
-        } else if (baseChain.equals(IRIS_MAIN)) {
-            chainName.setText(c.getString(R.string.str_iris));
-        } else if (baseChain.equals(BNB_MAIN)) {
-            chainName.setText(c.getString(R.string.str_binance));
-        } else if (baseChain.equals(KAVA_MAIN)) {
-            chainName.setText(c.getString(R.string.str_kava));
-        } else if (baseChain.equals(IOV_MAIN)) {
-            chainName.setText(c.getString(R.string.str_iov));
-        } else if (baseChain.equals(BAND_MAIN)) {
-            chainName.setText(c.getString(R.string.str_band));
-        } else if (baseChain.equals(CERTIK_MAIN)) {
-            chainName.setText(c.getString(R.string.str_certik_main));
-        } else if (baseChain.equals(SECRET_MAIN)) {
-            chainName.setText(c.getString(R.string.str_secret_main));
-        } else if (baseChain.equals(AKASH_MAIN)) {
-            chainName.setText(c.getString(R.string.str_akash_main));
-        } else if (baseChain.equals(OKEX_MAIN)) {
-            chainName.setText(c.getString(R.string.str_okex_main));
-        } else if (baseChain.equals(PERSIS_MAIN)) {
-            chainName.setText(c.getString(R.string.str_persis_main));
-        } else if (baseChain.equals(SENTINEL_MAIN)) {
-            chainName.setText(c.getString(R.string.str_sentinel_main));
-        } else if (baseChain.equals(FETCHAI_MAIN)) {
-            chainName.setText(c.getString(R.string.str_fetch_main));
-        } else if (baseChain.equals(CRYPTO_MAIN)) {
-            chainName.setText(c.getString(R.string.str_crypto_main));
-        } else if (baseChain.equals(SIF_MAIN)) {
-            chainName.setText(c.getString(R.string.str_sif_main));
-        } else if (baseChain.equals(KI_MAIN)) {
-            chainName.setText(c.getString(R.string.str_ki_main));
-        } else if (baseChain.equals(OSMOSIS_MAIN)) {
-            chainName.setText(c.getString(R.string.str_osmosis_main));
-        } else if (baseChain.equals(MEDI_MAIN)) {
-            chainName.setText(c.getString(R.string.str_medi_main));
-        } else if (baseChain.equals(EMONEY_MAIN)) {
-            chainName.setText(c.getString(R.string.str_emoney_main));
-        } else if (baseChain.equals(RIZON_MAIN)) {
-            chainName.setText(c.getString(R.string.str_rizon_main));
-        } else if (baseChain.equals(JUNO_MAIN)) {
-            chainName.setText(c.getString(R.string.str_juno_main));
-        } else if (baseChain.equals(REGEN_MAIN)) {
-            chainName.setText(c.getString(R.string.str_regen_main));
-        } else if (baseChain.equals(BITCANNA_MAIN)) {
-            chainName.setText(c.getString(R.string.str_bitcanna_main));
-        } else if (baseChain.equals(ALTHEA_MAIN)) {
-            chainName.setText(c.getString(R.string.str_althea_main));
-        } else if (baseChain.equals(STARGAZE_MAIN)) {
-            chainName.setText(c.getString(R.string.str_stargaze_main));
-        } else if (baseChain.equals(GRABRIDGE_MAIN)) {
-            chainName.setText(c.getString(R.string.str_grabridge_main));
-        } else if (baseChain.equals(COMDEX_MAIN)) {
-            chainName.setText(c.getString(R.string.str_comdex_main));
-        } else if (baseChain.equals(INJ_MAIN)) {
-            chainName.setText(c.getString(R.string.str_inj_main));
-        }
+        if (baseChain != null) {
+            if (baseChain.equals(COSMOS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_cosmos));
+            } else if (baseChain.equals(IRIS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_iris));
+            } else if (baseChain.equals(BNB_MAIN)) {
+                chainName.setText(c.getString(R.string.str_binance));
+            } else if (baseChain.equals(KAVA_MAIN)) {
+                chainName.setText(c.getString(R.string.str_kava));
+            } else if (baseChain.equals(IOV_MAIN)) {
+                chainName.setText(c.getString(R.string.str_iov));
+            } else if (baseChain.equals(BAND_MAIN)) {
+                chainName.setText(c.getString(R.string.str_band));
+            } else if (baseChain.equals(CERTIK_MAIN)) {
+                chainName.setText(c.getString(R.string.str_certik_main));
+            } else if (baseChain.equals(SECRET_MAIN)) {
+                chainName.setText(c.getString(R.string.str_secret_main));
+            } else if (baseChain.equals(AKASH_MAIN)) {
+                chainName.setText(c.getString(R.string.str_akash_main));
+            } else if (baseChain.equals(OKEX_MAIN)) {
+                chainName.setText(c.getString(R.string.str_okex_main));
+            } else if (baseChain.equals(PERSIS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_persis_main));
+            } else if (baseChain.equals(SENTINEL_MAIN)) {
+                chainName.setText(c.getString(R.string.str_sentinel_main));
+            } else if (baseChain.equals(FETCHAI_MAIN)) {
+                chainName.setText(c.getString(R.string.str_fetch_main));
+            } else if (baseChain.equals(CRYPTO_MAIN)) {
+                chainName.setText(c.getString(R.string.str_crypto_main));
+            } else if (baseChain.equals(SIF_MAIN)) {
+                chainName.setText(c.getString(R.string.str_sif_main));
+            } else if (baseChain.equals(KI_MAIN)) {
+                chainName.setText(c.getString(R.string.str_ki_main));
+            } else if (baseChain.equals(OSMOSIS_MAIN)) {
+                chainName.setText(c.getString(R.string.str_osmosis_main));
+            } else if (baseChain.equals(MEDI_MAIN)) {
+                chainName.setText(c.getString(R.string.str_medi_main));
+            } else if (baseChain.equals(EMONEY_MAIN)) {
+                chainName.setText(c.getString(R.string.str_emoney_main));
+            } else if (baseChain.equals(RIZON_MAIN)) {
+                chainName.setText(c.getString(R.string.str_rizon_main));
+            } else if (baseChain.equals(JUNO_MAIN)) {
+                chainName.setText(c.getString(R.string.str_juno_main));
+            } else if (baseChain.equals(REGEN_MAIN)) {
+                chainName.setText(c.getString(R.string.str_regen_main));
+            } else if (baseChain.equals(BITCANNA_MAIN)) {
+                chainName.setText(c.getString(R.string.str_bitcanna_main));
+            } else if (baseChain.equals(ALTHEA_MAIN)) {
+                chainName.setText(c.getString(R.string.str_althea_main));
+            } else if (baseChain.equals(STARGAZE_MAIN)) {
+                chainName.setText(c.getString(R.string.str_stargaze_main));
+            } else if (baseChain.equals(GRABRIDGE_MAIN)) {
+                chainName.setText(c.getString(R.string.str_grabridge_main));
+            } else if (baseChain.equals(COMDEX_MAIN)) {
+                chainName.setText(c.getString(R.string.str_comdex_main));
+            } else if (baseChain.equals(INJ_MAIN)) {
+                chainName.setText(c.getString(R.string.str_inj_main));
+            }
 
-        else if (baseChain.equals(COSMOS_TEST)) {
-            chainName.setText(c.getString(R.string.str_cosmos_test));
-        } else if (baseChain.equals(IRIS_TEST)) {
-            chainName.setText(c.getString(R.string.str_iris_test));
-        } else if (baseChain.equals(BNB_TEST)) {
-            chainName.setText(c.getString(R.string.str_binance_test));
-        } else if (baseChain.equals(IOV_TEST)) {
-            chainName.setText(c.getString(R.string.str_iov_test));
-        } else if (baseChain.equals(OK_TEST)) {
-            chainName.setText(c.getString(R.string.str_ok_test));
-        } else if (baseChain.equals(CERTIK_TEST)) {
-            chainName.setText(c.getString(R.string.str_certik_test));
-        } else if (baseChain.equals(RIZON_TEST)) {
-            chainName.setText(c.getString(R.string.str_rizon_test));
-        } else if (baseChain.equals(MEDI_TEST)) {
-            chainName.setText(c.getString(R.string.str_medi_test));
-        } else if (baseChain.equals(ALTHEA_TEST)) {
-            chainName.setText(c.getString(R.string.str_althea_test));
-        } else if (baseChain.equals(UMEE_TEST)) {
-            chainName.setText(c.getString(R.string.str_umee_test));
-        } else if (baseChain.equals(AXELAR_TEST)) {
-            chainName.setText(c.getString(R.string.str_axelar_test));
+            else if (baseChain.equals(COSMOS_TEST)) {
+                chainName.setText(c.getString(R.string.str_cosmos_test));
+            } else if (baseChain.equals(IRIS_TEST)) {
+                chainName.setText(c.getString(R.string.str_iris_test));
+            } else if (baseChain.equals(BNB_TEST)) {
+                chainName.setText(c.getString(R.string.str_binance_test));
+            } else if (baseChain.equals(IOV_TEST)) {
+                chainName.setText(c.getString(R.string.str_iov_test));
+            } else if (baseChain.equals(OK_TEST)) {
+                chainName.setText(c.getString(R.string.str_ok_test));
+            } else if (baseChain.equals(CERTIK_TEST)) {
+                chainName.setText(c.getString(R.string.str_certik_test));
+            } else if (baseChain.equals(RIZON_TEST)) {
+                chainName.setText(c.getString(R.string.str_rizon_test));
+            } else if (baseChain.equals(MEDI_TEST)) {
+                chainName.setText(c.getString(R.string.str_medi_test));
+            } else if (baseChain.equals(ALTHEA_TEST)) {
+                chainName.setText(c.getString(R.string.str_althea_test));
+            } else if (baseChain.equals(UMEE_TEST)) {
+                chainName.setText(c.getString(R.string.str_umee_test));
+            } else if (baseChain.equals(AXELAR_TEST)) {
+                chainName.setText(c.getString(R.string.str_axelar_test));
+            }
         } else {
             chainName.setText("Unknown");
         }
@@ -1429,145 +1136,160 @@ public class WDp {
     }
 
     public static BaseChain getChainTypeByChainId(String chainId) {
-        if (chainId.contains("cosmoshub-")) {
-            return COSMOS_MAIN;
-        } else if (chainId.contains("irishub-")) {
-            return IRIS_MAIN;
-        } else if (chainId.contains("iov-")) {
-            return IOV_MAIN;
-        } else if (chainId.contains("akashnet-")) {
-            return AKASH_MAIN;
-        } else if (chainId.contains("sentinelhub-")) {
-            return SENTINEL_MAIN;
-        } else if (chainId.contains("core-")) {
-            return PERSIS_MAIN;
-        } else if (chainId.contains("sifchain-")) {
-            return SIF_MAIN;
-        } else if (chainId.contains("osmosis-")) {
-            return OSMOSIS_MAIN;
-        } else if (chainId.contains("crypto-org-")) {
-            return CRYPTO_MAIN;
-        } else if (chainId.contains("laozi-mainnet-")) {
-            return BAND_MAIN;
-        } else if (chainId.contains("shentu-")) {
-            return CERTIK_MAIN;
-        } else if (chainId.contains("panacea-")) {
-            return MEDI_MAIN;
-        } else if (chainId.contains("emoney-")) {
-            return EMONEY_MAIN;
-        } else if (chainId.contains("juno-")) {
-            return JUNO_MAIN;
-        } else if (chainId.contains("regen-")) {
-            return REGEN_MAIN;
-        } else if (chainId.contains("bitcanna-")) {
-            return BITCANNA_MAIN;
-        } else if (chainId.contains("stargaze-")) {
-            return STARGAZE_MAIN;
+        if (chainId != null) {
+            if (chainId.contains("cosmoshub-")) {
+                return COSMOS_MAIN;
+            } else if (chainId.contains("irishub-")) {
+                return IRIS_MAIN;
+            } else if (chainId.contains("iov-")) {
+                return IOV_MAIN;
+            } else if (chainId.contains("akashnet-")) {
+                return AKASH_MAIN;
+            } else if (chainId.contains("sentinelhub-")) {
+                return SENTINEL_MAIN;
+            } else if (chainId.contains("core-")) {
+                return PERSIS_MAIN;
+            } else if (chainId.contains("sifchain-")) {
+                return SIF_MAIN;
+            } else if (chainId.contains("osmosis-")) {
+                return OSMOSIS_MAIN;
+            } else if (chainId.contains("crypto-org-")) {
+                return CRYPTO_MAIN;
+            } else if (chainId.contains("laozi-mainnet-")) {
+                return BAND_MAIN;
+            } else if (chainId.contains("shentu-")) {
+                return CERTIK_MAIN;
+            } else if (chainId.contains("panacea-")) {
+                return MEDI_MAIN;
+            } else if (chainId.contains("emoney-")) {
+                return EMONEY_MAIN;
+            } else if (chainId.contains("juno-")) {
+                return JUNO_MAIN;
+            } else if (chainId.contains("regen-")) {
+                return REGEN_MAIN;
+            } else if (chainId.contains("bitcanna-")) {
+                return BITCANNA_MAIN;
+            } else if (chainId.contains("stargaze-")) {
+                return STARGAZE_MAIN;
+            } else if (chainId.contains("fetchhub--")) {
+                return FETCHAI_MAIN;
+            } else if (chainId.contains("kichain-")) {
+                return KI_MAIN;
+            } else if (chainId.contains("secret-")) {
+                return SECRET_MAIN;
+            } else if (chainId.contains("titan-")) {
+                return RIZON_MAIN;
+            } else if (chainId.contains("comdex-")) {
+                return COMDEX_MAIN;
+            }
+
+            else if (chainId.contains("gravitybridge-")) {
+                return GRABRIDGE_MAIN;
+            }
+            else if (chainId.contains("inj-")) {
+                return INJ_MAIN;
+            }
         }
-//        else if (chainId.contains("gravitybridge-")) {
-//            return GRABRIDGE_MAIN;
-//        }
-//        else if (chainId.contains("comdex-")) {
-//            return COMDEX_MAIN;
-//        }
-//        else if (chainId.contains("inj-")) {
-//            return INJ_MAIN
-//        }
         return null;
     }
 
     public static void getChainByAddress(BaseChain baseChain, String address, TextView textView) {
-        if (baseChain.equals(COSMOS_MAIN)) {
-            if (!address.startsWith("cosmos1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(IRIS_MAIN)) {
-            if (!address.startsWith("iaa1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(IOV_MAIN)) {
-            if (!address.startsWith("star")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(AKASH_MAIN)) {
-            if (!address.startsWith("akash1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(SENTINEL_MAIN)) {
-            if (!address.startsWith("sent1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(PERSIS_MAIN)) {
-            if (!address.startsWith("persistence1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(SIF_MAIN)) {
-            if (!address.startsWith("sif1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(OSMOSIS_MAIN)) {
-            if (!address.startsWith("osmo1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(CRYPTO_MAIN)) {
-            if (!address.startsWith("cro1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(BAND_MAIN)) {
-            if (!address.startsWith("band1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(CERTIK_MAIN)) {
-            if (!address.startsWith("certik1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(MEDI_MAIN)) {
-            if (!address.startsWith("panacea1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(EMONEY_MAIN)) {
-            if (!address.startsWith("emoney1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(REGEN_MAIN)) {
-            if (!address.startsWith("regen1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(JUNO_MAIN)) {
-            if (!address.startsWith("juno1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(BITCANNA_MAIN)) {
-            if (!address.startsWith("bcna1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(ALTHEA_MAIN)) {
-            if (!address.startsWith("althea1")) {
-                textView.setText("");
-            }
-        } else if (baseChain.equals(STARGAZE_MAIN)) {
-            if (!address.startsWith("stars1")) {
-                textView.setText("");
+        if (baseChain != null) {
+            if (baseChain.equals(COSMOS_MAIN)) {
+                if (!address.startsWith("cosmos1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(IRIS_MAIN)) {
+                if (!address.startsWith("iaa1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(IOV_MAIN)) {
+                if (!address.startsWith("star")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(AKASH_MAIN)) {
+                if (!address.startsWith("akash1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(SENTINEL_MAIN)) {
+                if (!address.startsWith("sent1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(PERSIS_MAIN)) {
+                if (!address.startsWith("persistence1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(SIF_MAIN)) {
+                if (!address.startsWith("sif1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(OSMOSIS_MAIN)) {
+                if (!address.startsWith("osmo1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(CRYPTO_MAIN)) {
+                if (!address.startsWith("cro1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(BAND_MAIN)) {
+                if (!address.startsWith("band1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(CERTIK_MAIN)) {
+                if (!address.startsWith("certik1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(MEDI_MAIN)) {
+                if (!address.startsWith("panacea1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(EMONEY_MAIN)) {
+                if (!address.startsWith("emoney1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(REGEN_MAIN)) {
+                if (!address.startsWith("regen1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(JUNO_MAIN)) {
+                if (!address.startsWith("juno1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(FETCHAI_MAIN)) {
+                if (!address.startsWith("fetch1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(RIZON_MAIN)) {
+                if (!address.startsWith("rizon1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(KI_MAIN)) {
+                if (!address.startsWith("ki1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(BITCANNA_MAIN)) {
+                if (!address.startsWith("bcna1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(STARGAZE_MAIN)) {
+                if (!address.startsWith("stars1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(COMDEX_MAIN)) {
+                if (!address.startsWith("comdex1")) {
+                    textView.setText("");
+                }
+            } else if (baseChain.equals(SECRET_MAIN)) {
+                if (!address.startsWith("secret1")) {
+                    textView.setText("");
+                }
             }
         }
-//        else if (baseChain.equals(GRABRIDGE_MAIN)) {
-//            if (!address.startsWith("gravity1")) {
-//                textView.setText("");
-//            }
-//        } else if (baseChain.equals(COMDEX_MAIN)) {
-//            if (!address.startsWith("comdex1")) {
-//                textView.setText("");
-//            }
-//        }
-//        else if (baseChain.equals(INJ_MAIN)) {
-//            if (!address.startsWith("inj")) {
-//                textView.setText("");
-//            }
-//        }
     }
 
     public static boolean isValidChainAddress(BaseChain baseChain, String address) {
-        if (address.startsWith("0x")) {
+        if (baseChain != null) {
+            if (address.startsWith("0x")) {
             if (!WKey.isValidBech32(address)) { return false; }
             if (baseChain.equals(OKEX_MAIN)) { return true; }
             return false;
@@ -1603,25 +1325,35 @@ public class WDp {
         else if (address.startsWith("comdex1") && baseChain.equals(COMDEX_MAIN)) { return true; }
         else if (address.startsWith("inj1") && baseChain.equals(INJ_MAIN)) { return true; }
 
+        }
         return false;
     }
 
     public static String getDefaultRelayerImg(BaseChain chain) {
-        if (chain.equals(AKASH_MAIN)) { return AKASH_UNKNOWN_RELAYER; }
-        else if (chain.equals(BAND_MAIN)) { return BAND_UNKNOWN_RELAYER; }
-        else if (chain.equals(CERTIK_MAIN)) { return CERTIK_UNKNOWN_RELAYER; }
-        else if (chain.equals(COSMOS_MAIN)) { return COSMOS_UNKNOWN_RELAYER; }
-        else if (chain.equals(CRYPTO_MAIN)) { return CRYPTO_UNKNOWN_RELAYER; }
-        else if (chain.equals(EMONEY_MAIN)) { return EMONEY_UNKNOWN_RELAYER; }
-        else if (chain.equals(FETCHAI_MAIN)) { return FETCHAI_UNKNOWN_RELAYER; }
-        else if (chain.equals(IRIS_MAIN)) { return IRIS_UNKNOWN_RELAYER; }
-        else if (chain.equals(JUNO_MAIN)) { return JUNO_UNKNOWN_RELAYER; }
-        else if (chain.equals(OSMOSIS_MAIN)) { return OSMOSIS_UNKNOWN_RELAYER; }
-        else if (chain.equals(PERSIS_MAIN)) { return PERSIS_UNKNOWN_RELAYER; }
-        else if (chain.equals(REGEN_MAIN)) { return REGEN_UNKNOWN_RELAYER; }
-        else if (chain.equals(SENTINEL_MAIN)) { return SENTINEL_UNKNOWN_RELAYER; }
-        else if (chain.equals(SIF_MAIN)) { return SIFCHAIN_UNKNOWN_RELAYER; }
-        else if (chain.equals(IOV_MAIN)) { return STARNAME_UNKNOWN_RELAYER; }
+        if (chain != null) {
+            if (chain.equals(AKASH_MAIN)) { return AKASH_UNKNOWN_RELAYER; }
+            else if (chain.equals(BAND_MAIN)) { return BAND_UNKNOWN_RELAYER; }
+            else if (chain.equals(CERTIK_MAIN)) { return CERTIK_UNKNOWN_RELAYER; }
+            else if (chain.equals(COSMOS_MAIN)) { return COSMOS_UNKNOWN_RELAYER; }
+            else if (chain.equals(CRYPTO_MAIN)) { return CRYPTO_UNKNOWN_RELAYER; }
+            else if (chain.equals(EMONEY_MAIN)) { return EMONEY_UNKNOWN_RELAYER; }
+            else if (chain.equals(FETCHAI_MAIN)) { return FETCHAI_UNKNOWN_RELAYER; }
+            else if (chain.equals(IRIS_MAIN)) { return IRIS_UNKNOWN_RELAYER; }
+            else if (chain.equals(JUNO_MAIN)) { return JUNO_UNKNOWN_RELAYER; }
+            else if (chain.equals(OSMOSIS_MAIN)) { return OSMOSIS_UNKNOWN_RELAYER; }
+            else if (chain.equals(PERSIS_MAIN)) { return PERSIS_UNKNOWN_RELAYER; }
+            else if (chain.equals(REGEN_MAIN)) { return REGEN_UNKNOWN_RELAYER; }
+            else if (chain.equals(SENTINEL_MAIN)) { return SENTINEL_UNKNOWN_RELAYER; }
+            else if (chain.equals(SIF_MAIN)) { return SIFCHAIN_UNKNOWN_RELAYER; }
+            else if (chain.equals(IOV_MAIN)) { return STARNAME_UNKNOWN_RELAYER; }
+            else if (chain.equals(KI_MAIN)) { return KI_UNKNOWN_RELAYER; }
+            else if (chain.equals(BITCANNA_MAIN)) { return BITCANNA_UNKNOWN_RELAYER; }
+            else if (chain.equals(RIZON_MAIN)) { return RIZON_UNKNOWN_RELAYER; }
+            else if (chain.equals(MEDI_MAIN)) { return MEDI_UNKNOWN_RELAYER; }
+            else if (chain.equals(STARGAZE_MAIN)) { return STARGAZE_UNKNOWN_RELAYER; }
+            else if (chain.equals(COMDEX_MAIN)) { return COMDEX_UNKNOWN_RELAYER; }
+            else if (chain.equals(SECRET_MAIN)) { return SECRET_UNKNOWN_RELAYER; }
+        }
         return null;
     }
 
@@ -2766,266 +2498,269 @@ public class WDp {
     }
 
     public static int getChainColor(Context c, BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-            return c.getResources().getColor(R.color.colorAtom);
-        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            return c.getResources().getColor(R.color.colorIris);
-        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-            return c.getResources().getColor(R.color.colorBnb);
-        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-            return c.getResources().getColor(R.color.colorKava);
-        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            return c.getResources().getColor(R.color.colorIov);
-        } else if (chain.equals(BAND_MAIN)) {
-            return c.getResources().getColor(R.color.colorBand);
-        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
-            return c.getResources().getColor(R.color.colorOK);
-        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-            return c.getResources().getColor(R.color.colorCertik);
-        } else if (chain.equals(SECRET_MAIN)) {
-            return c.getResources().getColor(R.color.colorSecret);
-        } else if (chain.equals(AKASH_MAIN)) {
-            return c.getResources().getColor(R.color.colorAkash);
-        } else if (chain.equals(PERSIS_MAIN)) {
-            return c.getResources().getColor(R.color.colorPersis);
-        } else if (chain.equals(SENTINEL_MAIN)) {
-            return c.getResources().getColor(R.color.colorSentinel);
-        } else if (chain.equals(FETCHAI_MAIN)) {
-            return c.getResources().getColor(R.color.colorFetch);
-        } else if (chain.equals(CRYPTO_MAIN)) {
-            return c.getResources().getColor(R.color.colorCryto);
-        } else if (chain.equals(SIF_MAIN)) {
-            return c.getResources().getColor(R.color.colorSif);
-        } else if (chain.equals(KI_MAIN)) {
-            return c.getResources().getColor(R.color.colorKi);
-        } else if (chain.equals(OSMOSIS_MAIN)) {
-            return c.getResources().getColor(R.color.colorOsmosis);
-        } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
-            return c.getResources().getColor(R.color.colorRizon);
-        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
-            return c.getResources().getColor(R.color.colorMedi);
-        } else if (chain.equals(EMONEY_MAIN)) {
-            return c.getResources().getColor(R.color.colorEmoney);
-        } else if (chain.equals(JUNO_MAIN)) {
-            return c.getResources().getColor(R.color.colorJuno);
-        } else if (chain.equals(REGEN_MAIN)) {
-            return c.getResources().getColor(R.color.colorRegen);
-        } else if (chain.equals(BITCANNA_MAIN)) {
-            return c.getResources().getColor(R.color.colorBitcanna);
-        } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
-            return c.getResources().getColor(R.color.colorAlthea);
-        } else if (chain.equals(STARGAZE_MAIN)) {
-            return c.getResources().getColor(R.color.colorStargaze);
-        } else if (chain.equals(GRABRIDGE_MAIN)) {
-            return c.getResources().getColor(R.color.colorGraBridge);
-        } else if (chain.equals(COMDEX_MAIN)) {
-            return c.getResources().getColor(R.color.colorComdex);
-        } else if (chain.equals(INJ_MAIN)) {
-            return c.getResources().getColor(R.color.colorInj);
-        } else if (chain.equals(UMEE_TEST)) {
-            return c.getResources().getColor(R.color.colorUmee);
-        } else if (chain.equals(AXELAR_TEST)) {
-            return c.getResources().getColor(R.color.colorAxelar);
-        } else {
-            return c.getResources().getColor(R.color.colorGray0);
+        if (chain != null) {
+            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
+                return c.getResources().getColor(R.color.colorAtom);
+            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
+                return c.getResources().getColor(R.color.colorIris);
+            } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+                return c.getResources().getColor(R.color.colorBnb);
+            } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+                return c.getResources().getColor(R.color.colorKava);
+            } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+                return c.getResources().getColor(R.color.colorIov);
+            } else if (chain.equals(BAND_MAIN)) {
+                return c.getResources().getColor(R.color.colorBand);
+            } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+                return c.getResources().getColor(R.color.colorOK);
+            } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                return c.getResources().getColor(R.color.colorCertik);
+            } else if (chain.equals(SECRET_MAIN)) {
+                return c.getResources().getColor(R.color.colorSecret);
+            } else if (chain.equals(AKASH_MAIN)) {
+                return c.getResources().getColor(R.color.colorAkash);
+            } else if (chain.equals(PERSIS_MAIN)) {
+                return c.getResources().getColor(R.color.colorPersis);
+            } else if (chain.equals(SENTINEL_MAIN)) {
+                return c.getResources().getColor(R.color.colorSentinel);
+            } else if (chain.equals(FETCHAI_MAIN)) {
+                return c.getResources().getColor(R.color.colorFetch);
+            } else if (chain.equals(CRYPTO_MAIN)) {
+                return c.getResources().getColor(R.color.colorCryto);
+            } else if (chain.equals(SIF_MAIN)) {
+                return c.getResources().getColor(R.color.colorSif);
+            } else if (chain.equals(KI_MAIN)) {
+                return c.getResources().getColor(R.color.colorKi);
+            } else if (chain.equals(OSMOSIS_MAIN)) {
+                return c.getResources().getColor(R.color.colorOsmosis);
+            } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
+                return c.getResources().getColor(R.color.colorRizon);
+            } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
+                return c.getResources().getColor(R.color.colorMedi);
+            } else if (chain.equals(EMONEY_MAIN)) {
+                return c.getResources().getColor(R.color.colorEmoney);
+            } else if (chain.equals(JUNO_MAIN)) {
+                return c.getResources().getColor(R.color.colorJuno);
+            } else if (chain.equals(REGEN_MAIN)) {
+                return c.getResources().getColor(R.color.colorRegen);
+            } else if (chain.equals(BITCANNA_MAIN)) {
+                return c.getResources().getColor(R.color.colorBitcanna);
+            } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
+                return c.getResources().getColor(R.color.colorAlthea);
+            } else if (chain.equals(STARGAZE_MAIN)) {
+                return c.getResources().getColor(R.color.colorStargaze);
+            } else if (chain.equals(GRABRIDGE_MAIN)) {
+                return c.getResources().getColor(R.color.colorGraBridge);
+            } else if (chain.equals(COMDEX_MAIN)) {
+                return c.getResources().getColor(R.color.colorComdex);
+            } else if (chain.equals(INJ_MAIN)) {
+                return c.getResources().getColor(R.color.colorInj);
+            } else if (chain.equals(UMEE_TEST)) {
+                return c.getResources().getColor(R.color.colorUmee);
+            } else if (chain.equals(AXELAR_TEST)) {
+                return c.getResources().getColor(R.color.colorAxelar);
+            }
         }
+        return c.getResources().getColor(R.color.colorGray0);
     }
 
     public static int getChainBgColor(Context c, BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-            return c.getResources().getColor(R.color.colorTransBgCosmos);
-        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            return c.getResources().getColor(R.color.colorTransBgIris);
-        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-            return c.getResources().getColor(R.color.colorTransBgBinance);
-        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-            return c.getResources().getColor(R.color.colorTransBgKava);
-        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            return c.getResources().getColor(R.color.colorTransBgStarname);
-        } else if (chain.equals(BAND_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgBand);
-        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
-            return c.getResources().getColor(R.color.colorTransBgOkex);
-        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-            return c.getResources().getColor(R.color.colorTransBgCertik);
-        } else if (chain.equals(SECRET_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgSecret);
-        } else if (chain.equals(AKASH_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgAkash);
-        } else if (chain.equals(PERSIS_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgPersis);
-        } else if (chain.equals(SENTINEL_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgSentinel);
-        } else if (chain.equals(FETCHAI_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgFetch);
-        } else if (chain.equals(CRYPTO_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgCryto);
-        } else if (chain.equals(SIF_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgSif);
-        } else if (chain.equals(KI_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgKi);
-        } else if (chain.equals(OSMOSIS_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgOsmosis);
-        } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
-            return c.getResources().getColor(R.color.colorTransBgRizon);
-        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
-            return c.getResources().getColor(R.color.colorTransBgMedi);
-        } else if (chain.equals(EMONEY_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgEmoney);
-        } else if (chain.equals(JUNO_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgJuno);
-        } else if (chain.equals(REGEN_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgRegen);
-        } else if (chain.equals(BITCANNA_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgBitcanna);
-        } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
-            return c.getResources().getColor(R.color.colorTransBgAlthea);
-        } else if (chain.equals(STARGAZE_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgStargaze);
-        } else if (chain.equals(GRABRIDGE_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgGraBridge);
-        } else if (chain.equals(COMDEX_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgComdex);
-        } else if (chain.equals(INJ_MAIN)) {
-            return c.getResources().getColor(R.color.colorTransBgInj);
-        }
+        if (chain != null) {
+            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgCosmos);
+            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgIris);
+            } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgBinance);
+            } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgKava);
+            } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgStarname);
+            } else if (chain.equals(BAND_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgBand);
+            } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgOkex);
+            } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgCertik);
+            } else if (chain.equals(SECRET_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgSecret);
+            } else if (chain.equals(AKASH_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgAkash);
+            } else if (chain.equals(PERSIS_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgPersis);
+            } else if (chain.equals(SENTINEL_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgSentinel);
+            } else if (chain.equals(FETCHAI_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgFetch);
+            } else if (chain.equals(CRYPTO_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgCryto);
+            } else if (chain.equals(SIF_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgSif);
+            } else if (chain.equals(KI_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgKi);
+            } else if (chain.equals(OSMOSIS_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgOsmosis);
+            } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgRizon);
+            } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgMedi);
+            } else if (chain.equals(EMONEY_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgEmoney);
+            } else if (chain.equals(JUNO_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgJuno);
+            } else if (chain.equals(REGEN_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgRegen);
+            } else if (chain.equals(BITCANNA_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgBitcanna);
+            } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgAlthea);
+            } else if (chain.equals(STARGAZE_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgStargaze);
+            } else if (chain.equals(GRABRIDGE_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgGraBridge);
+            } else if (chain.equals(COMDEX_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgComdex);
+            } else if (chain.equals(INJ_MAIN)) {
+                return c.getResources().getColor(R.color.colorTransBgInj);
+            }
 
-        else if (chain.equals(UMEE_TEST)) {
-            return c.getResources().getColor(R.color.colorTransBgUmee);
-        } else if (chain.equals(AXELAR_TEST)) {
-            return c.getResources().getColor(R.color.colorTransBgAxelar);
-        } else {
-            return c.getResources().getColor(R.color.colorTransBg);
+            else if (chain.equals(UMEE_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgUmee);
+            } else if (chain.equals(AXELAR_TEST)) {
+                return c.getResources().getColor(R.color.colorTransBgAxelar);
+            }
         }
-
+        return c.getResources().getColor(R.color.colorTransBg);
     }
 
     public static ColorStateList getTabColor(Context c, BaseChain chain) {
-        if(chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
-        } else if(chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iris);
-        } else if(chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_kava);
-        } else if(chain.equals(BAND_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_band);
-        } else if(chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iov);
-        } else if(chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ok);
-        } else if(chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_certik);
-        } else if (chain.equals(SECRET_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_secret);
-        } else if (chain.equals(AKASH_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_akash);
-        } else if (chain.equals(PERSIS_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_persis);
-        } else if (chain.equals(SENTINEL_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_sentinel);
-        } else if (chain.equals(FETCHAI_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_fetch);
-        } else if (chain.equals(CRYPTO_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_cryto);
-        } else if (chain.equals(SIF_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_sif);
-        } else if (chain.equals(KI_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ki);
-        } else if (chain.equals(OSMOSIS_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_osmosis);
-        } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_rizon);
-        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_med);
-        } else if (chain.equals(EMONEY_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_emoney);
-        } else if (chain.equals(JUNO_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_juno);
-        } else if (chain.equals(REGEN_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_regen);
-        } else if (chain.equals(BITCANNA_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_bitcanna);
-        } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_althea);
-        } else if (chain.equals(STARGAZE_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_stargaze);
-        } else if (chain.equals(GRABRIDGE_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_grabridge);
-        } else if (chain.equals(COMDEX_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_comdex);
-        } else if (chain.equals(INJ_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_inj);
+        if (chain != null) {
+            if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
+            } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iris);
+            } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_kava);
+            } else if (chain.equals(BAND_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_band);
+            } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_iov);
+            } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ok);
+            } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_certik);
+            } else if (chain.equals(SECRET_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_secret);
+            } else if (chain.equals(AKASH_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_akash);
+            } else if (chain.equals(PERSIS_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_persis);
+            } else if (chain.equals(SENTINEL_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_sentinel);
+            } else if (chain.equals(FETCHAI_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_fetch);
+            } else if (chain.equals(CRYPTO_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_cryto);
+            } else if (chain.equals(SIF_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_sif);
+            } else if (chain.equals(KI_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ki);
+            } else if (chain.equals(OSMOSIS_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_osmosis);
+            } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_rizon);
+            } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_med);
+            } else if (chain.equals(EMONEY_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_emoney);
+            } else if (chain.equals(JUNO_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_juno);
+            } else if (chain.equals(REGEN_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_regen);
+            } else if (chain.equals(BITCANNA_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_bitcanna);
+            } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_althea);
+            } else if (chain.equals(STARGAZE_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_stargaze);
+            } else if (chain.equals(GRABRIDGE_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_grabridge);
+            } else if (chain.equals(COMDEX_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_comdex);
+            } else if (chain.equals(INJ_MAIN)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_inj);
+            } else if (chain.equals(UMEE_TEST)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_umee);
+            } else if (chain.equals(AXELAR_TEST)) {
+                return c.getResources().getColorStateList(R.color.color_tab_myvalidator_axelar);
+            }
         }
-
-        else if (chain.equals(UMEE_TEST)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_umee);
-        } else if (chain.equals(AXELAR_TEST)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_axelar);
-        }
-        return null;
+        return c.getResources().getColorStateList(R.color.color_tab_myvalidator);
     }
 
     public static ColorStateList getChainTintColor(Context c, BaseChain chain) {
-        if(chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-            return c.getResources().getColorStateList(R.color.colorAtom);
-        } else if(chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            return c.getResources().getColorStateList(R.color.colorIris);
-        } else if(chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-            return c.getResources().getColorStateList(R.color.colorKava);
-        } else if(chain.equals(BAND_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorBand);
-        } else if(chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            return c.getResources().getColorStateList(R.color.colorIov);
-        } else if(chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
-            return c.getResources().getColorStateList(R.color.colorOK);
-        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-            return c.getResources().getColorStateList(R.color.colorCertik);
-        } else if (chain.equals(SECRET_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorSecret);
-        } else if (chain.equals(AKASH_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorAkash);
-        } else if (chain.equals(PERSIS_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorPersis);
-        } else if (chain.equals(SENTINEL_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorSentinel);
-        } else if (chain.equals(FETCHAI_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorFetch);
-        } else if (chain.equals(CRYPTO_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorCryto);
-        } else if (chain.equals(SIF_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorSif);
-        } else if (chain.equals(KI_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorKi);
-        } else if (chain.equals(OSMOSIS_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorOsmosis);
-        } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
-            return c.getResources().getColorStateList(R.color.colorRizon);
-        } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
-            return c.getResources().getColorStateList(R.color.colorMedi);
-        } else if (chain.equals(EMONEY_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorEmoney);
-        } else if (chain.equals(JUNO_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorJuno);
-        } else if (chain.equals(REGEN_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorRegen);
-        } else if (chain.equals(BITCANNA_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorBitcanna);
-        } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
-            return c.getResources().getColorStateList(R.color.colorAlthea);
-        } else if (chain.equals(STARGAZE_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorStargaze);
-        } else if (chain.equals(GRABRIDGE_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorGraBridge);
-        } else if (chain.equals(COMDEX_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorComdex);
-        } else if (chain.equals(INJ_MAIN)) {
-            return c.getResources().getColorStateList(R.color.colorInj);
-        } else if (chain.equals(UMEE_TEST)) {
-            return c.getResources().getColorStateList(R.color.colorUmee);
-        } else if (chain.equals(AXELAR_TEST)) {
-            return c.getResources().getColorStateList(R.color.colorAxelar);
+        if (chain != null) {
+            if(chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
+                return c.getResources().getColorStateList(R.color.colorAtom);
+            } else if(chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
+                return c.getResources().getColorStateList(R.color.colorIris);
+            } else if(chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+                return c.getResources().getColorStateList(R.color.colorKava);
+            } else if(chain.equals(BAND_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorBand);
+            } else if(chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+                return c.getResources().getColorStateList(R.color.colorIov);
+            } else if(chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+                return c.getResources().getColorStateList(R.color.colorOK);
+            } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                return c.getResources().getColorStateList(R.color.colorCertik);
+            } else if (chain.equals(SECRET_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorSecret);
+            } else if (chain.equals(AKASH_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorAkash);
+            } else if (chain.equals(PERSIS_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorPersis);
+            } else if (chain.equals(SENTINEL_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorSentinel);
+            } else if (chain.equals(FETCHAI_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorFetch);
+            } else if (chain.equals(CRYPTO_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorCryto);
+            } else if (chain.equals(SIF_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorSif);
+            } else if (chain.equals(KI_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorKi);
+            } else if (chain.equals(OSMOSIS_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorOsmosis);
+            } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
+                return c.getResources().getColorStateList(R.color.colorRizon);
+            } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
+                return c.getResources().getColorStateList(R.color.colorMedi);
+            } else if (chain.equals(EMONEY_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorEmoney);
+            } else if (chain.equals(JUNO_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorJuno);
+            } else if (chain.equals(REGEN_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorRegen);
+            } else if (chain.equals(BITCANNA_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorBitcanna);
+            } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
+                return c.getResources().getColorStateList(R.color.colorAlthea);
+            } else if (chain.equals(STARGAZE_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorStargaze);
+            } else if (chain.equals(GRABRIDGE_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorGraBridge);
+            } else if (chain.equals(COMDEX_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorComdex);
+            } else if (chain.equals(INJ_MAIN)) {
+                return c.getResources().getColorStateList(R.color.colorInj);
+            } else if (chain.equals(UMEE_TEST)) {
+                return c.getResources().getColorStateList(R.color.colorUmee);
+            } else if (chain.equals(AXELAR_TEST)) {
+                return c.getResources().getColorStateList(R.color.colorAxelar);
+            }
         }
-        return null;
+        return c.getResources().getColorStateList(R.color.colorTransBg);
     }
 
     public static void DpMainDenom(Context c, BaseChain chain, TextView textview) {
@@ -3239,68 +2974,70 @@ public class WDp {
 
     public static void getStakingTokenImg(BaseChain baseChain, ImageView imageView) {
         Picasso.get().cancelRequest(imageView);
-        if (baseChain.equals(COSMOS_MAIN) || baseChain.equals(COSMOS_TEST)) {
-            imageView.setImageResource(R.drawable.atom_ic);
-        } else if (baseChain.equals(IRIS_MAIN) || baseChain.equals(IRIS_TEST)) {
-            imageView.setImageResource(R.drawable.iris_toket_img);
-        } else if (baseChain.equals(BNB_MAIN) || baseChain.equals(BNB_TEST)) {
-            imageView.setImageResource(R.drawable.bnb_token_img);
-        } else if (baseChain.equals(OKEX_MAIN) || baseChain.equals(OK_TEST)) {
-            imageView.setImageResource(R.drawable.okex_token_img);
-        } else if (baseChain.equals(AKASH_MAIN)) {
-            imageView.setImageResource(R.drawable.akash_token_img);
-        } else if (baseChain.equals(KAVA_MAIN)) {
-            imageView.setImageResource(R.drawable.kava_token_img);
-        } else if (baseChain.equals(BAND_MAIN)) {
-            imageView.setImageResource(R.drawable.band_token_img);
-        } else if (baseChain.equals(IOV_MAIN)) {
-            imageView.setImageResource(R.drawable.token_starname);
-        } else if (baseChain.equals(SECRET_MAIN)) {
-            imageView.setImageResource(R.drawable.tokensecret);
-        } else if (baseChain.equals(CERTIK_MAIN) || baseChain.equals(CERTIK_TEST)) {
-            imageView.setImageResource(R.drawable.certik_token_img);
-        } else if (baseChain.equals(PERSIS_MAIN)) {
-            imageView.setImageResource(R.drawable.tokenpersistence);
-        } else if (baseChain.equals(SENTINEL_MAIN)) {
-            imageView.setImageResource(R.drawable.tokensentinel);
-        } else if (baseChain.equals(FETCHAI_MAIN)) {
-            imageView.setImageResource(R.drawable.tokenfetchai);
-        } else if (baseChain.equals(CRYPTO_MAIN)) {
-            imageView.setImageResource(R.drawable.tokencrypto);
-        } else if (baseChain.equals(SIF_MAIN)) {
-            imageView.setImageResource(R.drawable.tokensifchain);
-        } else if (baseChain.equals(KI_MAIN)) {
-            imageView.setImageResource(R.drawable.token_kifoundation);
-        } else if (baseChain.equals(OSMOSIS_MAIN)) {
-            imageView.setImageResource(R.drawable.token_osmosis);
-        } else if (baseChain.equals(MEDI_MAIN)) {
-            imageView.setImageResource(R.drawable.tokenmedibloc);
-        } else if (baseChain.equals(EMONEY_MAIN)) {
-            imageView.setImageResource(R.drawable.token_emoney);
-        } else if (baseChain.equals(RIZON_MAIN) || baseChain.equals(RIZON_TEST)) {
-            imageView.setImageResource(R.drawable.token_rizon);
-        } else if (baseChain.equals(JUNO_MAIN)) {
-            imageView.setImageResource(R.drawable.token_juno);
-        } else if (baseChain.equals(REGEN_MAIN)) {
-            imageView.setImageResource(R.drawable.token_regen);
-        } else if (baseChain.equals(BITCANNA_MAIN)) {
-            imageView.setImageResource(R.drawable.token_bitcanna);
-        } else if (baseChain.equals(ALTHEA_MAIN) || baseChain.equals(ALTHEA_TEST)) {
-            imageView.setImageResource(R.drawable.token_althea);
-        } else if (baseChain.equals(STARGAZE_MAIN)) {
-            imageView.setImageResource(R.drawable.token_stargaze);
-        } else if (baseChain.equals(GRABRIDGE_MAIN)) {
-            imageView.setImageResource(R.drawable.token_gravitybridge);
-        } else if (baseChain.equals(COMDEX_MAIN)) {
-            imageView.setImageResource(R.drawable.token_comdex);
-        } else if (baseChain.equals(INJ_MAIN)) {
-            imageView.setImageResource(R.drawable.token_injective);
-        }
-
-        else if (baseChain.equals(UMEE_TEST)) {
-            imageView.setImageResource(R.drawable.token_umee);
-        } else if (baseChain.equals(AXELAR_TEST)) {
-            imageView.setImageResource(R.drawable.token_axelar);
+        if (baseChain != null) {
+            if (baseChain.equals(COSMOS_MAIN) || baseChain.equals(COSMOS_TEST)) {
+                imageView.setImageResource(R.drawable.atom_ic);
+            } else if (baseChain.equals(IRIS_MAIN) || baseChain.equals(IRIS_TEST)) {
+                imageView.setImageResource(R.drawable.iris_toket_img);
+            } else if (baseChain.equals(BNB_MAIN) || baseChain.equals(BNB_TEST)) {
+                imageView.setImageResource(R.drawable.bnb_token_img);
+            } else if (baseChain.equals(OKEX_MAIN) || baseChain.equals(OK_TEST)) {
+                imageView.setImageResource(R.drawable.okex_token_img);
+            } else if (baseChain.equals(AKASH_MAIN)) {
+                imageView.setImageResource(R.drawable.akash_token_img);
+            } else if (baseChain.equals(KAVA_MAIN)) {
+                imageView.setImageResource(R.drawable.kava_token_img);
+            } else if (baseChain.equals(BAND_MAIN)) {
+                imageView.setImageResource(R.drawable.band_token_img);
+            } else if (baseChain.equals(IOV_MAIN)) {
+                imageView.setImageResource(R.drawable.token_starname);
+            } else if (baseChain.equals(SECRET_MAIN)) {
+                imageView.setImageResource(R.drawable.tokensecret);
+            } else if (baseChain.equals(CERTIK_MAIN) || baseChain.equals(CERTIK_TEST)) {
+                imageView.setImageResource(R.drawable.certik_token_img);
+            } else if (baseChain.equals(PERSIS_MAIN)) {
+                imageView.setImageResource(R.drawable.tokenpersistence);
+            } else if (baseChain.equals(SENTINEL_MAIN)) {
+                imageView.setImageResource(R.drawable.tokensentinel);
+            } else if (baseChain.equals(FETCHAI_MAIN)) {
+                imageView.setImageResource(R.drawable.tokenfetchai);
+            } else if (baseChain.equals(CRYPTO_MAIN)) {
+                imageView.setImageResource(R.drawable.tokencrypto);
+            } else if (baseChain.equals(SIF_MAIN)) {
+                imageView.setImageResource(R.drawable.tokensifchain);
+            } else if (baseChain.equals(KI_MAIN)) {
+                imageView.setImageResource(R.drawable.token_kifoundation);
+            } else if (baseChain.equals(OSMOSIS_MAIN)) {
+                imageView.setImageResource(R.drawable.token_osmosis);
+            } else if (baseChain.equals(MEDI_MAIN)) {
+                imageView.setImageResource(R.drawable.tokenmedibloc);
+            } else if (baseChain.equals(EMONEY_MAIN)) {
+                imageView.setImageResource(R.drawable.token_emoney);
+            } else if (baseChain.equals(RIZON_MAIN) || baseChain.equals(RIZON_TEST)) {
+                imageView.setImageResource(R.drawable.token_rizon);
+            } else if (baseChain.equals(JUNO_MAIN)) {
+                imageView.setImageResource(R.drawable.token_juno);
+            } else if (baseChain.equals(REGEN_MAIN)) {
+                imageView.setImageResource(R.drawable.token_regen);
+            } else if (baseChain.equals(BITCANNA_MAIN)) {
+                imageView.setImageResource(R.drawable.token_bitcanna);
+            } else if (baseChain.equals(ALTHEA_MAIN) || baseChain.equals(ALTHEA_TEST)) {
+                imageView.setImageResource(R.drawable.token_althea);
+            } else if (baseChain.equals(STARGAZE_MAIN)) {
+                imageView.setImageResource(R.drawable.token_stargaze);
+            } else if (baseChain.equals(GRABRIDGE_MAIN)) {
+                imageView.setImageResource(R.drawable.token_gravitybridge);
+            } else if (baseChain.equals(COMDEX_MAIN)) {
+                imageView.setImageResource(R.drawable.token_comdex);
+            } else if (baseChain.equals(INJ_MAIN)) {
+                imageView.setImageResource(R.drawable.token_injective);
+            } else if (baseChain.equals(UMEE_TEST)) {
+                imageView.setImageResource(R.drawable.token_umee);
+            } else if (baseChain.equals(AXELAR_TEST)) {
+                imageView.setImageResource(R.drawable.token_axelar);
+            }
+        } else {
+            imageView.setImageResource(R.drawable.token_ic);
         }
     }
 

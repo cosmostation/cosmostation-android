@@ -129,15 +129,10 @@ public class IBCSendStep1Fragment extends BaseFragment implements View.OnClickLi
         super.onRefreshTab();
         mTochain = WDp.getChainTypeByChainId(getSActivity().mIbcSelectedRelayer.chain_id);
         mToAccountList = getBaseDao().onSelectAccountsByChain(mTochain);
-        if (mTochain != null) {
-            WDp.getChainTitle(getSActivity(), mTochain, mDesitination);
-            mDesitination.setTextColor(WDp.getChainColor(getSActivity(), mTochain));
-            String userInput = mAddressInput.getText().toString().trim();
-            WDp.getChainByAddress(mTochain, userInput, mAddressInput);
-        } else {
-            mDesitination.setText("Unknown");
-            mDesitination.setTextColor(getSActivity().getColor(R.color.colorGray2));
-        }
+        WDp.getChainTitle(getSActivity(), mTochain, mDesitination);
+        mDesitination.setTextColor(WDp.getChainColor(getSActivity(), mTochain));
+        String userInput = mAddressInput.getText().toString().trim();
+        WDp.getChainByAddress(mTochain, userInput, mAddressInput);
     }
 
     private void onUpdateView() {
