@@ -567,6 +567,7 @@ public class BaseConstant {
     public final static String TOKEN_GRABRIDGE      = "ugrav";
     public final static String TOKEN_COMDEX         = "ucmdx";
     public final static String TOKEN_INJ            = "inj";
+    public final static String TOKEN_BITSONG        = "ubtsg";
 
     public final static String TOKEN_EMONEY_EUR     = "eeur";
     public final static String TOKEN_EMONEY_CHF     = "echf";
@@ -617,6 +618,7 @@ public class BaseConstant {
     public final static String KEY_ETH_LEDGER_LIVE_PATH_2   = "'/0/0";
     public final static String KEY_ETH_LEDGER_LEGACY_PATH   = "44'/60'/0'/";
     public final static String KEY_INJ_PATH                 = "44'/60'/0'/0/";
+    public final static String KEY_BITSONG_PATH             = "44'/639'/0'/0/";
     public final static String characterFilter              = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
@@ -693,6 +695,7 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_REINVEST               = "350000";
     public final static String SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "80000";
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
+    public final static String SECRET_GAS_AMOUNT_IBC_SEND               = "500000";
 
     public final static String SENTINEL_GAS_AMOUNT_SEND                   = "100000";
     public final static String SENTINEL_GAS_AMOUNT_STAKE                  = "200000";
@@ -726,6 +729,7 @@ public class BaseConstant {
     public final static String KI_GAS_AMOUNT_REINVEST                   = "350000";
     public final static String KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE      = "100000";
     public final static String KI_GAS_AMOUNT_VOTE                       = "100000";
+    public final static String KI_GAS_AMOUNT_IBC_SEND                   = "500000";
 
     public final static String MEDI_GAS_AMOUNT_SEND                     = "100000";
     public final static String MEDI_GAS_AMOUNT_STAKE                    = "200000";
@@ -824,6 +828,10 @@ public class BaseConstant {
     public final static String SECRET_GAS_RATE_LOW                      = "0.25";
     public final static String SECRET_GAS_RATE_AVERAGE                  = "0.25";
 
+    public final static String BITSONG_GAS_RATE_TINY                     = "0.025";
+    public final static String BITSONG_GAS_RATE_LOW                      = "0.025";
+    public final static String BITSONG_GAS_RATE_AVERAGE                  = "0.025";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -875,6 +883,7 @@ public class BaseConstant {
     public final static String GRABRIDGE_VAL_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/gravity-bridge/";
     public final static String COMDEX_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/comdex/";
     public final static String INJ_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/injective/";
+    public final static String BITSONG_VAL_URL          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bitsong/";
 
     public final static String COSMOS_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/cosmos/";
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/kava/";
@@ -915,6 +924,7 @@ public class BaseConstant {
     public final static String EXPLORER_GRABRIDGE_MAIN  = "https://www.mintscan.io/gravity-bridge/";
     public final static String EXPLORER_COMDEX_MAIN     = "https://www.mintscan.io/comdex/";
     public final static String EXPLORER_INJ_MAIN        = "https://www.mintscan.io/injective/";
+    public final static String EXPLORER_BITSONG_MAIN    = "https://www.mintscan.io/bitsong/";
     public final static String EXPLORER_HDAC_MAIN       = "https://explorer.as.hdactech.com/hdac-explorer/";
 
 
@@ -954,6 +964,7 @@ public class BaseConstant {
     public final static String STARGAZE_UNKNOWN_RELAYER = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/stargaze/relay-stargaze-unknown.png";
     public final static String COMDEX_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/comdex/relay-comdex-unknown.png";
     public final static String SECRET_UNKNOWN_RELAYER   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/secret/relay-secret-unknown.png";
+    public final static String BITSONG_UNKNOWN_RELAYER  = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/bitsong/relay-bitsong-unknown.png";
     public final static String UMEE_UNKNOWN_RELAYER     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/relayer/umee/relay-umee-unknown.png";
 
 
@@ -995,6 +1006,7 @@ public class BaseConstant {
     public final static BigDecimal BLOCK_TIME_REGEN = new BigDecimal("6.2491");
     public final static BigDecimal BLOCK_TIME_STARGAZE = new BigDecimal("5.8129");
     public final static BigDecimal BLOCK_TIME_INJECTIVE = new BigDecimal("2.4865");
+    public final static BigDecimal BLOCK_TIME_BITSONG = new BigDecimal("5.9040");
     public final static BigDecimal BLOCK_TIME_OKEX = new BigDecimal("4.0286");
     public final static BigDecimal BLOCK_TIME_BNB = new BigDecimal("0.4124");
 }

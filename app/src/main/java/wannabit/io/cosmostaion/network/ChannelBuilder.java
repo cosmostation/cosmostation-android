@@ -193,7 +193,9 @@ public class ChannelBuilder {
         } else if (chain.equals(BITSONG_MAIN)) {
             return getBitsongMain();
 
-        } else if (chain.equals(COSMOS_TEST)) {
+        }
+
+        else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
         } else if (chain.equals(IRIS_TEST)) {
             return getIrisTest();

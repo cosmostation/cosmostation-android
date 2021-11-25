@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletAxelarHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBandHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBinanceHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBitcannaHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletBitsongHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCertikHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletComdexHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCosmosHolder;
@@ -59,6 +60,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -241,6 +243,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_GRABRIDGE         = 28;
         private static final int TYPE_COMDEX            = 29;
         private static final int TYPE_INJ               = 30;
+        private static final int TYPE_BITSONG           = 31;
 
         private static final int TYPE_KAVA_INCENTIVE    = 40;
         private static final int TYPE_SIF_INCENTIVE     = 50;
@@ -341,6 +344,9 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_INJ) {
                 return new WalletInjHolder(getLayoutInflater().inflate(R.layout.item_wallet_inj, viewGroup, false));
 
+            } else if (viewType == TYPE_BITSONG) {
+                return new WalletBitsongHolder(getLayoutInflater().inflate(R.layout.item_wallet_bitsong, viewGroup, false));
+
             }
 
 
@@ -427,6 +433,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(COMDEX_MAIN)) { return TYPE_COMDEX; }
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
                     else if (getMainActivity().mBaseChain.equals(INJ_MAIN)) { return TYPE_INJ; }
+                    else if (getMainActivity().mBaseChain.equals(BITSONG_MAIN)) { return TYPE_BITSONG; }
                     else if (getMainActivity().mBaseChain.equals(UMEE_TEST)) { return TYPE_UMEE; }
                     else if (getMainActivity().mBaseChain.equals(AXELAR_TEST)) { return TYPE_AXELAR; }
                 } else if (position == 1) {
