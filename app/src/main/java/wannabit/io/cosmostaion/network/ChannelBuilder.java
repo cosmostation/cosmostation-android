@@ -10,6 +10,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COMDEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
@@ -109,6 +110,9 @@ public class ChannelBuilder {
     private final static String GRPC_COMDEX_MAIN = "lcd-comdex-app.cosmostation.io";
     private final static int PORT_COMDEX_MAIN = 9090;
 
+    private final static String GRPC_BITSONG_MAIN = "lcd-bitsong-app.cosmostation.io";
+    private final static int PORT_BITSONG_MAIN = 9090;
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 10300;
@@ -186,6 +190,8 @@ public class ChannelBuilder {
             return getSecretMain();
         } else if (chain.equals(INJ_MAIN)) {
             return getInjMain();
+        } else if (chain.equals(BITSONG_MAIN)) {
+            return getBitsongMain();
 
         } else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
@@ -528,6 +534,19 @@ public class ChannelBuilder {
             }
         }
         return channel_inj_main;
+    }
+
+    //Channel for bitsong main
+    private static ManagedChannel channel_bitsong_main = null;
+    public static ManagedChannel getBitsongMain() {
+        if (channel_bitsong_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_bitsong_main = ManagedChannelBuilder.forAddress(GRPC_BITSONG_MAIN, PORT_BITSONG_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_bitsong_main;
     }
 
     //Channel for stargate testnet

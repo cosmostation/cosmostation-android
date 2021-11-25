@@ -45,6 +45,7 @@
     <color name="colorTransBgGraBridge">#240088c8</color>
     <color name="colorTransBgComdex">#24005ac5</color>
     <color name="colorTransBgInj">#2400bbdd</color>
+    <color name="colorTransBgBitsong">#24ff005c</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -162,6 +163,9 @@
 
     <color name="colorInj">#00bbdd</color>
     <color name="colorInj2">#016c80</color>
+
+    <color name="colorBitsong">#ff005c</color>
+    <color name="colorBitsong2">#870b38</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

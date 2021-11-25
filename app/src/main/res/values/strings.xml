@@ -113,6 +113,9 @@
     <string name="url_api_comdex" translatable="false">https://api-comdex.cosmostation.io/</string>
 
 
+    <string name="url_api_bitsong" translatable="false">https://api-bitsong.cosmostation.io/</string>
+
+
     <string name="url_api_axelar" translatable="false">https://api-axelar-testnet.cosmostation.io/</string>
 
 

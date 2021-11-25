@@ -556,6 +556,21 @@ public class ApiClient {
         }
         return api_inj;
     }
+
+    //Services for bitsong mainnet api
+    private static HistoryApi api_bitsong = null;
+    public static HistoryApi getBitsongApi(Context c) {
+        if (api_bitsong == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_bitsong))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_bitsong = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_bitsong;
+    }
   
     //Services for Rizon mainnet api
     private static HistoryApi api_rizon = null;
