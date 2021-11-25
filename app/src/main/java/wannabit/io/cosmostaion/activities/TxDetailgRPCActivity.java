@@ -644,7 +644,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
     private void onShowMoreWait() {
         Dialog_MoreWait waitMore = Dialog_MoreWait.newInstance(null);
         waitMore.setCancelable(false);
-        waitMore.show(getSupportFragmentManager(), "dialog");
+        getSupportFragmentManager().beginTransaction().add(waitMore, "dialog").commitNowAllowingStateLoss();
     }
 
     @Override

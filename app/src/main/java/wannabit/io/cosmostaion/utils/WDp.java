@@ -173,6 +173,7 @@ public class WDp {
             if (coin.denom.equals(TOKEN_IRIS)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
@@ -215,8 +216,14 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 8, 8));
 
         } else if (chain.equals(BAND_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_BAND)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
 
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             if (coin.denom.equals(TOKEN_OK)) {
@@ -227,46 +234,90 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 0, 18));
 
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_CERTIK)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
 
         } else if (chain.equals(SECRET_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_SECRET)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
+
         } else if (chain.equals(AKASH_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_AKASH)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(PERSIS_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_XPRT)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(SENTINEL_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_DVPN)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(FETCHAI_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_FET)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
 
         } else if (chain.equals(CRYPTO_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_SECRET)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 8, 8));
 
         } else if (chain.equals(SIF_MAIN)) {
+            int decimal = WUtil.getSifCoinDecimal(coin.denom);
             if (coin.denom.equals(TOKEN_SIF)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
-                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
-            } else {
+            } else if (coin.denom.startsWith("c")) {
                 denomTv.setText(coin.denom.substring(1).toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                int decimal = WUtil.getSifCoinDecimal(coin.denom);
-                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), decimal, decimal));
+            } else {
+                denomTv.setText(coin.denom.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), decimal, decimal));
 
         } else if (chain.equals(KI_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_KI)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(OSMOSIS_MAIN)) {
@@ -291,7 +342,12 @@ public class WDp {
             }
 
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_MEDI)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(EMONEY_MAIN)) {
@@ -304,45 +360,91 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_RIZON)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(JUNO_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_JUNO)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(REGEN_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_REGEN)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(BITCANNA_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_BITCANNA)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_ALTHEA)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(STARGAZE_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_STARGAZE)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(GRABRIDGE_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_GRABRIDGE)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(COMDEX_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_COMDEX)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(INJ_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_INJ)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
 
         } else if (chain.equals(COSMOS_TEST)) {
             if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
@@ -351,6 +453,7 @@ public class WDp {
             if (coin.denom.equals(TOKEN_IRIS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
@@ -359,6 +462,7 @@ public class WDp {
             if (coin.denom.equals(TOKEN_UMEE)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
@@ -367,6 +471,7 @@ public class WDp {
             if (coin.denom.equals(TOKEN_AXELAR)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(coin.denom.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
@@ -392,17 +497,17 @@ public class WDp {
         } else if (chain.equals(COSMOS_MAIN)) {
             if (symbol.equals(TOKEN_ATOM)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
             } else {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
                 denomTv.setText(symbol.toUpperCase());
             }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(IRIS_MAIN)) {
             if (symbol.equals(TOKEN_IRIS)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(symbol.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
@@ -430,8 +535,8 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
 
             } else {
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
                 denomTv.setText(symbol.toUpperCase());
-
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -441,7 +546,7 @@ public class WDp {
 
             } else {
                 denomTv.setText(symbol.toUpperCase());
-
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 8));
 
@@ -454,50 +559,93 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 18));
 
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_CERTIK)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(SECRET_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_SECRET)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(AKASH_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_AKASH)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(PERSIS_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_XPRT)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(SENTINEL_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_DVPN)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(FETCHAI_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_FET)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
 
         } else if (chain.equals(CRYPTO_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_CRO)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 8, 8));
 
         } else if (chain.equals(SIF_MAIN)) {
+            int decimal = WUtil.getSifCoinDecimal(symbol);
             if (symbol.equals(TOKEN_SIF)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
-            } else {
+            } else if (symbol.startsWith("c")) {
                 denomTv.setText(symbol.substring(1).toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                int decimal = WUtil.getSifCoinDecimal(symbol);
-                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), decimal, decimal));
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), decimal, decimal));
 
         } else if (chain.equals(KI_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_KI)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(OSMOSIS_MAIN)) {
@@ -523,7 +671,12 @@ public class WDp {
             }
 
         } else if (chain.equals(MEDI_MAIN) || chain.equals(MEDI_TEST)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_MEDI)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(EMONEY_MAIN)) {
@@ -536,45 +689,93 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(RIZON_MAIN) || chain.equals(RIZON_TEST)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_RIZON)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(JUNO_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_JUNO)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(REGEN_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_REGEN)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(BITCANNA_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_BITCANNA)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(ALTHEA_MAIN) || chain.equals(ALTHEA_TEST)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_ALTHEA)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(STARGAZE_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_STARGAZE)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(GRABRIDGE_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_GRABRIDGE)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(COMDEX_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_COMDEX)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(INJ_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_INJ)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
 
-        } else if (chain.equals(COSMOS_TEST)) {
+        }
+
+        else if (chain.equals(COSMOS_TEST)) {
             if (symbol.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
+                denomTv.setText(symbol.toUpperCase());
                 denomTv.setText(symbol.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
@@ -582,6 +783,7 @@ public class WDp {
             if (symbol.equals(TOKEN_IRIS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
+                denomTv.setText(symbol.toUpperCase());
                 denomTv.setText(symbol.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
@@ -591,6 +793,7 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
+                denomTv.setText(symbol.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -599,13 +802,15 @@ public class WDp {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
+                denomTv.setText(symbol.toUpperCase());
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
         }
     }
 
     public static void showChainDp(Context c, BaseChain baseChain, CardView cardName, CardView cardAlarm, CardView cardBody, CardView cardRewardAddress) {
-        if (baseChain.equals(OKEX_MAIN) || baseChain.equals(OK_TEST) || baseChain.equals(KAVA_MAIN) || baseChain.equals(BNB_MAIN) || baseChain.equals(BNB_TEST) || baseChain.equals(FETCHAI_MAIN)) {
+        if (baseChain.equals(OKEX_MAIN) || baseChain.equals(KAVA_MAIN) || baseChain.equals(BNB_MAIN) || baseChain.equals(FETCHAI_MAIN) ||
+                baseChain.equals(OK_TEST) || baseChain.equals(BNB_TEST)) {
             cardRewardAddress.setVisibility(View.GONE);
         } else {
             cardRewardAddress.setVisibility(View.VISIBLE);
@@ -1353,6 +1558,8 @@ public class WDp {
             else if (chain.equals(STARGAZE_MAIN)) { return STARGAZE_UNKNOWN_RELAYER; }
             else if (chain.equals(COMDEX_MAIN)) { return COMDEX_UNKNOWN_RELAYER; }
             else if (chain.equals(SECRET_MAIN)) { return SECRET_UNKNOWN_RELAYER; }
+            else if (chain.equals(INJ_MAIN)) { return INJ_UNKNOWN_RELAYER; }
+            else if (chain.equals(UMEE_TEST)) { return UMEE_UNKNOWN_RELAYER; }
         }
         return null;
     }
@@ -1369,8 +1576,10 @@ public class WDp {
     public static SpannableString getDailyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         final ChainParam.Params param = baseData.mChainParam;
         BigDecimal apr = BigDecimal.ZERO;
-        if (BigDecimal.ZERO.compareTo(param.getRealApr(chain)) == 0) { apr = param.getApr(chain); }
-        else { apr = param.getRealApr(chain); }
+        if (param != null) {
+            if (BigDecimal.ZERO.compareTo(param.getRealApr(chain)) == 0) { apr = param.getApr(chain); }
+            else { apr = param.getRealApr(chain); }
+        }
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission);
         BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("365") ,0, RoundingMode.DOWN);
