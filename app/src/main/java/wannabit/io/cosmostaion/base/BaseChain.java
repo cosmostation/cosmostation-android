@@ -66,6 +66,7 @@ public enum BaseChain {
     GRABRIDGE_MAIN("GravityBridge-mainnet"),
     COMDEX_MAIN("comdex-mainnet"),
     INJ_MAIN("injective-mainnet"),
+    BITSONG_MAIN("bitsong-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -214,6 +215,9 @@ public enum BaseChain {
         if(chainName.equals(INJ_MAIN.chainName)) {
             return INJ_MAIN;
         }
+        if(chainName.equals(BITSONG_MAIN.chainName)) {
+            return BITSONG_MAIN;
+        }
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_TEST.chainName)) {
@@ -299,8 +303,9 @@ public enum BaseChain {
         result.add(BITCANNA_MAIN);
         result.add(STARGAZE_MAIN);
         result.add(COMDEX_MAIN);
-//        result.add(INJ_MAIN);
         result.add(SECRET_MAIN);
+        result.add(BITSONG_MAIN);
+//        result.add(INJ_MAIN);
 
 //        result.add(ALTHEA_MAIN);
 //        result.add(GRABRIDGE_MAIN);

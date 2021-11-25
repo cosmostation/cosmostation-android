@@ -56,6 +56,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -98,6 +99,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AXELAR;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BITCANNA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BITSONG;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COMDEX;
@@ -979,13 +981,6 @@ public class MainTokensFragment extends BaseFragment {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_SECRET);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
-                    startActivity(intent);
-                }
-            });
 
         } else if (coin.denom.equals(TOKEN_INJ)) {
             holder.itemSymbol.setText(getString(R.string.str_inj_c));
@@ -998,6 +993,17 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 18));
           
+        } else if (coin.denom.equals(TOKEN_BITSONG)) {
+            holder.itemSymbol.setText(getString(R.string.str_bitsong_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BITSONG_MAIN));
+            holder.itemInnerSymbol.setText("");
+            holder.itemFullName.setText("Bitsong Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_bitsong));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_BITSONG);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+
         } else if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));

@@ -39,6 +39,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.AXELAR_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BITCANNA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BITSONG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -168,6 +169,9 @@ public class WKey {
 
         } else if (chain.equals(INJ_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+
+        } else if (chain.equals(BITSONG_MAIN)) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(639, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
@@ -397,6 +401,8 @@ public class WKey {
                 result = bech32Encode("comdex".getBytes(), converted);
             } else if (chain.equals(INJ_MAIN)){
                 result = bech32Encode("inj".getBytes(), converted);
+            } else if (chain.equals(BITSONG_MAIN)){
+                result = bech32Encode("bitsong".getBytes(), converted);
             } else if (chain.equals(UMEE_TEST)){
                 result = bech32Encode("umee".getBytes(), converted);
             } else if (chain.equals(AXELAR_TEST)){
@@ -468,6 +474,8 @@ public class WKey {
             return bech32Encode("comdex".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(INJ_MAIN)) {
             return bech32Encode("inj".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(BITSONG_MAIN)) {
+            return bech32Encode("bitsong".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
             return bech32Encode("umee".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(AXELAR_TEST)) {
@@ -532,6 +540,8 @@ public class WKey {
             return bech32Encode("comdexvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(INJ_MAIN)) {
             return bech32Encode("injvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(BITSONG_MAIN)) {
+            return bech32Encode("bitsongvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(UMEE_TEST)) {
             return bech32Encode("umeevaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(AXELAR_TEST)) {
