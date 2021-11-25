@@ -179,13 +179,18 @@ public class ChainParam {
 
         public BigDecimal getBlockPerYear(BaseChain baseChain) {
             if (isGRPC(baseChain)) {
-                if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.OSMOSIS_MAIN) || baseChain.equals(EMONEY_MAIN)) {
+                if (mMintParams != null && mMintParams.params!= null && mMintParams.params.blocks_per_year!= null) {
+                    return new BigDecimal(mMintParams.params.blocks_per_year);
+                } else {
                     return BigDecimal.ZERO;
                 }
-                return new BigDecimal(mMintParams.params.blocks_per_year);
-
+            } else {
+                if (mMintParams != null && mMintParams.blocks_per_year != null) {
+                    return new BigDecimal(mMintParams.blocks_per_year);
+                } else {
+                    return BigDecimal.ZERO;
+                }
             }
-            return new BigDecimal(mMintParams.blocks_per_year);
         }
 
 
@@ -395,7 +400,7 @@ public class ChainParam {
         public String bonus_proposer_reward;
 
         @SerializedName("withdraw_addr_enabled")
-        public Boolean withdraw_addr_enabled;
+        public boolean withdraw_addr_enabled;
 
         public class DistributionParam {
             @SerializedName("community_tax")
@@ -408,7 +413,7 @@ public class ChainParam {
             public String bonus_proposer_reward;
 
             @SerializedName("withdraw_addr_enabled")
-            public Boolean withdraw_addr_enabled;
+            public boolean withdraw_addr_enabled;
         }
     }
 
