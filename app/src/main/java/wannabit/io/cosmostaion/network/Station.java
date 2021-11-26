@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.network.res.ResIbcPaths;
 import wannabit.io.cosmostaion.network.res.ResIbcTokens;
+import wannabit.io.cosmostaion.network.res.ResProposal;
 
 public interface Station {
 
@@ -24,5 +24,8 @@ public interface Station {
 
     @GET("v1/ibc/tokens/{chain_id}")
     Call<ResIbcTokens> getIbcTokens(@Path("chain_id") String chain_id);
+
+    @GET("v1/{chain}/proposals/{proposalId}")
+    Call<ResProposal> getProposal(@Path("chain") String chain, @Path("proposalId") String proposalId);
 
 }

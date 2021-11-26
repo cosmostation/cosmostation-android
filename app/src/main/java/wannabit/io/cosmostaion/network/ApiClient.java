@@ -23,6 +23,21 @@ public class ApiClient {
         return station;
     }
 
+    //Services for station mintscan api
+    private static Station mintscan = null;
+    public static Station getMintscan(Context c) {
+        if (mintscan == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_mintscan))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                mintscan = retrofit.create(Station.class);
+            }
+        }
+        return mintscan;
+    }
+
     //Services for Cosmostation wallet api
     private static Cosmostation cosmostation = null;
     public static Cosmostation getCosmostationOld(Context c) {

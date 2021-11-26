@@ -67,6 +67,7 @@ import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
+import wannabit.io.cosmostaion.network.res.ResProposal;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
@@ -1533,6 +1534,65 @@ public class WDp {
         }
     }
 
+    public static String getChainNameByBaseChain(BaseChain baseChain) {
+        if (baseChain != null) {
+            if (baseChain.equals(COSMOS_MAIN)) {
+                return "cosmos";
+            } else if (baseChain.equals(IRIS_MAIN)) {
+                return "iris";
+            } else if (baseChain.equals(BNB_MAIN)) {
+                return "bnb";
+            } else if (baseChain.equals(OKEX_MAIN)) {
+                return "okex";
+            } else if (baseChain.equals(KAVA_MAIN)) {
+                return "kava";
+            } else if (baseChain.equals(BAND_MAIN)) {
+                return "band";
+            } else if (baseChain.equals(PERSIS_MAIN)) {
+                return "persistence";
+            }  else if (baseChain.equals(IOV_MAIN)) {
+                return "starname";
+            } else if (baseChain.equals(CERTIK_MAIN)) {
+                return "certik";
+            } else if (baseChain.equals(AKASH_MAIN)) {
+                return "akash";
+            } else if (baseChain.equals(SENTINEL_MAIN)) {
+                return "sentinel";
+            } else if (baseChain.equals(FETCHAI_MAIN)) {
+                return "fetchai";
+            } else if (baseChain.equals(CRYPTO_MAIN)) {
+                return "cryptoorg";
+            } else if (baseChain.equals(SIF_MAIN)) {
+                return "sifchain";
+            } else if (baseChain.equals(RIZON_MAIN)) {
+                return "rizon";
+            } else if (baseChain.equals(KI_MAIN)) {
+                return "kichain";
+            } else if (baseChain.equals(OSMOSIS_MAIN)) {
+                return "osmosis";
+            } else if (baseChain.equals(MEDI_MAIN)) {
+                return "medibloc";
+            } else if (baseChain.equals(EMONEY_MAIN)) {
+                return "emoney";
+            } else if (baseChain.equals(REGEN_MAIN)) {
+                return "regen";
+            } else if (baseChain.equals(JUNO_MAIN)) {
+                return "juno";
+            } else if (baseChain.equals(BITCANNA_MAIN)) {
+                return "bitcanna";
+            } else if (baseChain.equals(STARGAZE_MAIN)) {
+                return "stargaze";
+            } else if (baseChain.equals(COMDEX_MAIN)) {
+                return "comdex";
+            } else if (baseChain.equals(SECRET_MAIN)) {
+                return "secret";
+            } else if (baseChain.equals(BITSONG_MAIN)) {
+                return "bitsong";
+            }
+        }
+        return null;
+    }
+
     public static boolean isValidChainAddress(BaseChain baseChain, String address) {
         if (baseChain != null) {
             if (address.startsWith("0x")) {
@@ -2522,6 +2582,18 @@ public class WDp {
         String result = "??";
         try {
             SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_tx_time_format));
+            SimpleDateFormat myFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format1));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            result = myFormat.format(blockDateFormat.parse(rawValue));
+        } catch (Exception e) {};
+
+        return result;
+    }
+
+    public static String getTimeVoteformat(Context c, String rawValue) {
+        String result = "??";
+        try {
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_vote_time_format));
             SimpleDateFormat myFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format1));
             blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             result = myFormat.format(blockDateFormat.parse(rawValue));
@@ -3783,176 +3855,69 @@ public class WDp {
         return "";
     }
 
-    public static Drawable getProposalStatusImg(Context c, BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
-        if (baseChain.equals(CERTIK_MAIN)) {
-            if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-                return c.getResources().getDrawable(R.drawable.ic_deposit_img);
+    public static void getProposalStatusTxt(Context c, ResProposal proposal, ImageView statusImg, TextView status) {
+        if (proposal != null) {
+            if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_DEPOSIT_PERIOD")) {
+                statusImg.setImageDrawable(c.getResources().getDrawable(R.drawable.ic_deposit_img));
+                status.setText("DepositPeriod");
 
-            } else if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD) ||
-                    ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD)) {
-                return c.getResources().getDrawable(R.drawable.ic_voting_img);
+            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VOTING_PERIOD") ||
+                    proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD") ||
+                    proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD")) {
+                statusImg.setImageDrawable(c.getResources().getDrawable(R.drawable.ic_voting_img));
+                status.setText("VotingPeriod");
 
-            } else if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
-                return c.getResources().getDrawable(R.drawable.ic_rejected_img);
-
-            } else if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
-                return c.getResources().getDrawable(R.drawable.ic_passed_img);
-            }
-        } else {
-            if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-                return c.getResources().getDrawable(R.drawable.ic_deposit_img);
-
-            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
-                return c.getResources().getDrawable(R.drawable.ic_voting_img);
-
-            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
-                return c.getResources().getDrawable(R.drawable.ic_rejected_img);
-
-            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
-                return c.getResources().getDrawable(R.drawable.ic_passed_img);
-            }
-        }
-        return null;
-    }
-
-    public static String getProposalStatusTxt(Context c, BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
-        if (baseChain.equals(CERTIK_MAIN)) {
-            if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-                return "DepositPeriod";
-
-            } else if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD) ||
-                    ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD)) {
-                return "VotingPeriod";
-
-            } else if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
-                return "Rejected";
-
-            } else if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
-                return "Passed";
-            }
-
-        } else {
-            if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-                return "DepositPeriod";
-
-            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
-                return "VotingPeriod";
-
-            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
-                return "Rejected";
-
-            } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
-                return "Passed";
-            }
-        }
-        return "unKnown";
-    }
-
-    public static String getCtkProposalStatusTxt(Context c, shentu.gov.v1alpha1.Gov.Proposal proposal) {
-        if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-            return "DepositPeriod";
-
-        } else if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD) ||
-                    proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD)) {
-            return "VotingPeriod";
-
-        } else if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
-            return "Rejected";
-
-        } else if (proposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
-            return "Passed";
-        }
-        return "unKnown";
-    }
-
-    public static String getProposalType(BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
-        Any proposalContent = null;
-        if (baseChain.equals(CERTIK_MAIN)) {
-            proposalContent = ctkProposal.getContent();
-        } else {
-            proposalContent = proposal.getContent();
-        }
-        String[] split = proposalContent.getTypeUrl().split("\\.");
-        return split[split.length - 1];
-    }
-
-
-    public static String getProposalStartTime(Context c, BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
-        if (baseChain.equals(CERTIK_MAIN)) {
-            if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-               return c.getString(R.string.str_vote_wait_deposit);
-            } else {
-                return WDp.getDpTime(c, ctkProposal.getVotingStartTime().getSeconds() * 1000);
-            }
-
-        } else {
-            if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-                return c.getString(R.string.str_vote_wait_deposit);
-            } else {
-                return WDp.getDpTime(c, proposal.getVotingStartTime().getSeconds() * 1000);
+            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_REJECTED")) {
+                statusImg.setImageDrawable(c.getResources().getDrawable(R.drawable.ic_rejected_img));
+                status.setText("Rejected");
+            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_PASSED")) {
+                statusImg.setImageDrawable(c.getResources().getDrawable(R.drawable.ic_passed_img));
+                status.setText("Passed");
             }
         }
     }
 
-    public static String geProposalEndTime(Context c, BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
-        if (baseChain.equals(CERTIK_MAIN)) {
-            if (ctkProposal.getStatus().equals(shentu.gov.v1alpha1.Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-                return c.getString(R.string.str_vote_wait_deposit);
-            } else {
-                return WDp.getDpTime(c, ctkProposal.getVotingEndTime().getSeconds() * 1000);
-            }
-
-        } else {
-            if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
-                return c.getString(R.string.str_vote_wait_deposit);
-            } else {
-                return WDp.getDpTime(c, proposal.getVotingEndTime().getSeconds() * 1000);
-            }
-        }
+    public static BigDecimal geTallySum(ResProposal proposal) {
+        return new BigDecimal(proposal.voteMeta.yes_amount).add(new BigDecimal(proposal.voteMeta.no_amount)).add(new BigDecimal(proposal.voteMeta.no_with_veto_amount)).add(new BigDecimal(proposal.voteMeta.abstain_amount));
     }
 
-
-    public static BigDecimal geTallySum(Gov.TallyResult tally) {
-        return new BigDecimal(tally.getYes()).add(new BigDecimal(tally.getNo())).add(new BigDecimal(tally.getAbstain())).add(new BigDecimal(tally.getNoWithVeto()));
-    }
-
-    public static BigDecimal getYesPer(Gov.TallyResult tally) {
-        if (geTallySum(tally).equals(BigDecimal.ZERO) || (new BigDecimal(tally.getYes()).longValue() == 0)) {
+    public static BigDecimal getYesPer(ResProposal proposal) {
+        if (geTallySum(proposal).equals(BigDecimal.ZERO) || (new BigDecimal(proposal.voteMeta.yes_amount).longValue() == 0)) {
             return BigDecimal.ZERO.setScale(2);
         }
-        return new BigDecimal(tally.getYes()).movePointRight(2).divide(geTallySum(tally), 2, RoundingMode.HALF_UP);
+        return new BigDecimal(proposal.voteMeta.yes_amount).movePointRight(2).divide(geTallySum(proposal), 2, RoundingMode.HALF_UP);
     }
 
-    public static BigDecimal getNoPer(Gov.TallyResult tally) {
-        if (geTallySum(tally).equals(BigDecimal.ZERO) || (new BigDecimal(tally.getNo()).longValue() == 0)) {
+    public static BigDecimal getNoPer(ResProposal proposal) {
+        if (geTallySum(proposal).equals(BigDecimal.ZERO) || (new BigDecimal(proposal.voteMeta.no_amount).longValue() == 0)) {
             return BigDecimal.ZERO.setScale(2);
         }
-        return new BigDecimal(tally.getNo()).movePointRight(2).divide(geTallySum(tally), 2, RoundingMode.HALF_UP);
+        return new BigDecimal(proposal.voteMeta.no_amount).movePointRight(2).divide(geTallySum(proposal), 2, RoundingMode.HALF_UP);
     }
 
-    public static BigDecimal getAbstainPer(Gov.TallyResult tally) {
-        if (geTallySum(tally).equals(BigDecimal.ZERO) || (new BigDecimal(tally.getAbstain()).longValue() == 0)) {
+    public static BigDecimal getAbstainPer(ResProposal proposal) {
+        if (geTallySum(proposal).equals(BigDecimal.ZERO) || (new BigDecimal(proposal.voteMeta.abstain_amount).longValue() == 0)) {
             return BigDecimal.ZERO.setScale(2);
         }
-        return new BigDecimal(tally.getAbstain()).movePointRight(2).divide(geTallySum(tally), 2, RoundingMode.HALF_UP);
+        return new BigDecimal(proposal.voteMeta.abstain_amount).movePointRight(2).divide(geTallySum(proposal), 2, RoundingMode.HALF_UP);
     }
 
-    public static BigDecimal getVetoPer(Gov.TallyResult tally) {
-        if (geTallySum(tally).equals(BigDecimal.ZERO) || (new BigDecimal(tally.getNoWithVeto()).longValue() == 0)) {
+    public static BigDecimal getVetoPer(ResProposal proposal) {
+        if (geTallySum(proposal).equals(BigDecimal.ZERO) || (new BigDecimal(proposal.voteMeta.no_with_veto_amount).longValue() == 0)) {
             return BigDecimal.ZERO.setScale(2);
         }
-        return new BigDecimal(tally.getNoWithVeto()).movePointRight(2).divide(geTallySum(tally), 2, RoundingMode.HALF_UP);
+        return new BigDecimal(proposal.voteMeta.no_with_veto_amount).movePointRight(2).divide(geTallySum(proposal), 2, RoundingMode.HALF_UP);
     }
 
-    public static BigDecimal getTurnout(BaseChain baseCahin, BaseData baseData, Gov.TallyResult tally) {
+    public static BigDecimal getTurnout(BaseChain baseCahin, BaseData baseData, ResProposal proposal) {
         BigDecimal result = BigDecimal.ZERO;
         if (baseData != null && baseData.mChainParam != null) {
-            if (geTallySum(tally).equals(BigDecimal.ZERO)) {
+            if (geTallySum(proposal).equals(BigDecimal.ZERO)) {
                 return BigDecimal.ZERO.setScale(2);
 
             } else {
                 BigDecimal bonded = baseData.mChainParam.getBondedAmount(baseCahin);
-                return geTallySum(tally).movePointRight(2).divide(bonded, 2, RoundingMode.HALF_UP);
+                return geTallySum(proposal).movePointRight(2).divide(bonded, 2, RoundingMode.HALF_UP);
             }
         }
         return result;
