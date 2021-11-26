@@ -262,7 +262,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         private void onBindVoteInfo(RecyclerView.ViewHolder viewHolder) {
             final VoteInfoHolder holder = (VoteInfoHolder)viewHolder;
             if (mApiProposal != null) {
-                WDp.getProposalStatusTxt(VoteDetailsActivity.this, mApiProposal, holder.itemStatusImg, holder.itemStatusTxt);
+                WDp.getProposalStatus(VoteDetailsActivity.this, mApiProposal, holder.itemStatusImg, holder.itemStatusTxt);
                 holder.itemTitle.setText("# " + mApiProposal.id + ". " + mApiProposal.title);
                 holder.itemProposerLayer.setVisibility(View.GONE);
                 holder.itemType.setText(mApiProposal.proposal_type);

@@ -3750,127 +3750,23 @@ public class WDp {
         return result;
     }
 
-    public static String getDpOption(String option) {
-        if (option.equals("1")) {
-            return "Yes";
-        } else if (option.equals("3")) {
-            return "No";
-        } else if (option.equals("4")) {
-            return "No With Veto";
-        } else if (option.equals("2")) {
-            return "Abstain";
-        }
-        return option;
-    }
-
-
-    public static String getProposalTitle(BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
-        Any proposalContent = null;
-        if (baseChain.equals(CERTIK_MAIN)) {
-            proposalContent = ctkProposal.getContent();
-        } else {
-            proposalContent = proposal.getContent();
-        }
-         try {
-            if (proposalContent.getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
-                Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposalContent.getValue());
-                return textProposal.getTitle();
-
-            } else if (proposalContent.getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
-                Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposalContent.getValue());
-                return parameterChangeProposal.getTitle();
-
-            } else if (proposalContent.getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
-                Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposalContent.getValue());
-                return clientUpdateProposal.getTitle();
-
-            } else if (proposalContent.getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
-                Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposalContent.getValue());
-                return communityPoolSpendProposal.getTitle();
-
-            } else if (proposalContent.getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
-                Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposalContent.getValue());
-                return softwareUpgradeProposal.getTitle();
-
-            } else if (proposalContent.getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
-                Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposalContent.getValue());
-                return cancelSoftwareUpgradeProposal.getTitle();
-
-            } else if (proposalContent.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal")) {
-                osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal updatePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal.parseFrom(proposalContent.getValue());
-                return updatePoolIncentivesProposal.getTitle();
-
-            } else if (proposalContent.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal")) {
-                osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal replacePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal.parseFrom(proposalContent.getValue());
-                return replacePoolIncentivesProposal.getTitle();
-            }
-
-        } catch (Exception e) { }
-        return "";
-    }
-
-    public static String getProposalDescription(BaseChain baseChain, Gov.Proposal proposal, shentu.gov.v1alpha1.Gov.Proposal ctkProposal) {
-        Any proposalContent = null;
-        if (baseChain.equals(CERTIK_MAIN)) {
-            proposalContent = ctkProposal.getContent();
-        } else {
-            proposalContent = proposal.getContent();
-        }
-
-        try {
-            if (proposalContent.getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
-                Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposalContent.getValue());
-                return textProposal.getDescription();
-
-            } else if (proposalContent.getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
-                Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposalContent.getValue());
-                return parameterChangeProposal.getDescription();
-
-            } else if (proposalContent.getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
-                Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposalContent.getValue());
-                return clientUpdateProposal.getDescription();
-
-            } else if (proposalContent.getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
-                Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposalContent.getValue());
-                return communityPoolSpendProposal.getDescription();
-
-            } else if (proposalContent.getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
-                Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposalContent.getValue());
-                return softwareUpgradeProposal.getDescription();
-
-            } else if (proposalContent.getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
-                Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposalContent.getValue());
-                return cancelSoftwareUpgradeProposal.getDescription();
-
-            } else if (proposalContent.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal")) {
-                osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal updatePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal.parseFrom(proposalContent.getValue());
-                return updatePoolIncentivesProposal.getDescription();
-
-            } else if (proposalContent.getTypeUrl().equals("/osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal")) {
-                osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal replacePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal.parseFrom(proposalContent.getValue());
-                return replacePoolIncentivesProposal.getDescription();
-            }
-
-        } catch (Exception e) { }
-        return "";
-    }
-
-    public static void getProposalStatusTxt(Context c, ResProposal proposal, ImageView statusImg, TextView status) {
+    public static void getProposalStatus(Context c, ResProposal proposal, ImageView statusImg, TextView status) {
         if (proposal != null) {
-            if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_DEPOSIT_PERIOD")) {
+            if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_DEPOSIT_PERIOD") || proposal.proposal_status.equalsIgnoreCase("DepositPeriod")) {
                 statusImg.setImageDrawable(c.getResources().getDrawable(R.drawable.ic_deposit_img));
                 status.setText("DepositPeriod");
 
             } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VOTING_PERIOD") ||
                     proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_CERTIFIER_VOTING_PERIOD") ||
-                    proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD")) {
+                    proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_VALIDATOR_VOTING_PERIOD") ||
+                    proposal.proposal_status.equalsIgnoreCase("VotingPeriod")) {
                 statusImg.setImageDrawable(c.getResources().getDrawable(R.drawable.ic_voting_img));
                 status.setText("VotingPeriod");
 
-            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_REJECTED")) {
+            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_REJECTED") || proposal.proposal_status.equalsIgnoreCase("Rejected")) {
                 statusImg.setImageDrawable(c.getResources().getDrawable(R.drawable.ic_rejected_img));
                 status.setText("Rejected");
-            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_PASSED")) {
+            } else if (proposal.proposal_status.equalsIgnoreCase("PROPOSAL_STATUS_PASSED") || proposal.proposal_status.equalsIgnoreCase("Passed")) {
                 statusImg.setImageDrawable(c.getResources().getDrawable(R.drawable.ic_passed_img));
                 status.setText("Passed");
             }
