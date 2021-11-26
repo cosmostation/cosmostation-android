@@ -6,6 +6,7 @@
     <string name="url_moon_pay" translatable="false">https://buy.moonpay.io</string>
     <string name="url_station_old" translatable="false">https://api-wallet.cosmostation.io/</string>
     <string name="url_station" translatable="false">https://api-utility.cosmostation.io/</string>
+    <string name="url_mintscan" translatable="false">https://api.mintscan.io/</string>
 
 
     <string name="url_lcd_cosmos_main" translatable="false">https://lcd-cosmos-app-standby.cosmostation.io/</string>
@@ -183,6 +184,7 @@
     <string name="str_cosmos_time_format" translatable="false">yyyy-MM-dd<![CDATA["'"]]>T<![CDATA["'"]]>HH:mm:ss.SSS</string>
     <string name="str_block_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
     <string name="str_tx_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss\'Z\']]></string>
+    <string name="str_vote_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\']]></string>
 
     <string name="str_cosmos_main_net">Cosmos</string>
     <string name="str_cosmos_test_net_12k">COSMOS Testnet (GAIA 12k)</string>

@@ -206,12 +206,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                         startActivity(voteIntent);
 
                     } else {
-                        String url;
-                        if (mBaseChain.equals(BaseChain.SECRET_MAIN)) {
-                            url = WUtil.getExplorer(mBaseChain) + "governance/proposals/" + proposal.id;
-                        } else {
-                            url  = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.id;
-                        }
+                        String url = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.id;
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                         startActivity(intent);
                     }
