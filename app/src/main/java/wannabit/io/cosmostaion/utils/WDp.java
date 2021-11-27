@@ -1596,7 +1596,7 @@ public class WDp {
     public static boolean isValidChainAddress(BaseChain baseChain, String address) {
         if (baseChain != null) {
             if (address.startsWith("0x")) {
-                if (!WKey.isValidBech32(address)) { return false; }
+                if (!WKey.isValidEthAddress(address)) { return false; }
                 if (baseChain.equals(OKEX_MAIN)) { return true; }
                 return false;
             }

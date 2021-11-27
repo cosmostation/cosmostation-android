@@ -150,6 +150,11 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         if (v.equals(mNextBtn)) {
             String userInput = mAddressInput.getText().toString().trim();
 
+            if (getSActivity().mAccount.address.equals(userInput)) {
+                Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             if (WUtil.isValidStarName(userInput.toLowerCase())) {
                 onCheckNameService(userInput.toLowerCase(), getSActivity().mBaseChain);
                 return;
@@ -160,11 +165,6 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
-            }
-
-            if (getSActivity().mAccount.address.equals(userInput)) {
-                Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
-                return;
             }
 
         } else if (v.equals(mCancel)) {
