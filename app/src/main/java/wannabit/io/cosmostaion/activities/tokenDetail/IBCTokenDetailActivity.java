@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.activities.tokenDetail;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +33,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_IBC_Send_Warning;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_IBC_TRANSFER;
@@ -96,11 +98,6 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
         mIbcDenom   = getIntent().getStringExtra("denom");
         mIbcToken   = getBaseDao().getIbcToken(mIbcDenom);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setHasFixedSize(true);
-        mAdapter = new IBCTokenAdapter();
-        mRecyclerView.setAdapter(mAdapter);
-
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -108,7 +105,16 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             }
         });
 
-        onUpdateView();
+        if (mIbcToken != null) {
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            mRecyclerView.setHasFixedSize(true);
+            mAdapter = new IBCTokenAdapter();
+            mRecyclerView.setAdapter(mAdapter);
+
+            onUpdateView();
+        } else {
+            onForceBack();
+        }
         mBtnAddressPopup.setOnClickListener(this);
         mBtnIbcSend.setOnClickListener(this);
         mBtnSend.setOnClickListener(this);
@@ -229,6 +235,15 @@ public class IBCTokenDetailActivity extends BaseActivity implements View.OnClick
             intent.putExtra("sendTokenDenom", mIbcDenom);
             startActivity(intent);
         }
+    }
+
+    private void onForceBack() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onBackPressed();
+            }
+        }, 300);
     }
 
     private class IBCTokenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

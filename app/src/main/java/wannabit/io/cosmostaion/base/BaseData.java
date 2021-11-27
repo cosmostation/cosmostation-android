@@ -160,6 +160,9 @@ public class BaseData {
         if (denom.startsWith("ibc/")) {
             IbcToken ibcToken = getIbcToken(denom.replaceAll("ibc/", ""));
             if (ibcToken.auth) {
+                if (ibcToken.base_denom.equalsIgnoreCase("xrowan")) {
+                    return ibcToken.display_denom;
+                }
                 return ibcToken.base_denom;
             }
         } else if (denom.startsWith("c")) {

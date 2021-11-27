@@ -1064,7 +1064,11 @@ public class MainTokensFragment extends BaseFragment {
             holder.itemInnerSymbol.setText("");
             holder.itemFullName.setText(ibcToken.channel_id);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), ibcToken.decimal, 6));
-            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), ibcToken.base_denom, new BigDecimal(coin.amount), ibcToken.decimal));
+            if (ibcToken.base_denom.equalsIgnoreCase("xrowan")) {
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), ibcToken.display_denom, new BigDecimal(coin.amount), ibcToken.decimal));
+            } else {
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), ibcToken.base_denom, new BigDecimal(coin.amount), ibcToken.decimal));
+            }
             try {
                 Picasso.get().load(ibcToken.moniker).fit().placeholder(R.drawable.token_default_ibc).error(R.drawable.token_default_ibc).into(holder.itemImg);
             } catch (Exception e) { }
